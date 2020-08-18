@@ -3,8 +3,8 @@ const crypto = require("crypto");
 const { v1: uuidv1 } = require("uuid");
 var validator = require("validator");
 
-const customerSchema = mongoose.Schema({
-  customerName: {
+const employeeLoginSchema = mongoose.Schema({
+  employeeName: {
     type: String,
     required: [true, "Please enter  a name"],
     maxlength: 32,
@@ -33,12 +33,12 @@ const customerSchema = mongoose.Schema({
   },
 });
 
-customerSchema.virtual("password").set(function (password) {
+employeeLoginSchema.virtual("password").set(function (password) {
   this.salt = uuidv1();
   this.enc_password = this.hashPassword(password);
 });
 
-customerSchema.methods = {
+employeeLoginSchema.methods = {
   hashPassword: function (pass) {
     if (!pass) return "";
     try {
@@ -53,4 +53,4 @@ customerSchema.methods = {
   },
 };
 
-module.exports = mongoose.model("Customer", customerSchema);
+module.exports = mongoose.model("EmployeeLogin", employeeLoginSchema);
