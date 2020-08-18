@@ -21,7 +21,7 @@ exports.signup = async (req, res) => {
     return res.status(201).json({
       user: {
         _id: user.id,
-        employeeName: user.customerName,
+        employeeName: user.employeeName,
         email: user.email,
       },
     });
