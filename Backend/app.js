@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 //routes import
-// const authRoute = require("./routes/auth");
+const CustomerAuthRoute = require("./routes/CustomerAuth");
 // const userRoute = require("./routes/user");
 // const categoryRoute = require("./routes/category");
 // const productRoute = require("./routes/product");
@@ -43,7 +43,7 @@ mongoose
   });
 
 // Routes
-// app.use("/api", authRoute);
+app.use("/api", CustomerAuthRoute);
 // app.use("/api", userRoute);
 // app.use("/api", categoryRoute);
 // app.use("/api", productRoute);
