@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import InitialScreen from "./components/Dashboard/InitialScreen";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { API } from "./backendapi";
 
 function App() {
   return (

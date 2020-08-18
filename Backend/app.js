@@ -48,11 +48,12 @@ mongoose
 // app.use("/api", authRoute);
 // app.use("/api", userRoute);
 // app.use("/api", categoryRoute);
+//
 // Product Routes-------------------------------------------------
 app.use("/api/product/console", consoleRoute);
 app.use("/api/product/server", serverRoute);
 
-app.get("/", (req, res) => res.send("Hello World!"));
+// app.get("/", (req, res) => res.send("Hello World!"));
 
 //Port and Listen
 const port = process.env.PORT || 3000;
