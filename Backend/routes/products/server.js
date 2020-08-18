@@ -1,10 +1,10 @@
 const express = require("express");
 // const { getUserById } = require("../controllers/user");
 const {
-  createConsole,
+  createServer,
   //   getProductById,
   //   getProduct,
-} = require("../../controllers/products/console");
+} = require("../../controllers/products/server");
 // const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.post(
   //   isSignedIn,
   //   isAuthenticated,
   //   isAdmin,
-  createConsole
+  createServer
 );
 // router.get("/product/:productId", getProduct);
 module.exports = router;

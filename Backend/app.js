@@ -12,6 +12,7 @@ const app = express();
 // const categoryRoute = require("./routes/category");
 // const productRoute = require("./routes/product");
 const consoleRoute = require("./routes/products/console");
+const serverRoute = require("./routes/products/server");
 
 // Middlewares
 app.use(bodyParser.json());
@@ -47,7 +48,9 @@ mongoose
 // app.use("/api", authRoute);
 // app.use("/api", userRoute);
 // app.use("/api", categoryRoute);
-app.use("/api/product", consoleRoute);
+// Product Routes-------------------------------------------------
+app.use("/api/product/console", consoleRoute);
+app.use("/api/product/server", serverRoute);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
