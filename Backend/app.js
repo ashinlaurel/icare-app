@@ -7,7 +7,9 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 //routes import
-// const authRoute = require("./routes/auth");
+//user routes
+const CustomerAuthRoute = require("./Routes/Customer/CustomerAuth");
+const EmployeeAuthRoute = require("./Routes/Employee/EmployeeAuth");
 // const userRoute = require("./routes/user");
 // const categoryRoute = require("./routes/category");
 // const productRoute = require("./routes/product");
@@ -44,8 +46,9 @@ mongoose
     console.log(err);
   });
 
-// Routes
-// app.use("/api", authRoute);
+// User Routes
+app.use("/api", CustomerAuthRoute);
+app.use("/api/admin/", EmployeeAuthRoute);
 // app.use("/api", userRoute);
 // app.use("/api", categoryRoute);
 //
