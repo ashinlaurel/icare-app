@@ -5,17 +5,67 @@ import ImageLight from "../../assets/img/create-account-office.jpeg";
 import ImageDark from "../../assets/img/create-account-office-dark.jpeg";
 import { GithubIcon, TwitterIcon } from "../../icons";
 import { Input, Label, Button } from "@windmill/react-ui";
+import { signup, signin, authenticate } from "../../helpers/auth";
+import { HelperText } from "@windmill/react-ui";
 
 function AdminSignUp() {
   const [values, setValues] = useState({
     employeeName: "ftest",
     email: "ftest@test.com",
     password: "password",
-    confpassword: "passwor",
+    confpassword: "password",
+  });
+  const [err, setErr] = useState({
+    email: "",
+    employeeName: "",
+    enc_password: "",
+    confpassword: "",
   });
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
+  };
+
+  const handleConfPassChange = (name) => (e) => {
+    setValues({ ...values, [name]: e.target.value });
+    if (values.password !== e.target.value) {
+      setErr({ ...err, confpassword: "Confirm password does not match" });
+    } else setErr({ ...err, confpassword: "" });
+  };
+
+  const handleSubmit = async (e) => {
+    if (values.password !== values.confpassword) {
+      setErr({ ...err, confpassword: "Confirm password does not match" });
+      return;
+    }
+    e.preventDefault();
+    const newuser = {
+      employeeName: values.employeeName,
+      email: values.email,
+      password: values.password,
+    };
+    signup(newuser)
+      .then((data) => {
+        // console.log("Signed Up", data);
+        setErr({
+          email: "",
+          employeeName: "",
+          enc_password: "",
+          confpassword: "",
+        });
+        signin({ email: newuser.email, password: newuser.password }).then(
+          (data) => {
+            // console.log("Signed In", data);
+            authenticate(data.token, () => {
+              console.log("authenticated");
+            });
+          }
+        );
+      })
+      .catch((err) => {
+        // console.log("err", err);
+        setErr({ ...err });
+      });
   };
 
   return (
@@ -50,6 +100,7 @@ function AdminSignUp() {
                   onChange={handleChange("employeeName")}
                 />
               </Label>
+              <HelperText valid={false}>{err.employeeName}</HelperText>
               <Label>
                 <span>Email</span>
                 <Input
@@ -60,6 +111,7 @@ function AdminSignUp() {
                   onChange={handleChange("email")}
                 />
               </Label>
+              <HelperText valid={false}>{err.email}</HelperText>
               <Label className="mt-4">
                 <span>Password</span>
                 <Input
@@ -70,15 +122,17 @@ function AdminSignUp() {
                   onChange={handleChange("password")}
                 />
               </Label>
+              <HelperText valid={false}>{err.enc_password}</HelperText>
               <Label className="mt-4">
                 <span>Confirm password</span>
                 <Input
                   className="mt-1"
                   type="password"
                   value={values.confpassword}
-                  onChange={handleChange("confpassword")}
+                  onChange={handleConfPassChange("confpassword")}
                 />
               </Label>
+              <HelperText valid={false}>{err.confpassword}</HelperText>
 
               <Label className="mt-6" check>
                 <Input type="checkbox" />
@@ -88,7 +142,13 @@ function AdminSignUp() {
                 </span>
               </Label>
 
-              <Button tag={Link} to="/AdminSignUp" block className="mt-4">
+              <Button
+                tag={Link}
+                // to="/AdminSignUp"
+                block
+                className="mt-4"
+                onClick={handleSubmit}
+              >
                 Create account
               </Button>
 
