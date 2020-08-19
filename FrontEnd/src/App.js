@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { API } from "./backendapi";
+import AdminSignUp from "./pages/Admin/AdminSignup";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
-const CreateAccount = lazy(() => import("./pages/CreateAccount"));
+const SignUp = lazy(() => import("./pages/Signup"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
@@ -19,10 +20,12 @@ function App() {
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
+          //customer
           <Route path="/login" component={Login} />
-          <Route path="/create-account" component={CreateAccount} />
+          <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />
-
+          //admin
+          <Route path="/admin/signup" component={AdminSignUp} />
           {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
