@@ -8,6 +8,7 @@ import {
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { API } from "./backendapi";
 import AdminSignUp from "./pages/Admin/AdminSignup";
+import AdminLogin from "./pages/Admin/AdminLogin";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -26,6 +27,7 @@ function App() {
           <Route path="/forgot-password" component={ForgotPassword} />
           //admin
           <Route path="/admin/signup" component={AdminSignUp} />
+          <Route path="/admin/signin" component={AdminLogin} />
           {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
