@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const { v1: uuidv1 } = require("./node_modules/uuid");
-var validator = require("./node_modules/validator");
+const { v1: uuidv1 } = require("uuid");
+var validator = require("validator");
 
 const customerLoginSchema = mongoose.Schema({
   customerName: {
