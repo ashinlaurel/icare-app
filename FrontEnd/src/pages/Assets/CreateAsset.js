@@ -34,6 +34,37 @@ function CreateAsset() {
   const [serialno, setSerialNo] = useState("");
   const [os, setOs] = useState("");
   const [cpu, setCpu] = useState([{ cpuname: "", cpusno: "" }]);
+  const [ram, setram] = useState([{ ramname: "", ramsno: "" }]);
+  const [hdd, sethdd] = useState([{ hddname: "", hddsno: "" }]);
+  const [smps, setsmps] = useState([{ smpsname: "", smpssno: "" }]);
+  const [fan, setfan] = useState([{ fanname: "", fansno: "" }]);
+  const [motherboard, setmotherboard] = useState([
+    { motherboardname: "", motherboardsno: "" },
+  ]);
+  const [opticaldrive, setopticaldrive] = useState([
+    { opticaldrivename: "", opticaldrivesno: "" },
+  ]);
+  const [kbd, setkbd] = useState([{ kbdname: "", kbdsno: "" }]);
+  const [mouse, setmouse] = useState([{ mousename: "", mousesno: "" }]);
+  const [monitor, setmonitor] = useState([{ monitorname: "", monitorsno: "" }]);
+  const [gcard, setgcard] = useState([{ gcardname: "", gcardsno: "" }]);
+  const [enetcard, setenetcard] = useState([
+    { enetcardname: "", enetcardsno: "" },
+  ]);
+  const [serialcard, setserialcard] = useState([
+    { serialcardname: "", serialcardsno: "" },
+  ]);
+  const [parallelcard, setparallelcard] = useState([
+    { parallelcardname: "", parallelcardsno: "" },
+  ]);
+  const [hbacard, sethbacard] = useState([{ hbacardname: "", hbacardsno: "" }]);
+  const [raidcontroller, setraidcontroller] = useState([
+    { raidcontrollername: "", raidcontrollersno: "" },
+  ]);
+  const [tapecontroller, settapecontroller] = useState([
+    { tapecontrollername: "", tapecontrollersno: "" },
+  ]);
+  const [others, setothers] = useState([{ othersname: "", otherssno: "" }]);
 
   //functions
   const handleSubmit = async (e) => {
@@ -44,6 +75,23 @@ function CreateAsset() {
       serialno: serialno,
       os: os,
       cpu: cpu,
+      ram: ram,
+      hdd: hdd,
+      smps: smps,
+      fan: fan,
+      motherboard: motherboard,
+      opticaldrive: opticaldrive,
+      kbd: kbd,
+      mouse: mouse,
+      monitor: monitor,
+      gcard: gcard,
+      enetcard: enetcard,
+      serialcard: serialcard,
+      parallelcard: parallelcard,
+      hbacard: hbacard,
+      raidcontroller: raidcontroller,
+      tapecontroller: tapecontroller,
+      others: others,
     };
     console.log(payload);
     // console.log(API);
@@ -118,6 +166,1059 @@ function CreateAsset() {
               }}
             />
           </Label>
+
+          {/* ////////////PRODUCUTS/////////////// */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
+          {/* ----------------CPU------------------------------- */}
+          <div className="flex flex-row items-center">
+            <Label className="font-bold">
+              <span>CPU</span>
+            </Label>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  let add = { cpuname: "", cpusno: "" };
+                  newcpu.push(add);
+                  setCpu(newcpu);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            <div className="ml-3">
+              <Button
+                onClick={() => {
+                  let newcpu = [...cpu];
+                  if (newcpu[1]) {
+                    newcpu.pop();
+                    setCpu(newcpu);
+                  }
+                }}
+                icon={Remove}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+          </div>
+          <hr className="mb-5 mt-2" />
+          {cpu.map((item, i) => {
+            return (
+              <div key={i}>
+                <Label className="my-3">
+                  <span>CPU {i + 1}</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}`}
+                    name="cpuname"
+                    value={item.cpuname}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpuname = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+                <Label className="my-3">
+                  <span>CPU {i + 1}: Serial Number</span>
+                  <Input
+                    className="mt-1"
+                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    name="cpusno"
+                    value={item.cpusno}
+                    onChange={(e) => {
+                      let newlist = [...cpu];
+                      newlist[i].cpusno = e.target.value;
+                      setCpu(newlist);
+                    }}
+                  />
+                </Label>
+              </div>
+            );
+          })}
+          {/* ----------------CPU------------------------------- */}
+
           {/* ----------------CPU------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
