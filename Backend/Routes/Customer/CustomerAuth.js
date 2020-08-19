@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require("./node_modules/express");
 const {
   signup,
   signin,
   isSignedIn,
-} = require("../../Controllers/customer/CustomerAuth");
+} = require("../../controllers/customer/CustomerAuth");
 const router = express.Router();
 
 // router.post("/signup",signup);

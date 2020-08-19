@@ -8,8 +8,8 @@ const app = express();
 
 //routes import
 //user routes
-const CustomerAuthRoute = require("./Routes/Customer/CustomerAuth");
-const EmployeeAuthRoute = require("./Routes/Employee/EmployeeAuth");
+const CustomerAuthRoute = require("./routes/Customer/CustomerAuth");
+const EmployeeAuthRoute = require("./routes/employee/EmployeeAuth");
 // const userRoute = require("./routes/user");
 // const categoryRoute = require("./routes/category");
 // const productRoute = require("./routes/product");

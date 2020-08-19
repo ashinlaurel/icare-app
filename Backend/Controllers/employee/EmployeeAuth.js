@@ -1,4 +1,4 @@
-const EmployeeLogin = require("../../Models/employee/EmployeeLogin");
+const EmployeeLogin = require("../../models/employee/EmployeeLogin");
 const expressjwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 

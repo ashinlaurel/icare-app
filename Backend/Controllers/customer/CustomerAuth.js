@@ -1,6 +1,6 @@
-const CustomerLogin = require("../../Models/customer/CustomerLogin");
-const expressjwt = require("express-jwt");
-const jwt = require("jsonwebtoken");
+const CustomerLogin = require("../../models/customer/CustomerLogin");
+const expressjwt = require("./node_modules/express-jwt");
+const jwt = require("./node_modules/jsonwebtoken");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
