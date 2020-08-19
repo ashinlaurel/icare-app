@@ -11,7 +11,7 @@ function AdminSignUp() {
     employeeName: "ftest",
     email: "ftest@test.com",
     password: "password",
-    confpassword: "password",
+    confpassword: "passwor",
   });
 
   const handleChange = (name) => (e) => {
