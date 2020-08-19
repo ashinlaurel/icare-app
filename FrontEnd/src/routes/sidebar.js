@@ -11,10 +11,21 @@ const routes = [
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Dashboard", // name that appear in Sidebar
   },
+  // ---------------Assets---------------------------------------------
   {
-    path: "/app/assets", // the url
-    icon: "HomeIcon", // the component being exported from icons/index.js
-    name: "Assets Management", // name that appear in Sidebar
+    icon: "HomeIcon",
+    name: "Assets Management",
+    routes: [
+      // submenu
+      {
+        path: "/app/assets",
+        name: "Assets",
+      },
+      {
+        path: "/app/assets/create",
+        name: "Create Assets",
+      },
+    ],
   },
   {
     path: "/app/forms",
