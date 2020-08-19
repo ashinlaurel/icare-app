@@ -1,4 +1,4 @@
-const Console = require("../../models/products/console");
+const Asset = require("../../models/assets/assets");
 
 // get category by id when params passed
 // exports.getCategoryById = (req, res, next, id) => {
@@ -13,15 +13,15 @@ const Console = require("../../models/products/console");
 //   });
 // };
 
-exports.createConsole = (req, res) => {
-  const theconsole = new Console(req.body);
-  theconsole.save((err, console) => {
-    if (err || !console) {
+exports.createServer = (req, res) => {
+  const theasset = new Asset(req.body);
+  theasset.save((err, server) => {
+    if (err || !server) {
       return res.status(400).json({
-        error: "Can't save console!",
+        error: "Can't save server!",
       });
     }
-    return res.status(200).json(console);
+    return res.status(200).json(server);
   });
   //   console.log("hello");
 };

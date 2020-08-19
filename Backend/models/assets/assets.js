@@ -66,8 +66,6 @@ const serverSchema = new Schema({
   product: {
     type: ObjectId,
     ref: "Server",
-    // required: false,
-    // trim: true,
   },
 });
 
