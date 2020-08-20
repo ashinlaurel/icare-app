@@ -81,7 +81,7 @@ function CreateAsset() {
       fan: fan,
       motherboard: motherboard,
       opticaldrive: opticaldrive,
-      kbd: kbd,
+      keyboard: kbd,
       mouse: mouse,
       monitor: monitor,
       gcard: gcard,
@@ -154,6 +154,11 @@ function CreateAsset() {
               }}
             />
           </Label>
+          {/* ---------------------------OS--------------------------------- */}
+          <Label className="font-bold">
+            <span>Operating System</span>
+          </Label>
+          <hr className="mb-5 mt-2" />
           <Label className="my-3">
             <span>OS</span>
             <Input
@@ -280,7 +285,7 @@ function CreateAsset() {
                   <span>RAM {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`CPU ${i + 1}`}
+                    placeholder={`RAM ${i + 1}`}
                     name="ramname"
                     value={item.ramname}
                     onChange={(e) => {
@@ -294,7 +299,7 @@ function CreateAsset() {
                   <span>RAM {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`CPU ${i + 1}'s Serial Number `}
+                    placeholder={`RAM ${i + 1}'s Serial Number `}
                     name="cpusno"
                     value={item.ramsno}
                     onChange={(e) => {
@@ -312,7 +317,7 @@ function CreateAsset() {
           {/* ----------------hdd------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>hdd</span>
+              <span>HDD</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -347,10 +352,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>hdd {i + 1}</span>
+                  <span>HDD {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`hdd ${i + 1}`}
+                    placeholder={`HDD ${i + 1}`}
                     name="hddname"
                     value={item.hddname}
                     onChange={(e) => {
@@ -361,10 +366,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>hdd {i + 1}: Serial Number</span>
+                  <span>HDD {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`hdd ${i + 1}'s Serial Number `}
+                    placeholder={`HDD ${i + 1}'s Serial Number `}
                     name="hddsno"
                     value={item.hddsno}
                     onChange={(e) => {
@@ -382,7 +387,7 @@ function CreateAsset() {
           {/* ----------------smps------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>smps</span>
+              <span>SMPS</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -417,10 +422,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>smps {i + 1}</span>
+                  <span>SMPS {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`smps ${i + 1}`}
+                    placeholder={`SMPS ${i + 1}`}
                     name="smpsname"
                     value={item.smpsname}
                     onChange={(e) => {
@@ -431,10 +436,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>smps {i + 1}: Serial Number</span>
+                  <span>SMPS {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`smps ${i + 1}'s Serial Number `}
+                    placeholder={`SMPS ${i + 1}'s Serial Number `}
                     name="smpssno"
                     value={item.smpssno}
                     onChange={(e) => {
@@ -452,7 +457,7 @@ function CreateAsset() {
           {/* ----------------fan------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>fan</span>
+              <span>FAN</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -487,10 +492,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>fan {i + 1}</span>
+                  <span>FAN {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`fan ${i + 1}`}
+                    placeholder={`FAN ${i + 1}`}
                     name="fanname"
                     value={item.fanname}
                     onChange={(e) => {
@@ -501,10 +506,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>fan {i + 1}: Serial Number</span>
+                  <span>FAN {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`fan ${i + 1}'s Serial Number `}
+                    placeholder={`FAN ${i + 1}'s Serial Number `}
                     name="fansno"
                     value={item.fansno}
                     onChange={(e) => {
@@ -522,7 +527,7 @@ function CreateAsset() {
           {/* ----------------motherboard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>motherboard</span>
+              <span>Motherboard</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -557,10 +562,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>motherboard {i + 1}</span>
+                  <span>Motherboard {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`motherboard ${i + 1}`}
+                    placeholder={`Motherboard ${i + 1}`}
                     name="motherboardname"
                     value={item.motherboardname}
                     onChange={(e) => {
@@ -571,10 +576,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>motherboard {i + 1}: Serial Number</span>
+                  <span>Motherboard {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`motherboard ${i + 1}'s Serial Number `}
+                    placeholder={`Motherboard ${i + 1}'s Serial Number `}
                     name="motherboardsno"
                     value={item.motherboardsno}
                     onChange={(e) => {
@@ -592,7 +597,7 @@ function CreateAsset() {
           {/* ----------------opticaldrive------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>opticaldrive</span>
+              <span>Opticaldrive</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -627,10 +632,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>opticaldrive {i + 1}</span>
+                  <span>Opticaldrive {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`opticaldrive ${i + 1}`}
+                    placeholder={`Opticaldrive ${i + 1}`}
                     name="opticaldrivename"
                     value={item.opticaldrivename}
                     onChange={(e) => {
@@ -641,10 +646,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>opticaldrive {i + 1}: Serial Number</span>
+                  <span>Opticaldrive {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`opticaldrive ${i + 1}'s Serial Number `}
+                    placeholder={`Opticaldrive ${i + 1}'s Serial Number `}
                     name="opticaldrivesno"
                     value={item.opticaldrivesno}
                     onChange={(e) => {
@@ -662,7 +667,7 @@ function CreateAsset() {
           {/* ----------------kbd------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>kbd</span>
+              <span>Keyboard</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -697,10 +702,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>kbd {i + 1}</span>
+                  <span>Keyboard {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`kbd ${i + 1}`}
+                    placeholder={`Keyboard ${i + 1}`}
                     name="kbdname"
                     value={item.kbdname}
                     onChange={(e) => {
@@ -711,10 +716,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>kbd {i + 1}: Serial Number</span>
+                  <span>Keyboard {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`kbd ${i + 1}'s Serial Number `}
+                    placeholder={`Keyboard ${i + 1}'s Serial Number `}
                     name="kbdsno"
                     value={item.kbdsno}
                     onChange={(e) => {
@@ -732,7 +737,7 @@ function CreateAsset() {
           {/* ----------------mouse------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>mouse</span>
+              <span>Mouse</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -767,10 +772,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>mouse {i + 1}</span>
+                  <span>Mouse {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`mouse ${i + 1}`}
+                    placeholder={`Mouse ${i + 1}`}
                     name="mousename"
                     value={item.mousename}
                     onChange={(e) => {
@@ -781,10 +786,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>mouse {i + 1}: Serial Number</span>
+                  <span>Mouse {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`mouse ${i + 1}'s Serial Number `}
+                    placeholder={`Mouse ${i + 1}'s Serial Number `}
                     name="mousesno"
                     value={item.mousesno}
                     onChange={(e) => {
@@ -802,7 +807,7 @@ function CreateAsset() {
           {/* ----------------monitor------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>monitor</span>
+              <span>Monitor</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -837,10 +842,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>monitor {i + 1}</span>
+                  <span>Monitor {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`monitor ${i + 1}`}
+                    placeholder={`Monitor ${i + 1}`}
                     name="monitorname"
                     value={item.monitorname}
                     onChange={(e) => {
@@ -851,10 +856,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>monitor {i + 1}: Serial Number</span>
+                  <span>Monitor {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`monitor ${i + 1}'s Serial Number `}
+                    placeholder={`Monitor ${i + 1}'s Serial Number `}
                     name="monitorsno"
                     value={item.monitorsno}
                     onChange={(e) => {
@@ -872,7 +877,7 @@ function CreateAsset() {
           {/* ----------------gcard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>gcard</span>
+              <span>Graphics Card</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -907,10 +912,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>gcard {i + 1}</span>
+                  <span>Graphics Card {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`gcard ${i + 1}`}
+                    placeholder={`Graphics Card ${i + 1}`}
                     name="gcardname"
                     value={item.gcardname}
                     onChange={(e) => {
@@ -921,10 +926,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>gcard {i + 1}: Serial Number</span>
+                  <span>Graphics Card {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`gcard ${i + 1}'s Serial Number `}
+                    placeholder={`Graphics Card ${i + 1}'s Serial Number `}
                     name="gcardsno"
                     value={item.gcardsno}
                     onChange={(e) => {
@@ -942,7 +947,7 @@ function CreateAsset() {
           {/* ----------------enetcard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>enetcard</span>
+              <span>E Net Card</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -977,10 +982,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>enetcard {i + 1}</span>
+                  <span>E Net Card {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`enetcard ${i + 1}`}
+                    placeholder={`E Net Card ${i + 1}`}
                     name="enetcardname"
                     value={item.enetcardname}
                     onChange={(e) => {
@@ -991,10 +996,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>enetcard {i + 1}: Serial Number</span>
+                  <span>E Net Card {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`enetcard ${i + 1}'s Serial Number `}
+                    placeholder={`E Net Card ${i + 1}'s Serial Number `}
                     name="enetcardsno"
                     value={item.enetcardsno}
                     onChange={(e) => {
@@ -1012,7 +1017,7 @@ function CreateAsset() {
           {/* ----------------serialcard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>serialcard</span>
+              <span>Serial Card</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1047,10 +1052,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>serialcard {i + 1}</span>
+                  <span>Serial Card {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`serialcard ${i + 1}`}
+                    placeholder={`Serial Card ${i + 1}`}
                     name="serialcardname"
                     value={item.serialcardname}
                     onChange={(e) => {
@@ -1061,10 +1066,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>serialcard {i + 1}: Serial Number</span>
+                  <span>Serial Card {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`serialcard ${i + 1}'s Serial Number `}
+                    placeholder={`Serial Card ${i + 1}'s Serial Number `}
                     name="serialcardsno"
                     value={item.serialcardsno}
                     onChange={(e) => {
@@ -1082,7 +1087,7 @@ function CreateAsset() {
           {/* ----------------parallelcard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>parallelcard</span>
+              <span>Parallel Card</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1117,10 +1122,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>parallelcard {i + 1}</span>
+                  <span>Parallel Card {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`parallelcard ${i + 1}`}
+                    placeholder={`Parallel Card ${i + 1}`}
                     name="parallelcardname"
                     value={item.parallelcardname}
                     onChange={(e) => {
@@ -1131,10 +1136,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>parallelcard {i + 1}: Serial Number</span>
+                  <span>Parallel Card {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`parallelcard ${i + 1}'s Serial Number `}
+                    placeholder={`Parallel Card ${i + 1}'s Serial Number `}
                     name="parallelcardsno"
                     value={item.parallelcardsno}
                     onChange={(e) => {
@@ -1152,7 +1157,7 @@ function CreateAsset() {
           {/* ----------------hbacard------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>hbacard</span>
+              <span>HBA Card</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1187,10 +1192,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>hbacard {i + 1}</span>
+                  <span>HBA Card {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`hbacard ${i + 1}`}
+                    placeholder={`HBA Card ${i + 1}`}
                     name="hbacardname"
                     value={item.hbacardname}
                     onChange={(e) => {
@@ -1201,10 +1206,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>hbacard {i + 1}: Serial Number</span>
+                  <span>HBA Card {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`hbacard ${i + 1}'s Serial Number `}
+                    placeholder={`HBA Card ${i + 1}'s Serial Number `}
                     name="hbacardsno"
                     value={item.hbacardsno}
                     onChange={(e) => {
@@ -1222,7 +1227,7 @@ function CreateAsset() {
           {/* ----------------raidcontroller------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>raidcontroller</span>
+              <span>Raid Controller</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1257,10 +1262,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>raidcontroller {i + 1}</span>
+                  <span>Raid Controller {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`raidcontroller ${i + 1}`}
+                    placeholder={`Raid Controller ${i + 1}`}
                     name="raidcontrollername"
                     value={item.raidcontrollername}
                     onChange={(e) => {
@@ -1271,10 +1276,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>raidcontroller {i + 1}: Serial Number</span>
+                  <span>Raid Controller {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`raidcontroller ${i + 1}'s Serial Number `}
+                    placeholder={`Raid Controller ${i + 1}'s Serial Number `}
                     name="raidcontrollersno"
                     value={item.raidcontrollersno}
                     onChange={(e) => {
@@ -1292,7 +1297,7 @@ function CreateAsset() {
           {/* ----------------tapecontroller------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>tapecontroller</span>
+              <span>Tape Controller</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1327,10 +1332,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>tapecontroller {i + 1}</span>
+                  <span>Tape Controller {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`tapecontroller ${i + 1}`}
+                    placeholder={`Tape Controller ${i + 1}`}
                     name="tapecontrollername"
                     value={item.tapecontrollername}
                     onChange={(e) => {
@@ -1341,10 +1346,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>tapecontroller {i + 1}: Serial Number</span>
+                  <span>Tape Controller {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`tapecontroller ${i + 1}'s Serial Number `}
+                    placeholder={`Tape Controller ${i + 1}'s Serial Number `}
                     name="tapecontrollersno"
                     value={item.tapecontrollersno}
                     onChange={(e) => {
@@ -1362,7 +1367,7 @@ function CreateAsset() {
           {/* ----------------others------------------------------- */}
           <div className="flex flex-row items-center">
             <Label className="font-bold">
-              <span>others</span>
+              <span>Others</span>
             </Label>
             <div className="ml-3">
               <Button
@@ -1397,10 +1402,10 @@ function CreateAsset() {
             return (
               <div key={i}>
                 <Label className="my-3">
-                  <span>others {i + 1}</span>
+                  <span>Others {i + 1}</span>
                   <Input
                     className="mt-1"
-                    placeholder={`others ${i + 1}`}
+                    placeholder={`Others ${i + 1}`}
                     name="othersname"
                     value={item.othersname}
                     onChange={(e) => {
@@ -1411,10 +1416,10 @@ function CreateAsset() {
                   />
                 </Label>
                 <Label className="my-3">
-                  <span>others {i + 1}: Serial Number</span>
+                  <span>Others {i + 1}: Serial Number</span>
                   <Input
                     className="mt-1"
-                    placeholder={`others ${i + 1}'s Serial Number `}
+                    placeholder={`Others ${i + 1}'s Serial Number `}
                     name="otherssno"
                     value={item.otherssno}
                     onChange={(e) => {

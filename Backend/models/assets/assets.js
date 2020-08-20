@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const Schema = mongoose.Schema;
 
-const serverSchema = new Schema({
+const assetSchema = new Schema({
   business: {
     type: String,
     required: true,
@@ -69,4 +69,4 @@ const serverSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Server", serverSchema);
+module.exports = mongoose.model("Asset", assetSchema);

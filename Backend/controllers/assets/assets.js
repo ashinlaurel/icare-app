@@ -13,15 +13,15 @@ const Asset = require("../../models/assets/assets");
 //   });
 // };
 
-exports.createServer = (req, res) => {
+exports.createAsset = (req, res) => {
   const theasset = new Asset(req.body);
-  theasset.save((err, server) => {
-    if (err || !server) {
+  theasset.save((err, asset) => {
+    if (err || !asset) {
       return res.status(400).json({
-        error: "Can't save server!",
+        error: "Can't save asset!",
       });
     }
-    return res.status(200).json(server);
+    return res.status(200).json(asset);
   });
   //   console.log("hello");
 };
