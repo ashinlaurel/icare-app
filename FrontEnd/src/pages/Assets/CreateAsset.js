@@ -68,33 +68,61 @@ function CreateAsset() {
     { tapecontrollername: "", tapecontrollersno: "" },
   ]);
   const [others, setothers] = useState([{ othersname: "", otherssno: "" }]);
+  //asset
+
+  const [Business, setBusiness] = useState("");
+  const [POnumber, setPOnumber] = useState("");
+  const [POdate, setPOdate] = useState("");
+  const [ContractFrom, setContractFrom] = useState("");
+  const [ContractTo, setContractTo] = useState("");
+  const [BillingFrom, setBillingFrom] = useState("");
+  const [BillingTo, setBillingTo] = useState("");
+  const [AMCRate, setAMCRate] = useState("");
+  const [GST, setGST] = useState("");
+  const [GSTAMOUNT, setGSTAMOUNT] = useState("");
+  const [NetAmount, setNetAmount] = useState("");
 
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
     let payload = {
-      brand: brand,
-      model: model,
-      serialno: serialno,
-      os: os,
-      cpu: cpu,
-      ram: ram,
-      hdd: hdd,
-      smps: smps,
-      fan: fan,
-      motherboard: motherboard,
-      opticaldrive: opticaldrive,
-      keyboard: kbd,
-      mouse: mouse,
-      monitor: monitor,
-      gcard: gcard,
-      enetcard: enetcard,
-      serialcard: serialcard,
-      parallelcard: parallelcard,
-      hbacard: hbacard,
-      raidcontroller: raidcontroller,
-      tapecontroller: tapecontroller,
-      others: others,
+      asset: {
+        Business,
+        POnumber,
+        POdate,
+        ContractFrom,
+        ContractTo,
+        BillingFrom,
+        BillingTo,
+        AMCRate,
+        GST,
+        GSTAMOUNT,
+        NetAmount,
+      },
+      product: {
+        brand: brand,
+        model: model,
+        serialno: serialno,
+        os: os,
+        cpu: cpu,
+        ram: ram,
+        hdd: hdd,
+        smps: smps,
+        fan: fan,
+        motherboard: motherboard,
+        opticaldrive: opticaldrive,
+        keyboard: kbd,
+        mouse: mouse,
+        monitor: monitor,
+        gcard: gcard,
+        enetcard: enetcard,
+        serialcard: serialcard,
+        parallelcard: parallelcard,
+        hbacard: hbacard,
+        raidcontroller: raidcontroller,
+        tapecontroller: tapecontroller,
+        others: others,
+      },
     };
     console.log(payload);
     // console.log(API);
@@ -109,6 +137,141 @@ function CreateAsset() {
       throw error;
     }
   };
+
+  //ASSET
+  const assetPicker = () => {
+    return (
+      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <Label className="font-bold">
+          <span>Asset Information</span>
+        </Label>
+        <hr className="mb-5 mt-2" />
+        <Label className="my-3">
+          <span>Business</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={Business}
+            onChange={(e) => {
+              setBusiness(e.target.value);
+            }}
+          />
+        </Label>
+
+        <Label className="my-3">
+          <span>POnumber</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={POnumber}
+            onChange={(e) => {
+              setPOnumber(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>POdate</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={POdate}
+            onChange={(e) => {
+              setPOdate(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>ContractFrom</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={ContractFrom}
+            onChange={(e) => {
+              setContractFrom(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>ContractTo</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={ContractTo}
+            onChange={(e) => {
+              setContractTo(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>BillingFrom</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={BillingFrom}
+            onChange={(e) => {
+              setBillingFrom(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>BillingTo</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={BillingTo}
+            onChange={(e) => {
+              setBillingTo(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>AMCRate</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={AMCRate}
+            onChange={(e) => {
+              setAMCRate(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>GST</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={GST}
+            onChange={(e) => {
+              setGST(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>GSTAMOUNT</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={GSTAMOUNT}
+            onChange={(e) => {
+              setGSTAMOUNT(e.target.value);
+            }}
+          />
+        </Label>
+        <Label className="my-3">
+          <span>NetAmount</span>
+          <Input
+            className="mt-1"
+            name="brand"
+            value={NetAmount}
+            onChange={(e) => {
+              setNetAmount(e.target.value);
+            }}
+          />
+        </Label>
+      </div>
+    );
+  };
+
   //PRODUCT
 
   const productPicker = () => {
@@ -1725,6 +1888,7 @@ function CreateAsset() {
   return (
     <>
       <PageTitle>Create Asset</PageTitle>
+      {assetPicker()}
       <SectionTitle>Pick Product</SectionTitle>
       {dropdown()}
       {product != "null" ? (
