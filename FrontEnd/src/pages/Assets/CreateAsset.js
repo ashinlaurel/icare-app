@@ -87,17 +87,19 @@ function CreateAsset() {
     e.preventDefault();
     let payload = {
       asset: {
-        Business,
-        POnumber,
-        POdate,
-        ContractFrom,
-        ContractTo,
-        BillingFrom,
-        BillingTo,
-        AMCRate,
-        GST,
-        GSTAMOUNT,
-        NetAmount,
+        business: Business,
+        ponumber: POnumber,
+        podate: POdate,
+        contractfrom: ContractFrom,
+        contractto: ContractTo,
+        billingfrom: BillingFrom,
+        billingto: BillingTo,
+        amcrate: AMCRate,
+        gstperc: GST,
+        gstamount: GSTAMOUNT,
+        netamount: NetAmount,
+        // Input product type!!!!!!!!!!!!!!!!
+        // also date input!!!!!!!!!!!!
       },
       product: {
         brand: brand,
@@ -128,7 +130,7 @@ function CreateAsset() {
     // console.log(API);
     try {
       await axios({
-        url: `${API}/product/server/create`,
+        url: `${API}/asset/create`,
         method: "POST",
         data: payload,
       });
@@ -159,7 +161,7 @@ function CreateAsset() {
         </Label>
 
         <Label className="my-3">
-          <span>POnumber</span>
+          <span>Purchase Order Number</span>
           <Input
             className="mt-1"
             name="brand"
@@ -170,7 +172,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>POdate</span>
+          <span>Purchase Order Date</span>
           <Input
             className="mt-1"
             name="brand"
@@ -181,7 +183,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>ContractFrom</span>
+          <span>Contract From</span>
           <Input
             className="mt-1"
             name="brand"
@@ -192,7 +194,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>ContractTo</span>
+          <span>Contract To</span>
           <Input
             className="mt-1"
             name="brand"
@@ -203,7 +205,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>BillingFrom</span>
+          <span>Billing From</span>
           <Input
             className="mt-1"
             name="brand"
@@ -214,7 +216,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>BillingTo</span>
+          <span>Billing To</span>
           <Input
             className="mt-1"
             name="brand"
@@ -225,7 +227,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>AMCRate</span>
+          <span>AMC Rate</span>
           <Input
             className="mt-1"
             name="brand"
@@ -247,7 +249,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>GSTAMOUNT</span>
+          <span>GST AMOUNT</span>
           <Input
             className="mt-1"
             name="brand"
@@ -258,7 +260,7 @@ function CreateAsset() {
           />
         </Label>
         <Label className="my-3">
-          <span>NetAmount</span>
+          <span>Net Amount</span>
           <Input
             className="mt-1"
             name="brand"
@@ -267,6 +269,15 @@ function CreateAsset() {
               setNetAmount(e.target.value);
             }}
           />
+        </Label>
+        <Label className="my-3">
+          <span>Select Product</span>
+          <Select className="mt-1">
+            <option>Console</option>
+            <option>DMP</option>
+            <option>Inkjet</option>
+            <option>Server</option>
+          </Select>
         </Label>
       </div>
     );
@@ -1743,13 +1754,13 @@ function CreateAsset() {
 
   const dropdown = () => {
     return (
-      <div className="relative">
+      <div className="relative mb-5">
         <Button
           onClick={toggleDropdown}
           aria-label="Notifications"
           aria-haspopup="true"
         >
-          Pick Product
+          Pick Products
         </Button>
         <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <DropdownItem
