@@ -44,7 +44,7 @@ function AdminSignUp() {
       email: values.email,
       password: values.password,
     };
-    signup(newuser)
+    signup(newuser, "admin/signup")
       .then((data) => {
         // console.log("Signed Up", data);
         setErr({

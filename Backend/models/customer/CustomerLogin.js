@@ -31,6 +31,10 @@ const customerLoginSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  infoId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CustomerInfo",
+  },
 });
 
 customerLoginSchema.virtual("password").set(function (password) {

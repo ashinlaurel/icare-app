@@ -1,16 +1,17 @@
 import Axios from "axios";
 import { API } from "../../backendapi";
 
-export const signup = (newuser) => {
-  return Axios.post(`${API}/admin/signup`, newuser)
+export const signup = (newuser, path) => {
+  return Axios.post(`${API}/${path}`, newuser)
     .then((user) => {
-      //   console.log("h", user.data);
+      console.log("h", user.data);
       return user.data;
     })
     .catch((error) => {
+      console.log("ERRRROs");
       if (error.response) {
-        // console.log(error.response.data);
-        // console.log(error.response.status);
+        console.log(error.response.data);
+        console.log(error.response.status);
         throw error.response.data.errors;
       }
     });

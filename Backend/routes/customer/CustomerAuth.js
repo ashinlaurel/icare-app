@@ -4,6 +4,7 @@ const {
   signin,
   isSignedIn,
 } = require("../../controllers/customer/CustomerAuth");
+const { getAllCust } = require("../../controllers/customer/Customer");
 const router = express.Router();
 
 router.post("/signup", signup);
@@ -14,6 +15,9 @@ router.get("/logout", (req, res) => {
 
 router.post("/signup", signup);
 router.post("/signin", signin);
+
+router.get("/customers", getAllCust);
+
 //test route
 router.get("/signInTest", isSignedIn, (req, res) => {
   console.log(req.auth);

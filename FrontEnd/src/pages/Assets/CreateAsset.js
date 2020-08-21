@@ -19,6 +19,7 @@ import {
 import { MailIcon, Add, Remove } from "../../icons";
 import Axios from "axios";
 import { data } from "autoprefixer";
+import CustomerListModal from "../../components/Modal/CustomerListModal";
 
 function CreateAsset() {
   // Form states
@@ -32,6 +33,9 @@ function CreateAsset() {
   //       { cpuname: "", cpusno: "" },
   //     ],
   //   };
+  //customer
+  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+  //prodcut
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [serialno, setSerialNo] = useState("");
@@ -81,6 +85,9 @@ function CreateAsset() {
   const [GST, setGST] = useState("");
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
+
+  //MODAL
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   //functions
   const handleSubmit = async (e) => {
@@ -146,6 +153,20 @@ function CreateAsset() {
           <span>Asset Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          aria-label="Notifications"
+          aria-haspopup="true"
+        >
+          {customer.customerName === "" ? (
+            <>Pick Customer</>
+          ) : (
+            <>Customer: {customer.customerName}</>
+          )}
+        </Button>
+        {/* <Label className="font-bold">
+          <span>Customer: {customer.customerName}</span>
+        </Label> */}
         <Label className="my-3">
           <span>Business</span>
           <Input
@@ -1894,8 +1915,17 @@ function CreateAsset() {
     );
   };
 
+  const test = () => {
+    console.log(test);
+  };
+
   return (
     <>
+      <CustomerListModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setCustomer={setCustomer}
+      />
       <PageTitle>Create Asset</PageTitle>
       {assetPicker()}
       <SectionTitle>Pick Product</SectionTitle>

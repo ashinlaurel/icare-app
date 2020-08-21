@@ -13,6 +13,8 @@ const Blank = lazy(() => import("../pages/Blank"));
 // -----------------------Assets Import ----------------------------------------------------------------
 const Assets = lazy(() => import("../pages/Assets/Assets"));
 const CreateAsset = lazy(() => import("../pages/Assets/CreateAsset"));
+//-----------------------Customer Imports -------------------------------------------------------------
+const CreateCustomer = lazy(() => import("../pages/Customers/CreateCustomer"));
 
 /**
  * ⚠ These are internal routes!
@@ -37,6 +39,11 @@ const routes = [
   {
     path: "/assets/create", // the url
     component: CreateAsset, // view rendered
+  },
+  // Customer --------------------------------------------------
+  {
+    path: "/customer/create",
+    component: CreateCustomer,
   },
   {
     path: "/forms",

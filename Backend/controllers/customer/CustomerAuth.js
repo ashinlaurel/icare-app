@@ -1,6 +1,8 @@
 const CustomerLogin = require("../../models/customer/CustomerLogin");
+
 const expressjwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
+const CustomerInfo = require("../../models/customer/CustomerInfo");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
@@ -16,14 +18,25 @@ const handleError = (err) => {
 };
 
 exports.signup = async (req, res) => {
+  const { login, info } = req.body;
+  // console.log(login)
   try {
-    const user = await CustomerLogin.create(req.body);
+    const newuserlogin = new CustomerLogin(login);
+    const userlogin = await newuserlogin.save();
+    info.customerId = String(userlogin._id);
+    const custInfo = new CustomerInfo(info);
+    const cInfo = await custInfo.save();
+    const resetUser = await CustomerLogin.findById(userlogin._id).exec();
+    resetUser.infoId = String(cInfo._id);
+    const final = resetUser.save();
+
     return res.status(201).json({
-      user: {
-        _id: user.id,
-        customerName: user.customerName,
-        email: user.email,
+      login: {
+        _id: userlogin.id,
+        customerName: userlogin.customerName,
+        email: userlogin.email,
       },
+      info: cInfo,
     });
   } catch (err) {
     const errors = handleError(err);

@@ -27,6 +27,22 @@ const routes = [
       },
     ],
   },
+  // ---------------Assets---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Customer Manager",
+    routes: [
+      // submenu
+      {
+        path: "/app/customer",
+        name: "Customer List",
+      },
+      {
+        path: "/app/customer/create",
+        name: "Add Customer",
+      },
+    ],
+  },
   {
     path: "/app/forms",
     icon: "FormsIcon",
