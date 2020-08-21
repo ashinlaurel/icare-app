@@ -42,6 +42,10 @@ const serverSchema = new Schema({
   raidcontroller: { raidcontrollername: String, raidcontrollersno: String },
   tapecontroller: { tapecontrollername: String, tapecontrollersno: String },
   others: [{ othersname: String, otherssno: String }],
+  asset: {
+    type: Schema.Types.ObjectId,
+    ref: "Asset",
+  },
 });
 
 module.exports = mongoose.model("Server", serverSchema);

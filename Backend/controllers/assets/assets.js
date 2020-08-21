@@ -1,4 +1,8 @@
 const Asset = require("../../models/assets/assets");
+const Server = require("../../models/products/server");
+const { Schema } = require("mongoose");
+const { result } = require("lodash");
+const ObjectId = require("mongodb").ObjectID;
 
 // get category by id when params passed
 // exports.getCategoryById = (req, res, next, id) => {
@@ -13,17 +17,29 @@ const Asset = require("../../models/assets/assets");
 //   });
 // };
 
-exports.createAsset = (req, res) => {
-  const theasset = new Asset(req.body);
-  theasset.save((err, asset) => {
-    if (err || !asset) {
-      return res.status(400).json({
-        error: "Can't save asset!",
-      });
-    }
-    return res.status(200).json(asset);
-  });
-  //   console.log("hello");
+exports.createAsset = async (req, res) => {
+  let { asset, product } = req.body;
+
+  try {
+    // Saving the asset
+    const newasset = new Asset(asset);
+    const result = await newasset.save();
+    // console.log(result);
+    // Making the product
+    product.asset = String(result._id);
+    // console.log(product);
+    const newprod = new Server(product);
+    const prodres = await newprod.save();
+    // console.log(prodres);
+    // Linking the product back to the original asset
+    const reasset = await Asset.findById(result._id).exec();
+    reasset.product = prodres._id;
+    const final = await reasset.save();
+
+    return res.status(200).json(final);
+  } catch (error) {
+    throw error;
+  }
 };
 
 // exports.getCategory = (req, res) => {

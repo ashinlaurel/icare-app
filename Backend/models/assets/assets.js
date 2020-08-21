@@ -8,6 +8,7 @@ const assetSchema = new Schema({
     required: true,
     trim: true,
   },
+  // TODO: Must add customer connection
   ponumber: {
     type: String,
     required: true,
@@ -64,7 +65,7 @@ const assetSchema = new Schema({
     trim: true,
   },
   product: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Server",
   },
 });
