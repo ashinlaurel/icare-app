@@ -98,8 +98,6 @@ function CreateAsset() {
         gstperc: GST,
         gstamount: GSTAMOUNT,
         netamount: NetAmount,
-        // Input product type!!!!!!!!!!!!!!!!
-        // also date input!!!!!!!!!!!!
       },
       product: {
         brand: brand,
