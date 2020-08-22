@@ -65,7 +65,7 @@ function Assets() {
           limit: resultsPerPage,
         },
         filters: {
-          business: { Business },
+          business: Business,
         },
       };
       try {
