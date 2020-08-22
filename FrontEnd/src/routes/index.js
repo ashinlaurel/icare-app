@@ -15,6 +15,7 @@ const Assets = lazy(() => import("../pages/Assets/Assets"));
 const CreateAsset = lazy(() => import("../pages/Assets/CreateAsset"));
 //-----------------------Customer Imports -------------------------------------------------------------
 const CreateCustomer = lazy(() => import("../pages/Customers/CreateCustomer"));
+const CreateUnit = lazy(() => import("../pages/Customers/CreateUnit"));
 
 /**
  * ⚠ These are internal routes!
@@ -44,6 +45,10 @@ const routes = [
   {
     path: "/customer/create",
     component: CreateCustomer,
+  },
+  {
+    path: "/customer/createunit",
+    component: CreateUnit,
   },
   {
     path: "/forms",

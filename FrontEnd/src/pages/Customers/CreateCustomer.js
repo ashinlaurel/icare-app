@@ -4,33 +4,56 @@ import { API } from "../../backendapi";
 
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
-import { Input, HelperText, Label, Button, Badge } from "@windmill/react-ui";
+import {
+  Input,
+  HelperText,
+  Label,
+  Button,
+  Badge,
+  Select,
+} from "@windmill/react-ui";
 
 import { signup, signin, authenticate } from "../../helpers/auth";
+import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
 
 function CreateCustomer() {
+  const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account
+
+  //modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [values, setValues] = useState({
-    customerName: "ftest",
+    //both
     email: "ftest@test.com",
     password: "password",
     confpassword: "password",
+    //customer
+    customerName: "custTest",
+    accountId: [],
+    //account
+    accountName: "accTest",
+    unitId: [],
+    // //------> customerName from above
+    // customerId: "",
     //INFO
-    account: "default",
-    unit: "default",
-    address: "default",
-    district: "default",
-    state: "default",
-    locationType: "default",
-    pincode: "default",
-    GSTnumber: "default",
-    contactPerson: "default",
-    contactNo: "default",
-    altContact: "default",
-    WhatsappNo: "default",
+    // account: "default",
+    // unit: "default",
+    // address: "default",
+    // district: "default",
+    // state: "default",
+    // locationType: "default",
+    // pincode: "default",
+    // GSTnumber: "default",
+    // contactPerson: "default",
+    // contactNo: "default",
+    // altContact: "default",
+    // WhatsappNo: "default",
   });
   const [err, setErr] = useState({
     email: "",
     customerName: "",
+    accountName: "",
     enc_password: "",
     confpassword: "",
   });
@@ -46,39 +69,67 @@ function CreateCustomer() {
     } else setErr({ ...err, confpassword: "" });
   };
 
-  const handleSubmit = async (e) => {
+  const submitCustomer = async (e) => {
     if (values.password !== values.confpassword) {
       setErr({ ...err, confpassword: "Confirm password does not match" });
       return;
     }
-    e.preventDefault();
+    // e.preventDefault();
     const newuser = {
-      login: {
-        customerName: values.customerName,
-        email: values.email,
-        password: values.password,
-      },
-      info: {
-        account: values.account,
-        unit: values.unit,
-        address: values.address,
-        district: values.district,
-        state: values.state,
-        locationType: values.locationType,
-        pincode: values.pincode,
-        GSTnumber: values.GSTnumber,
-        contactPerson: values.contactPerson,
-        contactNo: values.contactNo,
-        altContact: values.altContact,
-        WhatsappNo: values.WhatsappNo,
-      },
+      customerName: values.customerName,
+      email: values.email,
+      password: values.password,
+
+      // info: {
+      //   account: values.account,
+      //   unit: values.unit,
+      //   address: values.address,
+      //   district: values.district,
+      //   state: values.state,
+      //   locationType: values.locationType,
+      //   pincode: values.pincode,
+      //   GSTnumber: values.GSTnumber,
+      //   contactPerson: values.contactPerson,
+      //   contactNo: values.contactNo,
+      //   altContact: values.altContact,
+      //   WhatsappNo: values.WhatsappNo,
+      // },
     };
-    signup(newuser, "signup")
+    signup(newuser, "customer/signup")
       .then((data) => {
         console.log("Signed Up", data);
         setErr({
           email: "",
           customerName: "",
+          enc_password: "",
+          confpassword: "",
+        });
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setErr({ ...err });
+      });
+  };
+
+  const sumbitAccount = async (e) => {
+    if (values.password !== values.confpassword) {
+      setErr({ ...err, confpassword: "Confirm password does not match" });
+      return;
+    }
+    // e.preventDefault();
+    const newuser = {
+      accountName: values.accountName,
+      email: values.email,
+      password: values.password,
+      customerId: customer._id,
+      customerName: customer.customerName,
+    };
+    signup(newuser, "account/signup")
+      .then((data) => {
+        console.log("Signed Up", data);
+        setErr({
+          email: "",
+          accountName: "",
           enc_password: "",
           confpassword: "",
         });
@@ -98,15 +149,40 @@ function CreateCustomer() {
         </Label>
         <hr className="mb-5 mt-2" />
         <Label>
-          <span>Name</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.customerName}
-            onChange={handleChange("customerName")}
-          />
+          <span>Select Account Type</span>
+          <Select className="mt-1">
+            <option onClick={() => setAccType(0)}>Customer</option>
+            <option onClick={() => setAccType(1)}>Accounts</option>
+          </Select>
         </Label>
-        <HelperText valid={false}>{err.customerName}</HelperText>
+        {accType === 0 ? (
+          <>
+            <Label>
+              <span>Customer Name</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.customerName}
+                onChange={handleChange("customerName")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.customerName}</HelperText>
+          </>
+        ) : (
+          <>
+            <Label>
+              <span>Account Name</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.accountName}
+                onChange={handleChange("accountName")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.accountName}</HelperText>
+          </>
+        )}
+
         <Label>
           <span>Email</span>
           <Input
@@ -139,12 +215,43 @@ function CreateCustomer() {
           />
         </Label>
         <HelperText valid={false}>{err.confpassword}</HelperText>
-        <hr className="my-8" />
+        <hr />
+        {accType === 1 ? (
+          <>
+            <Button
+              onClick={() => setIsModalOpen(true)}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              className="mt-4"
+            >
+              {customer.customerName === "" ? (
+                <>Pick Customer Associated with the Account</>
+              ) : (
+                <>Customer: {customer.customerName}</>
+              )}
+            </Button>
+          </>
+        ) : null}
+        <hr />
+        <Button
+          onClick={() => {
+            accType === 0 ? submitCustomer() : sumbitAccount();
+          }}
+          aria-label="Notifications"
+          aria-haspopup="true"
+          className="mt-4"
+        >
+          {" "}
+          Create {accType === 0 ? <> Customer </> : <> Account</>}
+        </Button>
+
+        {/* <hr className="my-8" />
         <Label className="font-bold">
           <span>Additional Information</span>
         </Label>
+      
         <hr className="my-2" />
-        {/* // ////////////////////////// . INFO */}
+        // ////////////////////////// . INFO
         <Label>
           <span>Account</span>
           <Input
@@ -253,13 +360,18 @@ function CreateCustomer() {
         >
           Create account
         </Button>
-        <hr className="my-8" />
+        <hr className="my-8" /> */}
       </div>
     );
   };
 
   return (
     <>
+      <CustomerCreateModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setCustomer={setCustomer}
+      />
       <PageTitle>Add Customer</PageTitle>
       {addForm()}
 

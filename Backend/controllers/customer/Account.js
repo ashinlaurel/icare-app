@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
-  const errors = { customerName: "", enc_password: "", email: "" };
+  const errors = { accountName: "", enc_password: "", email: "" };
   if (err.code == 11000)
     errors.email = "Account already exists for this email.";
   if (err.message.includes("CustomerLogin validation failed")) {
@@ -34,12 +34,22 @@ exports.signup = async (req, res) => {
 
     return res.status(201).json({
       _id: userlogin.id,
-      customerName: userlogin.accountName,
+      Name: userlogin.accountName,
       email: userlogin.email,
     });
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json({ errors });
+  }
+};
+
+exports.getAllAccs = async (req, res) => {
+  try {
+    const users = await Account.find(); //populate("infoId");
+    return res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
   }
 };
 
