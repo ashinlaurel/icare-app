@@ -9,7 +9,11 @@ const app = express();
 //routes import
 //user routes
 const CustomerAuthRoute = require("./routes/customer/CustomerAuth");
+const AccountRoute = require("./routes/customer/Account");
+
 const EmployeeAuthRoute = require("./routes/employee/EmployeeAuth");
+//unit
+const UnitRoute = require("./routes/unit/Unit");
 // const userRoute = require("./routes/user");
 // const categoryRoute = require("./routes/category");
 // const productRoute = require("./routes/product");
@@ -46,9 +50,14 @@ mongoose
     console.log(err);
   });
 
-// User Routes
-app.use("/api", CustomerAuthRoute);
+// User Routes-------------------------------------------------
+app.use("/api/customer", CustomerAuthRoute);
+app.use("/api/account", AccountRoute);
 app.use("/api/admin/", EmployeeAuthRoute);
+
+//unit Routes -------------------------------------------------
+app.use("/api/unit", UnitRoute);
+
 // app.use("/api", userRoute);
 // app.use("/api", categoryRoute);
 //

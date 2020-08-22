@@ -7,8 +7,8 @@ const {
 const { getAllCust } = require("../../controllers/customer/Customer");
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signup", signup);
+// router.post("/signup", signup);
+// router.post("/signup", signup);
 router.get("/logout", (req, res) => {
   return res.send("LOGOUT");
 });
