@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
+var mongoosePaginate = require("mongoose-paginate");
 const Schema = mongoose.Schema;
 
 const assetSchema = new Schema({
@@ -69,5 +70,6 @@ const assetSchema = new Schema({
     ref: "Server",
   },
 });
+assetSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Asset", assetSchema);

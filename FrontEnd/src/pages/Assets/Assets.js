@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import CTA from "../../components/CTA";
 import InfoCard from "../../components/Cards/InfoCard";
@@ -31,14 +32,17 @@ import {
 } from "@windmill/react-ui";
 
 import AssetFloat from "../../components/FloatDetails/AssetFloat";
+import { API } from "../../backendapi";
 
 function Assets() {
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
+  // Getting data states
+
   // pagination setup
-  const resultsPerPage = 10;
+  const resultsPerPage = 1;
   const totalResults = response.length;
 
   // pagination change control
@@ -48,7 +52,27 @@ function Assets() {
 
   // on page change, load new sliced data
   // here you would make another server request for new data
+
   useEffect(() => {
+    // Using an IIFE
+    (async function thegetter() {
+      let payload = {
+        pages: {
+          page: page,
+          limit: resultsPerPage,
+        },
+      };
+      try {
+        let response = await axios({
+          url: `${API}/asset/getall`,
+          method: "POST",
+          data: payload,
+        });
+        console.log(response.data);
+      } catch (error) {
+        throw error;
+      }
+    })();
     setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 

@@ -11,7 +11,9 @@ const CreateAssetFloat = ({ Business, POnumber }) => {
     >
       <Card className="shadow-md h-64 border ml-64 border-gray-300 rounded-lg  ">
         <CardBody>
-          <div className="text-xl">Asset Review</div>
+          <div className="text-xl text-gray-900 dark:text-gray-400">
+            Asset Review
+          </div>
           <hr />
           <div className="my-2 text-sm text-gray-900 dark:text-gray-400">
             Business: {Business}

@@ -43,16 +43,21 @@ exports.createAsset = async (req, res) => {
 };
 
 exports.getAllAssets = (req, res) => {
-  Asset.find()
-    .populate("product")
-    .exec((err, assets) => {
-      if (err || !assets) {
+  let { pages } = req.body;
+
+  Asset.paginate(
+    {},
+    { populate: "product", page: pages.page, limit: pages.limit },
+    function (err, result) {
+      // console.log(result);
+      if (err || !result) {
         return res.status(400).json({
           error: "No assets found",
         });
       }
-      return res.json(assets);
-    });
+      return res.json(result.docs);
+    }
+  );
 };
 
 // exports.updateCategory = (req, res) => {

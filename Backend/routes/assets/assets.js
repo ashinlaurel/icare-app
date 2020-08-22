@@ -21,5 +21,5 @@ router.post(
   createAsset
 );
 // router.get("/product/:productId", getProduct);
-router.get("/getall", getAllAssets);
+router.post("/getall", getAllAssets);
 module.exports = router;
