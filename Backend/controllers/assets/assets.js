@@ -42,6 +42,7 @@ exports.createAsset = async (req, res) => {
   }
 };
 
+//ASSET
 exports.getAllAssets = (req, res) => {
   let { pages, filters } = req.body;
 
