@@ -150,9 +150,14 @@ function CreateCustomer() {
         <hr className="mb-5 mt-2" />
         <Label>
           <span>Select Account Type</span>
-          <Select className="mt-1">
-            <option onClick={() => setAccType(0)}>Customer</option>
-            <option onClick={() => setAccType(1)}>Accounts</option>
+          <Select
+            className="mt-1"
+            onChange={(e) => {
+              setAccType(parseInt(e.target.value));
+            }}
+          >
+            <option value="0">Customer</option>
+            <option value="1">Accounts</option>
           </Select>
         </Label>
         {accType === 0 ? (
