@@ -43,21 +43,27 @@ exports.createAsset = async (req, res) => {
 };
 
 exports.getAllAssets = (req, res) => {
-  let { pages } = req.body;
+  let { pages, filters } = req.body;
 
-  Asset.paginate(
-    {},
-    { populate: "product", page: pages.page, limit: pages.limit },
-    function (err, result) {
-      // console.log(result);
-      if (err || !result) {
-        return res.status(400).json({
-          error: "No assets found",
-        });
-      }
-      return res.json(result.docs);
+  let options = {
+    populate: "product",
+    page: pages.page,
+    limit: pages.limit,
+  };
+
+  let filteroptions = {
+    business: filters.business,
+  };
+
+  Asset.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No assets found",
+      });
     }
-  );
+    return res.json(result.docs);
+  });
 };
 
 // exports.updateCategory = (req, res) => {
