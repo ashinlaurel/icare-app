@@ -1,18 +1,29 @@
 const mongoose = require("mongoose");
 
-const customerInfoSchema = mongoose.Schema({
+const unitSchema = mongoose.Schema({
+  unitName: {
+    type: String,
+    required: [true, "Please enter unit name"],
+  },
   customerId: {
     type: mongoose.Schema.ObjectId,
     ref: "CustomerLogin",
   },
-  assets: [
+  customerName: String,
+
+  accountId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Account",
+  },
+  accountName: String,
+
+  assetsId: [
     {
       type: mongoose.Schema.ObjectId,
       ref: "Asset",
     },
   ],
-  account: String,
-  unit: String,
+
   address: String,
   district: String,
   state: String,
@@ -25,4 +36,4 @@ const customerInfoSchema = mongoose.Schema({
   whatsappNo: String,
 });
 
-module.exports = mongoose.model("CustomerInfo", customerInfoSchema);
+module.exports = mongoose.model("Unit", unitSchema);

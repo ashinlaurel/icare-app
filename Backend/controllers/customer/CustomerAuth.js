@@ -2,7 +2,6 @@ const CustomerLogin = require("../../models/customer/CustomerLogin");
 
 const expressjwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
-const CustomerInfo = require("../../models/customer/CustomerInfo");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
@@ -18,25 +17,24 @@ const handleError = (err) => {
 };
 
 exports.signup = async (req, res) => {
-  const { login, info } = req.body;
+  // const { login, info } = req.body;
   // console.log(login)
+
+  //////////////// pas accountId as empty array ///////////
   try {
-    const newuserlogin = new CustomerLogin(login);
+    const newuserlogin = new CustomerLogin(req.body);
     const userlogin = await newuserlogin.save();
-    info.customerId = String(userlogin._id);
-    const custInfo = new CustomerInfo(info);
-    const cInfo = await custInfo.save();
-    const resetUser = await CustomerLogin.findById(userlogin._id).exec();
-    resetUser.infoId = String(cInfo._id);
-    const final = resetUser.save();
+    // info.customerId = String(userlogin._id);
+    // const custInfo = new CustomerInfo(info);
+    // const cInfo = await custInfo.save();
+    // const resetUser = await CustomerLogin.findById(userlogin._id).exec();
+    // resetUser.infoId = String(cInfo._id);
+    // const final = resetUser.save();
 
     return res.status(201).json({
-      login: {
-        _id: userlogin.id,
-        customerName: userlogin.customerName,
-        email: userlogin.email,
-      },
-      info: cInfo,
+      _id: userlogin.id,
+      customerName: userlogin.customerName,
+      email: userlogin.email,
     });
   } catch (err) {
     const errors = handleError(err);
