@@ -60,6 +60,7 @@ exports.getAllAssets = (req, res) => {
     if (err || !result) {
       return res.status(400).json({
         error: "No assets found",
+        err: err,
       });
     }
     return res.json(result.docs);
