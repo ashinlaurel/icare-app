@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   signup,
+  getAllAccs,
   //   signin,
   //   isSignedIn,
 } = require("../../controllers/customer/Account");
@@ -8,6 +9,7 @@ const {
 const router = express.Router();
 
 router.post("/signup", signup);
+router.get("/accounts", getAllAccs);
 
 //test route
 

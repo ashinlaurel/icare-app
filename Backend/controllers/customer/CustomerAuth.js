@@ -58,7 +58,7 @@ exports.signin = (req, res) => {
       token,
       user: {
         _id: user.id,
-        customerName: user.customerName,
+        Name: user.customerName,
         email: user.email,
         role: user.role,
       },
