@@ -19,14 +19,14 @@ import {
 import Axios from "axios";
 import { API } from "../../backendapi";
 
-export default function CustomerListModal({
+export default function UnitListModal({
   isModalOpen,
   setIsModalOpen,
-  setCustomer,
+  setUnit,
 }) {
   const [values, setValues] = useState([]);
   useEffect(() => {
-    Axios.get(`${API}/customer/customers`)
+    Axios.get(`${API}/unit/units`)
       .then((users) => {
         console.log(users.data);
         let temp = [];
@@ -47,20 +47,20 @@ export default function CustomerListModal({
           <TableHeader>
             <tr>
               <TableCell>Customer</TableCell>
-              <TableCell>Unit</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
               <TableCell>Date</TableCell> */}
             </tr>
           </TableHeader>
           <TableBody>
-            {values.map((user, i) => (
+            {values.map((unit, i) => (
               <TableRow
                 key={i}
                 className="hover:bg-purple-900 "
                 onClick={() => {
-                  setCustomer({
-                    _id: user._id,
-                    customerName: user.customerName,
+                  setUnit({
+                    _id: unit._id,
+                    unitName: unit.unitName,
                   });
                   setIsModalOpen(false);
                 }}
@@ -68,7 +68,7 @@ export default function CustomerListModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{user.customerName}</p>
+                      <p className="font-semibold">{unit.unitName}</p>
                     </div>
                   </div>
                 </TableCell>

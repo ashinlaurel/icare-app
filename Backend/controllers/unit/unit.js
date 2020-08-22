@@ -40,3 +40,13 @@ exports.unitCreate = async (req, res) => {
     res.status(400).json({ err });
   }
 };
+
+exports.getAllUnits = async (req, res) => {
+  try {
+    const users = await Unit.find(); //populate("infoId");
+    return res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};
