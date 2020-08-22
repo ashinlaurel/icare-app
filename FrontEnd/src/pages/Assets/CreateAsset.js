@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
@@ -21,6 +21,9 @@ import Axios from "axios";
 import { data } from "autoprefixer";
 import CustomerListModal from "../../components/Modal/CustomerListModal";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
+
+// Migration
+import { handleMigration } from "../../migration/migration";
 
 function CreateAsset() {
   // floatbox
@@ -137,6 +140,10 @@ function CreateAsset() {
       throw error;
     }
   };
+
+  useEffect(() => {
+    handleMigration();
+  }, []);
 
   //ASSET
   const assetPicker = () => {
