@@ -21,11 +21,11 @@ function App() {
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
-          //customer
+          {/* //customer */}
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />
-          //admin
+          {/* //admin */}
           <Route path="/admin/signup" component={AdminSignUp} />
           <Route path="/admin/signin" component={AdminLogin} />
           {/* Place new routes over this */}

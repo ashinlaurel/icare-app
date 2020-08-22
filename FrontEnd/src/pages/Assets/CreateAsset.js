@@ -16,23 +16,16 @@ import {
   Badge,
 } from "@windmill/react-ui";
 
-import { MailIcon, Add, Remove } from "../../icons";
+import { MailIcon, Add, Remove, HeartIcon } from "../../icons";
 import Axios from "axios";
 import { data } from "autoprefixer";
 import CustomerListModal from "../../components/Modal/CustomerListModal";
+import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
 function CreateAsset() {
-  // Form states
-  //   const theform = {
-  //     brand: "",
-  //     model: "",
-  //     serialno: "",
-  //     os: "",
-  //     cpu: [
-  //       { cpuname: "Intel", cpusno: "321AS26235" },
-  //       { cpuname: "", cpusno: "" },
-  //     ],
-  //   };
+  // floatbox
+  const [floatbox, setFloatBox] = useState(false);
+
   //customer
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   //prodcut
@@ -149,6 +142,8 @@ function CreateAsset() {
   const assetPicker = () => {
     return (
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        {floatbox ? <CreateAssetFloat /> : null}
+
         <Label className="font-bold">
           <span>Asset Information</span>
         </Label>
@@ -1926,7 +1921,21 @@ function CreateAsset() {
         setIsModalOpen={setIsModalOpen}
         setCustomer={setCustomer}
       />
-      <PageTitle>Create Asset</PageTitle>
+      {/* Heading of page with float button */}
+      <div className="flex items-center">
+        <PageTitle>Assets Management</PageTitle>
+        <div>
+          <Button
+            className="mx-3"
+            onClick={() => {
+              setFloatBox(!floatbox);
+            }}
+            icon={HeartIcon}
+            layout="link"
+            aria-label="Like"
+          />
+        </div>
+      </div>
       {assetPicker()}
       <SectionTitle>Pick Product</SectionTitle>
       {dropdown()}

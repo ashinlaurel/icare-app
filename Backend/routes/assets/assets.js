@@ -2,7 +2,7 @@ const express = require("express");
 // const { getUserById } = require("../controllers/user");
 const {
   createAsset,
-  //   getProductById,
+  getAllAssets,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 // const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
@@ -21,4 +21,5 @@ router.post(
   createAsset
 );
 // router.get("/product/:productId", getProduct);
+router.get("/getall", getAllAssets);
 module.exports = router;

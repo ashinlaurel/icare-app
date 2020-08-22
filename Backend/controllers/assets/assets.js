@@ -42,20 +42,18 @@ exports.createAsset = async (req, res) => {
   }
 };
 
-// exports.getCategory = (req, res) => {
-//   return res.json(req.category);
-// };
-
-// exports.getAllCategory = (req, res) => {
-//   Category.find().exec((err, categories) => {
-//     if (err || !categories) {
-//       return res.status(400).json({
-//         error: "No category found",
-//       });
-//     }
-//     return res.json(categories);
-//   });
-// };
+exports.getAllAssets = (req, res) => {
+  Asset.find()
+    .populate("product")
+    .exec((err, assets) => {
+      if (err || !assets) {
+        return res.status(400).json({
+          error: "No assets found",
+        });
+      }
+      return res.json(assets);
+    });
+};
 
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
