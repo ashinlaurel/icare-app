@@ -142,7 +142,9 @@ function CreateAsset() {
   const assetPicker = () => {
     return (
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        {floatbox ? <CreateAssetFloat /> : null}
+        {floatbox ? (
+          <CreateAssetFloat Business={Business} POnumber={POnumber} />
+        ) : null}
 
         <Label className="font-bold">
           <span>Asset Information</span>

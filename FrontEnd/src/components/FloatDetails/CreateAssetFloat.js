@@ -3,7 +3,7 @@ import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../Typography/PageTitle";
 import { Rnd } from "react-rnd";
 
-const CreateAssetFloat = () => {
+const CreateAssetFloat = ({ Business, POnumber }) => {
   return (
     <Rnd
       className="z-50 hidden md:block"
@@ -13,9 +13,12 @@ const CreateAssetFloat = () => {
         <CardBody>
           <div className="text-xl">Asset Review</div>
           <hr />
-          <p className="my-2 text-sm text-gray-900 dark:text-gray-400">
-            Asset Details Here
-          </p>
+          <div className="my-2 text-sm text-gray-900 dark:text-gray-400">
+            Business: {Business}
+          </div>
+          <div className="my-2 text-sm text-gray-900 dark:text-gray-400">
+            Purchase Order Number: {POnumber}
+          </div>
         </CardBody>
       </Card>
     </Rnd>
