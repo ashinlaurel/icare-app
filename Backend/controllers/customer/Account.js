@@ -53,6 +53,18 @@ exports.getAllAccs = async (req, res) => {
   }
 };
 
+exports.unitsFromAccount = async (req, res) => {
+  try {
+    const account = await Account.findById(req.body.accountId).populate(
+      "unitId"
+    );
+    return res.status(200).json(account.unitId);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};
+
 // exports.signin = (req, res) => {
 //   const { email, password } = req.body;
 //   CustomerLogin.findOne({ email: email }, (err, user) => {

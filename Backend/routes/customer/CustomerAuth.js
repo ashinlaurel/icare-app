@@ -4,7 +4,10 @@ const {
   signin,
   isSignedIn,
 } = require("../../controllers/customer/CustomerAuth");
-const { getAllCust } = require("../../controllers/customer/Customer");
+const {
+  getAllCust,
+  AccountsOfCustomer,
+} = require("../../controllers/customer/Customer");
 const router = express.Router();
 
 // router.post("/signup", signup);
@@ -17,6 +20,7 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 
 router.get("/customers", getAllCust);
+router.post("/accounts", AccountsOfCustomer);
 
 //test route
 router.get("/signInTest", isSignedIn, (req, res) => {

@@ -19,7 +19,7 @@ const ObjectId = require("mongodb").ObjectID;
 // };
 
 exports.createAsset = async (req, res) => {
-  let { asset, product, unit } = req.body;
+  let { asset, product } = req.body;
 
   try {
     // Saving the asset
@@ -35,16 +35,15 @@ exports.createAsset = async (req, res) => {
     // Linking the product back to the original asset
     const reasset = await Asset.findById(result._id).exec();
     reasset.product = prodres._id;
-    const final = await reasset.save();
+    const final = reasset.save();
 
-    console.log("unit", unit);
-    const unitres = await Unit.findById(unit.unitId).exec();
-    // console.log("EHRE", unitres);
+    ////////////////----------- ADDING ASSET ID TO UNIT
+    console.log("unit", asset.unitId);
+    const unitres = await Unit.findById(asset.unitId).exec();
     let assets = unitres.assetsId;
     assets.push(String(result._id));
     unitres.assetsId = assets;
-    // console.log("assets", assets);
-    unitres.save();
+    const unitfinal = await unitres.save();
 
     return res.status(200).json(final);
   } catch (error) {

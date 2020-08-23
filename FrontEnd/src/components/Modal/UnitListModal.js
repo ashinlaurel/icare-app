@@ -17,30 +17,93 @@ import {
   Pagination,
 } from "@windmill/react-ui";
 import Axios from "axios";
+import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
 import { API } from "../../backendapi";
 
 export default function UnitListModal({
   isModalOpen,
   setIsModalOpen,
+  unit,
   setUnit,
+  account,
+  setAccount,
+  customer,
+  setCustomer,
 }) {
-  const [values, setValues] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [accounts, setAccounts] = useState([]);
+  const [units, setUnits] = useState([]);
+  const [tabIndex, setTabIndex] = useState(0);
   useEffect(() => {
-    Axios.get(`${API}/unit/units`)
+    Axios.get(`${API}/customer/customers`)
       .then((users) => {
         console.log(users.data);
         let temp = [];
         users.data.map((user) => {
           temp.push(user);
         });
-        setValues(temp);
+        setCustomers(temp);
       })
       .catch((err) => {
         console.log("axiosErr", err);
       });
   }, []);
 
-  const userTable = () => {
+  const pickCustomer = async (customer) => {
+    // console.log(customer);
+    setCustomer({
+      _id: customer._id,
+      customerName: customer.customerName,
+    });
+    try {
+      const accs = await Axios.post(`${API}/customer/accounts`, {
+        customerId: customer._id,
+      });
+      console.log(accs.data);
+      // let temp = [];
+      // accs.data.map((acc) => {
+      //   temp.push(acc);
+      // });
+      setAccounts(accs.data);
+      setTabIndex(1);
+    } catch (err) {
+      console.log("axiosErr", err);
+    }
+  };
+
+  const pickAccount = async (account) => {
+    console.log(account);
+    setAccount({
+      _id: account._id,
+      accountName: account.accountName,
+    });
+    try {
+      const u = await Axios.post(`${API}/account/units`, {
+        accountId: account._id,
+      });
+      console.log(u.data);
+      // let temp = [];
+      // u.data.map((acc) => {
+      //   temp.push(acc);
+      // });
+      setUnits(u.data);
+      setTabIndex(2);
+    } catch (err) {
+      console.log("axiosErr", err);
+    }
+  };
+
+  const pickUnit = async (unit) => {
+    console.log(unit);
+    setUnit({
+      _id: unit._id,
+      unitName: unit.unitName,
+    });
+  };
+
+  const CustomerTable = () => {
     return (
       <TableContainer>
         <Table>
@@ -53,17 +116,81 @@ export default function UnitListModal({
             </tr>
           </TableHeader>
           <TableBody>
-            {values.map((unit, i) => (
+            {customers.map((customer, i) => (
               <TableRow
                 key={i}
-                className="hover:bg-purple-900 "
-                onClick={() => {
-                  setUnit({
-                    _id: unit._id,
-                    unitName: unit.unitName,
-                  });
-                  setIsModalOpen(false);
-                }}
+                className="hover:bg-purple-200 cursor-pointer"
+                onClick={() => pickCustomer(customer)}
+              >
+                <TableCell>
+                  <div>
+                    <div>
+                      <p className="font-semibold">{customer.customerName}</p>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TableFooter></TableFooter>
+      </TableContainer>
+    );
+  };
+
+  const AccountTable = () => {
+    return (
+      <TableContainer>
+        <Table>
+          <TableHeader>
+            <tr>
+              <TableCell>Account</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
+              {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {accounts.map((account, i) => (
+              <TableRow
+                key={i}
+                className="hover:bg-purple-200 cursor-pointer"
+                onClick={() => pickAccount(account)}
+              >
+                <TableCell>
+                  <div>
+                    <div>
+                      <p className="font-semibold">{account.accountName}</p>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TableFooter></TableFooter>
+      </TableContainer>
+    );
+  };
+
+  const UnitTable = () => {
+    return (
+      <TableContainer>
+        <Table>
+          <TableHeader>
+            <tr>
+              <TableCell>Unit</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
+              {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {units.map((unit, i) => (
+              <TableRow
+                key={i}
+                className="hover:bg-purple-200 cursor-pointer"
+                onClick={() => pickUnit(unit)}
               >
                 <TableCell>
                   <div>
@@ -72,27 +199,11 @@ export default function UnitListModal({
                     </div>
                   </div>
                 </TableCell>
-                {/* <TableCell>
-                    <span className="text-sm">$ {user.email}</span>
-                  </TableCell> */}
-                {/* <TableCell>
-                    <Badge type={user.status}>{user.status}</Badge>
-                  </TableCell> */}
-                {/* <TableCell>
-                  <span className="text-sm">{user.infoId.unit}</span>
-                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
-          {/* <Pagination
-              totalResults={totalResults}
-              resultsPerPage={resultsPerPage}
-              label="Table navigation"
-              onChange={onPageChange}
-            /> */}
-        </TableFooter>
+        <TableFooter></TableFooter>
       </TableContainer>
     );
   };
@@ -103,17 +214,45 @@ export default function UnitListModal({
       <Button onClick={openModal}>Open modal</Button>
     </div> */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalHeader>Modal header</ModalHeader>
-        <ModalBody>{userTable()}</ModalBody>
+        <ModalHeader>
+          Select{" "}
+          {tabIndex == 0 ? (
+            <>Customer</>
+          ) : tabIndex == 1 ? (
+            <>Account</>
+          ) : (
+            <>Unit</>
+          )}
+        </ModalHeader>
+        <ModalBody>
+          <Tabs selectedIndex={tabIndex} onSelect={(ind) => setTabIndex(ind)}>
+            <TabList>
+              <Tab>Customer</Tab>
+              <Tab>Account</Tab>
+              <Tab>Unit</Tab>
+            </TabList>
+            <TabPanel>{CustomerTable()}</TabPanel>
+            <TabPanel>{AccountTable()}</TabPanel>
+            <TabPanel>{UnitTable()}</TabPanel>
+          </Tabs>
+          <Badge className="mx-2 text-md" type="success">
+            Customer: {customer.customerName}
+          </Badge>
+          <Badge className="mx-2 text-md" type="success">
+            Account : {account.accountName}
+          </Badge>
+          <Badge className="mx-2 text-md" type="success">
+            Unit: {unit.unitName}
+          </Badge>
+        </ModalBody>
         <ModalFooter>
           <Button
             className="w-full sm:w-auto"
-            layout="outline"
+            // layout="outline"
             onClick={() => setIsModalOpen(false)}
           >
-            Cancel
+            Select
           </Button>
-          <Button className="w-full sm:w-auto">Accept</Button>
         </ModalFooter>
       </Modal>
     </>
