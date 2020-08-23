@@ -15,6 +15,7 @@ import {
 
 import { signup, signin, authenticate } from "../../helpers/auth";
 import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
+/////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function CreateCustomer() {
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account
@@ -97,7 +98,7 @@ function CreateCustomer() {
     };
     signup(newuser, "customer/signup")
       .then((data) => {
-        console.log("Signed Up", data);
+        console.log("Signed Up", data._id);
         setErr({
           email: "",
           customerName: "",
