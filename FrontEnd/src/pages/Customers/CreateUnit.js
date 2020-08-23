@@ -17,11 +17,11 @@ import { signup, signin, authenticate } from "../../helpers/auth";
 import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
 import { unitCreate } from "../../helpers/unitHelper";
 import AccountListModal from "../../components/Modal/AccountListModel";
+import AddUnitModal from "../../components/Modal/AddUnitModal";
 
 function CreateUnit() {
   //modal
-  const [isAModalOpen, setIsAModalOpen] = useState(false);
-  const [isCModalOpen, setIsCModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
@@ -174,20 +174,12 @@ function CreateUnit() {
         </Label>
         <hr className="my-8" />
         <Button
-          onClick={() => setIsCModalOpen(true)}
+          onClick={() => setIsModalOpen(true)}
           aria-label="Notifications"
           aria-haspopup="true"
           className="mt-4 mx-3"
         >
-          Select Associated Customer
-        </Button>
-        <Button
-          onClick={() => setIsAModalOpen(true)}
-          aria-label="Notifications"
-          aria-haspopup="true"
-          className="mt-4"
-        >
-          Select Associated Account
+          Select Customer
         </Button>
         <hr className="my-8" />
         <Button
@@ -204,15 +196,13 @@ function CreateUnit() {
 
   return (
     <>
-      <CustomerCreateModal
-        isModalOpen={isCModalOpen}
-        setIsModalOpen={setIsCModalOpen}
-        setCustomer={setCustomer}
-      />
-      <AccountListModal
-        isModalOpen={isAModalOpen}
-        setIsModalOpen={setIsAModalOpen}
+      <AddUnitModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
         setAccount={setAccount}
+        account={account}
+        customer={customer}
+        setCustomer={setCustomer}
       />
       <PageTitle>Add Customer</PageTitle>
       {addForm()}

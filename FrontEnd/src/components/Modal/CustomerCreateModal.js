@@ -26,6 +26,10 @@ export default function CustomerCreatetModal({
 }) {
   const [values, setValues] = useState([]);
   useEffect(() => {
+    getCustomers();
+  }, []);
+
+  const getCustomers = () => {
     Axios.get(`${API}/customer/customers`)
       .then((users) => {
         console.log(users.data);
@@ -38,7 +42,7 @@ export default function CustomerCreatetModal({
       .catch((err) => {
         console.log("axiosErr", err);
       });
-  }, []);
+  };
 
   const userTable = () => {
     return (
