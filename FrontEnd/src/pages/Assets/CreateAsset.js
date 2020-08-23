@@ -19,7 +19,7 @@ import {
 import { MailIcon, Add, Remove, HeartIcon } from "../../icons";
 import Axios from "axios";
 import { data } from "autoprefixer";
-import CustomerListModal from "../../components/Modal/CustomerListModal";
+import UnitListModal from "../../components/Modal/UnitListModal";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
 // Migration
@@ -30,11 +30,11 @@ function CreateAsset() {
   const [floatbox, setFloatBox] = useState(false);
 
   //customer
-  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+  const [unit, setUnit] = useState({ _id: "", unitName: "" });
   //prodcut
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [serialno, setSerialNo] = useState("");
+  const [brand, setBrand] = useState("Lenovo");
+  const [model, setModel] = useState("123");
+  const [serialno, setSerialNo] = useState("213132");
   const [os, setOs] = useState("");
   const [cpu, setCpu] = useState([{ cpuname: "", cpusno: "" }]);
   const [ram, setram] = useState([{ ramname: "", ramsno: "" }]);
@@ -70,8 +70,8 @@ function CreateAsset() {
   const [others, setothers] = useState([{ othersname: "", otherssno: "" }]);
   //asset
 
-  const [Business, setBusiness] = useState("");
-  const [POnumber, setPOnumber] = useState("");
+  const [Business, setBusiness] = useState("AMC");
+  const [POnumber, setPOnumber] = useState("123123");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
   const [ContractTo, setContractTo] = useState("");
@@ -126,6 +126,10 @@ function CreateAsset() {
         tapecontroller: tapecontroller,
         others: others,
       },
+      unit: {
+        unitId: unit._id,
+        unitName: unit.unitName,
+      },
     };
     console.log(payload);
     // console.log(API);
@@ -162,10 +166,10 @@ function CreateAsset() {
           aria-label="Notifications"
           aria-haspopup="true"
         >
-          {customer.customerName === "" ? (
+          {unit.unitName === "" ? (
             <>Pick Customer</>
           ) : (
-            <>Customer: {customer.customerName}</>
+            <>Customer: {unit.unitName}</>
           )}
         </Button>
         {/* <Label className="font-bold">
@@ -1925,10 +1929,10 @@ function CreateAsset() {
 
   return (
     <>
-      <CustomerListModal
+      <UnitListModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        setCustomer={setCustomer}
+        setUnit={setUnit}
       />
       {/* Heading of page with float button */}
       <div className="flex items-center">

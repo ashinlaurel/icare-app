@@ -2,6 +2,7 @@ const Asset = require("../../models/assets/assets");
 const Server = require("../../models/products/server");
 const { Schema } = require("mongoose");
 const { result } = require("lodash");
+const Unit = require("../../models/customer/Unit");
 const ObjectId = require("mongodb").ObjectID;
 
 // get category by id when params passed
@@ -18,7 +19,7 @@ const ObjectId = require("mongodb").ObjectID;
 // };
 
 exports.createAsset = async (req, res) => {
-  let { asset, product } = req.body;
+  let { asset, product, unit } = req.body;
 
   try {
     // Saving the asset
@@ -35,6 +36,15 @@ exports.createAsset = async (req, res) => {
     const reasset = await Asset.findById(result._id).exec();
     reasset.product = prodres._id;
     const final = await reasset.save();
+
+    console.log("unit", unit);
+    const unitres = await Unit.findById(unit.unitId).exec();
+    // console.log("EHRE", unitres);
+    let assets = unitres.assetsId;
+    assets.push(String(result._id));
+    unitres.assetsId = assets;
+    // console.log("assets", assets);
+    unitres.save();
 
     return res.status(200).json(final);
   } catch (error) {
