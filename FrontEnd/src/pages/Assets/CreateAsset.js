@@ -146,7 +146,7 @@ function CreateAsset() {
   };
 
   useEffect(() => {
-    handleMigration();
+    // handleMigration();
   }, []);
 
   //ASSET----------------------------------------------------

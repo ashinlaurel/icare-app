@@ -26,6 +26,7 @@ export default function CustomerCreatetModal({
 }) {
   const [values, setValues] = useState([]);
   useEffect(() => {
+    // console.log("useeffect");
     Axios.get(`${API}/customer/customers`)
       .then((users) => {
         console.log(users.data);

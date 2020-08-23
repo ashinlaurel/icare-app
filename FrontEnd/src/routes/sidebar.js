@@ -14,7 +14,7 @@ const routes = [
   // ---------------Assets---------------------------------------------
   {
     icon: "HomeIcon",
-    name: "Assets Management",
+    name: "Assets ",
     routes: [
       // submenu
       {
@@ -30,7 +30,7 @@ const routes = [
   // ---------------Assets---------------------------------------------
   {
     icon: "HomeIcon",
-    name: "Customer Manager",
+    name: "Customers",
     routes: [
       // submenu
       {
