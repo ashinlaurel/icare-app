@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var mongoosePaginate = require("mongoose-paginate");
 const crypto = require("crypto");
 const { v1: uuidv1 } = require("uuid");
 var validator = require("validator");
@@ -39,6 +40,7 @@ const customerLoginSchema = mongoose.Schema({
     },
   ],
 });
+customerLoginSchema.plugin(mongoosePaginate);
 
 customerLoginSchema.virtual("password").set(function (password) {
   this.salt = uuidv1();

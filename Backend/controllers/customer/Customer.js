@@ -23,3 +23,51 @@ exports.AccountsOfCustomer = async (req, res) => {
     return res.status(400).json({ error: "getAll Error" });
   }
 };
+
+exports.getAllCustomers = (req, res) => {
+  let { search } = req.body;
+  console.log("hello");
+
+  let options = {
+    // populate: "product",
+    page: 1,
+    limit: 10,
+  };
+
+  let filteroptions = {};
+  // Logic to add to filter when required
+
+  if (search == "") {
+    CustomerLogin.paginate(filteroptions, options, function (err, result) {
+      // console.log(result);
+      if (err || !result) {
+        return res.status(400).json({
+          error: "No customers found",
+          err: err,
+        });
+      }
+      // console.log(result.docs);
+      return res.json(result.docs);
+    });
+  } else {
+    const regex = new RegExp(escapeRegex(search), "gi");
+    filteroptions.customerName = regex;
+    CustomerLogin.paginate(filteroptions, {}, function (err, result) {
+      // console.log(result);
+      if (err || !result) {
+        return res.status(400).json({
+          error: "No customers found",
+          err: err,
+        });
+      }
+      // console.log(result.docs);
+      return res.json(result.docs);
+    });
+
+    // console.log("not empty");
+  }
+};
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}

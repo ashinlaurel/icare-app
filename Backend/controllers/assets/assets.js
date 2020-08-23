@@ -74,7 +74,7 @@ exports.getAllAssets = (req, res) => {
         err: err,
       });
     }
-    console.log(result.docs);
+    // console.log(result.docs);
     return res.json(result.docs);
   });
 };
