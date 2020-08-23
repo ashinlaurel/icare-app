@@ -10,3 +10,16 @@ exports.getAllCust = async (req, res) => {
     return res.status(400).json({ error: "getAll Error" });
   }
 };
+
+exports.AccountsOfCustomer = async (req, res) => {
+  try {
+    const customer = await CustomerLogin.findById(req.body.customerId).populate(
+      "accountId"
+    );
+    // if(customer.account)
+    return res.status(200).json(customer.accountId);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};

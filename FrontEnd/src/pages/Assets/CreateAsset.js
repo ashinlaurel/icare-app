@@ -31,6 +31,8 @@ function CreateAsset() {
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
+  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+  const [account, setAccount] = useState({ _id: "", accountName: "" });
   //prodcut
   const [brand, setBrand] = useState("Lenovo");
   const [model, setModel] = useState("123");
@@ -101,6 +103,13 @@ function CreateAsset() {
         gstperc: GST,
         gstamount: GSTAMOUNT,
         netamount: NetAmount,
+        /////------------------ cust info
+        unitId: unit._id,
+        unitName: unit.unitName,
+        accountId: account._id,
+        accountName: account.accountName,
+        customerId: customer._id,
+        customerName: customer.customerName,
       },
       product: {
         brand: brand,
@@ -126,10 +135,6 @@ function CreateAsset() {
         tapecontroller: tapecontroller,
         others: others,
       },
-      unit: {
-        unitId: unit._id,
-        unitName: unit.unitName,
-      },
     };
     console.log(payload);
     // console.log(API);
@@ -145,9 +150,9 @@ function CreateAsset() {
     }
   };
 
-  useEffect(() => {
-    // handleMigration();
-  }, []);
+  // useEffect(() => {
+  //   handleMigration();
+  // }, []);
 
   //ASSET----------------------------------------------------
   const assetPicker = () => {
@@ -161,7 +166,7 @@ function CreateAsset() {
           <span>Asset Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
-        <div className="flex items-center  space-x-3">
+        <div className="flex items-center  space-x-3 my-3">
           {dropdown()}
 
           <Button
@@ -169,13 +174,13 @@ function CreateAsset() {
             aria-label="Notifications"
             aria-haspopup="true"
           >
-            {unit.unitName === "" ? (
-              <>Pick Customer</>
-            ) : (
-              <>Customer: {unit.unitName}</>
-            )}
+            Pick Customer
           </Button>
         </div>
+        <SectionTitle className="">
+          Customer: {customer.customerName} Account: {account.accountName} Unit:{" "}
+          {unit.unitName}
+        </SectionTitle>
 
         {/* <Label className="font-bold">
           <span>Customer: {customer.customerName}</span>
@@ -2086,6 +2091,11 @@ function CreateAsset() {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setUnit={setUnit}
+        unit={unit}
+        customer={customer}
+        setCustomer={setCustomer}
+        account={account}
+        setAccount={setAccount}
       />
       {/* Heading of page with float button */}
       <div className="flex items-center">

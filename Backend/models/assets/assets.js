@@ -10,6 +10,22 @@ const assetSchema = new Schema({
     trim: true,
   },
   // TODO: Must add customer connection
+  unitId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Unit",
+  },
+  unitName: String,
+  accountId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Account",
+  },
+  accountName: String,
+  CustomerId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CustomerLogin",
+  },
+  customerName: String,
+  ///////////--------------------------
   ponumber: {
     type: String,
     required: true,
