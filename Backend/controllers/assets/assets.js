@@ -51,9 +51,11 @@ exports.getAllAssets = (req, res) => {
     limit: pages.limit,
   };
 
-  let filteroptions = {
-    business: filters.business,
-  };
+  let filteroptions = {};
+  // Logic to add to filter when required
+  if (filters.business != "") {
+    filteroptions.business = filters.business;
+  }
 
   Asset.paginate(filteroptions, options, function (err, result) {
     // console.log(result);
@@ -63,6 +65,7 @@ exports.getAllAssets = (req, res) => {
         err: err,
       });
     }
+    console.log(result.docs);
     return res.json(result.docs);
   });
 };

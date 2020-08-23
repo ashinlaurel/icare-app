@@ -201,6 +201,7 @@ function Assets() {
                 <option value="" disabled selected>
                   Business Type
                 </option>
+                <option value="">All</option>
                 <option value="AMC">AMC</option>
                 <option value="Warranty">Warranty</option>
               </select>
