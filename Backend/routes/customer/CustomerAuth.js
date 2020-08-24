@@ -8,6 +8,7 @@ const {
   getAllCust,
   AccountsOfCustomer,
   getAllCustomers,
+  getCustomerById,
 } = require("../../controllers/customer/Customer");
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.get("/customers", getAllCust);
 router.post("/accounts", AccountsOfCustomer);
 // get customers with search enabled and initially returning a few
 router.post("/getall", getAllCustomers);
+router.post("/getCustomerById", getCustomerById);
 
 //test route
 router.get("/signInTest", isSignedIn, (req, res) => {

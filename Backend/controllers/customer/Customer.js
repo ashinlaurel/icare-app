@@ -26,7 +26,7 @@ exports.AccountsOfCustomer = async (req, res) => {
 
 exports.getAllCustomers = (req, res) => {
   let { search } = req.body;
-  console.log("hello");
+  // console.log("hello");
 
   let options = {
     // populate: "product",
@@ -66,6 +66,35 @@ exports.getAllCustomers = (req, res) => {
 
     // console.log("not empty");
   }
+};
+
+exports.getCustomerById = (req, res) => {
+  let { customerid } = req.body;
+  console.log("customerbyid");
+  console.log(customerid);
+
+  let options = {
+    populate: "accountId",
+    // page: 1,
+    // limit: 10,
+  };
+
+  let filteroptions = {
+    _id: customerid,
+  };
+  // Logic to add to filter when required
+
+  CustomerLogin.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No accounts found",
+        err: err,
+      });
+    }
+    // console.log(result.docs);
+    return res.json(result.docs);
+  });
 };
 
 function escapeRegex(text) {
