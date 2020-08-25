@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
@@ -24,6 +25,8 @@ import {
   Avatar,
   Badge,
   Pagination,
+  Dropdown,
+  DropdownItem,
 } from "@windmill/react-ui";
 
 import AssetFloat from "../../components/FloatDetails/AssetFloat";
@@ -33,6 +36,9 @@ function Assets() {
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  // dropdown
+  const [isOpen, setIsOpen] = useState(false);
+  const [product, setProduct] = useState("");
 
   // filterhooks
   const [Business, setBusiness] = useState("");
@@ -99,44 +105,210 @@ function Assets() {
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left  h-full ">
-            <div className="flex flex-row items-center justify-center mr-1 h-10 sm:h-full w-48 rounded border py-2 shadow-md md:ml-5 md:mr-5  appearance-none  bg-white border-gray-400 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ">
-              <label className="mr-2">Range Mode:</label>
-              <input
-                type="checkbox"
-                className="form-checkbox h-4 w-4 shadow-md  focus:outline-none"
-                // defaultChecked={}
-                // onInput={() => {}}
-              />
+          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
+            <div class="relative  ">
+              <select
+                class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                // value={sortBy}
+                // onChange={onSortToggle}
+              >
+                <option value="TIME_ASC">Time(Latest)</option>
+                <option value="TIME_DESC">Time(Oldest)</option>
+                <option value="NAME_ASC">Name(A-Z)</option>
+                <option value="NAME_DESC">Name(Z-A)</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
             </div>
-            <div className="flex sm:inline-flex my-3 sm:my-0">
-              <div className="mr-2 sm:mr-0">
-                <input
-                  type="date"
-                  id="thedate2"
-                  name="thedate1"
-                  // value={moment(datesel).format("YYYY-MM-DD")}
-                  className="shadow-md h-full rounded border block appearance-none w-40 sm:w-44 bg-white border-gray-400 text-gray-700 text-xs md:text-sm py-2 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
-                  // onInput={(e) => {
-                  // onDateSelection(date);
-                  // onDateSelection(e.target.value);
-                  // }}
-                />
+            <div class="relative ">
+              <select
+                class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                // value={sortBy}
+                // onChange={onSortToggle}
+              >
+                <option value="TIME_ASC">Time(Latest)</option>
+                <option value="TIME_DESC">Time(Oldest)</option>
+                <option value="NAME_ASC">Name(A-Z)</option>
+                <option value="NAME_DESC">Name(Z-A)</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
               </div>
-              <div className="ml-2 sm:ml-2 ">
-                <input
-                  type="date"
-                  id="thedate2"
-                  name="thedate2"
-                  // value={moment(dateseltwo).format("YYYY-MM-DD")}
-                  className="shadow-md h-full rounded border block appearance-none w-40 sm:w-44 bg-white border-gray-400 text-gray-700 text-xs md:text-sm py-2 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
-                  // onInput={(e) => {
-                  // onDateSelection(date);
-                  // onDateSelectionTwo(e.target.value);
-                  // }}
-                  // disabled={!rangebol}
-                />
+            </div>
+            {/* ---------------------------Drop Down-------------------------------------- */}
+            <div className="relative ">
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                {product ? product : "Pick Product"}
+              </button>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
               </div>
+              <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("");
+                  }}
+                >
+                  <span>All</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Console");
+                  }}
+                >
+                  <span>Console</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("DMP");
+                  }}
+                >
+                  <span>DMP</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Inkjet");
+                  }}
+                >
+                  <span>Inkjet</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("KVM");
+                  }}
+                >
+                  <span>KVM</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Laptop");
+                  }}
+                >
+                  <span>Laptop</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Laser");
+                  }}
+                >
+                  <span>Laser</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("LMP");
+                  }}
+                >
+                  <span>LMP</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Module");
+                  }}
+                >
+                  <span>Module</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Router");
+                  }}
+                >
+                  <span>Router</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Sanner");
+                  }}
+                >
+                  <span>Scanner</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Server");
+                  }}
+                >
+                  <span>Server</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Desktop");
+                  }}
+                >
+                  <span>Desktop</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Storage");
+                  }}
+                >
+                  <span>Storage</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Switch");
+                  }}
+                >
+                  <span>Switch</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("UPS");
+                  }}
+                >
+                  <span>UPS</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Others");
+                  }}
+                >
+                  <span>Others</span>
+                </DropdownItem>
+              </Dropdown>
             </div>
 
             <div class="block relative xl:ml-64">
@@ -163,7 +335,7 @@ function Assets() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
-          <div className="mt-4 flex md:px-5">
+          <div className="my-4 flex ">
             <div class="relative ">
               <select
                 class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -224,14 +396,15 @@ function Assets() {
                 <TableCell>Unit</TableCell>
                 <TableCell>Business</TableCell>
                 <TableCell>Product</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Date</TableCell>
+                <TableCell>Contract From</TableCell>
+                <TableCell>Contract To</TableCell>
+                <TableCell>Purchase Number</TableCell>
+                <TableCell>Purchase Date</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
-                <TableRow key={i}>
+                <TableRow className="hover:shadow-xl" key={i}>
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
                       <Avatar
@@ -251,20 +424,31 @@ function Assets() {
                     <span className="text-sm">{user.unitName}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.business}</span>
+                    <Badge
+                      type={user.business == "AMC" ? "primary" : "success"}
+                    >
+                      {user.business}
+                    </Badge>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{user.producttype}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">$ {user.amount}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge type={user.status}>{user.status}</Badge>
+                    <span className="text-sm">
+                      {moment(user.contractfrom).format("DD/MM/YYYY")}
+                    </span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">
-                      {new Date(user.date).toLocaleDateString()}
+                      {moment(user.contractto).format("DD/MM/YYYY")}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.ponumber}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                      {moment(user.podate).format("DD/MM/YYYY")}
                     </span>
                   </TableCell>
                 </TableRow>
