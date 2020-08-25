@@ -5,16 +5,21 @@ const { v1: uuidv1 } = require("uuid");
 var validator = require("validator");
 
 const customerLoginSchema = mongoose.Schema({
-  customerName: {
+  name: {
     type: String,
     required: [true, "Please enter  a name"],
     maxlength: 32,
     trim: true,
   },
+  username: {
+    type: String,
+    required: [true, "Please enter  a username"],
+    maxlength: 32,
+    trim: true,
+    unique: true,
+  },
   email: {
     type: String,
-    required: [true, "Please enter an email"],
-    unique: true,
     trim: true,
     validate: [validator.isEmail, "Enter a valid email"],
   },
@@ -28,14 +33,32 @@ const customerLoginSchema = mongoose.Schema({
     trim: true,
   },
   salt: String,
+  ///////////---------> 0-Admin , 1-Customer, 2-Account
   role: {
     type: Number,
     default: 0,
   },
-  accountId: [
+  ///////// for CUSTOMER TYPE
+  childAccountIds: [
+    ////////////PASS EMPTY []
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Account",
+      ref: "CustomerLogin",
+      required: true,
+    },
+  ],
+  //////// for ACCOUNT TYPE
+  parentCustomerId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CustomerLogin",
+    // required: true,
+  },
+  parentCustomerName: String,
+  unitIds: [
+    ////////////PASS EMPTY []
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Unit",
       required: true,
     },
   ],

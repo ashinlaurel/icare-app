@@ -12,12 +12,13 @@ exports.getAllCust = async (req, res) => {
 };
 
 exports.AccountsOfCustomer = async (req, res) => {
+  console.log(req);
   try {
     const customer = await CustomerLogin.findById(req.body.customerId).populate(
-      "accountId"
+      "childAccountIds"
     );
     // if(customer.account)
-    return res.status(200).json(customer.accountId);
+    return res.status(200).json(customer.childAccountIds);
   } catch (err) {
     console.log(err);
     return res.status(400).json({ error: "getAll Error" });
@@ -34,7 +35,7 @@ exports.getAllCustomers = (req, res) => {
     limit: 10,
   };
 
-  let filteroptions = {};
+  let filteroptions = { role: req.body.role };
   // Logic to add to filter when required
 
   if (search == "") {
@@ -51,7 +52,7 @@ exports.getAllCustomers = (req, res) => {
     });
   } else {
     const regex = new RegExp(escapeRegex(search), "gi");
-    filteroptions.customerName = regex;
+    filteroptions.name = regex;
     CustomerLogin.paginate(filteroptions, {}, function (err, result) {
       // console.log(result);
       if (err || !result) {
@@ -69,19 +70,20 @@ exports.getAllCustomers = (req, res) => {
 };
 
 exports.getCustomerById = (req, res) => {
-  let { customerid } = req.body;
-  console.log("customerbyid");
-  console.log(customerid);
+  let { id } = req.body;
+  // console.log("customerbyid");
+  // console.log(customerid);
 
   let options = {
-    populate: "accountId",
+    populate: "accountIds",
     // page: 1,
     // limit: 10,
   };
 
   let filteroptions = {
-    _id: customerid,
+    _id: id,
   };
+
   // Logic to add to filter when required
 
   CustomerLogin.paginate(filteroptions, options, function (err, result) {
@@ -100,3 +102,15 @@ exports.getCustomerById = (req, res) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
+
+exports.unitsFromAccount = async (req, res) => {
+  try {
+    const account = await CustomerLogin.findById(req.body.accountId).populate(
+      "unitIds"
+    );
+    return res.status(200).json(account.unitIds);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};
