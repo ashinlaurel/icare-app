@@ -72,7 +72,7 @@ function CreateAsset() {
   const [others, setothers] = useState([{ othersname: "", otherssno: "" }]);
   //asset
 
-  const [Business, setBusiness] = useState("AMC");
+  const [Business, setBusiness] = useState("");
   const [POnumber, setPOnumber] = useState("123123");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
@@ -84,6 +84,9 @@ function CreateAsset() {
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
 
+  //
+  const [product, setProduct] = useState("null");
+
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -93,6 +96,7 @@ function CreateAsset() {
     let payload = {
       asset: {
         business: Business,
+        producttype: product,
         ponumber: POnumber,
         podate: POdate,
         contractfrom: ContractFrom,
@@ -188,7 +192,7 @@ function CreateAsset() {
         {/* ----------------------------Row - 1 --------------------------------------------------------------------- */}
         <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
           <div className="w-full ">
-            <Label className="my-3">
+            {/* <Label className="my-3">
               <span>Business</span>
               <Input
                 className="mt-1"
@@ -198,6 +202,21 @@ function CreateAsset() {
                   setBusiness(e.target.value);
                 }}
               />
+            </Label> */}
+            <Label className="my-3">
+              <span>Business Type</span>
+              <Select
+                onChange={(e) => {
+                  setBusiness(e.target.value);
+                }}
+                className="mt-1"
+              >
+                <option value="" selected disabled>
+                  Select Business Type
+                </option>
+                <option value="AMC">AMC</option>
+                <option value="Warranty">Warranty</option>
+              </Select>
             </Label>
           </div>
           <div className="w-full  ">
@@ -337,15 +356,6 @@ function CreateAsset() {
             </Label>
           </div>
         </div>
-        {/* <Label className="my-3">
-          <span>Select Product</span>
-          <Select className="mt-1">
-            <option>Console</option>
-            <option>DMP</option>
-            <option>Inkjet</option>
-            <option>Server</option>
-          </Select>
-        </Label> */}
       </div>
     );
   };
@@ -1935,7 +1945,6 @@ function CreateAsset() {
   function toggleDropdown() {
     setIsOpen(!isOpen);
   }
-  const [product, setProduct] = useState("null");
 
   const dropdown = () => {
     return (
