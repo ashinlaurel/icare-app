@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Modal,
   ModalHeader,
@@ -36,19 +37,52 @@ export default function UnitListModal({
   const [accounts, setAccounts] = useState([]);
   const [units, setUnits] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
-  useEffect(() => {
-    Axios.get(`${API}/customer/customers`)
-      .then((users) => {
-        console.log(users.data);
-        let temp = [];
-        users.data.map((user) => {
-          temp.push(user);
-        });
-        setCustomers(temp);
-      })
-      .catch((err) => {
-        console.log("axiosErr", err);
+  const [search, setSearch] = useState("");
+
+  //   Search Functions---------------------------------------------------------
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  //   -----------------------Send Search for Fuzzy ---------------------------------------------------------
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let payload = {
+      search: search,
+    };
+    try {
+      let response = await axios({
+        url: `${API}/customer/getall`,
+        method: "POST",
+        data: payload,
       });
+      console.log(response.data);
+      setCustomers(response.data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //   ---------------Intital Load ----------------------------
+
+  useEffect(() => {
+    (async function thegetter() {
+      let payload = {
+        search: search,
+      };
+      try {
+        let response = await axios({
+          url: `${API}/customer/getall`,
+          method: "POST",
+          data: payload,
+        });
+        console.log(response.data);
+        setCustomers(response.data);
+      } catch (error) {
+        throw error;
+      }
+    })();
   }, []);
 
   const pickCustomer = async (customer) => {
@@ -113,6 +147,17 @@ export default function UnitListModal({
               {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
               <TableCell>Date</TableCell> */}
+            </tr>
+            <tr>
+              <TableCell>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                    placeholder="Search Customers"
+                    onChange={handleChange}
+                  />
+                </form>
+              </TableCell>
             </tr>
           </TableHeader>
           <TableBody>

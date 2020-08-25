@@ -3,6 +3,7 @@ import axios from "axios";
 import { API } from "../backendapi";
 
 export const handleMigration = async () => {
+  console.log("migrating!!!!!!!!!!");
   AssetData.Asset.map(async (doc) => {
     // console.log(doc);
 
@@ -50,11 +51,11 @@ export const handleMigration = async () => {
     };
     // console.log(API);
     try {
-      await axios({
-        url: `${API}/asset/create`,
-        method: "POST",
-        data: payload,
-      });
+      // await axios({
+      //   url: `${API}/asset/create`,
+      //   method: "POST",
+      //   data: payload,
+      // });
       console.log("Done");
     } catch (error) {
       throw error;

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import CTA from "../../components/CTA";
-import InfoCard from "../../components/Cards/InfoCard";
-import ChartCard from "../../components/Chart/ChartCard";
-import { Doughnut, Line } from "react-chartjs-2";
-import ChartLegend from "../../components/Chart/ChartLegend";
 import PageTitle from "../../components/Typography/PageTitle";
 import {
   ChatIcon,
@@ -75,11 +70,12 @@ function Assets() {
           data: payload,
         });
         console.log(response.data);
+        setData(response.data);
       } catch (error) {
         throw error;
       }
     })();
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business]);
 
   return (
@@ -224,7 +220,63 @@ function Assets() {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>Unit</TableCell>
+                <TableCell>Customer</TableCell>
+                <TableCell>Business</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Date</TableCell>
+              </tr>
+            </TableHeader>
+            <TableBody>
+              {data.map((user, i) => (
+                <TableRow key={i}>
+                  <TableCell className="w-8">
+                    <div className="flex items-center text-sm ">
+                      <Avatar
+                        className="hidden ml-2 mr-3 md:block"
+                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
+                        alt="User image"
+                      />
+                      <div>
+                        <p className="font-semibold">{user.customerName}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {user.accountName}
+                        </p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.business}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">$ {user.amount}</span>
+                  </TableCell>
+                  <TableCell>
+                    <Badge type={user.status}>{user.status}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                      {new Date(user.date).toLocaleDateString()}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <TableFooter>
+            <Pagination
+              totalResults={totalResults}
+              resultsPerPage={resultsPerPage}
+              label="Table navigation"
+              onChange={onPageChange}
+            />
+          </TableFooter>
+        </TableContainer>
+        {/* <TableContainer className="">
+          <Table>
+            <TableHeader>
+              <tr>
+                <TableCell>Customer</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Date</TableCell>
@@ -271,7 +323,8 @@ function Assets() {
               onChange={onPageChange}
             />
           </TableFooter>
-        </TableContainer>
+        </TableContainer> */}
+
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
     </>
