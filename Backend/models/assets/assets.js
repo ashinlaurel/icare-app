@@ -9,7 +9,11 @@ const assetSchema = new Schema({
     required: true,
     trim: true,
   },
-  // TODO: Must add customer connection
+  producttype: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   unitId: {
     type: mongoose.Schema.ObjectId,
     ref: "Unit",

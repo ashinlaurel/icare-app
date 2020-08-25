@@ -221,7 +221,9 @@ function Assets() {
             <TableHeader>
               <tr>
                 <TableCell>Customer</TableCell>
+                <TableCell>Unit</TableCell>
                 <TableCell>Business</TableCell>
+                <TableCell>Product</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Date</TableCell>
@@ -246,7 +248,13 @@ function Assets() {
                     </div>
                   </TableCell>
                   <TableCell>
+                    <span className="text-sm">{user.unitName}</span>
+                  </TableCell>
+                  <TableCell>
                     <span className="text-sm">{user.business}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.producttype}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">$ {user.amount}</span>
