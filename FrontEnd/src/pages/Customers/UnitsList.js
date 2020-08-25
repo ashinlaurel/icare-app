@@ -10,33 +10,44 @@ import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link, useParams } from "react-router-dom";
 
-function AccountsList() {
-  const [values, setValues] = useState([]);
-  const [customer, setCustomer] = useState([]);
-  const [accounts, setAccounts] = useState([]);
+function UnitsList() {
+  const [units, setUnits] = useState([]);
   // -----------------Getting Stuff from params-----------------------
-  let { id } = useParams();
+  let { accountid } = useParams();
 
   //   ---------------Intital Load ----------------------------
 
   useEffect(() => {
     // console.log(id);
     (async function thegetter() {
-      let payload = {
-        customerid: id,
-      };
+      //   let payload = {
+      //     customerid: id,
+      //   };
+      //   try {
+      //     let response = await axios({
+      //       url: `${API}/customer/getCustomerById`,
+      //       method: "POST",
+      //       data: payload,
+      //     });
+      //     console.log(response.data[0]);
+      //     console.log(response.data[0].accountId);
+      //     setAccounts(response.data[0].accountId);
+      //     setCustomer(response.data[0]);
+      //   } catch (error) {
+      //     throw error;
+      //   }
       try {
-        let response = await axios({
-          url: `${API}/customer/getCustomerById`,
-          method: "POST",
-          data: payload,
+        const u = await axios.post(`${API}/account/units`, {
+          accountId: accountid,
         });
-        console.log(response.data[0]);
-        // console.log(response.data[0].accountId);
-        setAccounts(response.data[0].accountId);
-        setCustomer(response.data[0]);
-      } catch (error) {
-        throw error;
+        console.log(u.data);
+        let temp = [];
+        u.data.map((acc) => {
+          temp.push(acc);
+        });
+        setUnits(temp);
+      } catch (err) {
+        console.log("axiosErr", err);
       }
     })();
     // console.log(customer);
@@ -44,19 +55,16 @@ function AccountsList() {
 
   return (
     <>
-      <PageTitle>Accounts</PageTitle>
+      <PageTitle>Units</PageTitle>
 
-      <SectionTitle>{customer.customerName} Accounts</SectionTitle>
+      {/* <SectionTitle>{customer.customerName} Accounts</SectionTitle> */}
 
       {/* <SectionTitle>Responsive cards</SectionTitle> */}
 
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        {accounts.map((account) => (
-          <Link
-            key={account._id}
-            to={`/app/customer/accounts/units/${id}/${account._id}`}
-          >
-            <CustomerCard value={account.accountName}>
+        {units.map((unit) => (
+          <Link key={unit._id} to="">
+            <CustomerCard value={unit.unitName}>
               <RoundIcon
                 icon={PeopleIcon}
                 iconColorClass="text-orange-500 dark:text-orange-100"
@@ -71,4 +79,4 @@ function AccountsList() {
   );
 }
 
-export default AccountsList;
+export default UnitsList;
