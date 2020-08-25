@@ -20,21 +20,21 @@ function AccountsList() {
   //   ---------------Intital Load ----------------------------
 
   useEffect(() => {
-    // console.log(id);
+    console.log(id);
     (async function thegetter() {
       let payload = {
-        customerid: id,
+        customerId: id,
       };
       try {
         let response = await axios({
-          url: `${API}/customer/getCustomerById`,
+          url: `${API}/customer/accounts`,
           method: "POST",
           data: payload,
         });
-        console.log(response.data[0]);
+        console.log(response.data);
         // console.log(response.data[0].accountId);
-        setAccounts(response.data[0].accountId);
-        setCustomer(response.data[0]);
+        setAccounts(response.data);
+        // setCustomer(response.data[0]);
       } catch (error) {
         throw error;
       }
@@ -56,7 +56,7 @@ function AccountsList() {
             key={account._id}
             to={`/app/customer/accounts/units/${id}/${account._id}`}
           >
-            <CustomerCard value={account.accountName}>
+            <CustomerCard value={account.name}>
               <RoundIcon
                 icon={PeopleIcon}
                 iconColorClass="text-orange-500 dark:text-orange-100"

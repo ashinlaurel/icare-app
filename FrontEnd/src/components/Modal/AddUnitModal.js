@@ -35,7 +35,7 @@ export default function AddUnitModal({
   const [units, setUnits] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   useEffect(() => {
-    Axios.get(`${API}/customer/customers`)
+    Axios.post(`${API}/customer/customers`, { search: "", role: 1 })
       .then((users) => {
         console.log(users.data);
         let temp = [];
@@ -53,7 +53,7 @@ export default function AddUnitModal({
     // console.log(customer);
     setCustomer({
       _id: customer._id,
-      customerName: customer.customerName,
+      customerName: customer.name,
     });
     try {
       const accs = await Axios.post(`${API}/customer/accounts`, {
@@ -75,7 +75,7 @@ export default function AddUnitModal({
     console.log(account);
     setAccount({
       _id: account._id,
-      accountName: account.accountName,
+      accountName: account.name,
     });
   };
 
@@ -101,7 +101,7 @@ export default function AddUnitModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{customer.customerName}</p>
+                      <p className="font-semibold">{customer.name}</p>
                     </div>
                   </div>
                 </TableCell>
@@ -136,7 +136,7 @@ export default function AddUnitModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{account.accountName}</p>
+                      <p className="font-semibold">{account.name}</p>
                     </div>
                   </div>
                 </TableCell>

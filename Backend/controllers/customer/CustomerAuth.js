@@ -5,9 +5,9 @@ const jwt = require("jsonwebtoken");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
-  const errors = { customerName: "", enc_password: "", email: "" };
+  const errors = { name: "", enc_password: "", username: "" };
   if (err.code == 11000)
-    errors.email = "Account already exists for this email.";
+    errors.username = "Account already exists for this username.";
   if (err.message.includes("CustomerLogin validation failed")) {
     Object.values(err.errors).forEach(({ properties }) => {
       errors[properties.path] = properties.message;
@@ -24,16 +24,20 @@ exports.signup = async (req, res) => {
   try {
     const newuserlogin = new CustomerLogin(req.body);
     const userlogin = await newuserlogin.save();
-    // info.customerId = String(userlogin._id);
-    // const custInfo = new CustomerInfo(info);
-    // const cInfo = await custInfo.save();
-    // const resetUser = await CustomerLogin.findById(userlogin._id).exec();
-    // resetUser.infoId = String(cInfo._id);
-    // const final = resetUser.save();
+    if (req.body.role == 2) {
+      const customer = await CustomerLogin.findById(
+        req.body.parentCustomerId
+      ).exec();
+      let accounts = customer.childAccountIds;
+      accounts.push(String(userlogin._id));
+      customer.childAccountIds = accounts;
+      const final = await customer.save();
+    }
 
     return res.status(201).json({
       _id: userlogin.id,
-      customerName: userlogin.customerName,
+      name: userlogin.name,
+      username: userlogin.username,
       email: userlogin.email,
     });
   } catch (err) {
@@ -43,23 +47,26 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  const { email, password } = req.body;
-  CustomerLogin.findOne({ email: email }, (err, user) => {
+  const { username, password } = req.body;
+  CustomerLogin.findOne({ username: username }, (err, user) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!user) {
-      return res.status(400).json({ error: "Email not found" });
+      return res.status(400).json({ error: "Username not found" });
     }
     if (!user.authenticate(password)) {
       return res.status(400).json({ error: "Wrong password" });
     }
-    var token = jwt.sign({ _id: user._id }, process.env.SECRET);
+    var token = jwt.sign(
+      { _id: user._id, username: user.username },
+      process.env.SECRET
+    );
     res.cookie("token", token);
     return res.status(200).json({
       token,
       user: {
         _id: user.id,
-        Name: user.customerName,
-        email: user.email,
+        name: user.name,
+        username: user.username,
         role: user.role,
       },
     });

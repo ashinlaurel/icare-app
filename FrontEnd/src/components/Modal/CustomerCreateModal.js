@@ -30,7 +30,7 @@ export default function CustomerCreatetModal({
   }, []);
 
   const getCustomers = () => {
-    Axios.get(`${API}/customer/customers`)
+    Axios.post(`${API}/customer/customers`, { search: "", role: 1 })
       .then((users) => {
         console.log(users.data);
         let temp = [];
@@ -64,7 +64,7 @@ export default function CustomerCreatetModal({
                 onClick={() => {
                   setCustomer({
                     _id: user._id,
-                    customerName: user.customerName,
+                    customerName: user.name,
                   });
                   setIsModalOpen(false);
                 }}
@@ -72,7 +72,7 @@ export default function CustomerCreatetModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{user.customerName}</p>
+                      <p className="font-semibold">{user.name}</p>
                     </div>
                   </div>
                 </TableCell>

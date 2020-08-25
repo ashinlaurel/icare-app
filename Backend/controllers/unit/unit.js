@@ -1,5 +1,6 @@
 const Unit = require("../../models/customer/Unit");
 const Account = require("../../models/customer/Account");
+const CustomerLogin = require("../../models/customer/CustomerLogin");
 
 // const handleError = (err) => {
 //   console.log(err.message, err.code);
@@ -22,11 +23,11 @@ exports.unitCreate = async (req, res) => {
     const newunit = new Unit(unit);
     const newunitres = await newunit.save();
 
-    const account = await Account.findById(unit.accountId).exec();
+    const account = await CustomerLogin.findById(unit.accountId).exec();
     // console.log("account", account,newunitres.);
-    let units = account.unitId;
+    let units = account.unitIds;
     units.push(String(newunitres._id));
-    account.unitId = units;
+    account.unitIds = units;
     console.log("account", account);
     const final = account.save();
 

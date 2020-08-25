@@ -37,7 +37,7 @@ function UnitsList() {
       //     throw error;
       //   }
       try {
-        const u = await axios.post(`${API}/account/units`, {
+        const u = await axios.post(`${API}/customer/units`, {
           accountId: accountid,
         });
         console.log(u.data);

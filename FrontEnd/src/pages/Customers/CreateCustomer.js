@@ -26,6 +26,7 @@ function CreateCustomer() {
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [values, setValues] = useState({
     //both
+    username: "ftest",
     email: "ftest@test.com",
     password: "password",
     confpassword: "password",
@@ -53,8 +54,8 @@ function CreateCustomer() {
   });
   const [err, setErr] = useState({
     email: "",
-    customerName: "",
-    accountName: "",
+    name: "",
+    // accountName: "",
     enc_password: "",
     confpassword: "",
   });
@@ -77,29 +78,18 @@ function CreateCustomer() {
     }
     // e.preventDefault();
     const newuser = {
-      customerName: values.customerName,
+      username: values.username,
+      name: values.customerName,
       email: values.email,
       password: values.password,
-
-      // info: {
-      //   account: values.account,
-      //   unit: values.unit,
-      //   address: values.address,
-      //   district: values.district,
-      //   state: values.state,
-      //   locationType: values.locationType,
-      //   pincode: values.pincode,
-      //   GSTnumber: values.GSTnumber,
-      //   contactPerson: values.contactPerson,
-      //   contactNo: values.contactNo,
-      //   altContact: values.altContact,
-      //   WhatsappNo: values.WhatsappNo,
-      // },
+      role: 1,
+      childAccountIds: [],
     };
     signup(newuser, "customer/signup")
       .then((data) => {
         console.log("Signed Up", data._id);
         setErr({
+          username: "",
           email: "",
           customerName: "",
           enc_password: "",
@@ -118,17 +108,21 @@ function CreateCustomer() {
       return;
     }
     // e.preventDefault();
+    console.log("username", values.username);
     const newuser = {
-      accountName: values.accountName,
+      username: values.username,
+      name: values.accountName,
       email: values.email,
       password: values.password,
-      customerId: customer._id,
-      customerName: customer.customerName,
+      parentCustomerId: customer._id,
+      parentCustomerName: customer.customerName,
+      role: 2,
     };
-    signup(newuser, "account/signup")
+    signup(newuser, "customer/signup")
       .then((data) => {
         console.log("Signed Up", data);
         setErr({
+          username: "",
           email: "",
           accountName: "",
           enc_password: "",
@@ -161,6 +155,16 @@ function CreateCustomer() {
             <option value="1">Accounts</option>
           </Select>
         </Label>
+        <Label>
+          <span>UserName</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.username}
+            onChange={handleChange("username")}
+          />
+        </Label>
+        <HelperText valid={false}>{err.username}</HelperText>
         {accType === 0 ? (
           <>
             <Label>

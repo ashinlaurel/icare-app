@@ -50,10 +50,11 @@ export default function UnitListModal({
     e.preventDefault();
     let payload = {
       search: search,
+      role: 1,
     };
     try {
       let response = await axios({
-        url: `${API}/customer/getall`,
+        url: `${API}/customer/customers`,
         method: "POST",
         data: payload,
       });
@@ -70,10 +71,11 @@ export default function UnitListModal({
     (async function thegetter() {
       let payload = {
         search: search,
+        role: 1,
       };
       try {
         let response = await axios({
-          url: `${API}/customer/getall`,
+          url: `${API}/customer/customers`,
           method: "POST",
           data: payload,
         });
@@ -89,7 +91,7 @@ export default function UnitListModal({
     // console.log(customer);
     setCustomer({
       _id: customer._id,
-      customerName: customer.customerName,
+      customerName: customer.name,
     });
     try {
       const accs = await Axios.post(`${API}/customer/accounts`, {
@@ -111,10 +113,10 @@ export default function UnitListModal({
     console.log(account);
     setAccount({
       _id: account._id,
-      accountName: account.accountName,
+      accountName: account.name,
     });
     try {
-      const u = await Axios.post(`${API}/account/units`, {
+      const u = await Axios.post(`${API}/customer/units`, {
         accountId: account._id,
       });
       console.log(u.data);
@@ -170,7 +172,7 @@ export default function UnitListModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{customer.customerName}</p>
+                      <p className="font-semibold">{customer.name}</p>
                     </div>
                   </div>
                 </TableCell>
@@ -205,7 +207,7 @@ export default function UnitListModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{account.accountName}</p>
+                      <p className="font-semibold">{account.name}</p>
                     </div>
                   </div>
                 </TableCell>
