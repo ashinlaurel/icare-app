@@ -7,7 +7,7 @@ const AssetFloat = () => {
   return (
     <Rnd
       className="z-50 hidden md:block"
-      default={{ x: 500, y: 500, width: 700 }}
+      default={{ x: 0, y: 1000, width: 700 }}
     >
       <Card className="shadow-md h-64 border ml-64 border-gray-300 rounded-lg  ">
         <CardBody>

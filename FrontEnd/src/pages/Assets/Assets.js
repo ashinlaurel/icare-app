@@ -311,6 +311,7 @@ function Assets() {
               </Dropdown>
             </div>
 
+            {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
               <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                 <svg
