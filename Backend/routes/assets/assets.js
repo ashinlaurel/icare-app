@@ -3,6 +3,7 @@ const express = require("express");
 const {
   createAsset,
   getAllAssets,
+  countAssets,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 // const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
@@ -22,4 +23,5 @@ router.post(
 );
 // router.get("/product/:productId", getProduct);
 router.post("/getall", getAllAssets);
+router.get("/count", countAssets);
 module.exports = router;

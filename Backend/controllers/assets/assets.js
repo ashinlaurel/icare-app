@@ -1,7 +1,7 @@
 const Asset = require("../../models/assets/assets");
 const Server = require("../../models/products/server");
 const { Schema } = require("mongoose");
-const { result } = require("lodash");
+const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
 const ObjectId = require("mongodb").ObjectID;
 
@@ -17,6 +17,18 @@ const ObjectId = require("mongodb").ObjectID;
 //     next();
 //   });
 // };
+exports.countAssets = (req, res) => {
+  Asset.count({}, function (err, result) {
+    if (err || !result) {
+      return res.status(400).json({
+        error: "Cant count assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
 
 exports.createAsset = async (req, res) => {
   let { asset, product } = req.body;
@@ -54,6 +66,10 @@ exports.createAsset = async (req, res) => {
 exports.getAllAssets = (req, res) => {
   let { pages, filters } = req.body;
 
+  let { searchquery, searchtype } = filters;
+  console.log(searchquery);
+  console.log(searchtype);
+
   let options = {
     populate: "product",
     page: pages.page,
@@ -75,6 +91,12 @@ exports.getAllAssets = (req, res) => {
     filteroptions.accountId = filters.accountId;
   } else if (filters.customerId != "") {
     filteroptions.customerId = filters.customerId;
+  }
+  //--------------------search logic----------------------------
+  if (searchtype == "kbdsno") {
+    // filteroptions.keyboard = {kbsno:};
+    // product.keyboard: { $elemMatch: { kbdsno: "987654" } }
+    console.log(searchquery);
   }
 
   Asset.paginate(filteroptions, options, function (err, result) {
