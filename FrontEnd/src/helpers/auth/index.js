@@ -39,7 +39,9 @@ export const isAutheticated = () => {
   if (typeof window == "undefined") {
     return false;
   }
-  if (localStorage.getItem("jwt")) {
+  //////------------------------->Add check
+  console.log("ls", localStorage.getItem("token"));
+  if (localStorage.getItem("token")) {
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
     return false;

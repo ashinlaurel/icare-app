@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import ImageLight from "../../assets/img/login-office.jpeg";
 import ImageDark from "../../assets/img/login-office-dark.jpeg";
 import { GithubIcon, TwitterIcon } from "../../icons";
 import { Label, Input, Button } from "@windmill/react-ui";
-import { signin, authenticate } from "../../helpers/auth";
+import { signin, authenticate, isAutheticated } from "../../helpers/auth";
 import { HelperText } from "@windmill/react-ui";
+import { useHistory } from "react-router-dom";
+import EmpProfile from "../../helpers/auth/EmpProfile";
 
 function AdminLogin() {
+  // isAutheticated();
+  let history = useHistory();
   const [values, setValues] = useState({
-    email: "test@test.com",
+    email: "admin@test.com",
     password: "password",
   });
   const [err, setErr] = useState();
@@ -31,10 +35,15 @@ function AdminLogin() {
     }
     signin(newuser)
       .then((data) => {
-        // console.log("Signed In", data);
-        authenticate(data.token, () => {
-          console.log("authenticated");
-        });
+        // console.log("Signed In", data.user.name);
+        EmpProfile.setName(data.user.name);
+        EmpProfile.setEmail(data.user.employeeName);
+        EmpProfile.setToken(data.token);
+        // authenticate(data.token, () => {
+        console.log("authenticated");
+        history.push("/app");
+        // return <Redirect to="/app" />;
+        // });
       })
       .catch((err) => {
         setErr(err);
