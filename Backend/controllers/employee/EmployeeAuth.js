@@ -69,7 +69,10 @@ exports.isSignedIn = expressjwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+  console.log("herer");
+  // req.emp = req.params;
+  console.log(req.emp);
+  let checker = req.emp && req.auth && req.emp.id == req.auth._id;
   if (!checker) {
     return res.status(403).json({
       error: "ACCESS DENIED",
@@ -79,10 +82,24 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.profile.role === 0) {
+  // console.log(req.emp);
+  if (req.emp.role === 0) {
+    next();
+  } else
     return res.status(403).json({
       error: "You are not ADMIN, Access denied",
     });
-  }
-  next();
+};
+
+exports.getEmpById = (req, res, next, id) => {
+  console.log("id", id);
+  EmployeeLogin.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "No user was found in DB",
+      });
+    }
+    req.emp = user;
+    next();
+  });
 };

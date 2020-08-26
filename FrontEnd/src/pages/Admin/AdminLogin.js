@@ -35,11 +35,12 @@ function AdminLogin() {
     }
     signin(newuser)
       .then((data) => {
-        // console.log("Signed In", data.user.name);
-        EmpProfile.setName(data.user.name);
-        EmpProfile.setEmail(data.user.employeeName);
+        console.log("Signed In", data.user._id);
+        EmpProfile.setName(data.user.employeeName);
+        EmpProfile.setEmail(data.user.email);
         EmpProfile.setToken(data.token);
-        // authenticate(data.token, () => {
+        EmpProfile.setId(data.user._id);
+        localStorage.setItem("type", 0); ///////-----------------------------> 0 for employee 1 for customer
         console.log("authenticated");
         history.push("/app");
         // return <Redirect to="/app" />;

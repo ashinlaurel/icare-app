@@ -10,8 +10,8 @@ import { HelperText } from "@windmill/react-ui";
 
 function AdminSignUp() {
   const [values, setValues] = useState({
-    employeeName: "ftest",
-    email: "ftest@test.com",
+    employeeName: "admin",
+    email: "admin@test.com",
     password: "password",
     confpassword: "password",
   });

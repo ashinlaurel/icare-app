@@ -93,6 +93,7 @@ exports.isAuthenticated = (req, res, next) => {
       error: "ACCESS DENIED",
     });
   }
+  console.log("user authenticated");
   next();
 };
 

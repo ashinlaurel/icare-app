@@ -3,6 +3,7 @@ const {
   signup,
   signin,
   isSignedIn,
+  isAuthenticated,
 } = require("../../controllers/customer/CustomerAuth");
 const {
   getAllCust,
@@ -30,7 +31,7 @@ router.post("/getCustomerById", getCustomerById);
 router.post("/units", unitsFromAccount);
 
 //test route
-router.get("/signInTest", isSignedIn, (req, res) => {
+router.get("/signInTest", isSignedIn, isAuthenticated, (req, res) => {
   console.log(req.auth);
   res.json({ user: req.auth });
 });

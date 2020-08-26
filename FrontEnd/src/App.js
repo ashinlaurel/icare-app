@@ -10,6 +10,7 @@ import { API } from "./backendapi";
 import AdminSignUp from "./pages/Admin/AdminSignup";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import PrivateRoute from "./helpers/auth/PrivateRoute";
+import EmpProfile from "./helpers/auth/EmpProfile";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -30,7 +31,7 @@ function App() {
           <Route path="/admin/signup" component={AdminSignUp} />
           <Route path="/admin/signin" component={AdminLogin} />
           {/* Place new routes over this */}
-          <PrivateRoute path="/app" component={Layout} />
+          <PrivateRoute path={`/app`} component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
           <Redirect exact from="/" to="/admin/signin" />
         </Switch>
