@@ -40,6 +40,7 @@ function Assets() {
   const [data, setData] = useState([]);
   // dropdown and modals
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refresh, setRefresh] = useState(true);
 
@@ -49,6 +50,11 @@ function Assets() {
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
+
+  // search
+  const [searchtype, setSearchType] = useState("");
+  const [searchlabel, setSearchLabel] = useState("");
+  const [searchquery, setSearchQuery] = useState("");
 
   // Getting data states
 
@@ -80,6 +86,8 @@ function Assets() {
           unitId: unit._id,
           customerId: customer._id,
           accountId: account._id,
+          searchtype: searchtype,
+          searchquery: searchquery,
         },
       };
       try {
@@ -183,7 +191,7 @@ function Assets() {
                 </svg>
               </div>
             </div>
-            {/* ---------------------------Drop Down-------------------------------------- */}
+            {/* ---------------------------Product Drop Down-------------------------------------- */}
             <div className="relative ">
               <button
                 onClick={() => {
@@ -344,6 +352,57 @@ function Assets() {
               </Dropdown>
             </div>
 
+            {/* -------------------------------Search Type--------------------------------------- */}
+            <div className="relative ">
+              <button
+                onClick={() => {
+                  setIsOpenTwo(!isOpenTwo);
+                }}
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                {searchtype ? searchlabel : "Pick Search Type"}
+              </button>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+              <Dropdown isOpen={isOpenTwo} onClose={() => setIsOpenTwo(false)}>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("");
+                    setSearchLabel("");
+                  }}
+                >
+                  <span>All</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("kbdsno");
+                    setSearchLabel("Keyboard Serial");
+                  }}
+                >
+                  <span>Keyboard Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("cpusno");
+                    setSearchLabel("CPU Serial");
+                  }}
+                >
+                  <span>CPU Serial</span>
+                </DropdownItem>
+              </Dropdown>
+            </div>
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
               <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -355,13 +414,14 @@ function Assets() {
                 </svg>
               </span>
               <form
-              // onSubmit={(e) => {
-              // searchSubmit(e);
-              // }}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setRefresh(!refresh);
+                }}
               >
                 <input
-                  // value={searchinp}
-                  // onChange={(e) => setSearchInp(e.target.value)}
+                  value={searchquery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search"
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />

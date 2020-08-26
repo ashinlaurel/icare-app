@@ -93,6 +93,14 @@ export default function UnitListModal({
       _id: customer._id,
       customerName: customer.name,
     });
+    setAccount({
+      _id: "",
+      accountName: "",
+    });
+    setUnit({
+      _id: "",
+      unitName: "",
+    });
     try {
       const accs = await Axios.post(`${API}/customer/accounts`, {
         customerId: customer._id,
@@ -114,6 +122,10 @@ export default function UnitListModal({
     setAccount({
       _id: account._id,
       accountName: account.name,
+    });
+    setUnit({
+      _id: "",
+      unitName: "",
     });
     try {
       const u = await Axios.post(`${API}/customer/units`, {

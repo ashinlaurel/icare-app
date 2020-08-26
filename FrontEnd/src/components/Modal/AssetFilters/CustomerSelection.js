@@ -125,6 +125,10 @@ export default function CustomerSelection({
       _id: account._id,
       accountName: account.name,
     });
+    setUnit({
+      _id: "",
+      unitName: "",
+    });
     try {
       const u = await Axios.post(`${API}/customer/units`, {
         accountId: account._id,
