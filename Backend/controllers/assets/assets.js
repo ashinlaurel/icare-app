@@ -65,6 +65,17 @@ exports.getAllAssets = (req, res) => {
   if (filters.business != "") {
     filteroptions.business = filters.business;
   }
+  if (filters.producttype != "") {
+    filteroptions.producttype = filters.producttype;
+  }
+  // -----------------Customer,Account,Unit ID filters-------
+  if (filters.unitId != "") {
+    filteroptions.unitId = filters.unitId;
+  } else if (filters.accountId != "") {
+    filteroptions.accountId = filters.accountId;
+  } else if (filters.customerId != "") {
+    filteroptions.customerId = filters.customerId;
+  }
 
   Asset.paginate(filteroptions, options, function (err, result) {
     // console.log(result);

@@ -31,17 +31,24 @@ import {
 
 import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
+import UnitListModal from "../../components/Modal/UnitListModal";
+import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 
 function Assets() {
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-  // dropdown
+  // dropdown and modals
   const [isOpen, setIsOpen] = useState(false);
-  const [product, setProduct] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [refresh, setRefresh] = useState(true);
 
   // filterhooks
   const [Business, setBusiness] = useState("");
+  const [product, setProduct] = useState("");
+  const [unit, setUnit] = useState({ _id: "", unitName: "" });
+  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+  const [account, setAccount] = useState({ _id: "", accountName: "" });
 
   // Getting data states
 
@@ -67,6 +74,12 @@ function Assets() {
         },
         filters: {
           business: Business,
+          producttype: product,
+          customer: customer,
+          account: account,
+          unitId: unit._id,
+          customerId: customer._id,
+          accountId: account._id,
         },
       };
       try {
@@ -82,10 +95,25 @@ function Assets() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business]);
+  }, [page, Business, product, refresh]);
 
   return (
     <>
+      {/* ---------------------Customer Selection Modal----------------------------------------- */}
+      <CustomerSelection
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setUnit={setUnit}
+        unit={unit}
+        customer={customer}
+        setCustomer={setCustomer}
+        account={account}
+        setAccount={setAccount}
+        refresh={refresh}
+        setRefresh={setRefresh}
+      />
+      {/* ---------------------Customer Selection Modal----------------------------------------- */}
+
       {floatbox ? <AssetFloat /> : null}
       <div className="mb-64">
         <div className="flex items-center">
@@ -107,16 +135,16 @@ function Assets() {
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
             <div class="relative  ">
-              <select
+              <button
                 class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                onClick={() => {
+                  setIsModalOpen(!isModalOpen);
+                }}
                 // value={sortBy}
                 // onChange={onSortToggle}
               >
-                <option value="TIME_ASC">Time(Latest)</option>
-                <option value="TIME_DESC">Time(Oldest)</option>
-                <option value="NAME_ASC">Name(A-Z)</option>
-                <option value="NAME_DESC">Name(Z-A)</option>
-              </select>
+                Pick Customer
+              </button>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -128,16 +156,21 @@ function Assets() {
                 </svg>
               </div>
             </div>
-            <div class="relative ">
+
+            <div class="relative mx-5 ">
               <select
-                class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                // value={sortBy}
-                // onChange={onSortToggle}
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={Business}
+                onChange={(e) => {
+                  setBusiness(e.target.value);
+                }}
               >
-                <option value="TIME_ASC">Time(Latest)</option>
-                <option value="TIME_DESC">Time(Oldest)</option>
-                <option value="NAME_ASC">Name(A-Z)</option>
-                <option value="NAME_DESC">Name(Z-A)</option>
+                <option value="" disabled selected>
+                  Business Type
+                </option>
+                <option value="">All</option>
+                <option value="AMC">AMC</option>
+                <option value="Warranty">Warranty</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -359,32 +392,6 @@ function Assets() {
                 </svg>
               </div>
             </div>
-            <div class="relative mx-5 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={Business}
-                onChange={(e) => {
-                  setBusiness(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Business Type
-                </option>
-                <option value="">All</option>
-                <option value="AMC">AMC</option>
-                <option value="Warranty">Warranty</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -405,7 +412,7 @@ function Assets() {
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
-                <TableRow className="hover:shadow-xl" key={i}>
+                <TableRow className="hover:shadow-lg" key={i}>
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
                       <Avatar
