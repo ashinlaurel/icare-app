@@ -21,7 +21,12 @@ router.post("/signin", signin);
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
   console.log("Authenticated Successfull", req.auth);
-  res.json({ user: req.auth });
+  res.json({
+    user: {
+      email: req.emp.email,
+      role: req.emp.role,
+    },
+  });
 });
 router.post(
   "/isadmintest/:id",

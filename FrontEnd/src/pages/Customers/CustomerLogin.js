@@ -8,13 +8,13 @@ import { Label, Input, Button } from "@windmill/react-ui";
 import { signin, authenticate, isAutheticated } from "../../helpers/auth";
 import { HelperText } from "@windmill/react-ui";
 import { useHistory } from "react-router-dom";
-import EmpProfile from "../../helpers/auth/EmpProfile";
+import CustProfile from "../../helpers/auth/CustProfile";
 
-function AdminLogin() {
+function CustomerLogin() {
   // isAutheticated();
   let history = useHistory();
   const [values, setValues] = useState({
-    email: "admin@test.com",
+    username: "ftest",
     password: "password",
   });
   const [err, setErr] = useState();
@@ -26,21 +26,21 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newuser = {
-      email: values.email,
+      username: values.username,
       password: values.password,
     };
-    if (values.email === "" || values.password == "") {
-      setErr("Please enter email and password");
+    if (values.username === "" || values.password == "") {
+      setErr("Please enter username and password");
       return;
     }
-    signin(newuser, "admin/signin")
+    signin(newuser, "customer/signin")
       .then((data) => {
         console.log("Signed In", data.user._id);
-        EmpProfile.setName(data.user.employeeName);
-        EmpProfile.setEmail(data.user.email);
-        EmpProfile.setToken(data.token);
-        EmpProfile.setId(data.user._id);
-        localStorage.setItem("type", 0); ///////-----------------------------> 0 for employee 1 for customer
+        CustProfile.setName(data.user.CustomerName);
+        CustProfile.setUsername(data.user.username);
+        CustProfile.setToken(data.token);
+        CustProfile.setId(data.user._id);
+        localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
         console.log("authenticated");
         history.push("/app");
         // return <Redirect to="/app" />;
@@ -73,16 +73,15 @@ function AdminLogin() {
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Employee Login
+                Customer Login
               </h1>
               <Label>
-                <span>Email</span>
+                <span>Username</span>
                 <Input
                   className="mt-1"
-                  type="email"
-                  placeholder="john@doe.com"
-                  value={values.email}
-                  onChange={handleChange("email")}
+                  placeholder="username"
+                  value={values.username}
+                  onChange={handleChange("username")}
                 />
               </Label>
 
@@ -134,4 +133,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default CustomerLogin;

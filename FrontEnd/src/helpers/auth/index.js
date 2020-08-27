@@ -17,8 +17,8 @@ export const signup = (newuser, path) => {
     });
 };
 
-export const signin = (user) => {
-  return Axios.post(`${API}/admin/signin`, user)
+export const signin = (user, path) => {
+  return Axios.post(`${API}/${path}`, user)
     .then((data) => {
       return data.data;
     })

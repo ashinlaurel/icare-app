@@ -1,9 +1,9 @@
 import axios from "axios";
 import { API } from "../../backendapi";
 
-var EmpProfile = (function () {
+var CustProfile = (function () {
   var name = "";
-  var email = "";
+  var username = "";
   var token = "";
   var id = "";
   var role = 99;
@@ -12,9 +12,9 @@ var EmpProfile = (function () {
     if (name == "") return localStorage.getItem("name");
     return name; // Or pull this from cookie/localStorage
   };
-  var getEmail = function () {
-    if (email == "") return localStorage.getItem("email");
-    return email; // Or pull this from cookie/localStorage
+  var getUsername = function () {
+    if (username == "") return localStorage.getItem("username");
+    return username; // Or pull this from cookie/localStorage
   };
   var getToken = function () {
     if (token == "") return localStorage.getItem("token");
@@ -34,9 +34,9 @@ var EmpProfile = (function () {
 
     localStorage.setItem("name", name);
   };
-  var setEmail = function (email) {
-    email = email;
-    localStorage.setItem("email", email);
+  var setUsername = function (uname) {
+    username = uname;
+    localStorage.setItem("username", username);
   };
   var setToken = function (tok) {
     token = tok;
@@ -53,7 +53,7 @@ var EmpProfile = (function () {
   var isAuthenticated = async () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
     return axios
-      .post(`${API}/admin/signInTest/${getId()}`)
+      .post(`${API}/customer/signInTest/${getId()}`)
       .then((res) => {
         console.log("authenticated");
         setRole(res.data.user.role);
@@ -69,8 +69,8 @@ var EmpProfile = (function () {
   return {
     getName,
     setName,
-    setEmail,
-    getEmail,
+    setUsername,
+    getUsername,
     setToken,
     getToken,
     isAuthenticated,
@@ -81,4 +81,4 @@ var EmpProfile = (function () {
   };
 })();
 
-export default EmpProfile;
+export default CustProfile;

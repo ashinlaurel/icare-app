@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Emp from "./EmpProfile";
+import Cust from "./CustProfile";
 import axios from "axios";
 import { API } from "../../backendapi";
 
@@ -11,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   const checkAuth = async () => {
     try {
-      let isA = await Emp.isAuthenticated();
+      let isA = (await Emp.isAuthenticated()) || (await Cust.isAuthenticated());
       setIsAuth(isA);
       setLoading(false);
     } catch (err) {

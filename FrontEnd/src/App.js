@@ -13,7 +13,7 @@ import PrivateRoute from "./helpers/auth/PrivateRoute";
 import EmpProfile from "./helpers/auth/EmpProfile";
 
 const Layout = lazy(() => import("./containers/Layout"));
-const Login = lazy(() => import("./pages/Login"));
+const CustomerLogin = lazy(() => import("./pages/Customers/CustomerLogin"));
 const SignUp = lazy(() => import("./pages/Signup"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
@@ -24,7 +24,7 @@ function App() {
         <AccessibleNavigationAnnouncer />
         <Switch>
           {/* //customer */}
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={CustomerLogin} />
           <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}
