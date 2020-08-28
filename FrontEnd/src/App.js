@@ -24,7 +24,7 @@ function App() {
         <AccessibleNavigationAnnouncer />
         <Switch>
           {/* //customer */}
-          <Route path="/login" component={CustomerLogin} />
+          <Route path="/signin" component={CustomerLogin} />
           <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}

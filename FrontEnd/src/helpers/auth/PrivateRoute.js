@@ -6,14 +6,16 @@ import axios from "axios";
 import { API } from "../../backendapi";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  console.log("her", Emp.isAuthenticated());
+  // console.log("her", Emp.isAuthenticated());
   const [isAuth, setIsAuth] = useState("");
   const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
     try {
-      let isA = (await Emp.isAuthenticated()) || (await Cust.isAuthenticated());
-      setIsAuth(isA);
+      let isA = await Emp.isAuthenticated();
+      let isC = await Cust.isAuthenticated();
+      if (isA) setIsAuth(isA);
+      if (isC) setIsAuth(isC);
       setLoading(false);
     } catch (err) {
       setIsAuth(false);

@@ -2131,6 +2131,26 @@ function CreateAsset() {
         </>
       ) : null}
       {/* {productPicker()} */}
+      <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
+        Asset Summary Asset Information:
+        <br />
+        Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
+        ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
+        {BillingTo} AMCRate:
+        {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
+        <br />
+        Product: {product}
+        <br />
+        Brind: {brand} model: {model} serialno: {serialno} os: {os}
+        <br />
+        {cpu.map((p, i) => {
+          return (
+            <>
+              CPU:{p.cpuname}, {p.cpusno}
+            </>
+          );
+        })}
+      </div>
     </>
   );
 }

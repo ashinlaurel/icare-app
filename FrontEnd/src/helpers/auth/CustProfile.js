@@ -51,6 +51,7 @@ var CustProfile = (function () {
     role = r;
   };
   var isAuthenticated = async () => {
+    if (localStorage.getItem("type") !== "1") return false;
     axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
     return axios
       .post(`${API}/customer/signInTest/${getId()}`)
