@@ -45,6 +45,7 @@ function CustomerLogin() {
         history.push("/app");
         // return <Redirect to="/app" />;
         // });
+        ///test
       })
       .catch((err) => {
         setErr(err);
