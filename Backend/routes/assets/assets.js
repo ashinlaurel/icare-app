@@ -4,6 +4,8 @@ const {
   createAsset,
   getAllAssets,
   countAssets,
+  deleteAsset,
+  updateAsset,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 // const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
@@ -24,4 +26,6 @@ router.post(
 // router.get("/product/:productId", getProduct);
 router.post("/getall", getAllAssets);
 router.get("/count", countAssets);
+router.post("/delete", deleteAsset);
+router.post("/update", updateAsset);
 module.exports = router;
