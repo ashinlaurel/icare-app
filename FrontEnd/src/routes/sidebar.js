@@ -25,9 +25,13 @@ const routes = [
         path: "/app/assets/create",
         name: "Create Assets",
       },
+      {
+        path: "/app/assets/update",
+        name: "Edit Assets",
+      },
     ],
   },
-  // ---------------Assets---------------------------------------------
+  // ---------------Customers---------------------------------------------
   {
     icon: "HomeIcon",
     name: "Customers",
