@@ -2131,6 +2131,8 @@ function CreateAsset() {
         </>
       ) : null}
       {/* {productPicker()} */}
+
+      {/* --------------------------Bottom Bar-------------------------- */}
       <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
         Asset Summary Asset Information:
         <br />
