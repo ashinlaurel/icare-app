@@ -13,7 +13,7 @@ import { Link, useParams } from "react-router-dom";
 function UnitsList() {
   const [units, setUnits] = useState([]);
   // -----------------Getting Stuff from params-----------------------
-  let { accountid } = useParams();
+  let { id, accountid } = useParams();
 
   //   ---------------Intital Load ----------------------------
 
@@ -63,7 +63,10 @@ function UnitsList() {
 
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {units.map((unit) => (
-          <Link key={unit._id} to="">
+          <Link
+            key={unit._id}
+            to={`/app/customer/accounts/units/${id}/${accountid}/${unit._id}`}
+          >
             <CustomerCard value={unit.unitName}>
               <RoundIcon
                 icon={PeopleIcon}

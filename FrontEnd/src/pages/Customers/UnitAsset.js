@@ -33,8 +33,12 @@ import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
+import { useParams } from "react-router-dom";
 
-function Assets() {
+function UnitAsset() {
+  // Url params------------
+  let { id, accountid, unitid } = useParams();
+
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -84,11 +88,11 @@ function Assets() {
         filters: {
           business: Business,
           producttype: product,
-          customer: customer,
-          account: account,
-          unitId: unit._id,
-          customerId: customer._id,
-          accountId: account._id,
+          //   customer: customer,
+          //   account: account,
+          unitId: unitid,
+          //   customerId: customer._id,
+          //   accountId: account._id,
           searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -113,7 +117,7 @@ function Assets() {
   return (
     <>
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
-      <CustomerSelection
+      {/* <CustomerSelection
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setUnit={setUnit}
@@ -124,7 +128,7 @@ function Assets() {
         setAccount={setAccount}
         refresh={refresh}
         setRefresh={setRefresh}
-      />
+      /> */}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {floatbox ? <AssetFloat /> : null}
@@ -147,7 +151,7 @@ function Assets() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
-            <div class="relative  ">
+            {/* <div class="relative  ">
               <button
                 class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 onClick={() => {
@@ -168,9 +172,9 @@ function Assets() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div>
+            </div> */}
 
-            <div class="relative mx-5 ">
+            {/* <div class="relative mx-5 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={Business}
@@ -195,14 +199,14 @@ function Assets() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div>
+            </div> */}
             {/* ---------------------------Product Drop Down-------------------------------------- */}
             <div className="relative ">
               <button
                 onClick={() => {
                   setIsOpen(!isOpen);
                 }}
-                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                className="shadow-md z-50 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 aria-label="Notifications"
                 aria-haspopup="true"
               >
@@ -434,7 +438,7 @@ function Assets() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
-          <div className="my-4 flex ">
+          {/* <div className="my-4 flex ">
             <div class="relative ">
               <select
                 class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -457,7 +461,7 @@ function Assets() {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="">
@@ -485,11 +489,11 @@ function Assets() {
                 >
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
-                      <Avatar
-                        className="hidden ml-2 mr-3 md:block"
+                      {/* <Avatar
+                        className=" z-0 hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
-                      />
+                      /> */}
                       <div>
                         <p className="font-semibold">{user.customerName}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
@@ -542,58 +546,7 @@ function Assets() {
             />
           </TableFooter>
         </TableContainer>
-        {/* <TableContainer className="">
-          <Table>
-            <TableHeader>
-              <tr>
-                <TableCell>Customer</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Date</TableCell>
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {data.map((user, i) => (
-                <TableRow key={i}>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <Avatar
-                        className="hidden mr-3 md:block"
-                        src={user.avatar}
-                        alt="User image"
-                      />
-                      <div>
-                        <p className="font-semibold">{user.name}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.job}
-                        </p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">$ {user.amount}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge type={user.status}>{user.status}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {new Date(user.date).toLocaleDateString()}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <TableFooter>
-            <Pagination
-              totalResults={totalResults}
-              resultsPerPage={resultsPerPage}
-              label="Table navigation"
-              onChange={onPageChange}
-            />
-          </TableFooter>
-        </TableContainer> */}
+
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
 
@@ -634,4 +587,4 @@ function Assets() {
   );
 }
 
-export default Assets;
+export default UnitAsset;
