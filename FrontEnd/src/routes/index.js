@@ -46,10 +46,10 @@ const routes = [
     path: "/assets/create", // the url
     component: CreateAsset, // view rendered
   },
-  {
-    path: "/assets/update", // the url
-    component: UpdateAsset, // view rendered
-  },
+  // {
+  //   path: "/assets/update", // the url
+  //   component: UpdateAsset, // view rendered
+  // },
   // Customer --------------------------------------------------
   {
     path: "/customer/create",
@@ -75,6 +75,10 @@ const routes = [
   {
     path: "/customer/accounts/units/:id/:accountid/:unitid",
     component: UnitsAsset,
+  },
+  {
+    path: "/unit/update/:id",
+    component: UpdateAsset,
   },
   {
     path: "/forms",

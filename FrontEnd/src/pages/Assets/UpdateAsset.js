@@ -24,19 +24,22 @@ import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
 // Migration
 import { handleMigration } from "../../migration/migration";
+import { useParams } from "react-router-dom";
 
 function UpdateAsset() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
+  const { id } = useParams();
+  console.log(id);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
   //prodcut
-  const [brand, setBrand] = useState("Lenovo");
-  const [model, setModel] = useState("123");
-  const [serialno, setSerialNo] = useState("213132");
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [serialno, setSerialNo] = useState("");
   const [os, setOs] = useState("");
   const [cpu, setCpu] = useState([{ cpuname: "", cpusno: "" }]);
   const [ram, setram] = useState([{ ramname: "", ramsno: "" }]);
@@ -73,7 +76,7 @@ function UpdateAsset() {
   //asset
 
   const [Business, setBusiness] = useState("");
-  const [POnumber, setPOnumber] = useState("123123");
+  const [POnumber, setPOnumber] = useState("");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
   const [ContractTo, setContractTo] = useState("");
@@ -84,69 +87,101 @@ function UpdateAsset() {
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
 
-  //
-  const [product, setProduct] = useState("null");
+  //////////////-------------------------------------------->Product name not in asset
+  const [product, setProduct] = useState("Server");
 
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getAsset = async () => {
+    try {
+      let res = await axios.post(`${API}/asset/getbyid`, { id: id });
+      console.log("asset", res.data);
+      let asset = res.data;
+      setUnit({ _id: id, unitName: asset.unitName });
+      setCustomer({ _id: asset.customerId, customerName: asset.customerName });
+      setAccount({ _id: asset.accountId, accountName: asset.accountName });
+      ////------------------------>>>>>>>>
+      // setProduct("Server");
+      ////////---------ASSET INFO
+      setBusiness(asset.business);
+      setPOnumber(asset.ponumber);
+      setPOdate(asset.podate);
+      setContractFrom(asset.contractfrom);
+      setContractTo(asset.contractto);
+      setBillingFrom(asset.billingfrom);
+      setBillingTo(asset.billingto);
+      setAMCRate(asset.amcrate);
+      ////////////------------>>>>>>>> misiing field GST(asset.gs)
+      setGSTAMOUNT(asset.gstamount);
+      setNetAmount(asset.netamount);
+    } catch (err) {
+      console.log("assetFind Error", err);
+    }
+  };
+
+  useEffect(() => {
+    getAsset();
+  }, []);
 
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
     let payload = {
-      asset: {
-        business: Business,
-        producttype: product,
-        ponumber: POnumber,
-        podate: POdate,
-        contractfrom: ContractFrom,
-        contractto: ContractTo,
-        billingfrom: BillingFrom,
-        billingto: BillingTo,
-        amcrate: AMCRate,
-        gstperc: GST,
-        gstamount: GSTAMOUNT,
-        netamount: NetAmount,
-        /////------------------ cust info
-        unitId: unit._id,
-        unitName: unit.unitName,
-        accountId: account._id,
-        accountName: account.accountName,
-        customerId: customer._id,
-        customerName: customer.customerName,
-      },
-      product: {
-        brand: brand,
-        model: model,
-        serialno: serialno,
-        os: os,
-        cpu: cpu,
-        ram: ram,
-        hdd: hdd,
-        smps: smps,
-        fan: fan,
-        motherboard: motherboard,
-        opticaldrive: opticaldrive,
-        keyboard: kbd,
-        mouse: mouse,
-        monitor: monitor,
-        gcard: gcard,
-        enetcard: enetcard,
-        serialcard: serialcard,
-        parallelcard: parallelcard,
-        hbacard: hbacard,
-        raidcontroller: raidcontroller,
-        tapecontroller: tapecontroller,
-        others: others,
-      },
+      business: Business,
+      producttype: product,
+      ponumber: POnumber,
+      podate: POdate,
+      contractfrom: ContractFrom,
+      contractto: ContractTo,
+      billingfrom: BillingFrom,
+      billingto: BillingTo,
+      amcrate: AMCRate,
+      gstperc: GST,
+      gstamount: GSTAMOUNT,
+      netamount: NetAmount,
+      /////------------------ cust info
+      // unitId: unit._id,
+      // unitName: unit.unitName,
+      // accountId: account._id,
+      // accountName: account.accountName,
+      // customerId: customer._id,
+      // customerName: customer.customerName,
+
+      // product: {
+      //   brand: brand,
+      //   model: model,
+      //   serialno: serialno,
+      //   os: os,
+      //   cpu: cpu,
+      //   ram: ram,
+      //   hdd: hdd,
+      //   smps: smps,
+      //   fan: fan,
+      //   motherboard: motherboard,
+      //   opticaldrive: opticaldrive,
+      //   keyboard: kbd,
+      //   mouse: mouse,
+      //   monitor: monitor,
+      //   gcard: gcard,
+      //   enetcard: enetcard,
+      //   serialcard: serialcard,
+      //   parallelcard: parallelcard,
+      //   hbacard: hbacard,
+      //   raidcontroller: raidcontroller,
+      //   tapecontroller: tapecontroller,
+      //   others: others,
+      // }
     };
     console.log(payload);
+
+    const data = { id: id, update: payload };
     // console.log(API);
     try {
       await axios({
-        url: `${API}/asset/create`,
+        url: `${API}/asset/update`,
         method: "POST",
-        data: payload,
+        data: data,
       });
       console.log("Done");
     } catch (error) {
@@ -170,17 +205,7 @@ function UpdateAsset() {
           <span>Asset Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
-        <div className="flex items-center  space-x-3 my-3">
-          {dropdown()}
 
-          <Button
-            onClick={() => setIsModalOpen(true)}
-            aria-label="Notifications"
-            aria-haspopup="true"
-          >
-            Pick Customer
-          </Button>
-        </div>
         <SectionTitle className="">
           Customer: {customer.customerName} Account: {account.accountName} Unit:{" "}
           {unit.unitName}
@@ -1946,150 +1971,6 @@ function UpdateAsset() {
     setIsOpen(!isOpen);
   }
 
-  const dropdown = () => {
-    return (
-      <div className="relative ">
-        <Button
-          onClick={toggleDropdown}
-          aria-label="Notifications"
-          aria-haspopup="true"
-        >
-          Pick Products
-        </Button>
-        <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Console");
-            }}
-          >
-            <span>Console</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("DMP");
-            }}
-          >
-            <span>DMP</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Inkjet");
-            }}
-          >
-            <span>Inkjet</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("KVM");
-            }}
-          >
-            <span>KVM</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Laptop");
-            }}
-          >
-            <span>Laptop</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Laser");
-            }}
-          >
-            <span>Laser</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("LMP");
-            }}
-          >
-            <span>LMP</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Module");
-            }}
-          >
-            <span>Module</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Router");
-            }}
-          >
-            <span>Router</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Sanner");
-            }}
-          >
-            <span>Scanner</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Server");
-            }}
-          >
-            <span>Server</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Desktop");
-            }}
-          >
-            <span>Desktop</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Storage");
-            }}
-          >
-            <span>Storage</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Switch");
-            }}
-          >
-            <span>Switch</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("UPS");
-            }}
-          >
-            <span>UPS</span>
-          </DropdownItem>
-          <DropdownItem
-            onClick={() => {
-              setIsOpen(false);
-              setProduct("Others");
-            }}
-          >
-            <span>Others</span>
-          </DropdownItem>
-        </Dropdown>
-      </div>
-    );
-  };
-
   const test = () => {
     console.log(test);
   };
@@ -2131,7 +2012,8 @@ function UpdateAsset() {
         </>
       ) : null}
       {/* {productPicker()} */}
-      <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
+      {/* /////---------------------------- FOOTER */}
+      {/* <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
         Asset Summary Asset Information:
         <br />
         Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
@@ -2150,7 +2032,7 @@ function UpdateAsset() {
             </>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }

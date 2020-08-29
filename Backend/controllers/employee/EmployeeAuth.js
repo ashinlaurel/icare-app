@@ -69,9 +69,9 @@ exports.isSignedIn = expressjwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  console.log("herer");
+  // console.log("herer");
   // req.emp = req.params;
-  console.log(req.emp);
+  // console.log(req.emp);
   let checker = req.emp && req.auth && req.emp.id == req.auth._id;
   if (!checker) {
     return res.status(403).json({
@@ -92,7 +92,7 @@ exports.isAdmin = (req, res, next) => {
 };
 
 exports.getEmpById = (req, res, next, id) => {
-  console.log("id", id);
+  // console.log("id", id);
   EmployeeLogin.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
