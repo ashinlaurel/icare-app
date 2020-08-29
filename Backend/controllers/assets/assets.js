@@ -112,6 +112,33 @@ exports.getAllAssets = (req, res) => {
   });
 };
 
+exports.deleteAsset = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let asset = await Asset.findByIdAndDelete({ _id: id });
+    let unitId = asset.unitId;
+    let unit = await Unit.update({ _id: unitId }, { $pull: { assetsId: id } });
+    return res.status(200).json({ asset, unit });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.updateAsset = async (req, res) => {
+  let { id, update } = req.body;
+  try {
+    let asset = await Asset.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ asset });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
 //   category.name = req.body.name;

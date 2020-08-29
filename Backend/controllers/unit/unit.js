@@ -51,3 +51,33 @@ exports.getAllUnits = async (req, res) => {
     return res.status(400).json({ error: "getAll Error" });
   }
 };
+
+exports.updateUnit = async (req, res) => {
+  let { id, update } = req.body;
+  try {
+    let asset = await Unit.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ asset });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.deleteUnit = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let unit = await Unit.findByIdAndDelete({ _id: id });
+    let accId = unit.accountId;
+    let acc = await CustomerLogin.update(
+      { _id: accId },
+      { $pull: { unitIds: id } }
+    );
+    return res.status(200).json({ acc, acc });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
