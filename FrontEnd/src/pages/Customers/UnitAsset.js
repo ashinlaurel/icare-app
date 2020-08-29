@@ -33,7 +33,7 @@ import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function UnitAsset() {
   // Url params------------
@@ -569,6 +569,7 @@ function UnitAsset() {
             {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
             {/* {NetAmount} */}
           </div>
+
           {/* <br />
         Product: {product}
         <br />
@@ -582,6 +583,13 @@ function UnitAsset() {
           );
         })} */}
         </div>
+        <Button className="mx-3 mt02">
+          {" "}
+          <Link key={account._id} to={`/app/unit/update/${selectedprod._id}`}>
+            Edit
+          </Link>{" "}
+        </Button>
+        <Button className="mx-3 mt02">Delete</Button>
       </div>
     </>
   );

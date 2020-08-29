@@ -127,12 +127,23 @@ exports.deleteAsset = async (req, res) => {
 
 exports.updateAsset = async (req, res) => {
   let { id, update } = req.body;
+  console.log(id, update);
   try {
     let asset = await Asset.findByIdAndUpdate(id, update, {
       safe: true,
       useFindAndModify: false,
     });
     return res.status(200).json({ asset });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.getAssetById = async (req, res) => {
+  try {
+    let asset = await Asset.findById(req.body.id).populate("product");
+    return res.status(200).json(asset);
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });
