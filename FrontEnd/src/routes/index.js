@@ -20,6 +20,8 @@ const CustomerList = lazy(() => import("../pages/Customers/CustomerList"));
 const AccountsList = lazy(() => import("../pages/Customers/AccountsList"));
 const UnitsList = lazy(() => import("../pages/Customers/UnitsList"));
 const UnitsAsset = lazy(() => import("../pages/Customers/UnitAsset"));
+//--------------------------- My Asset Imports------------------
+const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 
 /**
  * ⚠ These are internal routes!
@@ -70,6 +72,15 @@ const routes = [
   {
     path: "/customer/accounts/units/:id/:accountid/:unitid",
     component: UnitsAsset,
+  },
+  // ----------------------My Asset Views ----------------------
+  {
+    path: "/myassets/accounts",
+    component: ViewAccounts,
+  },
+  {
+    path: "/myassets/accounts/units/:id/:accountid",
+    component: UnitsList,
   },
   {
     path: "/forms",

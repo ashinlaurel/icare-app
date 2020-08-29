@@ -598,23 +598,46 @@ function Assets() {
       </div>
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
-      <div class="rounded-lg w-7/12 bottom-0 h-64 overflow-y-scroll border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
+      <div class="rounded-lg  w-full bottom-0 h-64  border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
         Asset
         <hr />
         <br />
-        <div className="flex flex-wrap kitems-start">
-          <div className="flex-col flex items-start justify-center">
-            <div>Business: {selectedprod.business}</div>
-            <div>Purchase Number: {selectedprod.ponumber}</div>
-            <div> ContractFrom: {selectedprod.contractfrom}</div>
-          </div>
-          <div className="flex-col flex items-start justify-center ml-20">
-            <div>ContractTo: {selectedprod.contractto}</div>{" "}
-            <div>BillingFrom: {selectedprod.billingfrom}</div>{" "}
-            <div>BillingTo: {selectedprod.billingto}</div>
-            {/* AMCRate: */}
-            {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
-            {/* {NetAmount} */}
+        <div className="flex items-start overflow-y-scroll">
+          <div className="flex-row flex items-start space-x-40">
+            <div className="flex-col flex items-start justify-center">
+              <div>Business: {selectedprod.business}</div>
+              <div>Purchase Number: {selectedprod.ponumber}</div>
+              <div>
+                {" "}
+                Contract From:{" "}
+                {moment(selectedprod.contractfrom).format("DD-MM-YYYY")}
+              </div>
+              <div>
+                Contract To:{" "}
+                {moment(selectedprod.contractto).format("DD-MM-YYYY")}
+              </div>{" "}
+            </div>
+            <div className="flex-col flex items-start justify-center ">
+              <div>
+                Billing From:{" "}
+                {moment(selectedprod.billingfrom).format("DD-MM-YYYY")}
+              </div>{" "}
+              <div>
+                Billing To:{" "}
+                {moment(selectedprod.billingto).format("DD-MM-YYYY")}
+              </div>
+              {/* AMCRate: */}
+              {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
+              {/* {NetAmount} */}
+            </div>
+            <div className="flex-col flex items-start justify-center ">
+              <div>ContractTo: {selectedprod.contractto}</div>{" "}
+              <div>BillingFrom: {selectedprod.billingfrom}</div>{" "}
+              <div>BillingTo: {selectedprod.billingto}</div>
+              {/* AMCRate: */}
+              {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
+              {/* {NetAmount} */}
+            </div>
           </div>
           {/* <br />
         Product: {product}

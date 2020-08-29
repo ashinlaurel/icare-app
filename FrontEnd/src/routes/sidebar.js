@@ -5,6 +5,9 @@
  * If you're looking to actual Router routes, go to
  * `routes/index.js`
  */
+
+const role = localStorage.getItem("type");
+console.log(role);
 const routes = [
   {
     path: "/app/dashboard", // the url
@@ -12,6 +15,7 @@ const routes = [
     name: "Dashboard", // name that appear in Sidebar
   },
   // ---------------Assets---------------------------------------------
+
   {
     icon: "HomeIcon",
     name: "Assets ",
@@ -28,6 +32,7 @@ const routes = [
     ],
   },
   // ---------------Assets---------------------------------------------
+  // Admin Customers
   {
     icon: "HomeIcon",
     name: "Customers",
@@ -44,6 +49,22 @@ const routes = [
       {
         path: "/app/customer/createunit",
         name: "Add Unit",
+      },
+    ],
+  },
+  //  Customer Views
+  {
+    icon: "HomeIcon",
+    name: "My Assets",
+    routes: [
+      // submenu
+      {
+        path: "/app/myassets/accounts",
+        name: "Accounts",
+      },
+      {
+        path: "/app/myassets/accounts",
+        name: "Units",
       },
     ],
   },

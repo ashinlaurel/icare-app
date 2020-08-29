@@ -42,7 +42,7 @@ function CustomerLogin() {
         CustProfile.setId(data.user._id);
         localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
         console.log("authenticated");
-        history.push("/app");
+        history.push("/app/myassets/accounts");
         // return <Redirect to="/app" />;
         // });
         ///test
