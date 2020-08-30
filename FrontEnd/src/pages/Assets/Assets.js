@@ -683,6 +683,16 @@ function Assets() {
               {/* AMCRate: */}
               {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
               {/* {NetAmount} */}
+              <div>
+                {selectedprod.product &&
+                selectedprod.product.keyboard.length > 0 ? (
+                  <>Keyboard SNo : {selectedprod.product.keyboard[0].kbdname}</>
+                ) : null}
+              </div>
+              {selectedprod.product
+                ? console.log(selectedprod.product.keyboard)
+                : null}
+              {/* (user.product.keyboard[0].kbdname); */}
             </div>
           </div>
           {/* <br />

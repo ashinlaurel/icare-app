@@ -127,7 +127,7 @@ function CreateAsset() {
         fan: fan,
         motherboard: motherboard,
         opticaldrive: opticaldrive,
-        keyboard: kbd,
+        keyboard: kbd.kbdname === "" ? [] : kbd,
         mouse: mouse,
         monitor: monitor,
         gcard: gcard,
