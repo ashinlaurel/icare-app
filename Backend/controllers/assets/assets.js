@@ -90,6 +90,7 @@ exports.getAllAssets = (req, res) => {
   } else if (filters.accountId != "") {
     filteroptions.accountId = filters.accountId;
   } else if (filters.customerId != "") {
+    // console.log(filters.customerId);
     filteroptions.customerId = filters.customerId;
   }
   //--------------------search logic----------------------------

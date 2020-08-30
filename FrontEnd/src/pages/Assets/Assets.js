@@ -76,6 +76,7 @@ function Assets() {
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
+      console.log("getter called");
       let payload = {
         pages: {
           page: page,
@@ -481,6 +482,7 @@ function Assets() {
                   key={i}
                   onClick={() => {
                     setSelectedProd(user);
+                    // console.log(user.product.keyboard[0].kbdname);
                   }}
                 >
                   <TableCell className="w-8">
@@ -598,11 +600,12 @@ function Assets() {
       </div>
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
-      <div class="rounded-lg  w-full bottom-0 h-64  border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
+      <div class="rounded-lg overflow-auto  w-full bottom-0 h-64  border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
         Asset
         <hr />
         <br />
-        <div className="flex items-start overflow-y-scroll">
+        <div className="flex flex-col items-start  space-y-10">
+          {/* --------------Row 1 -------------- */}
           <div className="flex-row flex items-start space-x-40">
             <div className="flex-col flex items-start justify-center">
               <div>Business: {selectedprod.business}</div>
@@ -626,14 +629,57 @@ function Assets() {
                 Billing To:{" "}
                 {moment(selectedprod.billingto).format("DD-MM-YYYY")}
               </div>
-              {/* AMCRate: */}
+              <div>AMC Rate:{selectedprod.amcrate}</div>
+              <div>Net Amount:{selectedprod.netamount}</div>
               {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
               {/* {NetAmount} */}
             </div>
             <div className="flex-col flex items-start justify-center ">
-              <div>ContractTo: {selectedprod.contractto}</div>{" "}
-              <div>BillingFrom: {selectedprod.billingfrom}</div>{" "}
-              <div>BillingTo: {selectedprod.billingto}</div>
+              <div>Keyboard:</div>{" "}
+              <div>KBD SNo: {selectedprod.billingfrom}</div>{" "}
+              <div>Mouse : {selectedprod.billingto}</div>
+              <div>Mouse SNo : {selectedprod.billingto}</div>
+              {/* AMCRate: */}
+              {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
+              {/* {NetAmount} */}
+            </div>
+          </div>
+
+          {/* ----------------------Row - 2------------------------- */}
+          <div className="flex-row flex items-start space-x-40">
+            <div className="flex-col flex items-start justify-center">
+              <div>Business: {selectedprod.business}</div>
+              <div>Purchase Number: {selectedprod.ponumber}</div>
+              <div>
+                {" "}
+                Contract From:{" "}
+                {moment(selectedprod.contractfrom).format("DD-MM-YYYY")}
+              </div>
+              <div>
+                Contract To:{" "}
+                {moment(selectedprod.contractto).format("DD-MM-YYYY")}
+              </div>{" "}
+            </div>
+            <div className="flex-col flex items-start justify-center ">
+              <div>
+                Billing From:{" "}
+                {moment(selectedprod.billingfrom).format("DD-MM-YYYY")}
+              </div>{" "}
+              <div>
+                Billing To:{" "}
+                {moment(selectedprod.billingto).format("DD-MM-YYYY")}
+              </div>
+              <div>AMC Rate:{selectedprod.amcrate}</div>
+              <div>Net Amount:{selectedprod.netamount}</div>
+              {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
+              {/* {NetAmount} */}
+            </div>
+            <div className="flex-col flex items-start justify-center ">
+              {/* <div>Keyboard: {selectedprod.product.keyboard[0].kbdname} </div>{" "} */}
+              <div>Keyboard: </div>{" "}
+              <div>KBD SNo: {selectedprod.billingfrom}</div>{" "}
+              <div>Mouse : {selectedprod.billingto}</div>
+              <div>Mouse SNo : {selectedprod.billingto}</div>
               {/* AMCRate: */}
               {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
               {/* {NetAmount} */}
