@@ -635,6 +635,7 @@ function Assets() {
               {/* {NetAmount} */}
             </div>
             <div className="flex-col flex items-start justify-center ">
+              {/* <div>Keyboard:{selectedprod.product.keyboard[0].kbdname}</div>{" "} */}
               <div>Keyboard:</div>{" "}
               <div>KBD SNo: {selectedprod.billingfrom}</div>{" "}
               <div>Mouse : {selectedprod.billingto}</div>

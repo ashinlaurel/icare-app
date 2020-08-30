@@ -24,7 +24,7 @@ const assetSchema = new Schema({
     ref: "Account",
   },
   accountName: String,
-  CustomerId: {
+  customerId: {
     type: mongoose.Schema.ObjectId,
     ref: "CustomerLogin",
   },

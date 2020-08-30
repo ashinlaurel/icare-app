@@ -2125,10 +2125,10 @@ function CreateAsset() {
       {/* <SectionTitle>Pick Product</SectionTitle> */}
       {/* {dropdown()} */}
       {product != "null" ? (
-        <>
+        <div className="mb-20">
           <SectionTitle>{product} </SectionTitle>
           {productPicker()}
-        </>
+        </div>
       ) : null}
       {/* {productPicker()} */}
 
