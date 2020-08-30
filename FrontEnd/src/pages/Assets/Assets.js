@@ -604,7 +604,7 @@ function Assets() {
         Asset
         <hr />
         <br />
-        <div className="flex flex-col items-start  space-y-10">
+        <div className="flex flex-col items-start  space-y-5">
           {/* --------------Row 1 -------------- */}
           <div className="flex-row flex items-start space-x-40">
             <div className="flex-col flex items-start justify-center">
