@@ -120,28 +120,32 @@ function CreateAsset() {
         model: model,
         serialno: serialno,
         os: os,
-        cpu: cpu,
-        ram: ram,
-        hdd: hdd,
-        smps: smps,
-        fan: fan,
-        motherboard: motherboard,
-        opticaldrive: opticaldrive,
-        keyboard: kbd.kbdname === "" ? [] : kbd,
-        mouse: mouse,
-        monitor: monitor,
-        gcard: gcard,
-        enetcard: enetcard,
-        serialcard: serialcard,
-        parallelcard: parallelcard,
-        hbacard: hbacard,
-        raidcontroller: raidcontroller,
-        tapecontroller: tapecontroller,
-        others: others,
+        cpu: cpu[0].cpuname == "" ? [] : cpu,
+        ram: ram[0].ramname == "" ? [] : ram,
+        hdd: hdd[0].hddname == "" ? [] : hdd,
+        smps: smps[0].smpsname == "" ? [] : smps,
+        fan: fan[0].fanname == "" ? [] : fan,
+        motherboard: motherboard[0].motherboardname == "" ? [] : motherboard,
+        opticaldrive:
+          opticaldrive[0].opticaldrivename == "" ? [] : opticaldrive,
+        keyboard: kbd[0].kbdname == "" ? [] : kbd,
+        mouse: mouse[0].mousename == "" ? [] : mouse,
+        monitor: monitor[0].monitorname == "" ? [] : monitor,
+        gcard: gcard[0].gcardname == "" ? [] : gcard,
+        enetcard: enetcard[0].enetcardname == "" ? [] : enetcard,
+        serialcard: serialcard[0].serialcardname == "" ? [] : serialcard,
+        parallelcard:
+          parallelcard[0].parallelcardname == "" ? [] : parallelcard,
+        hbacard: hbacard[0].hbacardname == "" ? [] : hbacard,
+        raidcontroller:
+          raidcontroller[0].raidcontrollername == "" ? [] : raidcontroller,
+        tapecontroller:
+          tapecontroller[0].tapecontrollername == "" ? [] : tapecontroller,
+        others: others[0].othersname == "" ? [] : others,
       },
     };
     console.log(payload);
-    // console.log(API);
+    console.log(API);
     try {
       await axios({
         url: `${API}/asset/create`,
