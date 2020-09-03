@@ -12,13 +12,6 @@ const router = express.Router();
 // router.param("userId", getUserById);
 // router.param("productId", getProductById);
 // Routes
-router.post(
-  "/create",
-  //   "/product/create/:userId"
-  //   isSignedIn,
-  //   isAuthenticated,
-  //   isAdmin,
-  createServer
-);
+router.post("/create", createServer);
 // router.get("/product/:productId", getProduct);
 module.exports = router;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
+import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
 import {
@@ -95,7 +96,9 @@ function UpdateAsset() {
 
   const getAsset = async () => {
     try {
-      let res = await axios.post(`${API}/asset/getbyid`, { id: id });
+      let res = await axios.post(`${API}/asset/${Emp.getId()}/getbyid`, {
+        id: id,
+      });
       console.log("asset", res.data);
       let asset = res.data;
       setUnit({ _id: id, unitName: asset.unitName });
@@ -179,7 +182,7 @@ function UpdateAsset() {
     // console.log(API);
     try {
       await axios({
-        url: `${API}/asset/update`,
+        url: `${API}/asset/${Emp.getId()}/update`,
         method: "POST",
         data: data,
       });

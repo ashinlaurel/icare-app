@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
+import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
 import {
@@ -86,7 +87,7 @@ function CreateCustomer() {
       role: 1,
       childAccountIds: [],
     };
-    signup(newuser, "customer/signup")
+    signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
         console.log("Signed Up", data._id);
         setErr({

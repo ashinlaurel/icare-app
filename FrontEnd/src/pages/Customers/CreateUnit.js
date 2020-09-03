@@ -204,7 +204,7 @@ function CreateUnit() {
         customer={customer}
         setCustomer={setCustomer}
       />
-      <PageTitle>Add Customer</PageTitle>
+      <PageTitle>Add Unit</PageTitle>
       {addForm()}
 
       {/* {productPicker()} */}

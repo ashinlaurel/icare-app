@@ -80,13 +80,13 @@ exports.signout = (req, res) => {
   });
 };
 
-exports.isSignedIn = expressjwt({
+exports.isCustSignedIn = expressjwt({
   secret: process.env.SECRET,
   requestProperty: "auth",
   algorithms: ["HS256"],
 });
 
-exports.isAuthenticated = (req, res, next) => {
+exports.isCustAuthenticated = (req, res, next) => {
   let checker = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!checker) {
     return res.status(403).json({
@@ -107,7 +107,7 @@ exports.isAdmin = (req, res, next) => {
 };
 
 exports.getCustById = (req, res, next, id) => {
-  console.log("id", id);
+  console.log("Cid", id);
   CustomerLogin.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({

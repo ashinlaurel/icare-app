@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 
+import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
 import {
   ChatIcon,
@@ -99,7 +100,7 @@ function UnitAsset() {
       };
       try {
         let response = await axios({
-          url: `${API}/asset/getall`,
+          url: `${API}/asset/${Emp.getId()}/getall`,
           method: "POST",
           data: payload,
         });
@@ -109,6 +110,7 @@ function UnitAsset() {
         throw error;
       }
     })();
+
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
@@ -589,7 +591,28 @@ function UnitAsset() {
             Edit
           </Link>{" "}
         </Button>
-        <Button className="mx-3 mt02">Delete</Button>
+        <Button
+          className="mx-3 mt02"
+          onClick={async () => {
+            console.log("delete Asset");
+            try {
+              let response = await axios({
+                url: `${API}/asset/${Emp.getId()}/delete`,
+                method: "POST",
+                data: { id: selectedprod._id },
+              });
+              console.log(response.data);
+              let temp = data.filter((x) => x._id != selectedprod._id);
+              setData(temp);
+
+              // setData(response.data);
+            } catch (error) {
+              throw error;
+            }
+          }}
+        >
+          Delete
+        </Button>
       </div>
     </>
   );

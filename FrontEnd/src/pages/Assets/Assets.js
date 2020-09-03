@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 
+import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
 import {
   ChatIcon,
@@ -94,9 +95,11 @@ function Assets() {
           searchquery: searchquery,
         },
       };
+      console.log(`${API}/asset/${Emp.getId()}/getall`);
+
       try {
         let response = await axios({
-          url: `${API}/asset/getall`,
+          url: `${API}/asset/${Emp.getId()}/getall`,
           method: "POST",
           data: payload,
         });
