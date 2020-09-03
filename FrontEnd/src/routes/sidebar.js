@@ -6,14 +6,12 @@
  * `routes/index.js`
  */
 
-const role = localStorage.getItem("type");
-console.log(role);
-const routes = [
-  {
-    path: "/app/dashboard", // the url
-    icon: "HomeIcon", // the component being exported from icons/index.js
-    name: "Dashboard", // name that appear in Sidebar
-  },
+export const aroutes = [
+  // {
+  //   path: "/app/dashboard", // the url
+  //   icon: "HomeIcon", // the component being exported from icons/index.js
+  //   name: "Dashboard", // name that appear in Sidebar
+  // },
   // ---------------Assets---------------------------------------------
 
   {
@@ -55,22 +53,7 @@ const routes = [
       },
     ],
   },
-  //  Customer Views
-  {
-    icon: "HomeIcon",
-    name: "My Assets",
-    routes: [
-      // submenu
-      {
-        path: "/app/myassets/accounts",
-        name: "Accounts",
-      },
-      {
-        path: "/app/myassets/accounts",
-        name: "Units",
-      },
-    ],
-  },
+
   {
     path: "/app/forms",
     icon: "FormsIcon",
@@ -129,5 +112,23 @@ const routes = [
     ],
   },
 ];
+export const croutes = [
+  //  Customer Views
+  {
+    icon: "HomeIcon",
+    name: "My Assets",
+    routes: [
+      // submenu
+      {
+        path: "/app/myassets/accounts",
+        name: "Accounts",
+      },
+      {
+        path: "/app/myassets/accounts",
+        name: "Units",
+      },
+    ],
+  },
+];
 
-export default routes;
+// export { aroutes, croutes };

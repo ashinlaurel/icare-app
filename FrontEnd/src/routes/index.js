@@ -34,7 +34,7 @@ const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
  * If you're looking for the links rendered in the SidebarContent, go to
  * `routes/sidebar.js`
  */
-const routes = [
+export const aroutes = [
   {
     path: "/dashboard", // the url
     component: Dashboard, // view rendered
@@ -125,4 +125,30 @@ const routes = [
   },
 ];
 
-export default routes;
+export const croutes = [
+  // ----------------------My Asset Views ----------------------
+  {
+    path: "/myassets/accounts",
+    component: ViewAccounts,
+  },
+  {
+    path: "/myassets/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/unit/update/:id",
+    component: UpdateAsset,
+  },
+  {
+    path: "/customer/accounts/:id",
+    component: AccountsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid/:unitid",
+    component: UnitsAsset,
+  },
+];

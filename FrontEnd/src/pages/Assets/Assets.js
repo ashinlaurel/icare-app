@@ -601,7 +601,7 @@ function Assets() {
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
       <div class="rounded-lg overflow-auto  w-full bottom-0 h-64  border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
-        Asset
+        Asset Details
         <hr />
         <br />
         <div className="flex flex-col items-start  space-y-5">
@@ -635,7 +635,12 @@ function Assets() {
               {/* {NetAmount} */}
             </div>
             <div className="flex-col flex items-start justify-center ">
-              {/* <div>Keyboard:{selectedprod.product.keyboard[0].kbdname}</div>{" "} */}
+              <div>
+                Keyboard:
+                {selectedprod.product
+                  ? selectedprod.product.keyboard[0].kbdname
+                  : ""}
+              </div>{" "}
               <div>Keyboard:</div>{" "}
               <div>KBD SNo: {selectedprod.billingfrom}</div>{" "}
               <div>Mouse : {selectedprod.billingto}</div>
@@ -647,19 +652,22 @@ function Assets() {
           </div>
 
           {/* ----------------------Row - 2------------------------- */}
+
+          {/* ---------------------------------Cpu--------------------------------- */}
           <div className="flex-row flex items-start space-x-40">
             <div className="flex-col flex items-start justify-center">
-              <div>Business: {selectedprod.business}</div>
-              <div>Purchase Number: {selectedprod.ponumber}</div>
-              <div>
-                {" "}
-                Contract From:{" "}
-                {moment(selectedprod.contractfrom).format("DD-MM-YYYY")}
-              </div>
-              <div>
-                Contract To:{" "}
-                {moment(selectedprod.contractto).format("DD-MM-YYYY")}
-              </div>{" "}
+              {selectedprod.product
+                ? selectedprod.product.cpu.map((cpu, i) => (
+                    <>
+                      <div>
+                        CPU {i + 1} : {cpu.cpuname}
+                      </div>
+                      <div>
+                        CPU {i + 1} SNo : {cpu.cpusno}
+                      </div>
+                    </>
+                  ))
+                : ""}
             </div>
             <div className="flex-col flex items-start justify-center ">
               <div>
@@ -696,18 +704,6 @@ function Assets() {
               {/* (user.product.keyboard[0].kbdname); */}
             </div>
           </div>
-          {/* <br />
-        Product: {product}
-        <br />
-        Brind: {brand} model: {model} serialno: {serialno} os: {os}
-        <br />
-        {cpu.map((p, i) => {
-          return (
-            <>
-              CPU:{p.cpuname}, {p.cpusno}
-            </>
-          );
-        })} */}
         </div>
       </div>
     </>
