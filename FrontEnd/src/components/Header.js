@@ -18,8 +18,14 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
+import Emp from "../helpers/auth/EmpProfile";
+import Cust from "../helpers/auth/CustProfile";
 
 function Header() {
+  const history = useHistory();
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
@@ -89,7 +95,7 @@ function Header() {
               ></span>
             </button>
 
-            <Dropdown
+            {/* <Dropdown
               align="right"
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
@@ -105,7 +111,7 @@ function Header() {
               <DropdownItem onClick={() => alert("Alerts!")}>
                 <span>Alerts</span>
               </DropdownItem>
-            </Dropdown>
+            </Dropdown> */}
           </li>
           {/* <!-- Profile menu --> */}
           <li className="relative">
@@ -127,7 +133,15 @@ function Header() {
               isOpen={isProfileMenuOpen}
               onClose={() => setIsProfileMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="#">
+              <DropdownItem
+                tag="a"
+                href="#"
+                onClick={() =>
+                  localStorage.getItem("type") == "0"
+                    ? history.push("/app/empprofile")
+                    : history.push("/app/custprofile")
+                }
+              >
                 <OutlinePersonIcon
                   className="w-4 h-4 mr-3"
                   aria-hidden="true"
@@ -138,13 +152,21 @@ function Header() {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
-                <OutlineLogoutIcon
-                  className="w-4 h-4 mr-3"
-                  aria-hidden="true"
-                />
-                <span>Log out</span>
-              </DropdownItem>
+              <a href="/app" className="">
+                <DropdownItem
+                  onClick={() =>
+                    localStorage.getItem("type") == "0"
+                      ? Emp.signout()
+                      : Cust.signout()
+                  }
+                >
+                  <OutlineLogoutIcon
+                    className="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                  />
+                  <span>Sign out</span>
+                </DropdownItem>
+              </a>
             </Dropdown>
           </li>
         </ul>

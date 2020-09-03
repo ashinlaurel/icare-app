@@ -24,6 +24,10 @@ const UnitsAsset = lazy(() => import("../pages/Customers/UnitAsset"));
 //--------------------------- My Asset Imports------------------
 const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 
+//--------------------------- My Asset Imports------------------
+const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
+const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
+
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -91,6 +95,18 @@ const routes = [
     path: "/unit/update/:id",
     component: UpdateAsset,
   },
+  // ----------------------My Profeile Views ----------------------/
+  {
+    path: "/Empprofile",
+    component: EmpProfile,
+  },
+  {
+    path: "/Custprofile",
+    component: CustProfile,
+  },
+
+  // --------------------------------------------/
+
   {
     path: "/forms",
     component: Forms,

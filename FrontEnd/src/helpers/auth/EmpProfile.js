@@ -68,6 +68,20 @@ var EmpProfile = (function () {
     // return getToken();
   };
 
+  var signout = () => {
+    // axios.defaults.headers.common
+    setName("");
+    localStorage.setItem("name", "");
+    setEmail("");
+    localStorage.setItem("email", "");
+    setToken("");
+    localStorage.setItem("token", "");
+    setId("");
+    localStorage.setItem("id", "");
+    setRole("9999");
+    // localStorage.setItem("name","");
+  };
+
   return {
     getName,
     setName,
@@ -80,6 +94,7 @@ var EmpProfile = (function () {
     getId,
     getRole,
     setRole,
+    signout,
   };
 })();
 

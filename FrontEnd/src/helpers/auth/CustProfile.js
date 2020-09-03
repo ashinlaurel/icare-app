@@ -66,6 +66,19 @@ var CustProfile = (function () {
       });
     // return getToken();
   };
+  var signout = () => {
+    // axios.defaults.headers.common
+    setName("");
+    localStorage.setItem("name", "");
+    setUsername("");
+    localStorage.setItem("username", "");
+    setToken("");
+    localStorage.setItem("token", "");
+    setId("");
+    localStorage.setItem("id", "");
+    setRole("9999");
+    // localStorage.setItem("name","");
+  };
 
   return {
     getName,
@@ -79,6 +92,7 @@ var CustProfile = (function () {
     getId,
     getRole,
     setRole,
+    signout,
   };
 })();
 

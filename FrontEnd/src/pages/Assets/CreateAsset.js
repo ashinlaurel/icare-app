@@ -22,6 +22,7 @@ import Axios from "axios";
 import { data } from "autoprefixer";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 // Migration
 import { handleMigration } from "../../migration/migration";
@@ -29,6 +30,8 @@ import { handleMigration } from "../../migration/migration";
 function CreateAsset() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
+  //ReviewModal
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -371,7 +374,12 @@ function CreateAsset() {
     return (
       <>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setIsReviewModalOpen(true);
+            }}
+          >
             <Label className="font-bold">
               <span>Essential Details</span>
             </Label>
@@ -1964,6 +1972,7 @@ function CreateAsset() {
         <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Console");
             }}
@@ -1972,6 +1981,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("DMP");
             }}
@@ -1980,6 +1990,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Inkjet");
             }}
@@ -1988,6 +1999,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("KVM");
             }}
@@ -1996,6 +2008,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Laptop");
             }}
@@ -2004,6 +2017,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Laser");
             }}
@@ -2012,6 +2026,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("LMP");
             }}
@@ -2020,6 +2035,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Module");
             }}
@@ -2028,6 +2044,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Router");
             }}
@@ -2036,6 +2053,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Sanner");
             }}
@@ -2044,6 +2062,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Server");
             }}
@@ -2052,6 +2071,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Desktop");
             }}
@@ -2060,6 +2080,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Storage");
             }}
@@ -2068,6 +2089,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Switch");
             }}
@@ -2076,6 +2098,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("UPS");
             }}
@@ -2084,6 +2107,7 @@ function CreateAsset() {
           </DropdownItem>
           <DropdownItem
             onClick={() => {
+              clearState();
               setIsOpen(false);
               setProduct("Others");
             }}
@@ -2097,6 +2121,845 @@ function CreateAsset() {
 
   const test = () => {
     console.log(test);
+  };
+
+  const Bottombar = () => {
+    return (
+      <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
+        Asset Summary Asset Information:
+        <br />
+        Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
+        ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
+        {BillingTo} AMCRate:
+        {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
+        <br />
+        Product: {product}
+        <br />
+        Brind: {brand} model: {model} serialno: {serialno} os: {os}
+        <br />
+        {cpu.map((p, i) => {
+          return (
+            <>
+              CPU:{p.cpuname}, {p.cpusno}
+            </>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const ReviewSubmit = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+          className="w-7/12 bg-gray-800 p-10 rounded-lg overflow-y-scroll"
+        >
+          <ModalHeader>Create Asset</ModalHeader>
+          <ModalBody>
+            <SectionTitle>
+              Customer: {customer.customerName},{account.accountName},
+              {unit.unitName}{" "}
+            </SectionTitle>
+            <SectionTitle>AssetInfo</SectionTitle>
+            <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8 flex-wrap text-lg text-white">
+              <div className="mx-2 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                Business Type: {Business}{" "}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                POnumber:{POnumber}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                POdate:{POdate}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                ContractFrom:{ContractFrom}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                ContractTo:{ContractFrom}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                BillingFrom:{BillingFrom}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                BillingTo:{BillingTo}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                AMCRate:{AMCRate}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                GST:{GST}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                GSTAMOUNT:{GSTAMOUNT}
+              </div>
+              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
+                {" "}
+                NetAmount:{NetAmount}
+              </div>
+              <SectionTitle>AssetInfo</SectionTitle>
+              {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
+              <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                <Label className="my-3 w-full">
+                  <span>Brand :{brand}</span>
+                </Label>
+                <Label className="my-3 w-full">
+                  <span>Model:{model}</span>
+                </Label>
+                <Label className="my-3 w-full">
+                  <span>Serial Number: {serialno}</span>
+                </Label>
+              </div>
+              {product == "Laptop" ||
+              product == "Server" ||
+              product == "Desktop" ? (
+                <>
+                  <Label className="font-bold">
+                    <span>Operating System :{os}</span>
+                  </Label>
+                </>
+              ) : null}
+              <br />
+              {/* -------------------CPU and RAM-------------------------- */}
+              <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+                {/* ----------------CPU------------------------------- */}
+                <div className="w-full">
+                  {product == "Laptop" ||
+                  product == "Server" ||
+                  product == "Desktop" ? (
+                    <>
+                      <div className="flex flex-row items-center">
+                        <Label className="font-bold">
+                          <span>CPU</span>
+                        </Label>
+                      </div>
+                      <hr className="mb-2 mt-1" />
+                      {cpu.map((item, i) => {
+                        return (
+                          <div key={i}>
+                            <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                              <Label className="w-full my-1">
+                                <span>
+                                  CPU {i + 1}: {item.cpuname}
+                                </span>
+                              </Label>
+                              <Label className="w-full my-1">
+                                <span>
+                                  CPU {i + 1}: Serial Number :{item.cpusno}
+                                </span>
+                              </Label>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : null}
+                </div>
+              </div>
+              {/* ----------------CPU------------------------------- */}
+              {/* ----------------ram------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>ram</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {ram.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                ram {i + 1}: {item.ramname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                ram {i + 1}: Serial Number :{item.ramsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+            </div>
+            {/* ----------------ram------------------------------- */}
+
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------fan------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Storage" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>fan</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {fan.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                fan {i + 1}: {item.fanname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                fan {i + 1}: Serial Number :{item.fansno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------fan------------------------------- */}
+              {/* ----------------motherboard------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>motherboard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {motherboard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                motherboard {i + 1}: {item.motherboardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                motherboard {i + 1}: Serial Number :
+                                {item.motherboardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------motherboard------------------------------- */}
+            </div>
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------hdd------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Storage" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>hdd</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {hdd.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                hdd {i + 1}: {item.hddname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                hdd {i + 1}: Serial Number :{item.hddsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------hdd------------------------------- */}
+
+              {/* ----------------smps------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Storage" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>smps</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {smps.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                smps {i + 1}: {item.smpsname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                smps {i + 1}: Serial Number :{item.smpssno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+            </div>
+
+            {/* ----------------smps------------------------------- */}
+
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------kbd------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Router" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>kbd</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {kbd.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                kbd {i + 1}: {item.kbdname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                kbd {i + 1}: Serial Number :{item.kbdsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------kbd------------------------------- */}
+
+              {/* ----------------mouse------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Storage" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>mouse</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {mouse.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                mouse {i + 1}: {item.mousename}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                mouse {i + 1}: Serial Number :{item.mousesno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------mouse------------------------------- */}
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------monitor------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ||
+                product == "Router" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>monitor</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {monitor.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                monitor {i + 1}: {item.monitorname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                monitor {i + 1}: Serial Number :
+                                {item.monitorsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------monitor------------------------------- */}
+
+              {/* ----------------gcard------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>gcard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {gcard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                gcard {i + 1}: {item.gcardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                gcard {i + 1}: Serial Number :{item.gcardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------gcard------------------------------- */}
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------enetcard------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>enetcard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {enetcard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                enetcard {i + 1}: {item.enetcardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                enetcard {i + 1}: Serial Number :
+                                {item.enetcardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------enetcard------------------------------- */}
+
+              {/* ----------------serialcard------------------------------- */}
+              <div className="w-full">
+                {product == "Server" || product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>serialcard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {serialcard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                serialcard {i + 1}: {item.serialcardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                serialcard {i + 1}: Serial Number :
+                                {item.serialcardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------serialcard------------------------------- */}
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------parallelcard------------------------------- */}
+              <div className="w-full">
+                {product == "Server" || product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>parallelcard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {parallelcard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                parallelcard {i + 1}: {item.parallelcardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                parallelcard {i + 1}: Serial Number :
+                                {item.parallelcardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------parallelcard------------------------------- */}
+
+              {/* ----------------hbacard------------------------------- */}
+              <div className="w-full">
+                {product == "Server" || product == "Storage" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>hbacard</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {hbacard.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                hbacard {i + 1}: {item.hbacardname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                hbacard {i + 1}: Serial Number :
+                                {item.hbacardsno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------hbacard------------------------------- */}
+
+              {/* ----------------raidcontroller------------------------------- */}
+              <div className="w-full">
+                {product == "Server" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>raidcontroller</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {raidcontroller.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                raidcontroller {i + 1}:{" "}
+                                {item.raidcontrollername}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                raidcontroller {i + 1}: Serial Number :
+                                {item.raidcontrollersno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------raidcontroller------------------------------- */}
+
+              {/* ----------------tapecontroller------------------------------- */}
+              <div className="w-full">
+                {product == "Server" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>tapecontroller</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {tapecontroller.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                tapecontroller {i + 1}:{" "}
+                                {item.tapecontrollername}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                tapecontroller {i + 1}: Serial Number :
+                                {item.tapecontrollersno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------tapecontroller------------------------------- */}
+
+              {/* ----------------opticaldrive------------------------------- */}
+              <div className="w-full">
+                {product == "Server" ||
+                product == "Desktop" ||
+                product == "Laptop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>opticaldrive</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {opticaldrive.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                opticaldrive {i + 1}: {item.opticaldrivename}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                opticaldrive {i + 1}: Serial Number :
+                                {item.opticaldrivesno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------opticaldrive------------------------------- */}
+
+              {/* ----------------others------------------------------- */}
+              <div className="w-full">
+                {true ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>others</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {others.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="w-full my-1">
+                              <span>
+                                others {i + 1}: {item.othersname}
+                              </span>
+                            </Label>
+                            <Label className="w-full my-1">
+                              <span>
+                                others {i + 1}: Serial Number :{item.otherssno}
+                              </span>
+                            </Label>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+
+              {/* ----------------others------------------------------- */}
+            </div>
+            {/* //////////////////////////////////////////////////////////////////////////// */}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              layout="outline"
+              onClick={() => setIsReviewModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                handleSubmit();
+                clearState();
+                setIsReviewModalOpen(false);
+              }}
+            >
+              Create Asset
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const clearState = () => {
+    setBusiness("");
+    setPOnumber("");
+    setPOdate("");
+    setContractFrom("");
+    setContractTo("");
+    setBillingFrom("");
+    setBillingTo("");
+    setAMCRate("");
+    setGST("");
+    setGSTAMOUNT("");
+    setNetAmount("");
+
+    //customer
+    setUnit({ _id: "", unitName: "" });
+    setCustomer({ _id: "", customerName: "" });
+    setAccount({ _id: "", accountName: "" });
+    setBrand("");
+    setModel("");
+    setSerialNo("");
+    setOs("");
+    setCpu([{ cpuname: "", cpusno: "" }]);
+    setram([{ ramname: "", ramsno: "" }]);
+    sethdd([{ hddname: "", hddsno: "" }]);
+    setsmps([{ smpsname: "", smpssno: "" }]);
+    setfan([{ fanname: "", fansno: "" }]);
+    setmotherboard([{ motherboardname: "", motherboardsno: "" }]);
+    setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
+    setkbd([{ kbdname: "", kbdsno: "" }]);
+    setmouse([{ mousename: "", mousesno: "" }]);
+    setmonitor([{ monitorname: "", monitorsno: "" }]);
+    setgcard([{ gcardname: "", gcardsno: "" }]);
+    setenetcard([{ enetcardname: "", enetcardsno: "" }]);
+    setserialcard([{ serialcardname: "", serialcardsno: "" }]);
+    setparallelcard([{ parallelcardname: "", parallelcardsno: "" }]);
+    sethbacard([{ hbacardname: "", hbacardsno: "" }]);
+    setraidcontroller([{ raidcontrollername: "", raidcontrollersno: "" }]);
+    settapecontroller([{ tapecontrollername: "", tapecontrollersno: "" }]);
+    setothers([{ othersname: "", otherssno: "" }]);
+    //asset
+
+    //
+    setProduct("null");
   };
 
   return (
@@ -2138,26 +3001,8 @@ function CreateAsset() {
       {/* {productPicker()} */}
 
       {/* --------------------------Bottom Bar-------------------------- */}
-      <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
-        Asset Summary Asset Information:
-        <br />
-        Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
-        ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
-        {BillingTo} AMCRate:
-        {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
-        <br />
-        Product: {product}
-        <br />
-        Brind: {brand} model: {model} serialno: {serialno} os: {os}
-        <br />
-        {cpu.map((p, i) => {
-          return (
-            <>
-              CPU:{p.cpuname}, {p.cpusno}
-            </>
-          );
-        })}
-      </div>
+      {Bottombar()}
+      {ReviewSubmit()}
     </>
   );
 }
