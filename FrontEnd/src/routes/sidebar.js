@@ -56,6 +56,7 @@ const routes = [
     ],
   },
   //  Customer Views
+
   {
     icon: "HomeIcon",
     name: "My Assets",
@@ -71,6 +72,7 @@ const routes = [
       },
     ],
   },
+
   {
     path: "/app/forms",
     icon: "FormsIcon",

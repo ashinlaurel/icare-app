@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
+import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
 import {
@@ -148,7 +149,7 @@ function CreateAsset() {
     console.log(API);
     try {
       await axios({
-        url: `${API}/asset/create`,
+        url: `${API}/asset/${Emp.getId()}/create`,
         method: "POST",
         data: payload,
       });

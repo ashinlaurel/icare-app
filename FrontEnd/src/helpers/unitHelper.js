@@ -1,8 +1,9 @@
 import Axios from "axios";
 import { API } from "../backendapi";
+import Emp from "../helpers/auth/EmpProfile";
 
 export const unitCreate = (newunit) => {
-  return Axios.post(`${API}/unit/create`, newunit)
+  return Axios.post(`${API}/unit/${Emp.getId()}/create`, newunit)
     .then((unit) => {
       console.log("h", unit.data);
       return unit.data;

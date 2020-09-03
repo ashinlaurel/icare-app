@@ -5,10 +5,17 @@ const {
   updateUnit,
   deleteUnit,
 } = require("../../controllers/unit/unit");
+const {
+  getEmpById,
+  isSignedIn,
+  isAuthenticated,
+} = require("../../controllers/employee/EmployeeAuth");
 
 const router = express.Router();
 
-router.post("/create", unitCreate);
+router.param("id", getEmpById);
+
+router.post("/:id/create", isSignedIn, isAuthenticated, unitCreate);
 router.post("/update", updateUnit);
 router.post("/delete", deleteUnit);
 router.get("/units", getAllUnits);
