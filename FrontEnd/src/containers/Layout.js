@@ -1,6 +1,6 @@
-import React, { useContext, Suspense, useEffect, lazy } from "react";
+import React, { useState, useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import routes from "../routes";
+import { aroutes, croutes } from "../routes/index";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -14,6 +14,13 @@ const Page404 = lazy(() => import("../pages/404"));
 function Layout() {
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   let location = useLocation();
+  const [role, setRole] = useState(1);
+
+  useEffect(() => {
+    const trole = localStorage.getItem("type");
+    // console.log("Layout.js" + role);
+    setRole(trole);
+  }, []);
 
   useEffect(() => {
     closeSidebar();
@@ -32,16 +39,27 @@ function Layout() {
         <Main>
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
-              {routes.map((route, i) => {
-                return route.component ? (
-                  <Route
-                    key={i}
-                    exact={true}
-                    path={`/app${route.path}`}
-                    render={(props) => <route.component {...props} />}
-                  />
-                ) : null;
-              })}
+              {role == 0
+                ? aroutes.map((route, i) => {
+                    return route.component ? (
+                      <Route
+                        key={i}
+                        exact={true}
+                        path={`/app${route.path}`}
+                        render={(props) => <route.component {...props} />}
+                      />
+                    ) : null;
+                  })
+                : croutes.map((route, i) => {
+                    return route.component ? (
+                      <Route
+                        key={i}
+                        exact={true}
+                        path={`/app${route.path}`}
+                        render={(props) => <route.component {...props} />}
+                      />
+                    ) : null;
+                  })}
               <Redirect exact from="/app" to="/app/dashboard" />
               <Route component={Page404} />
             </Switch>
