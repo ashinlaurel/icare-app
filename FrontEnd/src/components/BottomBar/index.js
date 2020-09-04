@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import AssetModule from "./AssetModule";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
   const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
+  const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
+
   return (
     <div
       class={
@@ -13,18 +16,10 @@ const BottomBar = () => {
       }
     >
       {/* ---------------------Heading------------ */}
-      Bottom Bar
+      Asset Details
       <hr />
       <br />
-      <div className="flex flex-col items-start  space-y-5">
-        {/* --------------Row 1 -------------- */}
-        <div className="flex-row flex items-start space-x-40"></div>
-
-        {/* ----------------------Row - 2------------------------- */}
-
-        {/* ---------------------------------Cpu--------------------------------- */}
-        <div className="flex-row flex items-start space-x-40"></div>
-      </div>
+      <AssetModule selectedprod={assetdetails} />
     </div>
   );
 };
