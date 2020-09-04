@@ -95,7 +95,7 @@ exports.getAllAssets = (req, res) => {
   }
   //--------------------search logic----------------------------
   if (searchtype == "kbdsno") {
-    // filteroptions.keyboard = {kbsno:};
+    filteroptions.product.model = searchquery;
     // product.keyboard: { $elemMatch: { kbdsno: "987654" } }
     console.log(searchquery);
   }

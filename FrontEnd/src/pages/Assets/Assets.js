@@ -114,7 +114,7 @@ function Assets() {
           searchquery: searchquery,
         },
       };
-      console.log(`${API}/asset/${Emp.getId()}/getall`);
+      // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
         let response = await axios({
@@ -220,7 +220,7 @@ function Assets() {
               </div>
             </div>
             {/* ---------------------------Product Drop Down-------------------------------------- */}
-            <div className="relative ">
+            <div className="relative z-40 ">
               <button
                 onClick={() => {
                   setIsOpen(!isOpen);
