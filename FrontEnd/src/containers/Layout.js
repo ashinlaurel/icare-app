@@ -8,6 +8,7 @@ import Main from "../containers/Main";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { SidebarContext } from "../context/SidebarContext";
 import AssetFloat from "../components/FloatDetails/AssetFloat";
+import BottomBar from "../components/BottomBar";
 
 const Page404 = lazy(() => import("../pages/404"));
 
@@ -66,6 +67,7 @@ function Layout() {
           </Suspense>
         </Main>
       </div>
+      <BottomBar />
     </div>
   );
 }

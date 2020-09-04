@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
 
@@ -34,8 +34,10 @@ import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
+import { BottomBarContext } from "../../context/BottomBarContext";
 
 function Assets() {
+  const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -73,6 +75,15 @@ function Assets() {
 
   // on page change, load new sliced data
   // here you would make another server request for new data
+
+  // -------Enabling Bottom Bar----
+  useEffect(() => {
+    setBBarOpen(1);
+    return () => {
+      setBBarOpen(0);
+    };
+  }, []);
+  // -------------------------------
 
   useEffect(() => {
     // Using an IIFE
