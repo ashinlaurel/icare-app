@@ -160,7 +160,7 @@ function CreateUnit() {
             className="mt-1"
             type="text"
             value={values.contactNo}
-            onChange={handleChange("contactNi")}
+            onChange={handleChange("contactNo")}
           />
         </Label>{" "}
         <Label>

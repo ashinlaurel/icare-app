@@ -95,8 +95,8 @@ function CreateAsset() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //functions
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     let payload = {
       asset: {
         business: Business,
