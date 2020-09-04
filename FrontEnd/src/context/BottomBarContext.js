@@ -10,7 +10,7 @@ export const BottomBarProvider = ({ children }) => {
 
   return (
     <BottomBarContext.Provider
-      value={([bbaropen, setBBarOpen], [assetdetails, setAssetDetails])}
+      value={{ bbaropen, setBBarOpen, assetdetails, setAssetDetails }}
     >
       {children}
     </BottomBarContext.Provider>

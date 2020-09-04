@@ -4,15 +4,15 @@ import AssetModule from "./AssetModule";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
-  const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
-  const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
-
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
+    BottomBarContext
+  );
   return (
     <div className="flex items-center justify-center ">
       <div
         class={
           bbaropen
-            ? `rounded-lg ml-64 w-10/12 overflow-y-scroll  bottom-0 h-64  border border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
+            ? `rounded-lg ml-64 w-10/12 overflow-y-scroll bottom-0 h-64  border border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
             : `hidden`
         }
       >

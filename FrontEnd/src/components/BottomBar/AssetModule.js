@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 const AssetModule = ({ selectedprod }) => {
   return (
-    <div className="flex flex-row flex-wrap   ">
-      <div className="flex-col flex items-start justify-center mx-5 my-5">
+    <div className="flex flex-row flex-wrap  ">
+      <div className="flex-col flex items-start justify-center mx-5 my-5  ">
         <div>Business: {selectedprod.business}</div>
         <div>Purchase Number: {selectedprod.ponumber}</div>
         <div>

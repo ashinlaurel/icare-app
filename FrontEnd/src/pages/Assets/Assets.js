@@ -38,8 +38,12 @@ import { BottomBarContext } from "../../context/BottomBarContext";
 
 function Assets() {
   // Bottom bar stuff
-  const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
-  const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
+
+  // const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
+  // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
+    BottomBarContext
+  );
 
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
