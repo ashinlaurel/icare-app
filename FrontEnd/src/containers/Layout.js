@@ -28,44 +28,46 @@ function Layout() {
   }, [location]);
 
   return (
-    <div
-      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
-        isSidebarOpen && "overflow-hidden"
-      }`}
-    >
-      <Sidebar />
+    <div className="bg-gray-50 dark:bg-gray-900">
+      <div
+        className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
+          isSidebarOpen && "overflow-hidden"
+        }`}
+      >
+        <Sidebar />
 
-      <div className="flex flex-col flex-1 w-full">
-        <Header />
-        <Main>
-          <Suspense fallback={<ThemedSuspense />}>
-            <Switch>
-              {role == 0
-                ? aroutes.map((route, i) => {
-                    return route.component ? (
-                      <Route
-                        key={i}
-                        exact={true}
-                        path={`/app${route.path}`}
-                        render={(props) => <route.component {...props} />}
-                      />
-                    ) : null;
-                  })
-                : croutes.map((route, i) => {
-                    return route.component ? (
-                      <Route
-                        key={i}
-                        exact={true}
-                        path={`/app${route.path}`}
-                        render={(props) => <route.component {...props} />}
-                      />
-                    ) : null;
-                  })}
-              <Redirect exact from="/app" to="/app/dashboard" />
-              <Route component={Page404} />
-            </Switch>
-          </Suspense>
-        </Main>
+        <div className="flex flex-col flex-1 w-full">
+          <Header />
+          <Main>
+            <Suspense fallback={<ThemedSuspense />}>
+              <Switch>
+                {role == 0
+                  ? aroutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })
+                  : croutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })}
+                <Redirect exact from="/app" to="/app/dashboard" />
+                <Route component={Page404} />
+              </Switch>
+            </Suspense>
+          </Main>
+        </div>
       </div>
       <BottomBar />
     </div>

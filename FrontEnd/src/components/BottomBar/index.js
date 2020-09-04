@@ -8,18 +8,20 @@ const BottomBar = () => {
   const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
 
   return (
-    <div
-      class={
-        bbaropen
-          ? `rounded-lg overflow-auto ml-64 w-screen bottom-0 h-64  border border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
-          : `hidden`
-      }
-    >
-      {/* ---------------------Heading------------ */}
-      Asset Details
-      <hr />
-      <br />
-      <AssetModule selectedprod={assetdetails} />
+    <div className="flex items-center justify-center ">
+      <div
+        class={
+          bbaropen
+            ? `rounded-lg ml-64 w-10/12 overflow-y-scroll  bottom-0 h-64  border border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
+            : `hidden`
+        }
+      >
+        {/* ---------------------Heading------------ */}
+        Asset Details
+        <hr />
+        <br />
+        <AssetModule selectedprod={assetdetails} />
+      </div>
     </div>
   );
 };
