@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
@@ -26,8 +26,17 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 // Migration
 import { handleMigration } from "../../migration/migration";
+import { BottomBarContext } from "../../context/BottomBarContext";
 
 function CreateAsset() {
+  /////BOTOM BAT STUFFF
+  const {
+    bbaropen,
+    setBBarOpen,
+    setCreateAssetDetails,
+    createAssetDetails,
+  } = useContext(BottomBarContext);
+
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
   //ReviewModal
@@ -89,10 +98,104 @@ function CreateAsset() {
   const [NetAmount, setNetAmount] = useState("");
 
   //
-  const [product, setProduct] = useState("null");
+  const [product, setProduct] = useState("Server");
 
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // -------Enabling Bottom Bar----
+  useEffect(() => {
+    setBBarOpen(1);
+    return () => {
+      setBBarOpen(0);
+      setCreateAssetDetails({});
+    };
+  }, []);
+  // -------------------------------
+
+  // Bottom bar edit
+
+  useEffect(() => {
+    setCreateAssetDetails({
+      brand,
+      model,
+      serialno,
+      os,
+      cpu,
+      ram,
+      hdd,
+      smps,
+      fan,
+      motherboard,
+      opticaldrive,
+      kbd,
+      mouse,
+      monitor,
+      gcard,
+      enetcard,
+      serialcard,
+      parallelcard,
+      hbacard,
+      raidcontroller,
+      tapecontroller,
+      others,
+      Business,
+      POnumber,
+      POdate,
+      ContractFrom,
+      ContractTo,
+      BillingFrom,
+      BillingTo,
+      AMCRate,
+      GST,
+      GSTAMOUNT,
+      NetAmount,
+      unit,
+      customer,
+      account,
+      product,
+    });
+  }, [
+    brand,
+    model,
+    serialno,
+    os,
+    cpu,
+    ram,
+    hdd,
+    smps,
+    fan,
+    motherboard,
+    opticaldrive,
+    kbd,
+    mouse,
+    monitor,
+    gcard,
+    enetcard,
+    serialcard,
+    parallelcard,
+    hbacard,
+    raidcontroller,
+    tapecontroller,
+    others,
+    Business,
+    POnumber,
+    POdate,
+    ContractFrom,
+    ContractTo,
+    BillingFrom,
+    BillingTo,
+    AMCRate,
+    GST,
+    GSTAMOUNT,
+    NetAmount,
+    unit,
+    customer,
+    account,
+    product,
+  ]);
+
+  // -------------------------------
 
   //functions
   const handleSubmit = async () => {
@@ -2123,30 +2226,30 @@ function CreateAsset() {
     console.log(test);
   };
 
-  const Bottombar = () => {
-    return (
-      <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
-        Asset Summary Asset Information:
-        <br />
-        Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
-        ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
-        {BillingTo} AMCRate:
-        {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
-        <br />
-        Product: {product}
-        <br />
-        Brind: {brand} model: {model} serialno: {serialno} os: {os}
-        <br />
-        {cpu.map((p, i) => {
-          return (
-            <>
-              CPU:{p.cpuname}, {p.cpusno}
-            </>
-          );
-        })}
-      </div>
-    );
-  };
+  // const Bottombar = () => {
+  //   return (
+  //     <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
+  //       Asset Summary Asset Information:
+  //       <br />
+  //       Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
+  //       ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
+  //       {BillingTo} AMCRate:
+  //       {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
+  //       <br />
+  //       Product: {product}
+  //       <br />
+  //       Brind: {brand} model: {model} serialno: {serialno} os: {os}
+  //       <br />
+  //       {cpu.map((p, i) => {
+  //         return (
+  //           <>
+  //             CPU:{p.cpuname}, {p.cpusno}
+  //           </>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // };
 
   const ReviewSubmit = () => {
     return (
@@ -2154,7 +2257,7 @@ function CreateAsset() {
         <Modal
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
-          className="w-7/12 bg-gray-800 p-10 rounded-lg overflow-y-scroll"
+          className="w-10/12 h-9/12 dark:bg-gray-800 p-10 bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
         >
           <ModalHeader>Create Asset</ModalHeader>
           <ModalBody>
@@ -2163,49 +2266,55 @@ function CreateAsset() {
               {unit.unitName}{" "}
             </SectionTitle>
             <SectionTitle>AssetInfo</SectionTitle>
-            <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8 flex-wrap text-lg text-white">
-              <div className="mx-2 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                Business Type: {Business}{" "}
+            <div className="flex flex-row flex-wrap items-center justify-start lg:space-x-8  ">
+              <div className="flex-col">
+                <div className="mx-5 my-1 px-1 py-1 ">
+                  Business Type: {Business}{" "}
+                </div>
+                <div className="mx-5 my-1 px-1 py-1 ">POnumber:{POnumber}</div>
+                <div className="mx-5 my-1 px-1 py-1 ">POdate:{POdate}</div>
               </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                POnumber:{POnumber}
+              <div className="flex-col">
+                <div className="mx-5 my-1 px-1 py-1 ">
+                  {" "}
+                  ContractFrom:{ContractFrom}
+                </div>
+                <div className="mx-5 my-1 px-1 py-1 ">
+                  {" "}
+                  ContractTo:{ContractFrom}
+                </div>
               </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                POdate:{POdate}
+
+              <div className="flex-col">
+                <div className="mx-5 my-1 px-1 py-1 ">
+                  {" "}
+                  BillingFrom:{BillingFrom}
+                </div>
+                <div className="mx-5 my-1 px-1 py-1 ">
+                  {" "}
+                  BillingTo:{BillingTo}
+                </div>
               </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                ContractFrom:{ContractFrom}
+
+              <div className="flex-col">
+                <div className="mx-1 my-1 px-1 py-1 "> GST:{GST}</div>
+                <div className="mx-1 my-1 px-1 py-1 ">
+                  {" "}
+                  GSTAMOUNT:{GSTAMOUNT}
+                </div>
               </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                ContractTo:{ContractFrom}
+
+              <div className="flex-col">
+                <div className="mx-1 my-1 px-1 py-1 "> AMCRate:{AMCRate}</div>
+                <div className="mx-1 my-1 px-1 py-1 ">
+                  {" "}
+                  NetAmount:{NetAmount}
+                </div>
               </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                BillingFrom:{BillingFrom}
-              </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                BillingTo:{BillingTo}
-              </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                AMCRate:{AMCRate}
-              </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                GST:{GST}
-              </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                GSTAMOUNT:{GSTAMOUNT}
-              </div>
-              <div className="mx-1 my-1 bg-cool-gray-600 px-1 py-1 rounded-lg">
-                {" "}
-                NetAmount:{NetAmount}
-              </div>
-              <SectionTitle>AssetInfo</SectionTitle>
+              <br />
+            </div>
+            <SectionTitle>Product Description</SectionTitle>
+            <div className="flex flex-row flex-wrap items-center justify-start lg:space-x-8  w-full">
               {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
               <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
                 <Label className="my-3 w-full">
@@ -2217,53 +2326,56 @@ function CreateAsset() {
                 <Label className="my-3 w-full">
                   <span>Serial Number: {serialno}</span>
                 </Label>
+
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <Label className="">
+                      <span>Operating System :{os}</span>
+                    </Label>
+                  </>
+                ) : null}
               </div>
-              {product == "Laptop" ||
-              product == "Server" ||
-              product == "Desktop" ? (
-                <>
-                  <Label className="font-bold">
-                    <span>Operating System :{os}</span>
-                  </Label>
-                </>
-              ) : null}
               <br />
-              {/* -------------------CPU and RAM-------------------------- */}
-              <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
-                {/* ----------------CPU------------------------------- */}
-                <div className="w-full">
-                  {product == "Laptop" ||
-                  product == "Server" ||
-                  product == "Desktop" ? (
-                    <>
-                      <div className="flex flex-row items-center">
-                        <Label className="font-bold">
-                          <span>CPU</span>
-                        </Label>
-                      </div>
-                      <hr className="mb-2 mt-1" />
-                      {cpu.map((item, i) => {
-                        return (
-                          <div key={i}>
-                            <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
-                              <Label className="w-full my-1">
-                                <span>
-                                  CPU {i + 1}: {item.cpuname}
-                                </span>
-                              </Label>
-                              <Label className="w-full my-1">
-                                <span>
-                                  CPU {i + 1}: Serial Number :{item.cpusno}
-                                </span>
-                              </Label>
-                            </div>
+            </div>
+            {/* <div className="flex flex-row flex-wrap items-center justify-start lg:space-x-8  "> */}
+            {/* -------------------CPU and RAM-------------------------- */}
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* ----------------CPU------------------------------- */}
+              <div className="w-full">
+                {product == "Laptop" ||
+                product == "Server" ||
+                product == "Desktop" ? (
+                  <>
+                    <div className="flex flex-row items-center">
+                      <Label className="font-bold">
+                        <span>CPU</span>
+                      </Label>
+                    </div>
+                    <hr className="mb-2 mt-1" />
+                    {cpu.map((item, i) => {
+                      return (
+                        <div key={i}>
+                          <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+                            <Label className="mb-2 my-1">
+                              <span>
+                                CPU {i + 1}: {item.cpuname}
+                              </span>
+                            </Label>
+                            <Label className="w-ful my-1">
+                              <span>
+                                CPU {i + 1}: S.No :{item.cpusno}
+                              </span>
+                            </Label>
                           </div>
-                        );
-                      })}
-                    </>
-                  ) : null}
-                </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
               </div>
+
               {/* ----------------CPU------------------------------- */}
               {/* ----------------ram------------------------------- */}
               <div className="w-full">
@@ -2288,7 +2400,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                ram {i + 1}: Serial Number :{item.ramsno}
+                                ram {i + 1}: S.No :{item.ramsno}
                               </span>
                             </Label>
                           </div>
@@ -2298,10 +2410,11 @@ function CreateAsset() {
                   </>
                 ) : null}
               </div>
-            </div>
-            {/* ----------------ram------------------------------- */}
+              {/* </div> */}
+              {/* ----------------ram------------------------------- */}
+              {/* </div> */}
 
-            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
               {/* ----------------fan------------------------------- */}
               <div className="w-full">
                 {product == "Laptop" ||
@@ -2326,7 +2439,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                fan {i + 1}: Serial Number :{item.fansno}
+                                fan {i + 1}: S.No :{item.fansno}
                               </span>
                             </Label>
                           </div>
@@ -2361,8 +2474,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                motherboard {i + 1}: Serial Number :
-                                {item.motherboardsno}
+                                motherboard {i + 1}: S.No :{item.motherboardsno}
                               </span>
                             </Label>
                           </div>
@@ -2400,7 +2512,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                hdd {i + 1}: Serial Number :{item.hddsno}
+                                hdd {i + 1}: S.No :{item.hddsno}
                               </span>
                             </Label>
                           </div>
@@ -2437,7 +2549,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                smps {i + 1}: Serial Number :{item.smpssno}
+                                smps {i + 1}: S.No :{item.smpssno}
                               </span>
                             </Label>
                           </div>
@@ -2447,11 +2559,11 @@ function CreateAsset() {
                   </>
                 ) : null}
               </div>
-            </div>
+              {/* </div> */}
 
-            {/* ----------------smps------------------------------- */}
+              {/* ----------------smps------------------------------- */}
 
-            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
               {/* ----------------kbd------------------------------- */}
               <div className="w-full">
                 {product == "Laptop" ||
@@ -2476,7 +2588,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                kbd {i + 1}: Serial Number :{item.kbdsno}
+                                kbd {i + 1}: S.No :{item.kbdsno}
                               </span>
                             </Label>
                           </div>
@@ -2513,7 +2625,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                mouse {i + 1}: Serial Number :{item.mousesno}
+                                mouse {i + 1}: S.No :{item.mousesno}
                               </span>
                             </Label>
                           </div>
@@ -2552,8 +2664,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                monitor {i + 1}: Serial Number :
-                                {item.monitorsno}
+                                monitor {i + 1}: S.No :{item.monitorsno}
                               </span>
                             </Label>
                           </div>
@@ -2589,7 +2700,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                gcard {i + 1}: Serial Number :{item.gcardsno}
+                                gcard {i + 1}: S.No :{item.gcardsno}
                               </span>
                             </Label>
                           </div>
@@ -2601,9 +2712,9 @@ function CreateAsset() {
               </div>
 
               {/* ----------------gcard------------------------------- */}
-            </div>
+              {/* </div> */}
 
-            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
+              {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
               {/* ----------------enetcard------------------------------- */}
               <div className="w-full">
                 {product == "Laptop" ||
@@ -2627,8 +2738,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                enetcard {i + 1}: Serial Number :
-                                {item.enetcardsno}
+                                enetcard {i + 1}: S.No :{item.enetcardsno}
                               </span>
                             </Label>
                           </div>
@@ -2662,8 +2772,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                serialcard {i + 1}: Serial Number :
-                                {item.serialcardsno}
+                                serialcard {i + 1}: S.No :{item.serialcardsno}
                               </span>
                             </Label>
                           </div>
@@ -2699,7 +2808,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                parallelcard {i + 1}: Serial Number :
+                                parallelcard {i + 1}: S.No :
                                 {item.parallelcardsno}
                               </span>
                             </Label>
@@ -2734,8 +2843,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                hbacard {i + 1}: Serial Number :
-                                {item.hbacardsno}
+                                hbacard {i + 1}: S.No :{item.hbacardsno}
                               </span>
                             </Label>
                           </div>
@@ -2770,7 +2878,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                raidcontroller {i + 1}: Serial Number :
+                                raidcontroller {i + 1}: S.No :
                                 {item.raidcontrollersno}
                               </span>
                             </Label>
@@ -2783,7 +2891,8 @@ function CreateAsset() {
               </div>
 
               {/* ----------------raidcontroller------------------------------- */}
-
+            </div>
+            <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
               {/* ----------------tapecontroller------------------------------- */}
               <div className="w-full">
                 {product == "Server" ? (
@@ -2806,7 +2915,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                tapecontroller {i + 1}: Serial Number :
+                                tapecontroller {i + 1}: S.No :
                                 {item.tapecontrollersno}
                               </span>
                             </Label>
@@ -2843,7 +2952,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                opticaldrive {i + 1}: Serial Number :
+                                opticaldrive {i + 1}: S.No :
                                 {item.opticaldrivesno}
                               </span>
                             </Label>
@@ -2878,7 +2987,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="w-full my-1">
                               <span>
-                                others {i + 1}: Serial Number :{item.otherssno}
+                                others {i + 1}: S.No :{item.otherssno}
                               </span>
                             </Label>
                           </div>
@@ -3001,8 +3110,9 @@ function CreateAsset() {
       {/* {productPicker()} */}
 
       {/* --------------------------Bottom Bar-------------------------- */}
-      {Bottombar()}
+      {/* {Bottombar()} */}
       {ReviewSubmit()}
+      <div className="h-64"></div>
     </>
   );
 }

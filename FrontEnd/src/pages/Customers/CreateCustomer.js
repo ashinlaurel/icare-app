@@ -17,10 +17,15 @@ import {
 import { signup, signin, authenticate } from "../../helpers/auth";
 import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
 import EmpProfile from "../../helpers/auth/EmpProfile";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import { resetIdCounter } from "react-tabs";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function CreateCustomer() {
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account
+
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isErrModalOpen, setIsErrModalOpen] = useState(false);
 
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,7 +74,7 @@ function CreateCustomer() {
     } else setErr({ ...err, confpassword: "" });
   };
 
-  const submitCustomer = async (e) => {
+  const submitCustomer = async () => {
     if (values.password !== values.confpassword) {
       setErr({ ...err, confpassword: "Confirm password does not match" });
       return;
@@ -96,6 +101,7 @@ function CreateCustomer() {
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
         console.log("Signed Up", data._id);
+        setIsReviewModalOpen(true);
         setErr({
           username: "",
           email: "",
@@ -113,6 +119,10 @@ function CreateCustomer() {
   const sumbitAccount = async (e) => {
     if (values.password !== values.confpassword) {
       setErr({ ...err, confpassword: "Confirm password does not match" });
+      return;
+    }
+    if (customer._id == "") {
+      setIsErrModalOpen(true);
       return;
     }
     // e.preventDefault();
@@ -136,8 +146,9 @@ function CreateCustomer() {
       altContact: values.altContact,
       WhatsappNo: values.WhatsappNo,
     };
-    signup(newuser, "customer/signup")
+    signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
+        setIsReviewModalOpen(true);
         console.log("Signed Up", data);
         setErr({
           username: "",
@@ -151,6 +162,47 @@ function CreateCustomer() {
         console.log("err", err);
         setErr({ ...err });
       });
+  };
+
+  const ReviewSubmit = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+        >
+          <ModalHeader>Customer Created Successfully!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsReviewModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const AccCustErr = () => {
+    return (
+      <>
+        <Modal isOpen={isErrModalOpen} onClose={() => setIsErrModalOpen(false)}>
+          <ModalHeader>Customer Not Selected!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsErrModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
   };
 
   //ASSET
@@ -489,6 +541,8 @@ function CreateCustomer() {
       {addForm()}
 
       {/* {productPicker()} */}
+      {ReviewSubmit()}
+      {AccCustErr()}
     </>
   );
 }

@@ -18,10 +18,13 @@ import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
 import { unitCreate } from "../../helpers/unitHelper";
 import AccountListModal from "../../components/Modal/AccountListModel";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 function CreateUnit() {
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isErrModalOpen, setIsErrModalOpen] = useState(false);
 
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
@@ -45,6 +48,10 @@ function CreateUnit() {
   };
 
   const submitUnit = async (e) => {
+    if (customer._id == "" || account._id == "") {
+      setIsErrModalOpen(true);
+      return;
+    }
     // e.preventDefault();
     const payload = {
       customerId: customer._id,
@@ -67,6 +74,7 @@ function CreateUnit() {
     unitCreate(payload)
       .then((data) => {
         console.log("Signed Up", data);
+        setIsReviewModalOpen(true);
       })
       .catch((err) => {
         console.log("err", err);
@@ -194,6 +202,49 @@ function CreateUnit() {
     );
   };
 
+  const ReviewSubmit = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+        >
+          <ModalHeader>Unit Created Successfully!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsReviewModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const AccCustErr = () => {
+    return (
+      <>
+        <Modal isOpen={isErrModalOpen} onClose={() => setIsErrModalOpen(false)}>
+          <ModalHeader>Customer or Account Not Selected!</ModalHeader>
+          <ModalBody>
+            If Customer does not have any accounts under it, make them first.
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsErrModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <>
       <AddUnitModal
@@ -208,6 +259,8 @@ function CreateUnit() {
       {addForm()}
 
       {/* {productPicker()} */}
+      {ReviewSubmit()}
+      {AccCustErr()}
     </>
   );
 }

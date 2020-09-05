@@ -7,10 +7,18 @@ export const BottomBarProvider = ({ children }) => {
   //   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [bbaropen, setBBarOpen] = useState(0);
   const [assetdetails, setAssetDetails] = useState({});
+  const [createAssetDetails, setCreateAssetDetails] = useState({});
 
   return (
     <BottomBarContext.Provider
-      value={{ bbaropen, setBBarOpen, assetdetails, setAssetDetails }}
+      value={{
+        bbaropen,
+        setBBarOpen,
+        assetdetails,
+        setAssetDetails,
+        setCreateAssetDetails,
+        createAssetDetails,
+      }}
     >
       {children}
     </BottomBarContext.Provider>

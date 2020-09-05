@@ -1,12 +1,20 @@
 import React, { useState, useContext } from "react";
 import { BottomBarContext } from "../../context/BottomBarContext";
 import AssetModule from "./AssetModule";
+import CreateAssetModule from "./CreateAssetModule";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+
+  const {
+    bbaropen,
+    setBBarOpen,
+    setAssetDetails,
+    assetdetails,
+    setCreateAssetDetails,
+    createAssetDetails,
+  } = useContext(BottomBarContext);
+  // console.log("AssetDetails", assetdetails);
   return (
     <div className="flex items-center justify-center ">
       <div
@@ -20,7 +28,12 @@ const BottomBar = () => {
         Asset Details
         <hr />
         <br />
-        <AssetModule selectedprod={assetdetails} />
+        {JSON.stringify(assetdetails) !== JSON.stringify({}) ? (
+          <AssetModule selectedprod={assetdetails} />
+        ) : null}
+        {JSON.stringify(createAssetDetails) !== JSON.stringify({}) ? (
+          <CreateAssetModule asset={createAssetDetails} />
+        ) : null}
       </div>
     </div>
   );
