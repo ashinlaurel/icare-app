@@ -431,7 +431,7 @@ function Assets() {
                     setDisabler(false);
                   }}
                 >
-                  <span>CPU Serial</span>
+                  <span>Mouse Serial</span>
                 </DropdownItem>
               </Dropdown>
             </div>

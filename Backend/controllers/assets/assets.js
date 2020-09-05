@@ -124,8 +124,13 @@ exports.getAllAssets = (req, res) => {
     // ----------------Conditional addition of query attributes---------
     if (searchtype == "kbdsno") {
       pfilteroptions["keyboard.kbdsno"] = fuzzyquery;
-      console.log("inside");
+      // console.log("inside");
     }
+    if (searchtype == "mousesno") {
+      pfilteroptions["mouse.mousesno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    // ------------------------Main Call-----------------------------------------
     Server.paginate(pfilteroptions, productoptions, function (err, result) {
       // console.log(result);
       if (err || !result) {
@@ -150,21 +155,6 @@ exports.getAllAssets = (req, res) => {
       return res.json(final);
     });
   }
-
-  // Server.find({ "keyboard.kbdsno": "21321" }, function (err, result) {
-  //   if (err) {
-  //     // console.log("ERRROOOROROROEO");
-  //     console.log(err);
-  //     return res.status(400).json({
-  //       error: "No assets found",
-  //       err: err,
-  //     });
-  //   } else {
-  //     console.log("Normal Method");
-  //     console.log(result);
-  //     // return res.json(result.docs);
-  //   }
-  // });
 };
 
 exports.deleteAsset = async (req, res) => {
