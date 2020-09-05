@@ -74,7 +74,7 @@ function Assets() {
 
   // pagination setup
   const resultsPerPage = 10;
-  const [totalResults, setTotalResults] = useState(0);
+  const [totalResults, setTotalResults] = useState(20);
 
   // pagination change control
   function onPageChange(p) {
@@ -124,10 +124,10 @@ function Assets() {
           data: payload,
         });
         console.log(response.data.out);
+        setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
         setData(response.data.out);
-        setTotalResults(response.data.total);
       } catch (error) {
         throw error;
       }

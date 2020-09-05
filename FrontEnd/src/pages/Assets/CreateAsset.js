@@ -2072,7 +2072,11 @@ function CreateAsset() {
         >
           Pick Products
         </Button>
-        <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Dropdown
+          className="z-40"
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
           <DropdownItem
             onClick={() => {
               clearState();
