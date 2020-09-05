@@ -68,7 +68,7 @@ function UnitAsset() {
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
+  const [totalResults, setTotalResults] = useState(0);
 
   // pagination change control
   function onPageChange(p) {
@@ -104,8 +104,11 @@ function UnitAsset() {
           method: "POST",
           data: payload,
         });
-        console.log(response.data);
-        setData(response.data);
+        console.log(response.data.out);
+        // const { total, data } = response.data;
+        // console.log(data + "Now");
+        setData(response.data.out);
+        setTotalResults(response.data.total);
       } catch (error) {
         throw error;
       }

@@ -118,7 +118,11 @@ exports.getAllAssets = (req, res) => {
         });
       }
       // console.log(result.docs);
-      return res.json(result.docs);
+      let output = {
+        total: result.total,
+        out: result.docs,
+      };
+      return res.json(output);
     });
   } else {
     // ----------------Conditional addition of query attributes---------

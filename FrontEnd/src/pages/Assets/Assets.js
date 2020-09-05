@@ -74,7 +74,7 @@ function Assets() {
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
+  const [totalResults, setTotalResults] = useState(0);
 
   // pagination change control
   function onPageChange(p) {
@@ -123,8 +123,11 @@ function Assets() {
           method: "POST",
           data: payload,
         });
-        console.log(response.data);
-        setData(response.data);
+        console.log(response.data.out);
+        // const { total, data } = response.data;
+        // console.log(data + "Now");
+        setData(response.data.out);
+        setTotalResults(response.data.total);
       } catch (error) {
         throw error;
       }
@@ -515,11 +518,11 @@ function Assets() {
                 >
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
-                      <Avatar
+                      {/* <Avatar
                         className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
-                      />
+                      /> */}
                       <div>
                         <p className="font-semibold">{user.customerName}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
