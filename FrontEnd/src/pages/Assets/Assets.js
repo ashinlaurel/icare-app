@@ -53,6 +53,7 @@ function Assets() {
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  const [disabler, setDisabler] = useState(true);
 
   // filterhooks
   const [Business, setBusiness] = useState("");
@@ -407,6 +408,7 @@ function Assets() {
                     setIsOpenTwo(false);
                     setSearchType("");
                     setSearchLabel("");
+                    setDisabler(true);
                   }}
                 >
                   <span>All</span>
@@ -416,6 +418,7 @@ function Assets() {
                     setIsOpenTwo(false);
                     setSearchType("kbdsno");
                     setSearchLabel("Keyboard Serial");
+                    setDisabler(false);
                   }}
                 >
                   <span>Keyboard Serial</span>
@@ -423,8 +426,9 @@ function Assets() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);
-                    setSearchType("cpusno");
-                    setSearchLabel("CPU Serial");
+                    setSearchType("mousesno");
+                    setSearchLabel("Mouse Serial");
+                    setDisabler(false);
                   }}
                 >
                   <span>CPU Serial</span>
@@ -451,6 +455,7 @@ function Assets() {
                   value={searchquery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search"
+                  disabled={disabler}
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
