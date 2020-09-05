@@ -39,20 +39,16 @@ function CreateCustomer() {
     accountName: "accTest",
     unitId: [],
     // //------> customerName from above
-    // customerId: "",
-    //INFO
-    // account: "default",
-    // unit: "default",
-    // address: "default",
-    // district: "default",
-    // state: "default",
-    // locationType: "default",
-    // pincode: "default",
-    // GSTnumber: "default",
-    // contactPerson: "default",
-    // contactNo: "default",
-    // altContact: "default",
-    // WhatsappNo: "default",
+    address: "default",
+    district: "default",
+    state: "default",
+    locationType: "default",
+    pincode: "default",
+    GSTnumber: "default",
+    contactPerson: "default",
+    contactNo: "default",
+    altContact: "default",
+    WhatsappNo: "default",
   });
   const [err, setErr] = useState({
     email: "",
@@ -86,6 +82,16 @@ function CreateCustomer() {
       password: values.password,
       role: 1,
       childAccountIds: [],
+      address: values.address,
+      district: values.district,
+      state: values.state,
+      locationType: values.locationType,
+      pincode: values.pincode,
+      GSTnumber: values.GSTnumber,
+      contactPerson: values.contactPerson,
+      contactNo: values.contactNo,
+      altContact: values.altContact,
+      WhatsappNo: values.WhatsappNo,
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -119,6 +125,16 @@ function CreateCustomer() {
       parentCustomerId: customer._id,
       parentCustomerName: customer.customerName,
       role: 2,
+      address: values.address,
+      district: values.district,
+      state: values.state,
+      locationType: values.locationType,
+      pincode: values.pincode,
+      GSTnumber: values.GSTnumber,
+      contactPerson: values.contactPerson,
+      contactNo: values.contactNo,
+      altContact: values.altContact,
+      WhatsappNo: values.WhatsappNo,
     };
     signup(newuser, "customer/signup")
       .then((data) => {
@@ -194,7 +210,6 @@ function CreateCustomer() {
             <HelperText valid={false}>{err.accountName}</HelperText>
           </>
         )}
-
         <Label>
           <span>Email</span>
           <Input
@@ -227,7 +242,94 @@ function CreateCustomer() {
           />
         </Label>
         <HelperText valid={false}>{err.confpassword}</HelperText>
+        {/* ///////////////////////////////////////////////////////// */}
+        <Label className="font-bold mt-5 mb-2">
+          <span>Additional Information</span>
+        </Label>
         <hr />
+        <Label>
+          <span>Address</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.address}
+            onChange={handleChange("address")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>District</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.district}
+            onChange={handleChange("district")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>state</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.state}
+            onChange={handleChange("state")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>Location Type</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.locationType}
+            onChange={handleChange("locationType")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>PIN code</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.pincode}
+            onChange={handleChange("pincode")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>GST Number</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.GSTnumber}
+            onChange={handleChange("GSTnumber")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>Contact Person</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.contactPerson}
+            onChange={handleChange("contactPerson")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>Contact Number</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.contactNo}
+            onChange={handleChange("contactNo")}
+          />
+        </Label>{" "}
+        <Label>
+          <span>Whatsapp Number</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.WhatsappNo}
+            onChange={handleChange("WhatsappNo")}
+          />
+        </Label>
+        <hr className="my-8" />
+        {/* ///////////////////////////////////////////////////////// */}
         {accType === 1 ? (
           <>
             <Button
@@ -256,7 +358,6 @@ function CreateCustomer() {
           {" "}
           Create {accType === 0 ? <> Customer </> : <> Account</>}
         </Button>
-
         {/* <hr className="my-8" />
         <Label className="font-bold">
           <span>Additional Information</span>
