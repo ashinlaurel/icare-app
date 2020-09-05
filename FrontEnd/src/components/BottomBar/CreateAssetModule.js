@@ -109,7 +109,7 @@ const CreateAssetModule = ({ asset }) => {
           <br />
         </div>
         <SectionTitle>Product Description</SectionTitle>
-        <div className="text-gray-200 flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
+        <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
           <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
             <div className="my-3 font-semibold">
