@@ -31,7 +31,7 @@ function UpdateAsset() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });

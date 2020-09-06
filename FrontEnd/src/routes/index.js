@@ -21,6 +21,9 @@ const CustomerList = lazy(() => import("../pages/Customers/CustomerList"));
 const AccountsList = lazy(() => import("../pages/Customers/AccountsList"));
 const UnitsList = lazy(() => import("../pages/Customers/UnitsList"));
 const UnitsAsset = lazy(() => import("../pages/Customers/UnitAsset"));
+const CustomerDetails = lazy(() =>
+  import("../pages/Customers/CustomerDetails")
+);
 //--------------------------- My Asset Imports------------------
 const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 
@@ -64,6 +67,10 @@ export const aroutes = [
   {
     path: "/customer/createunit",
     component: CreateUnit,
+  },
+  {
+    path: "/customer/getCustomerById/:id",
+    component: CustomerDetails,
   },
   //-------------- Customer List  Routes----------------
   {

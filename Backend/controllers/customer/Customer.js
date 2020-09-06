@@ -114,3 +114,18 @@ exports.unitsFromAccount = async (req, res) => {
     return res.status(400).json({ error: "getAll Error" });
   }
 };
+
+exports.updateCustomer = async (req, res) => {
+  let { id, update } = req.body;
+  console.log(id, update);
+  try {
+    let cust = await CustomerLogin.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ cust });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};

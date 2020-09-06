@@ -11,6 +11,8 @@ const {
   AccountsOfCustomer,
   getAllCustomers,
   unitsFromAccount,
+  getCustomerById,
+  updateCustomer,
 } = require("../../controllers/customer/Customer");
 const {
   getEmpById,
@@ -35,7 +37,9 @@ router.post("/signin", signin);
 router.post("/accounts", AccountsOfCustomer);
 // get customers with search enabled and initially returning a few
 router.post("/customers", getAllCustomers);
-// router.post("/getCustomerById", getCustomerById);
+router.post("/:id/getCustomerById", getCustomerById);
+router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
+
 router.post("/units", unitsFromAccount);
 
 //test route

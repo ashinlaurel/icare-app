@@ -95,7 +95,10 @@ function CustomerList() {
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {values.map((user) => (
           <Link to={`/app/customer/accounts/${user._id}`}>
-            <CustomerCard value={user.name}>
+            <CustomerCard
+              value={user.name}
+              link={`/app/customer/getCustomerById/${user._id}`}
+            >
               <RoundIcon
                 icon={PeopleIcon}
                 iconColorClass="text-orange-500 dark:text-orange-100"
