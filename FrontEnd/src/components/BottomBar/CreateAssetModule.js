@@ -83,10 +83,7 @@ const CreateAssetModule = ({ asset }) => {
               {" "}
               ContractFrom:{ContractFrom}
             </div>
-            <div className="mx-5 my-1 px-1 py-1 ">
-              {" "}
-              ContractTo:{ContractFrom}
-            </div>
+            <div className="mx-5 my-1 px-1 py-1 "> ContractTo:{ContractTo}</div>
           </div>
 
           <div className="flex-col">
