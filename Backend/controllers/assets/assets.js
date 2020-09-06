@@ -156,7 +156,13 @@ exports.getAllAssets = (req, res) => {
         // console.log(tasset);
         // console.log(final);
       });
-      return res.json(final);
+      let output = {
+        total: result.total,
+        out: final,
+      };
+      return res.json(output);
+      // console.log(final);
+      // return res.json(final);
     });
   }
 };
