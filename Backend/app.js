@@ -50,6 +50,9 @@ mongoose
     console.log(err);
   });
 
+app.get("/api/test", (req, res) => {
+  res.status(200).send("Successfull!");
+});
 // User Routes-------------------------------------------------
 app.use("/api/customer", CustomerAuthRoute);
 app.use("/api/account", AccountRoute);
