@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import ImageLight from "../../assets/img/login-office.jpeg";
@@ -9,8 +9,30 @@ import { signin, authenticate, isAutheticated } from "../../helpers/auth";
 import { HelperText } from "@windmill/react-ui";
 import { useHistory } from "react-router-dom";
 import CustProfile from "../../helpers/auth/CustProfile";
+import Axios from "axios";
+import { API } from "../../backendapi";
 
 function CustomerLogin() {
+  useEffect(() => {
+    // Using an IIFE
+    (async function thegetter() {
+      console.log("Testing Route");
+      console.log(`${API}/test`);
+      // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
+      try {
+        let response = await Axios({
+          url: `${API}/test`,
+          method: "GET",
+        });
+        console.log(response);
+      } catch (error) {
+        throw error;
+      }
+    })();
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, []);
+
   // isAutheticated();
   let history = useHistory();
   const [values, setValues] = useState({
