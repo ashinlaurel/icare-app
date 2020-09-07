@@ -20,10 +20,13 @@ const CreateUnit = lazy(() => import("../pages/Customers/CreateUnit"));
 const CustomerList = lazy(() => import("../pages/Customers/CustomerList"));
 const AccountsList = lazy(() => import("../pages/Customers/AccountsList"));
 const UnitsList = lazy(() => import("../pages/Customers/UnitsList"));
+const UnitDetails = lazy(() => import("../pages/Customers/UnitDetails"));
+const UpdateUnit = lazy(() => import("../pages/Customers/UpdateUnit"));
 const UnitsAsset = lazy(() => import("../pages/Customers/UnitAsset"));
 const CustomerDetails = lazy(() =>
   import("../pages/Customers/CustomerDetails")
 );
+const UpdateCustomer = lazy(() => import("../pages/Customers/UpdateCustomer"));
 //--------------------------- My Asset Imports------------------
 const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 
@@ -71,6 +74,18 @@ export const aroutes = [
   {
     path: "/customer/getCustomerById/:id",
     component: CustomerDetails,
+  },
+  {
+    path: "/customer/:id/update",
+    component: UpdateCustomer,
+  },
+  {
+    path: "/unit/getUnitById/:id",
+    component: UnitDetails,
+  },
+  {
+    path: "/unit/:id/update",
+    component: UpdateUnit,
   },
   //-------------- Customer List  Routes----------------
   {

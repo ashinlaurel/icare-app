@@ -52,20 +52,6 @@ exports.getAllUnits = async (req, res) => {
   }
 };
 
-exports.updateUnit = async (req, res) => {
-  let { id, update } = req.body;
-  try {
-    let asset = await Unit.findByIdAndUpdate(id, update, {
-      safe: true,
-      useFindAndModify: false,
-    });
-    return res.status(200).json({ asset });
-  } catch (err) {
-    console.log(id);
-    return res.status(400).json({ error: err });
-  }
-};
-
 exports.deleteUnit = async (req, res) => {
   let { id } = req.body;
   try {
@@ -76,6 +62,31 @@ exports.deleteUnit = async (req, res) => {
       { $pull: { unitIds: id } }
     );
     return res.status(200).json({ acc, acc });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.getUnitById = async (req, res) => {
+  try {
+    let unit = await Unit.findById(req.body.id).populate("assetsId");
+    return res.status(200).json(unit);
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.updateUnit = async (req, res) => {
+  let { id, update } = req.body;
+  console.log(id, update);
+  try {
+    let unit = await Unit.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ unit });
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });

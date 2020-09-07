@@ -73,6 +73,7 @@ function UnitsList() {
             btnonelink={`/app/customer/accounts/units/${id}/${accountid}/${unit._id}`}
             value={unit.unitName}
             object={unit}
+            link={`/app/unit/getUnitById/${unit._id}`}
           >
             <RoundIcon
               icon={PeopleIcon}

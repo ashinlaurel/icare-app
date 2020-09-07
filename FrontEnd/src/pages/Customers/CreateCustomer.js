@@ -96,7 +96,7 @@ function CreateCustomer() {
       contactPerson: values.contactPerson,
       contactNo: values.contactNo,
       altContact: values.altContact,
-      WhatsappNo: values.WhatsappNo,
+      whatsappNo: values.WhatsappNo,
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -144,7 +144,7 @@ function CreateCustomer() {
       contactPerson: values.contactPerson,
       contactNo: values.contactNo,
       altContact: values.altContact,
-      WhatsappNo: values.WhatsappNo,
+      whatsappNo: values.WhatsappNo,
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {

@@ -11,6 +11,7 @@ function CustomerCard({
   btnonelink,
   children: icon,
   link,
+  desc,
 }) {
   return (
     <Card className="cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-100 py-4">
@@ -24,18 +25,25 @@ function CustomerCard({
       </CardBody>
       <div className="flex items-center justify-center  ">
         <div className="mx-1">
-          <Link to={btnonelink}>
-            <Button layout="outline" size="small">
-              {btnone}
-            </Button>
-          </Link>
+          {btnone ? (
+            <Link to={btnonelink}>
+              <Button layout="outline" size="small">
+                {btnone}
+              </Button>
+            </Link>
+          ) : null}
+          <p className="text-md font-semibold text-gray-700 dark:text-gray-200">
+            {desc}
+          </p>
         </div>
         <div className="mx-1">
-          <Link to={link}>
-            <Button layout="outline" size="small">
-              Details
-            </Button>
-          </Link>
+          {link ? (
+            <Link to={link}>
+              <Button layout="outline" size="small">
+                Details
+              </Button>
+            </Link>
+          ) : null}
         </div>
       </div>
     </Card>

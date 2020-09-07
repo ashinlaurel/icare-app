@@ -56,7 +56,10 @@ function AccountsList() {
             key={account._id}
             to={`/app/customer/accounts/units/${id}/${account._id}`}
           >
-            <CustomerCard value={account.name}>
+            <CustomerCard
+              value={account.name}
+              link={`/app/customer/getCustomerById/${account._id}`}
+            >
               <RoundIcon
                 icon={PeopleIcon}
                 iconColorClass="text-orange-500 dark:text-orange-100"

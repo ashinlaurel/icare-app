@@ -129,3 +129,16 @@ exports.updateCustomer = async (req, res) => {
     return res.status(400).json({ error: err });
   }
 };
+
+// exports.deleteCustomer = async (req, res) => {
+//   let { id } = req.body;
+//   try {
+//     let asset = await CustomerLogin.findByIdAndDelete({ _id: id });
+//     let unitId = asset.unitId;
+//     let unit = await Unit.update({ _id: unitId }, { $pull: { assetsId: id } });
+//     return res.status(200).json({ asset, unit });
+//   } catch (err) {
+//     console.log(id);
+//     return res.status(400).json({ error: err });
+//   }
+// };

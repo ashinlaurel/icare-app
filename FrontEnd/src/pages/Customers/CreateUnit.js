@@ -69,7 +69,7 @@ function CreateUnit() {
       contactPerson: values.contactPerson,
       contactNo: values.contactNo,
       altContact: values.altContact,
-      WhatsappNo: values.WhatsappNo,
+      whatsappNo: values.WhatsappNo,
     };
     unitCreate(payload)
       .then((data) => {
