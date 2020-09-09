@@ -2,6 +2,8 @@ const CustomerLogin = require("../../models/customer/CustomerLogin");
 
 const expressjwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const { v1: uuidv1 } = require("uuid");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
@@ -43,6 +45,26 @@ exports.signup = async (req, res) => {
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json({ errors });
+  }
+};
+
+exports.resetPasswordByAdmin = async (req, res) => {
+  let { id, pass } = req.body;
+  let salt = uuidv1();
+  if (!pass) return "";
+  try {
+    let encPass = crypto.createHmac("sha256", salt).update(pass).digest("hex");
+    let user = await CustomerLogin.findByIdAndUpdate(
+      id,
+      { enc_password: encPass, salt: salt },
+      {
+        safe: true,
+        useFindAndModify: false,
+      }
+    );
+    return res.status(200).json({ user });
+  } catch (err) {
+    return res.status(400).json({ error: err });
   }
 };
 

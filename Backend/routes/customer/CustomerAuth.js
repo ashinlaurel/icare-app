@@ -5,6 +5,7 @@ const {
   isCustSignedIn,
   getCustById,
   isCustAuthenticated,
+  resetPasswordByAdmin,
 } = require("../../controllers/customer/CustomerAuth");
 const {
   getAllCust,
@@ -39,6 +40,12 @@ router.post("/accounts", AccountsOfCustomer);
 router.post("/customers", getAllCustomers);
 router.post("/:id/getCustomerById", getCustomerById);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
+router.post(
+  "/:id/resetPassByAdmin",
+  isSignedIn,
+  isAuthenticated,
+  resetPasswordByAdmin
+);
 
 router.post("/units", unitsFromAccount);
 

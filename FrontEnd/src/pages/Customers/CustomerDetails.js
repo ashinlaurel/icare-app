@@ -4,15 +4,31 @@ import { API } from "../../backendapi";
 import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
 import InfoCard from "../../components/Cards/InfoCard";
-import { Card, CardBody } from "@windmill/react-ui";
+import {
+  Card,
+  CardBody,
+  Input,
+  HelperText,
+  Label,
+  Button,
+  Badge,
+  Select,
+} from "@windmill/react-ui";
 import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../../icons";
 import RoundIcon from "../../components/RoundIcon";
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
-import { Button } from "@windmill/react-ui";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import Axios from "axios";
 
 export default function CustomerDetails() {
   const { id } = useParams();
+  const [PasswordModalOpen, setPasswordModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [newpass, setNewpass] = useState("");
+  const [newpassconf, setNewpassconf] = useState("");
+  const [passerror, setPasserror] = useState("");
+
   // console.log(id);
   const [values, setValues] = useState({
     //both
@@ -46,6 +62,22 @@ export default function CustomerDetails() {
     enc_password: "",
     confpassword: "",
   });
+
+  const changePassword = async () => {
+    let data = { id, pass: newpass };
+    try {
+      let user = await Axios({
+        url: `${API}/customer/${Emp.getId()}/resetPassByAdmin`,
+        method: "POST",
+        data: data,
+      });
+      setIsReviewModalOpen(true);
+      setPasswordModalOpen(false);
+      console.log("Done", user);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const getCustomerInfo = async () => {
     let data = { id: id };
@@ -85,8 +117,83 @@ export default function CustomerDetails() {
     getCustomerInfo();
   }, []);
 
+  const ResetPassModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={PasswordModalOpen}
+          onClose={() => setPasswordModalOpen(false)}
+        >
+          <ModalHeader>Change Password for {values.username}!</ModalHeader>
+          <ModalBody>
+            <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+              <Label>
+                <span>New Password</span>
+                <Input
+                  className="mt-5"
+                  type="password"
+                  value={newpass}
+                  onChange={(e) => setNewpass(e.target.value)}
+                  placeholder="New Password"
+                />
+              </Label>{" "}
+              <Label>
+                <span>Confirm Password</span>
+                <Input
+                  className="my-5"
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={newpassconf}
+                  onChange={(e) => {
+                    setNewpassconf(e.target.value);
+                    if (e.target.value != newpass)
+                      setPasserror("Passwords do not match!");
+                    else setPasserror("");
+                  }}
+                />
+              </Label>
+              <HelperText valid={false}>{passerror}</HelperText>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => changePassword()}
+            >
+              Change Password
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const PassChangeModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+        >
+          <ModalHeader>Password Updated Successfully!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsReviewModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <div>
+      {ResetPassModal()}
+      {PassChangeModal()}
       <PageTitle>
         {values.name} Type:{values.role == 1 ? <>Customer</> : <>Account</>}{" "}
       </PageTitle>
@@ -149,8 +256,10 @@ export default function CustomerDetails() {
             <Link to={`/app/customer/${id}/update`}>
               <Button className="mr-3">Update Info</Button>
             </Link>
-            <Button className="mx-3">Update Password</Button>
-            <Button className="mx-3">Delete Customer</Button>
+            <Button className="mx-3" onClick={() => setPasswordModalOpen(true)}>
+              Reset Password
+            </Button>
+            {/* <Button className="mx-3">Delete Customer</Button> */}
           </div>
         </CardBody>
       </Card>
