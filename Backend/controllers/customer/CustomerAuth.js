@@ -7,7 +7,7 @@ const { v1: uuidv1 } = require("uuid");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
-  const errors = { name: "", enc_password: "", username: "" };
+  const errors = { name: "", enc_password: "", username: "", emial: "" };
   if (err.code == 11000)
     errors.username = "Account already exists for this username.";
   if (err.message.includes("CustomerLogin validation failed")) {

@@ -42,6 +42,7 @@ function CreateAsset() {
   //ReviewModal
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
+  const [reqFieldErrModal, setReqFieldErrModal] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -200,8 +201,12 @@ function CreateAsset() {
 
   //functions
   const handleSubmit = async () => {
+    if (Business == "" || POnumber == "") {
+      setIsReviewModalOpen(true);
+      return;
+    }
     if (customer._id == "" || account._id == "" || unit._id == "") {
-      setIsErrModalOpen(true);
+      setReqFieldErrModal(true);
       return;
     }
 
@@ -321,7 +326,7 @@ function CreateAsset() {
               />
             </Label> */}
             <Label className="my-3">
-              <span>Business Type</span>
+              <span>Business Type*</span>
               <Select
                 onChange={(e) => {
                   setBusiness(e.target.value);
@@ -338,7 +343,7 @@ function CreateAsset() {
           </div>
           <div className="w-full  ">
             <Label className="my-3">
-              <span>Purchase Order Number</span>
+              <span>Purchase Order Number*</span>
               <Input
                 className="mt-1"
                 name="brand"
@@ -490,6 +495,16 @@ function CreateAsset() {
                 setIsErrModalOpen(true);
                 return;
               }
+              if (
+                Business == "" ||
+                POnumber == "" ||
+                brand == "" ||
+                model == "" ||
+                serialno == ""
+              ) {
+                setReqFieldErrModal(true);
+                return;
+              }
               setIsReviewModalOpen(true);
             }}
           >
@@ -499,7 +514,7 @@ function CreateAsset() {
             <hr className="mb-5 mt-2" />
             <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
               <Label className="my-3 w-full">
-                <span>Brand</span>
+                <span>Brand*</span>
                 <Input
                   className="mt-1"
                   placeholder="Brand"
@@ -511,7 +526,7 @@ function CreateAsset() {
                 />
               </Label>
               <Label className="my-3 w-full">
-                <span>Model</span>
+                <span>Model*</span>
                 <Input
                   className="mt-1"
                   placeholder="Model"
@@ -523,7 +538,7 @@ function CreateAsset() {
                 />
               </Label>
               <Label className="my-3 w-full">
-                <span>Serial Number</span>
+                <span>Serial Number*</span>
                 <Input
                   className="mt-1"
                   placeholder="Serial Number"
@@ -2992,6 +3007,7 @@ function CreateAsset() {
               onClick={() => {
                 handleSubmit();
                 clearState();
+                clearAssetState();
                 setIsReviewModalOpen(false);
               }}
             >
@@ -3025,22 +3041,7 @@ function CreateAsset() {
   };
 
   const clearState = () => {
-    // setBusiness("");
-    // setPOnumber("");
-    // setPOdate("");
-    // setContractFrom("");
-    // setContractTo("");
-    // setBillingFrom("");
-    // setBillingTo("");
-    // setAMCRate("");
-    // setGST("");
-    // setGSTAMOUNT("");
-    // setNetAmount("");
-
-    //customer
-    // setUnit({ _id: "", unitName: "" });
-    // setCustomer({ _id: "", customerName: "" });
-    // setAccount({ _id: "", accountName: "" });
+    //PRODUCT
     setBrand("");
     setModel("");
     setSerialNo("");
@@ -3067,6 +3068,49 @@ function CreateAsset() {
 
     //
     setProduct("null");
+  };
+
+  const clearAssetState = () => {
+    // setBusiness("");
+    setPOnumber("");
+    setPOdate("");
+    setContractFrom("");
+    setContractTo("");
+    setBillingFrom("");
+    setBillingTo("");
+    setAMCRate("");
+    setGST("");
+    setGSTAMOUNT("");
+    setNetAmount("");
+
+    // customer
+    setUnit({ _id: "", unitName: "" });
+    setCustomer({ _id: "", customerName: "" });
+    setAccount({ _id: "", accountName: "" });
+  };
+
+  const ReqFieldErr = () => {
+    return (
+      <>
+        <Modal
+          isOpen={reqFieldErrModal}
+          onClose={() => setReqFieldErrModal(false)}
+        >
+          <ModalHeader>Required Field Not filled!</ModalHeader>
+          <ModalBody>
+            {/* If you cant find any units, make the unit in create unit first. */}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setReqFieldErrModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
   };
 
   return (
@@ -3111,6 +3155,7 @@ function CreateAsset() {
       {/* {Bottombar()} */}
       {ReviewSubmit()}
       {AccCustErr()}
+      {ReqFieldErr()}
       <div className="h-64"></div>
     </>
   );

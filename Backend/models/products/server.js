@@ -18,6 +18,7 @@ const serverSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   //   ------------------------------
   os: {
@@ -34,14 +35,14 @@ const serverSchema = new Schema({
   opticaldrive: [{ opticaldrivename: String, opticaldrivesno: String }],
   keyboard: [{ kbdname: String, kbdsno: String }],
   mouse: [{ mousename: String, mousesno: String }],
-  monitor: { monitorname: String, monitorsno: String },
+  monitor: [{ monitorname: String, monitorsno: String }],
   gcard: [{ gcardname: String, gcardsno: String }],
   enetcard: [{ enetcardname: String, enetcardsno: String }],
   serialcard: [{ serialcardname: String, serialcardsno: String }],
   parallelcard: [{ parallelcardname: String, parallelcardsno: String }],
-  hbacard: { hbacardname: String, hbacardsno: String },
-  raidcontroller: { raidcontrollername: String, raidcontrollersno: String },
-  tapecontroller: { tapecontrollername: String, tapecontrollersno: String },
+  hbacard: [{ hbacardname: String, hbacardsno: String }],
+  raidcontroller: [{ raidcontrollername: String, raidcontrollersno: String }],
+  tapecontroller: [{ tapecontrollername: String, tapecontrollersno: String }],
   others: [{ othersname: String, otherssno: String }],
   asset: {
     type: Schema.Types.ObjectId,

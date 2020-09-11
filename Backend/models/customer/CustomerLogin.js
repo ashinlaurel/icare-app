@@ -21,6 +21,7 @@ const customerLoginSchema = mongoose.Schema({
   email: {
     type: String,
     trim: true,
+    // unique: false,
     validate: [validator.isEmail, "Enter a valid email"],
   },
   enc_password: {
