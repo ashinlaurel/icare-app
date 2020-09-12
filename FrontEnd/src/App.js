@@ -11,6 +11,7 @@ import AdminSignUp from "./pages/Admin/AdminSignup";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import PrivateRoute from "./helpers/auth/PrivateRoute";
 import EmpProfile from "./helpers/auth/EmpProfile";
+import HomePage from "./pages/Homepage/HomePage";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const CustomerLogin = lazy(() => import("./pages/Customers/CustomerLogin"));
@@ -24,6 +25,9 @@ function App() {
         <AccessibleNavigationAnnouncer />
         <Switch>
           {/* //customer */}
+          {/* Home Page */}
+          <Route path="/home" component={HomePage} />
+          <Route path="/signin" component={CustomerLogin} />
           <Route path="/signin" component={CustomerLogin} />
           <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />
@@ -33,7 +37,7 @@ function App() {
           {/* Place new routes over this */}
           <PrivateRoute path={`/app`} component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
-          <Redirect exact from="/" to="/admin/signin" />
+          <Redirect exact from="/" to="/home" />
         </Switch>
       </Router>
     </>
