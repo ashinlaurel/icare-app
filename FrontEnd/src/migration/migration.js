@@ -115,7 +115,12 @@ export const handleMigration = async () => {
           },
         ],
         // others: others,
-        others: [],
+        others: [
+          {
+            othersname: doc.others1,
+            otherssno: doc.others1sno,
+          },
+        ],
       },
     };
     // console.log(API);
