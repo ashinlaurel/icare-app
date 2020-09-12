@@ -276,9 +276,12 @@ function CreateAsset() {
     }
   };
 
-  useEffect(() => {
-    handleMigration();
-  }, []);
+  // -------Migration Route ----------------------
+
+  // useEffect(() => {
+  //   handleMigration();
+  // }, []);
+
   // Setting Amount
   useEffect(() => {
     setGSTAMOUNT(AMCRate * (GST / 100));
