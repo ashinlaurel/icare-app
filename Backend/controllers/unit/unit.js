@@ -79,12 +79,12 @@ exports.getUnitById = async (req, res) => {
 };
 exports.getUnitByName = (req, res) => {
   let { name } = req.body;
-  // console.log("Got into the ");
+  // console.log("Unit " + name);
   // console.log(customerid);
 
   // Logic to add to filter when required
 
-  Unit.find({ name: name }, function (err, result) {
+  Unit.find({ unitName: name }, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({
@@ -94,7 +94,7 @@ exports.getUnitByName = (req, res) => {
     }
     // console.log("findone");
 
-    // console.log(result[0]._id);
+    // console.log(result);
     return res.json(result[0]._id);
   });
 };

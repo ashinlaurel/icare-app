@@ -30,6 +30,8 @@ router.post(
   //   isAdmin,
   createAsset
 );
+// Migration create route
+router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllAssets);
 router.get("/count", countAssets);

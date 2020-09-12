@@ -24,6 +24,6 @@ router.get("/units", getAllUnits);
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getUnitById);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateUnit);
 
-router.post("/GetUnitByName", getUnitByName);
+router.post("/getUnitByName", getUnitByName);
 
 module.exports = router;

@@ -15,22 +15,23 @@ export const handleMigration = async () => {
         business: doc.business,
         ponumber: doc.ponumber,
         podate: doc.podate,
-        contractfrom: doc.contractfrom,
-        contractto: doc.contractto,
-        billingfrom: doc.billingfrom,
-        billingto: doc.billingto,
-        amcrate: doc.amcrate,
-        gstperc: doc.gstperc,
-        gstamount: doc.gstamount,
-        netamount: doc.netamount,
+        contractfrom: new Date(doc.contractfrom),
+        contractto: new Date(doc.contractto),
+        billingfrom: new Date(doc.billingfrom),
+        billingto: new Date(doc.billingto),
+        amcrate: parseInt(doc.amcrate),
+        gstperc: parseInt(doc.gstperc),
+        gstamount: parseInt(doc.gstamount),
+        netamount: parseInt(doc.netamount),
         customerName: doc.customerName,
         accountName: doc.accountName,
         unitName: doc.unitName,
+        producttype: doc.producttype,
       },
       product: {
         brand: doc.brand,
         model: doc.model,
-        serialno: doc.serialnumber,
+        serialno: doc.serialno,
         os: doc.os,
         cpu: [
           { cpuname: doc.cpu1, cpusno: doc.cpu1sno },
@@ -89,7 +90,9 @@ export const handleMigration = async () => {
         // gcard: gcard,
         gcard: [{ gcardname: doc.gcard1, gcardsno: doc.gcard1sno }],
         // enetcard: enetcard,
-        enetard: [{ enetardname: doc.enetard1, enetardsno: doc.enetard1sno }],
+        enetcard: [
+          { enetcardname: doc.enetcard1, enetcardsno: doc.enetcard1sno },
+        ],
         // serialcard: serialcard,
         serialcard: [
           {
@@ -137,7 +140,7 @@ export const handleMigration = async () => {
         data: { name: doc.customerName },
       });
       // console.log(customerid.data);
-      payload.asset.customerId = customerid;
+      payload.asset.customerId = customerid.data;
       // AccountId Get
       let accountid = await axios({
         url: `${API}/customer/getCustomerByName`,
@@ -145,7 +148,7 @@ export const handleMigration = async () => {
         data: { name: doc.accountName },
       });
       // console.log(customerid.data);
-      payload.asset.accountId = accountid;
+      payload.asset.accountId = accountid.data;
       // Units Get
       let unitid = await axios({
         url: `${API}/unit/getUnitByName`,
@@ -153,7 +156,13 @@ export const handleMigration = async () => {
         data: { name: doc.unitName },
       });
       // console.log(customerid.data);
-      payload.asset.unitId = unitid;
+      payload.asset.unitId = unitid.data;
+
+      let finish = await axios({
+        url: `${API}/asset/create`,
+        method: "POST",
+        data: payload,
+      });
 
       console.log(payload);
     } catch (error) {

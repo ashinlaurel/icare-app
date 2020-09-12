@@ -2186,7 +2186,7 @@ function CreateAsset() {
             onClick={() => {
               clearState();
               setIsOpen(false);
-              setProduct("Sanner");
+              setProduct("Scanner");
             }}
           >
             <span>Scanner</span>

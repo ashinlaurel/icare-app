@@ -331,7 +331,7 @@ function Assets() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpen(false);
-                    setProduct("Sanner");
+                    setProduct("Scanner");
                   }}
                 >
                   <span>Scanner</span>
