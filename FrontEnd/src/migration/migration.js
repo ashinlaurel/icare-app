@@ -1,19 +1,22 @@
 import AssetData from "./assetdata.json";
+import NewAssetData from "./newassetdata.json";
+
 import axios from "axios";
 import { API } from "../backendapi";
 
 export const handleMigration = async () => {
   console.log("migrating!!!!!!!!!!");
-  AssetData.Asset.map(async (doc) => {
+  // AssetData.Asset.map(async (doc) => {
+  NewAssetData.map(async (doc) => {
     // console.log(doc);
 
     let payload = {
       asset: {
         business: doc.business,
         ponumber: doc.ponumber,
-        // podate: POdate,
-        // contractfrom: ContractFrom,
-        // contractto: ContractTo,
+        podate: doc.podate,
+        contractfrom: doc.contractfrom,
+        contractto: doc.contractto,
         // billingfrom: BillingFrom,
         // billingto: BillingTo,
         // amcrate: AMCRate,
@@ -123,7 +126,7 @@ export const handleMigration = async () => {
         ],
       },
     };
-    // console.log(API);
+    console.log(payload);
     try {
       // await axios({
       //   url: `${API}/asset/create`,

@@ -276,9 +276,9 @@ function CreateAsset() {
     }
   };
 
-  // useEffect(() => {
-  //   handleMigration();
-  // }, []);
+  useEffect(() => {
+    handleMigration();
+  }, []);
   // Setting Amount
   useEffect(() => {
     setGSTAMOUNT(AMCRate * (GST / 100));
