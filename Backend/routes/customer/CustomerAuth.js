@@ -14,6 +14,7 @@ const {
   unitsFromAccount,
   getCustomerById,
   updateCustomer,
+  getCustomerByName,
 } = require("../../controllers/customer/Customer");
 const {
   getEmpById,
@@ -39,6 +40,7 @@ router.post("/accounts", AccountsOfCustomer);
 // get customers with search enabled and initially returning a few
 router.post("/customers", getAllCustomers);
 router.post("/:id/getCustomerById", getCustomerById);
+router.post("/getCustomerByName", getCustomerByName);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
 router.post(
   "/:id/resetPassByAdmin",

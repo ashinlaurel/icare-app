@@ -77,6 +77,27 @@ exports.getUnitById = async (req, res) => {
     return res.status(400).json({ error: err });
   }
 };
+exports.getUnitByName = (req, res) => {
+  let { name } = req.body;
+  // console.log("Got into the ");
+  // console.log(customerid);
+
+  // Logic to add to filter when required
+
+  Unit.find({ name: name }, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No customer found",
+        err: err,
+      });
+    }
+    // console.log("findone");
+
+    // console.log(result[0]._id);
+    return res.json(result[0]._id);
+  });
+};
 
 exports.updateUnit = async (req, res) => {
   let { id, update } = req.body;

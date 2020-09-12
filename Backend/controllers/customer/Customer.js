@@ -99,6 +99,28 @@ exports.getCustomerById = (req, res) => {
   });
 };
 
+exports.getCustomerByName = (req, res) => {
+  let { name } = req.body;
+  // console.log("Got into the ");
+  // console.log(customerid);
+
+  // Logic to add to filter when required
+
+  CustomerLogin.find({ name: name }, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No customer found",
+        err: err,
+      });
+    }
+    // console.log("findone");
+
+    // console.log(result[0]._id);
+    return res.json(result[0]._id);
+  });
+};
+
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }

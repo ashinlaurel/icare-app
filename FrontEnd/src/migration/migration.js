@@ -23,6 +23,9 @@ export const handleMigration = async () => {
         gstperc: doc.gstperc,
         gstamount: doc.gstamount,
         netamount: doc.netamount,
+        customerName: doc.customerName,
+        accountName: doc.accountName,
+        unitName: doc.unitName,
       },
       product: {
         brand: doc.brand,
@@ -126,14 +129,33 @@ export const handleMigration = async () => {
         ],
       },
     };
-    console.log(payload);
+    // console.log(payload);
     try {
-      // await axios({
-      //   url: `${API}/asset/create`,
-      //   method: "POST",
-      //   data: payload,
-      // });
-      console.log("Done");
+      let customerid = await axios({
+        url: `${API}/customer/getCustomerByName`,
+        method: "POST",
+        data: { name: doc.customerName },
+      });
+      // console.log(customerid.data);
+      payload.asset.customerId = customerid;
+      // AccountId Get
+      let accountid = await axios({
+        url: `${API}/customer/getCustomerByName`,
+        method: "POST",
+        data: { name: doc.accountName },
+      });
+      // console.log(customerid.data);
+      payload.asset.accountId = accountid;
+      // Units Get
+      let unitid = await axios({
+        url: `${API}/unit/getUnitByName`,
+        method: "POST",
+        data: { name: doc.unitName },
+      });
+      // console.log(customerid.data);
+      payload.asset.unitId = unitid;
+
+      console.log(payload);
     } catch (error) {
       throw error;
     }
@@ -142,5 +164,5 @@ export const handleMigration = async () => {
   //   console.log();
 
   //   };
-  console.log("Hello");
+  // console.log("Hello");
 };

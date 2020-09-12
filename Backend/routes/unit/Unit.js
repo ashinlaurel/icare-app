@@ -5,6 +5,7 @@ const {
   updateUnit,
   deleteUnit,
   getUnitById,
+  getUnitByName,
 } = require("../../controllers/unit/unit");
 const {
   getEmpById,
@@ -22,5 +23,7 @@ router.post("/delete", deleteUnit);
 router.get("/units", getAllUnits);
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getUnitById);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateUnit);
+
+router.post("/GetUnitByName", getUnitByName);
 
 module.exports = router;
