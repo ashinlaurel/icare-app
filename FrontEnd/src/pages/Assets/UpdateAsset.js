@@ -17,6 +17,8 @@ import {
   Badge,
 } from "@windmill/react-ui";
 
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+
 import { MailIcon, Add, Remove, HeartIcon } from "../../icons";
 import Axios from "axios";
 import { data } from "autoprefixer";
@@ -32,6 +34,8 @@ function UpdateAsset() {
   const [floatbox, setFloatBox] = useState(false);
   const { id } = useParams();
   // console.log(id);
+  //modal
+  const [submitModal, setSubmitModal] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -184,6 +188,25 @@ function UpdateAsset() {
     getAsset();
   }, []);
 
+  const UpdatedModal = () => {
+    return (
+      <>
+        <Modal isOpen={submitModal} onClose={() => setSubmitModal(false)}>
+          <ModalHeader>Asset Updated Successfully!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setSubmitModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -200,42 +223,41 @@ function UpdateAsset() {
       gstperc: GST,
       gstamount: GSTAMOUNT,
       netamount: NetAmount,
-      /////------------------ cust info
+      ///------------------ cust info
       // unitId: unit._id,
       // unitName: unit.unitName,
       // accountId: account._id,
       // accountName: account.accountName,
       // customerId: customer._id,
       // customerName: customer.customerName,
-
-      product: {
-        brand: brand,
-        model: model,
-        serialno: serialno,
-        os: os,
-        cpu: cpu,
-        ram: ram,
-        hdd: hdd,
-        smps: smps,
-        fan: fan,
-        motherboard: motherboard,
-        opticaldrive: opticaldrive,
-        keyboard: kbd,
-        mouse: mouse,
-        monitor: monitor,
-        gcard: gcard,
-        enetcard: enetcard,
-        serialcard: serialcard,
-        parallelcard: parallelcard,
-        hbacard: hbacard,
-        raidcontroller: raidcontroller,
-        tapecontroller: tapecontroller,
-        others: others,
-      },
+    };
+    let newproduct = {
+      brand: brand,
+      model: model,
+      serialno: serialno,
+      os: os,
+      cpu: cpu,
+      ram: ram,
+      hdd: hdd,
+      smps: smps,
+      fan: fan,
+      motherboard: motherboard,
+      opticaldrive: opticaldrive,
+      keyboard: kbd,
+      mouse: mouse,
+      monitor: monitor,
+      gcard: gcard,
+      enetcard: enetcard,
+      serialcard: serialcard,
+      parallelcard: parallelcard,
+      hbacard: hbacard,
+      raidcontroller: raidcontroller,
+      tapecontroller: tapecontroller,
+      others: others,
     };
     console.log(payload);
 
-    const data = { id: id, update: payload };
+    const data = { id: id, newasset: payload, newproduct: newproduct };
     // console.log(API);
     try {
       let update = await axios({
@@ -243,6 +265,7 @@ function UpdateAsset() {
         method: "POST",
         data: data,
       });
+      setSubmitModal(true);
       console.log("Done");
     } catch (error) {
       throw error;
@@ -2093,6 +2116,7 @@ function UpdateAsset() {
           );
         })}
       </div> */}
+      {UpdatedModal()}
     </>
   );
 }
