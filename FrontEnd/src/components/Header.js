@@ -18,6 +18,7 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import theavatar from "../icons/avatardefault.png";
 import { useHistory } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
 
@@ -123,7 +124,7 @@ function Header() {
             >
               <Avatar
                 className="align-middle"
-                src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                src={theavatar}
                 alt=""
                 aria-hidden="true"
               />

@@ -90,7 +90,7 @@ export default function UnitDetails() {
                 {values.altContact}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
-                <span className="font-semibold"> GST Numeber:</span>{" "}
+                <span className="font-semibold"> GST Number:</span>{" "}
                 {values.GSTnumber}
               </p>
             </div>
