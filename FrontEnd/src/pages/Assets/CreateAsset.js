@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
@@ -88,7 +88,7 @@ function CreateAsset() {
   //asset
 
   const [Business, setBusiness] = useState("");
-  const [POnumber, setPOnumber] = useState("123123");
+  const [POnumber, setPOnumber] = useState("");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
   const [ContractTo, setContractTo] = useState("");
@@ -279,6 +279,11 @@ function CreateAsset() {
   // useEffect(() => {
   //   handleMigration();
   // }, []);
+  // Setting Amount
+  useEffect(() => {
+    setGSTAMOUNT(AMCRate * (GST / 100));
+    setNetAmount(AMCRate - AMCRate * (GST / 100));
+  }, [AMCRate, GST]);
 
   //ASSET----------------------------------------------------
   const assetPicker = () => {
@@ -437,7 +442,7 @@ function CreateAsset() {
           </div>
           <div className="w-full">
             <Label className="my-3">
-              <span>GST</span>
+              <span>GST %</span>
               <Input
                 className="mt-1"
                 name="brand"
@@ -452,29 +457,23 @@ function CreateAsset() {
         {/* ----------------------------Row - 4 --------------------------------------------------------------------- */}
         <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
           <div className="w-full">
-            <Label className="my-3">
-              <span>GST AMOUNT</span>
-              <Input
+            <Label className="my-3 font-bold">
+              <span>GST AMOUNT: </span>
+              {/* <Input
                 className="mt-1"
                 name="brand"
                 value={GSTAMOUNT}
-                onChange={(e) => {
-                  setGSTAMOUNT(e.target.value);
-                }}
-              />
+                // onChange={(e) => {
+                //   setGSTAMOUNT(e.target.value);
+                // }}
+              /> */}
+              <span> Rs {AMCRate * (GST / 100)}</span>
             </Label>
           </div>
-          <div className="w-full">
+          <div className="w-full font-bold">
             <Label className="my-3">
-              <span>Net Amount</span>
-              <Input
-                className="mt-1"
-                name="brand"
-                value={NetAmount}
-                onChange={(e) => {
-                  setNetAmount(e.target.value);
-                }}
-              />
+              <span>Net Amount: </span>
+              <span>Rs {AMCRate - AMCRate * (GST / 100)}</span>
             </Label>
           </div>
         </div>
