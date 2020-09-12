@@ -3,7 +3,7 @@ import SectionTitle from "../../components/Typography/SectionTitle";
 import moment from "moment";
 import { Input, div } from "@windmill/react-ui";
 const CreateAssetModule = ({ asset }) => {
-  console.log(asset);
+  // console.log(asset);
   const {
     brand,
     model,
