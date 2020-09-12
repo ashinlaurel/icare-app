@@ -33,27 +33,27 @@ function CreateCustomer() {
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [values, setValues] = useState({
     //both
-    username: "ftest",
-    email: "ftest@test.com",
-    password: "password",
-    confpassword: "password",
+    username: "",
+    email: "",
+    password: "",
+    confpassword: "",
     //customer
-    customerName: "custTest",
+    customerName: "",
     accountId: [],
     //account
-    accountName: "accTest",
+    accountName: "",
     unitId: [],
     // //------> customerName from above
-    address: "default",
-    district: "default",
-    state: "default",
-    locationType: "default",
-    pincode: "default",
-    GSTnumber: "default",
-    contactPerson: "default",
-    contactNo: "default",
-    altContact: "default",
-    WhatsappNo: "default",
+    address: "",
+    district: "",
+    state: "",
+    locationType: "",
+    pincode: "",
+    GSTnumber: "",
+    contactPerson: "",
+    contactNo: "",
+    altContact: "",
+    WhatsappNo: "",
   });
   const [err, setErr] = useState({
     email: "",
@@ -213,93 +213,138 @@ function CreateCustomer() {
           <span>Add Customer</span>
         </Label>
         <hr className="mb-5 mt-2" />
-        <Label>
-          <span>Select Account Type</span>
-          <Select
-            className="mt-1"
-            onChange={(e) => {
-              setAccType(parseInt(e.target.value));
-            }}
-          >
-            <option value="0">Customer</option>
-            <option value="1">Accounts</option>
-          </Select>
-        </Label>
-        <Label>
-          <span>UserName</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.username}
-            onChange={handleChange("username")}
-          />
-        </Label>
-        <HelperText valid={false}>{err.username}</HelperText>
-        {accType === 0 ? (
-          <>
-            <Label>
-              <span>Customer Name</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.customerName}
-                onChange={handleChange("customerName")}
-              />
-            </Label>
-            <HelperText valid={false}>{err.customerName}</HelperText>
-          </>
-        ) : (
-          <>
-            <Label>
-              <span>Account Name</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.accountName}
-                onChange={handleChange("accountName")}
-              />
-            </Label>
-            <HelperText valid={false}>{err.accountName}</HelperText>
-          </>
-        )}
-        <Label>
-          <span>Email</span>
-          <Input
-            className="mt-1"
-            type="email"
-            placeholder=""
-            value={values.email}
-            onChange={handleChange("email")}
-          />
-        </Label>
-        <HelperText valid={false}>{err.email}</HelperText>
-        <Label className="mt-4">
-          <span>Password</span>
-          <Input
-            className="mt-1"
-            placeholder=""
-            type="password"
-            value={values.password}
-            onChange={handleChange("password")}
-          />
-        </Label>
-        <HelperText valid={false}>{err.enc_password}</HelperText>
-        <Label className="mt-4">
-          <span>Confirm password</span>
-          <Input
-            className="mt-1"
-            type="password"
-            value={values.confpassword}
-            onChange={handleConfPassChange("confpassword")}
-          />
-        </Label>
-        <HelperText valid={false}>{err.confpassword}</HelperText>
+        {/* ------------------------Row 1-------------------------- */}
+        <div className="flex-row flex space-x-3">
+          <Label className="w-1/4">
+            <span>Select Account Type</span>
+            <Select
+              className="mt-1"
+              onChange={(e) => {
+                setAccType(parseInt(e.target.value));
+              }}
+            >
+              <option value="0">Customer</option>
+              <option value="1">Accounts</option>
+            </Select>
+          </Label>
+          {accType === 0 ? (
+            <>
+              <Label className="w-1/4">
+                <span>Customer Name</span>
+                <Input
+                  className="mt-1"
+                  type="text"
+                  value={values.customerName}
+                  onChange={handleChange("customerName")}
+                />
+              </Label>
+              <HelperText valid={false}>{err.customerName}</HelperText>
+            </>
+          ) : (
+            <>
+              <Label className="w-1/4">
+                <span>Account Name</span>
+                <Input
+                  className="mt-1"
+                  type="text"
+                  value={values.accountName}
+                  onChange={handleChange("accountName")}
+                />
+              </Label>
+              <HelperText valid={false}>{err.accountName}</HelperText>
+            </>
+          )}
+          <Label className="w-1/4">
+            <span>User Name</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.username}
+              onChange={handleChange("username")}
+            />
+          </Label>
+          <HelperText valid={false}>{err.username}</HelperText>
+          <Label className="w-1/4">
+            <span>Email</span>
+            <Input
+              className="mt-1"
+              type="email"
+              placeholder=""
+              value={values.email}
+              onChange={handleChange("email")}
+            />
+          </Label>
+          <HelperText valid={false}>{err.email}</HelperText>
+        </div>
+        {/* ----------------------Row 2 ----------------------------- */}
+        <div className="flex-row flex space-x-3 ">
+          <Label className="w-1/2 mt-4">
+            <span>Password</span>
+            <Input
+              className="mt-1"
+              placeholder=""
+              type="password"
+              value={values.password}
+              onChange={handleChange("password")}
+            />
+          </Label>
+          <HelperText valid={false}>{err.enc_password}</HelperText>
+          <Label className="w-1/2 mt-4">
+            <span>Confirm password</span>
+            <Input
+              className="mt-1"
+              type="password"
+              value={values.confpassword}
+              onChange={handleConfPassChange("confpassword")}
+            />
+          </Label>
+          <HelperText valid={false}>{err.confpassword}</HelperText>
+        </div>
         {/* ///////////////////////////////////////////////////////// */}
         <Label className="font-bold mt-5 mb-2">
           <span>Additional Information</span>
         </Label>
         <hr />
-        <Label>
+        {/* -------Row - 3 ---------------------- */}
+        <div className="flex-row flex space-x-3 mt-3 mb-2">
+          <Label className="w-1/4">
+            <span>GST Number</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.GSTnumber}
+              onChange={handleChange("GSTnumber")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>Contact Person</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.contactPerson}
+              onChange={handleChange("contactPerson")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>Contact Number</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.contactNo}
+              onChange={handleChange("contactNo")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>Whatsapp Number</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.WhatsappNo}
+              onChange={handleChange("WhatsappNo")}
+            />
+          </Label>
+        </div>
+        <Label className="my-2">
           <span>Address</span>
           <Input
             className="mt-1"
@@ -308,79 +353,45 @@ function CreateCustomer() {
             onChange={handleChange("address")}
           />
         </Label>{" "}
-        <Label>
-          <span>District</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.district}
-            onChange={handleChange("district")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>state</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.state}
-            onChange={handleChange("state")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>Location Type</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.locationType}
-            onChange={handleChange("locationType")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>PIN code</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.pincode}
-            onChange={handleChange("pincode")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>GST Number</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.GSTnumber}
-            onChange={handleChange("GSTnumber")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>Contact Person</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.contactPerson}
-            onChange={handleChange("contactPerson")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>Contact Number</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.contactNo}
-            onChange={handleChange("contactNo")}
-          />
-        </Label>{" "}
-        <Label>
-          <span>Whatsapp Number</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.WhatsappNo}
-            onChange={handleChange("WhatsappNo")}
-          />
-        </Label>
-        <hr className="my-8" />
+        {/* -----------------------Row-4 */}
+        <div className="flex-row flex space-x-3 my-2">
+          <Label className="w-1/4">
+            <span>District</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.district}
+              onChange={handleChange("district")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>State</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.state}
+              onChange={handleChange("state")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>Location Type</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.locationType}
+              onChange={handleChange("locationType")}
+            />
+          </Label>{" "}
+          <Label className="w-1/4">
+            <span>PIN code</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.pincode}
+              onChange={handleChange("pincode")}
+            />
+          </Label>{" "}
+        </div>
         {/* ///////////////////////////////////////////////////////// */}
         {accType === 1 ? (
           <>
@@ -388,7 +399,7 @@ function CreateCustomer() {
               onClick={() => setIsModalOpen(true)}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              className="mt-4 mx-4"
             >
               {customer.customerName === "" ? (
                 <>Pick Customer Associated with the Account</>
@@ -398,7 +409,6 @@ function CreateCustomer() {
             </Button>
           </>
         ) : null}
-        <hr />
         <Button
           onClick={() => {
             accType === 0 ? submitCustomer() : sumbitAccount();
