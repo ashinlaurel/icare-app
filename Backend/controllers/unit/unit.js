@@ -85,7 +85,7 @@ exports.getUnitByName = (req, res) => {
   // Logic to add to filter when required
 
   Unit.find({ unitName: name }, function (err, result) {
-    // console.log(result);
+    console.log(name);
     if (err || !result) {
       return res.status(400).json({
         error: "No customer found",
@@ -94,8 +94,8 @@ exports.getUnitByName = (req, res) => {
     }
     // console.log("findone");
 
-    // console.log(result);
-    return res.json(result[0]._id);
+    console.log("this must run if there is result" + result);
+    // return res.json(result[0]._id);
   });
 };
 
