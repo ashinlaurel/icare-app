@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +11,7 @@ import AdminSignUp from "./pages/Admin/AdminSignup";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import PrivateRoute from "./helpers/auth/PrivateRoute";
 import EmpProfile from "./helpers/auth/EmpProfile";
+import Cust from "./helpers/auth/CustProfile";
 import HomePage from "./pages/Homepage/HomePage";
 
 const Layout = lazy(() => import("./containers/Layout"));
@@ -19,6 +20,8 @@ const SignUp = lazy(() => import("./pages/Signup"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
+  // console.log(Cust.isAuthenticated() ? "yes" : "no");
+
   return (
     <>
       <Router>
@@ -27,7 +30,13 @@ function App() {
           {/* //customer */}
           {/* Home Page */}
           <Route path="/home" component={HomePage} />
-          <Route path="/signin" component={CustomerLogin} />
+          <Route path="/signin">
+            {/* {localStorage.getItem("type") == "0" ? ( */}
+            {/* <Redirect to="/app" /> */}
+            {/* ) : ( */}
+            <CustomerLogin />
+            {/* )} */}
+          </Route>
           <Route path="/signin" component={CustomerLogin} />
           <Route path="/signup" component={SignUp} />
           <Route path="/forgot-password" component={ForgotPassword} />

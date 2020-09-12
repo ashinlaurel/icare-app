@@ -1,6 +1,11 @@
 import React from "react";
 import moment from "moment";
 import SectionTitle from "../Typography/SectionTitle";
+import { API } from "../../backendapi";
+import Emp from "../../helpers/auth/EmpProfile";
+import axios from "axios";
+import { Button } from "@windmill/react-ui";
+import { Link } from "react-router-dom";
 const AssetModule = ({ selectedprod }) => {
   console.log(selectedprod);
   const {
@@ -62,6 +67,39 @@ const AssetModule = ({ selectedprod }) => {
             Unit:
             {unitName}
           </div>
+          {/* <div>
+            <Button className="mx-3 mt02">
+              {" "}
+              <Link
+                key={selectedprod._id}
+                to={`/app/unit/update/${selectedprod._id}`}
+              >
+                Edit
+              </Link>{" "}
+            </Button>
+            <Button
+              className="mx-3 mt02"
+              onClick={async () => {
+                console.log("delete Asset");
+                try {
+                  let response = await axios({
+                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: selectedprod._id },
+                  });
+                  console.log(response.data);
+                  // let temp = data.filter((x) => x._id != selectedprod._id);
+                  // setData(temp);
+
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Delete
+            </Button>
+          </div> */}
         </div>
 
         <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">

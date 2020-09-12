@@ -11,6 +11,8 @@ import {
   PeopleIcon,
   ButtonsIcon,
   HeartIcon,
+  EditIcon,
+  TrashIcon,
 } from "../../icons";
 import RoundIcon from "../../components/RoundIcon";
 import response from "../../utils/demo/tableData";
@@ -35,6 +37,7 @@ import { API } from "../../backendapi";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import { Link } from "react-router-dom";
 
 function Assets() {
   // Bottom bar stuff
@@ -503,6 +506,7 @@ function Assets() {
                 <TableCell>Contract To</TableCell>
                 <TableCell>Purchase Number</TableCell>
                 <TableCell>Purchase Date</TableCell>
+                <TableCell>Edit/Delete</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -561,6 +565,76 @@ function Assets() {
                     <span className="text-sm">
                       {moment(user.podate).format("DD/MM/YYYY")}
                     </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-4">
+                      <Button layout="link" size="icon" aria-label="Edit">
+                        <Link
+                          key={user._id}
+                          to={`/app/unit/update/${user._id}`}
+                        >
+                          <EditIcon className="w-5 h-5" aria-hidden="true" />
+                        </Link>{" "}
+                      </Button>
+
+                      <Button
+                        layout="link"
+                        size="icon"
+                        aria-label="Delete"
+                        onClick={async () => {
+                          console.log("delete Asset");
+                          try {
+                            let response = await axios({
+                              url: `${API}/asset/${Emp.getId()}/delete`,
+                              method: "POST",
+                              data: { id: user._id },
+                            });
+                            console.log(response.data);
+                            let temp = data.filter((x) => x._id != user._id);
+                            setData(temp);
+
+                            // setData(response.data);
+                          } catch (error) {
+                            throw error;
+                          }
+                        }}
+                      >
+                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                      {/* <div>
+            <Button className="mx-3 mt02">
+              {" "}
+              <Link
+                key={selectedprod._id}
+                to={`/app/unit/update/${selectedprod._id}`}
+              >
+                Edit
+              </Link>{" "}
+            </Button>
+            <Button
+              className="mx-3 mt02"
+              onClick={async () => {
+                console.log("delete Asset");
+                try {
+                  let response = await axios({
+                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: selectedprod._id },
+                  });
+                  console.log(response.data);
+                  // let temp = data.filter((x) => x._id != selectedprod._id);
+                  // setData(temp);
+
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Delete
+            </Button>
+          </div> */}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

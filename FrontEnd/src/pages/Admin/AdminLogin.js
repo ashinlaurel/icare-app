@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import ImageLight from "../../assets/img/login-office.jpeg";
@@ -18,6 +18,11 @@ function AdminLogin() {
     password: "password",
   });
   const [err, setErr] = useState();
+
+  useEffect(() => {
+    console.log("TYPE", localStorage.getItem("type"));
+    if (localStorage.getItem("type") == "0") history.push("/app");
+  }, []);
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });

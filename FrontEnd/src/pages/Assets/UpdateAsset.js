@@ -238,7 +238,7 @@ function UpdateAsset() {
     const data = { id: id, update: payload };
     // console.log(API);
     try {
-      await axios({
+      let update = await axios({
         url: `${API}/asset/${Emp.getId()}/update`,
         method: "POST",
         data: data,

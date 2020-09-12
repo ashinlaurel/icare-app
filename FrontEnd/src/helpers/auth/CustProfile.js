@@ -69,14 +69,15 @@ var CustProfile = (function () {
   var signout = () => {
     // axios.defaults.headers.common
     setName("");
-    localStorage.setItem("name", "");
+    localStorage.removeItem("name");
     setUsername("");
-    localStorage.setItem("username", "");
+    localStorage.removeItem("username");
     setToken("");
-    localStorage.setItem("token", "");
+    localStorage.removeItem("token");
     setId("");
-    localStorage.setItem("id", "");
+    localStorage.removeItem("id");
     setRole("9999");
+    localStorage.removeItem("type");
     // localStorage.setItem("name","");
   };
 
