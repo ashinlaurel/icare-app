@@ -14,11 +14,11 @@ import { API } from "../../backendapi";
 
 function CustomerLogin() {
   // let history = useHistory();
-  useEffect(() => {
-    console.log("TYPE", localStorage.getItem("type"));
-    if (localStorage.getItem("type") == "1")
-      history.push("/app/myassets/accounts");
-  }, []);
+  // useEffect(() => {
+  //   console.log("TYPE", localStorage.getItem("type"));
+  //   if (localStorage.getItem("type") == "1")
+  //     history.push("/app/myassets/accounts");
+  // }, []);
 
   useEffect(() => {
     // Using an IIFE
