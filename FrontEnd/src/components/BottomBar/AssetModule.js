@@ -35,21 +35,21 @@ const AssetModule = ({ selectedprod }) => {
     opticaldrive,
     keyboard,
     mouse,
-    // monitor,--------------------Not Coming !!!!!
+    monitor,
     gcard,
     enetcard,
     serialcard,
     parallelcard,
-    // hbacard,-------------------------Not Coming!!
-    // raidcontroller,--------------------Not Coming!!
-    // tapecontroller,----------------------Not COming!
+    hbacard,
+    raidcontroller,
+    tapecontroller,
     others,
   } = selectedprod.product;
   let product = producttype;
-  let monitor = [];
-  let hbacard = [];
-  let raidcontroller = [];
-  let tapecontroller = [];
+  // let monitor = [];
+  // let hbacard = [];
+  // let raidcontroller = [];
+  // let tapecontroller = [];
   console.log(selectedprod.product);
   return (
     <div className="  ">

@@ -65,7 +65,7 @@ const assetSchema = new Schema({
     required: false,
     trim: true,
   },
-  gstpercent: {
+  gstperc: {
     type: Number,
     required: false,
     trim: true,

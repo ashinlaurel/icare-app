@@ -465,7 +465,7 @@ function Assets() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
-          <div className="my-4 flex ">
+          {/* <div className="my-4 flex ">
             <div class="relative ">
               <select
                 class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -488,10 +488,10 @@ function Assets() {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
-        <TableContainer className="">
+        <TableContainer className="mt-4">
           <Table>
             <TableHeader>
               <tr>
