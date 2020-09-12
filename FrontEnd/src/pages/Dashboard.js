@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+import axios from "axios";
 
-import CTA from "../components/CTA";
+import Emp from "../helpers/auth/EmpProfile";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
 import { Doughnut, Line } from "react-chartjs-2";
@@ -39,11 +41,18 @@ function Dashboard() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
+  // Quick Search States ------------------------
+  const [selectedprod, setSelectedProd] = useState({});
+  // search
+  const [searchtype, setSearchType] = useState("");
+  const [searchlabel, setSearchLabel] = useState("");
+  const [searchquery, setSearchQuery] = useState("");
+
   // Count States ---------------------------------------------
   const [assetcount, setAssetCount] = useState("");
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
+  const [totalResults, setTotalResults] = useState(20);
 
   // pagination change control
   function onPageChange(p) {
@@ -53,26 +62,45 @@ function Dashboard() {
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
+    // Using an IIFE
     (async function thegetter() {
+      console.log("getter called");
+      let payload = {
+        pages: {
+          page: page,
+          limit: resultsPerPage,
+        },
+        filters: {
+          searchtype: searchtype,
+          searchquery: searchquery,
+        },
+      };
+      // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
       try {
-        let response = await Axios({
-          url: `${API}/asset/count`,
-          method: "GET",
+        let response = await axios({
+          url: `${API}/asset/${Emp.getId()}/getall`,
+          method: "POST",
+          data: payload,
         });
-        // console.log(response.data);
-        setAssetCount(response.data);
+        console.log(response.data.out);
+        setTotalResults(response.data.total);
+        // const { total, data } = response.data;
+        // console.log(data + "Now");
+        setData(response.data.out);
       } catch (error) {
         throw error;
       }
     })();
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const handleSubmit = () => {
-    console.log("Submitted");
-  };
   const handleChange = () => {
-    console.log("Changin");
+    console.log("change");
+  };
+
+  const handleSubmit = () => {
+    console.log("submit");
   };
 
   return (
@@ -142,44 +170,73 @@ function Dashboard() {
           </Label>
         </CardBody>
       </Card>
-
-      <TableContainer>
+      {/* -----------------Quick Search Table ---------------  */}
+      <TableContainer className="mt-4">
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Customer</TableCell>
+              <TableCell>Unit</TableCell>
+              <TableCell>Business</TableCell>
+              <TableCell>Product</TableCell>
+              <TableCell>Contract From</TableCell>
+              <TableCell>Contract To</TableCell>
+              <TableCell>Purchase Number</TableCell>
+              <TableCell>Purchase Date</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
             {data.map((user, i) => (
-              <TableRow key={i}>
-                <TableCell>
-                  <div className="flex items-center text-sm">
-                    <Avatar
-                      className="hidden mr-3 md:block"
-                      src={user.avatar}
-                      alt="User image"
-                    />
+              <TableRow
+                className="hover:shadow-lg"
+                key={i}
+                onClick={() => {
+                  // setSelectedProd(user);
+                  // setAssetDetails(user);
+                }}
+              >
+                <TableCell className="w-8">
+                  <div className="flex items-center text-sm ">
+                    {/* <Avatar
+                        className="hidden ml-2 mr-3 md:block"
+                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
+                        alt="User image"
+                      /> */}
                     <div>
-                      <p className="font-semibold">{user.name}</p>
+                      <p className="font-semibold">{user.customerName}</p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {user.job}
+                        {user.accountName}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">{user.unitName}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <Badge type={user.business == "AMC" ? "primary" : "success"}>
+                    {user.business}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">{user.producttype}</span>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
-                    {new Date(user.date).toLocaleDateString()}
+                    {moment(user.contractfrom).format("DD/MM/YYYY")}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">
+                    {moment(user.contractto).format("DD/MM/YYYY")}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">{user.ponumber}</span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">
+                    {moment(user.podate).format("DD/MM/YYYY")}
                   </span>
                 </TableCell>
               </TableRow>
@@ -196,7 +253,7 @@ function Dashboard() {
         </TableFooter>
       </TableContainer>
 
-      <PageTitle>Charts</PageTitle>
+      {/* <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
         <ChartCard title="Revenue">
           <Doughnut {...doughnutOptions} />
@@ -207,7 +264,7 @@ function Dashboard() {
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
-      </div>
+      </div> */}
     </>
   );
 }
