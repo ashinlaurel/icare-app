@@ -1,5 +1,6 @@
 const CustomerLogin = require("../../models/customer/CustomerLogin");
-// const CustomerInfo = require("../../models/customer/CustomerInfo");
+const Unit = require("../../models/customer/Unit");
+const Asset = require("../../models/assets/assets");
 
 exports.getAllCust = async (req, res) => {
   try {
@@ -164,3 +165,82 @@ exports.updateCustomer = async (req, res) => {
 //     return res.status(400).json({ error: err });
 //   }
 // };
+
+exports.deleteAccount = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let account = await CustomerLogin.findByIdAndDelete(id);
+    // // delete AssetId from cust
+    let custId = account.parentCustomerId;
+    let cust = await CustomerLogin.update(
+      { _id: custId },
+      { $pull: { childAccountIds: id } }
+    );
+    account.unitIds.map(async (unitId, i) => {
+      let unit = await Unit.findByIdAndDelete(unitId);
+      console.log("Unit--> " + unitId + " deleted");
+      // // delete unitId from acc
+      // let accId = unit.accountId;
+      // let acc = await CustomerLogin.update(
+      //   { _id: accId },
+      //   { $pull: { unitIds: id } }
+      // );
+      // delete assets under Unit
+      unit.assetsId.map(async (assetId, i) => {
+        console.log(assetId);
+        Asset.findByIdAndDelete(assetId, (error, data) => {
+          if (error) {
+            console.log("error in deleting Asset", error);
+            throw error;
+          } else {
+            console.log("Asset --> " + assetId + " deleted");
+          }
+        });
+      });
+    });
+    return res.status(200).json({ account });
+  } catch (err) {
+    console.log("del Error", err);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.deleteCustomer = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let customer = await CustomerLogin.findByIdAndDelete(id);
+
+    customer.childAccountIds.map(async (accId, i) => {
+      let account = await CustomerLogin.findByIdAndDelete(accId);
+      console.log("Account--> " + accId + " deleted");
+      // // delete AssetId from cust
+
+      account.unitIds.map(async (unitId, i) => {
+        let unit = await Unit.findByIdAndDelete(unitId);
+        console.log("Unit--> " + unitId + " deleted");
+        // // delete unitId from acc
+        // let accId = unit.accountId;
+        // let acc = await CustomerLogin.update(
+        //   { _id: accId },
+        //   { $pull: { unitIds: id } }
+        // );
+        // delete assets under Unit
+        unit.assetsId.map(async (assetId, i) => {
+          console.log(assetId);
+          Asset.findByIdAndDelete(assetId, (error, data) => {
+            if (error) {
+              console.log("error in deleting Asset", error);
+              throw error;
+            } else {
+              console.log("Asset --> " + assetId + " deleted");
+            }
+          });
+        });
+      });
+    });
+    return res.status(200).json({ customer });
+  } catch (err) {
+    console.log("del Error", err);
+    return res.status(400).json({ error: err });
+  }
+};

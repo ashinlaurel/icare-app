@@ -56,21 +56,28 @@ exports.getAllUnits = async (req, res) => {
 exports.deleteUnit = async (req, res) => {
   let { id } = req.body;
   try {
-    let unit = await Unit.findByIdAndDelete({ _id: id });
-    //delete unitId from acc
+    let unit = await Unit.findByIdAndDelete(id);
+    // delete unitId from acc
     let accId = unit.accountId;
     let acc = await CustomerLogin.update(
       { _id: accId },
       { $pull: { unitIds: id } }
     );
-    //delete assets under Unit
-    await unit.assetsId.map((assetId, i) => {
+    // delete assets under Unit
+    unit.assetsId.map((assetId, i) => {
       console.log(assetId);
-      Asset.findByIdAndDelete(assetsId);
+      Asset.findByIdAndDelete(assetId, (error, data) => {
+        if (error) {
+          console.log("error in deleting Asset", error);
+          throw error;
+        } else {
+          console.log("Asset " + assetId + " deleted");
+        }
+      });
     });
     return res.status(200).json({ unit });
   } catch (err) {
-    console.log(id);
+    console.log("del Error", err);
     return res.status(400).json({ error: err });
   }
 };
