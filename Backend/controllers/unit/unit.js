@@ -102,7 +102,7 @@ exports.getUnitByName = (req, res) => {
     // console.log("findone");
 
     console.log("this must run if there is result" + result);
-    // return res.json(result[0]._id);
+    return res.json(result[0]._id);
   });
 };
 
