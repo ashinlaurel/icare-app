@@ -1,6 +1,7 @@
 const Unit = require("../../models/customer/Unit");
 const Account = require("../../models/customer/Account");
 const CustomerLogin = require("../../models/customer/CustomerLogin");
+const Asset = require("../../models/assets/assets");
 
 // const handleError = (err) => {
 //   console.log(err.message, err.code);
@@ -56,12 +57,18 @@ exports.deleteUnit = async (req, res) => {
   let { id } = req.body;
   try {
     let unit = await Unit.findByIdAndDelete({ _id: id });
+    //delete unitId from acc
     let accId = unit.accountId;
     let acc = await CustomerLogin.update(
       { _id: accId },
       { $pull: { unitIds: id } }
     );
-    return res.status(200).json({ acc, acc });
+    //delete assets under Unit
+    await unit.assetsId.map((assetId, i) => {
+      console.log(assetId);
+      Asset.findByIdAndDelete(assetsId);
+    });
+    return res.status(200).json({ unit });
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });
