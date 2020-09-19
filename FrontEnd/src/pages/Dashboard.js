@@ -8,7 +8,14 @@ import ChartCard from "../components/Chart/ChartCard";
 import { Doughnut, Line } from "react-chartjs-2";
 import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
+import {
+  ChatIcon,
+  CartIcon,
+  MoneyIcon,
+  PeopleIcon,
+  EditIcon,
+  TrashIcon,
+} from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
 import {
@@ -25,6 +32,9 @@ import {
   Card,
   CardBody,
   Label,
+  Dropdown,
+  DropdownItem,
+  Button,
 } from "@windmill/react-ui";
 
 import {
@@ -33,10 +43,10 @@ import {
   doughnutLegends,
   lineLegends,
 } from "../utils/demo/chartsData";
-import Axios from "axios";
 import { API } from "../backendapi";
 import SectionTitle from "../components/Typography/SectionTitle";
 import { TopBarContext } from "../context/TopBarContext";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -49,6 +59,11 @@ function Dashboard() {
   const [searchtype, setSearchType] = useState("");
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
+  const [refresh, setRefresh] = useState(true);
+  const [disabler, setDisabler] = useState(true);
+  const [isOpenTwo, setIsOpenTwo] = useState(false);
+  // table variable styles
+  const [activerowid, setActiveRowId] = useState(0);
 
   // Count States ---------------------------------------------
   const [customercount, setCustomerCount] = useState(0);
@@ -65,6 +80,41 @@ function Dashboard() {
   function onPageChange(p) {
     setPage(p);
   }
+
+  // ---------------------Table Data Getter -------------------------
+  useEffect(() => {
+    // Using an IIFE
+    (async function thegetter() {
+      console.log("getter called");
+      let payload = {
+        pages: {
+          page: page,
+          limit: resultsPerPage,
+        },
+        filters: {
+          searchtype: searchtype,
+          searchquery: searchquery,
+        },
+      };
+      // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
+      try {
+        let response = await axios({
+          url: `${API}/asset/${Emp.getId()}/getall`,
+          method: "POST",
+          data: payload,
+        });
+        console.log(response.data.out);
+        setTotalResults(response.data.total);
+        // const { total, data } = response.data;
+        // console.log(data + "Now");
+        setData(response.data.out);
+      } catch (error) {
+        throw error;
+      }
+    })();
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, [page, refresh]);
 
   // -------Stats getter ---------------
 
@@ -113,44 +163,6 @@ function Dashboard() {
     };
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, []);
-
-  // ---------------------------------------------
-
-  // on page change, load new sliced data
-  // here you would make another server request for new data
-  useEffect(() => {
-    // Using an IIFE
-    (async function thegetter() {
-      console.log("getter called");
-      let payload = {
-        pages: {
-          page: page,
-          limit: resultsPerPage,
-        },
-        filters: {
-          searchtype: searchtype,
-          searchquery: searchquery,
-        },
-      };
-      // console.log(`${API}/asset/${Emp.getId()}/getall`);
-
-      try {
-        let response = await axios({
-          url: `${API}/asset/${Emp.getId()}/getall`,
-          method: "POST",
-          data: payload,
-        });
-        console.log(response.data.out);
-        setTotalResults(response.data.total);
-        // const { total, data } = response.data;
-        // console.log(data + "Now");
-        setData(response.data.out);
-      } catch (error) {
-        throw error;
-      }
-    })();
-    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page]);
 
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
@@ -244,29 +256,167 @@ function Dashboard() {
       </div>
 
       {/* ------------------Search------------------------------ */}
-      <SectionTitle>Search</SectionTitle>
+      <SectionTitle>Quick Search</SectionTitle>
+      <div className="flex flex-row items-center space-x-2">
+        <div className="relative z-50 ">
+          <button
+            onClick={() => {
+              setIsOpenTwo(!isOpenTwo);
+            }}
+            className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+            aria-label="Notifications"
+            aria-haspopup="true"
+          >
+            {searchtype ? searchlabel : "Pick Search Type"}
+          </button>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg
+              class="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+            </svg>
+          </div>
+          <Dropdown isOpen={isOpenTwo} onClose={() => setIsOpenTwo(false)}>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("");
+                setSearchLabel("");
+                setDisabler(true);
+                setSearchQuery("");
+                setRefresh(!refresh);
+              }}
+            >
+              <span>All</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("kbdsno");
+                setSearchLabel("Keyboard Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Keyboard Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("mousesno");
+                setSearchLabel("Mouse Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Mouse Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("motherboardsno");
+                setSearchLabel("Motherboard Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Motherboard Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("monitorsno");
+                setSearchLabel("Monitor Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Monitor Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("hddsno");
+                setSearchLabel("HDD Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>HDD Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("cpusno");
+                setSearchLabel("CPU Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>CPU Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("ramsno");
+                setSearchLabel("Ram Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>RAM Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("smpssno");
+                setSearchLabel("SMPS Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>SMPS Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("fansno");
+                setSearchLabel("Fan Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Fan Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
+                setSearchType("opticaldrivesno");
+                setSearchLabel("Optical Drive Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Optical Drive Serial</span>
+            </DropdownItem>
+          </Dropdown>
+        </div>
 
-      <Card className="mb-8 shadow-md">
-        <CardBody>
-          <Label className="">
-            <div className="relative text-gray-500 focus-within:text-purple-600">
-              <form onSubmit={handleSubmit}>
-                <input
-                  className="block w-full pr-20 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                  placeholder="Quick Search"
-                  onChange={handleChange}
-                />
-                <button
-                  type="submit"
-                  className="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                >
-                  Search
-                </button>
-              </form>
-            </div>
-          </Label>
-        </CardBody>
-      </Card>
+        <div class="block relative ">
+          <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+            <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
+              <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+            </svg>
+          </span>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setRefresh(!refresh);
+            }}
+          >
+            <input
+              value={searchquery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search"
+              disabled={disabler}
+              class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+            />
+          </form>
+        </div>
+      </div>
+
       {/* -----------------Quick Search Table ---------------  */}
       <TableContainer className="mt-4">
         <Table>
@@ -276,19 +426,27 @@ function Dashboard() {
               <TableCell>Unit</TableCell>
               <TableCell>Business</TableCell>
               <TableCell>Product</TableCell>
+              <TableCell>Product Serial</TableCell>
               <TableCell>Contract From</TableCell>
               <TableCell>Contract To</TableCell>
               <TableCell>Purchase Number</TableCell>
               <TableCell>Purchase Date</TableCell>
+              {/* <TableCell>Edit/Delete</TableCell> */}
             </tr>
           </TableHeader>
           <TableBody>
             {data.map((user, i) => (
               <TableRow
-                className="hover:shadow-lg"
+                className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                  activerowid == user._id
+                    ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                    : "white"
+                } `}
                 key={i}
                 onClick={() => {
-                  // setSelectedProd(user);
+                  setActiveRowId(user._id);
+                  // console.log("the id is " + user._id);
+                  setSelectedProd(user);
                   // setAssetDetails(user);
                 }}
               >
@@ -319,6 +477,9 @@ function Dashboard() {
                   <span className="text-sm">{user.producttype}</span>
                 </TableCell>
                 <TableCell>
+                  <span className="text-sm">{user.product.serialno}</span>
+                </TableCell>
+                <TableCell>
                   <span className="text-sm">
                     {moment(user.contractfrom).format("DD/MM/YYYY")}
                   </span>
@@ -336,6 +497,41 @@ function Dashboard() {
                     {moment(user.podate).format("DD/MM/YYYY")}
                   </span>
                 </TableCell>
+                {/* <TableCell>
+                  <div className="flex items-center space-x-4">
+                    <Button layout="link" size="icon" aria-label="Edit">
+                      <Link key={user._id} to={`/app/unit/update/${user._id}`}>
+                        <EditIcon className="w-5 h-5" aria-hidden="true" />
+                      </Link>
+                      {""}
+                    </Button>
+
+                    <Button
+                      layout="link"
+                      size="icon"
+                      aria-label="Delete"
+                      onClick={async () => {
+                        console.log("delete Asset");
+                        try {
+                          let response = await axios({
+                            url: `${API}/asset/${Emp.getId()}/delete`,
+                            method: "POST",
+                            data: { id: user._id },
+                          });
+                          console.log(response.data);
+                          let temp = data.filter((x) => x._id != user._id);
+                          setData(temp);
+
+                          // setData(response.data);
+                        } catch (error) {
+                          throw error;
+                        }
+                      }}
+                    >
+                      <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                    </Button>
+                  </div>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -350,6 +546,7 @@ function Dashboard() {
         </TableFooter>
       </TableContainer>
 
+      {/* --------------Charts---------------------------- */}
       {/* <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
         <ChartCard title="Revenue">
