@@ -225,7 +225,8 @@ function Assets() {
                 </option>
                 <option value="">All</option>
                 <option value="AMC">AMC</option>
-                <option value="Warranty">Warranty</option>
+                <option value="WTY">Warranty</option>
+                <option value="NOS">NOS</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -427,6 +428,8 @@ function Assets() {
                     setSearchType("");
                     setSearchLabel("");
                     setDisabler(true);
+                    setSearchQuery("");
+                    setRefresh(!refresh);
                   }}
                 >
                   <span>All</span>
@@ -450,6 +453,86 @@ function Assets() {
                   }}
                 >
                   <span>Mouse Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("motherboardsno");
+                    setSearchLabel("Motherboard Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Motherboard Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("monitorsno");
+                    setSearchLabel("Monitor Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Monitor Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("hddsno");
+                    setSearchLabel("HDD Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>HDD Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("cpusno");
+                    setSearchLabel("CPU Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>CPU Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("ramsno");
+                    setSearchLabel("Ram Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>RAM Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("smpssno");
+                    setSearchLabel("SMPS Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>SMPS Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("fansno");
+                    setSearchLabel("Fan Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Fan Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("opticaldrivesno");
+                    setSearchLabel("Optical Drive Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Optical Drive Serial</span>
                 </DropdownItem>
               </Dropdown>
             </div>
