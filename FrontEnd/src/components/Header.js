@@ -24,11 +24,14 @@ import { Link, Redirect } from "react-router-dom";
 
 import Emp from "../helpers/auth/EmpProfile";
 import Cust from "../helpers/auth/CustProfile";
+import PageTitle from "./Typography/PageTitle";
+import { TopBarContext } from "../context/TopBarContext";
 
 function Header() {
   const history = useHistory();
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
+  const { topheading } = useContext(TopBarContext);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -53,8 +56,11 @@ function Header() {
           <MenuIcon className="w-6 h-6" aria-hidden="true" />
         </button>
         {/* <!-- Search input --> */}
-        <div className="flex justify-center flex-1 lg:mr-32">
-          <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+        <div className="flex justify-start flex-1 lg:mr-32">
+          <h1 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            {topheading}
+          </h1>
+          {/* <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
@@ -63,7 +69,7 @@ function Header() {
               placeholder="Search for projects"
               aria-label="Search"
             />
-          </div>
+          </div> */}
         </div>
         <ul className="flex items-center flex-shrink-0 space-x-6">
           {/* <!-- Theme toggler --> */}

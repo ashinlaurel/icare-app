@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
@@ -9,10 +9,22 @@ import RoundIcon from "../../components/RoundIcon";
 import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link } from "react-router-dom";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function CustomerList() {
   const [values, setValues] = useState([]);
   const [search, setSearch] = useState("");
+  const { setTopHeading } = useContext(TopBarContext);
+
+  // ----------------------Heading Use Effect-------------
+
+  useEffect(() => {
+    setTopHeading("Customers");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
 
   //   Search Functions---------------------------------------------------------
   const handleChange = (e) => {
@@ -63,12 +75,10 @@ function CustomerList() {
   }, []);
 
   return (
-    <>
-      <PageTitle>Customers</PageTitle>
-
+    <div className="mt-4">
       <SectionTitle>Search</SectionTitle>
 
-      <Card className="mb-8 shadow-md">
+      <Card className="mb-8  shadow-md">
         <CardBody>
           <Label className="">
             <div className="relative text-gray-500 focus-within:text-purple-600">
@@ -109,7 +119,7 @@ function CustomerList() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

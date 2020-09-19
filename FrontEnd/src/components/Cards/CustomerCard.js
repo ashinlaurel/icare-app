@@ -23,7 +23,7 @@ function CustomerCard({
           </p>
         </div>
       </CardBody>
-      <div className="flex items-center justify-center  ">
+      <div className="flex items-center justify-end pr-4 -mt-3">
         <div className="mx-1">
           {btnone ? (
             <Link to={btnonelink}>

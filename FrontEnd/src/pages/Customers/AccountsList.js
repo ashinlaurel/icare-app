@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
@@ -9,11 +9,25 @@ import RoundIcon from "../../components/RoundIcon";
 import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link, useParams } from "react-router-dom";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function AccountsList() {
   const [values, setValues] = useState([]);
   const [customer, setCustomer] = useState([]);
   const [accounts, setAccounts] = useState([]);
+
+  const { setTopHeading } = useContext(TopBarContext);
+
+  // ----------------------Heading Use Effect-------------
+
+  useEffect(() => {
+    setTopHeading("Accounts");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
+
   // -----------------Getting Stuff from params-----------------------
   let { id } = useParams();
 
@@ -43,10 +57,8 @@ function AccountsList() {
   }, []);
 
   return (
-    <>
-      <PageTitle>Accounts</PageTitle>
-
-      <SectionTitle>{customer.customerName} Accounts</SectionTitle>
+    <div className="mt-4">
+      {/* <SectionTitle>{customer.customerName} Accounts</SectionTitle> */}
 
       {/* <SectionTitle>Responsive cards</SectionTitle> */}
 
@@ -70,7 +82,7 @@ function AccountsList() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

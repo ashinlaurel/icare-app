@@ -38,6 +38,7 @@ import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function Assets() {
   // Bottom bar stuff
@@ -47,6 +48,7 @@ function Assets() {
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
   );
+  const { topheading, setTopHeading } = useContext(TopBarContext);
 
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
@@ -96,6 +98,14 @@ function Assets() {
     };
   }, []);
   // -------------------------------
+  // ----------------------Heading Use Effect-------------
+  useEffect(() => {
+    setTopHeading("Assets Management");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
 
   useEffect(() => {
     // Using an IIFE
@@ -157,9 +167,9 @@ function Assets() {
       />
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
-      {floatbox ? <AssetFloat /> : null}
-      <div className="mb-64">
-        <div className="flex items-center">
+      {/* {floatbox ? <AssetFloat /> : null} */}
+      <div className="mb-64 mt-4">
+        {/* <div className="flex items-center">
           <PageTitle>Assets Management</PageTitle>
           <div>
             <Button
@@ -172,7 +182,7 @@ function Assets() {
               aria-label="Like"
             />
           </div>
-        </div>
+        </div> */}
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}

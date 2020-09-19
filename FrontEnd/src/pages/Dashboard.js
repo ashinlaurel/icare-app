@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
 
@@ -36,10 +36,12 @@ import {
 import Axios from "axios";
 import { API } from "../backendapi";
 import SectionTitle from "../components/Typography/SectionTitle";
+import { TopBarContext } from "../context/TopBarContext";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  const { topheading, setTopHeading } = useContext(TopBarContext);
 
   // Quick Search States ------------------------
   const [selectedprod, setSelectedProd] = useState({});
@@ -95,6 +97,15 @@ function Dashboard() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
+  // ----------------------Heading Use Effect-------------
+  useEffect(() => {
+    setTopHeading("Dashboard");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
+
   const handleChange = () => {
     console.log("change");
   };
@@ -105,10 +116,10 @@ function Dashboard() {
 
   return (
     <>
-      <PageTitle>Dashboard</PageTitle>
+      {/* <PageTitle>Dashboard</PageTitle> */}
 
       {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-6 mt-5 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="Total Assets" value={assetcount}>
           <RoundIcon
             icon={PeopleIcon}

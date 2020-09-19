@@ -10,9 +10,23 @@ import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link, useParams } from "react-router-dom";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function UnitsList() {
   const [units, setUnits] = useState([]);
+
+  const { setTopHeading } = useContext(TopBarContext);
+
+  // ----------------------Heading Use Effect-------------
+
+  useEffect(() => {
+    setTopHeading("Units");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
+
   // -----------------Getting Stuff from params-----------------------
   let { id, accountid } = useParams();
 
@@ -59,9 +73,7 @@ function UnitsList() {
   }, []);
 
   return (
-    <>
-      <PageTitle>Units</PageTitle>
-
+    <div className="mt-4">
       {/* <SectionTitle>{customer.customerName} Accounts</SectionTitle> */}
 
       {/* <SectionTitle>Responsive cards</SectionTitle> */}
@@ -84,7 +96,7 @@ function UnitsList() {
           </CustomerCard>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

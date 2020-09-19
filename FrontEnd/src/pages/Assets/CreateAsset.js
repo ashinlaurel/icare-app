@@ -27,6 +27,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 // Migration
 import { handleMigration } from "../../migration/migration";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function CreateAsset() {
   /////BOTOM BAT STUFFF
@@ -36,6 +37,8 @@ function CreateAsset() {
     setCreateAssetDetails,
     createAssetDetails,
   } = useContext(BottomBarContext);
+  // TopBar Stuff
+  const { topheading, setTopHeading } = useContext(TopBarContext);
 
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
@@ -114,6 +117,15 @@ function CreateAsset() {
     };
   }, []);
   // -------------------------------
+  // ----------------------Heading Use Effect-------------
+
+  useEffect(() => {
+    setTopHeading("Create Assets");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
 
   // Bottom bar edit
 
@@ -291,10 +303,10 @@ function CreateAsset() {
   //ASSET----------------------------------------------------
   const assetPicker = () => {
     return (
-      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        {floatbox ? (
+      <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        {/* {floatbox ? (
           <CreateAssetFloat Business={Business} POnumber={POnumber} />
-        ) : null}
+        ) : null} */}
 
         <Label className="font-bold">
           <span>Asset Information</span>
@@ -3128,7 +3140,7 @@ function CreateAsset() {
         setAccount={setAccount}
       />
       {/* Heading of page with float button */}
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <PageTitle>Assets Management</PageTitle>
         <div>
           <Button
@@ -3141,7 +3153,7 @@ function CreateAsset() {
             aria-label="Like"
           />
         </div>
-      </div>
+      </div> */}
       {assetPicker()}
       {/* <SectionTitle>Pick Product</SectionTitle> */}
       {/* {dropdown()} */}

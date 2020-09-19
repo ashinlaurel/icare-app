@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 
@@ -19,6 +19,7 @@ import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
 import EmpProfile from "../../helpers/auth/EmpProfile";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import { resetIdCounter } from "react-tabs";
+import { TopBarContext } from "../../context/TopBarContext";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function CreateCustomer() {
@@ -26,11 +27,13 @@ function CreateCustomer() {
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
+  const { setTopHeading } = useContext(TopBarContext);
 
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+
   const [values, setValues] = useState({
     //both
     username: "",
@@ -62,6 +65,16 @@ function CreateCustomer() {
     enc_password: "",
     confpassword: "",
   });
+
+  // ----------------------Heading Use Effect-------------
+
+  useEffect(() => {
+    setTopHeading("Add Customer");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
@@ -208,7 +221,7 @@ function CreateCustomer() {
   //ASSET
   const addForm = () => {
     return (
-      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
           <span>Add Customer</span>
         </Label>
@@ -547,7 +560,7 @@ function CreateCustomer() {
         setIsModalOpen={setIsModalOpen}
         setCustomer={setCustomer}
       />
-      <PageTitle>Add Customer</PageTitle>
+      {/* <PageTitle>Add Customer</PageTitle> */}
       {addForm()}
 
       {/* {productPicker()} */}
