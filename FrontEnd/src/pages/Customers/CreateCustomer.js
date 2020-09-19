@@ -323,71 +323,81 @@ function CreateCustomer() {
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex space-x-3">
-          <Label className="w-1/4">
-            <span>Select Account Type*</span>
-            <Select
-              className="mt-1"
-              onChange={(e) => {
-                setAccType(parseInt(e.target.value));
-              }}
-            >
-              <option value="0">Customer</option>
-              <option value="1">Account</option>
-              <option value="2">Unit</option>
-            </Select>
-          </Label>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Select Account Type*</span>
+              <Select
+                className="mt-1"
+                onChange={(e) => {
+                  setAccType(parseInt(e.target.value));
+                }}
+              >
+                <option value="0">Customer</option>
+                <option value="1">Account</option>
+                <option value="2">Unit</option>
+              </Select>
+            </Label>
+          </div>
           {accType === 0 ? (
             <>
-              <Label className="w-1/4">
-                <span>Customer Name*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values.customerName}
-                  onChange={handleChange("customerName")}
-                />
-              </Label>
-              <HelperText valid={false}>{err.customerName}</HelperText>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Customer Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={values.customerName}
+                    onChange={handleChange("customerName")}
+                  />
+                </Label>
+                <HelperText valid={false}>{err.customerName}</HelperText>
+              </div>
             </>
           ) : null}
           {accType === 1 ? (
             <>
-              <Label className="w-1/4">
-                <span>Account Name*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values.accountName}
-                  onChange={handleChange("accountName")}
-                />
-              </Label>
-              <HelperText valid={false}>{err.accountName}</HelperText>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Account Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={values.accountName}
+                    onChange={handleChange("accountName")}
+                  />
+                </Label>
+                <HelperText valid={false}>{err.accountName}</HelperText>
+              </div>
             </>
           ) : null}
           {accType === 2 ? (
             <>
-              <Label className="w-1/4">
-                <span>Unit Name*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values.unitName}
-                  onChange={handleChange("unitName")}
-                />
-              </Label>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Unit Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={values.unitName}
+                    onChange={handleChange("unitName")}
+                  />
+                </Label>
+              </div>
             </>
           ) : null}
-          <Label className="w-1/4">
-            <span>User Name*</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.username}
-              onChange={handleChange("username")}
-            />
-          </Label>
-          <HelperText valid={false}>{err.username}</HelperText>
-          <Label className="w-1/4">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>User Name*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.username}
+                onChange={handleChange("username")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.username}</HelperText>
+          </div>
+          <Label className="w-full">
             <span>Email*</span>
             <Input
               className="mt-1"
@@ -434,42 +444,72 @@ function CreateCustomer() {
         <hr />
         {/* -------Row - 3 ---------------------- */}
         <div className="flex-row flex space-x-3 mt-3 mb-2">
-          <Label className="w-1/4">
-            <span>GST Number</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.GSTnumber}
-              onChange={handleChange("GSTnumber")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>Contact Person</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.contactPerson}
-              onChange={handleChange("contactPerson")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>Contact Number</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.contactNo}
-              onChange={handleChange("contactNo")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>Whatsapp Number</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.WhatsappNo}
-              onChange={handleChange("WhatsappNo")}
-            />
-          </Label>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>GST Number</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.GSTnumber}
+                onChange={handleChange("GSTnumber")}
+              />
+            </Label>{" "}
+            {values.GSTnumber.length != 15 && values.GSTnumber != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  GST number shound be 15 digits
+                </HelperText>
+              </>
+            ) : null}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Person</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.contactPerson}
+                onChange={handleChange("contactPerson")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Number</span>
+              <Input
+                className="mt-1"
+                type="number"
+                value={values.contactNo}
+                onChange={handleChange("contactNo")}
+              />
+            </Label>{" "}
+            {values.contactNo.length != 10 && values.contactNo != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null}
+          </div>
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Whatsapp Number</span>
+              <Input
+                className="mt-1"
+                type="number"
+                value={values.WhatsappNo}
+                onChange={handleChange("WhatsappNo")}
+              />
+            </Label>
+            {values.WhatsappNo.length != 10 && values.WhatsappNo != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null}
+          </div>
         </div>
         <Label className="my-2">
           <span>Address</span>
@@ -482,42 +522,55 @@ function CreateCustomer() {
         </Label>{" "}
         {/* -----------------------Row-4 */}
         <div className="flex-row flex space-x-3 my-2">
-          <Label className="w-1/4">
-            <span>District</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.district}
-              onChange={handleChange("district")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>State</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.state}
-              onChange={handleChange("state")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>Location Type</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.locationType}
-              onChange={handleChange("locationType")}
-            />
-          </Label>{" "}
-          <Label className="w-1/4">
-            <span>PIN code</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.pincode}
-              onChange={handleChange("pincode")}
-            />
-          </Label>{" "}
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>District</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.district}
+                onChange={handleChange("district")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>State</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.state}
+                onChange={handleChange("state")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Location Type</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.locationType}
+                onChange={handleChange("locationType")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>PIN code</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.pincode}
+                onChange={handleChange("pincode")}
+              />
+            </Label>{" "}
+            {values.pincode.length != 6 && values.pincode != 0 ? (
+              <>
+                <HelperText valid={false}>PIN shound be 6 digits</HelperText>
+              </>
+            ) : null}
+          </div>
         </div>
         {/* ///////////////////////////////////////////////////////// */}
         {accType === 1 ? (

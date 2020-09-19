@@ -105,6 +105,7 @@ function UpdateAsset() {
       });
       console.log("asset", res.data);
       let asset = res.data;
+      setProduct(asset.producttype);
       setUnit({ _id: id, unitName: asset.unitName });
       setCustomer({ _id: asset.customerId, customerName: asset.customerName });
       setAccount({ _id: asset.accountId, accountName: asset.accountName });
@@ -438,6 +439,23 @@ function UpdateAsset() {
         {/* ----------------------------Row - 4 --------------------------------------------------------------------- */}
         <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
           <div className="w-full">
+            <Label className="my-3 font-bold">
+              <span>GST AMOUNT: </span>
+
+              <span> Rs {AMCRate * (GST / 100)}</span>
+            </Label>
+          </div>
+          <div className="w-full font-bold">
+            <Label className="my-3">
+              <span>Net Amount: </span>
+              <span>
+                Rs {parseInt(AMCRate) + parseInt(AMCRate) * (GST / 100)}
+              </span>
+            </Label>
+          </div>
+        </div>
+        {/* <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
+          <div className="w-full">
             <Label className="my-3">
               <span>GST AMOUNT</span>
               <Input
@@ -463,7 +481,7 @@ function UpdateAsset() {
               />
             </Label>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };
