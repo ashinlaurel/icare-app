@@ -19,10 +19,10 @@ function AdminLogin() {
   });
   const [err, setErr] = useState();
 
-  // useEffect(() => {
-  //   console.log("TYPE", localStorage.getItem("type"));
-  //   if (localStorage.getItem("type") == "0") history.push("/app");
-  // }, []);
+  useEffect(() => {
+    console.log("empName", EmpProfile.getEmail());
+    if (EmpProfile.getEmail()) history.push("/app");
+  }, []);
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });

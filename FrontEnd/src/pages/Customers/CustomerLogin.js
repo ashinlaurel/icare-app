@@ -13,18 +13,18 @@ import Axios from "axios";
 import { API } from "../../backendapi";
 
 function CustomerLogin() {
-  // let history = useHistory();
-  // useEffect(() => {
-  //   console.log("TYPE", localStorage.getItem("type"));
-  //   if (localStorage.getItem("type") == "1")
-  //     history.push("/app/myassets/accounts");
-  // }, []);
+  let history = useHistory();
+
+  useEffect(() => {
+    console.log("empName", CustProfile.getUsername());
+    if (CustProfile.getUsername()) history.push("/app/myassets/accounts");
+  }, []);
 
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
-      console.log("Testing Route");
-      console.log(`${API}/test`);
+      // console.log("Testing Route");
+      // console.log(`${API}/test`);
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
@@ -41,7 +41,6 @@ function CustomerLogin() {
   }, []);
 
   // isAutheticated();
-  let history = useHistory();
   const [values, setValues] = useState({
     username: "ftest",
     password: "password",
@@ -137,7 +136,7 @@ function CustomerLogin() {
               </Button>
               <HelperText valid={false}>{err}</HelperText>
 
-              <hr className="my-8" />
+              {/* <hr className="my-8" />
 
               <p className="mt-4">
                 <Link
@@ -154,7 +153,7 @@ function CustomerLogin() {
                 >
                   Create account
                 </Link>
-              </p>
+              </p> */}
             </div>
           </main>
         </div>
