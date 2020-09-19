@@ -7,6 +7,9 @@ const {
   deleteAsset,
   updateAsset,
   getAssetById,
+  countAmcAssets,
+  countWtyAssets,
+  countNosAssets,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 const {
@@ -30,11 +33,17 @@ router.post(
   //   isAdmin,
   createAsset
 );
-// Migration create route
+//------------------ Migration create route----------------------------
 // router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);
+
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllAssets);
+// -------------------Counter Routes------------------
 router.get("/count", countAssets);
+router.get("/countamc", countAmcAssets);
+router.get("/countwty", countWtyAssets);
+router.get("/countnos", countNosAssets);
+// -----------------------------------------------------
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getAssetById);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteAsset);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateAsset);

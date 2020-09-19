@@ -17,9 +17,10 @@ const ObjectId = require("mongodb").ObjectID;
 //     next();
 //   });
 // };
+// ---------------Counter Controllers -------------------
 exports.countAssets = (req, res) => {
   Asset.count({}, function (err, result) {
-    if (err || !result) {
+    if (err) {
       return res.status(400).json({
         error: "Cant count assets",
         err: err,
@@ -29,6 +30,44 @@ exports.countAssets = (req, res) => {
     return res.status(200).json(result);
   });
 };
+exports.countAmcAssets = (req, res) => {
+  Asset.count({ business: "AMC" }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count amc assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+exports.countWtyAssets = (req, res) => {
+  Asset.count({ business: "WTY" }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count wty assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+exports.countNosAssets = (req, res) => {
+  Asset.count({ business: "NOS" }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count nos assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+
+// -------------------------------------------------------
 
 exports.createAsset = async (req, res) => {
   let { asset, product } = req.body;
@@ -134,6 +173,39 @@ exports.getAllAssets = (req, res) => {
       pfilteroptions["mouse.mousesno"] = fuzzyquery;
       // console.log("inside");
     }
+    if (searchtype == "motherboardsno") {
+      pfilteroptions["motherboard.motherboardsno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "monitorsno") {
+      pfilteroptions["monitor.monitorsno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "hddsno") {
+      pfilteroptions["hdd.hddsno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "cpusno") {
+      pfilteroptions["cpu.cpusno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "ramsno") {
+      pfilteroptions["ram.ramsno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "smpssno") {
+      pfilteroptions["smps.smpssno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "fansno") {
+      pfilteroptions["fan.fansno"] = fuzzyquery;
+      // console.log("inside");
+    }
+    if (searchtype == "opticaldrivesno") {
+      pfilteroptions["opticaldrive.opticaldrivesno"] = fuzzyquery;
+      // console.log("inside");
+    }
+
     // ------------------------Main Call-----------------------------------------
     Server.paginate(pfilteroptions, productoptions, function (err, result) {
       // console.log(result);

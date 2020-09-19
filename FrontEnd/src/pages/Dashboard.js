@@ -254,6 +254,7 @@ function Dashboard() {
           />
         </InfoCard>
       </div>
+      <hr className="mb-4" />
 
       {/* ------------------Search------------------------------ */}
       <SectionTitle>Quick Search</SectionTitle>

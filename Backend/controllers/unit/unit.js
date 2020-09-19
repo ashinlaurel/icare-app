@@ -16,6 +16,20 @@ const Asset = require("../../models/assets/assets");
 //   return errors;
 // };
 
+// -----------------------Counter ----------------
+exports.countUnits = (req, res) => {
+  Unit.count({}, function (err, result) {
+    if (err || !result) {
+      return res.status(400).json({
+        error: "Cant count units",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+
 exports.unitCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   const unit = req.body;

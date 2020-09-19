@@ -2,6 +2,21 @@ const CustomerLogin = require("../../models/customer/CustomerLogin");
 const Unit = require("../../models/customer/Unit");
 const Asset = require("../../models/assets/assets");
 
+// ---------------Counter Controllers -------------------
+exports.countCustomers = (req, res) => {
+  CustomerLogin.count({ role: "1" }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count customers",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+// ---------------------------------------
+
 exports.getAllCust = async (req, res) => {
   try {
     const users = await CustomerLogin.find(); //populate("infoId");

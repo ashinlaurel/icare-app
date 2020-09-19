@@ -6,6 +6,7 @@ const {
   deleteUnit,
   getUnitById,
   getUnitByName,
+  countUnits,
 } = require("../../controllers/unit/unit");
 const {
   getEmpById,
@@ -19,6 +20,7 @@ router.param("id", getEmpById);
 
 router.post("/:id/create", isSignedIn, isAuthenticated, unitCreate);
 
+router.get("/count", countUnits);
 router.post("/delete", deleteUnit);
 router.get("/units", getAllUnits);
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getUnitById);

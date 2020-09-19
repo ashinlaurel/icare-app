@@ -17,6 +17,7 @@ const {
   getCustomerByName,
   deleteAccount,
   deleteCustomer,
+  countCustomers,
 } = require("../../controllers/customer/Customer");
 const {
   getEmpById,
@@ -41,6 +42,9 @@ router.post("/signin", signin);
 router.post("/accounts", AccountsOfCustomer);
 // get customers with search enabled and initially returning a few
 router.post("/customers", getAllCustomers);
+// --------------Counters-----------------------
+router.get("/countcustomers", countCustomers);
+// ----------------------------------------------
 router.post("/:id/getCustomerById", getCustomerById);
 router.post("/getCustomerByName", getCustomerByName);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
