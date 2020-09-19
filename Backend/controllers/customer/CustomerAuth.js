@@ -129,7 +129,7 @@ exports.isAdmin = (req, res, next) => {
 };
 
 exports.getCustById = (req, res, next, id) => {
-  console.log("Cid", id);
+  // console.log("Cid", id);
   CustomerLogin.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({

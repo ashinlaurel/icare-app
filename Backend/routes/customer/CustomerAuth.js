@@ -15,6 +15,8 @@ const {
   getCustomerById,
   updateCustomer,
   getCustomerByName,
+  deleteAccount,
+  deleteCustomer,
 } = require("../../controllers/customer/Customer");
 const {
   getEmpById,
@@ -42,6 +44,8 @@ router.post("/customers", getAllCustomers);
 router.post("/:id/getCustomerById", getCustomerById);
 router.post("/getCustomerByName", getCustomerByName);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
+router.post("/deleteacc", deleteAccount);
+router.post("/deletecust", deleteCustomer);
 router.post(
   "/:id/resetPassByAdmin",
   isSignedIn,
