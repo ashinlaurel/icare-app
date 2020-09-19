@@ -42,12 +42,14 @@ import { TopBarContext } from "../../context/TopBarContext";
 
 function Assets() {
   // Bottom bar stuff
-
   // const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
   // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
   );
+  // table variable styles
+  const [activerowid, setActiveRowId] = useState(0);
+
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
   const [floatbox, setFloatBox] = useState(false);
@@ -512,6 +514,7 @@ function Assets() {
                 <TableCell>Unit</TableCell>
                 <TableCell>Business</TableCell>
                 <TableCell>Product</TableCell>
+                <TableCell>Product Serial</TableCell>
                 <TableCell>Contract From</TableCell>
                 <TableCell>Contract To</TableCell>
                 <TableCell>Purchase Number</TableCell>
@@ -522,9 +525,15 @@ function Assets() {
             <TableBody>
               {data.map((user, i) => (
                 <TableRow
-                  className="hover:shadow-lg"
+                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                    activerowid == user._id
+                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                      : "white"
+                  } `}
                   key={i}
                   onClick={() => {
+                    setActiveRowId(user._id);
+                    // console.log("the id is " + user._id);
                     setSelectedProd(user);
                     setAssetDetails(user);
                     // console.log(user.product.keyboard[0].kbdname);
@@ -557,6 +566,9 @@ function Assets() {
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{user.producttype}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.product.serialno}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">
