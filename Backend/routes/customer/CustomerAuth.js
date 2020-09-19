@@ -48,8 +48,8 @@ router.get("/countcustomers", countCustomers);
 router.post("/:id/getCustomerById", getCustomerById);
 router.post("/getCustomerByName", getCustomerByName);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
-router.post("/deleteacc", deleteAccount);
-router.post("/deletecust", deleteCustomer);
+router.post("/:id/deleteacc", isSignedIn, isAuthenticated, deleteAccount);
+router.post("/:id/deletecust", isSignedIn, isAuthenticated, deleteCustomer);
 router.post(
   "/:id/resetPassByAdmin",
   isSignedIn,

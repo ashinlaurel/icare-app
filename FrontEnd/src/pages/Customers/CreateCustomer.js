@@ -20,17 +20,26 @@ import EmpProfile from "../../helpers/auth/EmpProfile";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import { resetIdCounter } from "react-tabs";
 import { TopBarContext } from "../../context/TopBarContext";
+import { unitCreate } from "../../helpers/unitHelper";
+import AddUnitModal from "../../components/Modal/AddUnitModal";
+import { useHistory } from "react-router-dom";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function CreateCustomer() {
-  const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account
+  let history = useHistory();
+  const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
+  const [isReqFieldModal, setIsReqFieldModal] = useState(false);
   const { setTopHeading } = useContext(TopBarContext);
 
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //States for unit
+  const [isUModalOpen, setIsUModalOpen] = useState(false);
+  const [Ucustomer, setUCustomer] = useState({ _id: "", customerName: "" });
+  const [Uaccount, setUAccount] = useState({ _id: "", accountName: "" });
 
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
 
@@ -47,6 +56,8 @@ function CreateCustomer() {
     accountName: "",
     unitId: [],
     // //------> customerName from above
+    //unit
+    unitName: "",
     address: "",
     district: "",
     state: "",
@@ -92,6 +103,16 @@ function CreateCustomer() {
       setErr({ ...err, confpassword: "Confirm password does not match" });
       return;
     }
+    if (
+      (values.customerName === "") |
+      (values.username === "") |
+      (values.email === "") |
+      (values.password === "") |
+      (values.confpassword === "")
+    ) {
+      setIsReqFieldModal(true);
+      return;
+    }
     // e.preventDefault();
     const newuser = {
       username: values.username,
@@ -132,6 +153,16 @@ function CreateCustomer() {
   const sumbitAccount = async (e) => {
     if (values.password !== values.confpassword) {
       setErr({ ...err, confpassword: "Confirm password does not match" });
+      return;
+    }
+    if (
+      (values.accountName === "") |
+      (values.username === "") |
+      (values.email === "") |
+      (values.password === "") |
+      (values.confpassword === "")
+    ) {
+      setIsReqFieldModal(true);
       return;
     }
     if (customer._id == "") {
@@ -176,6 +207,42 @@ function CreateCustomer() {
         setErr({ ...err });
       });
   };
+  const submitUnit = async (e) => {
+    if (Ucustomer._id == "" || Uaccount._id == "") {
+      setIsErrModalOpen(true);
+      return;
+    }
+    // e.preventDefault();
+    const payload = {
+      username: values.username,
+      email: values.email,
+      customerId: Ucustomer._id,
+      customerName: Ucustomer.customerMame,
+      accountId: Uaccount._id,
+      accountName: Uaccount.accountName,
+
+      unitName: values.unitName,
+      address: values.address,
+      district: values.district,
+      state: values.state,
+      locationType: values.locationType,
+      pincode: values.pincode,
+      GSTnumber: values.GSTnumber,
+      contactPerson: values.contactPerson,
+      contactNo: values.contactNo,
+      altContact: values.altContact,
+      whatsappNo: values.WhatsappNo,
+    };
+    unitCreate(payload)
+      .then((data) => {
+        console.log("Signed Up", data);
+        setIsReviewModalOpen(true);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        // setErr({ ...err });
+      });
+  };
 
   const ReviewSubmit = () => {
     return (
@@ -184,12 +251,18 @@ function CreateCustomer() {
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
         >
-          <ModalHeader>Customer Created Successfully!</ModalHeader>
+          <ModalHeader>
+            {accType === 0 ? <>Customer </> : null}
+            {accType === 1 ? <>Account </> : null}
+            {accType === 2 ? <>Unit </> : null}
+            Created Successfully!
+          </ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
-              onClick={() => setIsReviewModalOpen(false)}
+              // onClick={() => setIsReviewModalOpen(false)}
+              onClick={() => window.location.reload()}
             >
               Okay!
             </Button>
@@ -218,6 +291,28 @@ function CreateCustomer() {
     );
   };
 
+  const ReqFieldErrModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReqFieldModal}
+          onClose={() => setIsReqFieldModal(false)}
+        >
+          <ModalHeader>Required fields are not filled!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsReqFieldModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   //ASSET
   const addForm = () => {
     return (
@@ -229,7 +324,7 @@ function CreateCustomer() {
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex space-x-3">
           <Label className="w-1/4">
-            <span>Select Account Type</span>
+            <span>Select Account Type*</span>
             <Select
               className="mt-1"
               onChange={(e) => {
@@ -237,13 +332,14 @@ function CreateCustomer() {
               }}
             >
               <option value="0">Customer</option>
-              <option value="1">Accounts</option>
+              <option value="1">Account</option>
+              <option value="2">Unit</option>
             </Select>
           </Label>
           {accType === 0 ? (
             <>
               <Label className="w-1/4">
-                <span>Customer Name</span>
+                <span>Customer Name*</span>
                 <Input
                   className="mt-1"
                   type="text"
@@ -253,10 +349,11 @@ function CreateCustomer() {
               </Label>
               <HelperText valid={false}>{err.customerName}</HelperText>
             </>
-          ) : (
+          ) : null}
+          {accType === 1 ? (
             <>
               <Label className="w-1/4">
-                <span>Account Name</span>
+                <span>Account Name*</span>
                 <Input
                   className="mt-1"
                   type="text"
@@ -266,9 +363,22 @@ function CreateCustomer() {
               </Label>
               <HelperText valid={false}>{err.accountName}</HelperText>
             </>
-          )}
+          ) : null}
+          {accType === 2 ? (
+            <>
+              <Label className="w-1/4">
+                <span>Unit Name*</span>
+                <Input
+                  className="mt-1"
+                  type="text"
+                  value={values.unitName}
+                  onChange={handleChange("unitName")}
+                />
+              </Label>
+            </>
+          ) : null}
           <Label className="w-1/4">
-            <span>User Name</span>
+            <span>User Name*</span>
             <Input
               className="mt-1"
               type="text"
@@ -278,7 +388,7 @@ function CreateCustomer() {
           </Label>
           <HelperText valid={false}>{err.username}</HelperText>
           <Label className="w-1/4">
-            <span>Email</span>
+            <span>Email*</span>
             <Input
               className="mt-1"
               type="email"
@@ -291,8 +401,8 @@ function CreateCustomer() {
         </div>
         {/* ----------------------Row 2 ----------------------------- */}
         <div className="flex-row flex space-x-3 ">
-          <Label className="w-1/2 mt-4">
-            <span>Password</span>
+          <Label className="w-full mt-4">
+            <span>Password*</span>
             <Input
               className="mt-1"
               placeholder=""
@@ -302,16 +412,20 @@ function CreateCustomer() {
             />
           </Label>
           <HelperText valid={false}>{err.enc_password}</HelperText>
-          <Label className="w-1/2 mt-4">
-            <span>Confirm password</span>
-            <Input
-              className="mt-1"
-              type="password"
-              value={values.confpassword}
-              onChange={handleConfPassChange("confpassword")}
-            />
-          </Label>
-          <HelperText valid={false}>{err.confpassword}</HelperText>
+          <div className="flex flex-col w-full">
+            <Label className="w-full mt-4">
+              <span>Confirm password*</span>
+
+              <Input
+                className="mt-1"
+                type="password"
+                value={values.confpassword}
+                onChange={handleConfPassChange("confpassword")}
+              />
+            </Label>
+
+            <HelperText valid={false}>{err.confpassword}</HelperText>
+          </div>
         </div>
         {/* ///////////////////////////////////////////////////////// */}
         <Label className="font-bold mt-5 mb-2">
@@ -415,16 +529,30 @@ function CreateCustomer() {
               className="mt-4 mx-4"
             >
               {customer.customerName === "" ? (
-                <>Pick Customer Associated with the Account</>
+                <>Pick customer associated with the account</>
               ) : (
                 <>Customer: {customer.customerName}</>
               )}
             </Button>
           </>
         ) : null}
+        {accType === 2 ? (
+          <>
+            <Button
+              onClick={() => setIsUModalOpen(true)}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              className="mt-4 mx-3"
+            >
+              Select customer and account associated with thr unit
+            </Button>
+          </>
+        ) : null}
         <Button
           onClick={() => {
-            accType === 0 ? submitCustomer() : sumbitAccount();
+            if (accType === 0) submitCustomer();
+            else if (accType === 1) sumbitAccount();
+            else submitUnit();
           }}
           aria-label="Notifications"
           aria-haspopup="true"
@@ -560,12 +688,21 @@ function CreateCustomer() {
         setIsModalOpen={setIsModalOpen}
         setCustomer={setCustomer}
       />
+      <AddUnitModal
+        isModalOpen={isUModalOpen}
+        setIsModalOpen={setIsUModalOpen}
+        setAccount={setUAccount}
+        account={Uaccount}
+        customer={Ucustomer}
+        setCustomer={setUCustomer}
+      />
       {/* <PageTitle>Add Customer</PageTitle> */}
       {addForm()}
 
       {/* {productPicker()} */}
       {ReviewSubmit()}
       {AccCustErr()}
+      {ReqFieldErrModal()}
     </>
   );
 }
