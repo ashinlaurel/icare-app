@@ -297,7 +297,8 @@ function CreateAsset() {
   // Setting Amount
   useEffect(() => {
     setGSTAMOUNT(AMCRate * (GST / 100));
-    setNetAmount(AMCRate - AMCRate * (GST / 100));
+    let total = parseInt(AMCRate) + parseInt(AMCRate) * (GST / 100);
+    setNetAmount(total);
   }, [AMCRate, GST]);
 
   //ASSET----------------------------------------------------
@@ -357,7 +358,8 @@ function CreateAsset() {
                   Select Business Type
                 </option>
                 <option value="AMC">AMC</option>
-                <option value="Warranty">Warranty</option>
+                <option value="WTY">Warranty</option>
+                <option value="NOS">Not Under Service (NOS) </option>
               </Select>
             </Label>
           </div>
@@ -474,21 +476,16 @@ function CreateAsset() {
           <div className="w-full">
             <Label className="my-3 font-bold">
               <span>GST AMOUNT: </span>
-              {/* <Input
-                className="mt-1"
-                name="brand"
-                value={GSTAMOUNT}
-                // onChange={(e) => {
-                //   setGSTAMOUNT(e.target.value);
-                // }}
-              /> */}
+
               <span> Rs {AMCRate * (GST / 100)}</span>
             </Label>
           </div>
           <div className="w-full font-bold">
             <Label className="my-3">
               <span>Net Amount: </span>
-              <span>Rs {AMCRate - AMCRate * (GST / 100)}</span>
+              <span>
+                Rs {parseInt(AMCRate) + parseInt(AMCRate) * (GST / 100)}
+              </span>
             </Label>
           </div>
         </div>

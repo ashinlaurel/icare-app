@@ -51,7 +51,12 @@ function Dashboard() {
   const [searchquery, setSearchQuery] = useState("");
 
   // Count States ---------------------------------------------
-  const [assetcount, setAssetCount] = useState("");
+  const [customercount, setCustomerCount] = useState(0);
+  const [assetcount, setAssetCount] = useState(0);
+  const [amcassetcount, setAmcAssetCount] = useState(0);
+  const [wtyassetcount, setWtyAssetCount] = useState(0);
+  const [nosassetcount, setNosAssetCount] = useState(0);
+  const [unitcount, setUnitCount] = useState(0);
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
@@ -60,6 +65,56 @@ function Dashboard() {
   function onPageChange(p) {
     setPage(p);
   }
+
+  // -------Stats getter ---------------
+
+  useEffect(() => {
+    // Using an IIFE
+    (async function thegetter() {
+      try {
+        let tcustomercount = await axios({
+          url: `${API}/customer/countcustomers`,
+          method: "GET",
+        });
+        let tassetcount = await axios({
+          url: `${API}/asset/count`,
+          method: "GET",
+        });
+        let tamcassetcount = await axios({
+          url: `${API}/asset/countamc`,
+          method: "GET",
+        });
+        let twtyassetcount = await axios({
+          url: `${API}/asset/countwty`,
+          method: "GET",
+        });
+        let tnosassetcount = await axios({
+          url: `${API}/asset/countnos`,
+          method: "GET",
+        });
+        let tunitcount = await axios({
+          url: `${API}/unit/count`,
+          method: "GET",
+        });
+        // console.log(tassetcount);
+        setCustomerCount(tcustomercount.data);
+        setAssetCount(tassetcount.data);
+        setAmcAssetCount(tamcassetcount.data);
+        setWtyAssetCount(twtyassetcount.data);
+        setNosAssetCount(tnosassetcount.data);
+        setUnitCount(tunitcount.data);
+      } catch (error) {
+        throw error;
+      }
+    })();
+
+    return () => {
+      console.log("exiting dashboard");
+    };
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, []);
+
+  // ---------------------------------------------
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -120,6 +175,23 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mt-5 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        <InfoCard title="Total Customers" value={customercount}>
+          <RoundIcon
+            icon={MoneyIcon}
+            iconColorClass="text-green-500 dark:text-green-100"
+            bgColorClass="bg-green-100 dark:bg-green-500"
+            className="mr-4"
+          />
+        </InfoCard>
+
+        <InfoCard title="Total Units" value={unitcount}>
+          <RoundIcon
+            icon={CartIcon}
+            iconColorClass="text-blue-500 dark:text-blue-100"
+            bgColorClass="bg-blue-100 dark:bg-blue-500"
+            className="mr-4"
+          />
+        </InfoCard>
         <InfoCard title="Total Assets" value={assetcount}>
           <RoundIcon
             icon={PeopleIcon}
@@ -129,25 +201,39 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total Customers" value="2">
+        <InfoCard title="Assets (AMC)" value={amcassetcount}>
           <RoundIcon
-            icon={MoneyIcon}
-            iconColorClass="text-green-500 dark:text-green-100"
-            bgColorClass="bg-green-100 dark:bg-green-500"
+            icon={ChatIcon}
+            iconColorClass="text-teal-500 dark:text-teal-100"
+            bgColorClass="bg-teal-100 dark:bg-teal-500"
             className="mr-4"
           />
         </InfoCard>
-
-        <InfoCard title="Total Accounts" value="3">
+        <InfoCard title="Assets (WTY)" value={wtyassetcount}>
           <RoundIcon
-            icon={CartIcon}
-            iconColorClass="text-blue-500 dark:text-blue-100"
-            bgColorClass="bg-blue-100 dark:bg-blue-500"
+            icon={ChatIcon}
+            iconColorClass="text-teal-500 dark:text-teal-100"
+            bgColorClass="bg-teal-100 dark:bg-teal-500"
             className="mr-4"
           />
         </InfoCard>
-
-        <InfoCard title="Total Units" value="4">
+        <InfoCard title="Assets (NOS)" value={nosassetcount}>
+          <RoundIcon
+            icon={ChatIcon}
+            iconColorClass="text-teal-500 dark:text-teal-100"
+            bgColorClass="bg-teal-100 dark:bg-teal-500"
+            className="mr-4"
+          />
+        </InfoCard>
+        <InfoCard title="AMC Contracts" value="0">
+          <RoundIcon
+            icon={ChatIcon}
+            iconColorClass="text-teal-500 dark:text-teal-100"
+            bgColorClass="bg-teal-100 dark:bg-teal-500"
+            className="mr-4"
+          />
+        </InfoCard>
+        <InfoCard title="Total Value" value="0">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
