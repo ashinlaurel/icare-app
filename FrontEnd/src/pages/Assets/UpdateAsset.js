@@ -20,9 +20,7 @@ import {
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
-import { MailIcon, Add, Remove, HeartIcon } from "../../icons";
-import Axios from "axios";
-import { data } from "autoprefixer";
+import { Add, Remove, HeartIcon } from "../../icons";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
