@@ -28,7 +28,7 @@ import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 import { handleMigration } from "../../migration/migration";
 import { useParams } from "react-router-dom";
 
-function UpdateAsset() {
+function AssetView() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
   const { id } = useParams();
@@ -79,7 +79,7 @@ function UpdateAsset() {
   const [others, setothers] = useState([{ othersname: "", otherssno: "" }]);
   //asset
 
-  const [Business, setBusiness] = useState("");
+  const [Business, setBusiness] = useState("AMC");
   const [POnumber, setPOnumber] = useState("");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
@@ -211,66 +211,6 @@ function UpdateAsset() {
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let payload = {
-      business: Business,
-      producttype: product,
-      ponumber: POnumber,
-      podate: POdate,
-      contractfrom: ContractFrom,
-      contractto: ContractTo,
-      billingfrom: BillingFrom,
-      billingto: BillingTo,
-      amcrate: AMCRate,
-      gstperc: GST,
-      gstamount: GSTAMOUNT,
-      netamount: NetAmount,
-      ///------------------ cust info
-      // unitId: unit._id,
-      // unitName: unit.unitName,
-      // accountId: account._id,
-      // accountName: account.accountName,
-      // customerId: customer._id,
-      // customerName: customer.customerName,
-    };
-    let newproduct = {
-      brand: brand,
-      model: model,
-      serialno: serialno,
-      os: os,
-      cpu: cpu,
-      ram: ram,
-      hdd: hdd,
-      smps: smps,
-      fan: fan,
-      motherboard: motherboard,
-      opticaldrive: opticaldrive,
-      keyboard: kbd,
-      mouse: mouse,
-      monitor: monitor,
-      gcard: gcard,
-      enetcard: enetcard,
-      serialcard: serialcard,
-      parallelcard: parallelcard,
-      hbacard: hbacard,
-      raidcontroller: raidcontroller,
-      tapecontroller: tapecontroller,
-      others: others,
-    };
-    console.log(payload);
-
-    const data = { id: id, newasset: payload, newproduct: newproduct };
-    // console.log(API);
-    try {
-      let update = await axios({
-        url: `${API}/asset/${Emp.getId()}/update`,
-        method: "POST",
-        data: data,
-      });
-      setSubmitModal(true);
-      console.log("Done");
-    } catch (error) {
-      throw error;
-    }
   };
 
   // useEffect(() => {
@@ -280,7 +220,7 @@ function UpdateAsset() {
   //ASSET----------------------------------------------------
   const assetPicker = () => {
     return (
-      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+      <div className="px-4 mt-4 py-3 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         {/* {floatbox ? (
           <UpdateAssetFloat Business={Business} POnumber={POnumber} />
         ) : null} */}
@@ -303,47 +243,17 @@ function UpdateAsset() {
         </Label> */}
         {/* ----------------------------Row - 1 --------------------------------------------------------------------- */}
         <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
-          <div className="w-full ">
-            {/* <Label className="my-3">
-              <span>Business</span>
-              <Input
-                className="mt-1"
-                name="brand"
-                value={Business}
-                onChange={(e) => {
-                  setBusiness(e.target.value);
-                }}
-              />
-            </Label> */}
-            <Label className="my-3">
-              <span>Business Type</span>
-              <Select
-                onChange={(e) => {
-                  setBusiness(e.target.value);
-                }}
-                className="mt-1"
-                value={Business}
-              >
-                <option value="" selected disabled>
-                  Select Business Type
-                </option>
-                <option value="AMC">AMC</option>
-                <option value="Warranty">Warranty</option>
-              </Select>
-            </Label>
+          <div className="w-full  ">
+            <div className="my-3 flex-row flex items-center space-x-1">
+              <span>Business Type: </span>
+              <div> {Business}</div>
+            </div>
           </div>
           <div className="w-full  ">
-            <Label className="my-3">
+            <div className="my-3 flex-row flex items-center space-x-1">
               <span>Purchase Order Number</span>
-              <Input
-                className="mt-1"
-                name="brand"
-                value={POnumber}
-                onChange={(e) => {
-                  setPOnumber(e.target.value);
-                }}
-              />
-            </Label>
+              <div>{POnumber}</div>
+            </div>
           </div>
         </div>
         {/* ----------------------------Row - 2 --------------------------------------------------------------------- */}
@@ -2082,65 +1992,17 @@ function UpdateAsset() {
 
   return (
     <>
-      <UnitListModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setUnit={setUnit}
-        unit={unit}
-        customer={customer}
-        setCustomer={setCustomer}
-        account={account}
-        setAccount={setAccount}
-      />
-      {/* Heading of page with float button */}
-      <div className="flex items-center">
-        <PageTitle>Assets Management</PageTitle>
-        <div>
-          <Button
-            className="mx-3"
-            onClick={() => {
-              setFloatBox(!floatbox);
-            }}
-            icon={HeartIcon}
-            layout="link"
-            aria-label="Like"
-          />
-        </div>
-      </div>
       {assetPicker()}
-      {/* <SectionTitle>Pick Product</SectionTitle> */}
-      {/* {dropdown()} */}
       {product != "null" ? (
         <>
           <SectionTitle>{product} </SectionTitle>
           {productPicker()}
         </>
       ) : null}
-      {/* {productPicker()} */}
-      {/* /////---------------------------- FOOTER */}
-      {/* <div class=" w-7/12 bottom-0  border-t border-grey p-4 fixed pin-b bg-gray-700 text-xs text-white">
-        Asset Summary Asset Information:
-        <br />
-        Business: {Business} POnumber: {POnumber} ContractFrom: {ContractFrom}
-        ContractTo: {ContractTo} BillingFrom: {BillingFrom} BillingTo:{" "}
-        {BillingTo} AMCRate:
-        {AMCRate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount:{NetAmount}
-        <br />
-        Product: {product}
-        <br />
-        Brind: {brand} model: {model} serialno: {serialno} os: {os}
-        <br />
-        {cpu.map((p, i) => {
-          return (
-            <>
-              CPU:{p.cpuname}, {p.cpusno}
-            </>
-          );
-        })}
-      </div> */}
+
       {UpdatedModal()}
     </>
   );
 }
 
-export default UpdateAsset;
+export default AssetView;

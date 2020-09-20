@@ -58,50 +58,118 @@ const AssetModule = ({ selectedprod }) => {
   console.log(selectedprod.product);
   return (
     <div className="  ">
-      <div className=" ">
-        <div className="flex justify-between flex-row w-5/12 font-bold text-lg mb-2">
-          <div>Customer: {customerName} </div>
-          <div>Account: {accountName}</div>
-          <div>
-            {" "}
-            Unit:
-            {unitName}
-          </div>
-          {/* <div>
-            <Button className="mx-3 mt02">
-              {" "}
-              <Link
-                key={selectedprod._id}
-                to={`/app/unit/update/${selectedprod._id}`}
-              >
-                Edit
-              </Link>{" "}
-            </Button>
-            <Button
-              className="mx-3 mt02"
-              onClick={async () => {
-                console.log("delete Asset");
-                try {
-                  let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
-                    method: "POST",
-                    data: { id: selectedprod._id },
-                  });
-                  console.log(response.data);
-                  // let temp = data.filter((x) => x._id != selectedprod._id);
-                  // setData(temp);
+      {/* Row 1  */}
+      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+        <div>
+          <span className="font-bold w-1/5">Product Type :</span> {producttype}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Customer : </span> {customerName}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Account :</span> {accountName}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Unit : </span> {unitName}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Business : </span> {business}
+        </div>
+      </div>
 
-                  // setData(response.data);
-                } catch (error) {
-                  throw error;
-                }
-              }}
-            >
-              Delete
-            </Button>
-          </div> */}
+      {/*  Row 2 */}
+      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+        <div>
+          <span className="font-bold w-1/5">KBD Model :</span>{" "}
+          {keyboard[0].kbdname}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">KBD Serial: </span>{" "}
+          {keyboard[0].kbdsno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Mouse Model :</span>{" "}
+          {mouse[0].mousename}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Mouse Serial : </span>{" "}
+          {mouse[0].mousesno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Monitor : </span>{" "}
+          {monitor[0].monitorname}
+        </div>
+      </div>
+      {/*  Row 3 */}
+
+      <div className="flex flex-row space-x-4 text-lg my-1 w-full flex-wrap">
+        <div>
+          <span className="font-bold w-1/5">Monitor Serial :</span>{" "}
+          {monitor[0].monitorsno}
         </div>
 
+        <div>
+          <span className="font-bold w-1/5">SMPS1 Model :</span>{" "}
+          {smps[0].smpsname}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">SMPS1 Serial : </span>{" "}
+          {smps[0].smpssno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Motherboard: </span>{" "}
+          {motherboard[0].motherboardname}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">MBD Serial : </span>
+          {motherboard[0].motherboardsno}
+        </div>
+      </div>
+      {/* ----------------Row 4--------------------------- */}
+      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+        <div>
+          <span className="font-bold w-1/5">HDD1 Model:</span> {hdd[0].hddname}
+        </div>
+
+        <div>
+          <span className="font-bold w-1/5">HDD1 Serial :</span> {hdd[0].hddsno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">HDD2 Model : </span>{" "}
+          {hdd[1].hddname}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">HDD2 Serial: </span> {hdd[0].hddsno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">RAM1 Model : </span>{" "}
+          {ram[0].ramname}
+        </div>
+      </div>
+      {/* Row 4 */}
+      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+        <div>
+          <span className="font-bold w-1/5">RAM1 Serial:</span> {ram[0].ramsno}
+        </div>
+
+        <div>
+          <span className="font-bold w-1/5">RAM2 Model:</span> {ram[1].ramname}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">RAM2 Serial : </span>{" "}
+          {ram[1].ramsno}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Optical Model: </span>{" "}
+          {opticaldrive[0].opticaldrivename}
+        </div>
+        <div>
+          <span className="font-bold w-1/5">Optical Serial : </span>{" "}
+          {opticaldrive[0].opticaldrivesno}
+        </div>
+      </div>
+      <hr className="my-4" />
+      <div className=" ">
         <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
           <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
