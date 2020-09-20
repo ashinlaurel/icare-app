@@ -579,10 +579,10 @@ function CreateCustomer() {
               onClick={() => setIsModalOpen(true)}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4 mx-4"
+              className="mt-4 mr-2"
             >
               {customer.customerName === "" ? (
-                <>Pick customer associated with the account</>
+                <>Select Associations</>
               ) : (
                 <>Customer: {customer.customerName}</>
               )}
@@ -595,9 +595,9 @@ function CreateCustomer() {
               onClick={() => setIsUModalOpen(true)}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4 mx-3"
+              className="mt-4 mr-2"
             >
-              Select customer and account associated with thr unit
+              Select Associations
             </Button>
           </>
         ) : null}
@@ -612,7 +612,10 @@ function CreateCustomer() {
           className="mt-4"
         >
           {" "}
-          Create {accType === 0 ? <> Customer </> : <> Account</>}
+          Create {}
+          {(accType === 0 && <> Customer </>) ||
+            (accType === 1 && <>Account</>) ||
+            (accType == 2 && <>Unit</>)}
         </Button>
         {/* <hr className="my-8" />
         <Label className="font-bold">

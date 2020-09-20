@@ -142,6 +142,7 @@ function Assets() {
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
+
         setData(response.data.out);
       } catch (error) {
         throw error;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
 
@@ -35,8 +35,14 @@ import { API } from "../../backendapi";
 import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 import { useParams, Link } from "react-router-dom";
+import { BottomBarContext } from "../../context/BottomBarContext";
 
 function UnitAsset() {
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
+    BottomBarContext
+  );
+  // table variable styles
+  const [activerowid, setActiveRowId] = useState(0);
   // Url params------------
   let { id, accountid, unitid } = useParams();
 
@@ -48,6 +54,7 @@ function UnitAsset() {
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  const [disabler, setDisabler] = useState(true);
 
   // filterhooks
   const [Business, setBusiness] = useState("");
@@ -393,6 +400,9 @@ function UnitAsset() {
                     setIsOpenTwo(false);
                     setSearchType("");
                     setSearchLabel("");
+                    setDisabler(true);
+                    setSearchQuery("");
+                    setRefresh(!refresh);
                   }}
                 >
                   <span>All</span>
@@ -402,6 +412,7 @@ function UnitAsset() {
                     setIsOpenTwo(false);
                     setSearchType("kbdsno");
                     setSearchLabel("Keyboard Serial");
+                    setDisabler(false);
                   }}
                 >
                   <span>Keyboard Serial</span>
@@ -409,11 +420,92 @@ function UnitAsset() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);
+                    setSearchType("mousesno");
+                    setSearchLabel("Mouse Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Mouse Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("motherboardsno");
+                    setSearchLabel("Motherboard Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Motherboard Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("monitorsno");
+                    setSearchLabel("Monitor Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Monitor Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("hddsno");
+                    setSearchLabel("HDD Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>HDD Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
                     setSearchType("cpusno");
                     setSearchLabel("CPU Serial");
+                    setDisabler(false);
                   }}
                 >
                   <span>CPU Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("ramsno");
+                    setSearchLabel("Ram Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>RAM Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("smpssno");
+                    setSearchLabel("SMPS Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>SMPS Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("fansno");
+                    setSearchLabel("Fan Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Fan Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("opticaldrivesno");
+                    setSearchLabel("Optical Drive Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Optical Drive Serial</span>
                 </DropdownItem>
               </Dropdown>
             </div>
@@ -469,7 +561,7 @@ function UnitAsset() {
           </div> */}
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
-        <TableContainer className="">
+        <TableContainer className="mt-4">
           <Table>
             <TableHeader>
               <tr>
@@ -477,6 +569,7 @@ function UnitAsset() {
                 <TableCell>Unit</TableCell>
                 <TableCell>Business</TableCell>
                 <TableCell>Product</TableCell>
+                <TableCell>Product Serial</TableCell>
                 <TableCell>Contract From</TableCell>
                 <TableCell>Contract To</TableCell>
                 <TableCell>Purchase Number</TableCell>
@@ -486,16 +579,24 @@ function UnitAsset() {
             <TableBody>
               {data.map((user, i) => (
                 <TableRow
-                  className="hover:shadow-lg"
+                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                    activerowid == user._id
+                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                      : "white"
+                  } `}
                   key={i}
                   onClick={() => {
+                    setActiveRowId(user._id);
+                    // console.log("the id is " + user._id);
                     setSelectedProd(user);
+                    // setAssetDetails(user);
+                    // console.log(user.product.keyboard[0].kbdname);
                   }}
                 >
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
                       {/* <Avatar
-                        className=" z-0 hidden ml-2 mr-3 md:block"
+                        className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
                       /> */}
@@ -519,6 +620,9 @@ function UnitAsset() {
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{user.producttype}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.product.serialno}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">
@@ -556,67 +660,6 @@ function UnitAsset() {
       </div>
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
-      <div class="rounded-lg w-7/12 bottom-0 h-64 overflow-y-scroll border-t border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base ">
-        Asset
-        <hr />
-        <br />
-        <div className="flex flex-wrap kitems-start">
-          <div className="flex-col flex items-start justify-center">
-            <div>Business: {selectedprod.business}</div>
-            <div>Purchase Number: {selectedprod.ponumber}</div>
-            <div> ContractFrom: {selectedprod.contractfrom}</div>
-          </div>
-          <div className="flex-col flex items-start justify-center ml-20">
-            <div>ContractTo: {selectedprod.contractto}</div>{" "}
-            <div>BillingFrom: {selectedprod.billingfrom}</div>{" "}
-            <div>BillingTo: {selectedprod.billingto}</div>
-            {/* AMCRate: */}
-            {/* {selectedprod.amcrate} GST:{GST} GSTAMOUNT:{GSTAMOUNT} NetAmount: */}
-            {/* {NetAmount} */}
-          </div>
-
-          {/* <br />
-        Product: {product}
-        <br />
-        Brind: {brand} model: {model} serialno: {serialno} os: {os}
-        <br />
-        {cpu.map((p, i) => {
-          return (
-            <>
-              CPU:{p.cpuname}, {p.cpusno}
-            </>
-          );
-        })} */}
-        </div>
-        <Button className="mx-3 mt02">
-          {" "}
-          <Link key={account._id} to={`/app/unit/update/${selectedprod._id}`}>
-            Edit
-          </Link>{" "}
-        </Button>
-        <Button
-          className="mx-3 mt02"
-          onClick={async () => {
-            console.log("delete Asset");
-            try {
-              let response = await axios({
-                url: `${API}/asset/${Emp.getId()}/delete`,
-                method: "POST",
-                data: { id: selectedprod._id },
-              });
-              console.log(response.data);
-              let temp = data.filter((x) => x._id != selectedprod._id);
-              setData(temp);
-
-              // setData(response.data);
-            } catch (error) {
-              throw error;
-            }
-          }}
-        >
-          Delete
-        </Button>
-      </div>
     </>
   );
 }

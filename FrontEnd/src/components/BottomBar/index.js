@@ -27,7 +27,6 @@ const BottomBar = () => {
         {/* ---------------------Heading------------ */}
         Asset Details
         <hr />
-        <br />
         {JSON.stringify(assetdetails) !== JSON.stringify({}) ? (
           <AssetModule selectedprod={assetdetails} />
         ) : null}

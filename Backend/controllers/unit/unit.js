@@ -19,7 +19,7 @@ const Asset = require("../../models/assets/assets");
 // -----------------------Counter ----------------
 exports.countUnits = (req, res) => {
   Unit.count({}, function (err, result) {
-    if (err || !result) {
+    if (err) {
       return res.status(400).json({
         error: "Cant count units",
         err: err,
