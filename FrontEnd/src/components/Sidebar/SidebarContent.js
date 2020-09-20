@@ -29,7 +29,7 @@ function SidebarContent() {
           className="ml-2 text-lg font-bold text-gray-800 dark:text-gray-200"
           href="#"
         >
-          ICARE
+          iCare
         </a>
       </div>
       <ul className="mt-6">

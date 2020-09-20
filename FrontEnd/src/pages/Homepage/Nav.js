@@ -11,7 +11,7 @@ const Nav = () => {
           className="ml-2 text-lg font-bold text-gray-800 dark:text-gray-200"
           href="#"
         >
-          ICARE
+          iCare
         </a>
       </div>
       <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
