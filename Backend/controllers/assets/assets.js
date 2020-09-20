@@ -245,6 +245,9 @@ exports.deleteAsset = async (req, res) => {
     let asset = await Asset.findByIdAndDelete({ _id: id });
     let unitId = asset.unitId;
     let unit = await Unit.update({ _id: unitId }, { $pull: { assetsId: id } });
+    let productId = asset.product;
+    let product = await Server.findByIdAndDelete(productId);
+
     return res.status(200).json({ asset, unit });
   } catch (err) {
     console.log(id);

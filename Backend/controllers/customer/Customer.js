@@ -203,14 +203,9 @@ exports.deleteAccount = async (req, res) => {
       // delete assets under Unit
       unit.assetsId.map(async (assetId, i) => {
         console.log(assetId);
-        Asset.findByIdAndDelete(assetId, (error, data) => {
-          if (error) {
-            console.log("error in deleting Asset", error);
-            throw error;
-          } else {
-            console.log("Asset --> " + assetId + " deleted");
-          }
-        });
+        let asset = await Asset.findByIdAndDelete(assetId);
+        let productId = asset.product;
+        let product = await Server.findByIdAndDelete(productId);
       });
     });
     return res.status(200).json({ account });
@@ -242,14 +237,9 @@ exports.deleteCustomer = async (req, res) => {
         // delete assets under Unit
         unit.assetsId.map(async (assetId, i) => {
           console.log(assetId);
-          Asset.findByIdAndDelete(assetId, (error, data) => {
-            if (error) {
-              console.log("error in deleting Asset", error);
-              throw error;
-            } else {
-              console.log("Asset --> " + assetId + " deleted");
-            }
-          });
+          let asset = await Asset.findByIdAndDelete(assetId);
+          let productId = asset.product;
+          let product = await Server.findByIdAndDelete(productId);
         });
       });
     });

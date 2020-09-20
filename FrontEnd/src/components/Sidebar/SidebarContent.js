@@ -26,10 +26,10 @@ function SidebarContent() {
       <div className="flex items-center justify-start">
         <img src={thelogo} className="w-8 h-8 ml-4 " />
         <a
-          className="ml-2 text-lg font-bold text-gray-800 dark:text-gray-200"
+          className="ml-2 text-lg font-bold text-green-700 dark:text-green-400"
           href="#"
         >
-          iCare
+          <span className="text-red-700 dark:text-red-400">i</span>Care
         </a>
       </div>
       <ul className="mt-6">
