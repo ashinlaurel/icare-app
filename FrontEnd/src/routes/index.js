@@ -33,6 +33,8 @@ const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 //--------------------------- My Asset Imports------------------
 const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
+// ---------------------------Single Asset View ------------------------
+const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 
 /**
  * ⚠ These are internal routes!
@@ -58,10 +60,10 @@ export const aroutes = [
     path: "/assets/create", // the url
     component: CreateAsset, // view rendered
   },
-  // {
-  //   path: "/assets/update", // the url
-  //   component: UpdateAsset, // view rendered
-  // },
+  {
+    path: "/assets/assetview", // the url
+    component: AssetView, // view rendered
+  },
   // Customer --------------------------------------------------
   {
     path: "/customer/create",
@@ -117,7 +119,7 @@ export const aroutes = [
     path: "/unit/update/:id",
     component: UpdateAsset,
   },
-  // ----------------------My Profeile Views ----------------------/
+  // ----------------------My Profile Views ----------------------/
   {
     path: "/Empprofile",
     component: EmpProfile,

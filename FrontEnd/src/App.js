@@ -43,6 +43,7 @@ function App() {
           {/* //admin */}
           <Route path="/admin/signup" component={AdminSignUp} />
           <Route path="/admin/signin" component={AdminLogin} />
+
           {/* Place new routes over this */}
           <PrivateRoute path={`/app`} component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
