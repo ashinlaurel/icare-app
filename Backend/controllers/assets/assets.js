@@ -100,7 +100,7 @@ exports.createAsset = async (req, res) => {
   } catch (err) {
     console.log("Asset Creating error", err.message);
     let message = err.message;
-    if (err.code == 11000) message = "Product exists with serialNumber.";
+    if (err.code == 11000) message = "Product exists with serial Number.";
     res.status(400).json({ message });
     // throw error;
   }

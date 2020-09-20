@@ -143,22 +143,7 @@ function UnitAsset() {
       /> */}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
-      {floatbox ? <AssetFloat /> : null}
       <div className="mb-64">
-        <div className="flex items-center">
-          <PageTitle>Assets Management</PageTitle>
-          <div>
-            <Button
-              className="mx-3"
-              onClick={() => {
-                setFloatBox(!floatbox);
-              }}
-              icon={HeartIcon}
-              layout="link"
-              aria-label="Like"
-            />
-          </div>
-        </div>
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}

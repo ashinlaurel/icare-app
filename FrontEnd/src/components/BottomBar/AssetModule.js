@@ -17,7 +17,7 @@ const AssetModule = ({ selectedprod }) => {
     billingfrom,
     billingto,
     amcrate,
-    // GST,
+    gstperc,
     gstamount,
     netamount,
     unit,
@@ -909,7 +909,7 @@ const AssetModule = ({ selectedprod }) => {
           </div>
 
           <div className="flex-col">
-            <div className="mx-1 my-1 px-1 py-1 "> GST: GST HERE</div>
+            <div className="mx-1 my-1 px-1 py-1 "> GST: {gstperc}%</div>
             <div className="mx-1 my-1 px-1 py-1 "> GSTAMOUNT:{gstamount}</div>
           </div>
 

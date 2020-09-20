@@ -47,10 +47,10 @@ export const aroutes = [
         path: "/app/customer/create",
         name: "Add Customer",
       },
-      {
-        path: "/app/customer/createunit",
-        name: "Add Unit",
-      },
+      // {
+      //   path: "/app/customer/createunit",
+      //   name: "Add Unit",
+      // },
     ],
   },
 
