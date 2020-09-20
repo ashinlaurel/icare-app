@@ -43,7 +43,7 @@ exports.unitCreate = async (req, res) => {
     let units = account.unitIds;
     units.push(String(newunitres._id));
     account.unitIds = units;
-    console.log("account", account);
+    // console.log("account", account);
     const final = account.save();
 
     return res.status(201).json({
@@ -62,7 +62,7 @@ exports.getAllUnits = async (req, res) => {
     const users = await Unit.find(); //populate("infoId");
     return res.status(200).json(users);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "getAll Error" });
   }
 };
@@ -96,7 +96,7 @@ exports.getUnitById = async (req, res) => {
     let unit = await Unit.findById(req.body.id).populate("assetsId");
     return res.status(200).json(unit);
   } catch (err) {
-    console.log(id);
+    // console.log(id);
     return res.status(400).json({ error: err });
   }
 };
@@ -108,7 +108,7 @@ exports.getUnitByName = (req, res) => {
   // Logic to add to filter when required
 
   Unit.find({ unitName: name }, function (err, result) {
-    console.log(name);
+    // console.log(name);
     if (err || result == {}) {
       return res.status(400).json({
         error: "No customer found",
@@ -117,14 +117,14 @@ exports.getUnitByName = (req, res) => {
     }
     // console.log("findone");
 
-    console.log("this must run if there is result" + result);
+    // console.log("this must run if there is result" + result);
     return res.json(result[0]._id);
   });
 };
 
 exports.updateUnit = async (req, res) => {
   let { id, update } = req.body;
-  console.log(id, update);
+  // console.log(id, update);
   try {
     let unit = await Unit.findByIdAndUpdate(id, update, {
       safe: true,
@@ -132,7 +132,7 @@ exports.updateUnit = async (req, res) => {
     });
     return res.status(200).json({ unit });
   } catch (err) {
-    console.log(id);
+    // console.log(id);
     return res.status(400).json({ error: err });
   }
 };

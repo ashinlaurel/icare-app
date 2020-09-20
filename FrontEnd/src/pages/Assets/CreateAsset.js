@@ -284,7 +284,7 @@ function CreateAsset() {
       });
       console.log("Done");
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   };
 

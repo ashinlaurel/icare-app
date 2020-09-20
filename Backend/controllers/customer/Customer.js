@@ -28,7 +28,7 @@ exports.getAllCust = async (req, res) => {
 };
 
 exports.AccountsOfCustomer = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   try {
     const customer = await CustomerLogin.findById(req.body.customerId).populate(
       "childAccountIds"
@@ -193,7 +193,7 @@ exports.deleteAccount = async (req, res) => {
     );
     account.unitIds.map(async (unitId, i) => {
       let unit = await Unit.findByIdAndDelete(unitId);
-      console.log("Unit--> " + unitId + " deleted");
+      // console.log("Unit--> " + unitId + " deleted");
       // // delete unitId from acc
       // let accId = unit.accountId;
       // let acc = await CustomerLogin.update(
@@ -202,7 +202,7 @@ exports.deleteAccount = async (req, res) => {
       // );
       // delete assets under Unit
       unit.assetsId.map(async (assetId, i) => {
-        console.log(assetId);
+        // console.log(assetId);
         let asset = await Asset.findByIdAndDelete(assetId);
         let productId = asset.product;
         let product = await Server.findByIdAndDelete(productId);
@@ -222,12 +222,12 @@ exports.deleteCustomer = async (req, res) => {
 
     customer.childAccountIds.map(async (accId, i) => {
       let account = await CustomerLogin.findByIdAndDelete(accId);
-      console.log("Account--> " + accId + " deleted");
+      // console.log("Account--> " + accId + " deleted");
       // // delete AssetId from cust
 
       account.unitIds.map(async (unitId, i) => {
         let unit = await Unit.findByIdAndDelete(unitId);
-        console.log("Unit--> " + unitId + " deleted");
+        // console.log("Unit--> " + unitId + " deleted");
         // // delete unitId from acc
         // let accId = unit.accountId;
         // let acc = await CustomerLogin.update(
@@ -236,7 +236,7 @@ exports.deleteCustomer = async (req, res) => {
         // );
         // delete assets under Unit
         unit.assetsId.map(async (assetId, i) => {
-          console.log(assetId);
+          // console.log(assetId);
           let asset = await Asset.findByIdAndDelete(assetId);
           let productId = asset.product;
           let product = await Server.findByIdAndDelete(productId);
