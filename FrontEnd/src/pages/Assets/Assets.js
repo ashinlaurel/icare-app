@@ -14,6 +14,7 @@ import {
   EditIcon,
   TrashIcon,
 } from "../../icons";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import RoundIcon from "../../components/RoundIcon";
 import response from "../../utils/demo/tableData";
 import {
@@ -44,6 +45,9 @@ function Assets() {
   // Bottom bar stuff
   // const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
   // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
+
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
   );
@@ -87,6 +91,44 @@ function Assets() {
   function onPageChange(p) {
     setPage(p);
   }
+
+  const DeleteModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                try {
+                  let response = await axios({
+                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: deleteId },
+                  });
+                  console.log(response.data);
+                  let temp = data.filter((x) => x._id != deleteId);
+                  setData(temp);
+                  setIsDeleteModalOpen(false);
+
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -168,6 +210,7 @@ function Assets() {
         refresh={refresh}
         setRefresh={setRefresh}
       />
+      {DeleteModal()}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
@@ -689,20 +732,8 @@ function Assets() {
                         aria-label="Delete"
                         onClick={async () => {
                           console.log("delete Asset");
-                          try {
-                            let response = await axios({
-                              url: `${API}/asset/${Emp.getId()}/delete`,
-                              method: "POST",
-                              data: { id: user._id },
-                            });
-                            console.log(response.data);
-                            let temp = data.filter((x) => x._id != user._id);
-                            setData(temp);
-
-                            // setData(response.data);
-                          } catch (error) {
-                            throw error;
-                          }
+                          setIsDeleteModalOpen(true);
+                          setDeleteId(user._id);
                         }}
                       >
                         <TrashIcon className="w-5 h-5" aria-hidden="true" />
