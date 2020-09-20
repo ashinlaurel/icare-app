@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { API } from "../../backendapi";
 import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
@@ -22,7 +22,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import Axios from "axios";
 
 export default function CustomerDetails() {
+  let history = useHistory();
   const { id } = useParams();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [PasswordModalOpen, setPasswordModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [newpass, setNewpass] = useState("");
@@ -54,6 +56,7 @@ export default function CustomerDetails() {
     altContact: "",
     WhatsappNo: "",
     role: 0,
+    parentCustomerId: "",
   });
   const [err, setErr] = useState({
     email: "",
@@ -104,6 +107,7 @@ export default function CustomerDetails() {
         contactNo: res.data[0].contactNo,
         altContact: res.data[0].altContact,
         role: res.data[0].role,
+        parentCustomerId: res.data[0].parentCustomerId,
         // WhatsappNo:WhatsappNo ,
       });
 
@@ -190,10 +194,64 @@ export default function CustomerDetails() {
     );
   };
 
+  const DeleteModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody>
+            All {values.role == 1 ? <>accounts, </> : <></>} units and assets
+            under this
+            {values.role == 1 ? <> customer </> : <> account </>}
+            will get deleted{" "}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                console.log("role", values.role);
+                try {
+                  if (values.role == 1) {
+                    console.log("Here role", values.role);
+                    await axios({
+                      url: `${API}/customer/${Emp.getId()}/deletecust`,
+                      method: "POST",
+                      data: { id: id },
+                    });
+                    history.push(`/app/customer`);
+                  } else {
+                    await Axios({
+                      url: `${API}/customer/${Emp.getId()}/deleteacc`,
+                      method: "POST",
+                      data: { id: id },
+                    });
+                    history.push(
+                      `/app/customer/accounts/${values.parentCustomerId}`
+                    );
+                  }
+
+                  console.log("unit deleted");
+                } catch (err) {
+                  throw err;
+                }
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <div>
       {ResetPassModal()}
       {PassChangeModal()}
+      {DeleteModal()}
       <PageTitle>
         {values.name} Type:{values.role == 1 ? <>Customer</> : <>Account</>}{" "}
       </PageTitle>
@@ -258,6 +316,9 @@ export default function CustomerDetails() {
             </Link>
             <Button className="mx-3" onClick={() => setPasswordModalOpen(true)}>
               Reset Password
+            </Button>
+            <Button onClick={() => setIsDeleteModalOpen(true)} className="mx-3">
+              Delete {values.role == 1 ? <>Customer</> : <>Account</>}
             </Button>
             {/* <Button className="mx-3">Delete Customer</Button> */}
           </div>

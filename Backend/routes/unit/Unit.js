@@ -21,7 +21,7 @@ router.param("id", getEmpById);
 router.post("/:id/create", isSignedIn, isAuthenticated, unitCreate);
 
 router.get("/count", countUnits);
-router.post("/delete", deleteUnit);
+router.post("/:id/delete", isSignedIn, isAuthenticated, deleteUnit);
 router.get("/units", getAllUnits);
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getUnitById);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateUnit);

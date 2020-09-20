@@ -5,6 +5,16 @@ const unitSchema = mongoose.Schema({
     type: String,
     required: [true, "Please enter unit name"],
   },
+  username: {
+    type: String,
+    maxlength: 32,
+    trim: true,
+  },
+  password: {
+    type: String,
+    maxlength: 32,
+    trim: true,
+  },
   customerId: {
     type: mongoose.Schema.ObjectId,
     ref: "CustomerLogin",

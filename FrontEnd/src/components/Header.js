@@ -159,7 +159,7 @@ function Header() {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <a href="/app" className="">
+              <a href="/" className="">
                 <DropdownItem
                   onClick={() =>
                     localStorage.getItem("type") == "0"

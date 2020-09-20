@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { API } from "../../backendapi";
 import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
@@ -11,10 +11,14 @@ import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
 import { Button } from "@windmill/react-ui";
 import CustomerCard from "../../components/Cards/CustomerCard";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import Axios from "axios";
 
 export default function UnitDetails() {
   const { id } = useParams();
+  let history = useHistory();
   // console.log(id);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [values, setValues] = useState({
     unitName: "",
     assetsId: [],
@@ -28,6 +32,8 @@ export default function UnitDetails() {
     contactNo: "",
     altContact: "",
     whatsappNo: "",
+    accountId: "",
+    customerId: "",
   });
 
   const getUnitInfo = async () => {
@@ -53,6 +59,8 @@ export default function UnitDetails() {
         contactNo: res.data.contactNo,
         altContact: res.data.altContact,
         whatsappNo: res.data.whatsappNo,
+        accountId: res.data.accountId,
+        customerId: res.data.customerId,
       });
 
       console.log("Done", values.assetsId);
@@ -64,6 +72,42 @@ export default function UnitDetails() {
   useEffect(() => {
     getUnitInfo();
   }, []);
+
+  const DeleteModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody>All assets under this unit will get deleted </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                try {
+                  await Axios({
+                    url: `${API}/unit/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: id },
+                  });
+                  history.push(
+                    `/app/customer/accounts/units/${values.customerId}/${values.accountId}`
+                  );
+                  console.log("unit deleted");
+                } catch (err) {
+                  throw err;
+                }
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   return (
     <div>
@@ -120,7 +164,9 @@ export default function UnitDetails() {
             <Link to={`/app/unit/${id}/update`}>
               <Button className="mr-3">Update Info</Button>
             </Link>
-            <Button className="mx-3">Delete Unit</Button>
+            <Button onClick={() => setIsDeleteModalOpen(true)} className="mx-3">
+              Delete Unit
+            </Button>
           </div>
           {/* {values.assetsId.length == 0 ? null : ( */}
         </CardBody>
@@ -143,6 +189,7 @@ export default function UnitDetails() {
           </CustomerCard>
         ))}
       </div>
+      {DeleteModal()}
     </div>
   );
 }
