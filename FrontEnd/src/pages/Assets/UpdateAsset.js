@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import { API } from "../../backendapi";
 
 import Emp from "../../helpers/auth/EmpProfile";
@@ -114,12 +115,13 @@ function UpdateAsset() {
       ////////---------ASSET INFO
       setBusiness(asset.business);
       setPOnumber(asset.ponumber);
-      setPOdate(asset.podate);
-      setContractFrom(asset.contractfrom);
-      setContractTo(asset.contractto);
-      setBillingFrom(asset.billingfrom);
-      setBillingTo(asset.billingto);
       setAMCRate(asset.amcrate);
+      // Dates --------------------------
+      setPOdate(moment(asset.podate).format("YYYY-MM-DD"));
+      setContractFrom(moment(asset.contractfrom).format("YYYY-MM-DD"));
+      setContractTo(moment(asset.contractto).format("YYYY-MM-DD"));
+      setBillingFrom(moment(asset.billingfrom).format("YYYY-MM-DD"));
+      setBillingTo(moment(asset.billingto).format("YYYY-MM-DD"));
       ////////////------------>>>>>>>> misiing field GST(asset.gs)
       setGSTAMOUNT(asset.gstamount);
       setNetAmount(asset.netamount);
@@ -290,10 +292,13 @@ function UpdateAsset() {
         </Label>
         <hr className="mb-5 mt-2" />
 
-        <SectionTitle className="">
-          Customer: {customer.customerName} Account: {account.accountName} Unit:{" "}
-          {unit.unitName}
-        </SectionTitle>
+        <div className="flex flex-row space-x-4">
+          <SectionTitle className="">
+            Customer: {customer.customerName}
+          </SectionTitle>
+          <SectionTitle>Account: {account.accountName} </SectionTitle>
+          <SectionTitle>Unit: {unit.unitName}</SectionTitle>
+        </div>
 
         {/* <Label className="font-bold">
           <span>Customer: {customer.customerName}</span>
@@ -319,6 +324,7 @@ function UpdateAsset() {
                   setBusiness(e.target.value);
                 }}
                 className="mt-1"
+                value={Business}
               >
                 <option value="" selected disabled>
                   Select Business Type
