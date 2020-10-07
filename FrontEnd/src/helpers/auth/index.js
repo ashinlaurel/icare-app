@@ -12,6 +12,7 @@ export const signup = (newuser, path) => {
       if (error.response) {
         console.log(error.response.data);
         console.log(error.response.status);
+        // console.log(error.response.data.errors);
         throw error.response.data.errors;
       }
     });

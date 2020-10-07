@@ -54,6 +54,24 @@ export const aroutes = [
     ],
   },
 
+  // ---------------Customers---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Employee",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/CreateEmployee",
+        name: "Add Employee",
+      },
+      // {
+      //   path: "/app/customer/createunit",
+      //   name: "Add Unit",
+      // },
+    ],
+  },
+
   // {
   //   path: "/app/forms",
   //   icon: "FormsIcon",

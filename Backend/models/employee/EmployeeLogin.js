@@ -31,6 +31,16 @@ const employeeLoginSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  address: String,
+  district: String,
+  state: String,
+  locationType: String, //( Remote/ Local/ Outlocation )
+  pincode: String,
+  GSTnumber: String,
+  contactPerson: String,
+  contactNo: String,
+  altContact: String,
+  whatsappNo: String,
 });
 
 employeeLoginSchema.virtual("password").set(function (password) {

@@ -16,7 +16,7 @@ router.get("/logout", (req, res) => {
   return res.send("LOGOUT");
 });
 
-router.post("/signup", signup);
+router.post("/:id/signup", signup);
 router.post("/signin", signin);
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {

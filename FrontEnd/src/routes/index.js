@@ -26,6 +26,7 @@ const UnitsAsset = lazy(() => import("../pages/Customers/UnitAsset"));
 const CustomerDetails = lazy(() =>
   import("../pages/Customers/CustomerDetails")
 );
+const CreateEmployee = lazy(() => import("../pages/Employee/CreateEmployee"));
 const UpdateCustomer = lazy(() => import("../pages/Customers/UpdateCustomer"));
 //--------------------------- My Asset Imports------------------
 const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
@@ -106,7 +107,7 @@ export const aroutes = [
     path: "/customer/accounts/units/:id/:accountid/:unitid",
     component: UnitsAsset,
   },
-  // ----------------------My Asset Views ----------------------
+  // ---------------------- My Asset Views ----------------------
   {
     path: "/myassets/accounts",
     component: ViewAccounts,
@@ -129,8 +130,13 @@ export const aroutes = [
     component: CustProfile,
   },
 
-  // --------------------------------------------/
+  // ----------------------Employee Views ----------------------/
 
+  {
+    path: "/CreateEmployee",
+    component: CreateEmployee,
+  },
+  // --------------------------------------------/
   {
     path: "/forms",
     component: Forms,
