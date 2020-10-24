@@ -36,7 +36,9 @@ const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
-
+const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
+const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
+const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -135,6 +137,21 @@ export const aroutes = [
   {
     path: "/CreateEmployee",
     component: CreateEmployee,
+  },
+  // --------------------------------------------/
+  // ----------------------Call Views ----------------------/
+
+  {
+    path: "/registerCall",
+    component: RegisterCall,
+  },
+  {
+    path: "/assignEng",
+    component: AssignEng,
+  },
+  {
+    path: "/viewcalls",
+    component: ViewCalls,
   },
   // --------------------------------------------/
   {

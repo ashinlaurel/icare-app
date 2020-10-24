@@ -28,6 +28,7 @@ import { ReactComponent as OutlineCogIcon } from "./outlineCog.svg";
 import { ReactComponent as OutlineLogoutIcon } from "./outlineLogout.svg";
 import { ReactComponent as Add } from "./plus.svg";
 import { ReactComponent as Remove } from "./minus.svg";
+import { ReactComponent as TickIcon } from "./tick.svg";
 
 export {
   ButtonsIcon,
@@ -60,4 +61,5 @@ export {
   OutlineLogoutIcon,
   Add,
   Remove,
+  TickIcon
 };

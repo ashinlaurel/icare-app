@@ -19,6 +19,7 @@ const UnitRoute = require("./routes/unit/Unit");
 // const productRoute = require("./routes/product");
 const serverRoute = require("./routes/products/server");
 const assetRoute = require("./routes/assets/assets");
+const callRoute = require("./routes/calls/Call");
 
 // Middlewares
 app.use(bodyParser.json());
@@ -56,7 +57,7 @@ app.get("/api/test", (req, res) => {
 // User Routes-------------------------------------------------
 app.use("/api/customer", CustomerAuthRoute);
 app.use("/api/account", AccountRoute);
-app.use("/api/admin/", EmployeeAuthRoute);
+app.use("/api/admin", EmployeeAuthRoute);
 
 //unit Routes -------------------------------------------------
 app.use("/api/unit", UnitRoute);
@@ -67,6 +68,10 @@ app.use("/api/unit", UnitRoute);
 // Product Routes-------------------------------------------------
 app.use("/api/product/server", serverRoute);
 app.use("/api/asset", assetRoute);
+
+// Call Routes-------------------------------------------------
+app.use("/api/call",callRoute );
+
 
 // app.get("/", (req, res) => res.send("Hello World!"));
 
