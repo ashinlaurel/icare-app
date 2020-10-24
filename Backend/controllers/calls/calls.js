@@ -21,7 +21,12 @@ exports.callCreate = async (req, res) => {
   let { searchquery, searchtype } = filters
 
     let options = {
-      populate: "assetId",
+      populate: {
+        path:'assetId',
+        populate:{
+          path:'product'
+        }
+      },
       page: pages.page,
       limit: pages.limit,
     };

@@ -120,7 +120,7 @@ function ViewCalls() {
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
-                console.log(selectedprod);
+                console.log("SELECTED" ,selectedprod);
                 let payload={
                   id:selectedprod._id,
                   update:{
@@ -680,7 +680,8 @@ function ViewCalls() {
                     setActiveRowId(call._id);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
-                    // setAssetDetails(call);
+                    console.log("SELECTD",call)
+                    setAssetDetails(call.assetId);
                     // console.log(call.product.keyboard[0].kbdname);
                   }}
                 >

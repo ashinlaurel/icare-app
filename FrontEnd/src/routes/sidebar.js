@@ -72,7 +72,6 @@ export const aroutes = [
     ],
   },
 
-<<<<<<< HEAD
   // ---------------Calls---------------------------------------------
   {
     icon: "HomeIcon",
@@ -91,7 +90,9 @@ export const aroutes = [
       {
         path: "/app/viewcalls",
         name: "View Calls",
-=======
+      },
+    ]
+    },
   // ---------------Inventory---------------------------------------------
   {
     icon: "HomeIcon",
@@ -105,7 +106,6 @@ export const aroutes = [
       {
         path: "/app/inventory/create",
         name: "Add Item",
->>>>>>> 0c6e2b898e077b9c692448f602826f1f41ed68e3
       },
       // {
       //   path: "/app/customer/createunit",
@@ -113,10 +113,7 @@ export const aroutes = [
       // },
     ],
   },
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c6e2b898e077b9c692448f602826f1f41ed68e3
   // {
   //   path: "/app/forms",
   //   icon: "FormsIcon",
