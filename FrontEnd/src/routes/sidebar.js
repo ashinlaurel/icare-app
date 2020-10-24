@@ -72,26 +72,26 @@ export const aroutes = [
     ],
   },
 
-    // ---------------Inventory---------------------------------------------
-    {
-      icon: "HomeIcon",
-      name: "Inventory",
-      routes: [
-        // submenu
-        {
-          path: "/app/inventory",
-          name: "Customer List",
-        },
-        {
-          path: "/app/inventory/create",
-          name: "Add Item",
-        },
-        // {
-        //   path: "/app/customer/createunit",
-        //   name: "Add Unit",
-        // },
-      ],
-    },
+  // ---------------Inventory---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Inventory",
+    routes: [
+      // submenu
+      {
+        path: "/app/inventory",
+        name: "Customer List",
+      },
+      {
+        path: "/app/inventory/create",
+        name: "Add Item",
+      },
+      // {
+      //   path: "/app/customer/createunit",
+      //   name: "Add Unit",
+      // },
+    ],
+  },
 
   // {
   //   path: "/app/forms",

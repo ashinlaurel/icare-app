@@ -40,7 +40,6 @@ const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 
-
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -141,7 +140,6 @@ export const aroutes = [
     component: CreateEmployee,
   },
   // --------------------------------------------/
-
 
   // ----------------------Inventory Views ----------------------/
 
