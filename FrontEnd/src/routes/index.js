@@ -36,9 +36,16 @@ const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
+<<<<<<< HEAD
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
+=======
+
+// ----------------------------- Inventory Imports
+const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
+
+>>>>>>> 0c6e2b898e077b9c692448f602826f1f41ed68e3
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -139,6 +146,7 @@ export const aroutes = [
     component: CreateEmployee,
   },
   // --------------------------------------------/
+<<<<<<< HEAD
   // ----------------------Call Views ----------------------/
 
   {
@@ -152,6 +160,14 @@ export const aroutes = [
   {
     path: "/viewcalls",
     component: ViewCalls,
+=======
+
+  // ----------------------Inventory Views ----------------------/
+
+  {
+    path: "/inventory/create",
+    component: CreateInvent,
+>>>>>>> 0c6e2b898e077b9c692448f602826f1f41ed68e3
   },
   // --------------------------------------------/
   {

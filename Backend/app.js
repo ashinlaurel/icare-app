@@ -21,6 +21,10 @@ const serverRoute = require("./routes/products/server");
 const assetRoute = require("./routes/assets/assets");
 const callRoute = require("./routes/calls/Call");
 
+// Inventory Import
+const inventoryRoute = require("./routes/inventory/inventory");
+
+
 // Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -68,6 +72,8 @@ app.use("/api/unit", UnitRoute);
 // Product Routes-------------------------------------------------
 app.use("/api/product/server", serverRoute);
 app.use("/api/asset", assetRoute);
+// Inventory Routes-------------------------------------------------
+app.use("/api/inventory", inventoryRoute);
 
 // Call Routes-------------------------------------------------
 app.use("/api/call",callRoute );
