@@ -664,6 +664,7 @@ function ViewCalls() {
                 <TableCell>Phone</TableCell>
                 <TableCell>Call Status</TableCell>
                 <TableCell>Assigned Employee</TableCell>
+                <TableCell>Update</TableCell>
                 
               </tr>
             </TableHeader>
@@ -779,6 +780,18 @@ function ViewCalls() {
                       {/* </Button> */}
                       </> }
                       
+                  </TableCell>
+                  <TableCell>
+                      <Button layout="outline"  onClick={()=>{}} className=" ">
+                      <Link
+                          key={call._id}
+                          to={`/app/call/updateasset/${call._id}/${call.assetId._id}`}
+                        >
+                          Update
+                        </Link>
+                          
+                        
+                      </Button>
                   </TableCell>
                   
               

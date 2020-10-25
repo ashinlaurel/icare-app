@@ -261,17 +261,17 @@ exports.deleteAsset = async (req, res) => {
 
 exports.updateAsset = async (req, res) => {
   let { id, newasset, newproduct } = req.body;
-  console.log(id, newasset);
+  // console.log(id, newasset,newproduct);
   try {
     let asset = await Asset.findByIdAndUpdate(id, newasset, {
       safe: true,
       useFindAndModify: false,
     });
     let prod = await Server.findOneAndUpdate({ asset: id }, newproduct);
-    // console.log("SERVER",prod)
+    console.log("SERVER",prod)
     return res.status(200).json({ asset });
   } catch (err) {
-    console.log(id);
+    console.log(id,err);
     return res.status(400).json({ error: err });
   }
 };

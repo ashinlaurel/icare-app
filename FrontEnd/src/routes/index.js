@@ -39,6 +39,7 @@ const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
+const UpdateAssetFromCall = lazy(() => import("../pages/Calls/UpdateAssetFromCall"));
 
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
@@ -157,6 +158,10 @@ export const aroutes = [
   {
     path: "/viewcalls",
     component: ViewCalls,
+  },
+  {
+    path: "/call/updateasset/:callid/:assetid",
+    component: UpdateAssetFromCall,
   },
   // ----------------------Inventory Views ----------------------/
 

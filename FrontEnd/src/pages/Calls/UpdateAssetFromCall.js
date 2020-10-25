@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import { API } from "../../backendapi";
+import AsyncSelect from "react-select/async";
 
 import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
@@ -28,10 +29,11 @@ import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 import { handleMigration } from "../../migration/migration";
 import { useParams } from "react-router-dom";
 
-function UpdateAsset() {
+function UpdateAssetFromCall() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
-  const { id } = useParams();
+  const params  = useParams();
+  const id=params.assetid;
   // console.log(id);
   //modal
   const [submitModal, setSubmitModal] = useState(false);
@@ -261,7 +263,7 @@ function UpdateAsset() {
       tapecontroller: tapecontroller,
       others: others,
     };
-    console.log(payload,newproduct);
+    console.log(payload);
 
     const data = { id: id, newasset: payload, newproduct: newproduct };
     // console.log(API);
@@ -276,6 +278,48 @@ function UpdateAsset() {
     } catch (error) {
       throw error;
     }
+  };
+
+  //--------- Loading Functions --------
+
+  const loadKbd = async (inputText, callback) => {
+    console.log(inputText);
+    let temp = [];
+    let payload = { input: inputText };
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getkbd`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data);
+      temp = response.data;
+    } catch (error) {
+      throw error;
+    }
+    let out = [];
+    temp.map((item, i) => {
+      out[i] = {
+        id: item._id,
+        name: item.name,
+        value: item.sno,
+        label: item.sno,
+        color: "#00B8D9",
+      };
+    });
+    // let test = [
+    //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
+    //   { value: "blue", label: "Blue", color: "#0052CC", isDisabled: true },
+    //   { value: "purple", label: "Purple", color: "#5243AA" },
+    //   { value: "red", label: "Red", color: "#FF5630", isFixed: true },
+    //   { value: "orange", label: "Orange", color: "#FF8B00" },
+    //   { value: "yellow", label: "Yellow", color: "#FFC400" },
+    //   { value: "green", label: "Green", color: "#36B37E" },
+    //   { value: "forest", label: "Forest", color: "#00875A" },
+    //   { value: "slate", label: "Slate", color: "#253858" },
+    //   { value: "silver", label: "Silver", color: "#666666" },
+    // ];
+    callback(out);
   };
 
   // useEffect(() => {
@@ -1128,7 +1172,7 @@ function UpdateAsset() {
                             </Label>
                             <Label className="my-3 w-full">
                               <span>Keyboard {i + 1}: Serial Number</span>
-                              <Input
+                              {/* <Input
                                 className="mt-1"
                                 placeholder={`Keyboard ${
                                   i + 1
@@ -1140,6 +1184,22 @@ function UpdateAsset() {
                                   newlist[i].kbdsno = e.target.value;
                                   setkbd(newlist);
                                 }}
+                              /> */}
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.kbdsno, value:item.kbdsno}}
+                                // value={item.kbdsno}
+                                loadOptions={loadKbd}
+                                placeholder={`Keyboard ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...kbd];
+                                  newlist[i].kbdsno = e.value;
+                                  newlist[i].kbdname = e.name;
+                                  setkbd(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
                               />
                             </Label>
                           </div>
@@ -2099,7 +2159,7 @@ function UpdateAsset() {
       />
       {/* Heading of page with float button */}
       <div className="flex items-center">
-        <PageTitle>Assets Management</PageTitle>
+        <PageTitle>Call Assets Management</PageTitle>
         <div>
           <Button
             className="mx-3"
@@ -2148,4 +2208,4 @@ function UpdateAsset() {
   );
 }
 
-export default UpdateAsset;
+export default UpdateAssetFromCall;
