@@ -106,142 +106,57 @@ exports.getKbdSno = (req, res) => {
   });
 };
 
-// exports.getAllAssets = (req, res) => {
-//   let { pages, filters } = req.body;
+exports.getAllItems = (req, res) => {
+  let { pages, filters } = req.body;
 
-//   let { searchquery, searchtype } = filters;
-//   // console.log(searchquery);
-//   // console.log(searchtype);
-//   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
+  let { searchquery } = filters;
+  console.log(filters);
+  // console.log(searchquery);
+  // console.log(searchtype);
+  const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
 
-//   let options = {
-//     populate: "product",
-//     page: pages.page,
-//     limit: pages.limit,
-//   };
+  let options = {
+    // populate: "product",
+    page: pages.page,
+    limit: pages.limit,
+  };
 
-//   let filteroptions = {
-//     // product: { brand: "IBM" },
-//   };
-//   // -------------Product Specific Search Options -----------------
-//   let productoptions = {
-//     populate: "asset",
-//     page: pages.page,
-//     limit: pages.limit,
-//   };
-//   let pfilteroptions = {
-//     // "keyboard.kbdsno": "21321",
-//   };
+  let filteroptions = {
+    // product: { brand: "IBM" },
+  };
 
-//   // -----------------------------------------------------------------------
-//   if (searchquery == "") {
-//     // Logic to add to filter when required
-//     if (filters.business != "") {
-//       filteroptions.business = filters.business;
-//     }
-//     if (filters.producttype != "") {
-//       filteroptions.producttype = filters.producttype;
-//     }
-//     // -----------------Customer,Account,Unit ID filters-------
-//     if (filters.unitId != "") {
-//       filteroptions.unitId = filters.unitId;
-//     } else if (filters.accountId != "") {
-//       filteroptions.accountId = filters.accountId;
-//     } else if (filters.customerId != "") {
-//       // console.log(filters.customerId);
-//       filteroptions.customerId = filters.customerId;
-//     }
+  // ---Conditional Addition of filters
+  if (filters.type != "") {
+    filteroptions.type = filters.type;
+  }
+  if (filters.location != "") {
+    filteroptions.location = filters.location;
+  }
+  if (filters.condition != "") {
+    filteroptions.condition = filters.condition;
+  }
+  if (filters.searchquery != "") {
+    filteroptions.sno = fuzzyquery;
+  }
 
-//     Asset.paginate(filteroptions, options, function (err, result) {
-//       // console.log(result);
-//       if (err || !result) {
-//         return res.status(400).json({
-//           error: "No assets found",
-//           err: err,
-//         });
-//       }
-//       // console.log(result.docs);
-//       let output = {
-//         total: result.total,
-//         out: result.docs,
-//       };
-//       return res.json(output);
-//     });
-//   } else {
-//     // ----------------Conditional addition of query attributes---------
-//     if (searchtype == "kbdsno") {
-//       pfilteroptions["keyboard.kbdsno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "mousesno") {
-//       pfilteroptions["mouse.mousesno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "motherboardsno") {
-//       pfilteroptions["motherboard.motherboardsno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "monitorsno") {
-//       pfilteroptions["monitor.monitorsno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "hddsno") {
-//       pfilteroptions["hdd.hddsno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "cpusno") {
-//       pfilteroptions["cpu.cpusno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "ramsno") {
-//       pfilteroptions["ram.ramsno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "smpssno") {
-//       pfilteroptions["smps.smpssno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "fansno") {
-//       pfilteroptions["fan.fansno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
-//     if (searchtype == "opticaldrivesno") {
-//       pfilteroptions["opticaldrive.opticaldrivesno"] = fuzzyquery;
-//       // console.log("inside");
-//     }
+  // -----------------------------------------------------------------------
 
-//     // ------------------------Main Call-----------------------------------------
-//     Server.paginate(pfilteroptions, productoptions, function (err, result) {
-//       // console.log(result);
-//       if (err || !result) {
-//         return res.status(400).json({
-//           error: "No assets found",
-//           err: err,
-//         });
-//       }
-//       // console.log(result.docs);
-//       let final = [];
-//       // console.log("---------------final-------------------------------");
-//       result.docs.map((product, i) => {
-//         // console.log(product);
-//         let tasset = product.asset;
-//         final[i] = {
-//           ...tasset._doc,
-//           product: product,
-//         };
-//         // console.log(tasset);
-//         // console.log(final);
-//       });
-//       let output = {
-//         total: result.total,
-//         out: final,
-//       };
-//       return res.json(output);
-//       // console.log(final);
-//       // return res.json(final);
-//     });
-//   }
-// };
+  InvItem.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No items found",
+        err: err,
+      });
+    }
+    // console.log(result.docs);
+    let output = {
+      total: result.total,
+      out: result.docs,
+    };
+    return res.json(output);
+  });
+};
 
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;

@@ -23,7 +23,8 @@ import Emp from "../../helpers/auth/EmpProfile";
 export default function EngineerListModal({
   isModalOpen,
   setIsModalOpen,
-  setEngineer,nextModal
+  setEngineer,
+  nextModal,
 }) {
   const [values, setValues] = useState([]);
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function EngineerListModal({
             {values.map((user, i) => (
               <TableRow
                 key={i}
-                className="hover:bg-purple-900 "
+                className="hover:bg-blue-300 dark:hover:bg-gray-100 bg-opacity-25 "
                 onClick={() => {
                   setEngineer({
                     _id: user._id,
@@ -82,7 +83,6 @@ export default function EngineerListModal({
                     </div>
                   </div>
                 </TableCell>
-                
               </TableRow>
             ))}
           </TableBody>
@@ -105,7 +105,7 @@ export default function EngineerListModal({
       <Button onClick={openModal}>Open modal</Button>
     </div> */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalHeader>Modal header</ModalHeader>
+        <ModalHeader>Assign Engineer</ModalHeader>
         <ModalBody>{userTable()}</ModalBody>
         <ModalFooter>
           <Button

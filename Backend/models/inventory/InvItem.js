@@ -27,6 +27,7 @@ const InvItemSchema = mongoose.Schema({
   sno: String,
   condition: String,
   location: String,
+  invnumber: String,
 });
 InvItemSchema.plugin(mongoosePaginate);
 

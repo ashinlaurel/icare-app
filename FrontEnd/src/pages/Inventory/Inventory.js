@@ -3,18 +3,9 @@ import moment from "moment";
 import axios from "axios";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import PageTitle from "../../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  ButtonsIcon,
-  HeartIcon,
-  EditIcon,
-  TrashIcon,
-} from "../../icons";
+import { EditIcon, TrashIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+
 import {
   TableBody,
   TableContainer,
@@ -31,21 +22,15 @@ import {
   DropdownItem,
 } from "@windmill/react-ui";
 
-import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
-import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
-import EngineerListModal from "../../components/Modal/EngineerListModal";
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
-import { isAutheticated } from "../../helpers/auth";
 
-function AssignEng() {
-  // Bottom bar stuff
-  // const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
-  // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
-  const [addEnggModalOpen, setaddEnggModalOpen] = useState(false);
+function Inventory() {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -70,15 +55,6 @@ function AssignEng() {
   const [location, setLocation] = useState("");
   const [condition, setCondition] = useState("");
 
-  const [Business, setBusiness] = useState("");
-  const [product, setProduct] = useState("");
-  const [unit, setUnit] = useState({ _id: "", unitName: "" });
-  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
-  const [account, setAccount] = useState({ _id: "", accountName: "" });
-
-  /////// engineer
-  const [engineer, setEngineer] = useState({ _id: "", enggName: "" });
-  const [isEnggModalOpen, setIsEnggModalOpen] = useState(false);
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
 
@@ -98,57 +74,37 @@ function AssignEng() {
     setPage(p);
   }
 
-  const AddEnggModal = () => {
+  const DeleteModal = () => {
     return (
       <>
         <Modal
-          isOpen={addEnggModalOpen}
-          onClose={() => setaddEnggModalOpen(false)}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
         >
-          <ModalHeader>Confirm Assignment</ModalHeader>
-          <ModalBody>
-            <div className="font-xl">
-              Assign {engineer.enggName} to call ${selectedprod.callNo}
-            </div>
-          </ModalBody>
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody></ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
-                console.log(selectedprod);
-                let payload = {
-                  id: selectedprod._id,
-                  update: {
-                    employeeId: engineer._id,
-                    employeeName: engineer.enggName,
-                    callStatus: 2,
-                  },
-                };
                 try {
                   let response = await axios({
-                    url: `${API}/call/${Emp.getId()}/assignEngg`,
+                    url: `${API}/asset/${Emp.getId()}/delete`,
                     method: "POST",
-                    data: payload,
+                    data: { id: deleteId },
                   });
-                  let temp = data;
-                  console.log(temp);
-                  temp = temp.filter((c) => {
-                    if (c._id === selectedprod._id) {
-                      c.callStatus = 2;
-                      c.employeeName = engineer.enggName;
-                      c.employeeId = engineer._id;
-                      return c;
-                    }
-                    setData(temp);
-                  });
-                  // console.log(response.data);
-                  setaddEnggModalOpen(false);
+                  console.log(response.data);
+                  let temp = data.filter((x) => x._id != deleteId);
+                  setData(temp);
+                  setIsDeleteModalOpen(false);
+
+                  // setData(response.data);
                 } catch (error) {
                   throw error;
                 }
               }}
             >
-              Confirm Assignment
+              Confirm Delete
             </Button>
           </ModalFooter>
         </Modal>
@@ -170,7 +126,7 @@ function AssignEng() {
   // -------------------------------
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("Assign Engineer");
+    setTopHeading("Inventory");
     return () => {
       setTopHeading("");
     };
@@ -180,20 +136,16 @@ function AssignEng() {
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
-      // console.log("getter called");
+      console.log("getter called");
       let payload = {
         pages: {
           page: page,
           limit: resultsPerPage,
         },
         filters: {
-          business: Business,
-          producttype: product,
-          customer: customer,
-          account: account,
-          unitId: unit._id,
-          customerId: customer._id,
-          accountId: account._id,
+          type: type,
+          location: location,
+          condition: condition,
           searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -202,11 +154,11 @@ function AssignEng() {
 
       try {
         let response = await axios({
-          url: `${API}/call/${Emp.getId()}/getall`,
+          url: `${API}/inventory/${Emp.getId()}/getall`,
           method: "POST",
           data: payload,
         });
-        // console.log(response.data.out);
+        console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
@@ -217,50 +169,15 @@ function AssignEng() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh]);
+  }, [page, location, condition, type, refresh]);
 
-  // console.log(selectedprod);
+  console.log(selectedprod);
 
   return (
     <>
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
-      {/* <CustomerSelection
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setUnit={setUnit}
-        unit={unit}
-        customer={customer}
-        setCustomer={setCustomer}
-        account={account}
-        setAccount={setAccount}
-        refresh={refresh}
-        setRefresh={setRefresh}
-      /> */}
-      <EngineerListModal
-        isModalOpen={isEnggModalOpen}
-        setIsModalOpen={setIsEnggModalOpen}
-        setEngineer={setEngineer}
-        nextModal={setaddEnggModalOpen}
-      />
-      <AddEnggModal />
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
+      {DeleteModal()}
 
-      {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-        {/* <div className="flex items-center">
-          <PageTitle>Assets Management</PageTitle>
-          <div>
-            <Button
-              className="mx-3"
-              onClick={() => {
-                setFloatBox(!floatbox);
-              }}
-              icon={HeartIcon}
-              layout="link"
-              aria-label="Like"
-            />
-          </div>
-        </div> */}
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
@@ -274,11 +191,25 @@ function AssignEng() {
                 }}
               >
                 <option value="" disabled selected>
-                  Call Status
+                  Item Type
                 </option>
                 <option value="">All</option>
-                <option value="Mouse">Pending For Allocation</option>
-                <option value="Keyboard">Allocated</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Keyboard">Keyboard</option>
+                <option value="Monitor">Monitor</option>
+                <option value="Cpu">Cpu</option>
+                <option value="Ram">Ram</option>
+                <option value="Fan">Fan</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="SMPS">SMPS</option>
+                <option value="HDD">HDD</option>
+                <option value="SMPS">SMPS</option>
+                <option value="GCard">Gcard</option>
+                <option value="EnetCard">Enet Card</option>
+                <option value="SerialCard">Serial Card</option>
+                <option value="ParalellCard">Paralell Card</option>
+                <option value="OpticalDrive">Optical Drive</option>
+                <option value="Others">Others</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -379,110 +310,92 @@ function AssignEng() {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>Call No</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Unit Name</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Call Status</TableCell>
-                <TableCell>Assigned Employee</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Serial Number</TableCell>
+                <TableCell>Location</TableCell>
+                <TableCell>Inv Number</TableCell>
+                <TableCell>Condition</TableCell>
+                <TableCell>Edit/Delete</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map((call, i) => (
+              {data.map((user, i) => (
                 <TableRow
                   className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == call._id
+                    activerowid == user._id
                       ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                       : "white"
                   } `}
                   key={i}
                   onClick={() => {
-                    setActiveRowId(call._id);
-                    // console.log("the id is " + call._id);
-                    setSelectedProd(call);
-                    // setAssetDetails(call);
-                    // console.log(call.product.keyboard[0].kbdname);
+                    setActiveRowId(user._id);
+                    // console.log("the id is " + user._id);
+                    // setSelectedProd(user);
+                    // setAssetDetails(user);
+                    // console.log(user.product.keyboard[0].kbdname);
                   }}
                 >
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
+                      {/* <Avatar
+                        className="hidden ml-2 mr-3 md:block"
+                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
+                        alt="User image"
+                      /> */}
                       <div>
-                        <p className="font-semibold">{call.callNo}</p>
+                        <p className="font-semibold">{user.type}</p>
+                        {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {user.accountName}
+                        </p> */}
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(call.date).format("DD/MM/YYYY")}
-                    </span>
+                    <span className="text-sm">{user.name}</span>
+                  </TableCell>
+
+                  <TableCell>
+                    <span className="text-sm">{user.sno}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{call.unitName}</span>
+                    <span className="text-sm">{user.location}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{call.phone}</span>
+                    <span className="text-sm">{user.invnumber}</span>
                   </TableCell>
                   <TableCell>
-                    {call.callStatus == 0 ? (
-                      <span className="text-sm">Not Allocated</span>
-                    ) : null}
-                    {call.callStatus == 1 ? (
-                      <span className="text-sm">
-                        Pending for Percall Approval
-                      </span>
-                    ) : null}
-                    {call.callStatus == 2 ? (
-                      <span className="text-sm">Pending for Response</span>
-                    ) : null}
-                    {call.callStatus == 3 ? (
-                      <span className="text-sm">Pending for OEM Response</span>
-                    ) : null}
-                    {call.callStatus == 4 ? (
-                      <span className="text-sm">Pending for 2nd Response</span>
-                    ) : null}
-                    {call.callStatus == 5 ? (
-                      <span className="text-sm">Pending for Customer</span>
-                    ) : null}
-                    {call.callStatus == 6 ? (
-                      <span className="text-sm">Under Observation</span>
-                    ) : null}
-                    {call.callStatus == 7 ? (
-                      <span className="text-sm">Pending for Others</span>
-                    ) : null}
-                    {call.callStatus == 8 ? (
-                      <span className="text-sm">Pending for Spare</span>
-                    ) : null}
-                    {call.callStatus == 9 ? (
-                      <span className="text-sm">Spare in Transit</span>
-                    ) : null}
-                    {call.callStatus == 10 ? (
-                      <span className="text-sm">Cancelled Calls</span>
-                    ) : null}
-                    {call.callStatus == 11 ? (
-                      <span className="text-sm">Closed Calls</span>
-                    ) : null}
+                    <Badge
+                      type={user.condition == "Good" ? "primary" : "danger"}
+                    >
+                      {user.condition}
+                    </Badge>
                   </TableCell>
+
                   <TableCell>
-                    {call.employeeId ? (
-                      <>
-                        <div className="px-4 py-2 bg-purple-200 inline-block rounded-lg text-purple-700">
-                          {call.employeeName}
-                          <Button
-                            layout="link"
-                            size="icon"
-                            aria-label="Edit"
-                            onClick={() => setIsEnggModalOpen(true)}
-                            className="rounded-full mx-2 "
-                          >
-                            <EditIcon className="w-5 h-5" aria-hidden="true" />
-                          </Button>
-                        </div>
-                      </>
-                    ) : (
-                      <Button onClick={() => setIsEnggModalOpen(true)}>
-                        Assign Now
+                    <div className="flex items-center space-x-4">
+                      <Button layout="link" size="icon" aria-label="Edit">
+                        <Link
+                          key={user._id}
+                          to={`/app/unit/update/${user._id}`}
+                        >
+                          <EditIcon className="w-5 h-5" aria-hidden="true" />
+                        </Link>{" "}
                       </Button>
-                    )}
+
+                      <Button
+                        layout="link"
+                        size="icon"
+                        aria-label="Delete"
+                        onClick={async () => {
+                          console.log("delete Asset");
+                          setIsDeleteModalOpen(true);
+                          setDeleteId(user._id);
+                        }}
+                      >
+                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -506,4 +419,4 @@ function AssignEng() {
   );
 }
 
-export default AssignEng;
+export default Inventory;

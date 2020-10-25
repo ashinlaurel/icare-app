@@ -12,6 +12,27 @@ export const aroutes = [
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Dashboard", // name that appear in Sidebar
   },
+  // ---------------Calls---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Calls",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/registercall",
+        name: "Register Call",
+      },
+      {
+        path: "/app/assignEng",
+        name: "Assign Engineer",
+      },
+      {
+        path: "/app/viewcalls",
+        name: "View Calls",
+      },
+    ],
+  },
   // ---------------Assets---------------------------------------------
 
   {
@@ -30,6 +51,27 @@ export const aroutes = [
       // {
       //   path: "/app/assets/update",
       //   name: "Edit Assets",
+      // },
+    ],
+  },
+
+  // ---------------Inventory---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Inventory",
+    routes: [
+      // submenu
+      {
+        path: "/app/inventory",
+        name: "Inventory",
+      },
+      {
+        path: "/app/inventory/create",
+        name: "Add Item",
+      },
+      // {
+      //   path: "/app/customer/createunit",
+      //   name: "Add Unit",
       // },
     ],
   },
@@ -64,48 +106,6 @@ export const aroutes = [
       {
         path: "/app/CreateEmployee",
         name: "Add Employee",
-      },
-      // {
-      //   path: "/app/customer/createunit",
-      //   name: "Add Unit",
-      // },
-    ],
-  },
-
-  // ---------------Calls---------------------------------------------
-  {
-    icon: "HomeIcon",
-    name: "Calls",
-    routes: [
-      // submenu
-
-      {
-        path: "/app/registercall",
-        name: "Register Call",
-      },
-      {
-        path: "/app/assignEng",
-        name: "Assign Engineer",
-      },
-      {
-        path: "/app/viewcalls",
-        name: "View Calls",
-      },
-    ]
-    },
-  // ---------------Inventory---------------------------------------------
-  {
-    icon: "HomeIcon",
-    name: "Inventory",
-    routes: [
-      // submenu
-      {
-        path: "/app/inventory",
-        name: "Customer List",
-      },
-      {
-        path: "/app/inventory/create",
-        name: "Add Item",
       },
       // {
       //   path: "/app/customer/createunit",

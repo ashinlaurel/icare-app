@@ -42,6 +42,7 @@ const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
 
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
+const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 
 /**
  * ⚠ These are internal routes!
@@ -162,6 +163,10 @@ export const aroutes = [
   {
     path: "/inventory/create",
     component: CreateInvent,
+  },
+  {
+    path: "/inventory",
+    component: Inventory,
   },
   // --------------------------------------------/
   {

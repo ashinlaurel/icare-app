@@ -3,6 +3,7 @@ const express = require("express");
 const {
   createItem,
   getKbdSno,
+  getAllItems,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -32,7 +33,7 @@ router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
 // router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);
 
-// router.post("/:id/getall", isSignedIn, isAuthenticated, getAllAssets);
+router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
 // -------------------Counter Routes------------------
 // router.get("/count", countAssets);
 // router.get("/countamc", countAmcAssets);

@@ -308,7 +308,13 @@ function CreateAsset() {
     }
     let out = [];
     temp.map((item, i) => {
-      out[i] = { value: item.sno, label: item.sno, color: "#00B8D9" };
+      out[i] = {
+        id: item._id,
+        name: item.name,
+        value: item.sno,
+        label: item.sno,
+        color: "#00B8D9",
+      };
     });
     // let test = [
     //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
@@ -528,8 +534,6 @@ function CreateAsset() {
       </div>
     );
   };
-
-  //PRODUCT
 
   const productPicker = () => {
     return (
@@ -1200,6 +1204,7 @@ function CreateAsset() {
                                 onChange={(e) => {
                                   let newlist = [...kbd];
                                   newlist[i].kbdsno = e.value;
+                                  newlist[i].kbdname = e.name;
                                   setkbd(newlist);
                                   console.log(e);
                                 }}
