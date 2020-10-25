@@ -72,6 +72,27 @@ export const aroutes = [
     ],
   },
 
+  // ---------------Calls---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Calls",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/registercall",
+        name: "Register Call",
+      },
+      {
+        path: "/app/assignEng",
+        name: "Assign Engineer",
+      },
+      {
+        path: "/app/viewcalls",
+        name: "View Calls",
+      },
+    ]
+    },
   // ---------------Inventory---------------------------------------------
   {
     icon: "HomeIcon",

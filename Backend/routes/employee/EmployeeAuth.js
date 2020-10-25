@@ -5,6 +5,7 @@ const {
   isSignedIn,
   getEmpById,
   isAdmin,
+  getAllEngg,
 } = require("../../controllers/employee/EmployeeAuth");
 const { isAuthenticated } = require("../../controllers/employee/EmployeeAuth");
 const router = express.Router();
@@ -18,6 +19,7 @@ router.get("/logout", (req, res) => {
 
 router.post("/:id/signup", signup);
 router.post("/signin", signin);
+router.post("/:id/getAll", getAllEngg)
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
   // console.log("Authenticated Successfull", req.auth);

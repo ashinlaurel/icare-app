@@ -104,3 +104,13 @@ exports.getEmpById = (req, res, next, id) => {
     next();
   });
 };
+
+exports.getAllEngg = async (req, res) => {
+  try {
+    const users = await EmployeeLogin.find(); //populate("infoId");
+    return res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};

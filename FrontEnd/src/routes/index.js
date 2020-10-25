@@ -36,6 +36,9 @@ const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
+const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
+const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
+const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
 
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
@@ -140,7 +143,20 @@ export const aroutes = [
     component: CreateEmployee,
   },
   // --------------------------------------------/
+  // ----------------------Call Views ----------------------/
 
+  {
+    path: "/registerCall",
+    component: RegisterCall,
+  },
+  {
+    path: "/assignEng",
+    component: AssignEng,
+  },
+  {
+    path: "/viewcalls",
+    component: ViewCalls,
+  },
   // ----------------------Inventory Views ----------------------/
 
   {
