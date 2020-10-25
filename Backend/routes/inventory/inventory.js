@@ -1,7 +1,8 @@
 const express = require("express");
 // const { getUserById } = require("../controllers/user");
 const {
-createItem
+  createItem,
+  getKbdSno,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -24,6 +25,9 @@ router.post(
   //   isAdmin,
   createItem
 );
+
+// --------------------DropDown Searches --------------------------------
+router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
 //------------------ Migration create route----------------------------
 // router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);

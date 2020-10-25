@@ -5,7 +5,6 @@ const { Schema } = require("mongoose");
 const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
 
-
 // ---------------Counter Controllers -------------------
 // exports.countAssets = (req, res) => {
 //   Asset.count({}, function (err, result) {
@@ -59,8 +58,8 @@ const Unit = require("../../models/customer/Unit");
 // -------------------------------------------------------
 
 exports.createItem = async (req, res) => {
-  let item  = req.body;
-console.log(item)
+  let item = req.body;
+  console.log(item);
   try {
     // Saving the asset
     const newitem = new InvItem(item);
@@ -73,6 +72,38 @@ console.log(item)
     res.status(400).json({ message });
     // throw error;
   }
+};
+
+exports.getKbdSno = (req, res) => {
+  let { input } = req.body;
+  console.log(input);
+
+  const fuzzyquery = new RegExp(escapeRegex(input), "gi");
+
+  // -------------Product Specific Search Options -----------------
+  let productoptions = {
+    // populate: "asset",
+    // page: pages.page,
+    // limit: pages.limit,
+  };
+  let pfilteroptions = {
+    type: "Keyboard",
+    sno: fuzzyquery,
+  };
+
+  // ------------------------Main Call-----------------------------------------
+  InvItem.paginate(pfilteroptions, productoptions, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No assets found",
+        err: err,
+      });
+    }
+
+    console.log(result.docs);
+    return res.json(result.docs);
+  });
 };
 
 // exports.getAllAssets = (req, res) => {
