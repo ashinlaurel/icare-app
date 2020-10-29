@@ -282,13 +282,13 @@ function UpdateAssetFromCall() {
 
   //--------- Loading Functions --------
 
-  const loadKbd = async (inputText, callback) => {
+  const loadProductOption = async (type,inputText, callback) => {
     console.log(inputText);
     let temp = [];
-    let payload = { input: inputText };
+    let payload = { input: inputText ,Producttype:type};
     try {
       let response = await axios({
-        url: `${API}/inventory/${Emp.getId()}/getkbd`,
+        url: `${API}/inventory/${Emp.getId()}/getProduct`,
         method: "POST",
         data: payload,
       });
@@ -307,18 +307,6 @@ function UpdateAssetFromCall() {
         color: "#00B8D9",
       };
     });
-    // let test = [
-    //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-    //   { value: "blue", label: "Blue", color: "#0052CC", isDisabled: true },
-    //   { value: "purple", label: "Purple", color: "#5243AA" },
-    //   { value: "red", label: "Red", color: "#FF5630", isFixed: true },
-    //   { value: "orange", label: "Orange", color: "#FF8B00" },
-    //   { value: "yellow", label: "Yellow", color: "#FFC400" },
-    //   { value: "green", label: "Green", color: "#36B37E" },
-    //   { value: "forest", label: "Forest", color: "#00875A" },
-    //   { value: "slate", label: "Slate", color: "#253858" },
-    //   { value: "silver", label: "Silver", color: "#666666" },
-    // ];
     callback(out);
   };
 
@@ -1190,7 +1178,7 @@ function UpdateAssetFromCall() {
                                 defaultOptions
                                 value={{label:item.kbdsno, value:item.kbdsno}}
                                 // value={item.kbdsno}
-                                loadOptions={loadKbd}
+                                loadOptions={(inputText, callback)=>loadProductOption("Keyboard",inputText, callback)}
                                 placeholder={`Keyboard ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
@@ -1202,6 +1190,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newkbd = kbd.filter(x=>{
+                                    if(!(x.kbdsno==item.kbdsno&&x.kbdname==item.kbdname)) return x;
+                                  });
+                                  
+                                    setkbd(newkbd);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -1271,7 +1274,7 @@ function UpdateAssetFromCall() {
                             </Label>
                             <Label className="my-3 w-full">
                               <span>Mouse {i + 1}: Serial Number</span>
-                              <Input
+                              {/* <Input
                                 className="mt-1"
                                 placeholder={`Mouse ${i + 1}'s Serial Number `}
                                 name="mousesno"
@@ -1281,8 +1284,40 @@ function UpdateAssetFromCall() {
                                   newlist[i].mousesno = e.target.value;
                                   setmouse(newlist);
                                 }}
+                              /> */}
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.mousesno, value:item.mousesno}}
+                                // value={item.mousesno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Mouse",inputText, callback)}
+                                placeholder={`Mouse ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...mouse];
+                                  newlist[i].mousesno = e.value;
+                                  newlist[i].mousename = e.name;
+                                  setmouse(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
                               />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = mouse.filter(x=>{
+                                    if(!(x.mousesno==item.mousesno&&x.mousename==item.mousename)) return x;
+                                  });
+                                  
+                                    setmouse(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -1353,7 +1388,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>Monitor {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -1368,7 +1403,42 @@ function UpdateAssetFromCall() {
                                   setmonitor(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>Monitor {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.monitorsno, value:item.monitorsno}}
+                                // value={item.monitorsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Monitor",inputText, callback)}
+                                placeholder={`Monitor ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...monitor];
+                                  newlist[i].monitorsno = e.value;
+                                  newlist[i].monitorname = e.name;
+                                  setmonitor(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = monitor.filter(x=>{
+                                    if(!(x.monitorsno==item.monitorsno&&x.monitorname==item.monitorname)) return x;
+                                  });
+                                  
+                                    setmonitor(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -1435,7 +1505,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>Graphics Card {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -1450,7 +1520,42 @@ function UpdateAssetFromCall() {
                                   setgcard(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>Graphics Card {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.gcardsno, value:item.gcardsno}}
+                                // value={item.gcardsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Gcard",inputText, callback)}
+                                placeholder={`Graphics Card ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...gcard];
+                                  newlist[i].gcardsno = e.value;
+                                  newlist[i].gcardname = e.name;
+                                  setgcard(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = gcard.filter(x=>{
+                                    if(!(x.gcardsno==item.gcardsno&&x.gcardname==item.gcardname)) return x;
+                                  });
+                                  
+                                    setgcard(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );

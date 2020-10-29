@@ -74,8 +74,9 @@ exports.createItem = async (req, res) => {
   }
 };
 
-exports.getKbdSno = (req, res) => {
-  let { input } = req.body;
+exports.getProductSno = (req, res) => {
+  console.log("here");
+  let { input ,Producttype} = req.body;
   console.log(input);
 
   const fuzzyquery = new RegExp(escapeRegex(input), "gi");
@@ -87,7 +88,7 @@ exports.getKbdSno = (req, res) => {
     // limit: pages.limit,
   };
   let pfilteroptions = {
-    type: "Keyboard",
+    type: Producttype,
     sno: fuzzyquery,
   };
 

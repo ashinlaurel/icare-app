@@ -2,7 +2,7 @@ const express = require("express");
 // const { getUserById } = require("../controllers/user");
 const {
   createItem,
-  getKbdSno,
+  getProductSno,
   getAllItems,
 } = require("../../controllers/inventory/inventory");
 const {
@@ -28,7 +28,8 @@ router.post(
 );
 
 // --------------------DropDown Searches --------------------------------
-router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
+// router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
+router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 //------------------ Migration create route----------------------------
 // router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);
