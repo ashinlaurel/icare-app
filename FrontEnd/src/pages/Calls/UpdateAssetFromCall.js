@@ -660,7 +660,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="w-full my-3">
+                            {/* <Label className="w-full my-3">
                               <span>CPU {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -673,7 +673,42 @@ function UpdateAssetFromCall() {
                                   setCpu(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>CPU {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.cpusno, value:item.cpusno}}
+                                // value={item.cpusno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Cpu",inputText, callback)}
+                                placeholder={`CPU ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...cpu];
+                                  newlist[i].cpusno = e.value;
+                                  newlist[i].cpuname = e.name;
+                                  setCpu(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = cpu.filter(x=>{
+                                    if(!(x.cpusno==item.cpusno&&x.cpuname==item.cpuname)) return x;
+                                  });
+                                  
+                                    setCpu(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -740,7 +775,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>RAM {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -753,7 +788,42 @@ function UpdateAssetFromCall() {
                                   setram(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>RAM {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.ramsno, value:item.ramsno}}
+                                // value={item.ramsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Ram",inputText, callback)}
+                                placeholder={`Graphics Card ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...ram];
+                                  newlist[i].ramsno = e.value;
+                                  newlist[i].ramname = e.name;
+                                  setram(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = ram.filter(x=>{
+                                    if(!(x.ramsno==item.ramsno&&x.ramname==item.ramname)) return x;
+                                  });
+                                  
+                                    setram(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -824,7 +894,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>FAN {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -837,7 +907,42 @@ function UpdateAssetFromCall() {
                                   setfan(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>Fan {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.fansno, value:item.fansno}}
+                                // value={item.fansno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Fan",inputText, callback)}
+                                placeholder={`Fan ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...fan];
+                                  newlist[i].fansno = e.value;
+                                  newlist[i].fanname = e.name;
+                                  setfan(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = fan.filter(x=>{
+                                    if(!(x.fansno==item.fansno&&x.fanname==item.fanname)) return x;
+                                  });
+                                  
+                                    setfan(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -907,7 +1012,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>Motherboard {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -922,7 +1027,42 @@ function UpdateAssetFromCall() {
                                   setmotherboard(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>Motherboard {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.motherboardsno, value:item.motherboardsno}}
+                                // value={item.motherboardsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("Motherboard",inputText, callback)}
+                                placeholder={`Motherboard ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...motherboard];
+                                  newlist[i].motherboardsno = e.value;
+                                  newlist[i].motherboardname = e.name;
+                                  setmotherboard(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = motherboard.filter(x=>{
+                                    if(!(x.motherboardsno==item.motherboardsno&&x.motherboardname==item.motherboardname)) return x;
+                                  });
+                                  
+                                    setmotherboard(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -993,7 +1133,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>HDD {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -1006,7 +1146,43 @@ function UpdateAssetFromCall() {
                                   sethdd(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>HDD {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.hddsno, value:item.hddsno}}
+                                // value={item.hddsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("HDD",inputText, callback)}
+                                placeholder={`HDD ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...hdd];
+                                  newlist[i].hddsno = e.value;
+                                  newlist[i].hddname = e.name;
+                                  sethdd(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = hdd.filter(x=>{
+                                    if(!(x.hddsno==item.hddsno&&x.hddname==item.hddname)) return x;
+                                  });
+                                  
+                                    sethdd(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
+
                           </div>
                         </div>
                       );
@@ -1074,7 +1250,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>SMPS {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -1087,7 +1263,42 @@ function UpdateAssetFromCall() {
                                   setsmps(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>SMPS {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.smpssno, value:item.smpssno}}
+                                // value={item.smpssno}
+                                loadOptions={(inputText, callback)=>loadProductOption("SMPS",inputText, callback)}
+                                placeholder={`SMPS ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...smps];
+                                  newlist[i].smpssno = e.value;
+                                  newlist[i].smpsname = e.name;
+                                  setsmps(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = smps.filter(x=>{
+                                    if(!(x.smpssno==item.smpssno&&x.smpsname==item.smpsname)) return x;
+                                  });
+                                  
+                                    setsmps(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -1528,7 +1739,7 @@ function UpdateAssetFromCall() {
                                 defaultOptions
                                 value={{label:item.gcardsno, value:item.gcardsno}}
                                 // value={item.gcardsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Gcard",inputText, callback)}
+                                loadOptions={(inputText, callback)=>loadProductOption("GCard",inputText, callback)}
                                 placeholder={`Graphics Card ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...gcard];
@@ -1625,7 +1836,7 @@ function UpdateAssetFromCall() {
                                 }}
                               />
                             </Label>
-                            <Label className="my-3 w-full">
+                            {/* <Label className="my-3 w-full">
                               <span>E Net Card {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
@@ -1640,7 +1851,42 @@ function UpdateAssetFromCall() {
                                   setenetcard(newlist);
                                 }}
                               />
+                            </Label> */}
+                            <Label className="my-3 w-full">
+                              <span>Enet Card {i + 1}: Serial Number</span>
+                              <AsyncSelect
+                                cacheOptions
+                                defaultOptions
+                                value={{label:item.enetcardsno, value:item.enetcardsno}}
+                                // value={item.enetcardsno}
+                                loadOptions={(inputText, callback)=>loadProductOption("EnetCard",inputText, callback)}
+                                placeholder={`Enet Card ${i + 1}`}
+                                onChange={(e) => {
+                                  let newlist = [...enetcard];
+                                  newlist[i].enetcardsno = e.value;
+                                  newlist[i].enetcardname = e.name;
+                                  setenetcard(newlist);
+                                  console.log(e);
+                                }}
+                                defaultOptions={false}
+                              />
                             </Label>
+                            
+                            <div className="ml-3">
+                              <Button
+                                onClick={() => {
+                                  let newarr = enetcard.filter(x=>{
+                                    if(!(x.enetcardsno==item.enetcardsno&&x.enetcardname==item.enetcardname)) return x;
+                                  });
+                                  
+                                    setenetcard(newarr);
+                                  
+                                }}
+                                icon={Remove}
+                                layout="link"
+                                aria-label="Like"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
