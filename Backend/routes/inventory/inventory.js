@@ -4,6 +4,7 @@ const {
   createItem,
   getProductSno,
   getAllItems,
+  handleAssetUpdate,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -35,10 +36,11 @@ router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 // router.get("/product/:productId", getProduct);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
+router.post("/:id/assetupdate", isSignedIn, isAuthenticated,handleAssetUpdate);
 // -------------------Counter Routes------------------
 // router.get("/count", countAssets);
 // router.get("/countamc", countAmcAssets);
-// router.get("/countwty", countWtyAssets);
+// router.get("/countwty", countWtyAsset);
 // router.get("/countnos", countNosAssets);
 // -----------------------------------------------------
 // router.post("/:id/getbyid", isSignedIn, isAuthenticated, getAssetById);

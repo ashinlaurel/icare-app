@@ -96,6 +96,9 @@ function UpdateAssetFromCall() {
   //////////////-------------------------------------------->Product name not in asset
   const [product, setProduct] = useState("Server");
 
+  ////////////---------------- INVENTORY state
+  const [inventory  , setInventory]  = useState([]);
+
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -210,9 +213,27 @@ function UpdateAssetFromCall() {
     );
   };
 
+  const handleInventory =async ()=>{
+    let payload={inventory,assetId:id,product:product}
+    console.log(payload)
+    try {
+      let update = await axios({
+        url: `${API}/inventory/${Emp.getId()}/assetupdate`,
+        method: "POST",
+        data: payload,
+      });
+      // setSubmitModal(true);
+      console.log("Done");
+    } catch (error) {
+      throw error;
+    } 
+  }
+
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(inventory);
+    
     let payload = {
       business: Business,
       producttype: product,
@@ -273,6 +294,7 @@ function UpdateAssetFromCall() {
         method: "POST",
         data: data,
       });
+      handleInventory();
       setSubmitModal(true);
       console.log("Done");
     } catch (error) {
@@ -1396,7 +1418,10 @@ function UpdateAssetFromCall() {
                                   newlist[i].kbdsno = e.value;
                                   newlist[i].kbdname = e.name;
                                   setkbd(newlist);
-                                  console.log(e);
+                                  let tempInv=inventory;
+                                  tempInv.push([{name:e.name,sno:e.value,type:"Keyboard",op:"ADD"}])
+                                  setInventory(tempInv);
+                                 console.log(e);
                                 }}
                                 defaultOptions={false}
                               />
@@ -1404,6 +1429,10 @@ function UpdateAssetFromCall() {
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
+                                  let tempInv=inventory;
+                                  tempInv.push([{name:item.kbdname,sno:item.kbdsno,type:"Keyboard",op:"DEL"}])
+                                  setInventory(tempInv);
+
                                   let newkbd = kbd.filter(x=>{
                                     if(!(x.kbdsno==item.kbdsno&&x.kbdname==item.kbdname)) return x;
                                   });

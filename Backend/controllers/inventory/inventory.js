@@ -94,7 +94,7 @@ exports.getProductSno = (req, res) => {
 
   // ------------------------Main Call-----------------------------------------
   InvItem.paginate(pfilteroptions, productoptions, function (err, result) {
-    // console.log(result);
+    console.log(result);
     if (err || !result) {
       return res.status(400).json({
         error: "No assets found",
@@ -111,7 +111,7 @@ exports.getAllItems = (req, res) => {
   let { pages, filters } = req.body;
 
   let { searchquery } = filters;
-  console.log(filters);
+  // console.log(filters);
   // console.log(searchquery);
   // console.log(searchtype);
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
@@ -155,9 +155,61 @@ exports.getAllItems = (req, res) => {
       total: result.total,
       out: result.docs,
     };
-    return res.json(output);
+    return res.status(200).json(output);
   });
 };
+
+exports.handleAssetUpdate =  (req, res) => {
+  let {inventory,assetId,product}= req.body;
+  // console.log(req.body);
+  inventory.map(async prod=> {
+    let filter={name:prod[0].name,sno:prod[0].sno}
+    
+    if(prod[0].op=="ADD"){
+      let update={"assetId":assetId,"$push":{"assetsIdHistory":assetId}}
+      console.log("adding",prod[0])
+      try {
+        let newitem= await InvItem.findOneAndUpdate(filter,update,{new:true})
+        console.log(newitem)
+        return res.status(200).json({message:"SUCCESSFUL"});
+      } catch (error) {
+        return res.status(400).json({
+          error: `Item not found ${prod[0]}`,
+          err: err,
+        }); 
+      }
+    }
+     if(prod[0].op=="DEL"){
+      let update={"assetId":null,"condition":"Bad"}
+      console.log("del",prod[0])
+      try {
+        let ifitem= await InvItem.findOne(filter);
+        
+        if(ifitem){
+        let newitem= await InvItem.findOneAndUpdate(filter,update,{new:true})
+        console.log("EXISTING item updated",newitem)
+        return res.status(200).json({message:"SUCCESSFUL"});
+        }
+        else{
+          ////////////---------->>> partial inventory item?
+          console.log("ITEM NOT IN INVENTORY, so adding")
+          let item={name:prod[0].name,sno:prod[0].sno,type:product,condition:"Bad",location:"",invnumber:""}
+          const newitem = new InvItem(item);
+          const result = await newitem.save(); 
+        return res.status(200).json({message:"SUCCESSFUL"});
+        }
+      } catch (error) {
+        console.log(error)
+        // return res.status(400).json({
+        //   error: `Item not found ${prod[0]}`,
+        //   err: error,
+        // }); 
+      }
+    }
+  })
+  // return res.status(200).json({message:"SUCCESSFUL"});
+  
+}
 
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;

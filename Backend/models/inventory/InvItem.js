@@ -17,12 +17,18 @@ const InvItemSchema = mongoose.Schema({
   //     ref: "CustomerLogin",
   //   },
 
-  //   assetsId: [
-  //     {
-  //       type: mongoose.Schema.ObjectId,
-  //       ref: "Asset",
-  //     },
-  //   ],
+    assetsIdHistory: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Asset",
+      },
+    ],
+    // to be set null if in inventory
+    assetId:{
+      type: mongoose.Schema.ObjectId,
+        ref: "Asset", 
+        default:null
+    },
 
   sno: String,
   condition: String,
