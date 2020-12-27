@@ -1,4 +1,5 @@
 const express = require("express");
+const { getAllEmployees } = require("../../controllers/employee/Employee");
 const {
   signup,
   signin,
@@ -16,7 +17,8 @@ router.param("id", getEmpById);
 router.get("/logout", (req, res) => {
   return res.send("LOGOUT");
 });
-
+// get employees with search enabled 
+router.post("/employees", getAllEmployees);
 router.post("/signup", signup);
 router.post("/:id/signup", signup);
 router.post("/signin", signin);

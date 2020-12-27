@@ -190,7 +190,7 @@ function CreateEmployee() {
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
-        <div className="flex-row flex space-x-3">
+        <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Select Account Type*</span>
@@ -207,7 +207,7 @@ function CreateEmployee() {
             </Label>
           </div>
 
-          <>
+         
             <div className="flex flex-col w-full">
               <Label className="w-full">
                 <span>Employee Name*</span>
@@ -220,9 +220,9 @@ function CreateEmployee() {
               </Label>
               <HelperText valid={false}>{err.employeeName}</HelperText>
             </div>
-          </>
+         
           <div className="flex flex-col w-full">
-            <Label className="w-full mt-4">
+            <Label className="w-full ">
               <span>Email*</span>
               <Input
                 className="mt-1"

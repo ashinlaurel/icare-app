@@ -96,7 +96,7 @@ export const aroutes = [
     ],
   },
 
-  // ---------------Customers---------------------------------------------
+  // ---------------Employee---------------------------------------------
   {
     icon: "HomeIcon",
     name: "Employee",
@@ -104,13 +104,14 @@ export const aroutes = [
       // submenu
 
       {
+        path: "/app/employee",
+        name: "Employee List",
+      },
+      {
         path: "/app/CreateEmployee",
         name: "Add Employee",
       },
-      // {
-      //   path: "/app/customer/createunit",
-      //   name: "Add Unit",
-      // },
+      
     ],
   },
 
@@ -134,11 +135,11 @@ export const aroutes = [
   //   icon: "ButtonsIcon",
   //   name: "Buttons",
   // },
-  // {
-  //   path: "/app/modals",
-  //   icon: "ModalsIcon",
-  //   name: "Modals",
-  // },
+  {
+    path: "/app/modals",
+    icon: "ModalsIcon",
+    name: "Modals",
+  },
   // {
   //   path: "/app/tables",
   //   icon: "TablesIcon",

@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import EmployeeList from "../pages/Employee/EmployeeList";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -141,9 +142,14 @@ export const aroutes = [
   // ----------------------Employee Views ----------------------/
 
   {
+    path: "/employee",
+    component: EmployeeList,
+  },
+  {
     path: "/CreateEmployee",
     component: CreateEmployee,
   },
+ 
   // --------------------------------------------/
   // ----------------------Call Views ----------------------/
 

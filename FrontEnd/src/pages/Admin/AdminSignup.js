@@ -7,8 +7,11 @@ import { GithubIcon, TwitterIcon } from "../../icons";
 import { Input, Label, Button } from "@windmill/react-ui";
 import { signup, signin, authenticate } from "../../helpers/auth";
 import { HelperText } from "@windmill/react-ui";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui'
+
 
 function AdminSignUp() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [values, setValues] = useState({
     employeeName: "admin",
     email: "admin@test.com",
@@ -46,6 +49,7 @@ function AdminSignUp() {
     };
     signup(newuser, "admin/signup")
       .then((data) => {
+        openModal();
         // console.log("Signed Up", data);
         setErr({
           email: "",
@@ -67,6 +71,16 @@ function AdminSignUp() {
         setErr({ ...err });
       });
   };
+
+  function openModal() {
+    setIsModalOpen(true)
+  }
+
+  function closeModal() {
+    setIsModalOpen(false)
+  }
+
+
 
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -166,6 +180,43 @@ function AdminSignUp() {
           </main>
         </div>
       </div>
+    
+    {/* ---------------Modal------------ */}
+    <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalHeader>SignUp Successfull</ModalHeader>
+        <ModalBody>
+          An Admin account has been created!!
+        </ModalBody>
+        <ModalFooter>
+          {/* I don't like this approach. Consider passing a prop to ModalFooter
+           * that if present, would duplicate the buttons in a way similar to this.
+           * Or, maybe find some way to pass something like size="large md:regular"
+           * to Button
+           */}
+          <div className="hidden sm:block">
+            {/* <Button layout="outline" onClick={closeModal}>
+              OK
+            </Button> */}
+            <Link
+                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                  to="/home"
+                >
+                  OK
+                   </Link>
+          </div>
+          
+          <div className="block w-full sm:hidden">
+            <Button block size="large" layout="outline" onClick={closeModal}>
+              Cancel
+            </Button>
+          </div>
+          <div className="block w-full sm:hidden">
+            <Button block size="large">
+              Accept
+            </Button>
+          </div>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 }

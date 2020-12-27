@@ -56,7 +56,7 @@ mongoose
   });
 
 app.get("/api/test", (req, res) => {
-  res.status(200).send("Successfull!");
+  res.status(200).send("Successfull! Backend Routes Working");
 });
 // User Routes-------------------------------------------------
 app.use("/api/customer", CustomerAuthRoute);
