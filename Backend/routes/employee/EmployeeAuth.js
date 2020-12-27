@@ -18,6 +18,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/signup", signup);
+router.post("/:id/signup", signup);
 router.post("/signin", signin);
 router.post("/:id/getAll", getAllEngg)
 //test route
