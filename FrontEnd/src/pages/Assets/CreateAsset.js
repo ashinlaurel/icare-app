@@ -111,7 +111,7 @@ function CreateAsset() {
 
   // -------Enabling Bottom Bar----
   useEffect(() => {
-    setBBarOpen(1);
+    // setBBarOpen(1);
     return () => {
       setBBarOpen(0);
       setCreateAssetDetails({});
