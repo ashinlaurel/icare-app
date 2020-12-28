@@ -5,6 +5,7 @@ const {
   getProductSno,
   getAllItems,
   handleAssetUpdate,
+  deleteInventory,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -28,6 +29,7 @@ router.post(
   createItem
 );
 
+router.post("/:id/delete", isSignedIn, isAuthenticated, deleteInventory);
 // --------------------DropDown Searches --------------------------------
 // router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
 router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);

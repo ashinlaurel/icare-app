@@ -89,7 +89,7 @@ function Inventory() {
               onClick={async () => {
                 try {
                   let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    url: `${API}/inventory/${Emp.getId()}/delete`,
                     method: "POST",
                     data: { id: deleteId },
                   });
