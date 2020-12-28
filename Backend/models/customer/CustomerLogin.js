@@ -29,6 +29,10 @@ const customerLoginSchema = mongoose.Schema({
     required: [true, "Please enter a password"],
     trim: true,
   },
+  show_password: {
+    type: String,
+    
+  },
   imageUrl: {
     type: String,
     trim: true,

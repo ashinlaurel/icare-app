@@ -131,6 +131,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
+      show_password:values.password
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -189,6 +190,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
+      show_password:values.password  
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -232,6 +234,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
+      show_password:values.password  
     };
     unitCreate(payload)
       .then((data) => {

@@ -1185,7 +1185,7 @@ function CreateAsset() {
                             </Label>
                             <Label className="my-3 w-full">
                               <span>Keyboard {i + 1}: Serial Number</span>
-                              {/* <Input
+                              <Input
                                 className="mt-1"
                                 placeholder={`Keyboard ${
                                   i + 1
@@ -1197,8 +1197,8 @@ function CreateAsset() {
                                   newlist[i].kbdsno = e.target.value;
                                   setkbd(newlist);
                                 }}
-                              /> */}
-                              <AsyncSelect
+                              />
+                              {/* <AsyncSelect
                                 loadOptions={loadKbd}
                                 placeholder={`Keyboard ${i + 1}`}
                                 onChange={(e) => {
@@ -1209,7 +1209,7 @@ function CreateAsset() {
                                   console.log(e);
                                 }}
                                 defaultOptions={false}
-                              />
+                              /> */}
                             </Label>
                           </div>
                         </div>
