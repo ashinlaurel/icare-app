@@ -45,6 +45,10 @@ const employeeLoginSchema = mongoose.Schema({
   sex: String,
   dob: String,
   age: String,
+  // Qualification Form
+  educational: String,
+  technical: String,
+  experience: String,
 });
 
 employeeLoginSchema.plugin(mongoosePaginate);

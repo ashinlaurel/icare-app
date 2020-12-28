@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
+import { Card, CardBody } from "@windmill/react-ui";
 
 import Emp from "../../helpers/auth/EmpProfile";
 import PageTitle from "../../components/Typography/PageTitle";
@@ -27,12 +28,18 @@ import { useHistory } from "react-router-dom";
 
 function EmployeeUpdate() {
   let history = useHistory();
+  // dropdown states
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
+  const [sex, setSex] = useState("Male");
+  const [dob, setDob] = useState("");
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
   const [isReqFieldModal, setIsReqFieldModal] = useState(false);
   const { setTopHeading } = useContext(TopBarContext);
+
+  // -----flowstate---
+  const [flow, setFlow] = useState("personal");
 
   const [values, setValues] = useState({
     //both
@@ -43,13 +50,18 @@ function EmployeeUpdate() {
     address: "",
     district: "",
     state: "",
-    locationType: "",
     pincode: "",
-    GSTnumber: "",
     contactPerson: "",
     contactNo: "",
+    contactNoLand: "",
+    contactPersonOcc: "",
     altContact: "",
     WhatsappNo: "",
+    age: "",
+    // ---Qualification form
+    educational: "",
+    technical: "",
+    experience: "",
   });
   const [err, setErr] = useState({
     email: "",
@@ -103,13 +115,15 @@ function EmployeeUpdate() {
       address: values.address,
       district: values.district,
       state: values.state,
-      locationType: values.locationType,
       pincode: values.pincode,
-      GSTnumber: values.GSTnumber,
       contactPerson: values.contactPerson,
       contactNo: values.contactNo,
-      altContact: values.altContact,
+      contactNoLand: values.contactNoLand,
+      contactPersonOcc: values.contactPersonOcc,
       whatsappNo: values.WhatsappNo,
+      sex: sex,
+      age: values.age,
+      dob: dob,
     };
     console.log(newuser);
     signup(newuser, `admin/${Emp.getId()}/signup`)
@@ -125,7 +139,6 @@ function EmployeeUpdate() {
         });
       })
       .catch((err) => {
-        // console.log("HEREEEE");
         console.log("err", err);
         setErr({ ...err });
       });
@@ -181,12 +194,12 @@ function EmployeeUpdate() {
     );
   };
 
-  //ASSET
-  const addForm = () => {
+  //Basic Form
+  const BasicsForm = () => {
     return (
-      <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div className="px-4 py-3  mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
-          <span>Add Employee</span>
+          <span>Personal Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -271,21 +284,99 @@ function EmployeeUpdate() {
         <div className="flex-row flex space-x-3 mt-3 mb-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>GST Number</span>
+              <span>Sex</span>
+              <Select
+                className="mt-1"
+                onChange={(e) => {
+                  setSex(e.target.value);
+                }}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Select>
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Number(Mobile)</span>
               <Input
                 className="mt-1"
-                type="text"
-                value={values.GSTnumber}
-                onChange={handleChange("GSTnumber")}
+                value={values.contactNo}
+                onChange={handleChange("contactNo")}
               />
             </Label>{" "}
-            {values.GSTnumber.length != 15 && values.GSTnumber != 0 ? (
+            {values.contactNo.length != 10 && values.contactNo != 0 ? (
               <>
                 <HelperText valid={false}>
-                  GST number shound be 15 digits
+                  Phone number shound be 10 digits
                 </HelperText>
               </>
             ) : null}
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Number(Landline)</span>
+              <Input
+                className="mt-1"
+                value={values.contactNoLand}
+                onChange={handleChange("contactNoLand")}
+              />
+            </Label>{" "}
+            {/* {values.contactNoLand.length != 10 && values.contactNoLand != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null} */}
+          </div>
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Whatsapp Number</span>
+              <Input
+                className="mt-1"
+                value={values.WhatsappNo}
+                onChange={handleChange("WhatsappNo")}
+              />
+            </Label>
+            {values.WhatsappNo.length != 10 && values.WhatsappNo != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null}
+          </div>
+        </div>
+        {/* ---------------Row 4 ---------------- */}
+        <div className="flex-row flex space-x-3 mt-3 mb-2">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>DOB</span>
+              <Input
+                className="mt-1"
+                type="date"
+                name="brand"
+                value={dob}
+                onChange={(e) => {
+                  setDob(e.target.value);
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Age</span>
+              <Input
+                className="mt-1"
+                value={values.age}
+                onChange={handleChange("age")}
+              />
+            </Label>
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -300,52 +391,17 @@ function EmployeeUpdate() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Contact Number</span>
+              <span>Contact Person's Occupation</span>
               <Input
                 className="mt-1"
-                type="number"
-                value={values.contactNo}
-                onChange={handleChange("contactNo")}
+                value={values.contactPersonOcc}
+                onChange={handleChange("contactPersonOcc")}
               />
             </Label>{" "}
-            {values.contactNo.length != 10 && values.contactNo != 0 ? (
-              <>
-                <HelperText valid={false}>
-                  Phone number shound be 10 digits
-                </HelperText>
-              </>
-            ) : null}
           </div>
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Whatsapp Number</span>
-              <Input
-                className="mt-1"
-                type="number"
-                value={values.WhatsappNo}
-                onChange={handleChange("WhatsappNo")}
-              />
-            </Label>
-            {values.WhatsappNo.length != 10 && values.WhatsappNo != 0 ? (
-              <>
-                <HelperText valid={false}>
-                  Phone number shound be 10 digits
-                </HelperText>
-              </>
-            ) : null}
-          </div>
         </div>
-        <Label className="my-2">
-          <span>Address</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.address}
-            onChange={handleChange("address")}
-          />
-        </Label>{" "}
-        {/* -----------------------Row-4 */}
+        {/* -----------------------Row-5 ------------- */}
         <div className="flex-row flex space-x-3 my-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -369,17 +425,7 @@ function EmployeeUpdate() {
               />
             </Label>{" "}
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Location Type</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.locationType}
-                onChange={handleChange("locationType")}
-              />
-            </Label>{" "}
-          </div>
+
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PIN code</span>
@@ -397,23 +443,112 @@ function EmployeeUpdate() {
             ) : null}
           </div>
         </div>
+        {/* ---------------Row - 6 ---------------------- */}
+        <Label className="my-2">
+          <span>Address</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.address}
+            onChange={handleChange("address")}
+          />
+        </Label>{" "}
         {/* ///////////////////////////////////////////////////////// */}
-        <Button
-          onClick={submitCustomer}
-          aria-label="Notifications"
-          aria-haspopup="true"
-          className="mt-4"
-        >
-          Add Employee
-        </Button>
+      </div>
+    );
+  };
+
+  // Qualification Form
+  const QualificationForm = () => {
+    return (
+      <div className="px-4 py-3  mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <Label className="font-bold">
+          <span>Qualifications</span>
+        </Label>
+        <hr className="mb-5 mt-2" />
+        {/* ------------------------Row 1-------------------------- */}
+        <div className="flex-row flex  space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Educational</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.educational}
+                onChange={handleChange("educational")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.employeeName}</HelperText>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Technical</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.technical}
+                onChange={handleChange("technical")}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full ">
+              <span>Experience</span>
+              <Input
+                className="mt-1"
+                type="text"
+                placeholder=""
+                value={values.experience}
+                onChange={handleChange("experience")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.email}</HelperText>
+          </div>
+        </div>
       </div>
     );
   };
 
   return (
     <>
-      {/* <PageTitle>Add Customer</PageTitle> */}
-      {addForm()}
+      {/* Flow Buttons */}
+      <Card className="mb-4 shadow-md mt-4">
+        <CardBody>
+          <div className="flex flex-row space-x-4">
+            <Button
+              onClick={() => {
+                setFlow("personal");
+              }}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              className="mt-4"
+            >
+              1. Personal Information
+            </Button>
+            <Button
+              onClick={() => {
+                setFlow("qualifications");
+              }}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              className="mt-4"
+            >
+              2.Qualifications
+            </Button>
+            <Button
+              onClick={submitCustomer}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              className="mt-4"
+            >
+              Submit
+            </Button>
+          </div>
+        </CardBody>
+      </Card>
+      {flow == "personal" ? BasicsForm() : null}
+      {flow == "qualifications" ? QualificationForm() : null}
 
       {/* {productPicker()} */}
       {ReviewSubmit()}
