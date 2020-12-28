@@ -211,6 +211,18 @@ exports.handleAssetUpdate =  (req, res) => {
   
 }
 
+exports.deleteInventory = async (req, res) => {
+    let { id } = req.body;
+    try {
+      let inv = await InvItem.findByIdAndDelete({ _id: id });
+
+      return res.status(200).json({ inv });
+    } catch (err) {
+      console.log(id);
+      return res.status(400).json({ error: err });
+    }
+  };
+
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;
 //   try {
