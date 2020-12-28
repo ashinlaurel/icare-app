@@ -105,11 +105,11 @@ function EmployeeList() {
 
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {values.map((user) => (
-          <Link to={`/app/customer/accounts/${user._id}`}>
+          <Link to={`/app/employee/getEmployeeById/${user._id}`}>
             <EmployeeCard
               value={user.employeeName}
               role={user.role}
-              link={`/app/customer/getCustomerById/${user._id}`}
+              // link={`/app/customer/getCustomerById/${user._id}`}
             >
               <RoundIcon
                 icon={PeopleIcon}

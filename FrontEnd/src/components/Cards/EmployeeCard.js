@@ -40,7 +40,7 @@ function EmployeeCard({
             {desc}
           </p>
         </div>
-        <div className="mx-1">
+        {/* <div className="mx-1">
           {link ? (
             <Link to={link}>
               <Button layout="outline" size="small">
@@ -48,7 +48,7 @@ function EmployeeCard({
               </Button>
             </Link>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </Card>
   );

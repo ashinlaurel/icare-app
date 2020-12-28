@@ -25,12 +25,9 @@ import AddUnitModal from "../../components/Modal/AddUnitModal";
 import { useHistory } from "react-router-dom";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
-function CreateEmployee() {
+function EmployeeUpdate() {
   let history = useHistory();
-  // dropdown states
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
-  const [sex, setSex] = useState("Male");
-  const [dob, setDob] = useState("");
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
@@ -46,16 +43,13 @@ function CreateEmployee() {
     address: "",
     district: "",
     state: "",
+    locationType: "",
     pincode: "",
+    GSTnumber: "",
     contactPerson: "",
     contactNo: "",
-    contactNoLand: "",
-    contactPersonOcc: "",
     altContact: "",
     WhatsappNo: "",
-    age: "",
-
-    // ---new ones
   });
   const [err, setErr] = useState({
     email: "",
@@ -68,7 +62,7 @@ function CreateEmployee() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Add Employee");
+    setTopHeading("Update Employee");
     return () => {
       setTopHeading("");
     };
@@ -109,15 +103,13 @@ function CreateEmployee() {
       address: values.address,
       district: values.district,
       state: values.state,
+      locationType: values.locationType,
       pincode: values.pincode,
+      GSTnumber: values.GSTnumber,
       contactPerson: values.contactPerson,
       contactNo: values.contactNo,
-      contactNoLand: values.contactNoLand,
-      contactPersonOcc: values.contactPersonOcc,
+      altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
-      sex: sex,
-      age: values.age,
-      dob: dob,
     };
     console.log(newuser);
     signup(newuser, `admin/${Emp.getId()}/signup`)
@@ -133,6 +125,7 @@ function CreateEmployee() {
         });
       })
       .catch((err) => {
+        // console.log("HEREEEE");
         console.log("err", err);
         setErr({ ...err });
       });
@@ -278,99 +271,21 @@ function CreateEmployee() {
         <div className="flex-row flex space-x-3 mt-3 mb-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Sex</span>
-              <Select
-                className="mt-1"
-                onChange={(e) => {
-                  setSex(e.target.value);
-                }}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Select>
-            </Label>
-          </div>
-
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Contact Number(Mobile)</span>
+              <span>GST Number</span>
               <Input
                 className="mt-1"
-                value={values.contactNo}
-                onChange={handleChange("contactNo")}
+                type="text"
+                value={values.GSTnumber}
+                onChange={handleChange("GSTnumber")}
               />
             </Label>{" "}
-            {values.contactNo.length != 10 && values.contactNo != 0 ? (
+            {values.GSTnumber.length != 15 && values.GSTnumber != 0 ? (
               <>
                 <HelperText valid={false}>
-                  Phone number shound be 10 digits
+                  GST number shound be 15 digits
                 </HelperText>
               </>
             ) : null}
-          </div>
-
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Contact Number(Landline)</span>
-              <Input
-                className="mt-1"
-                value={values.contactNoLand}
-                onChange={handleChange("contactNoLand")}
-              />
-            </Label>{" "}
-            {/* {values.contactNoLand.length != 10 && values.contactNoLand != 0 ? (
-              <>
-                <HelperText valid={false}>
-                  Phone number shound be 10 digits
-                </HelperText>
-              </>
-            ) : null} */}
-          </div>
-          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Whatsapp Number</span>
-              <Input
-                className="mt-1"
-                value={values.WhatsappNo}
-                onChange={handleChange("WhatsappNo")}
-              />
-            </Label>
-            {values.WhatsappNo.length != 10 && values.WhatsappNo != 0 ? (
-              <>
-                <HelperText valid={false}>
-                  Phone number shound be 10 digits
-                </HelperText>
-              </>
-            ) : null}
-          </div>
-        </div>
-        {/* ---------------Row 4 ---------------- */}
-        <div className="flex-row flex space-x-3 mt-3 mb-2">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>DOB</span>
-              <Input
-                className="mt-1"
-                type="date"
-                name="brand"
-                value={dob}
-                onChange={(e) => {
-                  setDob(e.target.value);
-                }}
-              />
-            </Label>
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Age</span>
-              <Input
-                className="mt-1"
-                value={values.age}
-                onChange={handleChange("age")}
-              />
-            </Label>
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -385,17 +300,52 @@ function CreateEmployee() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Contact Person's Occupation</span>
+              <span>Contact Number</span>
               <Input
                 className="mt-1"
-                value={values.contactPersonOcc}
-                onChange={handleChange("contactPersonOcc")}
+                type="number"
+                value={values.contactNo}
+                onChange={handleChange("contactNo")}
               />
             </Label>{" "}
+            {values.contactNo.length != 10 && values.contactNo != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null}
           </div>
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Whatsapp Number</span>
+              <Input
+                className="mt-1"
+                type="number"
+                value={values.WhatsappNo}
+                onChange={handleChange("WhatsappNo")}
+              />
+            </Label>
+            {values.WhatsappNo.length != 10 && values.WhatsappNo != 0 ? (
+              <>
+                <HelperText valid={false}>
+                  Phone number shound be 10 digits
+                </HelperText>
+              </>
+            ) : null}
+          </div>
         </div>
-        {/* -----------------------Row-5 ------------- */}
+        <Label className="my-2">
+          <span>Address</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.address}
+            onChange={handleChange("address")}
+          />
+        </Label>{" "}
+        {/* -----------------------Row-4 */}
         <div className="flex-row flex space-x-3 my-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -419,7 +369,17 @@ function CreateEmployee() {
               />
             </Label>{" "}
           </div>
-
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Location Type</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.locationType}
+                onChange={handleChange("locationType")}
+              />
+            </Label>{" "}
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PIN code</span>
@@ -437,16 +397,6 @@ function CreateEmployee() {
             ) : null}
           </div>
         </div>
-        {/* ---------------Row - 6 ---------------------- */}
-        <Label className="my-2">
-          <span>Address</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.address}
-            onChange={handleChange("address")}
-          />
-        </Label>{" "}
         {/* ///////////////////////////////////////////////////////// */}
         <Button
           onClick={submitCustomer}
@@ -473,4 +423,4 @@ function CreateEmployee() {
   );
 }
 
-export default CreateEmployee;
+export default EmployeeUpdate;

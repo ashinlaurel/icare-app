@@ -35,13 +35,16 @@ const employeeLoginSchema = mongoose.Schema({
   address: String,
   district: String,
   state: String,
-  locationType: String, //( Remote/ Local/ Outlocation )
   pincode: String,
-  GSTnumber: String,
   contactPerson: String,
   contactNo: String,
+  contactNoLand: String,
+  contactPersonOcc: String,
   altContact: String,
   whatsappNo: String,
+  sex: String,
+  dob: String,
+  age: String,
 });
 
 employeeLoginSchema.plugin(mongoosePaginate);

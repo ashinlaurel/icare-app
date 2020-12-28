@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import EmployeeList from "../pages/Employee/EmployeeList";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -40,12 +39,19 @@ const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
-const UpdateAssetFromCall = lazy(() => import("../pages/Calls/UpdateAssetFromCall"));
+const UpdateAssetFromCall = lazy(() =>
+  import("../pages/Calls/UpdateAssetFromCall")
+);
 
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 
+// ------------------------------- Employee Imports
+
+const EmployeeDetails = lazy(() => import("../pages/Employee/EmployeeDetails"));
+const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
+const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -149,7 +155,15 @@ export const aroutes = [
     path: "/CreateEmployee",
     component: CreateEmployee,
   },
- 
+  {
+    path: "/employee/getEmployeeById/:id",
+    component: EmployeeDetails,
+  },
+  {
+    path: "/employee/:id/update",
+    component: EmployeeUpdate,
+  },
+
   // --------------------------------------------/
   // ----------------------Call Views ----------------------/
 
