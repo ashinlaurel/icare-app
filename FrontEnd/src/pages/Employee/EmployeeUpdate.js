@@ -23,10 +23,11 @@ import { resetIdCounter } from "react-tabs";
 import { TopBarContext } from "../../context/TopBarContext";
 import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function EmployeeUpdate() {
+  const { id } = useParams();
   let history = useHistory();
   // dropdown states
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
@@ -144,10 +145,121 @@ function EmployeeUpdate() {
     confpassword: "",
   });
 
+  const getCustomerInfo = async () => {
+    let data = { id: id };
+    // console.log(API);
+    try {
+      let res = await axios({
+        url: `${API}/admin/${Emp.getId()}/getEmployeeById`,
+        method: "POST",
+        data: data,
+      });
+      setValues({
+        username: res.data[0].username,
+        email: res.data[0].email,
+        employeeName: res.data[0].employeeName,
+        address: res.data[0].address,
+        district: res.data[0].district,
+        state: res.data[0].state,
+        pincode: res.data[0].pincode,
+        contactPerson: res.data[0].contactPerson,
+        contactPersonOcc: res.data[0].contactPersonOcc,
+        contactNo: res.data[0].contactNo,
+        role: res.data[0].role,
+        sex: res.data[0].sex,
+        contactNoLand: res.data[0].contactNoLand,
+        dob: res.data[0].dob,
+        age: res.data[0].age,
+        WhatsappNo: res.data[0].whatsappNo,
+        // ---Qualification form
+        educational: res.data[0].educational,
+        technical: res.data[0].technical,
+        experience: res.data[0].experience,
+        // ---Joining Formalities form
+        PAN: res.data[0].PAN,
+        AadharNo: res.data[0].AadharNo,
+        EmergencyContact: res.data[0].EmergencyContact,
+        EC: res.data[0].EC,
+        Phone: res.data[0].Phone,
+        BloodGr: res.data[0].BloodGr,
+        //--- Appoinment details form
+        DOJ: res.data[0].DOJ,
+        CurrentLocation: res.data[0].CurrentLocation,
+        Department: res.data[0].Department,
+        Designation: res.data[0].Designation,
+        Role: res.data[0].Role,
+        ///---External Certifications
+        ExtCert_1: res.data[0].ExtCert_1,
+        ExtCert_1_ID: res.data[0].ExtCert_1_ID,
+        ExtCert_1_Validity: res.data[0].ExtCert_1_Validity,
+        ExtCert_2: res.data[0].ExtCert_2,
+        ExtCert_2_ID: res.data[0].ExtCert_2_ID,
+        ExtCert_2_Validity: res.data[0].ExtCert_2_Validity,
+        ExtCert_3: res.data[0].ExtCert_3,
+        ExtCert_3_ID: res.data[0].ExtCert_3_ID,
+        ExtCert_3_Validity: res.data[0].ExtCert_3_Validity,
+        // Skill set
+        PC_L1: res.data[0].PC_L1,
+        PC_L2: res.data[0].PC_L2,
+        LAP_L1: res.data[0].LAP_L1,
+        LAP_L2: res.data[0].LAP_L2,
+        SVR_L1: res.data[0].SVR_L1,
+        SVR_L2: res.data[0].SVR_L2,
+        STO_L1: res.data[0].STO_L1,
+        STO_L2: res.data[0].STO_L2,
+        NW_L1: res.data[0].NW_L1,
+        NW_L2: res.data[0].NW_L2,
+        PRN_L1: res.data[0].PRN_L1,
+        PRN_L2: res.data[0].PRN_L2,
+        LMP_L1: res.data[0].LMP_L1,
+        LMP_L2: res.data[0].LMP_L2,
+        D_OS_L1: res.data[0].D_OS_L1,
+        D_OS_L2: res.data[0].D_OS_L2,
+        SVR_OS_L1: res.data[0].SVR_OS_L1,
+        SVR_OS_L2: res.data[0].SVR_OS_L2,
+        LIN_L1: res.data[0].LIN_L1,
+        APP_L1: res.data[0].APP_L1,
+        // Secruty Details
+        // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
+        PFNo: res.data[0].PFNo,
+        ESINo: res.data[0].ESINo,
+        UANNo: res.data[0].UANNo,
+        BasicDA: res.data[0].BasicDA,
+        BplusDA: res.data[0].BplusDA,
+        HRA: res.data[0].HRA,
+        Incentive_1: res.data[0].Incentive_1,
+        Incentive_2: res.data[0].Incentive_2,
+        GrossSalary: res.data[0].GrossSalary,
+        EmplPF: res.data[0].EmplPF,
+        EmplESI: res.data[0].EmplESI,
+        Deduction: res.data[0].Deduction,
+        TakeHomeSalary: res.data[0].TakeHomeSalary,
+        EmployerPF: res.data[0].EmployerPF,
+        EmployerESI: res.data[0].EmployerESI,
+        CTC: res.data[0].CTC,
+        AccountName: res.data[0].AccountName,
+        BankName: res.data[0].BankName,
+        BankAcNo: res.data[0].BankAcNo,
+        IFSCCode: res.data[0].IFSCCode,
+        BranchName: res.data[0].BranchName,
+        //separation
+        ResignDate: res.data[0].ResignDate,
+        RelievedDate: res.data[0].RelievedDate,
+        NoticePeriodServed: res.data[0].NoticePeriodServed,
+        Live: res.data[0].Live,
+      });
+      console.log("Done", res.data[0]);
+      //   console.log("Hello");
+    } catch (error) {
+      throw error;
+    }
+  };
+
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
     setTopHeading("Update Employee");
+    getCustomerInfo();
     return () => {
       setTopHeading("");
     };
@@ -279,22 +391,22 @@ function EmployeeUpdate() {
       Live: values.Live,
     };
     console.log(newuser);
-    // signup(newuser, `admin/${Emp.getId()}/signup`)
-    //   .then((data) => {
-    //     console.log("Signed Up", data._id);
-    //     setIsReviewModalOpen(true);
-    //     setErr({
-    //       username: "",
-    //       email: "",
-    //       customerName: "",
-    //       enc_password: "",
-    //       confpassword: "",
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //     setErr({ ...err });
-    //   });
+
+    const data = {
+      id: id,
+      update: newuser,
+    };
+    try {
+      await axios({
+        url: `${API}/admin/${Emp.getId()}/update`,
+        method: "POST",
+        data: data,
+      });
+      setIsReviewModalOpen(true);
+      console.log("Done");
+    } catch (error) {
+      throw error;
+    }
   };
 
   const ReviewSubmit = () => {
