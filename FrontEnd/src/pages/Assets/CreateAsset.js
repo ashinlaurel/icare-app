@@ -2324,7 +2324,7 @@ function CreateAsset() {
         <Modal
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
-          className="w-10/12 h-9/12 dark:bg-gray-800 p-10 bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          className="w-10/12 dark:bg-gray-800 p-10 my-12 h-screen  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
         >
           <ModalHeader>Create Asset</ModalHeader>
           <ModalBody>
