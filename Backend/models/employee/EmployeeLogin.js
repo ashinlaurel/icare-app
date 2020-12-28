@@ -49,6 +49,20 @@ const employeeLoginSchema = mongoose.Schema({
   educational: String,
   technical: String,
   experience: String,
+  // ---Joining Formalities form
+  PAN:String,	AadharNo:String,	EmergencyContact:String, 	EC:String, Phone:String,	BloodGr:String,
+  //--- Appoinment details form
+  DOJ:String,	CurrentLocation:String, 	Department:String,	Designation:String,	Role:String,
+  ///---External Certifications								
+  ExtCert_1:String,	ExtCert_1_ID:String,	ExtCert_1_Validity:String,	ExtCert_2:String,	ExtCert_2_ID:String,	ExtCert_2_Validity:String,	ExtCert_3:String,	ExtCert_3_ID:String,	ExtCert_3_Validity:String,
+  // Skill set 
+  PC_L1:String,	PC_L2:String,	LAP_L1:String,	LAP_L2:String,	SVR_L1:String,	SVR_L2:String,	STO_L1:String,	STO_L2:String,	NW_L1:String,	NW_L2:String,	PRN_L1:String,	PRN_L2:String,	LMP_L1:String,	LMP_L2:String,	D_OS_L1:String,	D_OS_L2:String,	SVR_OS_L1:String,	SVR_OS_L2:String,	LIN_L1:String,	APP_L1:String,
+  // Secruty Details
+  // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
+  PFNo:String,	ESINo:String,	UANNo:String,	BasicDA:String,	BplusDA:String,	HRA:String,	Incentive_1:String,	Incentive_2:String,	GrossSalary:String,	EmplPF:String,	EmplESI:String, Deduction:String,	TakeHomeSalary:String,	EmployerPF:String,	EmployerESI:String,	CTC:String,	AccountName:String,	BankName:String,	BankAcNo:String,	IFSCCode:String,	BranchName:String,
+  //separation 
+  ResignDate:String,	RelievedDate:String, NoticePeriodServed:String,
+  Live:String,
 });
 
 employeeLoginSchema.plugin(mongoosePaginate);
