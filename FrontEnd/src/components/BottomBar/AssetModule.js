@@ -57,121 +57,121 @@ const AssetModule = ({ selectedprod }) => {
   // let tapecontroller = [];
   console.log(selectedprod.product);
   return (
-    <div className=" mt-1 ">
+    <div className=" ">
       {/* Row 1  */}
-
-      <div className="flex flex-row space-x-8 text-lg my-1 w-full ">
+    <div className="mt-1 flex flex-row ">
+      <div className="flex flex-col  text-sm my-1 w-full ">
         <div>
-          <span className="font-bold w-1/5">Product Type :</span> {producttype}
+          <span className="font-semibold w-1/5">Product Type :</span> {producttype}
         </div>
         <div>
-          <span className="font-bold w-1/5">Customer : </span> {customerName}
+          <span className="font-semibold w-1/5">Customer : </span> {customerName}
         </div>
         <div>
-          <span className="font-bold w-1/5">Account :</span> {accountName}
+          <span className="font-semibold w-1/5">Account :</span> {accountName}
         </div>
         <div>
-          <span className="font-bold w-1/5">Unit : </span> {unitName}
+          <span className="font-semibold w-1/5">Unit : </span> {unitName}
         </div>
         <div>
-          <span className="font-bold w-1/5">Business : </span> {business}
+          <span className="font-semibold w-1/5">Business : </span> {business}
         </div>
       </div>
 
       {/*  Row 2 */}
-      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+      <div className="flex flex-col  text-sm my-1 w-full ">
         {keyboard[0] ? (
           <div>
-            <span className="font-bold w-1/5">KBD Model :</span>{" "}
+            <span className="font-semibold w-1/5">KBD Model :</span>{" "}
             {keyboard[0].kbdname}
           </div>
         ) : null}
 
         {keyboard[0] ? (
           <div>
-            <span className="font-bold w-1/5">KBD Serial: </span>{" "}
+            <span className="font-semibold w-1/5">KBD Serial: </span>{" "}
             {keyboard[0] ? keyboard[0].kbdsno : ""}
           </div>
         ) : null}
         {mouse[0] ? (
           <div>
-            <span className="font-bold w-1/5">Mouse Model :</span>{" "}
+            <span className="font-semibold w-1/5">Mouse Model :</span>{" "}
             {mouse[0] ? mouse[0].mousename : ""}
           </div>
         ) : null}
         {mouse[0] ? (
           <div>
-            <span className="font-bold w-1/5">Mouse Serial : </span>{" "}
+            <span className="font-semibold w-1/5">Mouse Serial : </span>{" "}
             {mouse[0] ? mouse[0].mousesno : ""}
           </div>
         ) : null}
         {monitor[0] ? (
           <div>
-            <span className="font-bold w-1/5">Monitor : </span>{" "}
+            <span className="font-semibold w-1/5">Monitor : </span>{" "}
             {monitor[0] ? monitor[0].monitorname : ""}
           </div>
         ) : null}
       </div>
       {/*  Row 3 */}
-      <div className="flex flex-row text-lg my-1 w-full flex-wrap justify-start">
+      <div className=" flex flex-col  text-sm my-1 w-full">
         {monitor[0] ? (
           <div>
-            <span className="font-bold w-1/5">Monitor Serial :</span>{" "}
+            <span className="font-semibold w-1/5 ml-2">Monitor Serial :</span>{" "}
             {monitor[0] ? monitor[0].monitorsno : ""}
           </div>
         ) : null}
 
         {smps[0] ? (
           <div>
-            <span className="font-bold w-1/5 ml-2">SMPS1 Model :</span>{" "}
+            <span className="font-semibold w-1/5 ml-2">SMPS1 Model :</span>{" "}
             {smps[0] ? smps[0].smpsname : ""}
           </div>
         ) : null}
         {smps[0] ? (
           <div>
-            <span className="font-bold w-1/5 ml-2">SMPS1 Serial : </span>{" "}
+            <span className="font-semibold w-1/5 ml-2">SMPS1 Serial : </span>{" "}
             {smps[0] ? smps[0].smpssno : ""}
           </div>
         ) : null}
         {motherboard[0] ? (
           <div>
-            <span className="font-bold w-1/5 ml-2">Motherboard: </span>{" "}
+            <span className="font-semibold w-1/5 ml-2">Motherboard: </span>{" "}
             {motherboard[0] ? motherboard[0].motherboardname : ""}
           </div>
         ) : null}
 
         {motherboard[0] ? (
           <div>
-            <span className="font-bold w-1/5 ml-2">MBD Serial : </span>
+            <span className="font-semibold w-1/5 ml-2">MBD Serial : </span>
             {motherboard[0] ? motherboard[0].motherboardsno : ""}
           </div>
         ) : null}
       </div>
       {/* Row 4 */}
-      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+      <div className="flex flex-col  text-sm my-1 w-full ">
         {hdd[0] ? (
           <div>
-            <span className="font-bold w-1/5">HDD1 Model:</span>{" "}
+            <span className="font-semibold w-1/5">HDD1 Model:</span>{" "}
             {hdd[0] ? hdd[0].hddname : ""}
           </div>
         ) : null}
         {hdd[0] ? (
           <div>
-            <span className="font-bold w-1/5">HDD1 Serial :</span>{" "}
+            <span className="font-semibold w-1/5">HDD1 Serial :</span>{" "}
             {hdd[0] ? hdd[0].hddsno : ""}
           </div>
         ) : null}
 
         {hdd[1] ? (
           <div>
-            <span className="font-bold w-1/5">HDD2 Model : </span>{" "}
+            <span className="font-semibold w-1/5">HDD2 Model : </span>{" "}
             {hdd[1] ? hdd[1].hddname : ""}
           </div>
         ) : null}
 
         {hdd[1] ? (
           <div>
-            <span className="font-bold w-1/5">HDD2 Serial: </span>{" "}
+            <span className="font-semibold w-1/5">HDD2 Serial: </span>{" "}
             {hdd[1] ? hdd[1].hddsno : ""}
           </div>
         ) : null}
@@ -179,7 +179,7 @@ const AssetModule = ({ selectedprod }) => {
           ram[
             0 ? (
               <div>
-                <span className="font-bold w-1/5">RAM1 Model : </span>{" "}
+                <span className="font-semibold w-1/5">RAM1 Model : </span>{" "}
                 {ram[0] ? ram[0].ramname : ""}
               </div>
             ) : null
@@ -187,44 +187,46 @@ const AssetModule = ({ selectedprod }) => {
         }
       </div>
       {/* -----------Row 5---------- */}
-      <div className="flex flex-row space-x-4 text-lg my-1 w-full ">
+      <div className="flex flex-col  text-sm my-1 w-full ">
         {ram[0] ? (
           <div>
-            <span className="font-bold w-1/5">RAM1 Serial:</span>{" "}
+            <span className="font-semibold w-1/5">RAM1 Serial:</span>{" "}
             {ram[0] ? ram[0].ramsno : ""}
           </div>
         ) : null}
 
         {ram[1] ? (
           <div>
-            <span className="font-bold w-1/5">RAM2 Model:</span>{" "}
+            <span className="font-semibold w-1/5">RAM2 Model:</span>{" "}
             {ram[1] ? ram[1].ramname : ""}
           </div>
         ) : null}
 
         {ram[1] ? (
           <div>
-            <span className="font-bold w-1/5">RAM2 Serial : </span>{" "}
+            <span className="font-semibold w-1/5">RAM2 Serial : </span>{" "}
             {ram[1] ? ram[1].ramsno : ""}
           </div>
         ) : null}
         {opticaldrive[0] ? (
           <div>
-            <span className="font-bold w-1/5">Optical Model: </span>{" "}
+            <span className="font-semibold w-1/5">Optical Model: </span>{" "}
             {opticaldrive[0] ? opticaldrive[0].opticaldrivename : ""}
           </div>
         ) : null}
 
         {opticaldrive[0] ? (
           <div>
-            <span className="font-bold w-1/5">Optical Serial : </span>{" "}
+            <span className="font-semibold w-1/5">Optical Serial : </span>{" "}
             {opticaldrive[0] ? opticaldrive[0].opticaldrivesno : ""}
           </div>
         ) : null}
       </div>
 
+      </div>
+
       <hr className="my-4" />
-      <div className=" ">
+      <div className=" text-sm">
         <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
           <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
