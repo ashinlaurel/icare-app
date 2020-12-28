@@ -20,7 +20,7 @@ const BottomBar = () => {
       <div
         class={
           bbaropen
-            ? `rounded-lg ml-64 w-10/12 overflow-y-scroll bottom-0 h-64  border border-grey p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
+            ? `rounded-lg ml-64 w-10/12 overflow-y-scroll bottom-0 h-64   p-4 fixed pin-b bg-white dark:text-white dark:bg-gray-700 text-base`
             : `hidden`
         }
       >
