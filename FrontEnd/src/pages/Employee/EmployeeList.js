@@ -10,6 +10,7 @@ import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import EmployeeCard from "../../components/Cards/EmployeeCard";
 
 function EmployeeList() {
   const [values, setValues] = useState([]);
@@ -37,7 +38,7 @@ function EmployeeList() {
     e.preventDefault();
     let payload = {
       search: search,
-      role: 1,
+      //   role: 1,
     };
     try {
       let response = await axios({
@@ -62,7 +63,7 @@ function EmployeeList() {
       };
       try {
         let response = await axios({
-          url: `${API}/customer/customers`,
+          url: `${API}/admin/employees`,
           method: "POST",
           data: payload,
         });
@@ -105,8 +106,9 @@ function EmployeeList() {
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {values.map((user) => (
           <Link to={`/app/customer/accounts/${user._id}`}>
-            <CustomerCard
-              value={user.name}
+            <EmployeeCard
+              value={user.employeeName}
+              role={user.role}
               link={`/app/customer/getCustomerById/${user._id}`}
             >
               <RoundIcon
@@ -115,7 +117,7 @@ function EmployeeList() {
                 bgColorClass="bg-orange-100 dark:bg-orange-500"
                 className="mr-4"
               />
-            </CustomerCard>
+            </EmployeeCard>
           </Link>
         ))}
       </div>

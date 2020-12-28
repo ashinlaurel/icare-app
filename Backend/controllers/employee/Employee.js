@@ -1,9 +1,9 @@
-const EmployeeLogin = require("../../models/employee/EmployeeLogin");
+const EmployeeLogin = require("../../models/employee/EmployeeLogin")
 
 
 exports.getAllEmployees = (req, res) => {
     let { search } = req.body;
-    // console.log("hello");
+    console.log("employee list");
   
     let options = {
       // populate: "product",
@@ -11,7 +11,8 @@ exports.getAllEmployees = (req, res) => {
       limit: 10,
     };
   
-    let filteroptions = { role: req.body.role };
+    // let filteroptions = { role: req.body.role };
+    let filteroptions = { };
     // Logic to add to filter when required
   
     if (search == "") {
@@ -23,24 +24,25 @@ exports.getAllEmployees = (req, res) => {
             err: err,
           });
         }
-        // console.log(result.docs);
+        console.log(result.docs);
         return res.json(result.docs);
       });
-    } else {
-      const regex = new RegExp(escapeRegex(search), "gi");
-      filteroptions.name = regex;
-      CustomerLogin.paginate(filteroptions, {}, function (err, result) {
-        // console.log(result);
-        if (err || !result) {
-          return res.status(400).json({
-            error: "No customers found",
-            err: err,
-          });
-        }
-        // console.log(result.docs);
-        return res.json(result.docs);
-      });
+    } 
+    // else {
+    //   const regex = new RegExp(escapeRegex(search), "gi");
+    //   filteroptions.name = regex;
+    //   CustomerLogin.paginate(filteroptions, {}, function (err, result) {
+    //     // console.log(result);
+    //     if (err || !result) {
+    //       return res.status(400).json({
+    //         error: "No customers found",
+    //         err: err,
+    //       });
+    //     }
+    //     // console.log(result.docs);
+    //     return res.json(result.docs);
+    //   });
   
-      // console.log("not empty");
-    }
+    //   // console.log("not empty");
+    // }
   }

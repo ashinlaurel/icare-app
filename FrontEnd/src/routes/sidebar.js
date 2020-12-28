@@ -120,11 +120,11 @@ export const aroutes = [
   //   icon: "FormsIcon",
   //   name: "Forms",
   // },
-  // {
-  //   path: "/app/cards",
-  //   icon: "CardsIcon",
-  //   name: "Cards",
-  // },
+  {
+    path: "/app/cards",
+    icon: "CardsIcon",
+    name: "Cards",
+  },
   // {
   //   path: "/app/charts",
   //   icon: "ChartsIcon",

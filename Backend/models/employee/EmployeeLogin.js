@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var mongoosePaginate = require("mongoose-paginate");
 const crypto = require("crypto");
 const { v1: uuidv1 } = require("uuid");
 var validator = require("validator");
@@ -42,6 +43,8 @@ const employeeLoginSchema = mongoose.Schema({
   altContact: String,
   whatsappNo: String,
 });
+
+employeeLoginSchema.plugin(mongoosePaginate);
 
 employeeLoginSchema.virtual("password").set(function (password) {
   this.salt = uuidv1();
