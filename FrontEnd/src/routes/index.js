@@ -52,6 +52,12 @@ const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 const EmployeeDetails = lazy(() => import("../pages/Employee/EmployeeDetails"));
 const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
 const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
+
+
+// ------------------------------- LST Imports
+
+const LST = lazy(() => import("../pages/LST/LST"));
+
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -193,6 +199,17 @@ export const aroutes = [
     path: "/inventory",
     component: Inventory,
   },
+
+  // ----------------------LST Views ----------------------/
+
+  {
+    path: "/lst",
+    component: LST,
+  },
+  // {
+  //   path: "/inventory",
+  //   component: Inventory,
+  // },
   // --------------------------------------------/
   {
     path: "/forms",
