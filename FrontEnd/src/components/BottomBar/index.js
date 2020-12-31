@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import { DropdownIcon, HeartIcon } from "../../icons";
+import Buttons from "../../pages/Buttons";
 import AssetModule from "./AssetModule";
 import CreateAssetModule from "./CreateAssetModule";
+import { Button } from "@windmill/react-ui";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
@@ -25,7 +28,21 @@ const BottomBar = () => {
         }
       >
         {/* ---------------------Heading------------ */}
-        Asset Details
+        <div className="flex flex-row justify-between">
+          <div>Asset Details</div>
+          <div>
+            <Button
+              icon={DropdownIcon}
+              layout="link"
+              aria-label="Like"
+              className="-mt-3"
+              onClick={() => {
+                setBBarOpen(0);
+              }}
+            />
+          </div>
+        </div>
+
         <hr />
         {JSON.stringify(assetdetails) !== JSON.stringify({}) ? (
           <AssetModule selectedprod={assetdetails} />

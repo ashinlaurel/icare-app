@@ -23,10 +23,11 @@ import { resetIdCounter } from "react-tabs";
 import { TopBarContext } from "../../context/TopBarContext";
 import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function EmployeeUpdate() {
+  const { id } = useParams();
   let history = useHistory();
   // dropdown states
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
@@ -63,19 +64,77 @@ function EmployeeUpdate() {
     technical: "",
     experience: "",
     // ---Joining Formalities form
-    PAN:"",	AadharNo:"",	EmergencyContact:"", 	EC:"", Phone:"",	BloodGr:"",
+    PAN: "",
+    AadharNo: "",
+    EmergencyContact: "",
+    EC: "",
+    Phone: "",
+    BloodGr: "",
     //--- Appoinment details form
-    DOJ:"",	CurrentLocation:"", 	Department:"",	Designation:"",	Role:"",
-    ///---External Certifications								
-    ExtCert_1:"",	ExtCert_1_ID:"",	ExtCert_1_Validity:"",	ExtCert_2:"",	ExtCert_2_ID:"",	ExtCert_2_Validity:"",	ExtCert_3:"",	ExtCert_3_ID:"",	ExtCert_3_Validity:"",
-    // Skill set 
-    PC_L1:"",	PC_L2:"",	LAP_L1:"",	LAP_L2:"",	SVR_L1:"",	SVR_L2:"",	STO_L1:"",	STO_L2:"",	NW_L1:"",	NW_L2:"",	PRN_L1:"",	PRN_L2:"",	LMP_L1:"",	LMP_L2:"",	D_OS_L1:"",	D_OS_L2:"",	SVR_OS_L1:"",	SVR_OS_L2:"",	LIN_L1:"",	APP_L1:"",
+    DOJ: "",
+    CurrentLocation: "",
+    Department: "",
+    Designation: "",
+    Role: "",
+    ///---External Certifications
+    ExtCert_1: "",
+    ExtCert_1_ID: "",
+    ExtCert_1_Validity: "",
+    ExtCert_2: "",
+    ExtCert_2_ID: "",
+    ExtCert_2_Validity: "",
+    ExtCert_3: "",
+    ExtCert_3_ID: "",
+    ExtCert_3_Validity: "",
+    // Skill set
+    PC_L1: "",
+    PC_L2: "",
+    LAP_L1: "",
+    LAP_L2: "",
+    SVR_L1: "",
+    SVR_L2: "",
+    STO_L1: "",
+    STO_L2: "",
+    NW_L1: "",
+    NW_L2: "",
+    PRN_L1: "",
+    PRN_L2: "",
+    LMP_L1: "",
+    LMP_L2: "",
+    D_OS_L1: "",
+    D_OS_L2: "",
+    SVR_OS_L1: "",
+    SVR_OS_L2: "",
+    LIN_L1: "",
+    APP_L1: "",
     // Secruty Details
     // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
-    PFNo:"",	ESINo:"",	UANNo:"",	BasicDA:"",	BplusDA:"",	HRA:"",	Incentive_1:"",	Incentive_2:"",	GrossSalary:"",	EmplPF:"",	EmplESI:"", Deduction:"",	TakeHomeSalary:"",	EmployerPF:"",	EmployerESI:"",	CTC:"",	AccountName:"",	BankName:"",	BankAcNo:"",	IFSCCode:"",	BranchName:"",
-    //separation 
-    ResignDate:"",	RelievedDate:"", NoticePeriodServed:"",
-    Live:"",
+    PFNo: "",
+    ESINo: "",
+    UANNo: "",
+    BasicDA: "",
+    BplusDA: "",
+    HRA: "",
+    Incentive_1: "",
+    Incentive_2: "",
+    GrossSalary: "",
+    EmplPF: "",
+    EmplESI: "",
+    Deduction: "",
+    TakeHomeSalary: "",
+    EmployerPF: "",
+    EmployerESI: "",
+    CTC: "",
+    AccountName: "",
+    BankName: "",
+    BankAcNo: "",
+    IFSCCode: "",
+    BranchName: "",
+    //separation
+    ResignDate: "",
+    RelievedDate: "",
+    NoticePeriodServed: "",
+    Live: "",
   });
 
   const [err, setErr] = useState({
@@ -86,10 +145,121 @@ function EmployeeUpdate() {
     confpassword: "",
   });
 
+  const getCustomerInfo = async () => {
+    let data = { id: id };
+    // console.log(API);
+    try {
+      let res = await axios({
+        url: `${API}/admin/${Emp.getId()}/getEmployeeById`,
+        method: "POST",
+        data: data,
+      });
+      setValues({
+        username: res.data[0].username,
+        email: res.data[0].email,
+        employeeName: res.data[0].employeeName,
+        address: res.data[0].address,
+        district: res.data[0].district,
+        state: res.data[0].state,
+        pincode: res.data[0].pincode,
+        contactPerson: res.data[0].contactPerson,
+        contactPersonOcc: res.data[0].contactPersonOcc,
+        contactNo: res.data[0].contactNo,
+        role: res.data[0].role,
+        sex: res.data[0].sex,
+        contactNoLand: res.data[0].contactNoLand,
+        dob: res.data[0].dob,
+        age: res.data[0].age,
+        WhatsappNo: res.data[0].whatsappNo,
+        // ---Qualification form
+        educational: res.data[0].educational,
+        technical: res.data[0].technical,
+        experience: res.data[0].experience,
+        // ---Joining Formalities form
+        PAN: res.data[0].PAN,
+        AadharNo: res.data[0].AadharNo,
+        EmergencyContact: res.data[0].EmergencyContact,
+        EC: res.data[0].EC,
+        Phone: res.data[0].Phone,
+        BloodGr: res.data[0].BloodGr,
+        //--- Appoinment details form
+        DOJ: res.data[0].DOJ,
+        CurrentLocation: res.data[0].CurrentLocation,
+        Department: res.data[0].Department,
+        Designation: res.data[0].Designation,
+        Role: res.data[0].Role,
+        ///---External Certifications
+        ExtCert_1: res.data[0].ExtCert_1,
+        ExtCert_1_ID: res.data[0].ExtCert_1_ID,
+        ExtCert_1_Validity: res.data[0].ExtCert_1_Validity,
+        ExtCert_2: res.data[0].ExtCert_2,
+        ExtCert_2_ID: res.data[0].ExtCert_2_ID,
+        ExtCert_2_Validity: res.data[0].ExtCert_2_Validity,
+        ExtCert_3: res.data[0].ExtCert_3,
+        ExtCert_3_ID: res.data[0].ExtCert_3_ID,
+        ExtCert_3_Validity: res.data[0].ExtCert_3_Validity,
+        // Skill set
+        PC_L1: res.data[0].PC_L1,
+        PC_L2: res.data[0].PC_L2,
+        LAP_L1: res.data[0].LAP_L1,
+        LAP_L2: res.data[0].LAP_L2,
+        SVR_L1: res.data[0].SVR_L1,
+        SVR_L2: res.data[0].SVR_L2,
+        STO_L1: res.data[0].STO_L1,
+        STO_L2: res.data[0].STO_L2,
+        NW_L1: res.data[0].NW_L1,
+        NW_L2: res.data[0].NW_L2,
+        PRN_L1: res.data[0].PRN_L1,
+        PRN_L2: res.data[0].PRN_L2,
+        LMP_L1: res.data[0].LMP_L1,
+        LMP_L2: res.data[0].LMP_L2,
+        D_OS_L1: res.data[0].D_OS_L1,
+        D_OS_L2: res.data[0].D_OS_L2,
+        SVR_OS_L1: res.data[0].SVR_OS_L1,
+        SVR_OS_L2: res.data[0].SVR_OS_L2,
+        LIN_L1: res.data[0].LIN_L1,
+        APP_L1: res.data[0].APP_L1,
+        // Secruty Details
+        // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
+        PFNo: res.data[0].PFNo,
+        ESINo: res.data[0].ESINo,
+        UANNo: res.data[0].UANNo,
+        BasicDA: res.data[0].BasicDA,
+        BplusDA: res.data[0].BplusDA,
+        HRA: res.data[0].HRA,
+        Incentive_1: res.data[0].Incentive_1,
+        Incentive_2: res.data[0].Incentive_2,
+        GrossSalary: res.data[0].GrossSalary,
+        EmplPF: res.data[0].EmplPF,
+        EmplESI: res.data[0].EmplESI,
+        Deduction: res.data[0].Deduction,
+        TakeHomeSalary: res.data[0].TakeHomeSalary,
+        EmployerPF: res.data[0].EmployerPF,
+        EmployerESI: res.data[0].EmployerESI,
+        CTC: res.data[0].CTC,
+        AccountName: res.data[0].AccountName,
+        BankName: res.data[0].BankName,
+        BankAcNo: res.data[0].BankAcNo,
+        IFSCCode: res.data[0].IFSCCode,
+        BranchName: res.data[0].BranchName,
+        //separation
+        ResignDate: res.data[0].ResignDate,
+        RelievedDate: res.data[0].RelievedDate,
+        NoticePeriodServed: res.data[0].NoticePeriodServed,
+        Live: res.data[0].Live,
+      });
+      console.log("Done", res.data[0]);
+      //   console.log("Hello");
+    } catch (error) {
+      throw error;
+    }
+  };
+
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
     setTopHeading("Update Employee");
+    getCustomerInfo();
     return () => {
       setTopHeading("");
     };
@@ -140,50 +310,103 @@ function EmployeeUpdate() {
       age: values.age,
       dob: values.dob,
 
-       // ---Qualification form
-    educational:values.educational,
-    technical:values.technical,
-    experience:values.experience,
+      // ---Qualification form
+      educational: values.educational,
+      technical: values.technical,
+      experience: values.experience,
 
       //Joining Formalities
-      
-      PAN:values.PAN,	
-      AadharNo:values.AadharNo,	
-      EmergencyContact:values.EmergencyContact,
-      
-      EC:values.EC,
-      Phone:values.Phone,
-      BloodGr:values.BloodGr,  
+
+      PAN: values.PAN,
+      AadharNo: values.AadharNo,
+      EmergencyContact: values.EmergencyContact,
+
+      EC: values.EC,
+      Phone: values.Phone,
+      BloodGr: values.BloodGr,
       //Appoinment details
-      DOJ:values.DOJ,		CurrentLocation:values.CurrentLocation,		Department:values.Department,		Designation:values.Designation,		Role:values.Role,
-      //External Certifications								
-      ExtCert_1:values.ExtCert_1,		ExtCert_1_ID:values.ExtCert_1_ID,		ExtCert_1_Validity:values.ExtCert_1_Validity,		ExtCert_2:values.ExtCert_2,		ExtCert_2_ID:values.ExtCert_2_ID,		ExtCert_2_Validity:values.ExtCert_2_Validity,		ExtCert_3:values.ExtCert_3,		ExtCert_3_ID:values.ExtCert_3_ID,		ExtCert_3_Validity:values.ExtCert_3_Validity,
+      DOJ: values.DOJ,
+      CurrentLocation: values.CurrentLocation,
+      Department: values.Department,
+      Designation: values.Designation,
+      Role: values.Role,
+      //External Certifications
+      ExtCert_1: values.ExtCert_1,
+      ExtCert_1_ID: values.ExtCert_1_ID,
+      ExtCert_1_Validity: values.ExtCert_1_Validity,
+      ExtCert_2: values.ExtCert_2,
+      ExtCert_2_ID: values.ExtCert_2_ID,
+      ExtCert_2_Validity: values.ExtCert_2_Validity,
+      ExtCert_3: values.ExtCert_3,
+      ExtCert_3_ID: values.ExtCert_3_ID,
+      ExtCert_3_Validity: values.ExtCert_3_Validity,
       //Skill Set
-      PC_L1:values.PC_L1,		PC_L2:values.PC_L2,		LAP_L1:values.LAP_L1,		LAP_L2:values.LAP_L2,		SVR_L1:values.SVR_L1,		SVR_L2:values.SVR_L2,		STO_L1:values.STO_L1,		STO_L2:values.STO_L2,		NW_L1:values.NW_L1,		NW_L2:values.NW_L2,		PRN_L1:values.PRN_L1,		PRN_L2:values.PRN_L2,		LMP_L1:values.LMP_L1,		LMP_L2:values.LMP_L2,		D_OS_L1:values.D_OS_L1,		D_OS_L2:values.D_OS_L2,		SVR_OS_L1:values.SVR_OS_L1,		SVR_OS_L2:values.SVR_OS_L2,		LIN_L1:values.LIN_L1,		APP_L1:values.APP_L1,
+      PC_L1: values.PC_L1,
+      PC_L2: values.PC_L2,
+      LAP_L1: values.LAP_L1,
+      LAP_L2: values.LAP_L2,
+      SVR_L1: values.SVR_L1,
+      SVR_L2: values.SVR_L2,
+      STO_L1: values.STO_L1,
+      STO_L2: values.STO_L2,
+      NW_L1: values.NW_L1,
+      NW_L2: values.NW_L2,
+      PRN_L1: values.PRN_L1,
+      PRN_L2: values.PRN_L2,
+      LMP_L1: values.LMP_L1,
+      LMP_L2: values.LMP_L2,
+      D_OS_L1: values.D_OS_L1,
+      D_OS_L2: values.D_OS_L2,
+      SVR_OS_L1: values.SVR_OS_L1,
+      SVR_OS_L2: values.SVR_OS_L2,
+      LIN_L1: values.LIN_L1,
+      APP_L1: values.APP_L1,
       // Salary Details
-      PFNo:values.PFNo,		ESINo:values.ESINo,		UANNo:values.UANNo,		BasicDA:values.BasicDA,		BplusDA:values.BplusDA,		HRA:values.HRA,		Incentive_1:values.Incentive_1,		Incentive_2:values.Incentive_2,		GrossSalary:values.GrossSalary,		EmplPF:values.EmplPF,		EmplESI:values.EmplESI,  Deduction:values.Deduction,		TakeHomeSalary:values.TakeHomeSalary,		EmployerPF:values.EmployerPF,		EmployerESI:values.EmployerESI,		CTC:values.CTC,		AccountName:values.AccountName,		BankName:values.BankName,		BankAcNo:values.BankAcNo,		IFSCCode:values.IFSCCode,		BranchName:values.BranchName,
+      PFNo: values.PFNo,
+      ESINo: values.ESINo,
+      UANNo: values.UANNo,
+      BasicDA: values.BasicDA,
+      BplusDA: values.BplusDA,
+      HRA: values.HRA,
+      Incentive_1: values.Incentive_1,
+      Incentive_2: values.Incentive_2,
+      GrossSalary: values.GrossSalary,
+      EmplPF: values.EmplPF,
+      EmplESI: values.EmplESI,
+      Deduction: values.Deduction,
+      TakeHomeSalary: values.TakeHomeSalary,
+      EmployerPF: values.EmployerPF,
+      EmployerESI: values.EmployerESI,
+      CTC: values.CTC,
+      AccountName: values.AccountName,
+      BankName: values.BankName,
+      BankAcNo: values.BankAcNo,
+      IFSCCode: values.IFSCCode,
+      BranchName: values.BranchName,
       //Separation Details
 
-      ResignDate:values.ResignDate,		RelievedDate:values.RelievedDate,  NoticePeriodServed:values.NoticePeriodServed,
-      Live:values.Live,
+      ResignDate: values.ResignDate,
+      RelievedDate: values.RelievedDate,
+      NoticePeriodServed: values.NoticePeriodServed,
+      Live: values.Live,
     };
     console.log(newuser);
-    // signup(newuser, `admin/${Emp.getId()}/signup`)
-    //   .then((data) => {
-    //     console.log("Signed Up", data._id);
-    //     setIsReviewModalOpen(true);
-    //     setErr({
-    //       username: "",
-    //       email: "",
-    //       customerName: "",
-    //       enc_password: "",
-    //       confpassword: "",
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //     setErr({ ...err });
-    //   });
+
+    const data = {
+      id: id,
+      update: newuser,
+    };
+    try {
+      await axios({
+        url: `${API}/admin/${Emp.getId()}/update`,
+        method: "POST",
+        data: data,
+      });
+      setIsReviewModalOpen(true);
+      console.log("Done");
+    } catch (error) {
+      throw error;
+    }
   };
 
   const ReviewSubmit = () => {
@@ -640,10 +863,9 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-
       </div>
     );
-  }
+  };
 
   const AppoinmentDetailsForm = () => {
     return (
@@ -717,8 +939,6 @@ function EmployeeUpdate() {
               />
             </Label>
           </div>
-
-         
         </div>
       </div>
     );
@@ -811,7 +1031,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
+        </div>
 
         {/* ------------------------Row 3-------------------------- */}
 
@@ -853,9 +1073,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
-
-
+        </div>
       </div>
     );
   };
@@ -893,7 +1111,7 @@ function EmployeeUpdate() {
             </Label>
           </div>
         </div>
-        
+
         {/* ------------------------Row 2-------------------------- */}
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
@@ -921,8 +1139,8 @@ function EmployeeUpdate() {
           </div>
         </div>
 
-         {/* ------------------------Row 3-------------------------- */}
-         <div className="flex-row flex  space-x-3">
+        {/* ------------------------Row 3-------------------------- */}
+        <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>SVR_L1</span>
@@ -948,8 +1166,8 @@ function EmployeeUpdate() {
           </div>
         </div>
 
-         {/* ------------------------Row 4-------------------------- */}
-         <div className="flex-row flex  space-x-3">
+        {/* ------------------------Row 4-------------------------- */}
+        <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>STO_L1</span>
@@ -1001,7 +1219,6 @@ function EmployeeUpdate() {
             </Label>
           </div>
         </div>
-
 
         {/* ------------------------Row 6-------------------------- */}
         <div className="flex-row flex  space-x-3">
@@ -1137,12 +1354,10 @@ function EmployeeUpdate() {
             </Label>
           </div>
         </div>
-
       </div>
     );
-  }
+  };
 
-  
   const SalaryDetailsForm = () => {
     return (
       <div className="px-4 py-3  mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -1231,7 +1446,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
+        </div>
 
         {/* ------------------------Row 3-------------------------- */}
 
@@ -1273,8 +1488,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
-
+        </div>
 
         {/* ------------------------Row 4-------------------------- */}
 
@@ -1316,8 +1530,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
-
+        </div>
 
         {/* ------------------------Row 5-------------------------- */}
 
@@ -1359,7 +1572,7 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
+        </div>
 
         {/* ------------------------Row 6-------------------------- */}
 
@@ -1401,11 +1614,11 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
+        </div>
 
-          {/* ------------------------Row 7-------------------------- */}
+        {/* ------------------------Row 7-------------------------- */}
 
-          <div className="flex-row flex  space-x-3">
+        <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>BankAcNo</span>
@@ -1443,16 +1656,12 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div> 
-
-
-
-
+        </div>
       </div>
     );
   };
-  
-const SeparationDetailsForm = () => {
+
+  const SeparationDetailsForm = () => {
     return (
       <div className="px-4 py-3  mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
@@ -1499,7 +1708,6 @@ const SeparationDetailsForm = () => {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        
       </div>
     );
   };
@@ -1525,28 +1733,25 @@ const SeparationDetailsForm = () => {
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
-         
         </div>
-        
       </div>
     );
   };
-  
-
 
   return (
     <>
       {/* Flow Buttons */}
       <Card className="mb-4 shadow-md mt-4">
         <CardBody>
-          <div className="flex flex-row space-x-4 flex-wrap">
+          <div className="flex flex-row flex-wrap">
             <Button
               onClick={() => {
                 setFlow("personal");
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               1. Personal Information
             </Button>
@@ -1556,7 +1761,8 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               2.Qualifications
             </Button>
@@ -1566,18 +1772,20 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               3.Joining Formalities
             </Button>
-            
+
             <Button
               onClick={() => {
                 setFlow("appoinmentDetails");
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               4.Appoinment Details
             </Button>
@@ -1588,12 +1796,11 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               5.External Certifications
             </Button>
-
-            
 
             <Button
               onClick={() => {
@@ -1601,12 +1808,11 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               6.Skill set
             </Button>
-            
-
 
             <Button
               onClick={() => {
@@ -1614,11 +1820,11 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               7.Salary Details
             </Button>
-
 
             <Button
               onClick={() => {
@@ -1626,7 +1832,8 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               8.Separation Details
             </Button>
@@ -1637,16 +1844,18 @@ const SeparationDetailsForm = () => {
               }}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               9.Status
             </Button>
-            
+
             <Button
               onClick={submitCustomer}
               aria-label="Notifications"
               aria-haspopup="true"
-              className="mt-4"
+              layout="outline"
+              className="mt-4 mx-2 "
             >
               Submit
             </Button>

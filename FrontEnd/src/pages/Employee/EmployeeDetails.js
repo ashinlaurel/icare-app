@@ -102,15 +102,11 @@ export default function EmployeeDetails() {
         address: res.data[0].address,
         district: res.data[0].district,
         state: res.data[0].state,
-        locationType: res.data[0].locationType,
         pincode: res.data[0].pincode,
-        GSTnumber: res.data[0].GSTnumber,
         contactPerson: res.data[0].contactPerson,
         contactPersonOcc: res.data[0].contactPersonOcc,
         contactNo: res.data[0].contactNo,
-        altContact: res.data[0].altContact,
         role: res.data[0].role,
-        parentCustomerId: res.data[0].parentCustomerId,
         show_password: res.data[0].show_password,
         sex: res.data[0].sex,
         contactNoLand: res.data[0].contactNoLand,
@@ -211,37 +207,21 @@ export default function EmployeeDetails() {
         >
           <ModalHeader>Are you sure you want to delete!</ModalHeader>
           <ModalBody>
-            All {values.role == 1 ? <>accounts, </> : <></>} units and assets
-            under this
-            {values.role == 1 ? <> customer </> : <> account </>}
-            will get deleted{" "}
+            All the data linked with this employee will be lost.
           </ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
-                console.log("role", values.role);
                 try {
-                  if (values.role == 1) {
-                    console.log("Here role", values.role);
-                    await axios({
-                      url: `${API}/customer/${Emp.getId()}/deletecust`,
-                      method: "POST",
-                      data: { id: id },
-                    });
-                    history.push(`/app/customer`);
-                  } else {
-                    await Axios({
-                      url: `${API}/customer/${Emp.getId()}/deleteacc`,
-                      method: "POST",
-                      data: { id: id },
-                    });
-                    history.push(
-                      `/app/customer/accounts/${values.parentCustomerId}`
-                    );
-                  }
+                  await axios({
+                    url: `${API}/admin/${Emp.getId()}/deleteEmployee`,
+                    method: "POST",
+                    data: { id: id },
+                  });
+                  history.push(`/app/employee`);
 
-                  console.log("unit deleted");
+                  console.log("employee deleted");
                 } catch (err) {
                   throw err;
                 }
@@ -351,7 +331,7 @@ export default function EmployeeDetails() {
               Reset Password
             </Button>
             <Button onClick={() => setIsDeleteModalOpen(true)} className="mx-3">
-              Delete {values.role == 1 ? <>Customer</> : <>Account</>}
+              Delete Employee{" "}
             </Button>
             {/* <Button className="mx-3">Delete Customer</Button> */}
           </div>

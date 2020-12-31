@@ -2,6 +2,8 @@ const express = require("express");
 const {
   getAllEmployees,
   getEmployeeById,
+  deleteEmployee,
+  updateEmployee,
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -50,6 +52,7 @@ router.post(
 );
 
 // -----------Updation and Deletion Routes ------
-// router.post("/:id/update", isSignedIn, isAuthenticated, updateCustomer);
+router.post("/:id/update", isSignedIn, isAuthenticated, updateEmployee);
+router.post("/:id/deleteEmployee", isSignedIn, isAuthenticated, deleteEmployee);
 
 module.exports = router;

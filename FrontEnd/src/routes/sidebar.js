@@ -111,7 +111,6 @@ export const aroutes = [
         path: "/app/CreateEmployee",
         name: "Add Employee",
       },
-      
     ],
   },
 
@@ -136,11 +135,11 @@ export const aroutes = [
   //   icon: "FormsIcon",
   //   name: "Forms",
   // },
-  {
-    path: "/app/cards",
-    icon: "CardsIcon",
-    name: "Cards",
-  },
+  // {
+  //   path: "/app/cards",
+  //   icon: "CardsIcon",
+  //   name: "Cards",
+  // },
   // {
   //   path: "/app/charts",
   //   icon: "ChartsIcon",
@@ -151,11 +150,11 @@ export const aroutes = [
   //   icon: "ButtonsIcon",
   //   name: "Buttons",
   // },
-  {
-    path: "/app/modals",
-    icon: "ModalsIcon",
-    name: "Modals",
-  },
+  // {
+  //   path: "/app/modals",
+  //   icon: "ModalsIcon",
+  //   name: "Modals",
+  // },
   // {
   //   path: "/app/tables",
   //   icon: "TablesIcon",

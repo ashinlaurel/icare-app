@@ -78,3 +78,30 @@ exports.getEmployeeById = (req, res) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
+
+exports.deleteEmployee = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let employee = await EmployeeLogin.findByIdAndDelete(id);
+
+    return res.status(200).json({ employee });
+  } catch (err) {
+    console.log("del Error", err);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.updateEmployee = async (req, res) => {
+  let { id, update } = req.body;
+  console.log(id, update);
+  try {
+    let employee = await EmployeeLogin.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ employee });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};

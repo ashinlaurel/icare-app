@@ -135,7 +135,7 @@ function Assets() {
 
   // -------Enabling Bottom Bar----
   useEffect(() => {
-    setBBarOpen(1);
+    // setBBarOpen(1);
     return () => {
       setBBarOpen(0);
       setAssetDetails({});
@@ -659,6 +659,7 @@ function Assets() {
                   } `}
                   key={i}
                   onClick={() => {
+                    setBBarOpen(1);
                     setActiveRowId(user._id);
                     // console.log("the id is " + user._id);
                     setSelectedProd(user);
