@@ -76,7 +76,7 @@ exports.createItem = async (req, res) => {
 
 exports.getProductSno = (req, res) => {
   console.log("here");
-  let { input ,Producttype} = req.body;
+  let { input, Producttype } = req.body;
   console.log(input);
 
   const fuzzyquery = new RegExp(escapeRegex(input), "gi");
@@ -159,69 +159,78 @@ exports.getAllItems = (req, res) => {
   });
 };
 
-exports.handleAssetUpdate =  (req, res) => {
-  let {inventory,assetId,product}= req.body;
+exports.handleAssetUpdate = (req, res) => {
+  let { inventory, assetId, product } = req.body;
   // console.log(req.body);
-  inventory.map(async prod=> {
-    let filter={name:prod[0].name,sno:prod[0].sno}
-    
-    if(prod[0].op=="ADD"){
-      let update={"assetId":assetId,"$push":{"assetsIdHistory":assetId}}
-      console.log("adding",prod[0])
+  inventory.map(async (prod) => {
+    let filter = { name: prod[0].name, sno: prod[0].sno };
+
+    if (prod[0].op == "ADD") {
+      let update = { assetId: assetId, $push: { assetsIdHistory: assetId } };
+      console.log("adding", prod[0]);
       try {
-        let newitem= await InvItem.findOneAndUpdate(filter,update,{new:true})
-        console.log(newitem)
-        return res.status(200).json({message:"SUCCESSFUL"});
+        let newitem = await InvItem.findOneAndUpdate(filter, update, {
+          new: true,
+        });
+        console.log(newitem);
+        return res.status(200).json({ message: "SUCCESSFUL" });
       } catch (error) {
         return res.status(400).json({
           error: `Item not found ${prod[0]}`,
           err: err,
-        }); 
+        });
       }
     }
-     if(prod[0].op=="DEL"){
-      let update={"assetId":null,"condition":"Bad"}
-      console.log("del",prod[0])
+    if (prod[0].op == "DEL") {
+      let update = { assetId: null, condition: "Bad" };
+      console.log("del", prod[0]);
       try {
-        let ifitem= await InvItem.findOne(filter);
-        
-        if(ifitem){
-        let newitem= await InvItem.findOneAndUpdate(filter,update,{new:true})
-        console.log("EXISTING item updated",newitem)
-        return res.status(200).json({message:"SUCCESSFUL"});
-        }
-        else{
+        let ifitem = await InvItem.findOne(filter);
+
+        if (ifitem) {
+          let newitem = await InvItem.findOneAndUpdate(filter, update, {
+            new: true,
+          });
+          console.log("EXISTING item updated", newitem);
+          return res.status(200).json({ message: "SUCCESSFUL" });
+        } else {
           ////////////---------->>> partial inventory item?
-          console.log("ITEM NOT IN INVENTORY, so adding")
-          let item={name:prod[0].name,sno:prod[0].sno,type:product,condition:"Bad",location:"",invnumber:""}
+          console.log("ITEM NOT IN INVENTORY, so adding");
+          let item = {
+            name: prod[0].name,
+            sno: prod[0].sno,
+            type: product,
+            condition: "Bad",
+            location: "",
+            invnumber: "",
+          };
           const newitem = new InvItem(item);
-          const result = await newitem.save(); 
-        return res.status(200).json({message:"SUCCESSFUL"});
+          const result = await newitem.save();
+          return res.status(200).json({ message: "SUCCESSFUL" });
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
         // return res.status(400).json({
         //   error: `Item not found ${prod[0]}`,
         //   err: error,
-        // }); 
+        // });
       }
     }
-  })
+  });
   // return res.status(200).json({message:"SUCCESSFUL"});
-  
-}
+};
 
 exports.deleteInventory = async (req, res) => {
-    let { id } = req.body;
-    try {
-      let inv = await InvItem.findByIdAndDelete({ _id: id });
+  let { id } = req.body;
+  try {
+    let inv = await InvItem.findByIdAndDelete({ _id: id });
 
-      return res.status(200).json({ inv });
-    } catch (err) {
-      console.log(id);
-      return res.status(400).json({ error: err });
-    }
-  };
+    return res.status(200).json({ inv });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
 
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;

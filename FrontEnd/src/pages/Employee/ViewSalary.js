@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+
 import axios from "axios";
 import moment from "moment";
 
@@ -36,6 +38,8 @@ function ViewSalary() {
   const { id } = useParams();
   let history = useHistory();
   const [activerowid, setActiveRowId] = useState(0);
+  const [deleteId, setDeleteId] = useState(0);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
   const [page, setPage] = useState(1);
@@ -93,6 +97,44 @@ function ViewSalary() {
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
+
+  const DeleteModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                try {
+                  let response = await axios({
+                    url: `${API}/admin/${Emp.getId()}/deleteSalary`,
+                    method: "POST",
+                    data: { id: deleteId },
+                  });
+                  console.log(response.data);
+                  let temp = data.filter((x) => x._id != deleteId);
+                  setData(temp);
+                  setIsDeleteModalOpen(false);
+
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
   return (
     <>
       <div>
@@ -179,6 +221,31 @@ function ViewSalary() {
                   <TableCell>
                     <span className="text-sm">{user.CTC}</span>
                   </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-4">
+                      {/* <Button layout="link" size="icon" aria-label="Edit">
+                        <Link
+                          key={user._id}
+                          to={`/app/unit/update/${user._id}`}
+                        >
+                          <EditIcon className="w-5 h-5" aria-hidden="true" />
+                        </Link>{" "}
+                      </Button> */}
+
+                      <Button
+                        layout="link"
+                        size="icon"
+                        aria-label="Delete"
+                        onClick={async () => {
+                          console.log("delete Asset");
+                          setIsDeleteModalOpen(true);
+                          setDeleteId(user._id);
+                        }}
+                      >
+                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                    </div>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -193,6 +260,7 @@ function ViewSalary() {
           </TableFooter>
         </TableContainer>
       </div>
+      {DeleteModal()}
     </>
   );
 }

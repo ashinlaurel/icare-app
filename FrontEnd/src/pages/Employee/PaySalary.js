@@ -7,6 +7,7 @@ import {
   Badge,
   Select,
 } from "@windmill/react-ui";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import Emp from "../../helpers/auth/EmpProfile";
 
@@ -19,9 +20,29 @@ import { API } from "../../backendapi";
 
 const PaySalary = () => {
   const [selectEngModal, setSelectEngModal] = useState(false);
+  const [submitmodal, setSubmitModal] = useState(false);
   const { topheading, setTopHeading } = useContext(TopBarContext);
   //   const [employee, setEmployee] = useState([]);
-  const [values, setValues] = useState([]);
+  const clearvalues = {
+    queryID: "",
+    employeeID: "",
+    employeeName: "",
+    date: "",
+    PFNo: "",
+    ESINo: "",
+    UANNo: "",
+    Basic: "",
+    DA: "",
+    // BplusDA: values.BplusDA,
+    HRAperc: "",
+    rent: "",
+    AccountName: "",
+    BankName: "",
+    BankAcNo: "",
+    IFSCCode: "",
+    BranchName: "",
+  };
+  const [values, setValues] = useState(clearvalues);
   const [thedate, setThedate] = useState(new Date());
   const [salvalues, setSalValues] = useState({
     BplusDA: "",
@@ -535,6 +556,26 @@ const PaySalary = () => {
     );
   };
 
+  const SubmissionModal = () => {
+    return (
+      <>
+        <Modal isOpen={submitmodal} onClose={() => setSubmitModal(false)}>
+          <ModalHeader>Payment Successful!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              // onClick={() => setIsReviewModalOpen(false)}
+              onClick={() => setSubmitModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
   };
@@ -615,6 +656,7 @@ const PaySalary = () => {
       // Live: values.Live,
     };
     console.log(newsalary);
+    setValues(clearvalues);
 
     // const data = {
     //   id: values._id,
@@ -626,7 +668,7 @@ const PaySalary = () => {
         method: "POST",
         data: newsalary,
       });
-      // setIsReviewModalOpen(true);
+      setSubmitModal(true);
       console.log("Done");
     } catch (error) {
       throw error;
@@ -645,6 +687,7 @@ const PaySalary = () => {
     <>
       {EmployeeSelector()}
       {SalaryDetailsForm()}
+      {SubmissionModal()}
       <SelectEmployeeModal
         isModalOpen={selectEngModal}
         setIsModalOpen={setSelectEngModal}

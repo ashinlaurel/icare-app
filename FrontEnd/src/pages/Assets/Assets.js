@@ -107,7 +107,7 @@ function Assets() {
               onClick={async () => {
                 try {
                   let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    url: `${API}/asset/${Emp.getId()}/deletesalary`,
                     method: "POST",
                     data: { id: deleteId },
                   });
