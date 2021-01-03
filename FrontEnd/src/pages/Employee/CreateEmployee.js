@@ -39,6 +39,8 @@ function CreateEmployee() {
 
   const [values, setValues] = useState({
     //both
+
+    employeeID: "",
     email: "",
     password: "",
     confpassword: "",
@@ -57,6 +59,7 @@ function CreateEmployee() {
 
     // ---new ones
   });
+
   const [err, setErr] = useState({
     email: "",
     name: "",
@@ -92,6 +95,7 @@ function CreateEmployee() {
       return;
     }
     if (
+      (values.employeeID === "") |
       (values.employeeName === "") |
       (values.email === "") |
       (values.password === "") |
@@ -102,6 +106,7 @@ function CreateEmployee() {
     }
     // e.preventDefault();
     const newuser = {
+      employeeID: values.employeeID,
       employeeName: values.employeeName,
       email: values.email,
       password: values.password,
@@ -125,6 +130,7 @@ function CreateEmployee() {
         console.log("Signed Up", data._id);
         setIsReviewModalOpen(true);
         setErr({
+          employeeID: "",
           username: "",
           email: "",
           customerName: "",
@@ -196,6 +202,21 @@ function CreateEmployee() {
           <span>Add Employee</span>
         </Label>
         <hr className="mb-5 mt-2" />
+        {/* -----Row 0 --------- */}
+        <div className="flex-row flex  space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Employee ID*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.employeeID}
+                onChange={handleChange("employeeID")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.employeeID}</HelperText>
+          </div>
+        </div>
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">

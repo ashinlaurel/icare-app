@@ -4,6 +4,9 @@ const {
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
+  getAllEmpData,
+  createSalary,
+  getAllSalary,
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -24,11 +27,8 @@ router.get("/logout", (req, res) => {
 });
 //---Get By ID Details
 router.post("/:id/getEmployeeById", getEmployeeById);
-// get employees with search enabled
+// get employees with search enabled and filters
 router.post("/employees", getAllEmployees);
-router.post("/signup", signup);
-router.post("/:id/signup", signup);
-router.post("/signin", signin);
 router.post("/:id/getAll", getAllEngg);
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
@@ -40,6 +40,13 @@ router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
     },
   });
 });
+// getting all employees data
+router.post("/:id/getAllEmpData", getAllEmpData);
+
+router.post("/signup", signup);
+router.post("/:id/signup", signup);
+router.post("/signin", signin);
+
 router.post(
   "/isadmintest/:id",
   isSignedIn,
@@ -54,5 +61,9 @@ router.post(
 // -----------Updation and Deletion Routes ------
 router.post("/:id/update", isSignedIn, isAuthenticated, updateEmployee);
 router.post("/:id/deleteEmployee", isSignedIn, isAuthenticated, deleteEmployee);
+
+// -----------Salary Routes ----------
+router.post("/:id/createSalary", createSalary);
+router.post("/:id/getAllSalary", getAllSalary);
 
 module.exports = router;
