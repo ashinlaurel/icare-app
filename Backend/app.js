@@ -24,6 +24,8 @@ const callRoute = require("./routes/calls/Call");
 // Inventory Import
 const inventoryRoute = require("./routes/inventory/inventory");
 
+//image API
+const imgUploadRoute = require("./routes/uploadapi")
 
 // Middlewares
 app.use(bodyParser.json());
@@ -77,6 +79,9 @@ app.use("/api/inventory", inventoryRoute);
 
 // Call Routes-------------------------------------------------
 app.use("/api/call",callRoute );
+
+//image api
+app.use('/api/upload', imgUploadRoute);
 
 
 // app.get("/", (req, res) => res.send("Hello World!"));

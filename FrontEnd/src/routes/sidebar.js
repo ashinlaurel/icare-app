@@ -118,6 +118,22 @@ export const aroutes = [
     ],
   },
 
+  // ---------------LST---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "LST",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/lst",
+        name: "LST",
+      },
+     
+      
+    ],
+  },
+
   // {
   //   path: "/app/forms",
   //   icon: "FormsIcon",
