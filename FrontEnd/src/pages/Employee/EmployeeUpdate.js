@@ -903,7 +903,7 @@ function EmployeeUpdate() {
           </div>
         </div>
 
-        <img src={values.DegreeCertificate} width="100" height="100"/>
+        <img src={values.DegreeCertificate} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -933,7 +933,7 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.ExperienceCertificate} width="100" height="100"/>
+        <img src={values.ExperienceCertificate}  className="my-2" width="100" height="100"/>
          {/* ------------------------Image 2-------------------------- */}
          <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -965,7 +965,7 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.JoiningReport} width="100" height="100"/>
+        <img src={values.JoiningReport} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1062,7 +1062,7 @@ function EmployeeUpdate() {
 
         {/* ------------------------Row 2-------------------------- */}
 
-        <img src={values.photo} width="100" height="100"/>
+        <img src={values.photo} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1092,7 +1092,7 @@ function EmployeeUpdate() {
           </Button>
         </div>
         
-        <img src={values.IDProofImg} width="100" height="100"/>
+        <img src={values.IDProofImg} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col  ">
@@ -1120,7 +1120,7 @@ function EmployeeUpdate() {
             Upload ID Proof
           </Button>
         </div>
-        <img src={values.AadhaarImg} width="100" height="100"/>
+        <img src={values.AadhaarImg} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  w-5/6 space-x-3">
           <div className="flex flex-col w-full">
@@ -1163,7 +1163,7 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.PANImg} width="100" height="100"/>
+        <img src={values.PANImg} className="my-2" width="100" height="100"/>
          {/* ------------------------Image 3-------------------------- */}
          <div className="flex-row flex  w-5/6 space-x-3">
         <div className="flex flex-col w-full">
@@ -1322,7 +1322,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_1} width="100" height="100"/>
+        <img src={values.ExtCert_1} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1380,7 +1380,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_2} width="100" height="100"/>
+        <img src={values.ExtCert_2} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1439,7 +1439,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_3} width="100" height="100"/>
+        <img src={values.ExtCert_3} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1973,7 +1973,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ResignationLetter} width="100" height="100"/>
+        <img src={values.ResignationLetter} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -2002,7 +2002,7 @@ function EmployeeUpdate() {
             Upload Resignation Letter
           </Button>
         </div>
-        <img src={values.ReleivingLetter} width="100" height="100"/>
+        <img src={values.ReleivingLetter} className="my-2" width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">

@@ -111,12 +111,14 @@ function EmployeeList() {
               role={user.role}
               // link={`/app/customer/getCustomerById/${user._id}`}
             >
-              <RoundIcon
+              {user.photo?(<img src={user.photo} style={{height:60, width:60}} className="my-2 mr-4 rounded-full" width="60px" height="60px"/>):( <RoundIcon
                 icon={PeopleIcon}
                 iconColorClass="text-orange-500 dark:text-orange-100"
                 bgColorClass="bg-orange-100 dark:bg-orange-500"
                 className="mr-4"
-              />
+              />)}
+             
+              
             </EmployeeCard>
           </Link>
         ))}
