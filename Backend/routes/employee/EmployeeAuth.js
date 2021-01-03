@@ -7,6 +7,7 @@ const {
   getAllEmpData,
   createSalary,
   getAllSalary,
+  deleteSalary,
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -65,5 +66,6 @@ router.post("/:id/deleteEmployee", isSignedIn, isAuthenticated, deleteEmployee);
 // -----------Salary Routes ----------
 router.post("/:id/createSalary", createSalary);
 router.post("/:id/getAllSalary", getAllSalary);
+router.post("/:id/deleteSalary", isSignedIn, isAuthenticated, deleteSalary);
 
 module.exports = router;

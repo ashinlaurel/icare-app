@@ -122,6 +122,7 @@ exports.updateEmployee = async (req, res) => {
 };
 
 // ----Salary Controllers-------------------------------------------
+
 // Create Salary Entry
 exports.createSalary = async (req, res) => {
   try {
@@ -184,4 +185,17 @@ exports.getAllSalary = (req, res) => {
     // console.log(final);
     // return res.json(final);
   });
+};
+
+// Delete Salary
+exports.deleteSalary = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let sal = await Salary.findByIdAndDelete({ _id: id });
+
+    return res.status(200).json({ sal });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
 };
