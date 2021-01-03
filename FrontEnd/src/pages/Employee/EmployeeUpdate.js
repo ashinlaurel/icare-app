@@ -267,12 +267,18 @@ const photoUploadHandler= (e,callback) => {
         educational: res.data[0].educational,
         technical: res.data[0].technical,
         experience: res.data[0].experience,
+        DegreeCertificate:res.data[0].DegreeCertificate,
+        ExperienceCertificate:res.data[0].ExperienceCertificate,
+        JoiningReport:res.data[0].JoiningReport,
         // ---Joining Formalities form
         PAN: res.data[0].PAN,
         AadharNo: res.data[0].AadharNo,
         EmergencyContact: res.data[0].EmergencyContact,
-        EC: res.data[0].EC,
-        Phone: res.data[0].Phone,
+        ECPhone: res.data[0].ECPhone,
+        photo:res.data[0].photo,
+        IDProofImg:res.data[0].IDProofImg,
+        AadhaarImg:res.data[0].AadhaarImg,
+        PANImg:res.data[0].PANImg,
         BloodGr: res.data[0].BloodGr,
         //--- Appoinment details form
         DOJ: res.data[0].DOJ,
@@ -339,6 +345,8 @@ const photoUploadHandler= (e,callback) => {
         RelievedDate: res.data[0].RelievedDate,
         NoticePeriodServed: res.data[0].NoticePeriodServed,
         Live: res.data[0].Live,
+        ResignationLetter:res.data[0].ResignationLetter,
+         ReleivingLetter:res.data[0].ReleivingLetter,
       });
       console.log("Done", res.data[0]);
       //   console.log("Hello");
@@ -786,7 +794,7 @@ const photoUploadHandler= (e,callback) => {
           </div>
         </div>
 
-
+        <img src={values.DegreeCertificate} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -821,7 +829,7 @@ const photoUploadHandler= (e,callback) => {
 
         </div>
 
-
+        <img src={values.ExperienceCertificate} width="100" height="100"/>
          {/* ------------------------Image 2-------------------------- */}
          <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -856,6 +864,7 @@ const photoUploadHandler= (e,callback) => {
 
         </div>
 
+        <img src={values.JoiningReport} width="100" height="100"/>
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -959,7 +968,7 @@ const photoUploadHandler= (e,callback) => {
         {/* ------------------------Row 2-------------------------- */}
         
 
-          
+        <img src={values.photo} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -998,8 +1007,9 @@ const photoUploadHandler= (e,callback) => {
 
           
         </div>
-        <img src={values.photo} width="100" height="100"/>
-        {/* ------------------------Image 1-------------------------- */}
+        
+        <img src={values.IDProofImg} width="100" height="100"/>
+        {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           
 
@@ -1031,6 +1041,7 @@ const photoUploadHandler= (e,callback) => {
               Upload ID Proof
             </Button>  
         </div>
+        <img src={values.AadhaarImg} width="100" height="100"/>
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  w-5/6 space-x-3">
         <div className="flex flex-col w-full">
@@ -1079,6 +1090,7 @@ const photoUploadHandler= (e,callback) => {
           
         </div>
 
+        <img src={values.PANImg} width="100" height="100"/>
          {/* ------------------------Image 3-------------------------- */}
          <div className="flex-row flex  w-5/6 space-x-3">
         <div className="flex flex-col w-full">
@@ -1214,6 +1226,7 @@ const photoUploadHandler= (e,callback) => {
           <span>Appoinment Details</span>
         </Label>
         <hr className="mb-5 mt-2" />
+        
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
           
@@ -1243,6 +1256,7 @@ const photoUploadHandler= (e,callback) => {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
+        <img src={values.ExtCert_1} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1306,7 +1320,7 @@ const photoUploadHandler= (e,callback) => {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-
+        <img src={values.ExtCert_2} width="100" height="100"/>
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1371,6 +1385,7 @@ const photoUploadHandler= (e,callback) => {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
+        <img src={values.ExtCert_3} width="100" height="100"/>
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -2038,6 +2053,7 @@ const photoUploadHandler= (e,callback) => {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
+        <img src={values.ResignationLetter} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -2071,7 +2087,7 @@ const photoUploadHandler= (e,callback) => {
             </Button> 
 
         </div>
-
+        <img src={values.ReleivingLetter} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
