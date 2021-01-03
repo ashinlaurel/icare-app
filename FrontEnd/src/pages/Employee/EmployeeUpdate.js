@@ -37,10 +37,12 @@ function EmployeeUpdate() {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
   const [isReqFieldModal, setIsReqFieldModal] = useState(false);
+  const [isImgUploadModal, setIsImgUploadModal] = useState(false);
+  const [imageUploadMessage, setImageUploadMessage] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
 
   // -----flowstate---
-  const [flow, setFlow] = useState("personal");
+  const [flow, setFlow] = useState("ExternalCertifications");
 
   const [values, setValues] = useState({
     //both
@@ -63,13 +65,20 @@ function EmployeeUpdate() {
     educational: "",
     technical: "",
     experience: "",
+    DegreeCertificate:"",
+    ExperienceCertificate:"",
+    JoiningReport:"",
     // ---Joining Formalities form
     PAN: "",
     AadharNo: "",
     EmergencyContact: "",
-    EC: "",
-    Phone: "",
+    ECPhone: "",
+    EmplVerificationDetail:"",
     BloodGr: "",
+    photo:"",
+    IDProofImg:"",
+    AadhaarImg:"",
+    PANImg:"",
     //--- Appoinment details form
     DOJ: "",
     CurrentLocation: "",
@@ -135,6 +144,8 @@ function EmployeeUpdate() {
     RelievedDate: "",
     NoticePeriodServed: "",
     Live: "",
+    ResignationLetter:"",
+    ReleivingLetter:"",
   });
 
   const [err, setErr] = useState({
@@ -144,6 +155,87 @@ function EmployeeUpdate() {
     enc_password: "",
     confpassword: "",
   });
+
+  //--------------------------image states
+  
+  const [photo, setPhoto] = useState(null);
+  const [IDProofImg, setIDProofImg] = useState(null);
+  const [AadhaarImg, setAadhaarImg] = useState(null);
+  const [PANImg, setPANImg] = useState(null);
+
+  const [ExtCert_1, setExtCert_1] = useState(null); 
+  const [ExtCert_2, setExtCert_2] = useState(null); 
+  const [ExtCert_3, setExtCert_3] = useState(null); 
+
+  const [DegreeCertificate, setDegreeCertificate] = useState(null); 
+  const [ExperienceCertificate, setExperienceCertificate] = useState(null); 
+  const [JoiningReport, setJoiningReport] = useState(null);  
+
+
+  const [ResignationLetter, setResignationLetter] = useState(null);  
+  const [ReleivingLetter, setReleivingLetter] = useState(null);  
+
+
+
+const photoUploadHandler= (e,callback) => {
+  callback(e.target.files[0]);
+ };
+
+ const photoUpload = (photo,cb) => {
+  console.log(photo)
+  if(photo==null){
+    setImageUploadMessage("Image not selected");
+    setIsImgUploadModal(true);
+    return;
+  }
+  setImageUploadMessage("Loading...");
+  setIsImgUploadModal(true);
+  
+  const data = new FormData();  // If file selected
+  data.append( 'imageUpload', photo, photo.name );
+  // console.log(data);
+  
+  axios.post( `${API}/upload/img-upload`, data, {
+    headers: {
+     'accept': 'application/json',
+     'Accept-Language': 'en-US,en;q=0.8',
+     'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+    }
+   })
+    .then( ( response ) => {if ( 200 === response.status ) {
+      // If file size is larger than expected.
+      if( response.data.error ) {
+       if ( 'LIMIT_FILE_SIZE' === response.data.error.code ) {
+        console.log( 'Max size: 2MB', 'red' );
+        setImageUploadMessage("Maximum size is 2MB");
+        setIsImgUploadModal(true);
+       } else {
+        console.log( response.data );// If not the given file type
+        // console.log( response.data.error, 'red' );
+        setImageUploadMessage("Given format not supported");
+       }
+      } else {
+       // Success
+       let fileName = response.data;
+       console.log( 'fileName', fileName.location );
+       console.log( 'File Uploaded' );
+       setImageUploadMessage("Image Uploaded");
+       setIsImgUploadModal(true);
+       cb( response.data.location);
+      }
+     }
+    }).catch( ( error ) => {
+    // If another error
+    setImageUploadMessage("Error Occured");
+    setIsImgUploadModal(true);
+    console.log( error );
+   });
+  // } else {
+  //  // if file not selected throw error
+  //  this.ocShowAlert( 'Please upload file', 'red' );
+  // }
+};
+//------------------------------------
 
   const getCustomerInfo = async () => {
     let data = { id: id };
@@ -292,109 +384,11 @@ function EmployeeUpdate() {
       return;
     }
     // e.preventDefault();
-    const newuser = {
-      employeeName: values.employeeName,
-      email: values.email,
-      password: values.password,
-      role: accType,
-      address: values.address,
-      district: values.district,
-      state: values.state,
-      pincode: values.pincode,
-      contactPerson: values.contactPerson,
-      contactNo: values.contactNo,
-      contactNoLand: values.contactNoLand,
-      contactPersonOcc: values.contactPersonOcc,
-      whatsappNo: values.WhatsappNo,
-      sex: values.sex,
-      age: values.age,
-      dob: values.dob,
-
-      // ---Qualification form
-      educational: values.educational,
-      technical: values.technical,
-      experience: values.experience,
-
-      //Joining Formalities
-
-      PAN: values.PAN,
-      AadharNo: values.AadharNo,
-      EmergencyContact: values.EmergencyContact,
-
-      EC: values.EC,
-      Phone: values.Phone,
-      BloodGr: values.BloodGr,
-      //Appoinment details
-      DOJ: values.DOJ,
-      CurrentLocation: values.CurrentLocation,
-      Department: values.Department,
-      Designation: values.Designation,
-      Role: values.Role,
-      //External Certifications
-      ExtCert_1: values.ExtCert_1,
-      ExtCert_1_ID: values.ExtCert_1_ID,
-      ExtCert_1_Validity: values.ExtCert_1_Validity,
-      ExtCert_2: values.ExtCert_2,
-      ExtCert_2_ID: values.ExtCert_2_ID,
-      ExtCert_2_Validity: values.ExtCert_2_Validity,
-      ExtCert_3: values.ExtCert_3,
-      ExtCert_3_ID: values.ExtCert_3_ID,
-      ExtCert_3_Validity: values.ExtCert_3_Validity,
-      //Skill Set
-      PC_L1: values.PC_L1,
-      PC_L2: values.PC_L2,
-      LAP_L1: values.LAP_L1,
-      LAP_L2: values.LAP_L2,
-      SVR_L1: values.SVR_L1,
-      SVR_L2: values.SVR_L2,
-      STO_L1: values.STO_L1,
-      STO_L2: values.STO_L2,
-      NW_L1: values.NW_L1,
-      NW_L2: values.NW_L2,
-      PRN_L1: values.PRN_L1,
-      PRN_L2: values.PRN_L2,
-      LMP_L1: values.LMP_L1,
-      LMP_L2: values.LMP_L2,
-      D_OS_L1: values.D_OS_L1,
-      D_OS_L2: values.D_OS_L2,
-      SVR_OS_L1: values.SVR_OS_L1,
-      SVR_OS_L2: values.SVR_OS_L2,
-      LIN_L1: values.LIN_L1,
-      APP_L1: values.APP_L1,
-      // Salary Details
-      PFNo: values.PFNo,
-      ESINo: values.ESINo,
-      UANNo: values.UANNo,
-      BasicDA: values.BasicDA,
-      BplusDA: values.BplusDA,
-      HRA: values.HRA,
-      Incentive_1: values.Incentive_1,
-      Incentive_2: values.Incentive_2,
-      GrossSalary: values.GrossSalary,
-      EmplPF: values.EmplPF,
-      EmplESI: values.EmplESI,
-      Deduction: values.Deduction,
-      TakeHomeSalary: values.TakeHomeSalary,
-      EmployerPF: values.EmployerPF,
-      EmployerESI: values.EmployerESI,
-      CTC: values.CTC,
-      AccountName: values.AccountName,
-      BankName: values.BankName,
-      BankAcNo: values.BankAcNo,
-      IFSCCode: values.IFSCCode,
-      BranchName: values.BranchName,
-      //Separation Details
-
-      ResignDate: values.ResignDate,
-      RelievedDate: values.RelievedDate,
-      NoticePeriodServed: values.NoticePeriodServed,
-      Live: values.Live,
-    };
-    console.log(newuser);
+    
 
     const data = {
       id: id,
-      update: newuser,
+      update: values,
     };
     try {
       await axios({
@@ -417,10 +411,8 @@ function EmployeeUpdate() {
           onClose={() => setIsReviewModalOpen(false)}
         >
           <ModalHeader>
-            {accType === 0 ? <>Admin </> : null}
-            {accType === 11 ? <>Engineer </> : null}
-            {accType === 12 ? <>Assistant </> : null}
-            Created Successfully!
+            
+            Information updated Successfully!
           </ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
@@ -450,6 +442,28 @@ function EmployeeUpdate() {
             <Button
               className="w-full sm:w-auto"
               onClick={() => setIsReqFieldModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const ImgUploadModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isImgUploadModal}
+          onClose={() => setIsImgUploadModal(false)}
+        >
+          <ModalHeader>{imageUploadMessage}</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsImgUploadModal(false)}
             >
               Okay!
             </Button>
@@ -771,6 +785,110 @@ function EmployeeUpdate() {
             <HelperText valid={false}>{err.email}</HelperText>
           </div>
         </div>
+
+
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Degree Certificate  upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setDegreeCertificate)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(DegreeCertificate,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, DegreeCertificate: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload Degree Certificate 
+            </Button> 
+
+        </div>
+
+
+         {/* ------------------------Image 2-------------------------- */}
+         <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Experience Certificate upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setExperienceCertificate)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ExperienceCertificate,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ExperienceCertificate: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload Experience Certificate
+            </Button> 
+
+        </div>
+
+        {/* ------------------------Image 3-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Joining Report upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setJoiningReport)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(JoiningReport,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, JoiningReport: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Joining Report Certificate
+            </Button> 
+
+        </div>
       </div>
     );
   };
@@ -782,73 +900,46 @@ function EmployeeUpdate() {
           <span>Joining Formalities</span>
         </Label>
         <hr className="mb-5 mt-2" />
+        
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>PAN</span>
+              <span>Employee Verification Detail</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={values.PAN}
-                onChange={handleChange("PAN")}
+                value={values.EmplVerificationDetail}
+                onChange={handleChange("EmplVerificationDetail")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>EC</span>
+              <span>Emergency Contact</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={values.EC}
-                onChange={handleChange("EC")}
+                value={values.EmergencyContact}
+                onChange={handleChange("EmergencyContact")}
               />
             </Label>
           </div>
 
           <div className="flex flex-col w-full">
             <Label className="w-full ">
-              <span>EmergencyContact</span>
+              <span>Emergency Contact Phone</span>
               <Input
                 className="mt-1"
                 type="text"
                 placeholder=""
-                value={values.EmergencyContact}
-                onChange={handleChange("EmergencyContact")}
+                value={values.ECPhone}
+                onChange={handleChange("ECPhone")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-        </div>
-
-        {/* ------------------------Row 2-------------------------- */}
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>PAN</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.PAN}
-                onChange={handleChange("PAN")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Phone</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.Phone}
-                onChange={handleChange("Phone")}
-              />
-            </Label>
-          </div>
-
           <div className="flex flex-col w-full">
             <Label className="w-full ">
               <span>BloodGr</span>
@@ -862,6 +953,176 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
+        
+        </div>
+
+        {/* ------------------------Row 2-------------------------- */}
+        
+
+          
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Photo upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setPhoto)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(photo,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, photo: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload photo
+            </Button> 
+
+
+          
+
+          
+        </div>
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          
+
+
+            <div className="flex flex-col  ">
+            <Label className="">
+              <span>ID Proof upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setIDProofImg)}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(IDProofImg,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, IDProofImg: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6  mx-2 "
+            >
+              Upload ID Proof
+            </Button>  
+        </div>
+        {/* ------------------------Image 2-------------------------- */}
+        <div className="flex-row flex  w-5/6 space-x-3">
+        <div className="flex flex-col w-full">
+            <Label className="w-full ">
+              <span>Aadhar No</span>
+              <Input
+                className="mt-1"
+                type="text"
+                placeholder=""
+                value={values.AadharNo}
+                onChange={handleChange("AadharNo")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.email}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full ">
+            <Label className="">
+              <span>Aadhar Image upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setAadhaarImg)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(AadhaarImg,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, AadhaarImg: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6  mx-2 w-1/2 "
+            >
+              Upload Aadhar Image
+            </Button> 
+
+          
+        </div>
+
+         {/* ------------------------Image 3-------------------------- */}
+         <div className="flex-row flex  w-5/6 space-x-3">
+        <div className="flex flex-col w-full">
+            <Label className="w-full ">
+              <span>PAN</span>
+              <Input
+                className="mt-1"
+                type="text"
+                placeholder=""
+                value={values.PAN}
+                onChange={handleChange("PAN")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.email}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full ">
+            <Label className="">
+              <span>PAN Image upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setPANImg)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(PANImg,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, PANImg: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6  mx-2 w-1/2 "
+            >
+              Upload PAN Image
+            </Button> 
+
+          
         </div>
       </div>
     );
@@ -953,21 +1214,10 @@ function EmployeeUpdate() {
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
+          
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>ExtCert_1</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.ExtCert_1}
-                onChange={handleChange("ExtCert_1")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>ExtCert_1_ID</span>
+              <span>External Certification 1 ID</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -979,7 +1229,7 @@ function EmployeeUpdate() {
 
           <div className="flex flex-col w-full">
             <Label className="w-full ">
-              <span>ExtCert_1_Validity</span>
+              <span>External Certification 1 Validity</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -991,24 +1241,46 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>External Certification 1 upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setExtCert_1)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ExtCert_1,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ExtCert_1: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload External Certification 1
+            </Button> 
+
+        </div>
         {/* ------------------------Row 2-------------------------- */}
 
         <div className="flex-row flex  space-x-3">
+         
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>ExtCert_2</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.ExtCert_2}
-                onChange={handleChange("ExtCert_2")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>ExtCert_2_ID</span>
+              <span>External Certification 2</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -1020,7 +1292,7 @@ function EmployeeUpdate() {
 
           <div className="flex flex-col w-full">
             <Label className="w-full ">
-              <span>ExtCert_2_Validity</span>
+              <span>External Certification 2 Validity</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -1033,24 +1305,47 @@ function EmployeeUpdate() {
           </div>
         </div>
 
+        {/* ------------------------Image 2-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>External Certification 2 upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setExtCert_2)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ExtCert_2,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ExtCert_2: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload External Certification 2
+            </Button> 
+
+        </div>
+
         {/* ------------------------Row 3-------------------------- */}
 
         <div className="flex-row flex  space-x-3">
+          
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>ExtCert_3</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.ExtCert_3}
-                onChange={handleChange("ExtCert_3")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>ExtCert_3_ID</span>
+              <span>External Certification 3 ID</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -1062,7 +1357,7 @@ function EmployeeUpdate() {
 
           <div className="flex flex-col w-full">
             <Label className="w-full ">
-              <span>ExtCert_3_Validity</span>
+              <span>External Certification 3 Validity</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -1073,6 +1368,39 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
+        </div>
+        {/* ------------------------Image 3-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>External Certification 3 upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setExtCert_3)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ExtCert_3,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ExtCert_3: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload External Certification 3
+            </Button> 
+
         </div>
       </div>
     );
@@ -1684,10 +2012,10 @@ function EmployeeUpdate() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>RelievedDate</span>
+              <span>Relieved Date</span>
               <Input
                 className="mt-1"
-                type="text"
+                type="date"
                 value={values.RelievedDate}
                 onChange={handleChange("RelievedDate")}
               />
@@ -1707,6 +2035,73 @@ function EmployeeUpdate() {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
+        </div>
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Resignation Letter upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setResignationLetter)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ResignationLetter,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ResignationLetter: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload Resignation Letter 
+            </Button> 
+
+        </div>
+
+        {/* ------------------------Image 1-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Releiving Letter  upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={e=>photoUploadHandler(e,setReleivingLetter)}
+              />
+            </Label>
+            
+            
+            
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+              onClick={()=>{
+                  photoUpload(ReleivingLetter,(url)=>{
+                    console.log("PHOTO URL",url);
+                  setValues({ ...values, ReleivingLetter: url });
+                  });
+                  
+                  }}
+              
+              layout="outline"
+              className="my-6    "
+            >
+              Upload Releiving Letter 
+            </Button> 
+
         </div>
       </div>
     );
@@ -1876,6 +2271,7 @@ function EmployeeUpdate() {
       {ReviewSubmit()}
 
       {ReqFieldErrModal()}
+      {ImgUploadModal()}
     </>
   );
 }

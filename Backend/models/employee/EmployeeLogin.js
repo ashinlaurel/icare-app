@@ -49,8 +49,11 @@ const employeeLoginSchema = mongoose.Schema({
   educational: String,
   technical: String,
   experience: String,
+  DegreeCertificate:String,
+  ExperienceCertificate:String,
+  JoiningReport:String,
   // ---Joining Formalities form
-  PAN:String,	AadharNo:String,	EmergencyContact:String, 	EC:String, Phone:String,	BloodGr:String,
+  EmplVerificationDetail:String,PAN:String,	AadharNo:String,	EmergencyContact:String, 	ECPhone:String, 	BloodGr:String,photo:String,IDProofImg:String,AadhaarImg:String,PANImg:String,
   //--- Appoinment details form
   DOJ:String,	CurrentLocation:String, 	Department:String,	Designation:String,	Role:String,
   ///---External Certifications								
@@ -61,7 +64,7 @@ const employeeLoginSchema = mongoose.Schema({
   // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
   PFNo:String,	ESINo:String,	UANNo:String,	BasicDA:String,	BplusDA:String,	HRA:String,	Incentive_1:String,	Incentive_2:String,	GrossSalary:String,	EmplPF:String,	EmplESI:String, Deduction:String,	TakeHomeSalary:String,	EmployerPF:String,	EmployerESI:String,	CTC:String,	AccountName:String,	BankName:String,	BankAcNo:String,	IFSCCode:String,	BranchName:String,
   //separation 
-  ResignDate:String,	RelievedDate:String, NoticePeriodServed:String,
+  ResignDate:String,	RelievedDate:String, NoticePeriodServed:String,ResignationLetter:String,ReleivingLetter:String,
   Live:String,
 });
 
