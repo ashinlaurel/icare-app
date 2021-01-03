@@ -42,7 +42,7 @@ function EmployeeUpdate() {
   const { setTopHeading } = useContext(TopBarContext);
 
   // -----flowstate---
-  const [flow, setFlow] = useState("ExternalCertifications");
+  const [flow, setFlow] = useState("personal");
 
   const [values, setValues] = useState({
     //both
@@ -991,12 +991,14 @@ const photoUploadHandler= (e,callback) => {
             >
               Upload photo
             </Button> 
+            
 
 
           
 
           
         </div>
+        <img src={values.photo} width="100" height="100"/>
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           
