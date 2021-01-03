@@ -34,6 +34,7 @@ export default function EmployeeDetails() {
   // console.log(id);
   const [values, setValues] = useState({
     //both
+    employeeID: "",
     username: "",
     email: "",
     // password: "",
@@ -96,6 +97,7 @@ export default function EmployeeDetails() {
         data: data,
       });
       setValues({
+        employeeID: res.data[0].employeeID,
         username: res.data[0].username,
         email: res.data[0].email,
         employeeName: res.data[0].employeeName,
@@ -248,7 +250,8 @@ export default function EmployeeDetails() {
           <div className="flex flex-row flex-wrap ">
             <div className="w-1/2">
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
-                <span className="font-semibold"> Employee ID:</span>{" "}
+                <span className="font-semibold"> Employee ID:</span>
+                {values.employeeID}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
                 <span className="font-semibold"> Role:</span>{" "}
@@ -323,6 +326,9 @@ export default function EmployeeDetails() {
           <div className="my-10">
             <Link to={`/app/employee/${id}/update`}>
               <Button className="mr-3">Update Info</Button>
+            </Link>
+            <Link to={`/app/employee/${id}/viewsalary`}>
+              <Button className="mr-3">Payment History</Button>
             </Link>
             <Link to={`/app/employee/${id}/update`}>
               <Button className="mr-3">View Full Info</Button>

@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import ViewSalary from "../pages/Employee/ViewSalary";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -52,6 +53,7 @@ const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 const EmployeeDetails = lazy(() => import("../pages/Employee/EmployeeDetails"));
 const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
 const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
+const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -162,6 +164,14 @@ export const aroutes = [
   {
     path: "/employee/:id/update",
     component: EmployeeUpdate,
+  },
+  {
+    path: "/employee/:id/viewsalary",
+    component: ViewSalary,
+  },
+  {
+    path: "/paysalary",
+    component: PaySalary,
   },
 
   // --------------------------------------------/

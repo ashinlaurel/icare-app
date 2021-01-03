@@ -47,6 +47,7 @@ function EmployeeUpdate() {
     email: "",
     password: "",
     confpassword: "",
+    employeeID: "",
     employeeName: "",
     address: "",
     district: "",
@@ -108,23 +109,15 @@ function EmployeeUpdate() {
     LIN_L1: "",
     APP_L1: "",
     // Secruty Details
-    // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
+    // PFNo	ESINo	UANNo	Basic	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
     PFNo: "",
     ESINo: "",
     UANNo: "",
-    BasicDA: "",
-    BplusDA: "",
-    HRA: "",
-    Incentive_1: "",
-    Incentive_2: "",
-    GrossSalary: "",
-    EmplPF: "",
-    EmplESI: "",
-    Deduction: "",
-    TakeHomeSalary: "",
-    EmployerPF: "",
-    EmployerESI: "",
-    CTC: "",
+    Basic: "",
+    DA: "",
+    HRAperc: "",
+
+    rent: "",
     AccountName: "",
     BankName: "",
     BankAcNo: "",
@@ -157,6 +150,7 @@ function EmployeeUpdate() {
       setValues({
         username: res.data[0].username,
         email: res.data[0].email,
+        employeeID: res.data[0].employeeID,
         employeeName: res.data[0].employeeName,
         address: res.data[0].address,
         district: res.data[0].district,
@@ -220,23 +214,25 @@ function EmployeeUpdate() {
         LIN_L1: res.data[0].LIN_L1,
         APP_L1: res.data[0].APP_L1,
         // Secruty Details
-        // PFNo	ESINo	UANNo	BasicDA	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
+        // PFNo	ESINo	UANNo	Basic	BplusDA	HRA	Incentive_1	Incentive_1	Gross Salary	EmplPF	EmplESI Deduction	TakeHomeSalary	EomployerPF	EomployerESI	CTC	AccountName	BankName	BankAcNo	IFSCCode	BranchName
         PFNo: res.data[0].PFNo,
         ESINo: res.data[0].ESINo,
         UANNo: res.data[0].UANNo,
-        BasicDA: res.data[0].BasicDA,
-        BplusDA: res.data[0].BplusDA,
-        HRA: res.data[0].HRA,
-        Incentive_1: res.data[0].Incentive_1,
-        Incentive_2: res.data[0].Incentive_2,
-        GrossSalary: res.data[0].GrossSalary,
-        EmplPF: res.data[0].EmplPF,
-        EmplESI: res.data[0].EmplESI,
-        Deduction: res.data[0].Deduction,
-        TakeHomeSalary: res.data[0].TakeHomeSalary,
-        EmployerPF: res.data[0].EmployerPF,
-        EmployerESI: res.data[0].EmployerESI,
-        CTC: res.data[0].CTC,
+        Basic: res.data[0].Basic,
+        DA: res.data[0].Basic,
+        // BplusDA: res.data[0].BplusDA,
+        HRAperc: res.data[0].HRAperc,
+        rent: res.data[0].rent,
+        // Incentive_1: res.data[0].Incentive_1,
+        // Incentive_2: res.data[0].Incentive_2,
+        // GrossSalary: res.data[0].GrossSalary,
+        // EmplPF: res.data[0].EmplPF,
+        // EmplESI: res.data[0].EmplESI,
+        // Deduction: res.data[0].Deduction,
+        // TakeHomeSalary: res.data[0].TakeHomeSalary,
+        // EmployerPF: res.data[0].EmployerPF,
+        // EmployerESI: res.data[0].EmployerESI,
+        // CTC: res.data[0].CTC,
         AccountName: res.data[0].AccountName,
         BankName: res.data[0].BankName,
         BankAcNo: res.data[0].BankAcNo,
@@ -293,6 +289,7 @@ function EmployeeUpdate() {
     }
     // e.preventDefault();
     const newuser = {
+      employeeID: values.employeeID,
       employeeName: values.employeeName,
       email: values.email,
       password: values.password,
@@ -365,19 +362,21 @@ function EmployeeUpdate() {
       PFNo: values.PFNo,
       ESINo: values.ESINo,
       UANNo: values.UANNo,
-      BasicDA: values.BasicDA,
-      BplusDA: values.BplusDA,
-      HRA: values.HRA,
-      Incentive_1: values.Incentive_1,
-      Incentive_2: values.Incentive_2,
-      GrossSalary: values.GrossSalary,
-      EmplPF: values.EmplPF,
-      EmplESI: values.EmplESI,
-      Deduction: values.Deduction,
-      TakeHomeSalary: values.TakeHomeSalary,
-      EmployerPF: values.EmployerPF,
-      EmployerESI: values.EmployerESI,
-      CTC: values.CTC,
+      Basic: values.Basic,
+      DA: values.DA,
+      // BplusDA: values.BplusDA,
+      HRAperc: values.HRAperc,
+      rent: values.rent,
+      // Incentive_1: values.Incentive_1,
+      // Incentive_2: values.Incentive_2,
+      // GrossSalary: values.GrossSalary,
+      // EmplPF: values.EmplPF,
+      // EmplESI: values.EmplESI,
+      // Deduction: values.Deduction,
+      // TakeHomeSalary: values.TakeHomeSalary,
+      // EmployerPF: values.EmployerPF,
+      // EmployerESI: values.EmployerESI,
+      // CTC: values.CTC,
       AccountName: values.AccountName,
       BankName: values.BankName,
       BankAcNo: values.BankAcNo,
@@ -467,6 +466,21 @@ function EmployeeUpdate() {
           <span>Personal Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
+        {/* -----Row 0 --------- */}
+        <div className="flex-row flex  space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Employee ID*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.employeeID}
+                onChange={handleChange("employeeID")}
+              />
+            </Label>
+            <HelperText valid={false}>{err.employeeID}</HelperText>
+          </div>
+        </div>
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
@@ -1411,40 +1425,37 @@ function EmployeeUpdate() {
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>BasicDA</span>
+              <span>Basic</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={values.BasicDA}
-                onChange={handleChange("BasicDA")}
+                value={values.Basic}
+                onChange={handleChange("Basic")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>B+DA</span>
+              <span>DA %</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={values.BplusDA}
-                onChange={handleChange("BplusDA")}
+                value={values.DA}
+                onChange={handleChange("DA")}
               />
             </Label>
           </div>
-
           <div className="flex flex-col w-full">
-            <Label className="w-full ">
-              <span>HRA</span>
+            <Label className="w-full">
+              <span>HRA %</span>
               <Input
                 className="mt-1"
                 type="text"
-                placeholder=""
-                value={values.HRA}
-                onChange={handleChange("HRA")}
+                value={values.HRAperc}
+                onChange={handleChange("HRAperc")}
               />
             </Label>
-            {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
 
@@ -1453,138 +1464,12 @@ function EmployeeUpdate() {
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Incentive_1</span>
+              <span>Rent</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={values.Incentive_1}
-                onChange={handleChange("Incentive_1")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Incentive_2</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.Incentive_2}
-                onChange={handleChange("Incentive_2")}
-              />
-            </Label>
-          </div>
-
-          <div className="flex flex-col w-full">
-            <Label className="w-full ">
-              <span>GrossSalary</span>
-              <Input
-                className="mt-1"
-                type="text"
-                placeholder=""
-                value={values.GrossSalary}
-                onChange={handleChange("GrossSalary")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.email}</HelperText> */}
-          </div>
-        </div>
-
-        {/* ------------------------Row 4-------------------------- */}
-
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>EmplPF</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.EmplPF}
-                onChange={handleChange("EmplPF")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>EmplESI</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.EmplESI}
-                onChange={handleChange("EmplESI")}
-              />
-            </Label>
-          </div>
-
-          <div className="flex flex-col w-full">
-            <Label className="w-full ">
-              <span>Deduction</span>
-              <Input
-                className="mt-1"
-                type="text"
-                placeholder=""
-                value={values.Deduction}
-                onChange={handleChange("Deduction")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.email}</HelperText> */}
-          </div>
-        </div>
-
-        {/* ------------------------Row 5-------------------------- */}
-
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>TakeHomeSalary</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.TakeHomeSalary}
-                onChange={handleChange("TakeHomeSalary")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>EmployerPF</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.EmployerPF}
-                onChange={handleChange("EmployerPF")}
-              />
-            </Label>
-          </div>
-
-          <div className="flex flex-col w-full">
-            <Label className="w-full ">
-              <span>EmployerESI</span>
-              <Input
-                className="mt-1"
-                type="text"
-                placeholder=""
-                value={values.EmployerESI}
-                onChange={handleChange("EmployerESI")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.email}</HelperText> */}
-          </div>
-        </div>
-
-        {/* ------------------------Row 6-------------------------- */}
-
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>CTC</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={values.CTC}
-                onChange={handleChange("CTC")}
+                value={values.rent}
+                onChange={handleChange("rent")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}

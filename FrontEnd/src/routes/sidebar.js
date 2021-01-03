@@ -111,6 +111,10 @@ export const aroutes = [
         path: "/app/CreateEmployee",
         name: "Add Employee",
       },
+      {
+        path: "/app/paysalary",
+        name: "Pay Salary",
+      },
     ],
   },
 
