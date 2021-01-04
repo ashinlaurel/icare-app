@@ -23,6 +23,8 @@ const callRoute = require("./routes/calls/Call");
 
 // Inventory Import
 const inventoryRoute = require("./routes/inventory/inventory");
+// LST Import
+const LSTRoute =require("./routes/LST/LST")
 
 //image API
 const imgUploadRoute = require("./routes/uploadapi")
@@ -80,8 +82,11 @@ app.use("/api/inventory", inventoryRoute);
 // Call Routes-------------------------------------------------
 app.use("/api/call",callRoute );
 
-//image api
+//image api ---------------------------------------------
 app.use('/api/upload', imgUploadRoute);
+
+//lst route ---------------------------------------------
+app.use('/api/lst',LSTRoute)
 
 
 // app.get("/", (req, res) => res.send("Hello World!"));

@@ -232,6 +232,22 @@ exports.deleteInventory = async (req, res) => {
   }
 };
 
+exports.updateInventory = async (req, res) => {
+  let { id, update } = req.body;
+  // console.log(id, update);
+  try {
+    let inv = await InvItem.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ inv });
+  } catch (err) {
+    // console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;
 //   try {

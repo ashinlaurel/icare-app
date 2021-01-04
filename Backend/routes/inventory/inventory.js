@@ -6,6 +6,7 @@ const {
   getAllItems,
   handleAssetUpdate,
   deleteInventory,
+  updateInventory,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -39,6 +40,7 @@ router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
 router.post("/:id/assetupdate", isSignedIn, isAuthenticated,handleAssetUpdate);
+router.post("/:id/invupdate", isSignedIn, isAuthenticated,updateInventory);
 // -------------------Counter Routes------------------
 // router.get("/count", countAssets);
 // router.get("/countamc", countAmcAssets);
