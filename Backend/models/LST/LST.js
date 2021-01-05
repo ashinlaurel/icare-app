@@ -26,8 +26,7 @@ const LSTSchema = new Schema({
   invItems: [
       {
     type: Schema.Types.ObjectId,
-    required: true,
-    trim: true,
+    ref:'InvItem',
   }
 ]
   

@@ -129,6 +129,10 @@ export const aroutes = [
         path: "/app/lst",
         name: "LST",
       },
+      {
+        path: "/app/lst/history",
+        name: "LST History",
+      },
      
       
     ],

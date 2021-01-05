@@ -58,6 +58,7 @@ const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 // ------------------------------- LST Imports
 
 const LST = lazy(() => import("../pages/LST/LST"));
+const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
 
 /**
  * ⚠ These are internal routes!
@@ -215,10 +216,10 @@ export const aroutes = [
     path: "/lst",
     component: LST,
   },
-  // {
-  //   path: "/inventory",
-  //   component: Inventory,
-  // },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
   // --------------------------------------------/
   {
     path: "/forms",
