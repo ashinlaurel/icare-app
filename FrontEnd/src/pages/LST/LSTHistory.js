@@ -3,6 +3,7 @@ import moment from "moment";
 import axios from "axios";
 import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
 import ReactPDF from '@react-pdf/renderer';
+import { PDFViewer } from '@react-pdf/renderer';
 
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon,DropdownIcon } from "../../icons";
@@ -29,6 +30,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import PrintLST from "./PrintLST";
 
 function LSTHistory() {
   
@@ -65,6 +67,8 @@ function LSTHistory() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
+
+  const [activeRowID, setActiveRowID] = useState(-1);
 
   // pagination change control
   function onPageChange(p) {
@@ -219,18 +223,7 @@ const InvTable=(items)=>{
 }
 
 
-const Report = () => (
-  <Document>
-    <Page size="A4" style="text-centre">
-      <View >
-        <Text>Section #1</Text>
-      </View>
-      <View >
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
+
 
 
   return (
@@ -405,7 +398,7 @@ const Report = () => (
                 <TableCell>No.</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Download Report</TableCell>
-                <TableCell>Items</TableCell>
+                <TableCell><span  className="cursor-pointer" onClick={()=>setActiveRowID(-1)}>Items</span></TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -419,7 +412,7 @@ const Report = () => (
                   } `}
                   key={i}
                   onClick={() => {
-                    setActiveRowId(user._id);
+                    setActiveRowId(i);
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
@@ -472,13 +465,16 @@ const Report = () => (
                         size="icon"
                         aria-label="DropDown"
                         onClick={()=>{
-                          // if(!user.show) user.show=true;
-                          // else{
-                            // console.log(user.show)
-                          if(user.show==true)user.show=false;
-                          else user.show=true;
-                          // }
-                          console.log(user.show)
+                          console.log(activerowid)
+                            // if(activerowid==i){
+                              
+                              // setActiveRowID(-1);
+                            // }
+                            // else
+                             setActiveRowID(i);
+
+
+                    
                           }}
                         className="rounded-lg m-1"
                       >
@@ -489,7 +485,8 @@ const Report = () => (
                  
                 </TableRow>
 
-                {user.show==true?InvTable(user.invItems):console.log("here")}
+
+                {(activeRowID==i) ?InvTable(user.invItems):null}
                 </div>
               ))}
             </TableBody>
@@ -506,7 +503,7 @@ const Report = () => (
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
-      
+     
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
