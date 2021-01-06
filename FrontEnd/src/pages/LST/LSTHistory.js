@@ -10,6 +10,7 @@ import {
   PDFDownloadLink,
 } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
+import { PDFViewer } from "@react-pdf/renderer";
 
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
@@ -36,6 +37,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import PrintLST from "./PrintLST";
 
 function LSTHistory() {
   // table variable styles
@@ -52,7 +54,7 @@ function LSTHistory() {
   const [disabler, setDisabler] = useState(true);
 
   // filterhooks
-  const [type, setType] = useState("");
+  const [status, setstatus] = useState("");
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
@@ -70,6 +72,8 @@ function LSTHistory() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
+
+  const [activeRowID, setActiveRowID] = useState(-1);
 
   // pagination change control
   function onPageChange(p) {
@@ -102,6 +106,7 @@ function LSTHistory() {
           // type: type,
           from: location,
           to: ToLocation,
+          status: status,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -125,7 +130,7 @@ function LSTHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, type, refresh]);
+  }, [page, location, ToLocation, condition, status, refresh]);
 
   console.log(selectedprod);
 
@@ -212,19 +217,6 @@ function LSTHistory() {
     );
   };
 
-  const Report = () => (
-    <Document>
-      <Page size="A4" style="text-centre">
-        <View>
-          <Text>Section #1</Text>
-        </View>
-        <View>
-          <Text>Section #2</Text>
-        </View>
-      </Page>
-    </Document>
-  );
-
   return (
     <>
       <div className="mb-64 mt-4">
@@ -232,34 +224,20 @@ function LSTHistory() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
-            {/* <div class="relative mx-1 ">
+            <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={type}
+                value={status}
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setstatus(e.target.value);
                 }}
               >
                 <option value="" disabled selected>
-                  Item Type
+                  Type
                 </option>
                 <option value="">All</option>
-                <option value="Mouse">Mouse</option>
-                <option value="Keyboard">Keyboard</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Cpu">Cpu</option>
-                <option value="Ram">Ram</option>
-                <option value="Fan">Fan</option>
-                <option value="Motherboard">Motherboard</option>
-                <option value="SMPS">SMPS</option>
-                <option value="HDD">HDD</option>
-                <option value="SMPS">SMPS</option>
-                <option value="GCard">Gcard</option>
-                <option value="EnetCard">Enet Card</option>
-                <option value="SerialCard">Serial Card</option>
-                <option value="ParalellCard">Paralell Card</option>
-                <option value="OpticalDrive">Optical Drive</option>
-                <option value="Others">Others</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Recieved">Recieved</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -271,7 +249,7 @@ function LSTHistory() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div> */}
+            </div>
 
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
@@ -330,7 +308,7 @@ function LSTHistory() {
               </div>
             </div>
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
-            <div class="relative mx-1 ">
+            {/* <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={condition}
@@ -355,7 +333,7 @@ function LSTHistory() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div>
+            </div> */}
 
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
@@ -393,9 +371,16 @@ function LSTHistory() {
                 <TableCell>To</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>No.</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Download Report</TableCell>
-                <TableCell>Items</TableCell>
+                {/* <TableCell>Status</TableCell> */}
+                <TableCell> Report</TableCell>
+                <TableCell>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => setActiveRowID(-1)}
+                  >
+                    Items
+                  </span>
+                </TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -409,7 +394,7 @@ function LSTHistory() {
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowId(user._id);
+                      setActiveRowId(i);
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
@@ -439,9 +424,11 @@ function LSTHistory() {
                     <TableCell>
                       <span className="text-sm">{user.invItems.length}</span>
                     </TableCell>
-                    <TableCell>
-                      <Badge>condition</Badge>
-                    </TableCell>
+                    {/* <TableCell>
+                    <Badge>
+                      condition
+                    </Badge>
+                  </TableCell> */}
                     <TableCell className="text-center ">
                       <Button
                         aria-label="DropDown"
@@ -459,13 +446,13 @@ function LSTHistory() {
                         size="icon"
                         aria-label="DropDown"
                         onClick={() => {
-                          // if(!user.show) user.show=true;
-                          // else{
-                          // console.log(user.show)
-                          if (user.show == true) user.show = false;
-                          else user.show = true;
+                          console.log(activerowid);
+                          // if(activerowid==i){
+
+                          // setActiveRowID(-1);
                           // }
-                          console.log(user.show);
+                          // else
+                          setActiveRowID(i);
                         }}
                         className="rounded-lg m-1"
                       >
@@ -474,9 +461,7 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
 
-                  {user.show == true
-                    ? InvTable(user.invItems)
-                    : console.log("here")}
+                  {activeRowID == i ? InvTable(user.invItems) : null}
                 </div>
               ))}
             </TableBody>

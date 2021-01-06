@@ -102,7 +102,7 @@ function Header() {
               ></span>
             </button>
 
-            {/* <Dropdown
+            <Dropdown
               align="right"
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
@@ -118,7 +118,7 @@ function Header() {
               <DropdownItem onClick={() => alert("Alerts!")}>
                 <span>Alerts</span>
               </DropdownItem>
-            </Dropdown> */}
+            </Dropdown>
           </li>
           {/* <!-- Profile menu --> */}
           <li className="relative">
