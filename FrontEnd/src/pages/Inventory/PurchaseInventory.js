@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
+import moment from "moment";
 import { Card, CardBody } from "@windmill/react-ui";
 
 import Emp from "../../helpers/auth/EmpProfile";
@@ -29,6 +30,9 @@ import { useHistory, useParams } from "react-router-dom";
 function PurchaseInventory() {
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
+  const [calculate, setCalculate] = useState(false);
+  const [datecalculate, setDateCalculate] = useState(false);
+  const [calnum, setCalnum] = useState(-1);
 
   const [basevalues, setBaseValues] = useState({
     purchtype: "",
@@ -43,28 +47,29 @@ function PurchaseInventory() {
     purchlocation: "Local",
   });
 
-  const [values, setValues] = useState([
-    {
-      type: "",
-      name: "",
-      assetsIdHistory: "",
-      assetId: "",
-      sno: "",
-      condition: "",
-      // ----------------
+  const invdetails = {
+    type: "",
+    name: "",
+    assetsIdHistory: "",
+    assetId: "",
+    sno: "",
+    condition: "",
+    // ----------------
 
-      taxcategory: "",
-      rate: "",
-      igst: "",
-      cgst: "",
-      sgst: "",
-      amount: "",
-      tcs: "",
-      invamount: "",
-      wty: "",
-      expirydate: "",
-    },
-  ]);
+    taxcategory: "",
+    taxperc: "",
+    rate: "",
+    igst: "0",
+    cgst: "0",
+    sgst: "0",
+    nettax: "0",
+    amount: "0",
+    tcs: "0",
+    invamount: "0",
+    wty: "",
+    expirydate: "",
+  };
+  const [values, setValues] = useState([invdetails]);
 
   const [err, setErr] = useState({
     type: "",
@@ -83,11 +88,120 @@ function PurchaseInventory() {
       setTopHeading("");
     };
   }, []);
-  // ------------------- ----------------------------------
+  // ------------------- Calculations----------------------------------
+  useEffect(() => {
+    // console.log("hello");
+    // console.log(calnum);
+    let newlist = [...values];
+
+    if (basevalues.purchlocation == "Local" && calnum != -1) {
+      newlist[calnum].sgst =
+        parseInt(newlist[calnum].rate) *
+        (parseInt(newlist[calnum].taxperc) / 200);
+      newlist[calnum].cgst =
+        parseInt(newlist[calnum].rate) *
+        (parseInt(newlist[calnum].taxperc) / 200);
+      newlist[calnum].nettax =
+        parseInt(newlist[calnum].sgst) + parseInt(newlist[calnum].cgst);
+      newlist[calnum].amount =
+        parseFloat(newlist[calnum].rate) + parseFloat(newlist[calnum].nettax);
+
+      // setValues(newlist);
+    } else if (calnum != -1) {
+      newlist[calnum].igst =
+        parseInt(newlist[calnum].rate) *
+        (parseInt(newlist[calnum].taxperc) / 100);
+      newlist[calnum].nettax = newlist[calnum].igst;
+
+      newlist[calnum].sgst = 0;
+      newlist[calnum].cgst = 0;
+      newlist[calnum].amount =
+        parseFloat(newlist[calnum].rate) + parseFloat(newlist[calnum].nettax);
+
+      // setValues(newlist);
+    }
+
+    if (calnum != -1) {
+      newlist[calnum].tcs = parseFloat(newlist[calnum].amount) * 0.001;
+      newlist[calnum].invamount =
+        parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
+      newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
+    }
+
+    setValues(newlist);
+
+    return () => {
+      console.log("Calculations done!");
+    };
+  }, [calculate]);
 
   //   const handleChange = (name) => (e) => {
   //     setValues({ ...values, [name]: e.target.value });
   //   };
+
+  // ---------Date Calculations ------------
+
+  useEffect(() => {
+    // console.log("hello");
+    // console.log(calnum);
+    let newlist = [...values];
+
+    if (calnum != -1) {
+      switch (newlist[calnum].wty) {
+        case "3M":
+          newlist[calnum].expirydate = moment()
+            .add(3, "M")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "6M":
+          newlist[calnum].expirydate = moment()
+            .add(6, "M")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "1Y":
+          newlist[calnum].expirydate = moment()
+            .add(1, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "2Y":
+          newlist[calnum].expirydate = moment()
+            .add(2, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "3Y":
+          newlist[calnum].expirydate = moment()
+            .add(3, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "4Y":
+          newlist[calnum].expirydate = moment()
+            .add(4, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
+        case "5Y":
+          newlist[calnum].expirydate = moment()
+            .add(5, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    setValues(newlist);
+
+    return () => {
+      console.log("Calculations done!");
+    };
+  }, [datecalculate]);
 
   const handleBaseChange = (name) => (e) => {
     setBaseValues({ ...basevalues, [name]: e.target.value });
@@ -206,7 +320,7 @@ function PurchaseInventory() {
                 }}
               >
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </Select>
             </Label>
@@ -269,6 +383,13 @@ function PurchaseInventory() {
                     ...basevalues,
                     purchlocation: e.target.value,
                   });
+
+                  let newlist = [...values];
+                  newlist.map((item, i) => {
+                    item.taxcategory = "";
+                    item.taxperc = "";
+                  });
+                  setValues([invdetails]);
                 }}
               >
                 <option value="Local">Local</option>
@@ -301,6 +422,9 @@ function PurchaseInventory() {
                   setValues(newlist);
                 }}
               >
+                <option value="" selected disabled>
+                  Select Category
+                </option>
                 <option value="Mouse">Mouse</option>
                 <option value="Keyboard">Keyboard</option>
                 <option value="Monitor">Monitor</option>
@@ -373,37 +497,238 @@ function PurchaseInventory() {
             </Label>
           </div>
         </div>
-        {/* ----------------------Row 2 ----------------------------- */}
-        {/* <div className="flex-row flex space-x-3 my-2">
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>Select Location*</span>
-            <Select
-              className="mt-1"
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-            >
-              <option value="Trivandrum">Trivandrum</option>
-              <option value="Kottayum">Kottayum</option>
-              <option value="Kozhikode">Kozhikode</option>
-            </Select>
-          </Label>
+
+        {/* -------------Row 2 --------- */}
+        <div className="flex-row flex space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Warranty*</span>
+              <Select
+                className="mt-1"
+                value={values[num].wty}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].wty = e.target.value;
+                  setValues(newlist);
+                  setCalnum(num);
+                  setDateCalculate(!datecalculate);
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Category
+                </option>
+                <option value="3M">3 Months</option>
+                <option value="6M">6 Months</option>
+                <option value="1Y">1 Year</option>
+                <option value="2Y">2 Year</option>
+                <option value="3Y">3 Year</option>
+                <option value="4Y">4 Year</option>
+                <option value="5Y">5 Year</option>
+              </Select>
+            </Label>
+          </div>
+
+          <>
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Expiry Date</span>
+                <Input
+                  className="mt-1"
+                  type="text"
+                  value={values[num].expirydate}
+                  readOnly={true}
+                />
+              </Label>
+              <HelperText valid={false}>{err.name}</HelperText>
+            </div>
+          </>
         </div>
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>Invoice Number*</span>
-            <Input
-              className="mt-1"
-              type="text"
-              value={values.invnumber}
-              onChange={handleChange("invnumber")}
-            />
-          </Label>
-          <HelperText valid={false}>{err.invnumber}</HelperText>
+        {/* ----------------------Row 3 ----------------------------- */}
+        <div className="flex-row flex space-x-3 my-2">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Tax Category*</span>
+              <Select
+                className="mt-1"
+                value={values[num].taxcategory}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  let thestring = e.target.value;
+                  let theperc = thestring.slice(-3, -1);
+                  newlist[num].taxcategory = e.target.value;
+                  newlist[num].taxperc = theperc;
+                  setValues(newlist);
+                  // calculate trigger
+                  setCalnum(num);
+                  setCalculate(!calculate);
+                }}
+              >
+                {basevalues.purchlocation == "Local" ? (
+                  <>
+                    <option value="" selected disabled>
+                      Select Tax Category
+                    </option>
+                    <option value="GST 18%">GST 18%</option>
+                    <option value="GST 28%">GST 28%</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="" selected disabled>
+                      Select Tax Category
+                    </option>
+                    <option value="IGST 18%">IGST 18%</option>
+                    <option value="IGST 28%">IGST 28%</option>
+                  </>
+                )}
+              </Select>
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Tax Percentage*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                readOnly="true"
+                value={values[num].taxperc}
+              />
+            </Label>
+            <HelperText valid={false}>{err.invnumber}</HelperText>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Rate*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values[num].rate}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].rate = e.target.value;
+                  setValues(newlist);
+                  setCalnum(num);
+                  setCalculate(!calculate);
+                }}
+              />
+            </Label>
+          </div>
         </div>
-      </div> */}
-        {/* ///////////////////////////////////////////////////////// */}
+        {/* --------Row 4 ------------- */}
+        <div className="flex-row flex space-x-3 my-2">
+          {basevalues.purchlocation == "Local" ? (
+            <>
+              {" "}
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>CGST*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    readOnly="true"
+                    value={values[num].cgst}
+                  />
+                </Label>
+              </div>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>SGST*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    readOnly="true"
+                    value={values[num].sgst}
+                  />
+                </Label>
+              </div>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Net Tax*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    readOnly="true"
+                    value={values[num].nettax}
+                  />
+                </Label>
+              </div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>IGST</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    readOnly="true"
+                    value={values[num].igst}
+                  />
+                </Label>
+              </div>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Net Tax*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    readOnly="true"
+                    value={values[num].nettax}
+                  />
+                </Label>
+              </div>
+            </>
+          )}
+        </div>
+        {/* ----row 4------ */}
+        <div className="flex-row flex space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Amount</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values[num].amount}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].amount = e.target.value;
+                  setValues(newlist);
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>TCS</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values[num].tcs}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].amount = e.target.value;
+                  setValues(newlist);
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Invoice Amount</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values[num].invamount}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].invamount = e.target.value;
+                  setValues(newlist);
+                }}
+              />
+            </Label>
+          </div>
+        </div>
+
         {/* <Label className="font-bold mt-5 mb-2">
     <span>Additional Information</span>
   </Label> */}
@@ -420,26 +745,7 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = {
-                  type: "",
-                  name: "",
-                  assetsIdHistory: "",
-                  assetId: "",
-                  sno: "",
-                  condition: "",
-                  // ----------------
-
-                  taxcategory: "",
-                  rate: "",
-                  igst: "",
-                  cgst: "",
-                  sgst: "",
-                  amount: "",
-                  tcs: "",
-                  invamount: "",
-                  wty: "",
-                  expirydate: "",
-                };
+                let add = invdetails;
                 newitem.push(add);
                 setValues(newitem);
               }}
