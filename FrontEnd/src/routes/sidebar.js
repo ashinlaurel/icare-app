@@ -70,6 +70,10 @@ export const aroutes = [
         name: "Purchase Items",
       },
       {
+        path: "/app/inventory/purchasehistory",
+        name: "Purchase History",
+      },
+      {
         path: "/app/inventory/create",
         name: "Add Item",
       },
