@@ -17,23 +17,42 @@ const InvItemSchema = mongoose.Schema({
   //     ref: "CustomerLogin",
   //   },
 
-    assetsIdHistory: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Asset",
-      },
-    ],
-    // to be set null if in inventory
-    assetId:{
+  assetsIdHistory: [
+    {
       type: mongoose.Schema.ObjectId,
-        ref: "Asset", 
-        default:null
+      ref: "Asset",
     },
+  ],
+  // to be set null if in inventory
+  assetId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Asset",
+    default: null,
+  },
 
   sno: String,
   condition: String,
   location: String,
   invnumber: String,
+  invdate: String,
+  invtype: String,
+  // ----------------
+  purchtype: String,
+  purchlocation: String,
+  vendor: String,
+  gstno: String,
+  panno: String,
+  aadharno: String,
+  taxcategory: String,
+  rate: String,
+  igst: String,
+  cgst: String,
+  sgst: String,
+  amount: String,
+  tcs: String,
+  invamount: String,
+  wty: String,
+  expirydate: String,
 });
 InvItemSchema.plugin(mongoosePaginate);
 

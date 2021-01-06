@@ -66,6 +66,10 @@ export const aroutes = [
         name: "Inventory",
       },
       {
+        path: "/app/inventory/purchase",
+        name: "Purchase Items",
+      },
+      {
         path: "/app/inventory/create",
         name: "Add Item",
       },
@@ -133,8 +137,6 @@ export const aroutes = [
         path: "/app/lst/history",
         name: "LST History",
       },
-     
-      
     ],
   },
 
