@@ -61,6 +61,11 @@ const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const LST = lazy(() => import("../pages/LST/LST"));
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
 
+
+const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
+
+
+
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -225,6 +230,14 @@ export const aroutes = [
     path: "/lst/history",
     component: LSTHistory,
   },
+  // --------------------------------------------/
+  // ----------------------Notifications Views ----------------------/
+
+  {
+    path: "/notifications",
+    component: Notifications,
+  },
+  
   // --------------------------------------------/
   {
     path: "/forms",

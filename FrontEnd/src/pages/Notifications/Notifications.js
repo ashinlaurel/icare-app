@@ -30,9 +30,10 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
-import PrintLST from "./PrintLST";
+import EmpProfile from "../../helpers/auth/EmpProfile";
+// import PrintLST from "./PrintLST";
 
-function LSTHistory() {
+function Notifications() {
   
 
   // table variable styles
@@ -70,6 +71,10 @@ function LSTHistory() {
 
   const [activeRowID, setActiveRowID] = useState(-1);
 
+   //modal
+   const [messageModal, setMessageModal] = useState(false);
+   const [modalMessage, setModalMessage] = useState("")
+
   // pagination change control
   function onPageChange(p) {
     setPage(p);
@@ -84,7 +89,7 @@ function LSTHistory() {
   // -------------------------------
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("LST History");
+    setTopHeading("Notifications");
     return () => {
       setTopHeading("");
     };
@@ -92,6 +97,8 @@ function LSTHistory() {
   // -----------------------------------------------------
 
   useEffect(() => {
+    let loc=EmpProfile.getLocation();
+    // console.log("Location",loc);
     // Using an IIFE
     (async function thegetter() {
       console.log("getter called");
@@ -104,11 +111,13 @@ function LSTHistory() {
           // type: type,
           from: location,
           to: ToLocation,
-          status:status,
+          status:"In Transit",
           // searchtype: searchtype,
           searchquery: searchquery,
         },
+        
       };
+      if(loc!="All")payload.filters.to=loc
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
@@ -132,12 +141,80 @@ function LSTHistory() {
 
   console.log(selectedprod);
 
-const InvTable=(items)=>{
+
+  const updateInventory= async (i,j)=>{
+    let items=data;
+    let lstItem=data[i];
+    let invItem=lstItem.invItems[j];
+    console.log(lstItem,invItem);
+
+      const update = {
+        id: invItem._id,
+        update: {
+          location: lstItem.to,
+        },
+      };
+      console.log("PAYLOAD", update);
+      try {
+        await axios({
+          url: `${API}/inventory/${Emp.getId()}/invupdate`,
+          method: "POST",
+          data: update,
+        });
+        items[i].invItems[j].location=lstItem.to;
+        setData(items);
+        setActiveRowID(-1);
+        setActiveRowID(i);
+        // setIsReviewModalOpen(true);
+        console.log("Done");
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+      let flag=false;
+      items[i].invItems.map(item=>{
+        if(item.location=="In Transit") flag=true;
+      })
+    
+      if(flag==true){
+        setModalMessage(`${invItem.name} Recieved`)
+        setMessageModal(true); 
+        return;
+      }
+     const updatelst = {
+        id: lstItem._id,
+        update: {
+          status: "Received",
+        },
+      };
+      try {
+        await axios({
+          url: `${API}/lst/${Emp.getId()}/update`,
+          method: "POST",
+          data: updatelst,
+        });
+        // items[i].invItems[j].location=lstItem.to;
+        // setData(items);
+        // setActiveRowID(-1);
+        // setActiveRowID(i);
+        // setIsReviewModalOpen(true);
+        setModalMessage(`${invItem.name} Recieved.\n All Items Received from LST`)
+        setMessageModal(true); 
+        console.log("Done");
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+
+    
+  }
+
+const InvTable=(items,num)=>{
   
   return (
     <div className=" bg-gray-200 dark:bg-gray-700 p-3">
       
-
+      
       <div className="mb- mt-4">
         
         {/* ----------------------------------------------Table----------------------------------------------------- */}
@@ -151,6 +228,8 @@ const InvTable=(items)=>{
                 <TableCell>Location</TableCell>
                 <TableCell>Inv Number</TableCell>
                 <TableCell>Condition</TableCell>
+                <TableCell>Recieve</TableCell>
+
               </tr>
             </TableHeader>
             <TableBody>
@@ -205,6 +284,16 @@ const InvTable=(items)=>{
                       {user.condition}
                     </Badge>
                   </TableCell>
+                  <TableCell>
+                    <Button layout="outline"  className="dark:border-green-700 border-green-400" onClick={()=>{
+                      if(user.location=="In Transit")
+                        updateInventory(num,i);
+                        else{
+                          setModalMessage("Already Recieved")
+                          setMessageModal(true);
+                        }
+                    }}>{user.location=="In Transit"?<>Receive</>:<>Received</>}</Button>
+                  </TableCell>
 
                  
                 </TableRow>
@@ -223,7 +312,27 @@ const InvTable=(items)=>{
  
 }
 
-
+const messageModalComponent = () => {
+  return (
+    <>
+      <Modal
+        isOpen={messageModal}
+        onClose={() => setMessageModal(false)}
+      >
+        <ModalHeader>{modalMessage}</ModalHeader>
+        <ModalBody></ModalBody>
+        <ModalFooter>
+          <Button
+            className="w-full sm:w-auto"
+            onClick={() => setMessageModal(false)}
+          >
+            Okay!
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
 
 
 
@@ -232,38 +341,14 @@ const InvTable=(items)=>{
       
 
       <div className="mb-64 mt-4">
+      <div className=" font-bold text-xl mt-10 dark:text-white">LSTs In Transit</div>
+
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={status}
-                onChange={(e) => {
-                  setstatus(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                   Type
-                </option>
-                <option value="">All</option>
-                <option value="In Transit">In Transit</option>
-                <option value="Recieved">Recieved</option>
-                
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-
+            
+           
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -292,7 +377,9 @@ const InvTable=(items)=>{
                 </svg>
               </div>
             </div>
+            
              {/* -----------------------------------------Location ----------------------- */}
+             {EmpProfile.getLocation=="All"?<>
              <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -320,8 +407,9 @@ const InvTable=(items)=>{
                 </svg>
               </div>
             </div>
+            </>:null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
-            {/* <div class="relative mx-1 ">
+            <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={condition}
@@ -346,7 +434,7 @@ const InvTable=(items)=>{
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div> */}
+            </div>
 
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
@@ -436,8 +524,7 @@ const InvTable=(items)=>{
                   </TableCell> */}
                   <TableCell className="text-center ">
                   <Button
-                        
-                        layout="outline"
+                       layout="outline" 
                         aria-label="DropDown"
                         onClick={()=>{
                           console.log("dwlod")
@@ -475,7 +562,7 @@ const InvTable=(items)=>{
                 </TableRow>
 
 
-                {(activeRowID==i) ?InvTable(user.invItems):null}
+                {(activeRowID==i) ?InvTable(user.invItems,i):null}
                 </div>
               ))}
             </TableBody>
@@ -493,10 +580,10 @@ const InvTable=(items)=>{
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
      
-
+            {messageModalComponent()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );
 }
 
-export default LSTHistory;
+export default Notifications;

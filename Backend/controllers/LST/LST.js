@@ -46,6 +46,9 @@ exports.getAllItems = (req, res) => {
   if (filters.to != "") {
     filteroptions.to = filters.to;
   }
+  if (filters.status != "") {
+    filteroptions.status = filters.status;
+  }
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
   // }
@@ -73,6 +76,21 @@ exports.getAllItems = (req, res) => {
     };
     return res.status(200).json(output);
   });
+};
+
+exports.updateLST = async (req, res) => {
+  let { id, update } = req.body;
+  // console.log(id, update);
+  try {
+    let lst = await LST.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ lst });
+  } catch (err) {
+    // console.log(id);
+    return res.status(400).json({ error: err });
+  }
 };
 
 

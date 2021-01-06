@@ -50,6 +50,7 @@ exports.signin = (req, res) => {
         employeeName: user.employeeName,
         email: user.email,
         role: user.role,
+        location:user.location
       },
     });
   });

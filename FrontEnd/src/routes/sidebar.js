@@ -12,6 +12,11 @@ export const aroutes = [
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Dashboard", // name that appear in Sidebar
   },
+  {
+    path: "/app/notifications", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Notifications", // name that appear in Sidebar
+  },
   // ---------------Calls---------------------------------------------
   {
     icon: "HomeIcon",

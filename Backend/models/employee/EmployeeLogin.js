@@ -38,6 +38,7 @@ const employeeLoginSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  location:String,
   address: String,
   district: String,
   state: String,

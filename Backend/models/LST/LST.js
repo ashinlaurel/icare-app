@@ -27,8 +27,13 @@ const LSTSchema = new Schema({
       {
     type: Schema.Types.ObjectId,
     ref:'InvItem',
-  }
-]
+  }],
+
+  status: {
+    type: String,
+    trim: true,
+  },
+
   
 });
 LSTSchema.plugin(mongoosePaginate);
