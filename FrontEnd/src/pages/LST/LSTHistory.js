@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
-import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
-import ReactPDF from '@react-pdf/renderer';
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
+import ReactPDF from "@react-pdf/renderer";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon,DropdownIcon } from "../../icons";
+import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -31,8 +38,6 @@ import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 
 function LSTHistory() {
-  
-
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -42,7 +47,7 @@ function LSTHistory() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // dropdown and modals
- 
+
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
@@ -71,11 +76,8 @@ function LSTHistory() {
     setPage(p);
   }
 
- 
-
   // on page change, load new sliced data
   // here you would make another server request for new data
-
 
   // -------------------------------
   // ----------------------Heading Use Effect-------------
@@ -123,120 +125,108 @@ function LSTHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation ,condition, type, refresh]);
+  }, [page, location, ToLocation, condition, type, refresh]);
 
   console.log(selectedprod);
 
-const InvTable=(items)=>{
-  
-  return (
-    <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-      
-
-      <div className="mb- mt-4">
-        
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
-        <TableContainer className="mt-4">
-          <Table>
-            <TableHeader>
-              <tr>
-              <TableCell>Type</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Serial Number</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Inv Number</TableCell>
-                <TableCell>Condition</TableCell>
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {items.map((user, i) => (
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(user._id);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                   <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      {/* <Avatar
+  const InvTable = (items) => {
+    return (
+      <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+        <div className="mb- mt-4">
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+          <TableContainer className="mt-4">
+            <Table>
+              <TableHeader>
+                <tr>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Serial Number</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell>Inv Number</TableCell>
+                  <TableCell>Condition</TableCell>
+                </tr>
+              </TableHeader>
+              <TableBody>
+                {items.map((user, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        {/* <Avatar
                         className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
                       /> */}
-                      <div>
-                        <p className="font-semibold">{user.type}</p>
-                        {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <div>
+                          <p className="font-semibold">{user.type}</p>
+                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.name}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.sno}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.location}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invnumber}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      type={user.condition == "Good" ? "primary" : "danger"}
-                    >
-                      {user.condition}
-                    </Badge>
-                  </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.sno}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.location}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invnumber}</span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        type={user.condition == "Good" ? "primary" : "danger"}
+                      >
+                        {user.condition}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-                 
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          
-        </TableContainer>
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+        </div>
 
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
+        {/* ------------------------------------Bottom Bar---------------------------------- */}
       </div>
+    );
+  };
 
-      {/* ------------------------------------Bottom Bar---------------------------------- */}
-    </div>
+  const Report = () => (
+    <Document>
+      <Page size="A4" style="text-centre">
+        <View>
+          <Text>Section #1</Text>
+        </View>
+        <View>
+          <Text>Section #2</Text>
+        </View>
+      </Page>
+    </Document>
   );
- 
-}
-
-
-const Report = () => (
-  <Document>
-    <Page size="A4" style="text-centre">
-      <View >
-        <Text>Section #1</Text>
-      </View>
-      <View >
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
-
 
   return (
     <>
-      
-
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -311,8 +301,8 @@ const Report = () => (
                 </svg>
               </div>
             </div>
-             {/* -----------------------------------------Location ----------------------- */}
-             <div class="relative mx-1 ">
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={ToLocation}
@@ -411,85 +401,82 @@ const Report = () => (
             <TableBody>
               {data.map((user, i) => (
                 <div className="flex flex-col justify-around">
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(user._id);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                  <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      
-                      <div>
-                        <p className="font-semibold">{user.LSTNo}</p>
-                       
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{user.LSTNo}</p>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.from}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.from}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.to}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm"> {moment(user.date).format("DD/MM/YYYY")}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invItems.length}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge>
-                      condition
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-center ">
-                  <Button
-                        
+                    <TableCell>
+                      <span className="text-sm">{user.to}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {" "}
+                        {moment(user.date).format("DD/MM/YYYY")}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invItems.length}</span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge>condition</Badge>
+                    </TableCell>
+                    <TableCell className="text-center ">
+                      <Button
                         aria-label="DropDown"
-                        onClick={()=>{
-                          console.log("dwlod")
-                          
+                        onClick={() => {
+                          console.log("dwlod");
                         }}
                         className="rounded-lg m-1"
                       >
-                       Download
+                        Download
                       </Button>
-                  </TableCell>
-                  <TableCell className="text-center ">
-                  <Button
+                    </TableCell>
+                    <TableCell className="text-center ">
+                      <Button
                         // layout="link"
                         size="icon"
                         aria-label="DropDown"
-                        onClick={()=>{
+                        onClick={() => {
                           // if(!user.show) user.show=true;
                           // else{
-                            // console.log(user.show)
-                          if(user.show==true)user.show=false;
-                          else user.show=true;
+                          // console.log(user.show)
+                          if (user.show == true) user.show = false;
+                          else user.show = true;
                           // }
-                          console.log(user.show)
-                          }}
+                          console.log(user.show);
+                        }}
                         className="rounded-lg m-1"
                       >
                         <DropdownIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
-                  </TableCell>
+                    </TableCell>
+                  </TableRow>
 
-                 
-                </TableRow>
-
-                {user.show==true?InvTable(user.invItems):console.log("here")}
+                  {user.show == true
+                    ? InvTable(user.invItems)
+                    : console.log("here")}
                 </div>
               ))}
             </TableBody>
@@ -506,7 +493,6 @@ const Report = () => (
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
-      
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
