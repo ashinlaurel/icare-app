@@ -108,6 +108,7 @@ function LST() {
   // -----------------------------------------------------
 
   useEffect(() => {
+    // setDate(moment(new Date()).format("DD/MM/YYYY"));
     // Using an IIFE
     (async function thegetter() {
       console.log("getter called");
@@ -179,7 +180,7 @@ function LST() {
       const data = {
         id: item._id,
         update: {
-          location: toLocation,
+          location: "In Transit",
         },
       };
       console.log("PAYLOAD", data);
@@ -202,7 +203,8 @@ function LST() {
       to:toLocation,
       LSTNo:LSTNo,
       date:date,
-      invItems:invIds
+      invItems:invIds,
+      status:"In Transit"
     }
     console.log("LST",lst);
 
@@ -216,6 +218,7 @@ function LST() {
       console.log("Done");
       setModalMessage("LST Submitted")
       setMessageModal(true);
+      setSelectedItems([])
     } catch (error) {
       console.log(error);
       throw error;
