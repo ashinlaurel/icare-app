@@ -40,11 +40,13 @@ function AdminLogin() {
     }
     signin(newuser, "admin/signin")
       .then((data) => {
-        console.log("Signed In", data.user._id);
+  
+        console.log("Signed In", data.user);
         EmpProfile.setName(data.user.employeeName);
         EmpProfile.setEmail(data.user.email);
         EmpProfile.setToken(data.token);
         EmpProfile.setId(data.user._id);
+        EmpProfile.setLocation(data.user.location);
         localStorage.setItem("type", 0); ///////-----------------------------> 0 for employee 1 for customer
         console.log("authenticated");
         history.push("/app");

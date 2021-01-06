@@ -30,6 +30,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import EmpProfile from "../../helpers/auth/EmpProfile";
 // import PrintLST from "./PrintLST";
 
 function Notifications() {
@@ -96,6 +97,8 @@ function Notifications() {
   // -----------------------------------------------------
 
   useEffect(() => {
+    let loc=EmpProfile.getLocation();
+    // console.log("Location",loc);
     // Using an IIFE
     (async function thegetter() {
       console.log("getter called");
@@ -112,7 +115,9 @@ function Notifications() {
           // searchtype: searchtype,
           searchquery: searchquery,
         },
+        
       };
+      if(loc!="All")payload.filters.to=loc
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
@@ -343,7 +348,7 @@ const messageModalComponent = () => {
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
             
-
+           
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -372,7 +377,9 @@ const messageModalComponent = () => {
                 </svg>
               </div>
             </div>
+            
              {/* -----------------------------------------Location ----------------------- */}
+             {EmpProfile.getLocation=="All"?<>
              <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -400,6 +407,7 @@ const messageModalComponent = () => {
                 </svg>
               </div>
             </div>
+            </>:null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select

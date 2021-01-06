@@ -110,41 +110,43 @@ function LST() {
   useEffect(() => {
     // setDate(moment(new Date()).format("DD/MM/YYYY"));
     // Using an IIFE
-    (async function thegetter() {
-      console.log("getter called");
-      let payload = {
-        pages: {
-          page: page,
-          limit: resultsPerPage,
-        },
-        filters: {
-          type: type,
-          location: location,
-          condition: condition,
-          searchtype: searchtype,
-          searchquery: searchquery,
-        },
-      };
-      // console.log(`${API}/asset/${Emp.getId()}/getall`);
-
-      try {
-        let response = await axios({
-          url: `${API}/inventory/${Emp.getId()}/getall`,
-          method: "POST",
-          data: payload,
-        });
-        console.log(response.data.out);
-        setTotalResults(response.data.total);
-        // const { total, data } = response.data;
-        // console.log(data + "Now");
-
-        setData(response.data.out);
-      } catch (error) {
-        throw error;
-      }
-    })();
+    thegetter();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, location, condition, type, refresh]);
+
+  async function thegetter() {
+    console.log("getter called");
+    let payload = {
+      pages: {
+        page: page,
+        limit: resultsPerPage,
+      },
+      filters: {
+        type: type,
+        location: location,
+        condition: condition,
+        searchtype: searchtype,
+        searchquery: searchquery,
+      },
+    };
+    // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      setTotalResults(response.data.total);
+      // const { total, data } = response.data;
+      // console.log(data + "Now");
+
+      setData(response.data.out);
+    } catch (error) {
+      throw error;
+    }
+  }
 
   console.log(selectedprod);
 
@@ -219,6 +221,7 @@ function LST() {
       setModalMessage("LST Submitted")
       setMessageModal(true);
       setSelectedItems([])
+      thegetter();
     } catch (error) {
       console.log(error);
       throw error;

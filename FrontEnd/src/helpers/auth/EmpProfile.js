@@ -7,6 +7,7 @@ var EmpProfile = (function () {
   var token = "";
   var id = "";
   var role = 99;
+  var location=""
 
   var getName = function () {
     if (name == "") return localStorage.getItem("name");
@@ -23,6 +24,10 @@ var EmpProfile = (function () {
   var getId = function () {
     if (id == "") return localStorage.getItem("id");
     return id; // Or pull this from cookie/localStorage
+  };
+  var getLocation = function () {
+    if (location == "") return localStorage.getItem("location");
+    return location; // Or pull this from cookie/localStorage
   };
   var getRole = function () {
     // if (id == "") return localStorage.getItem("id");
@@ -46,6 +51,10 @@ var EmpProfile = (function () {
   var setId = function (_id) {
     id = _id;
     localStorage.setItem("id", _id);
+  };
+  var setLocation = function (loc) {
+    location = loc;
+    localStorage.setItem("location", loc);
   };
   var setRole = function (r) {
     role = r;
@@ -77,6 +86,8 @@ var EmpProfile = (function () {
     setToken("");
     localStorage.removeItem("token");
     setId("");
+    localStorage.removeItem("location");
+    setLocation("");
     localStorage.removeItem("id");
     setRole("9999");
     localStorage.removeItem("type");
@@ -96,6 +107,8 @@ var EmpProfile = (function () {
     getRole,
     setRole,
     signout,
+    setLocation,
+    getLocation,
   };
 })();
 
