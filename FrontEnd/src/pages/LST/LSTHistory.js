@@ -437,6 +437,7 @@ const InvTable=(items)=>{
                   <TableCell className="text-center ">
                   <Button
                         
+                        layout="outline"
                         aria-label="DropDown"
                         onClick={()=>{
                           console.log("dwlod")
