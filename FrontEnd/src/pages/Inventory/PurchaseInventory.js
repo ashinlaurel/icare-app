@@ -25,6 +25,7 @@ import { TopBarContext } from "../../context/TopBarContext";
 import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
 import { useHistory, useParams } from "react-router-dom";
+import Axios from "axios";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function PurchaseInventory() {
@@ -34,7 +35,7 @@ function PurchaseInventory() {
   const [datecalculate, setDateCalculate] = useState(false);
   const [calnum, setCalnum] = useState(-1);
 
-  const [basevalues, setBaseValues] = useState({
+  const thebval = {
     purchtype: "",
     vendor: "",
     invnumber: "",
@@ -45,17 +46,16 @@ function PurchaseInventory() {
     panno: "",
     aadharno: "",
     purchlocation: "Local",
-  });
+  };
+  const [basevalues, setBaseValues] = useState(thebval);
 
   const invdetails = {
     type: "",
     name: "",
-    assetsIdHistory: "",
-    assetId: "",
+    // assetsIdHistory: "",
+    // assetId: "",
     sno: "",
-    condition: "",
-    // ----------------
-
+    condition: "Good",
     taxcategory: "",
     taxperc: "",
     rate: "",
@@ -68,6 +68,17 @@ function PurchaseInventory() {
     invamount: "0",
     wty: "",
     expirydate: "",
+    //-------------------------
+    purchtype: "",
+    vendor: "",
+    invnumber: "",
+    invdate: "",
+    location: "",
+    invtype: "",
+    gstno: "",
+    panno: "",
+    aadharno: "",
+    purchlocation: "",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -79,6 +90,52 @@ function PurchaseInventory() {
     location: "",
     invnumber: "",
   });
+
+  const submitItems = async () => {
+    if (values.name === "" || values.sno === "" || values.invnumber === "") {
+      //   setIsReqFieldModal(true);
+      console.log("missing inputs");
+      return;
+    }
+    console.log("Submission Start");
+    const newitems = [...values];
+    newitems.map((item) => {
+      item.purchtype = basevalues.purchtype;
+      item.vendor = basevalues.vendor;
+      item.invnumber = basevalues.invnumber;
+      item.invdate = basevalues.invdate;
+      item.location = basevalues.location;
+      item.invtype = basevalues.invtype;
+      item.gstno = basevalues.gstno;
+      item.panno = basevalues.panno;
+      item.aadharno = basevalues.aadharno;
+      item.purchlocation = basevalues.purchtype;
+    });
+    console.log(newitems);
+    await Axios({
+      url: `${API}/inventory/${Emp.getId()}/createitems`,
+      method: "POST",
+      data: newitems,
+    })
+      .then((data) => {
+        console.log("Added", data._id);
+        // setIsReviewModalOpen(true);
+        setValues([invdetails]);
+        setBaseValues(thebval);
+        setErr({
+          type: "",
+          name: "",
+          sno: "",
+          condition: "",
+          location: "",
+          invnumber: "",
+        });
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setErr({ ...err });
+      });
+  };
 
   // ----------------------Heading Use Effect-------------
 
@@ -327,12 +384,12 @@ function PurchaseInventory() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Purchase Type*</span>
+              <span>Invoice Type*</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.purchtype}
-                onChange={handleBaseChange("purchtype")}
+                value={basevalues.invtype}
+                onChange={handleBaseChange("invtype")}
               />
             </Label>
           </div>
@@ -353,8 +410,8 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.pannos}
-                onChange={handleBaseChange("pannos")}
+                value={basevalues.panno}
+                onChange={handleBaseChange("panno")}
               />
             </Label>
           </div>
@@ -774,7 +831,7 @@ function PurchaseInventory() {
             </Button>
 
             <Button
-              //   onClick={submitCustomer}
+              onClick={submitItems}
               aria-label="Notifications"
               aria-haspopup="true"
               layout="outline"

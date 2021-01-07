@@ -74,6 +74,25 @@ exports.createItem = async (req, res) => {
   }
 };
 
+// ------Multiple Inventory Addition -------
+
+exports.createItems = async (req, res) => {
+  let newitems = req.body;
+  console.log(newitems);
+  try {
+    // Saving the asset
+
+    const result = await InvItem.insertMany(newitems);
+    return res.status(200).json(result);
+  } catch (err) {
+    console.log("Inventory Item Creating error", err.message);
+    let message = err.message;
+    if (err.code == 11000) message = "Item exists with serial Number.";
+    res.status(400).json({ message });
+    // throw error;
+  }
+};
+
 exports.getProductSno = (req, res) => {
   console.log("here");
   let { input, Producttype } = req.body;
@@ -246,7 +265,6 @@ exports.updateInventory = async (req, res) => {
     return res.status(400).json({ error: err });
   }
 };
-
 
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;

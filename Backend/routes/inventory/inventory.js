@@ -7,6 +7,7 @@ const {
   handleAssetUpdate,
   deleteInventory,
   updateInventory,
+  createItems,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -30,6 +31,15 @@ router.post(
   createItem
 );
 
+router.post(
+  "/:id/createitems",
+
+  isSignedIn,
+  isAuthenticated,
+  //   isAdmin,
+  createItems
+);
+
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteInventory);
 // --------------------DropDown Searches --------------------------------
 // router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
@@ -39,8 +49,8 @@ router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 // router.get("/product/:productId", getProduct);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
-router.post("/:id/assetupdate", isSignedIn, isAuthenticated,handleAssetUpdate);
-router.post("/:id/invupdate", isSignedIn, isAuthenticated,updateInventory);
+router.post("/:id/assetupdate", isSignedIn, isAuthenticated, handleAssetUpdate);
+router.post("/:id/invupdate", isSignedIn, isAuthenticated, updateInventory);
 // -------------------Counter Routes------------------
 // router.get("/count", countAssets);
 // router.get("/countamc", countAmcAssets);
