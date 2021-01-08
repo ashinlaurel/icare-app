@@ -55,6 +55,7 @@ const EmployeeDetails = lazy(() => import("../pages/Employee/EmployeeDetails"));
 const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
 const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
+const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 
 // ------------------------------- LST Imports
 
@@ -184,6 +185,10 @@ export const aroutes = [
   {
     path: "/paysalary",
     component: PaySalary,
+  },
+  {
+    path: "/salaryhistory",
+    component: SalaryHistory,
   },
 
   // --------------------------------------------/

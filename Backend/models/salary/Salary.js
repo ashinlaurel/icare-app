@@ -11,7 +11,7 @@ const salarySchema = mongoose.Schema({
   queryID: String,
   employeeID: String,
   employeeName: String,
-  date: String,
+  date: Date,
   PFNo: String,
   ESINo: String,
   UANNo: String,
