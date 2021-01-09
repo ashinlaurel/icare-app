@@ -128,6 +128,10 @@ export const aroutes = [
         path: "/app/paysalary",
         name: "Pay Salary",
       },
+      {
+        path: "/app/salaryhistory",
+        name: "Salary History",
+      },
     ],
   },
 

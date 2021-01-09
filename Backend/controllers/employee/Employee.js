@@ -151,13 +151,28 @@ exports.getAllSalary = (req, res) => {
   };
 
   // let filteroptions = { role: req.body.role };
-  let filteroptions = {
-    queryID: filters.queryID,
-  };
+  let filteroptions = {};
+
+  if(filters.queryID){
+    filteroptions.queryID=filters.queryID;
+  }
+  
+  
+  if(filters.date){
+    var tempdate = new Date(filters.date)
+    var firstDay = new Date(tempdate.getFullYear(), tempdate.getMonth(), 1);
+    var lastDay = new Date(tempdate.getFullYear(), tempdate.getMonth() + 1, 0);
+    console.log(firstDay,lastDay)
+    filteroptions.date={
+      $gte: firstDay,
+      $lt: lastDay
+    };
+  }
+  
   // Logic to add to filter when required
 
   Salary.paginate(filteroptions, options, function (err, result) {
-    // console.log(result);
+    console.log(result);
     if (err || !result) {
       return res.status(400).json({
         error: "No assets found",
