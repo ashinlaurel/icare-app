@@ -261,18 +261,18 @@ function EmployeeUpdate() {
         educational: res.data[0].educational,
         technical: res.data[0].technical,
         experience: res.data[0].experience,
-        DegreeCertificate:res.data[0].DegreeCertificate,
-        ExperienceCertificate:res.data[0].ExperienceCertificate,
-        JoiningReport:res.data[0].JoiningReport,
+        DegreeCertificate: res.data[0].DegreeCertificate,
+        ExperienceCertificate: res.data[0].ExperienceCertificate,
+        JoiningReport: res.data[0].JoiningReport,
         // ---Joining Formalities form
         PAN: res.data[0].PAN,
         AadharNo: res.data[0].AadharNo,
         EmergencyContact: res.data[0].EmergencyContact,
         ECPhone: res.data[0].ECPhone,
-        photo:res.data[0].photo,
-        IDProofImg:res.data[0].IDProofImg,
-        AadhaarImg:res.data[0].AadhaarImg,
-        PANImg:res.data[0].PANImg,
+        photo: res.data[0].photo,
+        IDProofImg: res.data[0].IDProofImg,
+        AadhaarImg: res.data[0].AadhaarImg,
+        PANImg: res.data[0].PANImg,
         BloodGr: res.data[0].BloodGr,
         //--- Appoinment details form
         DOJ: res.data[0].DOJ,
@@ -317,7 +317,7 @@ function EmployeeUpdate() {
         ESINo: res.data[0].ESINo,
         UANNo: res.data[0].UANNo,
         Basic: res.data[0].Basic,
-        DA: res.data[0].Basic,
+        DA: res.data[0].DA,
         // BplusDA: res.data[0].BplusDA,
         HRAperc: res.data[0].HRAperc,
         rent: res.data[0].rent,
@@ -341,8 +341,8 @@ function EmployeeUpdate() {
         RelievedDate: res.data[0].RelievedDate,
         NoticePeriodServed: res.data[0].NoticePeriodServed,
         Live: res.data[0].Live,
-        ResignationLetter:res.data[0].ResignationLetter,
-         ReleivingLetter:res.data[0].ReleivingLetter,
+        ResignationLetter: res.data[0].ResignationLetter,
+        ReleivingLetter: res.data[0].ReleivingLetter,
       });
       console.log("Done", res.data[0]);
       //   console.log("Hello");
@@ -405,7 +405,7 @@ function EmployeeUpdate() {
       whatsappNo: values.WhatsappNo,
       sex: values.sex,
       age: values.age,
-      dob: values.dob,
+      dob: dob,
 
       // ---Qualification form
       educational: values.educational,
@@ -604,6 +604,7 @@ function EmployeeUpdate() {
             <Label className="w-full">
               <span>Select Account Type*</span>
               <Select
+                value={accType}
                 className="mt-1"
                 onChange={(e) => {
                   setAccType(parseInt(e.target.value));
@@ -612,6 +613,8 @@ function EmployeeUpdate() {
                 <option value="0">Admin</option>
                 <option value="11">Engineer</option>
                 <option value="12">Assistant</option>
+                <option value="14">Coordinator</option>
+                <option value="15">Accounts</option>
               </Select>
             </Label>
           </div>
@@ -903,7 +906,12 @@ function EmployeeUpdate() {
           </div>
         </div>
 
-        <img src={values.DegreeCertificate} className="my-2" width="100" height="100"/>
+        <img
+          src={values.DegreeCertificate}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -933,9 +941,14 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.ExperienceCertificate}  className="my-2" width="100" height="100"/>
-         {/* ------------------------Image 2-------------------------- */}
-         <div className="flex-row flex  space-x-3 mt-3 ">
+        <img
+          src={values.ExperienceCertificate}
+          className="my-2"
+          width="100"
+          height="100"
+        />
+        {/* ------------------------Image 2-------------------------- */}
+        <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
             <Label className="">
               <span>Experience Certificate upload</span>
@@ -965,7 +978,12 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.JoiningReport} className="my-2" width="100" height="100"/>
+        <img
+          src={values.JoiningReport}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1062,7 +1080,7 @@ function EmployeeUpdate() {
 
         {/* ------------------------Row 2-------------------------- */}
 
-        <img src={values.photo} className="my-2" width="100" height="100"/>
+        <img src={values.photo} className="my-2" width="100" height="100" />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1091,8 +1109,13 @@ function EmployeeUpdate() {
             Upload photo
           </Button>
         </div>
-        
-        <img src={values.IDProofImg} className="my-2" width="100" height="100"/>
+
+        <img
+          src={values.IDProofImg}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col  ">
@@ -1120,7 +1143,12 @@ function EmployeeUpdate() {
             Upload ID Proof
           </Button>
         </div>
-        <img src={values.AadhaarImg} className="my-2" width="100" height="100"/>
+        <img
+          src={values.AadhaarImg}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  w-5/6 space-x-3">
           <div className="flex flex-col w-full">
@@ -1163,10 +1191,10 @@ function EmployeeUpdate() {
           </Button>
         </div>
 
-        <img src={values.PANImg} className="my-2" width="100" height="100"/>
-         {/* ------------------------Image 3-------------------------- */}
-         <div className="flex-row flex  w-5/6 space-x-3">
-        <div className="flex flex-col w-full">
+        <img src={values.PANImg} className="my-2" width="100" height="100" />
+        {/* ------------------------Image 3-------------------------- */}
+        <div className="flex-row flex  w-5/6 space-x-3">
+          <div className="flex flex-col w-full">
             <Label className="w-full ">
               <span>PAN</span>
               <Input
@@ -1223,7 +1251,7 @@ function EmployeeUpdate() {
               <span>DOJ</span>
               <Input
                 className="mt-1"
-                type="text"
+                type="date"
                 value={values.DOJ}
                 onChange={handleChange("DOJ")}
               />
@@ -1293,7 +1321,7 @@ function EmployeeUpdate() {
           <span>Appoinment Details</span>
         </Label>
         <hr className="mb-5 mt-2" />
-        
+
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
@@ -1322,7 +1350,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_1} className="my-2" width="100" height="100"/>
+        <img src={values.ExtCert_1} className="my-2" width="100" height="100" />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1380,7 +1408,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_2} className="my-2" width="100" height="100"/>
+        <img src={values.ExtCert_2} className="my-2" width="100" height="100" />
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1439,7 +1467,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_3} className="my-2" width="100" height="100"/>
+        <img src={values.ExtCert_3} className="my-2" width="100" height="100" />
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1484,24 +1512,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PC_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.PC_L1}
-                onChange={handleChange("PC_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, PC_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PC_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.PC_L2}
-                onChange={handleChange("PC_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, PC_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1511,24 +1553,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>LAP_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.LAP_L1}
-                onChange={handleChange("LAP_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, LAP_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>LAP_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.LAP_L2}
-                onChange={handleChange("LAP_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, LAP_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1538,24 +1594,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>SVR_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.SVR_L1}
-                onChange={handleChange("SVR_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, SVR_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>SVR_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.SVR_L2}
-                onChange={handleChange("SVR_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, SVR_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1565,24 +1635,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>STO_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.STO_L1}
-                onChange={handleChange("STO_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, STO_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>STO_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.STO_L2}
-                onChange={handleChange("STO_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, STO_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1592,24 +1676,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>NW_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.NW_L1}
-                onChange={handleChange("NW_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, NW_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>NW_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.NW_L2}
-                onChange={handleChange("NW_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, NW_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1619,24 +1717,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PRN_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.PRN_L1}
-                onChange={handleChange("PRN_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, PRN_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PRN_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.PRN_L2}
-                onChange={handleChange("PRN_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, PRN_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1646,24 +1758,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>LMP_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.LMP_L1}
-                onChange={handleChange("LMP_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, LMP_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>LMP_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.LMP_L2}
-                onChange={handleChange("LMP_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, LMP_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1673,24 +1799,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>D_OS_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.D_OS_L1}
-                onChange={handleChange("D_OS_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, D_OS_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>D_OS_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.D_OS_L2}
-                onChange={handleChange("D_OS_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, D_OS_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1700,24 +1840,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>SVR_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.SVR_L1}
-                onChange={handleChange("SVR_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, SVR_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>SVR_L2</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.SVR_L2}
-                onChange={handleChange("SVR_L2")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, SVR_L2: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1727,24 +1881,38 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>LIN_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.LIN_L1}
-                onChange={handleChange("LIN_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, LIN_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>APP_L1</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
                 value={values.APP_L1}
-                onChange={handleChange("APP_L1")}
-              />
+                onChange={(e) => {
+                  setValues({ ...values, APP_L1: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Yes/No
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -1973,7 +2141,12 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ResignationLetter} className="my-2" width="100" height="100"/>
+        <img
+          src={values.ResignationLetter}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -2002,7 +2175,12 @@ function EmployeeUpdate() {
             Upload Resignation Letter
           </Button>
         </div>
-        <img src={values.ReleivingLetter} className="my-2" width="100" height="100"/>
+        <img
+          src={values.ReleivingLetter}
+          className="my-2"
+          width="100"
+          height="100"
+        />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">

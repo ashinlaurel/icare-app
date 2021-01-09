@@ -77,9 +77,7 @@ const PaySalary = () => {
           (1 + parseInt(values.DA) / 100) *
           (parseInt(salvalues.EligibleDays) / daysInThisMonth())
       ).toFixed(2),
-      HRA: parseFloat(
-        parseInt(salvalues.BplusDA) * (parseInt(values.HRAperc) / 100)
-      ).toFixed(2),
+      HRA: parseFloat(parseInt(salvalues.BplusDA)).toFixed(2),
       GrossSalary: parseFloat(
         parseInt(salvalues.Incentive_1) +
           parseInt(salvalues.Incentive_2) +
@@ -222,20 +220,20 @@ const PaySalary = () => {
                 type="text"
                 value={values.Basic}
                 readOnly={true}
-                onChange={handleChange("Basic")}
+                // onChange={handleChange("Basic")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>DA</span>
+              <span>DA %</span>
               <Input
                 className="mt-1"
                 type="text"
                 value={values.DA}
                 readOnly={true}
-                onChange={handleChange("DA")}
+                // onChange={handleChange("DA")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
@@ -250,7 +248,7 @@ const PaySalary = () => {
                 placeholder=""
                 value={values.HRAperc}
                 readOnly={true}
-                onChange={handleChange("HRAperc")}
+                // onChange={handleChange("HRAperc")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
@@ -263,7 +261,7 @@ const PaySalary = () => {
                 type="text"
                 readOnly={true}
                 value={values.HRA}
-                onChange={handleChange("HRA")}
+                // onChange={handleChange("HRA")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
@@ -280,7 +278,7 @@ const PaySalary = () => {
                 type="text"
                 value={values.rent}
                 readOnly={true}
-                onChange={handleChange("rent")}
+                // onChange={handleChange("rent")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
@@ -293,7 +291,7 @@ const PaySalary = () => {
                 type="text"
                 value={values.AccountName}
                 readOnly={true}
-                onChange={handleChange("AccountName")}
+                // onChange={handleChange("AccountName")}
               />
             </Label>
           </div>
@@ -307,7 +305,7 @@ const PaySalary = () => {
                 placeholder=""
                 readOnly={true}
                 value={values.BankName}
-                onChange={handleChange("BankName")}
+                // onChange={handleChange("BankName")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
@@ -323,7 +321,7 @@ const PaySalary = () => {
                 type="text"
                 readOnly={true}
                 value={values.BankAcNo}
-                onChange={handleChange("BankAcNo")}
+                // onChange={handleChange("BankAcNo")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
@@ -336,7 +334,7 @@ const PaySalary = () => {
                 type="text"
                 readOnly={true}
                 value={values.IFSCCode}
-                onChange={handleChange("IFSCCode")}
+                // onChange={handleChange("IFSCCode")}
               />
             </Label>
           </div>
@@ -350,7 +348,7 @@ const PaySalary = () => {
                 placeholder=""
                 value={values.BranchName}
                 readOnly={true}
-                onChange={handleChange("BranchName")}
+                // onChange={handleChange("BranchName")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
