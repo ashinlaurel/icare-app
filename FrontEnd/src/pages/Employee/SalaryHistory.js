@@ -12,7 +12,7 @@ import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
 import { Input, HelperText, Label, Select } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
-import DatePicker from  "react-datepicker"
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { EditIcon, TrashIcon } from "../../icons";
@@ -34,6 +34,7 @@ import {
 
 import { useHistory, useParams } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { BottomBarContext } from "../../context/BottomBarContext";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function SalaryHistory() {
@@ -44,13 +45,16 @@ function SalaryHistory() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
+  const { bbaropen, setBBarOpen, salaryDetails, setSalaryDetails } = useContext(
+    BottomBarContext
+  );
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
   // filters
   const [month, setMonth] = useState("");
-  const [year, setYear] = useState("")
-  const [startDate, setStartDate] = useState(new Date()); 
+  const [year, setYear] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
 
   // pagination setup
   const resultsPerPage = 10;
@@ -70,6 +74,15 @@ function SalaryHistory() {
   }, []);
   // -----------------------------------------------------
 
+  // -------Enabling Bottom Bar----
+  useEffect(() => {
+    // setBBarOpen(1);
+    return () => {
+      setBBarOpen(0);
+      setSalaryDetails({});
+    };
+  }, []);
+
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
@@ -80,7 +93,7 @@ function SalaryHistory() {
           limit: resultsPerPage,
         },
         filters: {
-          date:startDate
+          date: startDate,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -103,7 +116,7 @@ function SalaryHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page,startDate]);
+  }, [page, startDate]);
 
   const DeleteModal = () => {
     return (
@@ -144,33 +157,23 @@ function SalaryHistory() {
   };
   return (
     <>
-    {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
-    <div className="">
-          {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
-          <div className="font-semibold">Month</div>
-            <div class="relative mx-1 ">
-              <div
-
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                >
-            <DatePicker
-              selected={startDate}
-              onChange={date => setStartDate(date)}
-              dateFormat="MM/yyyy"
-              showMonthYearPicker
-            />
-
-             
+      {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
+      <div className="">
+        {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
+        <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
+          <div className="font-semibold dark:text-gray-200"> Select Month</div>
+          <div class="relative mx-1 ">
+            <div class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500">
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="MM/yyyy"
+                showMonthYearPicker
+              />
             </div>
-            </div>
-
-          
-            
-         
-            
           </div>
         </div>
+      </div>
       <div>
         <TableContainer className="mt-4">
           <Table>
@@ -181,11 +184,11 @@ function SalaryHistory() {
                 <TableCell>Employee ID</TableCell>
                 <TableCell>Eligible Days</TableCell>
                 <TableCell>Eligible B + DA</TableCell>
-                <TableCell>Incentive 1</TableCell>
-                <TableCell>Incentive 2</TableCell>
+                <TableCell>Deductions</TableCell>
+                <TableCell>Take Home Salary</TableCell>
                 <TableCell>Gross Salary</TableCell>
                 <TableCell>CTC</TableCell>
-                {/* <TableCell>Edit/Delete</TableCell> */}
+                <TableCell>Delete</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -198,11 +201,11 @@ function SalaryHistory() {
                   } `}
                   key={i}
                   onClick={() => {
-                    // setBBarOpen(1);
+                    setBBarOpen(1);
                     setActiveRowId(user._id);
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
-                    // setAssetDetails(user);
+                    setSalaryDetails(user);
                     // console.log(user.product.keyboard[0].kbdname);
                   }}
                 >
@@ -244,10 +247,10 @@ function SalaryHistory() {
                     <span className="text-sm">{user.BplusDA}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.Incentive_1}</span>
+                    <span className="text-sm">{user.Deduction}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.Incentive_2}</span>
+                    <span className="text-sm">{user.TakeHomeSalary}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{user.GrossSalary}</span>

@@ -147,11 +147,11 @@ function ViewSalary() {
                 <TableCell>Employee ID</TableCell>
                 <TableCell>Eligible Days</TableCell>
                 <TableCell>Eligible B + DA</TableCell>
-                <TableCell>Incentive 1</TableCell>
-                <TableCell>Incentive 2</TableCell>
+                <TableCell>Deductions</TableCell>
+                <TableCell>Take Home Salary</TableCell>
                 <TableCell>Gross Salary</TableCell>
                 <TableCell>CTC</TableCell>
-                {/* <TableCell>Edit/Delete</TableCell> */}
+                <TableCell>Delete</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -210,10 +210,10 @@ function ViewSalary() {
                     <span className="text-sm">{user.BplusDA}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.Incentive_1}</span>
+                    <span className="text-sm">{user.Deduction}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.Incentive_2}</span>
+                    <span className="text-sm">{user.TakeHomeSalary}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{user.GrossSalary}</span>

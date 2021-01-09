@@ -47,12 +47,16 @@ const PaySalary = () => {
   const [salvalues, setSalValues] = useState({
     BplusDA: "",
     EligibleDays: "",
-    Incentive_1: "0",
-    Incentive_2: "0",
+    PerformanceAllowance: "0",
+    Incentive: "0",
+    Bonus: "0",
     GrossSalary: "",
     HRA: "",
     EmplPF: "",
     EmplESI: "",
+    ExtraMobileUsage: "0",
+    LostDamage: "0",
+    OtherDeductions: "0",
     Deduction: "",
     TakeHomeSalary: "",
     EmployerPF: "",
@@ -77,42 +81,79 @@ const PaySalary = () => {
           (1 + parseInt(values.DA) / 100) *
           (parseInt(salvalues.EligibleDays) / daysInThisMonth())
       ).toFixed(2),
-      HRA: parseFloat(parseInt(salvalues.BplusDA)).toFixed(2),
+      HRA: parseFloat(
+        parseInt(salvalues.BplusDA) * (parseInt(values.HRAperc) / 100)
+      ).toFixed(2),
       GrossSalary: parseFloat(
-        parseInt(salvalues.Incentive_1) +
-          parseInt(salvalues.Incentive_2) +
-          parseInt(salvalues.BplusDA)
+        parseInt(salvalues.PerformanceAllowance) +
+          parseInt(salvalues.Incentive) +
+          parseInt(salvalues.Bonus) +
+          parseInt(salvalues.BplusDA) +
+          parseInt(salvalues.HRA)
       ).toFixed(2),
       EmplPF: parseFloat(salvalues.BplusDA * 0.12).toFixed(2),
-      EmplESI: parseFloat(salvalues.GrossSalary * 0.75).toFixed(2),
+      EmplESI: parseFloat(salvalues.GrossSalary * 0.0075).toFixed(2),
+
       Deduction: parseFloat(
-        parseInt(salvalues.EmplPF) + parseInt(salvalues.EmplESI)
+        parseInt(salvalues.EmplPF) +
+          parseInt(salvalues.EmplESI) +
+          parseInt(salvalues.ExtraMobileUsage) +
+          parseInt(salvalues.OtherDeductions) +
+          parseInt(salvalues.LostDamage)
       ).toFixed(2),
       TakeHomeSalary: parseFloat(
         parseInt(salvalues.GrossSalary) - parseInt(salvalues.Deduction)
       ).toFixed(2),
       EmployerPF: parseFloat(parseInt(salvalues.BplusDA) * 0.125).toFixed(2),
-      EmployerESI: parseFloat(parseInt(salvalues.GrossSalary) * 0.325).toFixed(
+      EmployerESI: parseFloat(parseInt(salvalues.GrossSalary) * 0.0325).toFixed(
         2
       ),
       CTC: parseFloat(
         parseInt(salvalues.GrossSalary) +
           parseInt(salvalues.EmployerESI) +
-          parseInt(salvalues.EmployerESI)
+          parseInt(salvalues.EmployerPF) +
+          parseInt(values.rent)
       ).toFixed(2),
     });
+
     return () => {
       console.log("auto updated");
     };
   }, [
     values,
     salvalues.BplusDA,
-    salvalues.Incentive_1,
-    salvalues.Incentive_2,
+    salvalues.PerformanceAllowance,
+    salvalues.Incentive,
+    salvalues.Bonus,
     salvalues.EligibleDays,
     salvalues.EmplPF,
     salvalues.EmplESI,
     salvalues.Deduction,
+    salvalues.EmployerESI,
+    salvalues.EmployerPF,
+    salvalues.ExtraMobileUsage,
+    salvalues.OtherDeductions,
+    salvalues.LostDamage,
+    salvalues.GrossSalary,
+  ]);
+
+  // Setting Cap Limits For Certain Values
+  useMemo(() => {
+    if (salvalues.EmplPF > 1800) {
+      setSalValues({ ...salvalues, EmplPF: 1800 });
+    }
+    if (salvalues.EmplESI > 157.5) {
+      setSalValues({ ...salvalues, EmplESI: 157.5 });
+    }
+    if (salvalues.EmployerESI > 682.5) {
+      setSalValues({ ...salvalues, EmployerESI: 682.5 });
+    }
+    if (salvalues.EmployerPF > 1875) {
+      setSalValues({ ...salvalues, EmployerPF: 1875 });
+    }
+  }, [
+    salvalues.EmplPF,
+    salvalues.EmplESI,
     salvalues.EmployerESI,
     salvalues.EmployerPF,
   ]);
@@ -127,9 +168,11 @@ const PaySalary = () => {
       <Card className="mb-4 shadow-md mt-4">
         <CardBody>
           <div className="flex flex-row flex-wrap items-center justify-between">
-            <div>Name: {values.employeeName} </div>
-            <div>ID: {values.employeeID} </div>
-            <div>CTC: {salvalues.CTC} </div>
+            <div className="dark:text-gray-200">
+              Name: {values.employeeName}{" "}
+            </div>
+            <div className="dark:text-gray-200">ID: {values.employeeID} </div>
+            <div className="dark:text-gray-200"> CTC: {salvalues.CTC} </div>
             <div>
               <Button
                 aria-label="Notifications"
@@ -253,19 +296,6 @@ const PaySalary = () => {
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>HRA</span>
-              <Input
-                className="mt-1"
-                type="text"
-                readOnly={true}
-                value={values.HRA}
-                // onChange={handleChange("HRA")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
         </div>
 
         {/* ----------------- Row 3 -------------------- */}
@@ -363,30 +393,6 @@ const PaySalary = () => {
 
         <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Incentive_1</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={salvalues.Incentive_1}
-                onChange={handleSalChange("Incentive_1")}
-              />
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Incentive_2</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={salvalues.Incentive_2}
-                onChange={handleSalChange("Incentive_2")}
-              />
-            </Label>
-          </div>
-
-          <div className="flex flex-col w-full">
             <Label className="w-full ">
               <span>Eligible Days</span>
               <Input
@@ -395,6 +401,85 @@ const PaySalary = () => {
                 placeholder=""
                 value={salvalues.EligibleDays}
                 onChange={handleSalChange("EligibleDays")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.email}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Performance Allowance</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={salvalues.PerformanceAllowance}
+                onChange={handleSalChange("PerformanceAllowance")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Incentive</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={salvalues.Incentive}
+                onChange={handleSalChange("Incentive")}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full ">
+              <span>Bonus</span>
+              <Input
+                className="mt-1"
+                type="text"
+                placeholder=""
+                value={salvalues.Bonus}
+                onChange={handleSalChange("Bonus")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.email}</HelperText> */}
+          </div>
+        </div>
+
+        {/* --------------------Row ----------------------- */}
+
+        <div className="flex-row flex  space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Extra Mobile Usage</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={salvalues.ExtraMobileUsage}
+                onChange={handleSalChange("ExtraMobileUsage")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Salary/Other Advances</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={salvalues.OtherDeductions}
+                onChange={handleSalChange("OtherDeductions")}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full ">
+              <span>Spare Lost/LostDamage</span>
+              <Input
+                className="mt-1"
+                type="text"
+                placeholder=""
+                value={salvalues.LostDamage}
+                onChange={handleSalChange("LostDamage")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
@@ -630,11 +715,15 @@ const PaySalary = () => {
       BplusDA: salvalues.BplusDA,
       EligibleDays: salvalues.EligibleDays,
       HRA: salvalues.HRA,
-      Incentive_1: salvalues.Incentive_1,
-      Incentive_2: salvalues.Incentive_2,
+      PerformanceAllowance: salvalues.PerformanceAllowance,
+      Bonus: salvalues.Bonus,
+      Incentive: salvalues.Incentive,
       GrossSalary: salvalues.GrossSalary,
       EmplPF: salvalues.EmplPF,
       EmplESI: salvalues.EmplESI,
+      ExtraMobileUsage: salvalues.ExtraMobileUsage,
+      OtherDeductions: salvalues.OtherDeductions,
+      LostDamage: salvalues.LostDamage,
       Deduction: salvalues.Deduction,
       TakeHomeSalary: salvalues.TakeHomeSalary,
       EmployerPF: salvalues.EmployerPF,
