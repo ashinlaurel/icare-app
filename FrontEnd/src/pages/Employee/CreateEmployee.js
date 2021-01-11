@@ -31,7 +31,7 @@ function CreateEmployee() {
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
   const [sex, setSex] = useState("Male");
   const [dob, setDob] = useState("");
-  const [location, setLocation] = useState("All")
+  const [location, setLocation] = useState("All");
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
@@ -124,7 +124,7 @@ function CreateEmployee() {
       sex: sex,
       age: values.age,
       dob: dob,
-      location:location
+      location: location,
     };
     console.log(newuser);
     signup(newuser, `admin/${Emp.getId()}/signup`)
@@ -218,7 +218,6 @@ function CreateEmployee() {
             </Label>
             <HelperText valid={false}>{err.employeeID}</HelperText>
           </div>
-         
         </div>
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
@@ -235,6 +234,8 @@ function CreateEmployee() {
                 <option value="11">Engineer</option>
                 <option value="12">Assistant</option>
                 <option value="13">Store Keeper</option>
+                <option value="14">Coordinator</option>
+                <option value="15">Accounts</option>
               </Select>
             </Label>
           </div>
@@ -250,7 +251,7 @@ function CreateEmployee() {
               >
                 <option value="All">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </Select>
             </Label>
@@ -416,7 +417,7 @@ function CreateEmployee() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Contact Person</span>
+              <span>Father/Husband Name</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -427,7 +428,7 @@ function CreateEmployee() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Contact Person's Occupation</span>
+              <span>Father/Husband's Occupation</span>
               <Input
                 className="mt-1"
                 value={values.contactPersonOcc}
@@ -438,6 +439,16 @@ function CreateEmployee() {
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
         </div>
         {/* -----------------------Row-5 ------------- */}
+        <Label className="my-2">
+          <span>Address</span>
+          <Input
+            className="mt-1"
+            type="text"
+            value={values.address}
+            onChange={handleChange("address")}
+          />
+        </Label>{" "}
+        {/* ---------------Row - 6 ---------------------- */}
         <div className="flex-row flex space-x-3 my-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -479,16 +490,6 @@ function CreateEmployee() {
             ) : null}
           </div>
         </div>
-        {/* ---------------Row - 6 ---------------------- */}
-        <Label className="my-2">
-          <span>Address</span>
-          <Input
-            className="mt-1"
-            type="text"
-            value={values.address}
-            onChange={handleChange("address")}
-          />
-        </Label>{" "}
         {/* ///////////////////////////////////////////////////////// */}
         <Button
           onClick={submitCustomer}

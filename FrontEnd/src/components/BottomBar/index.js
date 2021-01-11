@@ -5,6 +5,7 @@ import Buttons from "../../pages/Buttons";
 import AssetModule from "./AssetModule";
 import CreateAssetModule from "./CreateAssetModule";
 import { Button } from "@windmill/react-ui";
+import SalaryModule from "./SalaryModule";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
@@ -16,6 +17,8 @@ const BottomBar = () => {
     assetdetails,
     setCreateAssetDetails,
     createAssetDetails,
+    salaryDetails,
+    setSalaryDetails,
   } = useContext(BottomBarContext);
   // console.log("AssetDetails", assetdetails);
   return (
@@ -29,7 +32,7 @@ const BottomBar = () => {
       >
         {/* ---------------------Heading------------ */}
         <div className="flex flex-row justify-between">
-          <div>Asset Details</div>
+          <div>Details</div>
           <div>
             <Button
               icon={DropdownIcon}
@@ -49,6 +52,9 @@ const BottomBar = () => {
         ) : null}
         {JSON.stringify(createAssetDetails) !== JSON.stringify({}) ? (
           <CreateAssetModule asset={createAssetDetails} />
+        ) : null}
+        {JSON.stringify(salaryDetails) !== JSON.stringify({}) ? (
+          <SalaryModule asset={salaryDetails} />
         ) : null}
       </div>
     </div>
