@@ -55,6 +55,8 @@ const InvItemSchema = mongoose.Schema({
   invamount: String,
   wty: String,
   expirydate: String,
+   // ----------------
+   caseId:String, 
 });
 InvItemSchema.plugin(mongoosePaginate);
 

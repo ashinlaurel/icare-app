@@ -79,6 +79,9 @@ function PurchaseInventory() {
     panno: "",
     aadharno: "",
     purchlocation: "",
+
+    //-------
+    caseId:"",
   };
   const [values, setValues] = useState([invdetails]);
 
