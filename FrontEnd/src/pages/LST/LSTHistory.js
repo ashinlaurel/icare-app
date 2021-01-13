@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
-// import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
-// import ReactPDF from '@react-pdf/renderer';
-// import { PDFViewer } from '@react-pdf/renderer';
+import { saveAs } from "file-saver";
 
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
@@ -30,7 +28,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
-import PrintLST from "./PrintLST";
+// import PrintLST from "./PrintLST";
 
 function LSTHistory() {
   // table variable styles
@@ -140,15 +138,12 @@ function LSTHistory() {
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
       method: "POST",
       data: payload,
+      responseType: "blob",
     });
 
-    // axios.post("/create-pdf", this.state);
-    // .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
-    // .then((res) => {
-    //   const pdfBlob = new Blob([res.data], { type: "application/pdf" });
+    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
 
-    //   saveAs(pdfBlob, "newPdf.pdf");
-    // });
+    saveAs(pdfBlob, "LST.pdf");
   };
 
   const InvTable = (items) => {

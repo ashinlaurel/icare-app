@@ -96,24 +96,18 @@ exports.updateLST = async (req, res) => {
 exports.downloadPdf = async (req, res) => {
   // let { id, update } = req.body;
 
-  pdf.create(pdfTemplate(req.body), {}).toFile("lstpdf.pdf", (err) => {
-    if (err) {
-      res.send(Promise.reject());
-    }
+  pdf
+    .create(pdfTemplate(req.body), {})
+    .toFile("./controllers/LST/lstnew.pdf", (err) => {
+      if (err) {
+        res.send(Promise.reject());
+      }
 
-    res.send(Promise.resolve());
-  });
+      // res.send(Promise.resolve());
+
+      res.status(200).sendFile(`${__dirname}/lstnew.pdf`);
+    });
 };
-
-// app.post("/downloadpdf", (req, res) => {
-// pdf.create(pdfTemplate(req.body), {}).toFile("result.pdf", (err) => {
-//   if (err) {
-//     res.send(Promise.reject());
-//   }
-
-//   res.send(Promise.resolve());
-// });
-// });
 
 // -----------------------Fuzzy Search Regex----------------
 function escapeRegex(text) {
