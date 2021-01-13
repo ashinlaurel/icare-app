@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
-import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
-import ReactPDF from '@react-pdf/renderer';
-import { PDFViewer } from '@react-pdf/renderer';
+// import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
+// import ReactPDF from '@react-pdf/renderer';
+// import { PDFViewer } from '@react-pdf/renderer';
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon,DropdownIcon } from "../../icons";
+import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -33,8 +33,6 @@ import { TopBarContext } from "../../context/TopBarContext";
 import PrintLST from "./PrintLST";
 
 function LSTHistory() {
-  
-
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -44,7 +42,7 @@ function LSTHistory() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // dropdown and modals
- 
+
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
@@ -75,11 +73,8 @@ function LSTHistory() {
     setPage(p);
   }
 
- 
-
   // on page change, load new sliced data
   // here you would make another server request for new data
-
 
   // -------------------------------
   // ----------------------Heading Use Effect-------------
@@ -104,7 +99,7 @@ function LSTHistory() {
           // type: type,
           from: location,
           to: ToLocation,
-          status:status,
+          status: status,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -128,109 +123,119 @@ function LSTHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation ,condition, status, refresh]);
+  }, [page, location, ToLocation, condition, status, refresh]);
 
   console.log(selectedprod);
 
-const InvTable=(items)=>{
-  
-  return (
-    <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-      
+  // PDF Download Functions
 
-      <div className="mb- mt-4">
-        
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
-        <TableContainer className="mt-4">
-          <Table>
-            <TableHeader>
-              <tr>
-              <TableCell>Type</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Serial Number</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Inv Number</TableCell>
-                <TableCell>Condition</TableCell>
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {items.map((user, i) => (
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(user._id);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                   <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      {/* <Avatar
+  const createAndDownloadPdf = async () => {
+    let payload = {
+      name: "Ashin",
+      price1: "35",
+      price2: "32",
+      receiptId: "3214",
+    };
+    let response = await axios({
+      url: `${API}/lst/${Emp.getId()}/downloadpdf`,
+      method: "POST",
+      data: payload,
+    });
+
+    // axios.post("/create-pdf", this.state);
+    // .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
+    // .then((res) => {
+    //   const pdfBlob = new Blob([res.data], { type: "application/pdf" });
+
+    //   saveAs(pdfBlob, "newPdf.pdf");
+    // });
+  };
+
+  const InvTable = (items) => {
+    return (
+      <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+        <div className="mb- mt-4">
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+          <TableContainer className="mt-4">
+            <Table>
+              <TableHeader>
+                <tr>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Serial Number</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell>Inv Number</TableCell>
+                  <TableCell>Condition</TableCell>
+                </tr>
+              </TableHeader>
+              <TableBody>
+                {items.map((user, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        {/* <Avatar
                         className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
                       /> */}
-                      <div>
-                        <p className="font-semibold">{user.type}</p>
-                        {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <div>
+                          <p className="font-semibold">{user.type}</p>
+                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.name}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.sno}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.location}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invnumber}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      type={user.condition == "Good" ? "primary" : "danger"}
-                    >
-                      {user.condition}
-                    </Badge>
-                  </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.sno}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.location}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invnumber}</span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        type={user.condition == "Good" ? "primary" : "danger"}
+                      >
+                        {user.condition}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-                 
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          
-        </TableContainer>
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+        </div>
 
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
+        {/* ------------------------------------Bottom Bar---------------------------------- */}
       </div>
-
-      {/* ------------------------------------Bottom Bar---------------------------------- */}
-    </div>
-  );
- 
-}
-
-
-
-
+    );
+  };
 
   return (
     <>
-      
-
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -245,12 +250,11 @@ const InvTable=(items)=>{
                 }}
               >
                 <option value="" disabled selected>
-                   Type
+                  Type
                 </option>
                 <option value="">All</option>
                 <option value="In Transit">In Transit</option>
                 <option value="Recieved">Recieved</option>
-                
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -292,8 +296,8 @@ const InvTable=(items)=>{
                 </svg>
               </div>
             </div>
-             {/* -----------------------------------------Location ----------------------- */}
-             <div class="relative mx-1 ">
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={ToLocation}
@@ -386,96 +390,97 @@ const InvTable=(items)=>{
                 <TableCell>No.</TableCell>
                 {/* <TableCell>Status</TableCell> */}
                 <TableCell> Report</TableCell>
-                <TableCell><span  className="cursor-pointer" onClick={()=>setActiveRowID(-1)}>Items</span></TableCell>
+                <TableCell>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => setActiveRowID(-1)}
+                  >
+                    Items
+                  </span>
+                </TableCell>
               </tr>
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
                 <div className="flex flex-col justify-around">
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(i);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                  <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      
-                      <div>
-                        <p className="font-semibold">{user.LSTNo}</p>
-                       
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(i);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{user.LSTNo}</p>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.from}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.from}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.to}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm"> {moment(user.date).format("DD/MM/YYYY")}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invItems.length}</span>
-                  </TableCell>
-                  {/* <TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.to}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {" "}
+                        {moment(user.date).format("DD/MM/YYYY")}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invItems.length}</span>
+                    </TableCell>
+                    {/* <TableCell>
                     <Badge>
                       condition
                     </Badge>
                   </TableCell> */}
-                  <TableCell className="text-center ">
-                  <Button
-                        
+                    <TableCell className="text-center ">
+                      <Button
                         layout="outline"
                         aria-label="DropDown"
-                        onClick={()=>{
-                          console.log("dwlod")
-                          
+                        onClick={() => {
+                          console.log("dwlod");
+                          createAndDownloadPdf();
                         }}
                         className="rounded-lg m-1"
                       >
-                       Download
+                        Download
                       </Button>
-                  </TableCell>
-                  <TableCell className="text-center ">
-                  <Button
+                    </TableCell>
+                    <TableCell className="text-center ">
+                      <Button
                         // layout="link"
                         size="icon"
                         aria-label="DropDown"
-                        onClick={()=>{
-                          console.log(activerowid)
-                            // if(activerowid==i){
-                              
-                              // setActiveRowID(-1);
-                            // }
-                            // else
-                             setActiveRowID(i);
+                        onClick={() => {
+                          console.log(activerowid);
+                          // if(activerowid==i){
 
-
-                    
-                          }}
+                          // setActiveRowID(-1);
+                          // }
+                          // else
+                          setActiveRowID(i);
+                        }}
                         className="rounded-lg m-1"
                       >
                         <DropdownIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
-                  </TableCell>
+                    </TableCell>
+                  </TableRow>
 
-                 
-                </TableRow>
-
-
-                {(activeRowID==i) ?InvTable(user.invItems):null}
+                  {activeRowID == i ? InvTable(user.invItems) : null}
                 </div>
               ))}
             </TableBody>
@@ -492,7 +497,6 @@ const InvTable=(items)=>{
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
-     
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>

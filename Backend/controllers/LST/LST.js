@@ -1,7 +1,6 @@
 const LST = require("../../models/LST/LST");
-
-
-
+const pdf = require("html-pdf");
+const pdfTemplate = require("../../documents/lst");
 
 exports.LSTCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
@@ -10,7 +9,6 @@ exports.LSTCreate = async (req, res) => {
   try {
     const newlst = new LST(lst);
     const newlstres = await newlst.save();
-
 
     return res.status(200).json(newlstres);
   } catch (err) {
@@ -93,6 +91,29 @@ exports.updateLST = async (req, res) => {
   }
 };
 
+// Pdf Download ------------------
+
+exports.downloadPdf = async (req, res) => {
+  // let { id, update } = req.body;
+
+  pdf.create(pdfTemplate(req.body), {}).toFile("lstpdf.pdf", (err) => {
+    if (err) {
+      res.send(Promise.reject());
+    }
+
+    res.send(Promise.resolve());
+  });
+};
+
+// app.post("/downloadpdf", (req, res) => {
+// pdf.create(pdfTemplate(req.body), {}).toFile("result.pdf", (err) => {
+//   if (err) {
+//     res.send(Promise.reject());
+//   }
+
+//   res.send(Promise.resolve());
+// });
+// });
 
 // -----------------------Fuzzy Search Regex----------------
 function escapeRegex(text) {
