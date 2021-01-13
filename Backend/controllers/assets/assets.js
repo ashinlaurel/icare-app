@@ -169,6 +169,10 @@ exports.getAllAssets = (req, res) => {
     });
   } else {
     // ----------------Conditional addition of query attributes---------
+    if (searchtype == "prodserial") {
+      pfilteroptions["serialno"] = fuzzyquery;
+      // console.log("inside");
+    }
     if (searchtype == "kbdsno") {
       pfilteroptions["keyboard.kbdsno"] = fuzzyquery;
       // console.log("inside");
@@ -268,10 +272,10 @@ exports.updateAsset = async (req, res) => {
       useFindAndModify: false,
     });
     let prod = await Server.findOneAndUpdate({ asset: id }, newproduct);
-    console.log("SERVER",prod)
+    console.log("SERVER", prod);
     return res.status(200).json({ asset });
   } catch (err) {
-    console.log(id,err);
+    console.log(id, err);
     return res.status(400).json({ error: err });
   }
 };

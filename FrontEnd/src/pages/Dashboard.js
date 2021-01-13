@@ -295,6 +295,16 @@ function Dashboard() {
             <DropdownItem
               onClick={() => {
                 setIsOpenTwo(false);
+                setSearchType("prodserial");
+                setSearchLabel("Product Serial");
+                setDisabler(false);
+              }}
+            >
+              <span>Product Serial</span>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                setIsOpenTwo(false);
                 setSearchType("kbdsno");
                 setSearchLabel("Keyboard Serial");
                 setDisabler(false);

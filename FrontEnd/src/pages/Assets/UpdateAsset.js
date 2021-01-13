@@ -121,6 +121,7 @@ function UpdateAsset() {
       setBillingFrom(moment(asset.billingfrom).format("YYYY-MM-DD"));
       setBillingTo(moment(asset.billingto).format("YYYY-MM-DD"));
       ////////////------------>>>>>>>> misiing field GST(asset.gs)
+      setGST(asset.gstperc);
       setGSTAMOUNT(asset.gstamount);
       setNetAmount(asset.netamount);
       // setProduct(asset);
@@ -232,11 +233,11 @@ function UpdateAsset() {
       // customerId: customer._id,
       // customerName: customer.customerName,
     };
-    if(payload.podate=="Invalid date")payload.podate="";
-    if(payload.contractfrom=="Invalid date")payload.contractfrom="";
-    if(payload.contractto=="Invalid date")payload.contractto="";
-    if(payload.billingfrom=="Invalid date")payload.billingfrom="";
-    if(payload.billingto=="Invalid date")payload.billingto="";
+    if (payload.podate == "Invalid date") payload.podate = "";
+    if (payload.contractfrom == "Invalid date") payload.contractfrom = "";
+    if (payload.contractto == "Invalid date") payload.contractto = "";
+    if (payload.billingfrom == "Invalid date") payload.billingfrom = "";
+    if (payload.billingto == "Invalid date") payload.billingto = "";
     let newproduct = {
       brand: brand,
       model: model,
@@ -261,7 +262,7 @@ function UpdateAsset() {
       tapecontroller: tapecontroller,
       others: others,
     };
-    console.log(payload,newproduct);
+    console.log(payload, newproduct);
 
     const data = { id: id, newasset: payload, newproduct: newproduct };
     // console.log(API);
