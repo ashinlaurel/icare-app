@@ -88,3 +88,13 @@ exports.callCreate = async (req, res) => {
     }
   };
   
+
+  exports.getCallById = async (req, res) => {
+    try {
+      let call = await Call.findById(req.body.id)
+      return res.status(200).json(call);
+    } catch (err) {
+      console.log(id);
+      return res.status(400).json({ error: err });
+    }
+  };

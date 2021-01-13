@@ -55,7 +55,7 @@ function AdminLogin() {
       })
       .catch((err) => {
         setErr(err);
-        // console.log("err", err);
+        console.log("err", err);
       });
   };
 
