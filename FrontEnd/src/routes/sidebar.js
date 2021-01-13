@@ -135,6 +135,25 @@ export const aroutes = [
     ],
   },
 
+  // ---------------Employee---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Vendor",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/employee",
+        name: "Employee List",
+      },
+      {
+        path: "/app/createvendor",
+        name: "Add Vendor",
+      },
+      
+    ],
+  },
+
   // ---------------LST---------------------------------------------
   {
     icon: "HomeIcon",

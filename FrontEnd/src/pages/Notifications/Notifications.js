@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
-import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
-import ReactPDF from '@react-pdf/renderer';
-import { PDFViewer } from '@react-pdf/renderer';
+// import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
+// import ReactPDF from '@react-pdf/renderer';
+// import { PDFViewer } from '@react-pdf/renderer';
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon,DropdownIcon } from "../../icons";
+import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -34,8 +34,6 @@ import EmpProfile from "../../helpers/auth/EmpProfile";
 // import PrintLST from "./PrintLST";
 
 function Notifications() {
-  
-
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -45,7 +43,7 @@ function Notifications() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // dropdown and modals
- 
+
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
@@ -71,20 +69,17 @@ function Notifications() {
 
   const [activeRowID, setActiveRowID] = useState(-1);
 
-   //modal
-   const [messageModal, setMessageModal] = useState(false);
-   const [modalMessage, setModalMessage] = useState("")
+  //modal
+  const [messageModal, setMessageModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   // pagination change control
   function onPageChange(p) {
     setPage(p);
   }
 
- 
-
   // on page change, load new sliced data
   // here you would make another server request for new data
-
 
   // -------------------------------
   // ----------------------Heading Use Effect-------------
@@ -97,7 +92,7 @@ function Notifications() {
   // -----------------------------------------------------
 
   useEffect(() => {
-    let loc=EmpProfile.getLocation();
+    let loc = EmpProfile.getLocation();
     // console.log("Location",loc);
     // Using an IIFE
     (async function thegetter() {
@@ -111,13 +106,12 @@ function Notifications() {
           // type: type,
           from: location,
           to: ToLocation,
-          status:"In Transit",
+          status: "In Transit",
           // searchtype: searchtype,
           searchquery: searchquery,
         },
-        
       };
-      if(loc!="All")payload.filters.to=loc
+      if (loc != "All") payload.filters.to = loc;
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
@@ -137,218 +131,211 @@ function Notifications() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation ,condition, status, refresh]);
+  }, [page, location, ToLocation, condition, status, refresh]);
 
   console.log(selectedprod);
 
+  const updateInventory = async (i, j) => {
+    let items = data;
+    let lstItem = data[i];
+    let invItem = lstItem.invItems[j];
+    console.log(lstItem, invItem);
 
-  const updateInventory= async (i,j)=>{
-    let items=data;
-    let lstItem=data[i];
-    let invItem=lstItem.invItems[j];
-    console.log(lstItem,invItem);
+    const update = {
+      id: invItem._id,
+      update: {
+        location: lstItem.to,
+      },
+    };
+    console.log("PAYLOAD", update);
+    try {
+      await axios({
+        url: `${API}/inventory/${Emp.getId()}/invupdate`,
+        method: "POST",
+        data: update,
+      });
+      items[i].invItems[j].location = lstItem.to;
+      setData(items);
+      setActiveRowID(-1);
+      setActiveRowID(i);
+      // setIsReviewModalOpen(true);
+      console.log("Done");
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+    let flag = false;
+    items[i].invItems.map((item) => {
+      if (item.location == "In Transit") flag = true;
+    });
 
-      const update = {
-        id: invItem._id,
-        update: {
-          location: lstItem.to,
-        },
-      };
-      console.log("PAYLOAD", update);
-      try {
-        await axios({
-          url: `${API}/inventory/${Emp.getId()}/invupdate`,
-          method: "POST",
-          data: update,
-        });
-        items[i].invItems[j].location=lstItem.to;
-        setData(items);
-        setActiveRowID(-1);
-        setActiveRowID(i);
-        // setIsReviewModalOpen(true);
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-      let flag=false;
-      items[i].invItems.map(item=>{
-        if(item.location=="In Transit") flag=true;
-      })
-    
-      if(flag==true){
-        setModalMessage(`${invItem.name} Recieved`)
-        setMessageModal(true); 
-        return;
-      }
-     const updatelst = {
-        id: lstItem._id,
-        update: {
-          status: "Received",
-        },
-      };
-      try {
-        await axios({
-          url: `${API}/lst/${Emp.getId()}/update`,
-          method: "POST",
-          data: updatelst,
-        });
-        // items[i].invItems[j].location=lstItem.to;
-        // setData(items);
-        // setActiveRowID(-1);
-        // setActiveRowID(i);
-        // setIsReviewModalOpen(true);
-        setModalMessage(`${invItem.name} Recieved.\n All Items Received from LST`)
-        setMessageModal(true); 
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+    if (flag == true) {
+      setModalMessage(`${invItem.name} Recieved`);
+      setMessageModal(true);
+      return;
+    }
+    const updatelst = {
+      id: lstItem._id,
+      update: {
+        status: "Received",
+      },
+    };
+    try {
+      await axios({
+        url: `${API}/lst/${Emp.getId()}/update`,
+        method: "POST",
+        data: updatelst,
+      });
+      // items[i].invItems[j].location=lstItem.to;
+      // setData(items);
+      // setActiveRowID(-1);
+      // setActiveRowID(i);
+      // setIsReviewModalOpen(true);
+      setModalMessage(
+        `${invItem.name} Recieved.\n All Items Received from LST`
+      );
+      setMessageModal(true);
+      console.log("Done");
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 
-    
-  }
-
-const InvTable=(items,num)=>{
-  
-  return (
-    <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-      
-      
-      <div className="mb- mt-4">
-        
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
-        <TableContainer className="mt-4">
-          <Table>
-            <TableHeader>
-              <tr>
-              <TableCell>Type</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Serial Number</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Inv Number</TableCell>
-                <TableCell>Condition</TableCell>
-                <TableCell>Recieve</TableCell>
-
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {items.map((user, i) => (
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(user._id);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                   <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      {/* <Avatar
+  const InvTable = (items, num) => {
+    return (
+      <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+        <div className="mb- mt-4">
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+          <TableContainer className="mt-4">
+            <Table>
+              <TableHeader>
+                <tr>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Serial Number</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell>Inv Number</TableCell>
+                  <TableCell>Condition</TableCell>
+                  <TableCell>Recieve</TableCell>
+                </tr>
+              </TableHeader>
+              <TableBody>
+                {items.map((user, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        {/* <Avatar
                         className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
                       /> */}
-                      <div>
-                        <p className="font-semibold">{user.type}</p>
-                        {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <div>
+                          <p className="font-semibold">{user.type}</p>
+                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.name}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.sno}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.location}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invnumber}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      type={user.condition == "Good" ? "primary" : "danger"}
-                    >
-                      {user.condition}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Button layout="outline"  className="dark:border-green-700 border-green-400" onClick={()=>{
-                      if(user.location=="In Transit")
-                        updateInventory(num,i);
-                        else{
-                          setModalMessage("Already Recieved")
-                          setMessageModal(true);
-                        }
-                    }}>{user.location=="In Transit"?<>Receive</>:<>Received</>}</Button>
-                  </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.sno}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.location}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invnumber}</span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        type={user.condition == "Good" ? "primary" : "danger"}
+                      >
+                        {user.condition}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        layout="outline"
+                        className="dark:border-green-700 border-green-400"
+                        onClick={() => {
+                          if (user.location == "In Transit")
+                            updateInventory(num, i);
+                          else {
+                            setModalMessage("Already Recieved");
+                            setMessageModal(true);
+                          }
+                        }}
+                      >
+                        {user.location == "In Transit" ? (
+                          <>Receive</>
+                        ) : (
+                          <>Received</>
+                        )}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-                 
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          
-        </TableContainer>
+          {/* ----------------------------------------------Table----------------------------------------------------- */}
+        </div>
 
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
+        {/* ------------------------------------Bottom Bar---------------------------------- */}
       </div>
+    );
+  };
 
-      {/* ------------------------------------Bottom Bar---------------------------------- */}
-    </div>
-  );
- 
-}
-
-const messageModalComponent = () => {
-  return (
-    <>
-      <Modal
-        isOpen={messageModal}
-        onClose={() => setMessageModal(false)}
-      >
-        <ModalHeader>{modalMessage}</ModalHeader>
-        <ModalBody></ModalBody>
-        <ModalFooter>
-          <Button
-            className="w-full sm:w-auto"
-            onClick={() => setMessageModal(false)}
-          >
-            Okay!
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
-}
-
-
+  const messageModalComponent = () => {
+    return (
+      <>
+        <Modal isOpen={messageModal} onClose={() => setMessageModal(false)}>
+          <ModalHeader>{modalMessage}</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setMessageModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   return (
     <>
-      
-
       <div className="mb-64 mt-4">
-      <div className=" font-bold text-xl mt-10 dark:text-white">LSTs In Transit</div>
+        <div className=" font-bold text-xl mt-10 dark:text-white">
+          LSTs In Transit
+        </div>
 
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
-            
-           
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -377,37 +364,39 @@ const messageModalComponent = () => {
                 </svg>
               </div>
             </div>
-            
-             {/* -----------------------------------------Location ----------------------- */}
-             {EmpProfile.getLocation=="All"?<>
-             <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={ToLocation}
-                onChange={(e) => {
-                  setToLocation(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  To Location
-                </option>
-                <option value="">All</option>
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
-                <option value="Kozhikode">Kozhikode</option>
-              </select>
 
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-            </>:null}
+            {/* -----------------------------------------Location ----------------------- */}
+            {EmpProfile.getLocation == "All" ? (
+              <>
+                <div class="relative mx-1 ">
+                  <select
+                    class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                    value={ToLocation}
+                    onChange={(e) => {
+                      setToLocation(e.target.value);
+                    }}
+                  >
+                    <option value="" disabled selected>
+                      To Location
+                    </option>
+                    <option value="">All</option>
+                    <option value="Trivandrum">Trivandrum</option>
+                    <option value="Kottayum">Kottayum</option>
+                    <option value="Kozhikode">Kozhikode</option>
+                  </select>
+
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      class="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </>
+            ) : null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -474,95 +463,96 @@ const messageModalComponent = () => {
                 <TableCell>No.</TableCell>
                 {/* <TableCell>Status</TableCell> */}
                 <TableCell> Report</TableCell>
-                <TableCell><span  className="cursor-pointer" onClick={()=>setActiveRowID(-1)}>Items</span></TableCell>
+                <TableCell>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => setActiveRowID(-1)}
+                  >
+                    Items
+                  </span>
+                </TableCell>
               </tr>
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
                 <div className="flex flex-col justify-around">
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                    activerowid == user._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(i);
-                    // console.log("the id is " + user._id);
-                    // setSelectedProd(user);
-                    // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
-                  }}
-                >
-                  <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      
-                      <div>
-                        <p className="font-semibold">{user.LSTNo}</p>
-                       
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(i);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].kbdname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{user.LSTNo}</p>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.from}</span>
-                  </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.from}</span>
+                    </TableCell>
 
-                  <TableCell>
-                    <span className="text-sm">{user.to}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm"> {moment(user.date).format("DD/MM/YYYY")}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.invItems.length}</span>
-                  </TableCell>
-                  {/* <TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.to}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {" "}
+                        {moment(user.date).format("DD/MM/YYYY")}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invItems.length}</span>
+                    </TableCell>
+                    {/* <TableCell>
                     <Badge>
                       condition
                     </Badge>
                   </TableCell> */}
-                  <TableCell className="text-center ">
-                  <Button
-                       layout="outline" 
+                    <TableCell className="text-center ">
+                      <Button
+                        layout="outline"
                         aria-label="DropDown"
-                        onClick={()=>{
-                          console.log("dwlod")
-                          
+                        onClick={() => {
+                          console.log("dwlod");
                         }}
                         className="rounded-lg m-1"
                       >
-                       Download
+                        Download
                       </Button>
-                  </TableCell>
-                  <TableCell className="text-center ">
-                  <Button
+                    </TableCell>
+                    <TableCell className="text-center ">
+                      <Button
                         // layout="link"
                         size="icon"
                         aria-label="DropDown"
-                        onClick={()=>{
-                          console.log(activerowid)
-                            // if(activerowid==i){
-                              
-                              // setActiveRowID(-1);
-                            // }
-                            // else
-                             setActiveRowID(i);
+                        onClick={() => {
+                          console.log(activerowid);
+                          // if(activerowid==i){
 
-
-                    
-                          }}
+                          // setActiveRowID(-1);
+                          // }
+                          // else
+                          setActiveRowID(i);
+                        }}
                         className="rounded-lg m-1"
                       >
                         <DropdownIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
-                  </TableCell>
+                    </TableCell>
+                  </TableRow>
 
-                 
-                </TableRow>
-
-
-                {(activeRowID==i) ?InvTable(user.invItems,i):null}
+                  {activeRowID == i ? InvTable(user.invItems, i) : null}
                 </div>
               ))}
             </TableBody>
@@ -579,8 +569,8 @@ const messageModalComponent = () => {
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
-     
-            {messageModalComponent()}
+
+      {messageModalComponent()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );

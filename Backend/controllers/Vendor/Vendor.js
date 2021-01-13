@@ -1,16 +1,18 @@
-const LST = require("../../models/LST/LST");
-const pdf = require("html-pdf");
-const pdfTemplate = require("../../documents/lst");
+const Vendor = require("../../models/Vendor/Vendor");
 
-exports.LSTCreate = async (req, res) => {
+
+
+
+exports.VendorCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
-  const lst = req.body;
+  const vend = req.body;
   // console.log(login)
   try {
-    const newlst = new LST(lst);
-    const newlstres = await newlst.save();
+    const newvend = new Vendor(vend);
+    const newvendres = await newvend.save();
 
-    return res.status(200).json(newlstres);
+
+    return res.status(200).json(newvendres);
   } catch (err) {
     // const errors = handleError(err);
     console.log(err);
@@ -28,7 +30,7 @@ exports.getAllItems = (req, res) => {
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
 
   let options = {
-    populate: "invItems",
+    // populate: "invItems",
     page: pages.page,
     limit: pages.limit,
   };
@@ -38,15 +40,7 @@ exports.getAllItems = (req, res) => {
   };
 
   // ---Conditional Addition of filters
-  if (filters.from != "") {
-    filteroptions.from = filters.from;
-  }
-  if (filters.to != "") {
-    filteroptions.to = filters.to;
-  }
-  if (filters.status != "") {
-    filteroptions.status = filters.status;
-  }
+
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
   // }
@@ -59,7 +53,7 @@ exports.getAllItems = (req, res) => {
 
   // -----------------------------------------------------------------------
 
-  LST.paginate(filteroptions, options, function (err, result) {
+  Vendor.paginate(filteroptions, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({
@@ -76,38 +70,21 @@ exports.getAllItems = (req, res) => {
   });
 };
 
-exports.updateLST = async (req, res) => {
+exports.updateVendor = async (req, res) => {
   let { id, update } = req.body;
   // console.log(id, update);
   try {
-    let lst = await LST.findByIdAndUpdate(id, update, {
+    let vend = await Vendor.findByIdAndUpdate(id, update, {
       safe: true,
       useFindAndModify: false,
     });
-    return res.status(200).json({ lst });
+    return res.status(200).json({ vend });
   } catch (err) {
     // console.log(id);
     return res.status(400).json({ error: err });
   }
 };
 
-// Pdf Download ------------------
-
-exports.downloadPdf = async (req, res) => {
-  // let { id, update } = req.body;
-
-  pdf
-    .create(pdfTemplate(req.body), {})
-    .toFile("./controllers/LST/lstnew.pdf", (err) => {
-      if (err) {
-        res.send(Promise.reject());
-      }
-
-      // res.send(Promise.resolve());
-
-      res.status(200).sendFile(`${__dirname}/lstnew.pdf`);
-    });
-};
 
 // -----------------------Fuzzy Search Regex----------------
 function escapeRegex(text) {
