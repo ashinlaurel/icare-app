@@ -21,34 +21,26 @@ exports.VendorCreate = async (req, res) => {
 };
 
 exports.getAllItems = (req, res) => {
-  let { pages, filters } = req.body;
+  let { filters } = req.body;
 
   let { searchquery } = filters;
   // console.log(filters);
   // console.log(searchquery);
   // console.log(searchtype);
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
-
   let options = {
     // populate: "invItems",
-    page: pages.page,
-    limit: pages.limit,
+    page: 1,
+    limit: 1000,
   };
 
   let filteroptions = {
     // product: { brand: "IBM" },
   };
 
-  // ---Conditional Addition of filters
-
-  // if (filters.location != "") {
-  //   filteroptions.location = filters.location;
-  // }
-  // if (filters.condition != "") {
-  //   filteroptions.condition = filters.condition;
-  // }
+  
   if (filters.searchquery != "") {
-    filteroptions.LSTNo = fuzzyquery;
+    filteroptions.name = fuzzyquery;
   }
 
   // -----------------------------------------------------------------------
@@ -85,6 +77,31 @@ exports.updateVendor = async (req, res) => {
   }
 };
 
+
+
+exports.getVendorById = async (req, res) => {
+  try {
+    let vend = await Vendor.findById(req.body.id)
+    return res.status(200).json(vend);
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+
+
+exports.deleteVendor = async (req, res) => {
+  let { id } = req.body;
+  try {
+    let vend = await Vendor.findByIdAndDelete(id);
+
+    return res.status(200).json({ vend });
+  } catch (err) {
+    console.log("del Error", err);
+    return res.status(400).json({ error: err });
+  }
+};
 
 // -----------------------Fuzzy Search Regex----------------
 function escapeRegex(text) {

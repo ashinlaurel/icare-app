@@ -64,6 +64,9 @@ const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
+const VendorList = lazy(() => import("../pages/Vendor/VendorList"));
+const VendorDetails = lazy(() => import("../pages/Vendor/VendorDetails"));
+const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
 
 
 // ------------------------------- LST Imports
@@ -199,11 +202,24 @@ export const aroutes = [
     path: "/salaryhistory",
     component: SalaryHistory,
   },
+  
 
   // ----------------------Vendor Views----------------------/
   {
     path: "/createvendor",
     component: CreateVendor,
+  },
+  {
+    path: "/vendorlist",
+    component: VendorList,
+  },
+  {
+    path: "/vendor/getVendorById/:id",
+    component: VendorDetails,
+  },
+  {
+    path: "/vendor/:id/update",
+    component: VendorUpdate,
   },
 
   // ----------------------Call Views ----------------------/

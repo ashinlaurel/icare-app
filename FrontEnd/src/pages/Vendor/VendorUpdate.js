@@ -22,10 +22,11 @@ import { resetIdCounter } from "react-tabs";
 import { TopBarContext } from "../../context/TopBarContext";
 import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
-function CreateVendor() {
+function VendorUpdate() {
+  const { id } = useParams();
   let history = useHistory();
   // dropdown states
   const [accType, setAccType] = useState(0); /////// 0-Customer 1-Account 2-Unit
@@ -57,12 +58,34 @@ function CreateVendor() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Add Vendor");
+    setTopHeading("Update Vendor");
     return () => {
       setTopHeading("");
     };
   }, []);
   // -----------------------------------------------------
+
+  useEffect(() => {
+    thegetter();
+  }, [])
+
+  const thegetter = async () => {
+    let data = { id: id };
+    // console.log(API);
+    try {
+      let res = await Axios({
+        url: `${API}/vendor/${Emp.getId()}/getById`,
+        method: "POST",
+        data: data,
+      });
+
+      setValues(res.data);
+
+      console.log("Done", res.data);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
@@ -76,26 +99,20 @@ function CreateVendor() {
       console.log("missing inputs");
       return;
     }
+    let payload={
+      id:id,
+      update:values
+    }
   
     await Axios({
-      url: `${API}/vendor/${Emp.getId()}/create`,
+      url: `${API}/vendor/${Emp.getId()}/update`,
       method: "POST",
-      data: values,
+      data: payload,
     })
       .then((data) => {
         console.log("Added", data._id);
         setIsReviewModalOpen(true);
-        setValues({
-          name:"",
-          aadharNo:"",
-          PANNo:"",
-          GSTNo:"",
-          address:"",
-          district:"",
-          state:"",
-          PIN:"",
-        }
-        )})
+        })
       .catch((err) => {
         console.log("err", err);
         // setErr({ ...err });
@@ -110,7 +127,7 @@ function CreateVendor() {
           onClose={() => setIsReviewModalOpen(false)}
         >
           <ModalHeader>
-           Vendor Created Successfully!
+            Vendor Updated Successfully!
           </ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
@@ -263,7 +280,7 @@ function CreateVendor() {
           aria-haspopup="true"
           className="mt-4"
         >
-          Add Vendor
+          Update Vendor
         </Button>
       </div>
     );
@@ -282,4 +299,4 @@ function CreateVendor() {
   );
 }
 
-export default CreateVendor;
+export default VendorUpdate;

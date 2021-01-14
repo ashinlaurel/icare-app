@@ -143,8 +143,8 @@ export const aroutes = [
       // submenu
 
       {
-        path: "/app/employee",
-        name: "Employee List",
+        path: "/app/vendorlist",
+        name: "Vendor List",
       },
       {
         path: "/app/createvendor",

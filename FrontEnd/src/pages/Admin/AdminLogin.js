@@ -55,6 +55,7 @@ function AdminLogin() {
       })
       .catch((err) => {
         setErr(err);
+        localStorage.clear();
         console.log("err", err);
       });
   };
