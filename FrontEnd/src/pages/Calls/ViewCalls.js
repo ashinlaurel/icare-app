@@ -785,7 +785,7 @@ function ViewCalls() {
                       <Button layout="outline"  onClick={()=>{}} className=" ">
                       <Link
                           key={call._id}
-                          to={`/app/call/updateasset/${call._id}/${call.assetId._id}`}
+                          to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
                         >
                           Update
                         </Link>

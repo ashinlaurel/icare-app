@@ -72,6 +72,7 @@ var EmpProfile = (function () {
       })
       .catch((err) => {
         console.log("auth error", err);
+        localStorage.clear();
         throw err;
       });
     // return getToken();

@@ -3,7 +3,7 @@ import moment from "moment";
 import axios from "axios";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon } from "../../icons";
+import { EditIcon, TrashIcon,Remove } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -404,9 +404,12 @@ function LST() {
                   <TableCell>
                     <Button layout="outline"  className="dark:border-green-700 border-green-400" onClick={()=>{
                       let added=false;
+                      let initList=data;
+                      initList= initList.filter(i=>i._id!=user._id);
+                      console.log(initList);
+                      setData(initList);
                       SelectedItems.map(i=>{
                         if(i._id==user._id){
-                          
                           console.log(i._id,user._id)
                           setModalMessage("Product already Added!");
                           setMessageModal(true);
@@ -416,9 +419,9 @@ function LST() {
                       if(added) return;
                       let temp=[...SelectedItems,user];
                       setSelectedItems(temp);
-                      setShowInvTable(false);
-                      setModalMessage("Product  Added!");
-                          setMessageModal(true);
+                      // setShowInvTable(false);
+                      // setModalMessage("Product  Added!");
+                          // setMessageModal(true);
                     }}>Add</Button>
                   </TableCell>
 
@@ -466,6 +469,8 @@ function LST() {
                 <TableCell>Location</TableCell>
                 <TableCell>Inv Number</TableCell>
                 <TableCell>Condition</TableCell>
+                <TableCell>Case Id</TableCell>
+                <TableCell>Remove</TableCell>
                 
               </tr>
             </TableHeader>
@@ -520,6 +525,46 @@ function LST() {
                     >
                       {user.condition}
                     </Badge>
+                  </TableCell>
+
+                  <TableCell>
+                  
+                      <input
+                                value={user.caseId}
+                                onChange={(e) =>{
+                                  let temp=SelectedItems;
+                                  // newuser["caseId"]=e.target.value
+                                  temp=temp.filter(x=>{
+                                    if(x._id!=user._id)return x;
+                                    else return {...x,caseId:e.target.value}
+                                    });
+                                  setSelectedItems(temp);
+                                }}
+                                defaultValue="Imprest"
+                                placeholder="Cse Id."
+                                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                              />
+
+                            
+                        
+                  </TableCell>
+
+                  <TableCell>
+                    <div
+                      className=" py-1" 
+                      onClick={()=>{
+                        
+                        let invList=[...data,user];
+                        setData(invList);
+                        let temp=SelectedItems;
+                        temp= temp.filter(i=>i._id!=user._id);
+
+                        
+                        setSelectedItems(temp);
+                      }}
+                    >
+                      <TrashIcon className="w-5 h-5 cursor-pointer m-2 text-2xl" fill="maroon" aria-hidden="true" />
+                    </div>
                   </TableCell>
 
                   
@@ -676,6 +721,11 @@ function LST() {
       {SelectedInv()}
       <div className="my-5">
       <Button    onClick={()=>{
+                      if(location==""|| toLocation==""){
+                        setModalMessage("Select From and To Locations")
+                        setMessageModal(true);
+                        return;
+                      }
                       setShowInvTable(true);
        }}>Add Product from Inventory</Button>
        </div>

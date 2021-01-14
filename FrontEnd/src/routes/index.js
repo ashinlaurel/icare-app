@@ -38,12 +38,17 @@ const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
+
+
+// ---------------------------call View ------------------------
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
+const UpdateCall = lazy(() => import("../pages/Calls/UpdatCall"));
 const UpdateAssetFromCall = lazy(() =>
   import("../pages/Calls/UpdateAssetFromCall")
 );
+
 
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
@@ -56,6 +61,13 @@ const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
 const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
+
+// ------------------------------- Vendor Imports
+const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
+const VendorList = lazy(() => import("../pages/Vendor/VendorList"));
+const VendorDetails = lazy(() => import("../pages/Vendor/VendorDetails"));
+const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
+
 
 // ------------------------------- LST Imports
 
@@ -190,8 +202,26 @@ export const aroutes = [
     path: "/salaryhistory",
     component: SalaryHistory,
   },
+  
 
-  // --------------------------------------------/
+  // ----------------------Vendor Views----------------------/
+  {
+    path: "/createvendor",
+    component: CreateVendor,
+  },
+  {
+    path: "/vendorlist",
+    component: VendorList,
+  },
+  {
+    path: "/vendor/getVendorById/:id",
+    component: VendorDetails,
+  },
+  {
+    path: "/vendor/:id/update",
+    component: VendorUpdate,
+  },
+
   // ----------------------Call Views ----------------------/
 
   {
@@ -209,6 +239,10 @@ export const aroutes = [
   {
     path: "/call/updateasset/:callid/:assetid",
     component: UpdateAssetFromCall,
+  },
+  {
+    path: "/call/updatecall/:callid/:assetid",
+    component: UpdateCall,
   },
   // ----------------------Inventory Views ----------------------/
 

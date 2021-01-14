@@ -26,6 +26,9 @@ const inventoryRoute = require("./routes/inventory/inventory");
 // LST Import
 const LSTRoute =require("./routes/LST/LST")
 
+// Vendor Import
+const VendorRoute =require("./routes/Vendor/Vendor")
+
 //image API
 const imgUploadRoute = require("./routes/uploadapi")
 
@@ -87,6 +90,9 @@ app.use('/api/upload', imgUploadRoute);
 
 //lst route ---------------------------------------------
 app.use('/api/lst',LSTRoute)
+
+//Vendor route ---------------------------------------------
+app.use('/api/vendor',VendorRoute)
 
 
 // app.get("/", (req, res) => res.send("Hello World!"));
