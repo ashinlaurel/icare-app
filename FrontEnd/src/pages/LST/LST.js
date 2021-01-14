@@ -420,8 +420,8 @@ function LST() {
                       let temp=[...SelectedItems,user];
                       setSelectedItems(temp);
                       // setShowInvTable(false);
-                      setModalMessage("Product  Added!");
-                          setMessageModal(true);
+                      // setModalMessage("Product  Added!");
+                          // setMessageModal(true);
                     }}>Add</Button>
                   </TableCell>
 
