@@ -127,12 +127,9 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async () => {
+  const createAndDownloadPdf = async (id) => {
     let payload = {
-      name: "Ashin",
-      price1: "35",
-      price2: "32",
-      receiptId: "3214",
+      id:id
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -447,7 +444,7 @@ function LSTHistory() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
-                          createAndDownloadPdf();
+                          createAndDownloadPdf(user._id);
                         }}
                         className="rounded-lg m-1"
                       >

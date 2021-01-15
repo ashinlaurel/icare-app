@@ -96,6 +96,14 @@ export default function EmployeeDetails() {
         method: "POST",
         data: data,
       });
+      // calc age
+      var today = new Date();
+      var birthDate = new Date(res.data[0].dob);
+      var curage = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          curage--;
+      }
       setValues({
         employeeID: res.data[0].employeeID,
         username: res.data[0].username,
@@ -113,9 +121,12 @@ export default function EmployeeDetails() {
         sex: res.data[0].sex,
         contactNoLand: res.data[0].contactNoLand,
         dob: res.data[0].dob,
-        age: res.data[0].age,
+        age: curage,
         // WhatsappNo:WhatsappNo ,
       });
+
+      
+
       console.log("Done", res.data[0]);
       //   console.log("Hello");
     } catch (error) {

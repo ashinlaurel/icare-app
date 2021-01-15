@@ -1,6 +1,8 @@
 const LST = require("../../models/LST/LST");
 const pdf = require("html-pdf");
 const pdfTemplate = require("../../documents/lst");
+const puppeteer = require('puppeteer')
+
 
 exports.LSTCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
@@ -15,6 +17,18 @@ exports.LSTCreate = async (req, res) => {
     // const errors = handleError(err);
     console.log(err);
     res.status(400).json({ err });
+  }
+};
+
+exports.getById = async (req, res) => {
+  try {
+    let {id}=req.body
+    // console.log(req.body.id)
+    let lst = await LST.findById(id).populate("invItems");
+    return res.status(200).json(lst);
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
   }
 };
 
@@ -93,23 +107,69 @@ exports.updateLST = async (req, res) => {
 
 // Pdf Download ------------------
 
+// exports.downloadPdf = async (req, res) => {
+//   let { id } = req.body;
+
+//   try {
+//         let lst = await LST.findById(req.body.id).populate("invItems");
+        
+      
+//    let options={
+    
+//      // Rendering options
+//      "base": "file:///Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST", 
+//    }
+        
+//   pdf
+//     .create(pdfTemplate(lst), options)
+//     .toFile("./controllers/LST/lstnew.pdf", (err) => {
+//       if (err) {
+//         res.send(Promise.reject());
+//       }
+
+//       // res.send(Promise.resolve());
+
+//       res.status(200).sendFile(`${__dirname}/lstnew.pdf`);
+//     });
+
+//   } catch (err) {
+//     console.log(id);
+//     return res.status(400).json({ error: err });
+//   }
+// };
+
 exports.downloadPdf = async (req, res) => {
-  // let { id, update } = req.body;
+  let { id } = req.body;
 
-  pdf
-    .create(pdfTemplate(req.body), {})
-    .toFile("./controllers/LST/lstnew.pdf", (err) => {
-      if (err) {
-        res.send(Promise.reject());
-      }
+  try {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(`${process.env.FRONT}/lstpdf/${id}`, {waitUntil: 'networkidle0'});
+    const pdf = await page.pdf({ format: 'A4' });
+   
+    await browser.close();
+    res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
+	  res.send(pdf)
+ 
+ 
 
-      // res.send(Promise.resolve());
-
-      res.status(200).sendFile(`${__dirname}/lstnew.pdf`);
-    });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
 };
 
 // -----------------------Fuzzy Search Regex----------------
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
+async function printPDF() {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto('http://localhost:3001/lstpdf/600143a03f2e0845de4fd474', {waitUntil: 'networkidle0'});
+  const pdf = await page.pdf({ format: 'A4' });
+ 
+  await browser.close();
+  return pdf
 }

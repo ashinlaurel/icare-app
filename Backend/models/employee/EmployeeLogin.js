@@ -50,8 +50,7 @@ const employeeLoginSchema = mongoose.Schema({
   altContact: String,
   whatsappNo: String,
   sex: String,
-  dob: String,
-  age: String,
+  dob: Date,
   // Qualification Form
   educational: String,
   technical: String,

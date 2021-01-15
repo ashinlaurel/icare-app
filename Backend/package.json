@@ -29,6 +29,7 @@
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
+    "puppeteer": "^5.5.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.1"
   }
