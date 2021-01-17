@@ -28,7 +28,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
-function PurchaseInventory() {
+function PurchaseSimilarInventory() {
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
   const [calculate, setCalculate] = useState(false);
@@ -46,7 +46,6 @@ function PurchaseInventory() {
     panno: "",
     aadharno: "",
     purchlocation: "Local",
-    totalInvoice:"0",
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
@@ -86,7 +85,7 @@ function PurchaseInventory() {
     systype:"part",
 
     //-------
-    caseId: "",
+    caseId:"",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -105,7 +104,6 @@ function PurchaseInventory() {
       console.log("missing inputs");
       return;
     }
-    let ids=[];
     console.log("Submission Start");
     const newitems = [...values];
     newitems.map((item) => {
@@ -127,35 +125,18 @@ function PurchaseInventory() {
       data: newitems,
     })
       .then((data) => {
-        console.log("Added", data);
-        data.data.map(i=>ids.push(i._id));
+        console.log("Added", data._id);
         // setIsReviewModalOpen(true);
-        
-        console.log(ids);
-        let histdata={...basevalues,invItems:ids};
-
-        Axios({
-          url: `${API}/inventory/${Emp.getId()}/createpurchasehistory`,
-          method: "POST",
-          data: histdata,
-        })
-          .then((data) => {
-            console.log("hisory added",data)
-            setValues([invdetails]);
-            setBaseValues(thebval);
-            setErr({
-              type: "",
-              name: "",
-              sno: "",
-              condition: "",
-              location: "",
-              invnumber: "",
-            });
-          }).catch((err) => {
-            console.log("err", err);
-            setErr({ ...err });
-          });
-
+        setValues([invdetails]);
+        setBaseValues(thebval);
+        setErr({
+          type: "",
+          name: "",
+          sno: "",
+          condition: "",
+          location: "",
+          invnumber: "",
+        });
       })
       .catch((err) => {
         console.log("err", err);
@@ -166,7 +147,7 @@ function PurchaseInventory() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Purchase Inventory");
+    setTopHeading("Purchase Similar Inventory");
     return () => {
       setTopHeading("");
     };
@@ -209,14 +190,7 @@ function PurchaseInventory() {
       newlist[calnum].invamount =
         parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
       newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
-      console.log(basevalues.totalInvoice,newlist[calnum].invamount)
-      console.log(parseFloat(basevalues.totalInvoice)+parseFloat(newlist[calnum].invamount))
-
-      let newbaseval=basevalues
-      newbaseval.totalInvoice=parseFloat(parseFloat(basevalues.totalInvoice)+parseFloat(newlist[calnum].invamount))
-      setBaseValues(newbaseval)
     }
-
 
     setValues(newlist);
 
@@ -348,7 +322,7 @@ function PurchaseInventory() {
     return (
       <div className="px-4 py-3 mt-4 mb-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
-          <span>Purchase Information Total Invoice Amount{basevalues.totalInvoice}</span>
+          <span>Purchase Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* -----Row 1 --------- */}
@@ -530,13 +504,11 @@ function PurchaseInventory() {
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].type = e.target.value;
-                  newlist[num].type = newlist[num].type.toLowerCase();
-
                   setValues(newlist);
                 }}
               >
                 <option value="" selected disabled>
-                  Select Type
+                  Select Category
                 </option>
                 {values[num].systype=="part"?<>
                 <option value="Mouse">Mouse</option>
@@ -586,7 +558,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.name}
+                  value={values[num].name}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].name = e.target.value;
@@ -605,7 +577,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.brand}
+                  value={values[num].brand}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].brand = e.target.value;
@@ -624,7 +596,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.model}
+                  value={values[num].model}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].model = e.target.value;
@@ -646,7 +618,7 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={values.sno}
+                value={values[num].sno}
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].sno = e.target.value;
@@ -920,7 +892,8 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = invdetails;
+                let add = values[0];
+                console.log(add)
                 newitem.push(add);
                 setValues(newitem);
               }}
@@ -974,4 +947,4 @@ function PurchaseInventory() {
   );
 }
 
-export default PurchaseInventory;
+export default PurchaseSimilarInventory;

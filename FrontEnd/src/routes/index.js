@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import ViewSalary from "../pages/Employee/ViewSalary";
-import PurchaseInventory from "../pages/Inventory/PurchaseInventory";
+
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -53,6 +53,9 @@ const UpdateAssetFromCall = lazy(() =>
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
+const PurchaseInventory = lazy(() => import("../pages/Inventory/PurchaseInventory"));
+const PurchaseSimilarInventory = lazy(() => import("../pages/Inventory/PurchaseSimilarInventory"));
+const PurchaseHistory = lazy(() => import("../pages/Inventory/PurchaseHistory"));
 
 // ------------------------------- Employee Imports
 
@@ -257,6 +260,14 @@ export const aroutes = [
   {
     path: "/inventory/purchase",
     component: PurchaseInventory,
+  },
+  {
+    path: "/inventory/purchasesimilar",
+    component: PurchaseSimilarInventory,
+  },
+  {
+    path: "/inventory/purchasehistory",
+    component:PurchaseHistory,
   },
 
   // ----------------------LST Views ----------------------/

@@ -1,6 +1,7 @@
 const Asset = require("../../models/assets/assets");
 const Server = require("../../models/products/server");
 const InvItem = require("../../models/inventory/InvItem");
+const PurchaseHistory = require("../../models/PurchaseHistory/PurchaseHistory");
 const { Schema } = require("mongoose");
 const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
@@ -78,7 +79,8 @@ exports.createItem = async (req, res) => {
 
 exports.createItems = async (req, res) => {
   let newitems = req.body;
-  console.log(newitems);
+  // console.log(newitems);
+ 
   try {
     // Saving the asset
 
@@ -264,6 +266,78 @@ exports.updateInventory = async (req, res) => {
     // console.log(id);
     return res.status(400).json({ error: err });
   }
+};
+
+// ------------history-------------------------------------------
+
+exports.createPurchaseHistrory= async (req, res) => {
+  let item = req.body;
+  console.log(item);
+  try {
+    // Saving the asset
+    const newitem = new PurchaseHistory(item);
+    const result = await newitem.save();
+    return res.status(200).json(result);
+  } catch (err) {
+    console.log("Purchase history Item Creating error", err.message);
+    let message = err.message;
+    res.status(400).json({ message });
+    // throw error;
+  }
+};
+
+
+exports.getAllHistory = (req, res) => {
+  let { pages, filters } = req.body;
+
+  let { searchquery } = filters;
+  // console.log(filters);
+  // console.log(searchquery);
+  // console.log(searchtype);
+  const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
+
+  let options = {
+    // populate: "product",
+    page: pages.page,
+    limit: pages.limit,
+    populate: "invItems"
+  };
+
+  let filteroptions = {
+    // product: { brand: "IBM" },
+  };
+
+  // ---Conditional Addition of filters
+  // if (filters.type != "") {
+  //   filteroptions.type = filters.type;
+  // }
+  // if (filters.location != "") {
+  //   filteroptions.location = filters.location;
+  // }
+  // if (filters.condition != "") {
+  //   filteroptions.condition = filters.condition;
+  // }
+  // if (filters.searchquery != "") {
+  //   filteroptions.sno = fuzzyquery;
+  // }
+
+  // -----------------------------------------------------------------------
+
+  PurchaseHistory.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No items found",
+        err: err,
+      });
+    }
+    // console.log(result.docs);
+    let output = {
+      total: result.total,
+      out: result.docs,
+    };
+    return res.status(200).json(output);
+  });
 };
 
 // exports.deleteAsset = async (req, res) => {

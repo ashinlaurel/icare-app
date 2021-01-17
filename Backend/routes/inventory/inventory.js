@@ -8,6 +8,8 @@ const {
   deleteInventory,
   updateInventory,
   createItems,
+  createPurchaseHistrory,
+  getAllHistory,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -41,6 +43,7 @@ router.post(
 );
 
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteInventory);
+router.post("/:id/createpurchasehistory", isSignedIn, isAuthenticated, createPurchaseHistrory);
 // --------------------DropDown Searches --------------------------------
 // router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
 router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
@@ -49,6 +52,7 @@ router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 // router.get("/product/:productId", getProduct);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
+router.post("/:id/getallhistory", isSignedIn, isAuthenticated, getAllHistory);
 router.post("/:id/assetupdate", isSignedIn, isAuthenticated, handleAssetUpdate);
 router.post("/:id/invupdate", isSignedIn, isAuthenticated, updateInventory);
 // -------------------Counter Routes------------------
