@@ -85,7 +85,7 @@ function PurchaseInventory() {
     systype:"part",
 
     //-------
-    caseId:"",
+    caseId: "",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -504,11 +504,13 @@ function PurchaseInventory() {
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].type = e.target.value;
+                  newlist[num].type = newlist[num].type.toLowerCase();
+
                   setValues(newlist);
                 }}
               >
                 <option value="" selected disabled>
-                  Select Category
+                  Select Type
                 </option>
                 {values[num].systype=="part"?<>
                 <option value="Mouse">Mouse</option>
