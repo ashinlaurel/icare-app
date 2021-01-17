@@ -14,8 +14,9 @@ import { Input, HelperText, Label, Select } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { saveAs } from "file-saver"
 
-import { EditIcon, TrashIcon } from "../../icons";
+import { EditIcon, TrashIcon, DownloadIcon } from "../../icons";
 import {
   TableBody,
   TableContainer,
@@ -118,6 +119,25 @@ function SalaryHistory() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, startDate]);
 
+
+  const createAndDownloadPdf = async (id) => {
+    let payload = {
+      id:id
+    };
+    let response = await axios({
+      url: `${API}/admin/${Emp.getId()}/downloadsalarypdf`,
+      method: "POST",
+      data: payload,
+      responseType: "blob",
+    });
+
+    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+
+    saveAs(pdfBlob, "Salary.pdf");
+  };
+
+
+
   const DeleteModal = () => {
     return (
       <>
@@ -188,6 +208,7 @@ function SalaryHistory() {
                 <TableCell>Take Home Salary</TableCell>
                 <TableCell>Gross Salary</TableCell>
                 <TableCell>CTC</TableCell>
+                <TableCell>Salary Slip</TableCell>
                 <TableCell>Delete</TableCell>
               </tr>
             </TableHeader>
@@ -258,6 +279,22 @@ function SalaryHistory() {
                   <TableCell>
                     <span className="text-sm">{user.CTC}</span>
                   </TableCell>
+
+                  <TableCell className="text-center ">
+                  <Button
+                        layout="outline"
+                        aria-label="DropDown"
+                        onClick={() => {
+                          console.log("dwlod");
+                          createAndDownloadPdf(user._id);
+                        }}
+                        className="rounded-lg m-1"
+                      >
+                        Download
+                      </Button>
+                    </TableCell>
+
+
                   <TableCell>
                     <div className="flex items-center space-x-4">
                       {/* <Button layout="link" size="icon" aria-label="Edit">

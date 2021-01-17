@@ -1,135 +1,141 @@
-module.exports = ({ name, price1, price2, receiptId }) => {
-  const today = new Date();
-  return `
-    <!doctype html>
-    <html>
-       <head>
-          <meta charset="utf-8">
-          <title>PDF Template</title>
-          <style>
-             .invoice-box {
-             max-width: 800px;
-             margin: auto;
-             padding: 30px;
-             border: 1px solid #eee;
-             box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-             font-size: 16px;
-             line-height: 24px;
-             font-family: 'Helvetica Neue', 'Helvetica',
-             color: #555;
-             }
-             .margin-top {
-             margin-top: 50px;
-             }
-             .justify-center {
-             text-align: center;
-             }
-             .invoice-box table {
-             width: 100%;
-             line-height: inherit;
-             text-align: left;
-             }
-             .invoice-box table td {
-             padding: 5px;
-             vertical-align: top;
-             }
-             .invoice-box table tr td:nth-child(2) {
-             text-align: right;
-             }
-             .invoice-box table tr.top table td {
-             padding-bottom: 20px;
-             }
-             .invoice-box table tr.top table td.title {
-             font-size: 45px;
-             line-height: 45px;
-             color: #333;
-             }
-             .invoice-box table tr.information table td {
-             padding-bottom: 40px;
-             }
-             .invoice-box table tr.heading td {
-             background: #eee;
-             border-bottom: 1px solid #ddd;
-             font-weight: bold;
-             }
-             .invoice-box table tr.details td {
-             padding-bottom: 20px;
-             }
-             .invoice-box table tr.item td {
-             border-bottom: 1px solid #eee;
-             }
-             .invoice-box table tr.item.last td {
-             border-bottom: none;
-             }
-             .invoice-box table tr.total td:nth-child(2) {
-             border-top: 2px solid #eee;
-             font-weight: bold;
-             }
-             @media only screen and (max-width: 600px) {
-             .invoice-box table tr.top table td {
-             width: 100%;
-             display: block;
-             text-align: center;
-             }
-             .invoice-box table tr.information table td {
-             width: 100%;
-             display: block;
-             text-align: center;
-             }
-             }
-          </style>
-       </head>
-       <body>
-          <div class="invoice-box">
-             <table cellpadding="0" cellspacing="0">
-                <tr class="top">
-                   <td colspan="2">
-                      <table>
-                         <tr>
-                            <td class="title"><img  src="https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19707.png"
-                               style="width:100%; max-width:156px;"></td>
-                            <td>
-                               Date: ${`${today.getDate()}. ${
-                                 today.getMonth() + 1
-                               }. ${today.getFullYear()}.`}
-                            </td>
-                         </tr>
-                      </table>
-                   </td>
-                </tr>
-                <tr class="information">
-                   <td colspan="2">
-                      <table>
-                         <tr>
-                            <td>
-                               Customer name: ${name}
-                            </td>
-                            <td>
-                               Receipt number: ${receiptId}
-                            </td>
-                         </tr>
-                      </table>
-                   </td>
-                </tr>
-                <tr class="heading">
-                   <td>Bought items:</td>
-                   <td>Price</td>
-                </tr>
-                <tr class="item">
-                   <td>First item:</td>
-                   <td>${price1}$</td>
-                </tr>
-                <tr class="item">
-                   <td>Second item:</td>
-                   <td>${price2}$</td>
-                </tr>
-             </table>
-             <br />
-             <h1 class="justify-center">Total price: ${
-               parseInt(price1) + parseInt(price2)
-             }$</h1>
-          </div>
-       </body>
-    </html>
-    `;
-};
+// const logo= require("./icarelogo.png")
+// const css=require("./lst.css")
+
+module.exports = (data) => {
+   const today = new Date();
+   return `
+     <!doctype html>
+     <html>
+        <head>
+           <meta charset="utf-8">
+         
+          
+           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+           <link rel="stylesheet" href="/Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST/lst.css">
+           <link rel="stylesheet" href="/Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST/tailwind.css">
+           
+           <title>PDF Template</title>
+        </head>
+        <body>
+
+        <div class="container">
+               <div class="top-title" >
+               LOCATIONAL STOCK TRANSFER / DELIVERY CHALLAN
+               </div>
+               <div class="top-title">
+               NOT FOR SALE (TRANSFER TO BRANCH LOCATION)
+               </div>
+               <div class="two-row flex flex-row bg-red-500">
+                     <img src="/Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST/icarelogo.png" alt="InfoCare" class="logo " />
+                     <div class="left-align">
+                        <div class=" ">
+                              LST No.: ${data.LSTNo}
+                        </div> 
+                        <div class=" ">
+                              LST Date: ${   data.date}
+                        </div> 
+                     </div>
+               </div>
+               <div class="two-row bg-red-500">
+                     <div class="left-align">
+                        <div>FROM</div> 
+                        <div>INFOCARE SYSTEMS</div> 
+                        <div>Head Office, Gnd Floor, TC. 92/2015(3)</div> 
+                        <div>VURA-28, Temple Road, Anayara PO</div> 
+                        <div>Trivandrum, Kerala, 695029</div> 
+                        <div>Ph: 0471-2740139, 9562905668</div> 
+                     </div> 
+                     <div class="text-left">
+                     
+                        <div>TO</div> 
+                        <div>INFOCARE SYSTEMS</div> 
+                        <div>Viswa Hindu Bhavan Hostel</div> 
+                        <div>Room No:B15, Chalappuram</div> 
+                        <div>Kozhikode, Kerala, 673002</div>  
+                        <div>Ph : 0495-2303525/9562862878</div> 
+                     </div>
+               </div>
+
+
+               <table class="tb">
+                  <thead>
+                     <tr>
+                     <th className="tb-head tb-row">SI.No</th>
+                     <th className="tb-head tb-row">Category</th>
+                     <th className="tb-head tb-row">Description</th>
+                     <th className="tb-head tb-row">Qty</th>
+                     <th className="tb-head tb-row">Non Comercial Estimated Value Rs</th>
+                     <th className="tb-head tb-row">Item Slno:</th>
+                     <th className="tb-head tb-row">Case ID / Call No.</th>
+                     
+                     </tr>
+                  </thead>
+                  <tbody>
+               ${data.invItems.map((item,i)=>{
+                  return(
+                  `
+
+
+                     <tr>
+                     <td className="tb-row">${i}</td>
+                     <td className="tb-row">${item.type}</td>
+                     <td className="tb-row">${item.name}</td>
+                     <td className="tb-row">1</td>
+                     <td className="tb-row">Val</td>
+                     <td className="tb-row">${item.sno}</td>
+                     <td className="tb-row">${item.caseId}</td>
+                     </tr>
+
+               
+                  
+                 
+                  `
+                  
+               )})}
+
+               <tr className="">
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row">SubTotal</td>
+                     <td className="tb-head tb-row">4</td>
+                     <td className="tb-head tb-row">TotVal</td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                  </tr>
+
+                  <tr className="">
+                     <td className="tb-head tb-row">Despachted By</td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row">Received By</td>
+                     <td className="tb-head tb-row"></td>
+                  </tr>
+
+                  <tr className="">
+                     <td className="tb-head tb-row">Date</td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row"></td>
+                     <td className="tb-head tb-row">Date</td>
+                     <td className="tb-head tb-row"></td>
+                  </tr>
+         
+         
+               </tbody>
+               </table>
+                     
+        
+        
+        
+               </div>
+             
+ 
+             
+        </body>
+     </html>
+     `;
+ };
+ 

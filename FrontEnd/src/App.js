@@ -13,6 +13,8 @@ import PrivateRoute from "./helpers/auth/PrivateRoute";
 import EmpProfile from "./helpers/auth/EmpProfile";
 import Cust from "./helpers/auth/CustProfile";
 import HomePage from "./pages/Homepage/HomePage";
+import LSTPDF from "./pages/TEMPPDF/LSTPDF";
+import SalaryPDF from "./pages/TEMPPDF/SalaryPDF";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const CustomerLogin = lazy(() => import("./pages/Customers/CustomerLogin"));
@@ -39,6 +41,8 @@ function App() {
           </Route>
           <Route path="/signin" component={CustomerLogin} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/lstpdf/:id" component={LSTPDF} />
+          <Route path="/salarypdf/:id" component={SalaryPDF} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}
           <Route path="/admin/signup" component={AdminSignUp} />

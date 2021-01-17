@@ -1,0 +1,55 @@
+/* .pdfcontainer{
+    font-family: 'Times New Roman', Times, serif;
+    margin: 40px 54px;
+    font-size: 10px;
+}    */
+.top-title{
+    text-align: center;
+    font-weight: 700;
+}
+.two-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 20px;
+    font-weight: 700;
+}
+.logo{
+    width: 200px;
+    height: auto;
+}
+.left-align{
+    text-align: left;
+}
+.tb-head{
+    font-weight: 700; 
+}
+
+.tb-row{
+    border: 1px solid black;
+}
+.tb {
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+
+.bold{
+    font-weight: 700;
+}
+.m-t{
+    margin-top: 30px;
+}
+.sign{
+    text-align: right;
+    margin-top: 30px;
+    margin-right: 150px;
+}
+.pdfcontainer{
+    font-size: 11px;
+}
+#bottom-text{
+    font-size: 10px !important;
+    font-weight: 500;
+}
+
+@page{size:a4}

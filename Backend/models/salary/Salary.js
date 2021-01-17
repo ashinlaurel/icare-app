@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
+const Schema = mongoose.Schema
 
 const salarySchema = mongoose.Schema({
   //   employeeName: {
@@ -8,8 +9,12 @@ const salarySchema = mongoose.Schema({
   //     maxlength: 32,
   //     trim: true,
   //   },
-  queryID: String,
+  // queryID: String,
   employeeID: String,
+  queryID: {
+    type: Schema.Types.ObjectId,
+    ref:'EmployeeLogin',
+  },
   employeeName: String,
   date: Date,
   PFNo: String,

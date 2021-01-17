@@ -1,0 +1,54 @@
+.container{
+    font-family: 'Times New Roman', Times, serif;
+    margin: 40px 54px;
+    font-size: 10px !important;
+}
+@media print{
+.top-title{
+    text-align: center;
+    font-weight: 700;
+}
+.two-row{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    margin: 20px 20px !important;
+    font-weight: 700 !important;
+    /* background-color: blue; */
+    
+}
+.logo{
+    width: 200px;
+    height: auto;
+}
+.left-align{
+    text-align: left;
+}
+.tb-head{
+    font-weight: 700; 
+}
+
+.tb-row{
+    border: 1px solid black !important;
+}
+.tb {
+    border-collapse: collapse !important;
+    border: 1px solid black !important; 
+  }
+
+.bold{
+    font-weight: 700;
+}
+.m-t{
+    margin-top: 30px;
+}
+.sign{
+    text-align: right;
+    margin-top: 30px;
+    margin-right: 150px;
+}
+body{
+    font-size: small;
+}
+
+}

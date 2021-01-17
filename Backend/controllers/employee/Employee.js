@@ -1,5 +1,6 @@
 const EmployeeLogin = require("../../models/employee/EmployeeLogin");
 const Salary = require("../../models/salary/Salary");
+const puppeteer = require('puppeteer')
 
 exports.getAllEmployees = (req, res) => {
   let { search } = req.body;
@@ -209,6 +210,41 @@ exports.deleteSalary = async (req, res) => {
     let sal = await Salary.findByIdAndDelete({ _id: id });
 
     return res.status(200).json({ sal });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+
+exports.getSalById = async (req, res) => {
+  console.log(req.body)
+  const {id}= req.body;
+  try {
+    let asset = await Salary.findById(id).populate("queryID");
+    return res.status(200).json(asset);
+  } catch (err) {
+    console.log(id,err);
+    return res.status(400).json({ error: err });
+  }
+};
+
+
+exports.downloadsalaryPdf = async (req, res) => {
+  let { id } = req.body;
+
+  try {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(`${process.env.FRONT}/salarypdf/${id}`, {waitUntil: 'networkidle0'});
+    const pdf = await page.pdf({ format: 'A4' });
+   
+    await browser.close();
+    res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
+	  res.send(pdf)
+ 
+ 
+
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });

@@ -183,6 +183,7 @@ function LST() {
         id: item._id,
         update: {
           location: "In Transit",
+          caseId:item.caseId
         },
       };
       console.log("PAYLOAD", data);

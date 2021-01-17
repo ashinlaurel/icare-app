@@ -47,8 +47,8 @@ function CreateEmployee() {
     confpassword: "",
     employeeName: "",
     address: "",
-    district: "",
-    state: "",
+    district: "Trivandrum",
+    state: "Kerala",
     pincode: "",
     contactPerson: "",
     contactNo: "",
@@ -56,7 +56,6 @@ function CreateEmployee() {
     contactPersonOcc: "",
     altContact: "",
     WhatsappNo: "",
-    age: "",
 
     // ---new ones
   });
@@ -122,7 +121,7 @@ function CreateEmployee() {
       contactPersonOcc: values.contactPersonOcc,
       whatsappNo: values.WhatsappNo,
       sex: sex,
-      age: values.age,
+      
       dob: dob,
       location: location,
     };
@@ -138,6 +137,27 @@ function CreateEmployee() {
           customerName: "",
           enc_password: "",
           confpassword: "",
+        });
+        setValues({
+          //both
+      
+          employeeID: "",
+          email: "",
+          password: "",
+          confpassword: "",
+          employeeName: "",
+          address: "",
+          district: "Trivandrum",
+          state: "Kerala",
+          pincode: "",
+          contactPerson: "",
+          contactNo: "",
+          contactNoLand: "",
+          contactPersonOcc: "",
+          altContact: "",
+          WhatsappNo: "",
+      
+          // ---new ones
         });
       })
       .catch((err) => {
@@ -405,16 +425,7 @@ function CreateEmployee() {
               />
             </Label>
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Age</span>
-              <Input
-                className="mt-1"
-                value={values.age}
-                onChange={handleChange("age")}
-              />
-            </Label>
-          </div>
+          
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Father/Husband Name</span>

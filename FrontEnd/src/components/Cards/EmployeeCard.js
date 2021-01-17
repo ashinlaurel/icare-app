@@ -20,7 +20,7 @@ function EmployeeCard({
         {icon}
         <div>
           <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-            {value}
+            {value.length<15?<>{value}</>:`${value.substring(0,15)}...` }
           </p>
           <p className=" text-sm text-gray-700 dark:text-gray-200">
             {role == 0 ? "Admin" : role == 11 ? "Engineer" : "Assistant"}

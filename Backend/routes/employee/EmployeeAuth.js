@@ -8,6 +8,9 @@ const {
   createSalary,
   getAllSalary,
   deleteSalary,
+  getSalById,
+  downloadsalaryPdf
+  
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -28,6 +31,7 @@ router.get("/logout", (req, res) => {
 });
 //---Get By ID Details
 router.post("/:id/getEmployeeById", getEmployeeById);
+router.post("/getEmployeeById", getEmployeeById);
 // get employees with search enabled and filters
 router.post("/employees", getAllEmployees);
 router.post("/:id/getAll", getAllEngg);
@@ -67,5 +71,7 @@ router.post("/:id/deleteEmployee", isSignedIn, isAuthenticated, deleteEmployee);
 router.post("/:id/createSalary", createSalary);
 router.post("/:id/getAllSalary", getAllSalary);
 router.post("/:id/deleteSalary", isSignedIn, isAuthenticated, deleteSalary);
+router.post("/getsalarybyid", getSalById);
+router.post("/:id/downloadsalarypdf", isSignedIn, isAuthenticated, downloadsalaryPdf)
 
 module.exports = router;
