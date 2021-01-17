@@ -28,7 +28,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
-function PurchaseInventory() {
+function PurchaseSimilarInventory() {
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
   const [calculate, setCalculate] = useState(false);
@@ -147,7 +147,7 @@ function PurchaseInventory() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Purchase Inventory");
+    setTopHeading("Purchase Similar Inventory");
     return () => {
       setTopHeading("");
     };
@@ -558,7 +558,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.name}
+                  value={values[num].name}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].name = e.target.value;
@@ -577,7 +577,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.brand}
+                  value={values[num].brand}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].brand = e.target.value;
@@ -596,7 +596,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.model}
+                  value={values[num].model}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].model = e.target.value;
@@ -618,7 +618,7 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={values.sno}
+                value={values[num].sno}
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].sno = e.target.value;
@@ -892,7 +892,8 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = invdetails;
+                let add = values[0];
+                console.log(add)
                 newitem.push(add);
                 setValues(newitem);
               }}
@@ -946,4 +947,4 @@ function PurchaseInventory() {
   );
 }
 
-export default PurchaseInventory;
+export default PurchaseSimilarInventory;

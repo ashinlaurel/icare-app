@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
 
 const InvItemSchema = mongoose.Schema({
+  
   type: {
     type: String,
     required: [true, "Please select the item type"],
@@ -55,6 +56,10 @@ const InvItemSchema = mongoose.Schema({
   invamount: String,
   wty: String,
   expirydate: String,
+  //------
+  brand:String,
+  model:String,
+  systype:String,
    // ----------------
    caseId:String, 
 });
