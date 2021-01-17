@@ -319,7 +319,7 @@ function UpdateCall() {
     return (
       <>
         <Modal isOpen={submitModal} onClose={() => setSubmitModal(false)}>
-          <ModalHeader>Asset Updated Successfully!</ModalHeader>
+          <ModalHeader>Swap Successfull</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -439,6 +439,20 @@ function UpdateCall() {
       });
 
       console.log("Done");
+      setInventswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      setExistswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      getAsset();
+      setSubmitModal(true);
     } catch (error) {
       throw error;
     }
@@ -764,7 +778,9 @@ function UpdateCall() {
                   Select Inventory Category
                 </option>
 
-                <option value="Full">Full System</option>
+                <option value="Full" disabled>
+                  Full System
+                </option>
                 <option value="Item">Item</option>
               </select>
 

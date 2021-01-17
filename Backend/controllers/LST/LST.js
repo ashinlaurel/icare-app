@@ -1,8 +1,7 @@
 const LST = require("../../models/LST/LST");
 const pdf = require("html-pdf");
 const pdfTemplate = require("../../documents/lst");
-const puppeteer = require('puppeteer')
-
+const puppeteer = require("puppeteer");
 
 exports.LSTCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
@@ -22,7 +21,7 @@ exports.LSTCreate = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    let {id}=req.body
+    let { id } = req.body;
     // console.log(req.body.id)
     let lst = await LST.findById(id).populate("invItems");
     return res.status(200).json(lst);
@@ -112,14 +111,13 @@ exports.updateLST = async (req, res) => {
 
 //   try {
 //         let lst = await LST.findById(req.body.id).populate("invItems");
-        
-      
+
 //    let options={
-    
+
 //      // Rendering options
-//      "base": "file:///Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST", 
+//      "base": "file:///Users/alan/PROJECTS/INFOCARE/icare-app/Backend/controllers/LST",
 //    }
-        
+
 //   pdf
 //     .create(pdfTemplate(lst), options)
 //     .toFile("./controllers/LST/lstnew.pdf", (err) => {
@@ -142,19 +140,25 @@ exports.downloadPdf = async (req, res) => {
   let { id } = req.body;
 
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"],
+    });
     const page = await browser.newPage();
-    await page.goto(`${process.env.FRONT}/lstpdf/${id}`, {waitUntil: 'networkidle0'});
-    const pdf = await page.pdf({ format: 'A4' });
-   
-    await browser.close();
-    res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
-	  res.send(pdf)
- 
- 
+    await page.goto(`${process.env.FRONT}/lstpdf/${id}`, {
+      waitUntil: "networkidle0",
+    });
+    const pdf = await page.pdf({ format: "A4" });
 
+    await browser.close();
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Length": pdf.length,
+    });
+    res.send(pdf);
   } catch (err) {
     console.log(id);
+    console.log(err);
     return res.status(400).json({ error: err });
   }
 };
@@ -163,4 +167,3 @@ exports.downloadPdf = async (req, res) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
-
