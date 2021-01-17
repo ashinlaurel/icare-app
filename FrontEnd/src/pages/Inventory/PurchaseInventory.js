@@ -81,7 +81,7 @@ function PurchaseInventory() {
     purchlocation: "",
 
     //-------
-    caseId:"",
+    caseId: "",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -473,17 +473,19 @@ function PurchaseInventory() {
         <div className="flex-row flex space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Select Category*</span>
+              <span>Select Type*</span>
               <Select
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].type = e.target.value;
+                  newlist[num].type = newlist[num].type.toLowerCase();
+
                   setValues(newlist);
                 }}
               >
                 <option value="" selected disabled>
-                  Select Category
+                  Select Type
                 </option>
                 <option value="Mouse">Mouse</option>
                 <option value="Keyboard">Keyboard</option>

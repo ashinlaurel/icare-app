@@ -53,7 +53,7 @@ const CreateInvent = () => {
     const newitem = {
       name: values.name,
       sno: values.sno,
-      type: itemType,
+      type: itemType.toLowerCase(),
       condition: condition,
       location: location,
       invnumber: values.invnumber,

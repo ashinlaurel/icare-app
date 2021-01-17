@@ -110,18 +110,39 @@ function UpdateCall() {
   // table variable styles
 
   const [activeRowID, setActiveRowID] = useState(-1);
-  // const [activeRowID, setActiveRowID] = useState(0);
+  const [secondactiveRowID, setSecondactiveRowID] = useState(-1);
 
   // ---------------New States------------
-  const [itemtype, setItemtype] = useState("");
-  const [selectedItem, setSelectedItem] = useState("");
-  const [data, setData] = useState([]);
+  const [itemtype, setItemtype] = useState(""); //Full system vs item
+  const [selectedItem, setSelectedItem] = useState(""); //the selected item category
+  const [data, setData] = useState([]); //for first table expansion
+  const [inventdata, setInventData] = useState([]); //for second table expansion
   const [existswap, setExistswap] = useState([
     {
       name: "Not Selected",
       sno: "Not Selected",
     },
   ]);
+  const [inventswap, setInventswap] = useState([
+    {
+      name: "Not Selected",
+      sno: "Not Selected",
+    },
+  ]);
+
+  // filterhooks
+  const [type, setType] = useState("");
+  const [location, setLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+  const [LSTNo, setLSTNo] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [condition, setCondition] = useState("");
+  const [page, setPage] = useState(1);
+
+  // search
+  const [searchtype, setSearchType] = useState("");
+  const [searchlabel, setSearchLabel] = useState("");
+  const [searchquery, setSearchQuery] = useState("");
 
   useEffect(() => {
     let temp = data;
@@ -136,6 +157,47 @@ function UpdateCall() {
       "Data Updation Done";
     };
   }, [data]);
+
+  useEffect(() => {
+    thegetter();
+  }, [selectedItem]);
+
+  async function thegetter() {
+    console.log("getter called");
+    console.log(selectedItem);
+    let payload = {
+      pages: {
+        page: page,
+        limit: 1000000,
+      },
+      filters: {
+        type: selectedItem.toLowerCase(),
+        location: location,
+        condition: condition,
+        searchtype: searchtype,
+        searchquery: searchquery,
+      },
+    };
+    // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      // setTotalResults(response.data.total);
+      // const { total, data } = response.data;
+      // console.log(data + "Now");
+
+      setInventData(response.data.out);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // -----getting inventory items
 
   const getAsset = async () => {
     try {
@@ -576,7 +638,7 @@ function UpdateCall() {
     );
   };
 
-  const InvTable = (items) => {
+  const InvTable = (items, activeRowID, setActiveRowID, setExistswap) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
         <div className="mb- mt-4">
@@ -674,7 +736,7 @@ function UpdateCall() {
                 }}
               >
                 <option value="" disabled selected>
-                  Select Item Type
+                  Select Inventory Category
                 </option>
 
                 <option value="Full">Full System</option>
@@ -852,6 +914,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Mouse");
+                        // thegetter();
                         setData(mouse);
                       }}
                     >
@@ -872,6 +935,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Monitor");
+                        setData(monitor);
                       }}
                     >
                       <span>Monitor</span>
@@ -881,6 +945,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Cpu");
+                        setData(cpu);
                       }}
                     >
                       <span>Cpu</span>
@@ -890,6 +955,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Ram");
+                        setData(ram);
                       }}
                     >
                       <span>Ram</span>
@@ -899,6 +965,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Fan");
+                        setData(fan);
                       }}
                     >
                       <span>Fan</span>
@@ -908,6 +975,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Motherboard");
+                        setData(motherboard);
                       }}
                     >
                       <span>Motherboard</span>
@@ -917,6 +985,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("SMPS");
+                        setData(smps);
                       }}
                     >
                       <span>SMPS</span>
@@ -926,6 +995,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("HDD");
+                        setData(hdd);
                       }}
                     >
                       <span>HDD</span>
@@ -935,6 +1005,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Gcard");
+                        setData(gcard);
                       }}
                     >
                       <span>Gcard</span>
@@ -944,6 +1015,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("EnetCard");
+                        setData(enetcard);
                       }}
                     >
                       <span>Enet Card</span>
@@ -953,6 +1025,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("SerialCard");
+                        setData(serialcard);
                       }}
                     >
                       <span>Serial Card</span>
@@ -962,6 +1035,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("ParalellCard");
+                        setData(parallelcard);
                       }}
                     >
                       <span>Paralell Card</span>
@@ -971,6 +1045,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("OpticalDrive");
+                        setData(opticaldrive);
                       }}
                     >
                       <span>Optical Drive</span>
@@ -980,6 +1055,7 @@ function UpdateCall() {
                         setIsOpen(false);
                         setActiveRowID(-1);
                         setSelectedItem("Others");
+                        setData(others);
                       }}
                     >
                       <span>Others</span>
@@ -988,10 +1064,19 @@ function UpdateCall() {
                 )}
               </Dropdown>
             </div>
+            <Button
+              layout="outline"
+              className="dark:border-green-700 border-green-400"
+              onClick={() => {
+                console.log("Swap");
+              }}
+            >
+              Swap
+            </Button>
           </div>
         </div>
 
-        {/* -------Existing Item ----------*/}
+        {/* -------Existing Item Table ----------*/}
 
         <TableContainer className="mt-4">
           <Table>
@@ -1004,7 +1089,7 @@ function UpdateCall() {
                 <TableCell>
                   <span
                     className="cursor-pointer"
-                    onClick={() => setActiveRowID(-1)}
+                    // onClick={() => setActiveRowID(-1)}
                   >
                     Items
                   </span>
@@ -1028,7 +1113,7 @@ function UpdateCall() {
                     <TableCell className="w-8">
                       <div className="flex items-center text-sm ">
                         <div>
-                          <p className="font-semibold">{user.type}</p>
+                          <p className="font-semibold">{selectedItem}</p>
                         </div>
                       </div>
                     </TableCell>
@@ -1061,7 +1146,99 @@ function UpdateCall() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable(data) : null}
+                  {activeRowID == i
+                    ? InvTable(data, activeRowID, setActiveRowID, setExistswap)
+                    : null}
+                </div>
+              ))}
+            </TableBody>
+          </Table>
+          {/* <TableFooter>
+            <Pagination
+              totalResults={totalResults}
+              resultsPerPage={resultsPerPage}
+              label="Table navigation"
+              onChange={onPageChange}
+            />
+          </TableFooter> */}
+        </TableContainer>
+
+        {/*----------- Inventory Selection Table ----------- */}
+        <TableContainer className="mt-4">
+          <Table>
+            <TableHeader>
+              <tr className="flex flex-row justify-between">
+                <TableCell>Type</TableCell>
+                <TableCell>Model</TableCell>
+                <TableCell>Serial Number</TableCell>
+
+                <TableCell>
+                  <span
+                    className="cursor-pointer"
+                    // onClick={() => setActiveRowID(-1)}
+                  >
+                    Items
+                  </span>
+                </TableCell>
+              </tr>
+            </TableHeader>
+            <TableBody>
+              {inventswap.map((user, i) => (
+                <div className="flex flex-col justify-around">
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      secondactiveRowID == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      // setActiveRowID(i);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{selectedItem}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
+
+                    <TableCell>
+                      <span className="text-sm">{user.sno}</span>
+                    </TableCell>
+
+                    <TableCell className="text-center ">
+                      <Button
+                        // layout="link"
+                        size="icon"
+                        aria-label="DropDown"
+                        onClick={() => {
+                          if (secondactiveRowID != -1) {
+                            setSecondactiveRowID(-1);
+                          } else {
+                            setSecondactiveRowID(i);
+                          }
+                          // setActiveRowID(-1);
+                        }}
+                        className="rounded-lg m-1"
+                      >
+                        <DropdownIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+
+                  {secondactiveRowID == i
+                    ? InvTable(
+                        inventdata,
+                        secondactiveRowID,
+                        setSecondactiveRowID,
+                        setInventswap
+                      )
+                    : null}
                 </div>
               ))}
             </TableBody>
