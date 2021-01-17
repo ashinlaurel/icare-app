@@ -83,6 +83,8 @@ export const aroutes = [
         name: "Purchase History",
       },
       
+      
+      
       {
         path: "/app/inventory/create",
         name: "Add Item",

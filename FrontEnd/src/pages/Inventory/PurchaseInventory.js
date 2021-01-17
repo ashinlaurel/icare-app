@@ -46,6 +46,7 @@ function PurchaseInventory() {
     panno: "",
     aadharno: "",
     purchlocation: "Local",
+    totalInvoice:"0",
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
@@ -104,6 +105,7 @@ function PurchaseInventory() {
       console.log("missing inputs");
       return;
     }
+    let ids=[];
     console.log("Submission Start");
     const newitems = [...values];
     newitems.map((item) => {
@@ -125,18 +127,35 @@ function PurchaseInventory() {
       data: newitems,
     })
       .then((data) => {
-        console.log("Added", data._id);
+        console.log("Added", data);
+        data.data.map(i=>ids.push(i._id));
         // setIsReviewModalOpen(true);
-        setValues([invdetails]);
-        setBaseValues(thebval);
-        setErr({
-          type: "",
-          name: "",
-          sno: "",
-          condition: "",
-          location: "",
-          invnumber: "",
-        });
+        
+        console.log(ids);
+        let histdata={...basevalues,invItems:ids};
+
+        Axios({
+          url: `${API}/inventory/${Emp.getId()}/createpurchasehistory`,
+          method: "POST",
+          data: histdata,
+        })
+          .then((data) => {
+            console.log("hisory added",data)
+            setValues([invdetails]);
+            setBaseValues(thebval);
+            setErr({
+              type: "",
+              name: "",
+              sno: "",
+              condition: "",
+              location: "",
+              invnumber: "",
+            });
+          }).catch((err) => {
+            console.log("err", err);
+            setErr({ ...err });
+          });
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -190,7 +209,14 @@ function PurchaseInventory() {
       newlist[calnum].invamount =
         parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
       newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
+      console.log(basevalues.totalInvoice,newlist[calnum].invamount)
+      console.log(parseFloat(basevalues.totalInvoice)+parseFloat(newlist[calnum].invamount))
+
+      let newbaseval=basevalues
+      newbaseval.totalInvoice=parseFloat(parseFloat(basevalues.totalInvoice)+parseFloat(newlist[calnum].invamount))
+      setBaseValues(newbaseval)
     }
+
 
     setValues(newlist);
 
@@ -322,7 +348,7 @@ function PurchaseInventory() {
     return (
       <div className="px-4 py-3 mt-4 mb-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
-          <span>Purchase Information</span>
+          <span>Purchase Information Total Invoice Amount{basevalues.totalInvoice}</span>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* -----Row 1 --------- */}

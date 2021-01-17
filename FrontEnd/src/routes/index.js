@@ -55,6 +55,7 @@ const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 const PurchaseInventory = lazy(() => import("../pages/Inventory/PurchaseInventory"));
 const PurchaseSimilarInventory = lazy(() => import("../pages/Inventory/PurchaseSimilarInventory"));
+const PurchaseHistory = lazy(() => import("../pages/Inventory/PurchaseHistory"));
 
 // ------------------------------- Employee Imports
 
@@ -263,6 +264,10 @@ export const aroutes = [
   {
     path: "/inventory/purchasesimilar",
     component: PurchaseSimilarInventory,
+  },
+  {
+    path: "/inventory/purchasehistory",
+    component:PurchaseHistory,
   },
 
   // ----------------------LST Views ----------------------/

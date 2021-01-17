@@ -35,7 +35,7 @@ const InvItemSchema = mongoose.Schema({
   condition: String,
   location: String,
   invnumber: String,
-  invdate: String,
+  invdate: Date,
   invtype: String,
   // ----------------
   purchtype: String,
