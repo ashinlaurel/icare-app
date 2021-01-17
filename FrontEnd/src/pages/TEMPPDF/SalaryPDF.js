@@ -49,7 +49,7 @@ const { id } = useParams();
 
   return (
     <>
-      <div className=" font-serif mx-20  my-10  border-black">
+      <div className=" font-serif mx-20  my-10  border-black ">
         <div className="font-bold text-center my-4 bg-orange-400 uppercase text-white">
          SALARY STATEMENT {moment(date).format('MMMM')} 2019         
         </div>
@@ -106,7 +106,7 @@ const { id } = useParams();
             
             <tr className="">
                 <td className=" tb-row px-2">Basic Wages</td>
-                <td className=" tb-row px-2">{data.basic}</td>
+                <td className=" tb-row px-2">{data.Basic}</td>
                 <td className=" tb-row px-2">Emp. PF Contribution</td>
                 <td className=" tb-row px-2">{data.EmplPF}</td>
                
@@ -144,7 +144,7 @@ const { id } = useParams();
 
             <tr className="">
                 <td className=" tb-row px-2">Total Earnings</td>
-                <td className=" tb-row px-2">{data.basic}</td>
+                <td className=" tb-row px-2"></td>
                 <td className=" tb-row px-2">Total Deductions</td>
                 <td className=" tb-row px-2">{data.Deduction}</td>
                
@@ -152,14 +152,14 @@ const { id } = useParams();
 
             <tr className="">
                 <td className=" tb-row px-2">Net Salary</td>
-                <td className=" tb-row px-2">{data.basic}</td>
+                <td className=" tb-row px-2">{data.GrossSalary}</td>
                 <td className=" tb-row px-2"></td>
                 <td className=" tb-row px-2"></td>
                
             </tr>
             <tr className="">
                 <td className=" tb-row px-2">Net Salary in Words</td>
-                <td className=" tb-row px-2">{data.GrossSalary}</td>
+                <td className=" tb-row px-2"></td>
                 <td className=" tb-row px-2"></td>
                 <td className=" tb-row px-2"></td>
                
