@@ -116,6 +116,12 @@ function UpdateCall() {
   const [itemtype, setItemtype] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   const [data, setData] = useState([]);
+  const [existswap, setExistswap] = useState([
+    {
+      name: "Not Selected",
+      sno: "Not Selected",
+    },
+  ]);
 
   useEffect(() => {
     let temp = data;
@@ -125,6 +131,7 @@ function UpdateCall() {
       item.sno = item[`${thetype}sno`];
     });
     console.log(temp);
+    setData(temp);
     return () => {
       "Data Updation Done";
     };
@@ -581,9 +588,7 @@ function UpdateCall() {
                   <TableCell>Type</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Serial Number</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Inv Number</TableCell>
-                  <TableCell>Condition</TableCell>
+                  <TableCell>Select</TableCell>
                 </tr>
               </TableHeader>
               <TableBody>
@@ -596,7 +601,7 @@ function UpdateCall() {
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowID(user._id);
+                      // setActiveRowID(user._id);
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
@@ -626,17 +631,16 @@ function UpdateCall() {
                       <span className="text-sm">{user.sno}</span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{user.location}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.invnumber}</span>
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        type={user.condition == "Good" ? "primary" : "danger"}
+                      <Button
+                        layout="outline"
+                        className="dark:border-green-700 border-green-400"
+                        onClick={() => {
+                          setExistswap([user]);
+                          setActiveRowID(-1);
+                        }}
                       >
-                        {user.condition}
-                      </Badge>
+                        Select
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -846,6 +850,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Mouse");
                         setData(mouse);
                       }}
@@ -855,6 +860,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Kbd");
                         setData(kbd);
                       }}
@@ -864,6 +870,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Monitor");
                       }}
                     >
@@ -872,6 +879,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Cpu");
                       }}
                     >
@@ -880,6 +888,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Ram");
                       }}
                     >
@@ -888,6 +897,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Fan");
                       }}
                     >
@@ -896,6 +906,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Motherboard");
                       }}
                     >
@@ -904,6 +915,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("SMPS");
                       }}
                     >
@@ -912,6 +924,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("HDD");
                       }}
                     >
@@ -920,6 +933,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Gcard");
                       }}
                     >
@@ -928,6 +942,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("EnetCard");
                       }}
                     >
@@ -936,6 +951,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("SerialCard");
                       }}
                     >
@@ -944,6 +960,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("ParalellCard");
                       }}
                     >
@@ -952,6 +969,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("OpticalDrive");
                       }}
                     >
@@ -960,6 +978,7 @@ function UpdateCall() {
                     <DropdownItem
                       onClick={() => {
                         setIsOpen(false);
+                        setActiveRowID(-1);
                         setSelectedItem("Others");
                       }}
                     >
@@ -993,7 +1012,7 @@ function UpdateCall() {
               </tr>
             </TableHeader>
             <TableBody>
-              {cpu.map((user, i) => (
+              {existswap.map((user, i) => (
                 <div className="flex flex-col justify-around">
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
@@ -1003,48 +1022,24 @@ function UpdateCall() {
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowID(i);
+                      // setActiveRowID(i);
                     }}
                   >
                     <TableCell className="w-8">
                       <div className="flex items-center text-sm ">
                         <div>
-                          <p className="font-semibold">{user.LSTNo}</p>
+                          <p className="font-semibold">{user.type}</p>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{user.from}</span>
+                      <span className="text-sm">{user.name}</span>
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.to}</span>
+                      <span className="text-sm">{user.sno}</span>
                     </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {" "}
-                        {moment(user.date).format("DD/MM/YYYY")}
-                      </span>
-                    </TableCell>
-                    {/* <TableCell>
-                      <span className="text-sm">{user.invItems.length}</span>
-                    </TableCell> */}
-                    {/* <TableCell>
-                    <Badge>
-                      condition
-                    </Badge>
-                  </TableCell> */}
-                    <TableCell className="text-center ">
-                      <Button
-                        aria-label="DropDown"
-                        onClick={() => {
-                          console.log("dwlod");
-                        }}
-                        className="rounded-lg m-1"
-                      >
-                        Download
-                      </Button>
-                    </TableCell>
+
                     <TableCell className="text-center ">
                       <Button
                         // layout="link"
@@ -1052,12 +1047,12 @@ function UpdateCall() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log(activeRowID);
-                          // if(activeRowID==i){
-
+                          if (activeRowID != -1) {
+                            setActiveRowID(-1);
+                          } else {
+                            setActiveRowID(i);
+                          }
                           // setActiveRowID(-1);
-                          // }
-                          // else
-                          setActiveRowID(i);
                         }}
                         className="rounded-lg m-1"
                       >
