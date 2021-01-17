@@ -144,12 +144,15 @@ function UpdateCall() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
+  // use effect to add fields to the item coming from asset
   useEffect(() => {
     let temp = data;
     let thetype = selectedItem.toLowerCase();
     temp.map((item, i) => {
       item.name = item[`${thetype}name`];
       item.sno = item[`${thetype}sno`];
+      item.type = thetype;
+      item.condition = "Bad";
     });
     console.log(temp);
     setData(temp);
@@ -158,6 +161,7 @@ function UpdateCall() {
     };
   }, [data]);
 
+  // -----use effect to pull new inventory list according to filters
   useEffect(() => {
     thegetter();
   }, [selectedItem]);
@@ -173,7 +177,7 @@ function UpdateCall() {
       filters: {
         type: selectedItem.toLowerCase(),
         location: location,
-        condition: condition,
+        condition: "Good",
         searchtype: searchtype,
         searchquery: searchquery,
       },
@@ -413,6 +417,27 @@ function UpdateCall() {
       });
       handleInventory();
       setSubmitModal(true);
+      console.log("Done");
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleSwap = async () => {
+    let payload = {
+      existswap: existswap[0],
+      newswap: inventswap[0],
+      call: call,
+      type: selectedItem.toLowerCase(),
+    };
+
+    try {
+      let update = await axios({
+        url: `${API}/call/${Emp.getId()}/swapitems`,
+        method: "POST",
+        data: payload,
+      });
+
       console.log("Done");
     } catch (error) {
       throw error;
@@ -1069,6 +1094,7 @@ function UpdateCall() {
               className="dark:border-green-700 border-green-400"
               onClick={() => {
                 console.log("Swap");
+                handleSwap();
               }}
             >
               Swap
