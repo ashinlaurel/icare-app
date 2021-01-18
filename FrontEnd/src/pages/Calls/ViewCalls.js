@@ -171,7 +171,7 @@ function ViewCalls() {
 
   // -------Enabling Bottom Bar----
   useEffect(() => {
-    setBBarOpen(1);
+    // setBBarOpen(1);
     return () => {
       setBBarOpen(0);
       setAssetDetails({});
@@ -679,6 +679,7 @@ function ViewCalls() {
                   key={i}
                   onClick={() => {
                     setActiveRowId(call._id);
+                    setBBarOpen(1);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
                     console.log("SELECTD", call);
