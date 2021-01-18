@@ -10,6 +10,7 @@ const {
   createItems,
   createPurchaseHistrory,
   getAllHistory,
+  getInvById,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -52,6 +53,7 @@ router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 // router.get("/product/:productId", getProduct);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
+router.post("/:id/getbyid", isSignedIn, isAuthenticated, getInvById);
 router.post("/:id/getallhistory", isSignedIn, isAuthenticated, getAllHistory);
 router.post("/:id/assetupdate", isSignedIn, isAuthenticated, handleAssetUpdate);
 router.post("/:id/invupdate", isSignedIn, isAuthenticated, updateInventory);

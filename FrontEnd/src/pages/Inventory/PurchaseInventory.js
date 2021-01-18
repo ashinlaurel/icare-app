@@ -522,6 +522,7 @@ function PurchaseInventory() {
               <span>Select Type*</span>
               <Select
                 className="mt-1"
+                value={values[num].systype}
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].systype = e.target.value;
@@ -542,6 +543,7 @@ function PurchaseInventory() {
               <span>Select Category*</span>
               <Select
                 className="mt-1"
+                value={values[num].type}
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].type = e.target.value;
@@ -550,7 +552,7 @@ function PurchaseInventory() {
                   setValues(newlist);
                 }}
               >
-                <option value="" selected disabled>
+                <option value=""selected disabled>
                   Select Type
                 </option>
                 {values[num].systype == "item" ? (
@@ -603,7 +605,7 @@ function PurchaseInventory() {
                   <Input
                     className="mt-1"
                     type="text"
-                    value={values.name}
+                    value={values[num].name}
                     onChange={(e) => {
                       let newlist = [...values];
                       newlist[num].name = e.target.value;
@@ -623,7 +625,7 @@ function PurchaseInventory() {
                     <Input
                       className="mt-1"
                       type="text"
-                      value={values.brand}
+                      value={values[num].brand}
                       onChange={(e) => {
                         let newlist = [...values];
                         newlist[num].brand = e.target.value;
@@ -642,7 +644,7 @@ function PurchaseInventory() {
                     <Input
                       className="mt-1"
                       type="text"
-                      value={values.model}
+                      value={values[num].model}
                       onChange={(e) => {
                         let newlist = [...values];
                         newlist[num].model = e.target.value;
@@ -989,7 +991,7 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = values[0];
+                let add = {...values[0]};
                 console.log(add)
                 newitem.push(add);
                 setValues(newitem);

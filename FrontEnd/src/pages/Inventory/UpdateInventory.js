@@ -28,7 +28,10 @@ import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
-function PurchaseSimilarInventory() {
+function UpdateInventory() {
+  const { id } = useParams();
+  
+
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
   const [calculate, setCalculate] = useState(false);
@@ -46,6 +49,7 @@ function PurchaseSimilarInventory() {
     panno: "",
     aadharno: "",
     purchlocation: "Local",
+    totalInvoice: "0",
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
@@ -80,12 +84,13 @@ function PurchaseSimilarInventory() {
     aadharno: "",
     purchlocation: "",
 
-    brand:"",
-    model:"",
-    systype:"part",
+    brand: "",
+    model: "",
+    systype: "",
+    stocktype: "",
 
     //-------
-    caseId:"",
+    caseId: "",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -98,12 +103,49 @@ function PurchaseSimilarInventory() {
     invnumber: "",
   });
 
+  useEffect(() => {
+    thegetter();
+  }, [])
+
+  const thegetter = async () => {
+    let data = { id: id };
+    // console.log(API);
+    try {
+      let res = await Axios({
+        url: `${API}/inventory/${Emp.getId()}/getById`,
+        method: "POST",
+        data: data,
+      });
+
+      setValues([res.data]);
+      setBaseValues(res.data);
+      setBaseValues({
+        purchtype: res.data.purchtype,
+        vendor: res.data.vendor,
+        invnumber: res.data.invnumber,
+        invdate: res.data.invdate,
+        location: res.data.location,
+        invtype: res.data.invtype,
+        gstno: res.data.gstno,
+        panno: res.data.panno,
+        aadharno: res.data.aadharno,
+        purchlocation: res.data.purchlocation,
+        totalInvoice: res.data.totalInvoice,
+      })
+
+      console.log("Done", res.data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const submitItems = async () => {
     if (values.name === "" || values.sno === "" || values.invnumber === "") {
       //   setIsReqFieldModal(true);
       console.log("missing inputs");
       return;
     }
+    let ids = [];
     console.log("Submission Start");
     const newitems = [...values];
     newitems.map((item) => {
@@ -118,25 +160,21 @@ function PurchaseSimilarInventory() {
       item.aadharno = basevalues.aadharno;
       item.purchlocation = basevalues.purchtype;
     });
+    let payload={
+      id:id,
+      update:newitems[0]
+    }
     console.log(newitems);
     await Axios({
-      url: `${API}/inventory/${Emp.getId()}/createitems`,
+      url: `${API}/inventory/${Emp.getId()}/invupdate`,
       method: "POST",
-      data: newitems,
+      data: payload,
     })
       .then((data) => {
-        console.log("Added", data._id);
-        // setIsReviewModalOpen(true);
-        setValues([invdetails]);
-        setBaseValues(thebval);
-        setErr({
-          type: "",
-          name: "",
-          sno: "",
-          condition: "",
-          location: "",
-          invnumber: "",
-        });
+        console.log("Updated", data);
+        
+
+       
       })
       .catch((err) => {
         console.log("err", err);
@@ -147,7 +185,7 @@ function PurchaseSimilarInventory() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Purchase Similar Inventory");
+    setTopHeading("Update Inventory");
     return () => {
       setTopHeading("");
     };
@@ -190,6 +228,18 @@ function PurchaseSimilarInventory() {
       newlist[calnum].invamount =
         parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
       newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
+      console.log(basevalues.totalInvoice, newlist[calnum].invamount);
+      console.log(
+        parseFloat(basevalues.totalInvoice) +
+          parseFloat(newlist[calnum].invamount)
+      );
+
+      let newbaseval = basevalues;
+      newbaseval.totalInvoice = parseFloat(
+        parseFloat(basevalues.totalInvoice) +
+          parseFloat(newlist[calnum].invamount)
+      );
+      setBaseValues(newbaseval);
     }
 
     setValues(newlist);
@@ -322,7 +372,9 @@ function PurchaseSimilarInventory() {
     return (
       <div className="px-4 py-3 mt-4 mb-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold">
-          <span>Purchase Information</span>
+          <span>
+            Purchase Information Total Invoice Amount{basevalues.totalInvoice}
+          </span>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* -----Row 1 --------- */}
@@ -469,9 +521,9 @@ function PurchaseSimilarInventory() {
   const ItemForm = (num) => {
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <Label className="font-bold">
-          <span>Item Number : {num + 1},<span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
-          </span>
+        <Label className="font-bold flex-row flex justify-between">
+          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
+          
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -487,11 +539,11 @@ function PurchaseSimilarInventory() {
                   setValues(newlist);
                 }}
               >
-                <option value="part" selected >
-                  Part
+                <option value="" selected disabled>
+                  Select Type
                 </option>
-                <option value="system">System</option>
-                
+                <option value="item">Item</option>
+                <option value="full system">Full System</option>
               </Select>
             </Label>
           </div>
@@ -504,113 +556,116 @@ function PurchaseSimilarInventory() {
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].type = e.target.value;
+                  newlist[num].type = newlist[num].type.toLowerCase();
+
                   setValues(newlist);
                 }}
               >
                 <option value="" selected disabled>
-                  Select Category
+                  Select Type
                 </option>
-                {values[num].systype=="part"?<>
-                <option value="Mouse">Mouse</option>
-                <option value="Keyboard">Keyboard</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Cpu">Cpu</option>
-                <option value="Ram">Ram</option>
-                <option value="Fan">Fan</option>
-                <option value="Motherboard">Motherboard</option>
-                <option value="SMPS">SMPS</option>
-                <option value="HDD">HDD</option>
-                <option value="GCard">Gcard</option>
-                <option value="EnetCard">Enet Card</option>
-                <option value="SerialCard">Serial Card</option>
-                <option value="ParalellCard">Paralell Card</option>
-                <option value="OpticalDrive">Optical Drive</option>
-                <option value="Others">Others</option>
-                </>:<>
-
-                <option value="console">Console</option>
-                <option value="DMP">DMP</option>
-                <option value="inkjet">Inkjet</option>
-                <option value="KVM">KVM</option>
-                <option value="laptop">Laptop</option>
-                <option value="laser">Laser</option>
-                <option value="LMP">LMP</option>
-                <option value="module">Module</option>
-                <option value="router">Router</option>
-                <option value="scanner">Scanner</option>
-                <option value="server">Server</option>
-                <option value="desktop">Desktop</option>
-                <option value="storage">Storage</option>
-                <option value="switch">Switch</option>
-                <option value="UPS">UPS</option>
-                <option value="others">Others</option>
-
-                </>}
+                {values[num].systype == "item" ? (
+                  <>
+                    <option value="Mouse">Mouse</option>
+                    <option value="Keyboard">Keyboard</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Cpu">Cpu</option>
+                    <option value="Ram">Ram</option>
+                    <option value="Fan">Fan</option>
+                    <option value="Motherboard">Motherboard</option>
+                    <option value="SMPS">SMPS</option>
+                    <option value="HDD">HDD</option>
+                    <option value="GCard">Gcard</option>
+                    <option value="EnetCard">Enet Card</option>
+                    <option value="SerialCard">Serial Card</option>
+                    <option value="ParalellCard">Paralell Card</option>
+                    <option value="OpticalDrive">Optical Drive</option>
+                    <option value="Others">Others</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="console">Console</option>
+                    <option value="DMP">DMP</option>
+                    <option value="inkjet">Inkjet</option>
+                    <option value="KVM">KVM</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="laser">Laser</option>
+                    <option value="LMP">LMP</option>
+                    <option value="module">Module</option>
+                    <option value="router">Router</option>
+                    <option value="scanner">Scanner</option>
+                    <option value="server">Server</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="storage">Storage</option>
+                    <option value="switch">Switch</option>
+                    <option value="UPS">UPS</option>
+                    <option value="others">Others</option>
+                  </>
+                )}
               </Select>
             </Label>
           </div>
 
-          {values[num].systype=="part"?
-          <>
-            <div className="flex flex-col w-full">
-              <Label className="w-full">
-                <span>Product Name*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values[num].name}
-                  onChange={(e) => {
-                    let newlist = [...values];
-                    newlist[num].name = e.target.value;
-                    setValues(newlist);
-                  }}
-                />
-              </Label>
-              <HelperText valid={false}>{err.name}</HelperText>
-            </div>
-          </>
-          :<>
-          <>
-            <div className="flex flex-col w-full">
-              <Label className="w-full">
-                <span>Brand*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values[num].brand}
-                  onChange={(e) => {
-                    let newlist = [...values];
-                    newlist[num].brand = e.target.value;
-                    setValues(newlist);
-                  }}
-                />
-              </Label>
-              <HelperText valid={false}>{err.brand}</HelperText>
-            </div>
-          </>
+          {values[num].systype == "item" ? (
+            <>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Product Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={values[num].name}
+                    onChange={(e) => {
+                      let newlist = [...values];
+                      newlist[num].name = e.target.value;
+                      setValues(newlist);
+                    }}
+                  />
+                </Label>
+                <HelperText valid={false}>{err.name}</HelperText>
+              </div>
+            </>
+          ) : (
+            <>
+              <>
+                <div className="flex flex-col w-full">
+                  <Label className="w-full">
+                    <span>Brand*</span>
+                    <Input
+                      className="mt-1"
+                      type="text"
+                      value={values.brand}
+                      onChange={(e) => {
+                        let newlist = [...values];
+                        newlist[num].brand = e.target.value;
+                        setValues(newlist);
+                      }}
+                    />
+                  </Label>
+                  <HelperText valid={false}>{err.brand}</HelperText>
+                </div>
+              </>
 
-          <>
-            <div className="flex flex-col w-full">
-              <Label className="w-full">
-                <span>Model*</span>
-                <Input
-                  className="mt-1"
-                  type="text"
-                  value={values[num].model}
-                  onChange={(e) => {
-                    let newlist = [...values];
-                    newlist[num].model = e.target.value;
-                    setValues(newlist);
-                  }}
-                />
-              </Label>
-              <HelperText valid={false}>{err.name}</HelperText>
-            </div>
-          </>
-
-
-          </>
-          }
+              <>
+                <div className="flex flex-col w-full">
+                  <Label className="w-full">
+                    <span>Model*</span>
+                    <Input
+                      className="mt-1"
+                      type="text"
+                      value={values.model}
+                      onChange={(e) => {
+                        let newlist = [...values];
+                        newlist[num].model = e.target.value;
+                        setValues(newlist);
+                      }}
+                    />
+                  </Label>
+                  <HelperText valid={false}>{err.name}</HelperText>
+                </div>
+              </>
+            </>
+          )}
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -640,7 +695,9 @@ function PurchaseSimilarInventory() {
                   setValues(newlist);
                 }}
               >
-                <option value="Good">Good</option>
+                <option value="Good" selected>
+                  Good
+                </option>
                 <option value="Bad">Bad</option>
               </Select>
             </Label>
@@ -649,6 +706,26 @@ function PurchaseSimilarInventory() {
 
         {/* -------------Row 2 --------- */}
         <div className="flex-row flex space-x-3">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Stock Type*</span>
+              <Select
+                className="mt-1"
+                value={values[num].stocktype}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  newlist[num].stocktype = e.target.value;
+                  setValues(newlist);
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Stock Type
+                </option>
+                <option value="Purchased">Purchased</option>
+                <option value="Serviced">Serviced</option>
+              </Select>
+            </Label>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Warranty*</span>
@@ -691,7 +768,7 @@ function PurchaseSimilarInventory() {
               <HelperText valid={false}>{err.name}</HelperText>
             </div>
           </>
-        
+
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Tax Category*</span>
@@ -889,43 +966,15 @@ function PurchaseSimilarInventory() {
       <Card className="mb-4 shadow-md ">
         <CardBody>
           <div className="flex flex-row flex-wrap">
-            <Button
-              onClick={() => {
-                let newitem = [...values];
-                let add = values[0];
-                console.log(add)
-                newitem.push(add);
-                setValues(newitem);
-              }}
-              aria-label="Notifications"
-              aria-haspopup="true"
-              layout="outline"
-              className=" mx-2 "
-            >
-              Add Item
-            </Button>
+           
 
-            <Button
-              onClick={() => {
-                let newitem = [...values];
-                if (newitem[1]) {
-                  newitem.pop();
-                  setValues(newitem);
-                }
-              }}
-              aria-label="Notifications"
-              aria-haspopup="true"
-              layout="outline"
-              className=" mx-2 "
-            >
-              Remove Item
-            </Button>
+
 
             <Button
               onClick={submitItems}
               aria-label="Notifications"
               aria-haspopup="true"
-              layout="outline"
+              // layout="outline"
               className=" mx-2 "
             >
               Submit
@@ -947,4 +996,4 @@ function PurchaseSimilarInventory() {
   );
 }
 
-export default PurchaseSimilarInventory;
+export default UpdateInventory;

@@ -46,6 +46,7 @@ function PurchaseHistory() {
 
   // filterhooks
   const [type, setType] = useState("")
+  const [stocktype, setStocktype] = useState("")
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
@@ -95,11 +96,12 @@ function PurchaseHistory() {
           limit: resultsPerPage,
         },
         filters: {
-          type: type,
+          systype: type,
           location: location,
           ////////////////
           searchquery: searchquery,
           vendorsearchquery: vendorsearchquery,
+          stocktype: stocktype
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -121,7 +123,7 @@ function PurchaseHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition,type, refresh]);
+  }, [page, location, ToLocation, condition,type, refresh,stocktype]);
 
   console.log(selectedprod);
 
@@ -242,11 +244,39 @@ function PurchaseHistory() {
                 }}
               >
                 <option value="" disabled selected>
-                  Type
+                   Type
                 </option>
                 <option value="">All</option>
-                <option value="In Transit">In Transit</option>
-                <option value="Recieved">Recieved</option>
+                <option value="item">Item</option>
+                <option value="full system">Full System</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+
+
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={stocktype}
+                onChange={(e) => {
+                  setStocktype(e.target.value);
+                }}
+              >
+                <option value="" disabled selected>
+                Stock Type
+                </option>
+                <option value="">All</option>
+                <option value="Purchased">Purchased</option>
+                <option value="Serviced">Serviced</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -346,9 +376,9 @@ function PurchaseHistory() {
           <Table>
             <TableHeader>
               <tr className="flex flex-row justify-between">
-                <TableCell>Purchase Type</TableCell>
+                <TableCell> Type</TableCell>
                 <TableCell>Vendor</TableCell>
-                <TableCell>Inv No.</TableCell>
+                <TableCell>Inventory No.</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>No.Items</TableCell>
