@@ -161,6 +161,7 @@ function UpdateCall() {
     let temp = data;
     let thetype = selectedItem.toLowerCase();
     let theitemandsystem = itemtype.toLowerCase();
+
     temp.map((item, i) => {
       item.name = item[`${thetype}name`];
       item.sno = item[`${thetype}sno`];
@@ -493,7 +494,7 @@ function UpdateCall() {
             <span>Contact Person:{call.contactPerson}</span>
           </div>
           <div className="my-3 font-semibold">
-            <span>Date: {call.date}</span>
+            <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
           </div>
         </div>
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
@@ -825,7 +826,9 @@ function UpdateCall() {
             <div className="relative z-40 ">
               <button
                 onClick={() => {
-                  setIsOpen(!isOpen);
+                  if (itemtype != "") {
+                    setIsOpen(!isOpen);
+                  }
                 }}
                 className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 aria-label="Notifications"
