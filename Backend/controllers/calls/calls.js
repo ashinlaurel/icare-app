@@ -116,42 +116,49 @@ exports.swapItems = async (req, res) => {
 
     // ----Code To Be Completed ----------
     if (doesexist) {
-      console.log("code here");
+      // Updating the existswap inventory
+
+      const resultone = await InvItem.findOneAndUpdate(
+        { sno: existswap.sno },
+        {
+          condition: "Bad",
+          assetId: null,
+        }
+      );
     } else {
       console.log("new addition");
       // // Creating new item in inventory
+
       const newitem = new InvItem(existswap);
       await newitem.save();
-      // Updating the newswap inventory
-
-      const result = await InvItem.findByIdAndUpdate(newswap._id, {
-        condition: "Used",
-        assetId: call.assetId,
-      });
-      console.log(result);
-      // Asset update
-
-      const theasset = await assets.findById(call.assetId).populate("product");
-      // console.log(theasset);
-      // console.log(type);
-      // console.log(theasset.product[type]);
-      await theasset.product[type].map((item, i) => {
-        if (item[`${type}sno`] == existswap.sno) {
-          console.log("here");
-          item[`${type}name`] = newswap.name;
-          item[`${type}sno`] = newswap.sno;
-        }
-      });
-      // console.log(theasset.product[type]);
-      const theproduct = theasset.product;
-      theproduct.brand = "Hello";
-      // console.log(theproduct);
-
-      let prod = await server.findById(theproduct._id);
-      console.log(prod);
-      prod = theproduct;
-      prod.save();
     }
+    // Updating the newswap inventory
+
+    const result = await InvItem.findByIdAndUpdate(newswap._id, {
+      condition: "Used",
+      assetId: call.assetId,
+    });
+    console.log(result);
+    // Asset update
+
+    const theasset = await assets.findById(call.assetId).populate("product");
+    // console.log(theasset);
+    // console.log(type);
+    // console.log(theasset.product[type]);
+    await theasset.product[type].map((item, i) => {
+      if (item[`${type}sno`] == existswap.sno) {
+        console.log("here");
+        item[`${type}name`] = newswap.name;
+        item[`${type}sno`] = newswap.sno;
+      }
+    });
+    // console.log(theasset.product[type]);
+    const theproduct = theasset.product;
+
+    let prod = await server.findById(theproduct._id);
+    console.log(prod);
+    prod = theproduct;
+    prod.save();
     // let call = await Call.findById(req.body.id);
     return res.status(200).json({ hello: "hello" });
   } catch (err) {

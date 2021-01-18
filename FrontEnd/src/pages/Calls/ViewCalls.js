@@ -13,7 +13,7 @@ import {
   HeartIcon,
   EditIcon,
   TrashIcon,
-  TickIcon
+  TickIcon,
 } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import {
@@ -104,48 +104,53 @@ function ViewCalls() {
         >
           <ModalHeader>Set Call Status</ModalHeader>
           <ModalBody>
-          <div className="flex-col flex">
-          <div className="font-xl dark:text-white">Current Status:</div>
-          <Button className="font-xl">Set Status</Button>
-          <Button className="font-xl my-2 mx-10 inline">Pending for Allocation</Button>
-          <Button className="font-xl my-2 mx-10 inline">Pending for Allocation</Button>
-          <Button className="font-xl my-2 mx-10 inline">Pending for Allocation</Button>
-          <Button className="font-xl my-2 mx-10 inline">Pending for Allocation</Button>
-          
-
-          
-          </div>
+            <div className="flex-col flex">
+              <div className="font-xl dark:text-white">Current Status:</div>
+              <Button className="font-xl">Set Status</Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
-                console.log("SELECTED" ,selectedprod);
-                let payload={
-                  id:selectedprod._id,
-                  update:{
-                    employeeId:engineer._id,
-                    employeeName:engineer.enggName,
-                    callStatus:1
-                  }
-                }
+                console.log("SELECTED", selectedprod);
+                let payload = {
+                  id: selectedprod._id,
+                  update: {
+                    employeeId: engineer._id,
+                    employeeName: engineer.enggName,
+                    callStatus: 1,
+                  },
+                };
                 try {
                   let response = await axios({
                     url: `${API}/call/${Emp.getId()}/ViewCallsg`,
                     method: "POST",
                     data: payload,
                   });
-                  let temp=data;
-                  console.log(temp)
-                  temp=temp.filter(c=>{
-                    if(c._id===selectedprod._id){
-                      c.callStatus=1;
-                      c.employeeName=engineer.enggName;
-                      c.employeeId=engineer._id;
+                  let temp = data;
+                  console.log(temp);
+                  temp = temp.filter((c) => {
+                    if (c._id === selectedprod._id) {
+                      c.callStatus = 1;
+                      c.employeeName = engineer.enggName;
+                      c.employeeId = engineer._id;
                       return c;
                     }
-                    setData(temp)
-                  })
+                    setData(temp);
+                  });
                   // console.log(response.data);
                   setisSetStatusModal(false);
                 } catch (error) {
@@ -233,9 +238,7 @@ function ViewCalls() {
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
         >
-          <ModalHeader>
-            Updated Successfully!
-          </ModalHeader>
+          <ModalHeader>Updated Successfully!</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -265,14 +268,13 @@ function ViewCalls() {
         refresh={refresh}
         setRefresh={setRefresh}
       /> */}
-      <SetStatusModal/>
-      <ReviewSubmit/>
-  
+      <SetStatusModal />
+      <ReviewSubmit />
+
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-    
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
@@ -651,7 +653,6 @@ function ViewCalls() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
-          
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
@@ -665,7 +666,6 @@ function ViewCalls() {
                 <TableCell>Call Status</TableCell>
                 <TableCell>Assigned Employee</TableCell>
                 <TableCell>Update</TableCell>
-                
               </tr>
             </TableHeader>
             <TableBody>
@@ -681,7 +681,7 @@ function ViewCalls() {
                     setActiveRowId(call._id);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
-                    console.log("SELECTD",call)
+                    console.log("SELECTD", call);
                     setAssetDetails(call.assetId);
                     // console.log(call.product.keyboard[0].kbdname);
                   }}
@@ -690,111 +690,110 @@ function ViewCalls() {
                     <div className="flex items-center text-sm ">
                       <div>
                         <p className="font-semibold">{call.callNo}</p>
-                        
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{moment(call.date).format("DD/MM/YYYY")}</span>
+                    <span className="text-sm">
+                      {moment(call.date).format("DD/MM/YYYY")}
+                    </span>
                   </TableCell>
                   <TableCell>
-                  <span className="text-sm">{call.unitName}</span> 
+                    <span className="text-sm">{call.unitName}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{call.phone}</span>
                   </TableCell>
                   <TableCell>
-                  <div className="flex ">
-                  {/* <Label className="w-full"> */}
-                  <Select
-                    className="inline"
-                    onChange={(e) => {
-                      // setAccType(parseInt(e.target.value));
-                      let temp=data;
-                      console.log(temp)
-                      temp=temp.filter(c=>{
-                        if(c._id===call._id){
-                          c.callStatus=e.target.value;
-                          return c;
-                        }else return c;
-                      })
-                        setData(temp);
-                    }}
-                    value={call.callStatus}
-                  >
-                    <option value="0">Not Allocated</option>
-                    <option value="1">Pending for Percall Approval</option>
-                   <option value="2"> Pending for Response</option>
-                   <option value="3"> Pending for OEM Response</option>
-                   <option value="4"> Pending for 2nd Response</option>
-                   <option value="5"> Pending for Customer</option>
-                   <option value="6"> Under Observation</option>
-                   <option value="7"> Pending for Others</option>
-                   <option value="8"> Pending for Spare</option>
-                   <option value="9"> Spare in Transit</option>
-                   <option value="10"> Cancelled Calls</option>
-                   <option value="11"> Closed Calls</option>
-
-                  </Select>
-                {/* </Label> */}
-                <div className="p-1 m-2 dark:hover:bg-green-700 hover:bg-green-200 rounded-full text-green-400"
-                    onClick={async ()=>{
-                      let payload={
-                        id:call._id,
-                        update:{
-                          callStatus:call.callStatus
-                        }
-                      }
-                      try {
-                          let response = await axios({
-                            url: `${API}/call/${Emp.getId()}/assignEngg`,
-                            method: "POST",
-                            data: payload,
+                    <div className="flex ">
+                      {/* <Label className="w-full"> */}
+                      <Select
+                        className="inline"
+                        onChange={(e) => {
+                          // setAccType(parseInt(e.target.value));
+                          let temp = data;
+                          console.log(temp);
+                          temp = temp.filter((c) => {
+                            if (c._id === call._id) {
+                              c.callStatus = e.target.value;
+                              return c;
+                            } else return c;
                           });
-                          console.log("updated")
-                          setIsReviewModalOpen(true);
-                          
-                        } catch (error) {
-                          throw error;
-                        }
-                    }}
-                >
-                <TickIcon className="w-5 h-5 fill-current" aria-hidden="true" />
-                </div>
-                </div>
-                  
+                          setData(temp);
+                        }}
+                        value={call.callStatus}
+                      >
+                        <option value="0">Not Allocated</option>
+                        <option value="1">Pending for Percall Approval</option>
+                        <option value="2"> Pending for Response</option>
+                        <option value="3"> Pending for OEM Response</option>
+                        <option value="4"> Pending for 2nd Response</option>
+                        <option value="5"> Pending for Customer</option>
+                        <option value="6"> Under Observation</option>
+                        <option value="7"> Pending for Others</option>
+                        <option value="8"> Pending for Spare</option>
+                        <option value="9"> Spare in Transit</option>
+                        <option value="10"> Cancelled Calls</option>
+                        <option value="11"> Closed Calls</option>
+                      </Select>
+                      {/* </Label> */}
+                      <div
+                        className="p-1 m-2 dark:hover:bg-green-700 hover:bg-green-200 rounded-full text-green-400"
+                        onClick={async () => {
+                          let payload = {
+                            id: call._id,
+                            update: {
+                              callStatus: call.callStatus,
+                            },
+                          };
+                          try {
+                            let response = await axios({
+                              url: `${API}/call/${Emp.getId()}/assignEngg`,
+                              method: "POST",
+                              data: payload,
+                            });
+                            console.log("updated");
+                            setIsReviewModalOpen(true);
+                          } catch (error) {
+                            throw error;
+                          }
+                        }}
+                      >
+                        <TickIcon
+                          className="w-5 h-5 fill-current"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell>
-                  {call.employeeId?(<>
-                    
-                    {call.employeeName}
-                    {/* <Button layout="link" size="icon" aria-label="Edit" onClick={()=>setIsEnggModalOpen(true)} className="rounded-full mx-2 ">
+                    {call.employeeId ? (
+                      <>
+                        {call.employeeName}
+                        {/* <Button layout="link" size="icon" aria-label="Edit" onClick={()=>setIsEnggModalOpen(true)} className="rounded-full mx-2 ">
                        
                           <EditIcon className="w-5 h-5" aria-hidden="true" />
                         
                       </Button> */}
-                    
-                  </>):<>
-                    {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
-                      Not Assigned
-                      {/* </Button> */}
-                      </> }
-                      
+                      </>
+                    ) : (
+                      <>
+                        {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
+                        Not Assigned
+                        {/* </Button> */}
+                      </>
+                    )}
                   </TableCell>
                   <TableCell>
-                      <Button layout="outline"  onClick={()=>{}} className=" ">
-                      <Link
-                          key={call._id}
-                          to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
-                        >
-                          Update
-                        </Link>
-                          
-                        
+                    <Link
+                      key={call._id}
+                      to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
+                    >
+                      <Button layout="outline" onClick={() => {}} className=" ">
+                        Update
                       </Button>
+                    </Link>
                   </TableCell>
-                  
-              
                 </TableRow>
               ))}
             </TableBody>
