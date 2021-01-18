@@ -3,7 +3,7 @@ import moment from "moment";
 import axios from "axios";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon,Remove } from "../../icons";
+import { EditIcon, TrashIcon, Remove } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -85,18 +85,17 @@ function LST() {
     setPage(p);
   }
 
- 
   // on page change, load new sliced data
   // here you would make another server request for new data
 
   // -------Enabling Bottom Bar----
-//   useEffect(() => {
-//     setBBarOpen(1);
-//     return () => {
-//       setBBarOpen(0);
-//       setAssetDetails({});
-//     };
-//   }, []);
+  //   useEffect(() => {
+  //     setBBarOpen(1);
+  //     return () => {
+  //       setBBarOpen(0);
+  //       setAssetDetails({});
+  //     };
+  //   }, []);
   // -------------------------------
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
@@ -150,40 +149,40 @@ function LST() {
 
   console.log(selectedprod);
 
-  const updateInventory= async ()=>{
-    if(LSTNo==""){
-      setModalMessage("LST Number necessary")
-      setMessageModal(true);
-      return; 
-    }
-    if(date==""){
-      setModalMessage("Date Necessary")
-      setMessageModal(true);
-      return; 
-    }
-    if(location==""){
-      setModalMessage("From location not selected")
-      setMessageModal(true);
-      return; 
-    }
-    if(toLocation==""){
-      setModalMessage("To location not selected")
-      setMessageModal(true);
-      return; 
-    }
-    if(SelectedItems.length==0){
-      setModalMessage("No items selected")
+  const updateInventory = async () => {
+    if (LSTNo == "") {
+      setModalMessage("LST Number necessary");
       setMessageModal(true);
       return;
     }
-    let invIds=[];
-    SelectedItems.map(async item=>{
+    if (date == "") {
+      setModalMessage("Date Necessary");
+      setMessageModal(true);
+      return;
+    }
+    if (location == "") {
+      setModalMessage("From location not selected");
+      setMessageModal(true);
+      return;
+    }
+    if (toLocation == "") {
+      setModalMessage("To location not selected");
+      setMessageModal(true);
+      return;
+    }
+    if (SelectedItems.length == 0) {
+      setModalMessage("No items selected");
+      setMessageModal(true);
+      return;
+    }
+    let invIds = [];
+    SelectedItems.map(async (item) => {
       invIds.push(item._id);
       const data = {
         id: item._id,
         update: {
           location: "In Transit",
-          caseId:item.caseId
+          caseId: item.caseId,
         },
       };
       console.log("PAYLOAD", data);
@@ -199,17 +198,17 @@ function LST() {
         console.log(error);
         throw error;
       }
-    })
+    });
 
-    let lst={
-      from:location,
-      to:toLocation,
-      LSTNo:LSTNo,
-      date:date,
-      invItems:invIds,
-      status:"In Transit"
-    }
-    console.log("LST",lst);
+    let lst = {
+      from: location,
+      to: toLocation,
+      LSTNo: LSTNo,
+      date: date,
+      invItems: invIds,
+      status: "In Transit",
+    };
+    console.log("LST", lst);
 
     try {
       await axios({
@@ -219,20 +218,18 @@ function LST() {
       });
       // setIsReviewModalOpen(true);
       console.log("Done");
-      setModalMessage("LST Submitted")
+      setModalMessage("LST Submitted");
       setMessageModal(true);
-      setSelectedItems([])
+      setSelectedItems([]);
       thegetter();
     } catch (error) {
       console.log(error);
       throw error;
     }
+  };
 
-  }
-
-
-  const invTable=()=>{
-    return(
+  const invTable = () => {
+    return (
       <div className="dark:bg-gray-700 bg-gray-100 px-2 py-2 rounded-lg">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -280,7 +277,7 @@ function LST() {
             </div>
 
             {/* -----------------------------------------Location ----------------------- */}
-           
+
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -347,7 +344,6 @@ function LST() {
                 <TableCell>Inv Number</TableCell>
                 <TableCell>Condition</TableCell>
                 <TableCell>Add</TableCell>
-                
               </tr>
             </TableHeader>
             <TableBody>
@@ -403,30 +399,34 @@ function LST() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Button layout="outline"  className="dark:border-green-700 border-green-400" onClick={()=>{
-                      let added=false;
-                      let initList=data;
-                      initList= initList.filter(i=>i._id!=user._id);
-                      console.log(initList);
-                      setData(initList);
-                      SelectedItems.map(i=>{
-                        if(i._id==user._id){
-                          console.log(i._id,user._id)
-                          setModalMessage("Product already Added!");
-                          setMessageModal(true);
-                          added=true;
-                        }
-                      })
-                      if(added) return;
-                      let temp=[...SelectedItems,user];
-                      setSelectedItems(temp);
-                      // setShowInvTable(false);
-                      // setModalMessage("Product  Added!");
-                          // setMessageModal(true);
-                    }}>Add</Button>
+                    <Button
+                      layout="outline"
+                      className="dark:border-green-700 border-green-400"
+                      onClick={() => {
+                        let added = false;
+                        let initList = data;
+                        initList = initList.filter((i) => i._id != user._id);
+                        console.log(initList);
+                        setData(initList);
+                        SelectedItems.map((i) => {
+                          if (i._id == user._id) {
+                            console.log(i._id, user._id);
+                            setModalMessage("Product already Added!");
+                            setMessageModal(true);
+                            added = true;
+                          }
+                        });
+                        if (added) return;
+                        let temp = [...SelectedItems, user];
+                        setSelectedItems(temp);
+                        // setShowInvTable(false);
+                        // setModalMessage("Product  Added!");
+                        // setMessageModal(true);
+                      }}
+                    >
+                      Add
+                    </Button>
                   </TableCell>
-
-                  
                 </TableRow>
               ))}
             </TableBody>
@@ -442,21 +442,18 @@ function LST() {
         </TableContainer>
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
-      
-       
-       </div>
-    )
-  }
+      </div>
+    );
+  };
 
-  const SelectedInv=()=>{
-    return(
+  const SelectedInv = () => {
+    return (
       <>
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="mb-1 mt-5 dark:text-white font-semibold ">
-              Selected Items
-            
+            Selected Items
           </div>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
@@ -472,7 +469,6 @@ function LST() {
                 <TableCell>Condition</TableCell>
                 <TableCell>Case Id</TableCell>
                 <TableCell>Remove</TableCell>
-                
               </tr>
             </TableHeader>
             <TableBody>
@@ -529,46 +525,42 @@ function LST() {
                   </TableCell>
 
                   <TableCell>
-                  
-                      <input
-                                value={user.caseId}
-                                onChange={(e) =>{
-                                  let temp=SelectedItems;
-                                  // newuser["caseId"]=e.target.value
-                                  temp=temp.filter(x=>{
-                                    if(x._id!=user._id)return x;
-                                    else return {...x,caseId:e.target.value}
-                                    });
-                                  setSelectedItems(temp);
-                                }}
-                                defaultValue="Imprest"
-                                placeholder="Cse Id."
-                                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                              />
-
-                            
-                        
+                    <input
+                      value={user.caseId}
+                      onChange={(e) => {
+                        let temp = SelectedItems;
+                        // newuser["caseId"]=e.target.value
+                        temp = temp.filter((x) => {
+                          if (x._id != user._id) return x;
+                          else return { ...x, caseId: e.target.value };
+                        });
+                        setSelectedItems(temp);
+                      }}
+                      defaultValue="Imprest"
+                      placeholder="Cse Id."
+                      class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                    />
                   </TableCell>
 
                   <TableCell>
                     <div
-                      className=" py-1" 
-                      onClick={()=>{
-                        
-                        let invList=[...data,user];
+                      className=" py-1"
+                      onClick={() => {
+                        let invList = [...data, user];
                         setData(invList);
-                        let temp=SelectedItems;
-                        temp= temp.filter(i=>i._id!=user._id);
+                        let temp = SelectedItems;
+                        temp = temp.filter((i) => i._id != user._id);
 
-                        
                         setSelectedItems(temp);
                       }}
                     >
-                      <TrashIcon className="w-5 h-5 cursor-pointer m-2 text-2xl" fill="maroon" aria-hidden="true" />
+                      <TrashIcon
+                        className="w-5 h-5 cursor-pointer m-2 text-2xl"
+                        fill="maroon"
+                        aria-hidden="true"
+                      />
                     </div>
                   </TableCell>
-
-                  
                 </TableRow>
               ))}
             </TableBody>
@@ -584,19 +576,14 @@ function LST() {
         </TableContainer>
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}
-      
-    
-       </>
-    )
-  }
+      </>
+    );
+  };
 
   const messageModalComponent = () => {
     return (
       <>
-        <Modal
-          isOpen={messageModal}
-          onClose={() => setMessageModal(false)}
-        >
+        <Modal isOpen={messageModal} onClose={() => setMessageModal(false)}>
           <ModalHeader>{modalMessage}</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
@@ -614,128 +601,121 @@ function LST() {
 
   return (
     <>
-     
       <div className="mb-64 mt-4">
         <div className="flex flex-row dark:text-white  ">
-            <div className="mr-2 flex flex-row dark:text-white  ">
-                  <div className="mx-1 my-1  ">From</div>
-                  {/* -----------------------------------------Location ----------------------- */}
-                  <div class="relative mx-1 ">
-                        <select
-                          class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                          value={location}
-                          onChange={(e) => {
-                            setLocation(e.target.value);
-                          }}
-                        >
-                          <option value="" disabled selected>
-                            Location
-                          </option>
-                          {/* <option value="">All</option> */}
-                          <option value="Trivandrum">Trivandrum</option>
-                          <option value="Kottayum">Kottayum</option>
-                          <option value="Kozhikode">Kozhikode</option>
-                        </select>
+          <div className="mr-2 flex flex-row dark:text-white  ">
+            <div className="mx-1 my-1  ">From</div>
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={location}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              >
+                <option value="" disabled selected>
+                  Location
+                </option>
+                {/* <option value="">All</option> */}
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              </select>
 
-                              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg
-                                  class="fill-current h-4 w-4"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                </svg>
-                              </div>
-                  </div>
-               </div>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
 
           <div className="flex flex-row dark:text-white  ">
-                <div className="mx-1 my-1 " >To</div>
-                {/* -----------------------------------------Location ----------------------- */}
-                <div class="relative mx-1 ">
-                      <select
-                        class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                        value={toLocation}
-                        onChange={(e) => {
-                          setToLocation(e.target.value);
-                        }}
-                      >
-                        <option value="" disabled selected>
-                          Location
-                        </option>
-                        {/* <option value="">All</option> */}
-                        <option value="Trivandrum">Trivandrum</option>
-                        <option value="Kottayum">Kottayum</option>
-                        <option value="Kozhikode">Kozhikode</option>
-                      </select>
-
-                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg
-                          class="fill-current h-4 w-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                      </div>
-                    </div>
-            </div>
-
+            <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
-            <div className=" flex flex-row dark:text-white  ">
-                      <div className=" mx-3 my-1 " >LST No.</div>
-                  <div class="relative mx-1 ">
-                  <input
-                            value={LSTNo}
-                            onChange={(e) => setLSTNo(e.target.value)}
-                            placeholder="LST No."
-                            class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                          />
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={toLocation}
+                onChange={(e) => {
+                  setToLocation(e.target.value);
+                }}
+              >
+                <option value="" disabled selected>
+                  Location
+                </option>
+                {/* <option value="">All</option> */}
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              </select>
 
-                        
-                      </div>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
             </div>
-            <div className="flex flex-row dark:text-white  ">
-              <div className=" my-2 " >Date</div>
-                <div class="relative mx-1 ">
-                  <input  type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        placeholder="LST No."
-                        class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                      />
+          </div>
 
-                    
-                  </div>
+          {/* -----------------------------------------Location ----------------------- */}
+          <div className=" flex flex-row dark:text-white  ">
+            <div className=" mx-3 my-1 ">LST No.</div>
+            <div class="relative mx-1 ">
+              <input
+                value={LSTNo}
+                onChange={(e) => setLSTNo(e.target.value)}
+                placeholder="LST No."
+                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              />
             </div>
-            {/* //submitCustomer */}
-            
-            <div className="flex flex-row dark:text-white mx-5 ">
-              <Button onClick={updateInventory}>Submit</Button>
+          </div>
+          <div className="flex flex-row dark:text-white  ">
+            <div className=" my-2 ">Date</div>
+            <div class="relative mx-1 ">
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                placeholder="LST No."
+                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              />
             </div>
+          </div>
+          {/* //submitCustomer */}
 
-
-
-
-      
+          <div className="flex flex-row dark:text-white mx-5 ">
+            <Button onClick={updateInventory}>Submit</Button>
+          </div>
+        </div>
+        {SelectedInv()}
+        <div className="my-5">
+          <Button
+            onClick={() => {
+              if (location == "" || toLocation == "") {
+                setModalMessage("Select From and To Locations");
+                setMessageModal(true);
+                return;
+              }
+              setShowInvTable(true);
+            }}
+          >
+            Add Product from Inventory
+          </Button>
+        </div>
+        {showInvTable ? invTable() : null}
       </div>
-      {SelectedInv()}
-      <div className="my-5">
-      <Button    onClick={()=>{
-                      if(location==""|| toLocation==""){
-                        setModalMessage("Select From and To Locations")
-                        setMessageModal(true);
-                        return;
-                      }
-                      setShowInvTable(true);
-       }}>Add Product from Inventory</Button>
-       </div>
-    {showInvTable?invTable():null}
-      
-      </div>
 
-      
-       {messageModalComponent()}
+      {messageModalComponent()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );

@@ -350,7 +350,7 @@ function Notifications() {
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </select>
 
@@ -381,7 +381,7 @@ function Notifications() {
                     </option>
                     <option value="">All</option>
                     <option value="Trivandrum">Trivandrum</option>
-                    <option value="Kottayum">Kottayum</option>
+                    <option value="Kottayam">Kottayam</option>
                     <option value="Kozhikode">Kozhikode</option>
                   </select>
 

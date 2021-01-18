@@ -129,7 +129,7 @@ function LSTHistory() {
 
   const createAndDownloadPdf = async (id) => {
     let payload = {
-      id:id
+      id: id,
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -274,7 +274,7 @@ function LSTHistory() {
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </select>
 
@@ -302,7 +302,7 @@ function LSTHistory() {
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </select>
 
