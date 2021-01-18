@@ -45,7 +45,7 @@ function PurchaseHistory() {
   const [disabler, setDisabler] = useState(true);
 
   // filterhooks
-  const [status, setstatus] = useState("");
+  const [type, setType] = useState("")
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
@@ -57,6 +57,7 @@ function PurchaseHistory() {
   const [searchtype, setSearchType] = useState("");
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
+  const [vendorsearchquery, setVendorSearchQuery] = useState("");
 
   // Getting data states
 
@@ -94,12 +95,11 @@ function PurchaseHistory() {
           limit: resultsPerPage,
         },
         filters: {
-          // type: type,
-          from: location,
-          to: ToLocation,
-          status: status,
-          // searchtype: searchtype,
+          type: type,
+          location: location,
+          ////////////////
           searchquery: searchquery,
+          vendorsearchquery: vendorsearchquery,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -121,7 +121,7 @@ function PurchaseHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, status, refresh]);
+  }, [page, location, ToLocation, condition,type, refresh]);
 
   console.log(selectedprod);
 
@@ -156,7 +156,7 @@ function PurchaseHistory() {
                   <TableCell>Name</TableCell>
                   <TableCell>Serial Number</TableCell>
                   <TableCell>Location</TableCell>
-                  <TableCell>Inv Number</TableCell>
+                  <TableCell>Inventory Number</TableCell>
                   <TableCell>Condition</TableCell>
                 </tr>
               </TableHeader>
@@ -236,9 +236,9 @@ function PurchaseHistory() {
             <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={status}
+                value={type}
                 onChange={(e) => {
-                  setstatus(e.target.value);
+                  setType(e.target.value);
                 }}
               >
                 <option value="" disabled selected>
@@ -270,7 +270,7 @@ function PurchaseHistory() {
                 }}
               >
                 <option value="" disabled selected>
-                  From Location
+                   Location
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
@@ -288,61 +288,7 @@ function PurchaseHistory() {
                 </svg>
               </div>
             </div>
-            {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={ToLocation}
-                onChange={(e) => {
-                  setToLocation(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  To Location
-                </option>
-                <option value="">All</option>
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
-                <option value="Kozhikode">Kozhikode</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-            {/* ---------------------------Condition Drop Down-------------------------------------- */}
-            {/* <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={condition}
-                onChange={(e) => {
-                  setCondition(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Condition
-                </option>
-                <option value="">All</option>
-                <option value="Good">Good</option>
-                <option value="Bad">Bad</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div> */}
+            
 
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
@@ -363,7 +309,32 @@ function PurchaseHistory() {
                 <input
                   value={searchquery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search LST Number"
+                  placeholder="Search Inventory Number"
+                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                />
+              </form>
+            </div>
+
+            {/* -----------------Search Bar------------------------------------ */}
+            <div class="block relative xl:ml-64">
+              <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4 fill-current text-gray-500"
+                >
+                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+                </svg>
+              </span>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setRefresh(!refresh);
+                }}
+              >
+                <input
+                  value={vendorsearchquery}
+                  onChange={(e) => setVendorSearchQuery(e.target.value)}
+                  placeholder="Search Vendor"
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>

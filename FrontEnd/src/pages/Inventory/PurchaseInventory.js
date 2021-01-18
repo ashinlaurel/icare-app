@@ -495,9 +495,16 @@ function PurchaseInventory() {
   const ItemForm = (num) => {
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <Label className="font-bold">
-          <span>Item Number : {num + 1},<span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
-          </span>
+        <Label className="font-bold flex-row flex justify-between">
+          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
+          <Button layout="outline"
+          onClick={() => {
+                let newitem = [...values];
+                newitem= newitem.filter((item,i)=>{if(i!=num)return item })
+                  setValues(newitem);
+                
+              }}
+               className="">x</Button>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -586,7 +593,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.name}
+                  value={values[num].name}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].name = e.target.value;
@@ -605,7 +612,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.brand}
+                  value={values[num].brand}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].brand = e.target.value;
@@ -624,7 +631,7 @@ function PurchaseInventory() {
                 <Input
                   className="mt-1"
                   type="text"
-                  value={values.model}
+                  value={values[num].model}
                   onChange={(e) => {
                     let newlist = [...values];
                     newlist[num].model = e.target.value;
@@ -646,7 +653,7 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={values.sno}
+                value={values[num].sno}
                 onChange={(e) => {
                   let newlist = [...values];
                   newlist[num].sno = e.target.value;
@@ -932,7 +939,7 @@ function PurchaseInventory() {
               Add Item
             </Button>
 
-            <Button
+            {/* <Button
               onClick={() => {
                 let newitem = [...values];
                 if (newitem[1]) {
@@ -946,13 +953,30 @@ function PurchaseInventory() {
               className=" mx-2 "
             >
               Remove Item
+            </Button> */}
+
+            <Button
+              onClick={() => {
+                let newitem = [...values];
+                let add = values[0];
+                console.log(add)
+                newitem.push(add);
+                setValues(newitem);
+              }}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              layout="outline"
+              className=" mx-2 "
+            >
+              Add Similar Item
             </Button>
+
 
             <Button
               onClick={submitItems}
               aria-label="Notifications"
               aria-haspopup="true"
-              layout="outline"
+              // layout="outline"
               className=" mx-2 "
             >
               Submit
