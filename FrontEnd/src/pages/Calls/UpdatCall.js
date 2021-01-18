@@ -470,7 +470,20 @@ function UpdateCall() {
       <div className="dark:text-white my-4 ">
         {/* Row 1  */}
         <div className="text-xl font-semibold">Asset Information</div>
+        {/* Call Details */}
+        <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
+          <div className="my-3 font-semibold">
+            <span>Call Number :{call.callNo}</span>
+          </div>
+          <div className="my-3 font-semibold">
+            <span>Contact Person:{call.contactPerson}</span>
+          </div>
+          <div className="my-3 font-semibold">
+            <span>Date: {call.date}</span>
+          </div>
+        </div>
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
+          {/* Row - 1 */}
           <div className="flex flex-col  text-sm my-1 w-full ">
             <div>
               <span className="font-semibold w-1/5">Product Type :</span>{" "}
@@ -1301,12 +1314,11 @@ function UpdateCall() {
   return (
     <>
       {AssetBar()}
-
-      <div className=" ">
+      {/* <div className=" ">
         <div className="text-xl dark:text-white">Call</div>
         <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
-          <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
+      {/* <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
             <div className="my-3 font-semibold">
               <span>Call Number :{call.callNo}</span>
             </div>
@@ -1316,13 +1328,11 @@ function UpdateCall() {
             <div className="my-3 font-semibold">
               <span>Date: {call.date}</span>
             </div>
-          </div>
-          <br />
-        </div>
-      </div>
-
+          </div> */}
+      {/* <br /> */}
+      {/* </div> */}
+      {/* </div> */}
       {AssetItemPick()}
-
       {UpdatedModal()}
     </>
   );
