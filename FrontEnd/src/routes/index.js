@@ -54,8 +54,8 @@ const UpdateAssetFromCall = lazy(() =>
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
 const PurchaseInventory = lazy(() => import("../pages/Inventory/PurchaseInventory"));
-const PurchaseSimilarInventory = lazy(() => import("../pages/Inventory/PurchaseSimilarInventory"));
 const PurchaseHistory = lazy(() => import("../pages/Inventory/PurchaseHistory"));
+const UpdateInventory = lazy(() => import("../pages/Inventory/UpdateInventory"));
 
 // ------------------------------- Employee Imports
 
@@ -261,10 +261,11 @@ export const aroutes = [
     path: "/inventory/purchase",
     component: PurchaseInventory,
   },
-  {
-    path: "/inventory/purchasesimilar",
-    component: PurchaseSimilarInventory,
+ {
+    path: "/inventory/update/:id",
+    component: UpdateInventory,
   },
+ 
   {
     path: "/inventory/purchasehistory",
     component:PurchaseHistory,

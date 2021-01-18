@@ -83,12 +83,15 @@ const employeeLoginSchema = mongoose.Schema({
   Role: String,
   ///---External Certifications
   ExtCert_1: String,
+  ExtCert_1img: String,
   ExtCert_1_ID: String,
   ExtCert_1_Validity: String,
   ExtCert_2: String,
+  ExtCert_2img: String,
   ExtCert_2_ID: String,
   ExtCert_2_Validity: String,
   ExtCert_3: String,
+  ExtCert_3img: String,
   ExtCert_3_ID: String,
   ExtCert_3_Validity: String,
   // Skill set
@@ -130,10 +133,12 @@ const employeeLoginSchema = mongoose.Schema({
   IFSCCode: String,
   BranchName: String,
   //separation
-  ResignDate: String,
-  RelievedDate: String,
-  NoticePeriodServed: String,
-  Live: String,
+  ResignDate: Date,
+  RelievedDate: Date,
+  NoticePeriodServed: {
+    type:String,
+    default:"No"
+  },
   PFNo: String,
   ESINo: String,
   UANNo: String,
@@ -156,12 +161,15 @@ const employeeLoginSchema = mongoose.Schema({
   IFSCCode: String,
   BranchName: String,
   //separation
-  ResignDate: String,
-  RelievedDate: String,
-  NoticePeriodServed: String,
+  // ResignDate: String,
+  // RelievedDate: String,
+  // NoticePeriodServed: String,
   ResignationLetter: String,
   ReleivingLetter: String,
-  Live: String,
+  Live: {
+    type:String,
+    default:"Yes"
+  }
 });
 
 employeeLoginSchema.plugin(mongoosePaginate);

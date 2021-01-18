@@ -32,6 +32,8 @@ import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 function Inventory() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [viewId, setViewId] = useState(0);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -113,6 +115,76 @@ function Inventory() {
     );
   };
 
+
+  const ViewModal = () => {
+    
+    if(data[viewId]){
+    let item = data[viewId];
+    return (
+      <>
+        <Modal
+          isOpen={isViewModalOpen}
+          onClose={() => setIsViewModalOpen(false)}
+          className="w-8/12 dark:bg-gray-800 p-10 my-12  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+        >
+          <ModalHeader>{item.name}</ModalHeader>
+          <ModalBody>
+          
+          <div className="flex flex-col lg:flex-row items-center justify-between ">
+              <div className="my-3 font-semibold flex-col flex">
+                <span>Type:{item.type}</span>
+                <span>vendor:{item.vendor}</span>
+                <span>location:{item.location}</span>
+                <span>Invnetory No:{item.invnumber}</span>
+                <span>taxcategory:{item.taxcategory}</span>
+                <span>amount:{item.amount}</span>
+                {/* <span>:{item}</span> */}
+                
+
+              </div>
+              <div className="my-3 font-semibold flex-col flex">
+                
+                <div>inventory Date: {moment(item.invdate).format("DD/MM/YY")}</div>
+                <div>gstno: {item.gstno}</div>
+                <div>taxperc: {item.taxperc}</div>
+                <div>tcs: {item.tcs}</div>
+                <div>expirydate: {item.expirydate}</div>
+                <div>Warranty: {item.wty}</div>
+              </div>
+              <div className="my-3 font-semibold flex-col flex">
+                <div> Serial No: {item.sno}</div>
+                <div>Purchase location: {item.purchlocation}</div>
+                <div>Inventory Type: {item.invtype}</div>
+                <div>panno: {item.panno}</div>
+                <div>nettax: {item.nettax}</div>
+                <div>igst: {item.igst}</div>
+                
+              </div>
+              <div className="my-3 font-semibold flex-col flex">
+                <div> Condition: {item.condition}</div>
+                <div>Purchase type: {item.purchtype}</div>
+                <div>aadharno: {item.aadharno}</div>
+                <div>rate: {item.rate}</div>
+                <div>cgst: {item.cgst}</div>
+                <div>sgst: {item.sgst}</div>
+                
+              </div>
+              </div>
+              <div  className="flex flex-col lg:flex-row items-center justify-between">
+              <div className="font-semibold">Invoice Amount:{item.invamount}</div>
+              </div>
+          
+          </ModalBody>
+          <ModalFooter>
+            
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+    }
+  };
+
+
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -177,6 +249,7 @@ function Inventory() {
   return (
     <>
       {DeleteModal()}
+      {ViewModal()}
 
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
@@ -318,6 +391,7 @@ function Inventory() {
                 <TableCell>Location</TableCell>
                 <TableCell>Inv Number</TableCell>
                 <TableCell>Condition</TableCell>
+                <TableCell>View</TableCell>
                 <TableCell>Edit/Delete</TableCell>
               </tr>
             </TableHeader>
@@ -377,13 +451,23 @@ function Inventory() {
                       {user.condition}
                     </Badge>
                   </TableCell>
+                  <TableCell>
+                    <Button 
+                    onClick={()=>{
+                      setViewId(i)
+                      setIsViewModalOpen(true);
+                    }}
+                    layout="outline">
+                      View
+                    </Button>
+                  </TableCell>
 
                   <TableCell>
                     <div className="flex items-center space-x-4">
                       <Button layout="link" size="icon" aria-label="Edit">
                         <Link
                           key={user._id}
-                          to={`/app/unit/update/${user._id}`}
+                          to={`/app/inventory/update/${user._id}`}
                         >
                           <EditIcon className="w-5 h-5" aria-hidden="true" />
                         </Link>{" "}
@@ -421,6 +505,7 @@ function Inventory() {
       </div>
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
+      
     </>
   );
 }

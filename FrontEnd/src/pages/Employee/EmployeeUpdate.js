@@ -88,12 +88,15 @@ function EmployeeUpdate() {
     Role: "",
     ///---External Certifications
     ExtCert_1: "",
+    ExtCert_1img: "",
     ExtCert_1_ID: "",
     ExtCert_1_Validity: "",
     ExtCert_2: "",
+    ExtCert_2img: "",
     ExtCert_2_ID: "",
     ExtCert_2_Validity: "",
     ExtCert_3: "",
+    ExtCert_3img: "",
     ExtCert_3_ID: "",
     ExtCert_3_Validity: "",
     // Skill set
@@ -156,9 +159,9 @@ function EmployeeUpdate() {
   const [AadhaarImg, setAadhaarImg] = useState(null);
   const [PANImg, setPANImg] = useState(null);
 
-  const [ExtCert_1, setExtCert_1] = useState(null);
-  const [ExtCert_2, setExtCert_2] = useState(null);
-  const [ExtCert_3, setExtCert_3] = useState(null);
+  const [ExtCert_1img, setExtCert_1img] = useState(null);
+  const [ExtCert_2img, setExtCert_2img] = useState(null);
+  const [ExtCert_3img, setExtCert_3img] = useState(null);
 
   const [DegreeCertificate, setDegreeCertificate] = useState(null);
   const [ExperienceCertificate, setExperienceCertificate] = useState(null);
@@ -282,12 +285,15 @@ function EmployeeUpdate() {
         Role: res.data[0].Role,
         ///---External Certifications
         ExtCert_1: res.data[0].ExtCert_1,
+        ExtCert_1img: res.data[0].ExtCert_1img,
         ExtCert_1_ID: res.data[0].ExtCert_1_ID,
         ExtCert_1_Validity: res.data[0].ExtCert_1_Validity,
         ExtCert_2: res.data[0].ExtCert_2,
+        ExtCert_2img: res.data[0].ExtCert_2img,
         ExtCert_2_ID: res.data[0].ExtCert_2_ID,
         ExtCert_2_Validity: res.data[0].ExtCert_2_Validity,
         ExtCert_3: res.data[0].ExtCert_3,
+        ExtCert_3img: res.data[0].ExtCert_3img,
         ExtCert_3_ID: res.data[0].ExtCert_3_ID,
         ExtCert_3_Validity: res.data[0].ExtCert_3_Validity,
         // Skill set
@@ -429,12 +435,15 @@ function EmployeeUpdate() {
       Role: values.Role,
       //External Certifications
       ExtCert_1: values.ExtCert_1,
+      ExtCert_1img: values.ExtCert_1img,
       ExtCert_1_ID: values.ExtCert_1_ID,
       ExtCert_1_Validity: values.ExtCert_1_Validity,
       ExtCert_2: values.ExtCert_2,
+      ExtCert_2img: values.ExtCert_2img,
       ExtCert_2_ID: values.ExtCert_2_ID,
       ExtCert_2_Validity: values.ExtCert_2_Validity,
       ExtCert_3: values.ExtCert_3,
+      ExtCert_3img: values.ExtCert_3img,
       ExtCert_3_ID: values.ExtCert_3_ID,
       ExtCert_3_Validity: values.ExtCert_3_Validity,
       //Skill Set
@@ -1324,6 +1333,17 @@ function EmployeeUpdate() {
 
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex  space-x-3">
+        <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>External Certification 1 </span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.ExtCert_1}
+                onChange={handleChange("ExtCert_1")}
+              />
+            </Label>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>External Certification 1 ID</span>
@@ -1350,7 +1370,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_1} className="my-2" width="100" height="100" />
+        <img src={values.ExtCert_1img} className="my-2" width="100" height="100" />
         {/* ------------------------Image 1-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1360,7 +1380,7 @@ function EmployeeUpdate() {
                 className="mt-1"
                 type="file"
                 // value={photo}
-                onChange={(e) => photoUploadHandler(e, setExtCert_1)}
+                onChange={(e) => photoUploadHandler(e, setExtCert_1img)}
               />
             </Label>
 
@@ -1368,9 +1388,9 @@ function EmployeeUpdate() {
           </div>
           <Button
             onClick={() => {
-              photoUpload(ExtCert_1, (url) => {
+              photoUpload(ExtCert_1img, (url) => {
                 console.log("PHOTO URL", url);
-                setValues({ ...values, ExtCert_1: url });
+                setValues({ ...values, ExtCert_1img: url });
               });
             }}
             layout="outline"
@@ -1382,9 +1402,21 @@ function EmployeeUpdate() {
         {/* ------------------------Row 2-------------------------- */}
 
         <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>External Certification 2</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.ExtCert_2}
+                onChange={handleChange("ExtCert_2")}
+              />
+            </Label>
+          </div>
+        
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>External Certification 2 ID</span>
               <Input
                 className="mt-1"
                 type="text"
@@ -1408,7 +1440,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_2} className="my-2" width="100" height="100" />
+        <img src={values.ExtCert_2img} className="my-2" width="100" height="100" />
         {/* ------------------------Image 2-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1418,7 +1450,7 @@ function EmployeeUpdate() {
                 className="mt-1"
                 type="file"
                 // value={photo}
-                onChange={(e) => photoUploadHandler(e, setExtCert_2)}
+                onChange={(e) => photoUploadHandler(e, setExtCert_2img)}
               />
             </Label>
 
@@ -1426,9 +1458,9 @@ function EmployeeUpdate() {
           </div>
           <Button
             onClick={() => {
-              photoUpload(ExtCert_2, (url) => {
+              photoUpload(ExtCert_2img, (url) => {
                 console.log("PHOTO URL", url);
-                setValues({ ...values, ExtCert_2: url });
+                setValues({ ...values, ExtCert_2img: url });
               });
             }}
             layout="outline"
@@ -1441,6 +1473,17 @@ function EmployeeUpdate() {
         {/* ------------------------Row 3-------------------------- */}
 
         <div className="flex-row flex  space-x-3">
+        <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>External Certification 3</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.ExtCert_3}
+                onChange={handleChange("ExtCert_3")}
+              />
+            </Label>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>External Certification 3 ID</span>
@@ -1467,7 +1510,7 @@ function EmployeeUpdate() {
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
         </div>
-        <img src={values.ExtCert_3} className="my-2" width="100" height="100" />
+        <img src={values.ExtCert_3img} className="my-2" width="100" height="100" />
         {/* ------------------------Image 3-------------------------- */}
         <div className="flex-row flex  space-x-3 mt-3 ">
           <div className="flex flex-col ">
@@ -1477,7 +1520,7 @@ function EmployeeUpdate() {
                 className="mt-1"
                 type="file"
                 // value={photo}
-                onChange={(e) => photoUploadHandler(e, setExtCert_3)}
+                onChange={(e) => photoUploadHandler(e, setExtCert_3img)}
               />
             </Label>
 
@@ -1485,9 +1528,9 @@ function EmployeeUpdate() {
           </div>
           <Button
             onClick={() => {
-              photoUpload(ExtCert_3, (url) => {
+              photoUpload(ExtCert_3img, (url) => {
                 console.log("PHOTO URL", url);
-                setValues({ ...values, ExtCert_3: url });
+                setValues({ ...values, ExtCert_3img: url });
               });
             }}
             layout="outline"
@@ -1835,46 +1878,6 @@ function EmployeeUpdate() {
           </div>
         </div>
 
-        {/* ------------------------Row 9-------------------------- */}
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>SVR_L1</span>
-              <Select
-                className="mt-1"
-                value={values.SVR_L1}
-                onChange={(e) => {
-                  setValues({ ...values, SVR_L1: e.target.value });
-                }}
-              >
-                <option value="" selected disabled>
-                  Select Yes/No
-                </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </Select>
-            </Label>
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>SVR_L2</span>
-              <Select
-                className="mt-1"
-                value={values.SVR_L2}
-                onChange={(e) => {
-                  setValues({ ...values, SVR_L2: e.target.value });
-                }}
-              >
-                <option value="" selected disabled>
-                  Select Yes/No
-                </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </Select>
-            </Label>
-          </div>
-        </div>
 
         {/* ------------------------Row 10-------------------------- */}
         <div className="flex-row flex  space-x-3">
@@ -2108,7 +2111,7 @@ function EmployeeUpdate() {
               <span>ResignDate</span>
               <Input
                 className="mt-1"
-                type="text"
+                type="date"
                 value={values.ResignDate}
                 onChange={handleChange("ResignDate")}
               />
@@ -2130,13 +2133,24 @@ function EmployeeUpdate() {
           <div className="flex flex-col w-full">
             <Label className="w-full ">
               <span>NoticePeriodServed</span>
-              <Input
+              
+              <Select
                 className="mt-1"
-                type="text"
-                placeholder=""
                 value={values.NoticePeriodServed}
-                onChange={handleChange("NoticePeriodServed")}
-              />
+                onChange={(e) => {
+                  if(e.target.value=="Yes"){
+                    setValues({ ...values, Live:"No" });
+                    console.log("live no")
+                  }
+                  else setValues({ ...values, Live:"Yes" });
+                  setValues({ ...values, NoticePeriodServed:e.target.value });
+                  
+                }}
+              >
+                
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
             </Label>
             {/* <HelperText valid={false}>{err.email}</HelperText> */}
           </div>
@@ -2229,7 +2243,7 @@ function EmployeeUpdate() {
                 className="mt-1"
                 type="text"
                 value={values.Live}
-                onChange={handleChange("Live")}
+                // onChange={handleChange("Live")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}

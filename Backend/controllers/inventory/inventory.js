@@ -268,6 +268,15 @@ exports.updateInventory = async (req, res) => {
   }
 };
 
+exports.getInvById = async (req, res) => {
+  try {
+    let vend = await InvItem.findById(req.body.id)
+    return res.status(200).json(vend);
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
 // ------------history-------------------------------------------
 
 exports.createPurchaseHistrory= async (req, res) => {
@@ -290,11 +299,12 @@ exports.createPurchaseHistrory= async (req, res) => {
 exports.getAllHistory = (req, res) => {
   let { pages, filters } = req.body;
 
-  let { searchquery } = filters;
+  let { searchquery,vendorsearchquery } = filters;
   // console.log(filters);
   // console.log(searchquery);
   // console.log(searchtype);
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
+  const vendorfuzzyquery = new RegExp(escapeRegex(vendorsearchquery), "gi");
 
   let options = {
     // populate: "product",
@@ -308,18 +318,22 @@ exports.getAllHistory = (req, res) => {
   };
 
   // ---Conditional Addition of filters
-  // if (filters.type != "") {
-  //   filteroptions.type = filters.type;
-  // }
-  // if (filters.location != "") {
-  //   filteroptions.location = filters.location;
-  // }
-  // if (filters.condition != "") {
-  //   filteroptions.condition = filters.condition;
-  // }
-  // if (filters.searchquery != "") {
-  //   filteroptions.sno = fuzzyquery;
-  // }
+  if (filters.type != "") {
+    filteroptions.type = filters.type;
+  }
+  if (filters.location != "") {
+    filteroptions.location = filters.location;
+  }
+  if (filters.stocktype != "") {
+    filteroptions.stocktype = filters.stocktype;
+  }
+  if (filters.searchquery != "") {
+    filteroptions.invnumber = fuzzyquery;
+  }
+  if (filters.vendorsearchquery != "") {
+    filteroptions.vendor = vendorfuzzyquery;
+  }
+ 
 
   // -----------------------------------------------------------------------
 
