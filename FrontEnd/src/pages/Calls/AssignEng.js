@@ -161,7 +161,7 @@ function AssignEng() {
 
   // -------Enabling Bottom Bar----
   useEffect(() => {
-    setBBarOpen(1);
+    // setBBarOpen(1);
     return () => {
       setBBarOpen(0);
       setAssetDetails({});
@@ -398,9 +398,11 @@ function AssignEng() {
                   key={i}
                   onClick={() => {
                     setActiveRowId(call._id);
+                    setBBarOpen(1);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
-                    // setAssetDetails(call);
+                    setAssetDetails(call.assetId);
+                    console.log(call.assetId);
                     // console.log(call.product.keyboard[0].kbdname);
                   }}
                 >

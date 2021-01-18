@@ -352,7 +352,11 @@ function Inventory() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.name}</span>
+                    {user.systype == "item" ? (
+                      <span className="text-sm">{user.name}</span>
+                    ) : (
+                      <span className="text-sm">{user.brand + user.model}</span>
+                    )}
                   </TableCell>
 
                   <TableCell>

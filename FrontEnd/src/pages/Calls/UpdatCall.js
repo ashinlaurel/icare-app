@@ -144,12 +144,15 @@ function UpdateCall() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
+  // use effect to add fields to the item coming from asset
   useEffect(() => {
     let temp = data;
     let thetype = selectedItem.toLowerCase();
     temp.map((item, i) => {
       item.name = item[`${thetype}name`];
       item.sno = item[`${thetype}sno`];
+      item.type = thetype;
+      item.condition = "Bad";
     });
     console.log(temp);
     setData(temp);
@@ -158,6 +161,7 @@ function UpdateCall() {
     };
   }, [data]);
 
+  // -----use effect to pull new inventory list according to filters
   useEffect(() => {
     thegetter();
   }, [selectedItem]);
@@ -173,7 +177,7 @@ function UpdateCall() {
       filters: {
         type: selectedItem.toLowerCase(),
         location: location,
-        condition: condition,
+        condition: "Good",
         searchtype: searchtype,
         searchquery: searchquery,
       },
@@ -315,7 +319,7 @@ function UpdateCall() {
     return (
       <>
         <Modal isOpen={submitModal} onClose={() => setSubmitModal(false)}>
-          <ModalHeader>Asset Updated Successfully!</ModalHeader>
+          <ModalHeader>Swap Successfull</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -419,6 +423,41 @@ function UpdateCall() {
     }
   };
 
+  const handleSwap = async () => {
+    let payload = {
+      existswap: existswap[0],
+      newswap: inventswap[0],
+      call: call,
+      type: selectedItem.toLowerCase(),
+    };
+
+    try {
+      let update = await axios({
+        url: `${API}/call/${Emp.getId()}/swapitems`,
+        method: "POST",
+        data: payload,
+      });
+
+      console.log("Done");
+      setInventswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      setExistswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      getAsset();
+      setSubmitModal(true);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //DROPDOWN------------------------------------------------------------------------------------
 
   const [isOpen, setIsOpen] = useState(false);
@@ -431,7 +470,20 @@ function UpdateCall() {
       <div className="dark:text-white my-4 ">
         {/* Row 1  */}
         <div className="text-xl font-semibold">Asset Information</div>
+        {/* Call Details */}
+        <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
+          <div className="my-3 font-semibold">
+            <span>Call Number :{call.callNo}</span>
+          </div>
+          <div className="my-3 font-semibold">
+            <span>Contact Person:{call.contactPerson}</span>
+          </div>
+          <div className="my-3 font-semibold">
+            <span>Date: {call.date}</span>
+          </div>
+        </div>
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
+          {/* Row - 1 */}
           <div className="flex flex-col  text-sm my-1 w-full ">
             <div>
               <span className="font-semibold w-1/5">Product Type :</span>{" "}
@@ -739,7 +791,9 @@ function UpdateCall() {
                   Select Inventory Category
                 </option>
 
-                <option value="Full">Full System</option>
+                <option value="Full" disabled>
+                  Full System
+                </option>
                 <option value="Item">Item</option>
               </select>
 
@@ -1069,6 +1123,7 @@ function UpdateCall() {
               className="dark:border-green-700 border-green-400"
               onClick={() => {
                 console.log("Swap");
+                handleSwap();
               }}
             >
               Swap
@@ -1259,12 +1314,11 @@ function UpdateCall() {
   return (
     <>
       {AssetBar()}
-
-      <div className=" ">
+      {/* <div className=" ">
         <div className="text-xl dark:text-white">Call</div>
         <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
-          <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
+      {/* <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
             <div className="my-3 font-semibold">
               <span>Call Number :{call.callNo}</span>
             </div>
@@ -1274,13 +1328,11 @@ function UpdateCall() {
             <div className="my-3 font-semibold">
               <span>Date: {call.date}</span>
             </div>
-          </div>
-          <br />
-        </div>
-      </div>
-
+          </div> */}
+      {/* <br /> */}
+      {/* </div> */}
+      {/* </div> */}
       {AssetItemPick()}
-
       {UpdatedModal()}
     </>
   );
