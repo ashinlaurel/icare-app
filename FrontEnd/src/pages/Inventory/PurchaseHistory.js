@@ -129,7 +129,7 @@ function PurchaseHistory() {
 
   const createAndDownloadPdf = async (id) => {
     let payload = {
-      id:id
+      id: id,
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -164,7 +164,7 @@ function PurchaseHistory() {
                 {items.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                      activeRowID  == user._id
+                      activeRowID == user._id
                         ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                         : "white"
                     } `}
@@ -274,7 +274,7 @@ function PurchaseHistory() {
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </select>
 
@@ -302,7 +302,7 @@ function PurchaseHistory() {
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayum">Kottayum</option>
+                <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
               </select>
 
@@ -381,7 +381,7 @@ function PurchaseHistory() {
                 <TableCell>Date</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>No.Items</TableCell>
-                
+
                 <TableCell>
                   <span
                     className="cursor-pointer"
@@ -441,22 +441,20 @@ function PurchaseHistory() {
                       condition
                     </Badge>
                   </TableCell> */}
-                  
+
                     <TableCell className="text-center ">
                       <Button
                         // layout="link"
                         size="icon"
                         aria-label="DropDown"
-                        onClick={() => {
-                          console.log(activeRowID);
-                          if(activeRowID==i){
-
-                          setActiveRowID(-1);
+                        onClick={
+                          () => {
+                            console.log(activeRowID);
+                            if (activeRowID == i) {
+                              setActiveRowID(-1);
+                            } else setActiveRowID(i);
                           }
-                          else
-                          setActiveRowID(i);
-                        }
-                        // console.log(ac)
+                          // console.log(ac)
                         }
                         className="rounded-lg m-1"
                       >

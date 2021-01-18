@@ -174,7 +174,7 @@ const CreateInvent = () => {
               }}
             >
               <option value="Trivandrum">Trivandrum</option>
-              <option value="Kottayum">Kottayum</option>
+              <option value="Kottayam">Kottayam</option>
               <option value="Kozhikode">Kozhikode</option>
             </Select>
           </Label>
