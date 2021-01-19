@@ -27,6 +27,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 function Inventory() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -113,7 +114,6 @@ function Inventory() {
       </>
     );
   };
-
 
   const ViewModal = () => {
     
@@ -263,13 +263,12 @@ function Inventory() {
     }
   };
 
-
   // on page change, load new sliced data
   // here you would make another server request for new data
 
   // -------Enabling Bottom Bar----
   useEffect(() => {
-    setBBarOpen(1);
+    // setBBarOpen(1);
     return () => {
       setBBarOpen(0);
       setAssetDetails({});
@@ -419,6 +418,7 @@ function Inventory() {
                 <option value="">All</option>
                 <option value="Good">Good</option>
                 <option value="Bad">Bad</option>
+                <option value="Used">Used</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -498,7 +498,7 @@ function Inventory() {
                         alt="User image"
                       /> */}
                       <div>
-                        <p className="font-semibold">{user.type}</p>
+                        <p className="font-semibold">{capitalize(user.type)}</p>
                         {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
@@ -530,12 +530,13 @@ function Inventory() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Button 
-                    onClick={()=>{
-                      setViewId(i)
-                      setIsViewModalOpen(true);
-                    }}
-                    layout="outline">
+                    <Button
+                      onClick={() => {
+                        setViewId(i);
+                        setIsViewModalOpen(true);
+                      }}
+                      layout="outline"
+                    >
                       View
                     </Button>
                   </TableCell>
@@ -583,7 +584,6 @@ function Inventory() {
       </div>
 
       {/* ------------------------------------Bottom Bar---------------------------------- */}
-      
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import moment from "moment";
 import { API } from "../../backendapi";
@@ -31,11 +31,14 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import { useParams } from "react-router-dom";
 import { DropdownIcon } from "../../icons";
 import { useMemo } from "react";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function UpdateCall() {
   // floatbox
 
   const params = useParams();
+  const { topheading, setTopHeading } = useContext(TopBarContext);
+
   const id = params.assetid;
   const callid = params.callid;
   // console.log(id);
@@ -130,6 +133,15 @@ function UpdateCall() {
     },
   ]);
 
+  // ----------------------Heading Use Effect-------------
+  useEffect(() => {
+    setTopHeading("Update Call");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+  // -----------------------------------------------------
+
   // filterhooks
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
@@ -148,11 +160,14 @@ function UpdateCall() {
   useEffect(() => {
     let temp = data;
     let thetype = selectedItem.toLowerCase();
+    let theitemandsystem = itemtype.toLowerCase();
+
     temp.map((item, i) => {
       item.name = item[`${thetype}name`];
       item.sno = item[`${thetype}sno`];
       item.type = thetype;
       item.condition = "Bad";
+      item.systype = theitemandsystem;
     });
     console.log(temp);
     setData(temp);
@@ -469,7 +484,7 @@ function UpdateCall() {
     return (
       <div className="dark:text-white my-4 ">
         {/* Row 1  */}
-        <div className="text-xl font-semibold">Asset Information</div>
+        {/* <div className="text-xl font-semibold">Asset Information</div> */}
         {/* Call Details */}
         <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
           <div className="my-3 font-semibold">
@@ -479,7 +494,7 @@ function UpdateCall() {
             <span>Contact Person:{call.contactPerson}</span>
           </div>
           <div className="my-3 font-semibold">
-            <span>Date: {call.date}</span>
+            <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
           </div>
         </div>
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
@@ -773,7 +788,7 @@ function UpdateCall() {
   const AssetItemPick = () => {
     return (
       <div>
-        <div className="text-xl dark:text-white">Swap Items</div>
+        {/* <div className="text-xl dark:text-white">Swap Items</div> */}
 
         {/* -----Type Selection---- */}
         <div className="">
@@ -791,7 +806,7 @@ function UpdateCall() {
                   Select Inventory Category
                 </option>
 
-                <option value="Full" disabled>
+                <option value="Full System" disabled>
                   Full System
                 </option>
                 <option value="Item">Item</option>
@@ -811,7 +826,9 @@ function UpdateCall() {
             <div className="relative z-40 ">
               <button
                 onClick={() => {
-                  setIsOpen(!isOpen);
+                  if (itemtype != "") {
+                    setIsOpen(!isOpen);
+                  }
                 }}
                 className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 aria-label="Notifications"
@@ -1131,84 +1148,94 @@ function UpdateCall() {
           </div>
         </div>
 
-        {/* -------Existing Item Table ----------*/}
+        {/* Selection Modules */}
+        <div className="flex flex-row items-start space-x-2">
+          {/* -------Existing Item Table ----------*/}
 
-        <TableContainer className="mt-4">
-          <Table>
-            <TableHeader>
-              <tr className="flex flex-row justify-between">
-                <TableCell>Type</TableCell>
-                <TableCell>Model</TableCell>
-                <TableCell>Serial Number</TableCell>
+          <TableContainer className="mt-4">
+            <Table>
+              <TableHeader>
+                <tr className="flex flex-row justify-between">
+                  <TableCell>Type</TableCell>
+                  <TableCell>Model</TableCell>
+                  <TableCell>Serial Number</TableCell>
 
-                <TableCell>
-                  <span
-                    className="cursor-pointer"
-                    // onClick={() => setActiveRowID(-1)}
-                  >
-                    Items
-                  </span>
-                </TableCell>
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {existswap.map((user, i) => (
-                <div className="flex flex-col justify-around">
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      activeRowID == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={i}
-                    onClick={() => {
-                      // setActiveRowID(i);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">{selectedItem}</p>
+                  <TableCell>
+                    <span
+                      className="cursor-pointer"
+                      // onClick={() => setActiveRowID(-1)}
+                    >
+                      Items
+                    </span>
+                  </TableCell>
+                </tr>
+              </TableHeader>
+              <TableBody>
+                {existswap.map((user, i) => (
+                  <div className="flex flex-col justify-around">
+                    <TableRow
+                      className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                        activeRowID == user._id
+                          ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                          : "white"
+                      } `}
+                      key={i}
+                      onClick={() => {
+                        // setActiveRowID(i);
+                      }}
+                    >
+                      <TableCell className="w-8">
+                        <div className="flex items-center text-sm ">
+                          <div>
+                            <p className="font-semibold">{selectedItem}</p>
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.name}</span>
-                    </TableCell>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.name}</span>
+                      </TableCell>
 
-                    <TableCell>
-                      <span className="text-sm">{user.sno}</span>
-                    </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.sno}</span>
+                      </TableCell>
 
-                    <TableCell className="text-center ">
-                      <Button
-                        // layout="link"
-                        size="icon"
-                        aria-label="DropDown"
-                        onClick={() => {
-                          console.log(activeRowID);
-                          if (activeRowID != -1) {
-                            setActiveRowID(-1);
-                          } else {
-                            setActiveRowID(i);
-                          }
-                          // setActiveRowID(-1);
-                        }}
-                        className="rounded-lg m-1"
-                      >
-                        <DropdownIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+                      <TableCell className="text-center ">
+                        <Button
+                          // layout="link"
+                          size="icon"
+                          aria-label="DropDown"
+                          onClick={() => {
+                            console.log(activeRowID);
+                            if (activeRowID != -1) {
+                              setActiveRowID(-1);
+                            } else {
+                              setActiveRowID(i);
+                            }
+                            // setActiveRowID(-1);
+                          }}
+                          className="rounded-lg m-1"
+                        >
+                          <DropdownIcon
+                            className="w-5 h-5"
+                            aria-hidden="true"
+                          />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
 
-                  {activeRowID == i
-                    ? InvTable(data, activeRowID, setActiveRowID, setExistswap)
-                    : null}
-                </div>
-              ))}
-            </TableBody>
-          </Table>
-          {/* <TableFooter>
+                    {activeRowID == i
+                      ? InvTable(
+                          data,
+                          activeRowID,
+                          setActiveRowID,
+                          setExistswap
+                        )
+                      : null}
+                  </div>
+                ))}
+              </TableBody>
+            </Table>
+            {/* <TableFooter>
             <Pagination
               totalResults={totalResults}
               resultsPerPage={resultsPerPage}
@@ -1216,89 +1243,93 @@ function UpdateCall() {
               onChange={onPageChange}
             />
           </TableFooter> */}
-        </TableContainer>
+          </TableContainer>
 
-        {/*----------- Inventory Selection Table ----------- */}
-        <TableContainer className="mt-4">
-          <Table>
-            <TableHeader>
-              <tr className="flex flex-row justify-between">
-                <TableCell>Type</TableCell>
-                <TableCell>Model</TableCell>
-                <TableCell>Serial Number</TableCell>
+          {/*----------- Inventory Selection Table ----------- */}
 
-                <TableCell>
-                  <span
-                    className="cursor-pointer"
-                    // onClick={() => setActiveRowID(-1)}
-                  >
-                    Items
-                  </span>
-                </TableCell>
-              </tr>
-            </TableHeader>
-            <TableBody>
-              {inventswap.map((user, i) => (
-                <div className="flex flex-col justify-around">
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      secondactiveRowID == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={i}
-                    onClick={() => {
-                      // setActiveRowID(i);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">{selectedItem}</p>
+          <TableContainer className="mt-4">
+            <Table>
+              <TableHeader>
+                <tr className="flex flex-row justify-between">
+                  <TableCell>Type</TableCell>
+                  <TableCell>Model</TableCell>
+                  <TableCell>Serial Number</TableCell>
+
+                  <TableCell>
+                    <span
+                      className="cursor-pointer"
+                      // onClick={() => setActiveRowID(-1)}
+                    >
+                      Items
+                    </span>
+                  </TableCell>
+                </tr>
+              </TableHeader>
+              <TableBody>
+                {inventswap.map((user, i) => (
+                  <div className="flex flex-col justify-around">
+                    <TableRow
+                      className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                        secondactiveRowID == user._id
+                          ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                          : "white"
+                      } `}
+                      key={i}
+                      onClick={() => {
+                        // setActiveRowID(i);
+                      }}
+                    >
+                      <TableCell className="w-8">
+                        <div className="flex items-center text-sm ">
+                          <div>
+                            <p className="font-semibold">{selectedItem}</p>
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.name}</span>
-                    </TableCell>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.name}</span>
+                      </TableCell>
 
-                    <TableCell>
-                      <span className="text-sm">{user.sno}</span>
-                    </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.sno}</span>
+                      </TableCell>
 
-                    <TableCell className="text-center ">
-                      <Button
-                        // layout="link"
-                        size="icon"
-                        aria-label="DropDown"
-                        onClick={() => {
-                          if (secondactiveRowID != -1) {
-                            setSecondactiveRowID(-1);
-                          } else {
-                            setSecondactiveRowID(i);
-                          }
-                          // setActiveRowID(-1);
-                        }}
-                        className="rounded-lg m-1"
-                      >
-                        <DropdownIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+                      <TableCell className="text-center ">
+                        <Button
+                          // layout="link"
+                          size="icon"
+                          aria-label="DropDown"
+                          onClick={() => {
+                            if (secondactiveRowID != -1) {
+                              setSecondactiveRowID(-1);
+                            } else {
+                              setSecondactiveRowID(i);
+                            }
+                            // setActiveRowID(-1);
+                          }}
+                          className="rounded-lg m-1"
+                        >
+                          <DropdownIcon
+                            className="w-5 h-5"
+                            aria-hidden="true"
+                          />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
 
-                  {secondactiveRowID == i
-                    ? InvTable(
-                        inventdata,
-                        secondactiveRowID,
-                        setSecondactiveRowID,
-                        setInventswap
-                      )
-                    : null}
-                </div>
-              ))}
-            </TableBody>
-          </Table>
-          {/* <TableFooter>
+                    {secondactiveRowID == i
+                      ? InvTable(
+                          inventdata,
+                          secondactiveRowID,
+                          setSecondactiveRowID,
+                          setInventswap
+                        )
+                      : null}
+                  </div>
+                ))}
+              </TableBody>
+            </Table>
+            {/* <TableFooter>
             <Pagination
               totalResults={totalResults}
               resultsPerPage={resultsPerPage}
@@ -1306,7 +1337,8 @@ function UpdateCall() {
               onChange={onPageChange}
             />
           </TableFooter> */}
-        </TableContainer>
+          </TableContainer>
+        </div>
       </div>
     );
   };
