@@ -126,18 +126,96 @@ function Inventory() {
           onClose={() => setIsViewModalOpen(false)}
           className="w-8/12 dark:bg-gray-800 p-10 my-12  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
         >
-          <ModalHeader>{item.name}</ModalHeader>
+          <ModalHeader className="flex flex-row justify-between text-xl">
+          <div>{item.name}</div>
+          <div>Condition: <Badge>{item.condition}</Badge> </div>
+          </ModalHeader>
           <ModalBody>
+
+          <div className="font-semibold text-xl my-2">Product Description</div>
           
-          <div className="flex flex-col lg:flex-row items-center justify-between ">
-              <div className="my-3 font-semibold flex-col flex">
+          <div className="flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg p-5 ">
+              <div className="my-3  flex-col flex">
+                
+              <div className="font-semibold" > Serial No: {item.sno}</div>
+              <div>Invnetory No:{item.invnumber}</div>
+              <div>Location:{item.location}</div>
+              <div>GST No: {item.gstno}</div>
+              <div>Expiry Date: {item.expirydate}</div>
+                
+                
+                
+
+              </div>
+              <div className="my-3 font- flex-col flex">
+              <span className="font-semibold" >Type:{item.type}</span>
+              <div>inventory Date: {moment(item.invdate).format("DD/MM/YY")}</div>
+              <div>Purchase Location: {item.purchlocation}</div>
+              <div>PAN No: {item.panno}</div>
+              <div>Warranty: {item.wty}</div>
+              
+               
+                
+              </div>
+                <div className="my-3  flex-col flex">
+                <div className="font-semibold" >vendor:{item.vendor}</div>
+                <div>Inventory Type: {item.invtype}</div>
+                <div>Purchase type: {item.purchtype}</div>
+                <div>Aadhar No: {item.aadharno}</div>
+                
+                
+                  
+                  
+                  
+                </div>
+                
+           </div>
+
+           <div className="font-semibold text-xl my-2">Product Rates</div>
+
+           <div className="flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg p-5 ">
+              <div className="my-3  flex-col flex">
+              <span className="font-semibold" >Amount:{item.amount}</span> 
+              <div className="font-semibold" >Net tax: {item.nettax}</div>
+              <div>IGST: {item.igst}</div>
+              <div>TCS: {item.tcs}</div> 
+                
+                
+
+              </div>
+              <div className="my-3 font- flex-col flex">
+              <div className="font-semibold" >Rate: {item.rate}</div>
+              <span>Tax Category:{item.taxcategory}</span> 
+              <div>CGST : {item.cgst}</div>
+                 
+              
+               
+                
+              </div>
+                <div className="my-3  flex-col flex">
+                <div className="font-semibold">Invoice Amount:{item.invamount}</div>
+                <div>Tax percentage: {item.taxperc}</div>
+                <div>SGST: {item.sgst}</div>
+                
+                
+                  
+                  
+                  
+                </div>
+                
+           </div>
+
+
+           {/* <div className="flex flex-col lg:flex-row items-center justify-between bg-gray-100 rounded-lg p-3 ">
+              <div className="my-3  flex-col flex">
+                
+                
                 <span>Type:{item.type}</span>
                 <span>vendor:{item.vendor}</span>
                 <span>location:{item.location}</span>
                 <span>Invnetory No:{item.invnumber}</span>
                 <span>taxcategory:{item.taxcategory}</span>
                 <span>amount:{item.amount}</span>
-                {/* <span>:{item}</span> */}
                 
 
               </div>
@@ -150,27 +228,29 @@ function Inventory() {
                 <div>expirydate: {item.expirydate}</div>
                 <div>Warranty: {item.wty}</div>
               </div>
-              <div className="my-3 font-semibold flex-col flex">
-                <div> Serial No: {item.sno}</div>
-                <div>Purchase location: {item.purchlocation}</div>
-                <div>Inventory Type: {item.invtype}</div>
-                <div>panno: {item.panno}</div>
-                <div>nettax: {item.nettax}</div>
-                <div>igst: {item.igst}</div>
-                
-              </div>
-              <div className="my-3 font-semibold flex-col flex">
-                <div> Condition: {item.condition}</div>
-                <div>Purchase type: {item.purchtype}</div>
-                <div>aadharno: {item.aadharno}</div>
-                <div>rate: {item.rate}</div>
-                <div>cgst: {item.cgst}</div>
-                <div>sgst: {item.sgst}</div>
-                
-              </div>
-              </div>
+                <div className="my-3 font-semibold flex-col flex">
+                  <div> Serial No: {item.sno}</div>
+                  <div>Inventory Type: {item.invtype}</div>
+                  <div>Inventory Type: {item.invtype}</div>
+                  <div>panno: {item.panno}</div>
+                  <div>nettax: {item.nettax}</div>
+                  <div>igst: {item.igst}</div>
+                  
+                </div>
+                <div className="my-3 font-semibold flex-col flex">
+                  <div> Condition: {item.condition}</div>
+                  <div>Purchase type: {item.purchtype}</div>
+                  <div>aadharno: {item.aadharno}</div>
+                  <div>rate: {item.rate}</div>
+                  <div>cgst: {item.cgst}</div>
+                  <div>sgst: {item.sgst}</div>
+                  
+                </div>
+           </div> */}
+
+              
               <div  className="flex flex-col lg:flex-row items-center justify-between">
-              <div className="font-semibold">Invoice Amount:{item.invamount}</div>
+              {/* <div className="font-semibold">Invoice Amount:{item.invamount}</div> */}
               </div>
           
           </ModalBody>
