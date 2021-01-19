@@ -16,7 +16,8 @@ const VendorSchema = new Schema({
   district:String,
   state:String,
   PIN:String,
-
+  phno1:String,
+  phno2:String,
   
 });
 VendorSchema.plugin(mongoosePaginate);

@@ -124,7 +124,7 @@ function Inventory() {
         <Modal
           isOpen={isViewModalOpen}
           onClose={() => setIsViewModalOpen(false)}
-          className="w-8/12 dark:bg-gray-800 p-10 my-12  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
         >
           <ModalHeader className="flex flex-row justify-between text-xl">
           <div>{item.name}</div>
@@ -134,12 +134,12 @@ function Inventory() {
 
           <div className="font-semibold text-xl my-2">Product Description</div>
           
-          <div className="flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg p-5 ">
+          <div className=" py-3 px-10 flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg ">
               <div className="my-3  flex-col flex">
                 
               <div className="font-semibold" > Serial No: {item.sno}</div>
-              <div>Invnetory No:{item.invnumber}</div>
-              <div>Location:{item.location}</div>
+              <div>Invnetory No: {item.invnumber}</div>
+              <div>Location: {item.location}</div>
               <div>GST No: {item.gstno}</div>
               <div>Expiry Date: {item.expirydate}</div>
                 
@@ -148,7 +148,7 @@ function Inventory() {
 
               </div>
               <div className="my-3 font- flex-col flex">
-              <span className="font-semibold" >Type:{item.type}</span>
+              <span className="font-semibold" >Type: {item.type}</span>
               <div>inventory Date: {moment(item.invdate).format("DD/MM/YY")}</div>
               <div>Purchase Location: {item.purchlocation}</div>
               <div>PAN No: {item.panno}</div>
@@ -158,7 +158,7 @@ function Inventory() {
                 
               </div>
                 <div className="my-3  flex-col flex">
-                <div className="font-semibold" >vendor:{item.vendor}</div>
+                <div className="font-semibold" >Vendor: {item.vendor}</div>
                 <div>Inventory Type: {item.invtype}</div>
                 <div>Purchase type: {item.purchtype}</div>
                 <div>Aadhar No: {item.aadharno}</div>

@@ -11,6 +11,7 @@ const {
   updateLST,
   downloadPdf,
   getById,
+  deleteLST,
 } = require("../../controllers/LST/LST");
 
 const router = express.Router();
@@ -26,6 +27,7 @@ router.post("/getall", getAllItems);
 router.post("/getbyid", getById);
 
 router.post("/:id/update", isSignedIn, isAuthenticated, updateLST);
+router.post("/:id/delete", isSignedIn, isAuthenticated, deleteLST);
 
 router.post("/:id/downloadpdf", isSignedIn, isAuthenticated, downloadPdf);
 
