@@ -5,6 +5,8 @@ import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import { CSVLink, CSVDownload } from "react-csv";
+import { saveAs } from "file-saver";
 
 import {
   TableBody,
@@ -34,6 +36,7 @@ function Inventory() {
   const [deleteId, setDeleteId] = useState(0);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewId, setViewId] = useState(0);
+  const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -76,6 +79,47 @@ function Inventory() {
   function onPageChange(p) {
     setPage(p);
   }
+
+  const downloadInv= async()=>{
+    let csv='name,id,sno,condition,location,invnumber,invdate,invtype,purchtype,purchlocation,vendor,gstno,panno,aadharno,taxcategory,taxperc,rate,igst,cgst,sgst,nettax,amount,tcs,invamount,wty,expirydate,brand,model,systype,stocktype,caseId \n';
+    
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        type: "",
+        location: "",
+        condition: "",
+        searchtype: "",
+        searchquery: "",
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getall`,
+        method: "POST",
+        data:payload,
+      });
+      console.log(response.data.out);
+      array= response.data.out;
+      // return response.data;
+     
+    } catch (error) {
+      throw error;
+    }
+    array.map(i=>{
+      csv=csv+`${i.name},${i.id},${i.sno},${i.condition},${i.location},${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${i.purchlocation},${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${i.taxperc},${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${i.tcs},${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${i.systype},${i.stocktype},${i.caseId}\n`
+    })
+    // console.log(csv);
+    const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(csvData, "Inventory.csv")
+
+    
+  }
+  
 
   const DeleteModal = () => {
     return (
@@ -263,6 +307,36 @@ function Inventory() {
     }
   };
 
+  const DwnldModal = () => {
+  
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+          <div className="text-lg">Download Full Inventory Data?</div>  
+          </ModalHeader>
+          <ModalBody>
+        
+        <Button layout="outline" onClick={downloadInv}>
+              Download
+         </Button>
+            
+                
+          </ModalBody>
+          <ModalFooter>
+            
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+    
+  };
+
+
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -328,6 +402,8 @@ function Inventory() {
     <>
       {DeleteModal()}
       {ViewModal()}
+      {DwnldModal()}
+      
 
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
@@ -455,6 +531,17 @@ function Inventory() {
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
+            </div>
+
+            <div class="block relative xl:ml-64">
+                
+             <Button layout="outline" onClick={()=>{
+              
+               setIsDwnldModalOpen(true)
+               }}>
+             Download Database
+             </Button>
+            
             </div>
           </div>
         </div>

@@ -87,7 +87,7 @@ function PurchaseInventory() {
     stocktype: "",
 
     //-------
-    caseId: "",
+    caseId: "imprest",
   };
   const [values, setValues] = useState([invdetails]);
 

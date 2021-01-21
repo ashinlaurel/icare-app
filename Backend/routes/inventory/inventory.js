@@ -11,6 +11,7 @@ const {
   createPurchaseHistrory,
   getAllHistory,
   getInvById,
+  downloadInventory,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,

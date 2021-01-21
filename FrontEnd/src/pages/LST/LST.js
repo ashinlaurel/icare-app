@@ -532,8 +532,14 @@ function LST() {
                         // newuser["caseId"]=e.target.value
                         temp = temp.filter((x) => {
                           if (x._id != user._id) return x;
-                          else return { ...x, caseId: e.target.value };
+                          else {
+                            console.log("here",e.target.value)
+                            let t=x;
+                            t.caseId=e.target.value;
+                            return t
+                          };
                         });
+                        console.log(temp)
                         setSelectedItems(temp);
                       }}
                       defaultValue="Imprest"
