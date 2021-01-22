@@ -78,6 +78,11 @@ const LST = lazy(() => import("../pages/LST/LST"));
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
 
 
+// ------------------------------------ Engg 
+const ViewEngineerCalls = lazy(() => import("../pages/EngineerPages/EnggCalls"));
+
+// ------------------------------------ notification
+
 const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
 
 
@@ -350,4 +355,13 @@ export const croutes = [
     path: "/customer/accounts/units/:id/:accountid/:unitid",
     component: UnitsAsset,
   },
+];
+
+export const enggroutes = [
+  // ----------------------My Asset Views ----------------------
+  {
+    path: "/engcalls/viewmycalls",
+    component: ViewEngineerCalls,
+  },
+  
 ];

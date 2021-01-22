@@ -5,6 +5,8 @@ import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import { CSVLink, CSVDownload } from "react-csv";
+import { saveAs } from "file-saver";
 
 import {
   TableBody,
@@ -34,6 +36,7 @@ function Inventory() {
   const [deleteId, setDeleteId] = useState(0);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewId, setViewId] = useState(0);
+  const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -77,6 +80,47 @@ function Inventory() {
     setPage(p);
   }
 
+  const downloadInv= async()=>{
+    let csv='name,id,sno,condition,location,invnumber,invdate,invtype,purchtype,purchlocation,vendor,gstno,panno,aadharno,taxcategory,taxperc,rate,igst,cgst,sgst,nettax,amount,tcs,invamount,wty,expirydate,brand,model,systype,stocktype,caseId \n';
+    
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        type: "",
+        location: "",
+        condition: "",
+        searchtype: "",
+        searchquery: "",
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getall`,
+        method: "POST",
+        data:payload,
+      });
+      console.log(response.data.out);
+      array= response.data.out;
+      // return response.data;
+     
+    } catch (error) {
+      throw error;
+    }
+    array.map(i=>{
+      csv=csv+`${i.name},${i.id},${i.sno},${i.condition},${i.location},${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${i.purchlocation},${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${i.taxperc},${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${i.tcs},${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${i.systype},${i.stocktype},${i.caseId}\n`
+    })
+    // console.log(csv);
+    const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(csvData, "Inventory.csv")
+
+    
+  }
+  
+
   const DeleteModal = () => {
     return (
       <>
@@ -116,44 +160,126 @@ function Inventory() {
   };
 
   const ViewModal = () => {
-    if (data[viewId]) {
-      let item = data[viewId];
-      return (
-        <>
-          <Modal
-            isOpen={isViewModalOpen}
-            onClose={() => setIsViewModalOpen(false)}
-            className="w-8/12 dark:bg-gray-800 p-10 my-12  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
-          >
-            <ModalHeader>{item.name}</ModalHeader>
-            <ModalBody>
-              <div className="flex flex-col lg:flex-row items-center justify-between ">
-                <div className="my-3 font-semibold flex-col flex">
-                  <span>Type:{item.type}</span>
-                  <span>vendor:{item.vendor}</span>
-                  <span>location:{item.location}</span>
-                  <span>Invnetory No:{item.invnumber}</span>
-                  <span>taxcategory:{item.taxcategory}</span>
-                  <span>amount:{item.amount}</span>
-                  {/* <span>:{item}</span> */}
+    
+    if(data[viewId]){
+    let item = data[viewId];
+    return (
+      <>
+        <Modal
+          isOpen={isViewModalOpen}
+          onClose={() => setIsViewModalOpen(false)}
+          className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+          <div>{item.name}</div>
+          <div>Condition: <Badge>{item.condition}</Badge> </div>
+          </ModalHeader>
+          <ModalBody>
+
+          <div className="font-semibold text-xl my-2">Product Description</div>
+          
+          <div className=" py-3 px-10 flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg ">
+              <div className="my-3  flex-col flex">
+                
+              <div className="font-semibold" > Serial No: {item.sno}</div>
+              <div>Invnetory No: {item.invnumber}</div>
+              <div>Location: {item.location}</div>
+              <div>GST No: {item.gstno}</div>
+              <div>Expiry Date: {item.expirydate}</div>
+                
+                
+                
+
+              </div>
+              <div className="my-3 font- flex-col flex">
+              <span className="font-semibold" >Type: {item.type}</span>
+              <div>inventory Date: {moment(item.invdate).format("DD/MM/YY")}</div>
+              <div>Purchase Location: {item.purchlocation}</div>
+              <div>PAN No: {item.panno}</div>
+              <div>Warranty: {item.wty}</div>
+              
+               
+                
+              </div>
+                <div className="my-3  flex-col flex">
+                <div className="font-semibold" >Vendor: {item.vendor}</div>
+                <div>Inventory Type: {item.invtype}</div>
+                <div>Purchase type: {item.purchtype}</div>
+                <div>Aadhar No: {item.aadharno}</div>
+                
+                
+                  
+                  
+                  
                 </div>
-                <div className="my-3 font-semibold flex-col flex">
-                  <div>
-                    inventory Date: {moment(item.invdate).format("DD/MM/YY")}
-                  </div>
-                  <div>gstno: {item.gstno}</div>
-                  <div>taxperc: {item.taxperc}</div>
-                  <div>tcs: {item.tcs}</div>
-                  <div>expirydate: {item.expirydate}</div>
-                  <div>Warranty: {item.wty}</div>
+                
+           </div>
+
+           <div className="font-semibold text-xl my-2">Product Rates</div>
+
+           <div className="flex flex-col lg:flex-row items-center dark:bg-gray-700 justify-between bg-gray-100 rounded-lg p-5 ">
+              <div className="my-3  flex-col flex">
+              <span className="font-semibold" >Amount:{item.amount}</span> 
+              <div className="font-semibold" >Net tax: {item.nettax}</div>
+              <div>IGST: {item.igst}</div>
+              <div>TCS: {item.tcs}</div> 
+                
+                
+
+              </div>
+              <div className="my-3 font- flex-col flex">
+              <div className="font-semibold" >Rate: {item.rate}</div>
+              <span>Tax Category:{item.taxcategory}</span> 
+              <div>CGST : {item.cgst}</div>
+                 
+              
+               
+                
+              </div>
+                <div className="my-3  flex-col flex">
+                <div className="font-semibold">Invoice Amount:{item.invamount}</div>
+                <div>Tax percentage: {item.taxperc}</div>
+                <div>SGST: {item.sgst}</div>
+                
+                
+                  
+                  
+                  
                 </div>
+                
+           </div>
+
+
+           {/* <div className="flex flex-col lg:flex-row items-center justify-between bg-gray-100 rounded-lg p-3 ">
+              <div className="my-3  flex-col flex">
+                
+                
+                <span>Type:{item.type}</span>
+                <span>vendor:{item.vendor}</span>
+                <span>location:{item.location}</span>
+                <span>Invnetory No:{item.invnumber}</span>
+                <span>taxcategory:{item.taxcategory}</span>
+                <span>amount:{item.amount}</span>
+                
+
+              </div>
+              <div className="my-3 font-semibold flex-col flex">
+                
+                <div>inventory Date: {moment(item.invdate).format("DD/MM/YY")}</div>
+                <div>gstno: {item.gstno}</div>
+                <div>taxperc: {item.taxperc}</div>
+                <div>tcs: {item.tcs}</div>
+                <div>expirydate: {item.expirydate}</div>
+                <div>Warranty: {item.wty}</div>
+              </div>
                 <div className="my-3 font-semibold flex-col flex">
                   <div> Serial No: {item.sno}</div>
-                  <div>Purchase location: {item.purchlocation}</div>
+                  <div>Inventory Type: {item.invtype}</div>
                   <div>Inventory Type: {item.invtype}</div>
                   <div>panno: {item.panno}</div>
                   <div>nettax: {item.nettax}</div>
                   <div>igst: {item.igst}</div>
+                  
                 </div>
                 <div className="my-3 font-semibold flex-col flex">
                   <div> Condition: {item.condition}</div>
@@ -162,20 +288,54 @@ function Inventory() {
                   <div>rate: {item.rate}</div>
                   <div>cgst: {item.cgst}</div>
                   <div>sgst: {item.sgst}</div>
+                  
                 </div>
+           </div> */}
+
+              
+              <div  className="flex flex-col lg:flex-row items-center justify-between">
+              {/* <div className="font-semibold">Invoice Amount:{item.invamount}</div> */}
               </div>
-              <div className="flex flex-col lg:flex-row items-center justify-between">
-                <div className="font-semibold">
-                  Invoice Amount:{item.invamount}
-                </div>
-              </div>
-            </ModalBody>
-            <ModalFooter></ModalFooter>
-          </Modal>
-        </>
-      );
+          
+          </ModalBody>
+          <ModalFooter>
+            
+          </ModalFooter>
+        </Modal>
+      </>
+    );
     }
   };
+
+  const DwnldModal = () => {
+  
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+          <div className="text-lg">Download Full Inventory Data?</div>  
+          </ModalHeader>
+          <ModalBody>
+        
+        <Button layout="outline" onClick={downloadInv}>
+              Download
+         </Button>
+            
+                
+          </ModalBody>
+          <ModalFooter>
+            
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+    
+  };
+
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -208,7 +368,7 @@ function Inventory() {
           limit: resultsPerPage,
         },
         filters: {
-          type: type,
+          type: type.toLocaleLowerCase(),
           location: location,
           condition: condition,
           searchtype: searchtype,
@@ -242,6 +402,8 @@ function Inventory() {
     <>
       {DeleteModal()}
       {ViewModal()}
+      {DwnldModal()}
+      
 
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
@@ -369,6 +531,17 @@ function Inventory() {
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
+            </div>
+
+            <div class="block relative xl:ml-64">
+                
+             <Button layout="outline" onClick={()=>{
+              
+               setIsDwnldModalOpen(true)
+               }}>
+             Download Database
+             </Button>
+            
             </div>
           </div>
         </div>

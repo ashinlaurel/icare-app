@@ -253,4 +253,21 @@ export const croutes = [
   },
 ];
 
+export const enggroutes = [
+  //  Customer Views
+  {
+    icon: "HomeIcon",
+    name: "My Calls",
+    routes: [
+      // submenu
+      {
+        path: "/app/engcalls/viewmycalls",
+        name: "View My Calls",
+      },
+     
+    ],
+  },
+];
+
 // export { aroutes, croutes };
+

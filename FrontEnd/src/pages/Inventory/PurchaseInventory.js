@@ -97,7 +97,7 @@ function PurchaseInventory() {
     stocktype: "",
 
     //-------
-    caseId: "",
+    caseId: "imprest",
   };
   const [values, setValues] = useState([invdetails]);
 
@@ -186,7 +186,7 @@ function PurchaseInventory() {
   // ------------------- Calculations----------------------------------
   useEffect(() => {
     // console.log("hello");
-    // console.log(calnum);
+    // console.log(basevalues,values);
     let newlist = [...values];
 
     if (basevalues.purchlocation == "Local" && calnum != -1) {
@@ -228,10 +228,20 @@ function PurchaseInventory() {
       );
 
       let newbaseval = basevalues;
-      newbaseval.totalInvoice = parseFloat(
+      // newbaseval.totalInvoice=(
+      //   parseFloat(basevalues.totalInvoice) +
+      //     parseFloat(newlist[calnum].invamount)
+      // ).toString();
+
+      let val =
         parseFloat(basevalues.totalInvoice) +
-          parseFloat(newlist[calnum].invamount)
-      );
+        parseFloat(newlist[calnum].invamount);
+      //  console.log("base cal",toString(val))
+      if (toString(val) != "[object Undefined]") {
+        // console.log("gere")
+        newbaseval.totalInvoice = toString(val);
+      }
+      // console.log(newbaseval)
       setBaseValues(newbaseval);
     }
 
@@ -518,8 +528,8 @@ function PurchaseInventory() {
           <span>Item Number : {num + 1}</span>{" "}
           <span className="ml-10">
             {" "}
-            Net Tax:{values[num].nettax} ,Invoice Amount:{" "}
-            {values[num].invamount}{" "}
+            Net Tax:{parseFloat(values[num].nettax)} ,Invoice Amount:{" "}
+            {parseFloat(values[num].invamount)}{" "}
           </span>
           <Button
             layout="outline"
@@ -564,11 +574,13 @@ function PurchaseInventory() {
               <span>Select Category*</span>
               <Select
                 className="mt-1"
-                value={values[num].type}
+                value={values.type}
                 onChange={(e) => {
                   let newlist = [...values];
-                  newlist[num].type = e.target.value;
-                  newlist[num].type = newlist[num].type.toLowerCase();
+                  // console.log(e.target.value)
+                  newlist[num].type = e.target.value.toLowerCase();
+                  // newlist[num].type = newlist[num].type.toLowerCase();
+                  // console.log(newlist)
 
                   setValues(newlist);
                 }}

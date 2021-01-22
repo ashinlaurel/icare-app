@@ -401,7 +401,9 @@ function AssignEng() {
                     setBBarOpen(1);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
-                    setAssetDetails(call.assetId);
+                    if(call.assetId)
+                      setAssetDetails(call.assetId);
+                    else setAssetDetails({})
                     console.log(call.assetId);
                     // console.log(call.product.keyboard[0].kbdname);
                   }}

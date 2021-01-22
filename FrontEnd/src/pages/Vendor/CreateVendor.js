@@ -49,6 +49,8 @@ function CreateVendor() {
     district:"",
     state:"",
     PIN:"",
+    phno1:"",
+    phno2:""
 
     // ---new ones
   });
@@ -94,6 +96,8 @@ function CreateVendor() {
           district:"",
           state:"",
           PIN:"",
+          phno1:"",
+          phno2:""
         }
         )})
       .catch((err) => {
@@ -212,7 +216,7 @@ function CreateVendor() {
         </div>
         {/* ---------------Row 4 ---------------- */}
         <div className="flex-row flex space-x-3 mt-3 mb-2">
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full flex-none">
             <Label className="w-full">
               <span>Address</span>
               <Input
@@ -222,7 +226,24 @@ function CreateVendor() {
               />
             </Label>{" "}
           </div>
-          <div className="flex flex-col w-full">
+          
+          <div className="flex flex-col w-full ">
+            <Label className="w-full">
+              <span>PIN Number</span>
+              <Input
+                className="mt-1"
+                
+                value={values.PIN}
+                onChange={handleChange("PIN")}
+              />
+            </Label>{" "}
+          </div>
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+        </div>
+
+         {/* ---------------Row 3 ---------------- */}
+         <div className="flex-row flex space-x-3 mt-3 mb-2">
+         <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>District</span>
               <Input
@@ -243,16 +264,27 @@ function CreateVendor() {
               />
             </Label>{" "}
           </div>
-          <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>PIN</span>
+              <span>Phone Number 1</span>
               <Input
                 className="mt-1"
-                value={values.PIN}
-                onChange={handleChange("PIN")}
+                value={values.phno1}
+                onChange={handleChange("phno1")}
               />
             </Label>{" "}
           </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Phone Number 2</span>
+              <Input
+                className="mt-1"
+                value={values.phno2}
+                onChange={handleChange("phno2")}
+              />
+            </Label>
+          </div>
+         
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
         </div>
       

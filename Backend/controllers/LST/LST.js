@@ -104,6 +104,21 @@ exports.updateLST = async (req, res) => {
   }
 };
 
+
+exports.deleteLST= async (req, res) => {
+  let { id } = req.body;
+  try {
+    let inv = await LST.findByIdAndDelete({ _id: id });
+
+    return res.status(200).json({ inv });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+
+
 // Pdf Download ------------------
 
 // exports.downloadPdf = async (req, res) => {

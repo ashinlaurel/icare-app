@@ -1,6 +1,6 @@
 import React, { useState, useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { aroutes, croutes } from "../routes/index";
+import { aroutes, croutes ,enggroutes} from "../routes/index";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -9,10 +9,13 @@ import ThemedSuspense from "../components/ThemedSuspense";
 import { SidebarContext } from "../context/SidebarContext";
 import AssetFloat from "../components/FloatDetails/AssetFloat";
 import BottomBar from "../components/BottomBar";
+import EmpProfile from "../helpers/auth/EmpProfile";
+
 
 const Page404 = lazy(() => import("../pages/404"));
 
 function Layout() {
+  console.log("role--",EmpProfile.getRole())
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   let location = useLocation();
   const [role, setRole] = useState(1);
@@ -41,7 +44,7 @@ function Layout() {
           <Main>
             <Suspense fallback={<ThemedSuspense />}>
               <Switch>
-                {role == 0
+                {EmpProfile.getRole() == 0
                   ? aroutes.map((route, i) => {
                       return route.component ? (
                         <Route
@@ -52,7 +55,19 @@ function Layout() {
                         />
                       ) : null;
                     })
-                  : croutes.map((route, i) => {
+                  : EmpProfile.getRole() ==11? 
+                    enggroutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })
+                  
+                    : croutes.map((route, i) => {
                       return route.component ? (
                         <Route
                           key={i}

@@ -27,6 +27,9 @@ exports.getCalls = async (req, res) => {
   let { searchquery, searchtype } = filters;
 
   let options = {
+    sort:{
+      date:-1
+    },
     populate: {
       path: "assetId",
       populate: {
@@ -60,6 +63,9 @@ exports.getCalls = async (req, res) => {
       filteroptions.customerId = filters.customerId;
     }
 
+    if (filters.employeeId&& filters.employeeId != "") {
+      filteroptions.employeeId = filters.employeeId;
+    }
     Call.paginate(filteroptions, options, function (err, result) {
       // console.log(result);
       if (err || !result) {

@@ -13,40 +13,41 @@ import {
   HeartIcon,
   EditIcon,
   TrashIcon,
+  TickIcon,
 } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-import RoundIcon from "../../components/RoundIcon";
-import response from "../../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
   Table,
+  Button,
   TableHeader,
   TableCell,
   TableRow,
-  Button,
   TableFooter,
   Avatar,
   Badge,
+  Label,
+  Select,
   Pagination,
   Dropdown,
   DropdownItem,
 } from "@windmill/react-ui";
 
-import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
-import UnitListModal from "../../components/Modal/UnitListModal";
-import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
+// import EngineerListModal from "../../components/Modal/EngineerListModal";
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { isAutheticated } from "../../helpers/auth";
+import EmpProfile from "../../helpers/auth/EmpProfile";
 
-function Assets() {
+function ViewEngineerCalls() {
   // Bottom bar stuff
   // const [bbaropen, setBBarOpen] = useContext(BottomBarContext);
   // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [deleteId, setDeleteId] = useState(0);
+  const [isSetStatusModal, setisSetStatusModal] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -73,6 +74,9 @@ function Assets() {
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
 
+  /////// engineer
+  const [engineer, setEngineer] = useState({ _id: "", enggName: "" });
+  const [isEnggModalOpen, setIsEnggModalOpen] = useState(false);
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
 
@@ -92,37 +96,70 @@ function Assets() {
     setPage(p);
   }
 
-  const DeleteModal = () => {
+  const SetStatusModal = () => {
     return (
       <>
         <Modal
-          isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
+          isOpen={isSetStatusModal}
+          onClose={() => setisSetStatusModal(false)}
         >
-          <ModalHeader>Are you sure you want to delete!</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalHeader>Set Call Status</ModalHeader>
+          <ModalBody>
+            <div className="flex-col flex">
+              <div className="font-xl dark:text-white">Current Status:</div>
+              <Button className="font-xl">Set Status</Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+              <Button className="font-xl my-2 mx-10 inline">
+                Pending for Allocation
+              </Button>
+            </div>
+          </ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
+                console.log("SELECTED", selectedprod);
+                let payload = {
+                  id: selectedprod._id,
+                  update: {
+                    employeeId: engineer._id,
+                    employeeName: engineer.enggName,
+                    callStatus: 1,
+                  },
+                };
                 try {
                   let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    url: `${API}/call/${Emp.getId()}/ViewCallsg`,
                     method: "POST",
-                    data: { id: deleteId },
+                    data: payload,
                   });
-                  console.log(response.data);
-                  let temp = data.filter((x) => x._id != deleteId);
-                  setData(temp);
-                  setIsDeleteModalOpen(false);
-
-                  // setData(response.data);
+                  let temp = data;
+                  console.log(temp);
+                  temp = temp.filter((c) => {
+                    if (c._id === selectedprod._id) {
+                      c.callStatus = 1;
+                      c.employeeName = engineer.enggName;
+                      c.employeeId = engineer._id;
+                      return c;
+                    }
+                    setData(temp);
+                  });
+                  // console.log(response.data);
+                  setisSetStatusModal(false);
                 } catch (error) {
                   throw error;
                 }
               }}
             >
-              Confirm Delete
+              Confirm Assignment
             </Button>
           </ModalFooter>
         </Modal>
@@ -144,7 +181,7 @@ function Assets() {
   // -------------------------------
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("Assets Management");
+    setTopHeading("My Calls");
     return () => {
       setTopHeading("");
     };
@@ -154,7 +191,7 @@ function Assets() {
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
-      console.log("getter called");
+      // console.log("getter called");
       let payload = {
         pages: {
           page: page,
@@ -170,17 +207,18 @@ function Assets() {
           accountId: account._id,
           searchtype: searchtype,
           searchquery: searchquery,
+          employeeId:EmpProfile.getId()
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
         let response = await axios({
-          url: `${API}/asset/${Emp.getId()}/getall`,
+          url: `${API}/call/${Emp.getId()}/getall`,
           method: "POST",
           data: payload,
         });
-        console.log(response.data.out);
+        // console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
@@ -193,12 +231,34 @@ function Assets() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
-  console.log(selectedprod);
+  // console.log(selectedprod);
+
+  const ReviewSubmit = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isReviewModalOpen}
+          onClose={() => setIsReviewModalOpen(false)}
+        >
+          <ModalHeader>Updated Successfully!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsReviewModalOpen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   return (
     <>
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
-      <CustomerSelection
+      {/* <CustomerSelection
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setUnit={setUnit}
@@ -209,26 +269,14 @@ function Assets() {
         setAccount={setAccount}
         refresh={refresh}
         setRefresh={setRefresh}
-      />
-      {DeleteModal()}
+      /> */}
+      <SetStatusModal />
+      <ReviewSubmit />
+
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-        {/* <div className="flex items-center">
-          <PageTitle>Assets Management</PageTitle>
-          <div>
-            <Button
-              className="mx-3"
-              onClick={() => {
-                setFloatBox(!floatbox);
-              }}
-              icon={HeartIcon}
-              layout="link"
-              aria-label="Like"
-            />
-          </div>
-        </div> */}
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
@@ -481,16 +529,6 @@ function Assets() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);
-                    setSearchType("prodserial");
-                    setSearchLabel("Product Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Product Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
                     setSearchType("kbdsno");
                     setSearchLabel("Keyboard Serial");
                     setDisabler(false);
@@ -617,173 +655,144 @@ function Assets() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
-          {/* <div className="my-4 flex ">
-            <div class="relative ">
-              <select
-                class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                // value={sortBy}
-                // onChange={onSortToggle}
-              >
-                <option value="TIME_ASC">Time(Latest)</option>
-                <option value="TIME_DESC">Time(Oldest)</option>
-                <option value="NAME_ASC">Name(A-Z)</option>
-                <option value="NAME_DESC">Name(Z-A)</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-          </div> */}
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>Customer</TableCell>
-                <TableCell>Unit</TableCell>
-                <TableCell>Business</TableCell>
-                <TableCell>Product</TableCell>
-                <TableCell>Product Serial</TableCell>
-                <TableCell>Contract From</TableCell>
-                <TableCell>Contract To</TableCell>
-                <TableCell>Purchase Number</TableCell>
-                <TableCell>Purchase Date</TableCell>
-                <TableCell>Edit/Delete</TableCell>
+                <TableCell>Call No</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Unit Name</TableCell>
+                <TableCell>Phone</TableCell>
+                <TableCell>Call Status</TableCell>
+                {/* <TableCell>Assigned Employee</TableCell>
+                <TableCell>Update</TableCell> */}
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map((user, i) => (
+              {data.map((call, i) => (
                 <TableRow
                   className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == user._id
+                    activerowid == call._id
                       ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                       : "white"
                   } `}
                   key={i}
                   onClick={() => {
+                    setActiveRowId(call._id);
                     setBBarOpen(1);
-                    setActiveRowId(user._id);
-                    // console.log("the id is " + user._id);
-                    setSelectedProd(user);
-                    setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log("the id is " + call._id);
+                    setSelectedProd(call);
+                    console.log("SELECTD", call);
+                    setAssetDetails(call.assetId);
+                    // console.log(call.product.keyboard[0].kbdname);
                   }}
                 >
                   <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
-                      {/* <Avatar
-                        className="hidden ml-2 mr-3 md:block"
-                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
-                        alt="User image"
-                      /> */}
                       <div>
-                        <p className="font-semibold">{user.customerName}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.accountName}
-                        </p>
+                        <p className="font-semibold">{call.callNo}</p>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.unitName}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      type={user.business == "AMC" ? "primary" : "success"}
-                    >
-                      {user.business}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.producttype}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.product.serialno}</span>
-                  </TableCell>
-                  <TableCell>
                     <span className="text-sm">
-                      {moment(user.contractfrom).format("DD/MM/YYYY")}
+                      {moment(call.date).format("DD/MM/YYYY")}
                     </span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(user.contractto).format("DD/MM/YYYY")}
-                    </span>
+                    <span className="text-sm">{call.unitName}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.ponumber}</span>
+                    <span className="text-sm">{call.phone}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(user.podate).format("DD/MM/YYYY")}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <Button layout="link" size="icon" aria-label="Edit">
-                        <Link
-                          key={user._id}
-                          to={`/app/unit/update/${user._id}`}
-                        >
-                          <EditIcon className="w-5 h-5" aria-hidden="true" />
-                        </Link>{" "}
-                      </Button>
-
-                      <Button
-                        layout="link"
-                        size="icon"
-                        aria-label="Delete"
+                    <div className="flex ">
+                      {/* <Label className="w-full"> */}
+                      <Select
+                        className="inline"
+                        onChange={(e) => {
+                          // setAccType(parseInt(e.target.value));
+                          let temp = data;
+                          console.log(temp);
+                          temp = temp.filter((c) => {
+                            if (c._id === call._id) {
+                              c.callStatus = e.target.value;
+                              return c;
+                            } else return c;
+                          });
+                          setData(temp);
+                        }}
+                        value={call.callStatus}
+                      >
+                        <option value="0">Not Allocated</option>
+                        <option value="1">Pending for Percall Approval</option>
+                        <option value="2"> Pending for Response</option>
+                        <option value="3"> Pending for OEM Response</option>
+                        <option value="4"> Pending for 2nd Response</option>
+                        <option value="5"> Pending for Customer</option>
+                        <option value="6"> Under Observation</option>
+                        <option value="7"> Pending for Others</option>
+                        <option value="8"> Pending for Spare</option>
+                        <option value="9"> Spare in Transit</option>
+                        <option value="10"> Cancelled Calls</option>
+                        <option value="11"> Closed Calls</option>
+                      </Select>
+                      {/* </Label> */}
+                      <div
+                        className="p-1 m-2 dark:hover:bg-green-700 hover:bg-green-200 rounded-full text-green-400"
                         onClick={async () => {
-                          console.log("delete Asset");
-                          setIsDeleteModalOpen(true);
-                          setDeleteId(user._id);
+                          let payload = {
+                            id: call._id,
+                            update: {
+                              callStatus: call.callStatus,
+                            },
+                          };
+                          try {
+                            let response = await axios({
+                              url: `${API}/call/${Emp.getId()}/assignEngg`,
+                              method: "POST",
+                              data: payload,
+                            });
+                            console.log("updated");
+                            setIsReviewModalOpen(true);
+                          } catch (error) {
+                            throw error;
+                          }
                         }}
                       >
-                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                      {/* <div>
-            <Button className="mx-3 mt02">
-              {" "}
-              <Link
-                key={selectedprod._id}
-                to={`/app/unit/update/${selectedprod._id}`}
-              >
-                Edit
-              </Link>{" "}
-            </Button>
-            <Button
-              className="mx-3 mt02"
-              onClick={async () => {
-                console.log("delete Asset");
-                try {
-                  let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
-                    method: "POST",
-                    data: { id: selectedprod._id },
-                  });
-                  console.log(response.data);
-                  // let temp = data.filter((x) => x._id != selectedprod._id);
-                  // setData(temp);
-
-                  // setData(response.data);
-                } catch (error) {
-                  throw error;
-                }
-              }}
-            >
-              Delete
-            </Button>
-          </div> */}
+                        <TickIcon
+                          className="w-5 h-5 fill-current"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
                   </TableCell>
+                  {/* <TableCell>
+                    {call.employeeId ? (
+                      <>
+                        {call.employeeName}
+                    
+                      </>
+                    ) : (
+                      <>
+                      
+                        Not Assigned
+                 
+                      </>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      key={call._id}
+                      // to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
+                    >
+                      <Button layout="outline" onClick={() => {}} className=" ">
+                        Update
+                      </Button>
+                    </Link>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -806,4 +815,4 @@ function Assets() {
   );
 }
 
-export default Assets;
+export default ViewEngineerCalls;

@@ -21,7 +21,7 @@ function AdminLogin() {
 
   useEffect(() => {
     console.log("empName", EmpProfile.getEmail());
-    if (EmpProfile.getEmail()) history.push("/app");
+    // if (EmpProfile.getEmail()) history.push("/app");
   }, []);
 
   const handleChange = (name) => (e) => {
@@ -47,8 +47,8 @@ function AdminLogin() {
         EmpProfile.setToken(data.token);
         EmpProfile.setId(data.user._id);
         EmpProfile.setLocation(data.user.location);
-        localStorage.setItem("type", 0); ///////-----------------------------> 0 for employee 1 for customer
-        console.log("authenticated");
+        localStorage.setItem("type", data.user.role); ///////-----------------------------> 0 for employee 1 for customer
+        console.log("authenticated",data);
         history.push("/app");
         // return <Redirect to="/app" />;
         // });

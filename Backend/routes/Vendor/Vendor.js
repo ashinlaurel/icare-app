@@ -14,6 +14,7 @@ router.param("id", getEmpById);
 router.post("/:id/create", isSignedIn, isAuthenticated, VendorCreate);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
+router.post("/getall", getAllItems);
 
 router.post("/:id/update", isSignedIn, isAuthenticated, updateVendor);
 

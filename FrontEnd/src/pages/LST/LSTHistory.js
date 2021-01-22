@@ -33,6 +33,8 @@ import { TopBarContext } from "../../context/TopBarContext";
 function LSTHistory() {
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -124,6 +126,46 @@ function LSTHistory() {
   }, [page, location, ToLocation, condition, status, refresh]);
 
   console.log(selectedprod);
+// DElete Modal
+
+const DeleteModal = () => {
+  return (
+    <>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
+        <ModalHeader>Are you sure you want to delete!</ModalHeader>
+        <ModalBody></ModalBody>
+        <ModalFooter>
+          <Button
+            className="w-full sm:w-auto"
+            onClick={async () => {
+              try {
+                let response = await axios({
+                  url: `${API}/lst/${Emp.getId()}/delete`,
+                  method: "POST",
+                  data: { id: deleteId },
+                });
+                console.log(response.data);
+                let temp = data.filter((x) => x._id != deleteId);
+                setData(temp);
+                setIsDeleteModalOpen(false);
+
+                // setData(response.data);
+              } catch (error) {
+                throw error;
+              }
+            }}
+          >
+            Confirm Delete
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+};
+
 
   // PDF Download Functions
 
@@ -228,6 +270,7 @@ function LSTHistory() {
 
   return (
     <>
+      {DeleteModal()}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -246,7 +289,7 @@ function LSTHistory() {
                 </option>
                 <option value="">All</option>
                 <option value="In Transit">In Transit</option>
-                <option value="Recieved">Recieved</option>
+                <option value="Received">Received</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -375,13 +418,14 @@ function LSTHistory() {
           <Table>
             <TableHeader>
               <tr className="flex flex-row justify-between">
-                <TableCell>LST.No</TableCell>
+                <TableCell>No</TableCell>
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>No.</TableCell>
+                <TableCell><span className="ml-10">Date</span> </TableCell>
+                <TableCell ><span className="ml-2 mr-2">Num</span> </TableCell>
                 {/* <TableCell>Status</TableCell> */}
                 <TableCell> Report</TableCell>
+                <TableCell> Delete</TableCell>
                 <TableCell>
                   <span
                     className="cursor-pointer"
@@ -451,6 +495,25 @@ function LSTHistory() {
                         Download
                       </Button>
                     </TableCell>
+
+
+                    <TableCell className="text-center ">
+                    <Button
+                        layout="link"
+                        size="icon"
+                        aria-label="Delete"
+                        onClick={async () => {
+                          console.log("delete LST");
+                          setIsDeleteModalOpen(true);
+                          setDeleteId(user._id);
+                        }}
+                      >
+                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                    </TableCell>
+
+
+
                     <TableCell className="text-center ">
                       <Button
                         // layout="link"

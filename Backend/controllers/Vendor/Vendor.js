@@ -43,6 +43,11 @@ exports.getAllItems = (req, res) => {
     filteroptions.name = fuzzyquery;
   }
 
+  if(filters.icarelocation){
+    filteroptions.district= filters.icarelocation;
+    filteroptions.name="INFOCARE SYSTEMS";
+  }
+
   // -----------------------------------------------------------------------
 
   Vendor.paginate(filteroptions, options, function (err, result) {
