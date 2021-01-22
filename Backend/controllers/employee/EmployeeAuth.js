@@ -70,8 +70,8 @@ exports.isSignedIn = expressjwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  // console.log("herer");
-  req.emp = req.params;
+  // console.log("isAuth",req.emp);
+  // req.emp = req.emp;
   // console.log(req.emp);
   let checker = req.emp && req.auth && req.emp.id == req.auth._id;
   if (!checker) {
@@ -101,6 +101,7 @@ exports.getEmpById = (req, res, next, id) => {
         error: "No user was found in DB",
       });
     }
+    // console.log("user",user)
     req.emp = user;
     next();
   });

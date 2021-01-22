@@ -175,7 +175,7 @@ function PurchaseInventory() {
   // ------------------- Calculations----------------------------------
   useEffect(() => {
     // console.log("hello");
-    // console.log(calnum);
+    // console.log(basevalues,values);
     let newlist = [...values];
 
     if (basevalues.purchlocation == "Local" && calnum != -1) {
@@ -217,10 +217,21 @@ function PurchaseInventory() {
       );
 
       let newbaseval = basevalues;
-      newbaseval.totalInvoice = parseFloat(
-        parseFloat(basevalues.totalInvoice) +
-          parseFloat(newlist[calnum].invamount)
-      );
+      // newbaseval.totalInvoice=(
+      //   parseFloat(basevalues.totalInvoice) +
+      //     parseFloat(newlist[calnum].invamount)
+      // ).toString();
+      
+      let val=(
+        parseFloat(basevalues.totalInvoice)+
+         parseFloat(newlist[calnum].invamount)
+     )
+    //  console.log("base cal",toString(val))
+     if(toString(val)!="[object Undefined]"){
+      // console.log("gere")
+      newbaseval.totalInvoice=toString(val)
+     }
+      // console.log(newbaseval)
       setBaseValues(newbaseval);
     }
 
@@ -504,7 +515,7 @@ function PurchaseInventory() {
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
-          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
+          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{parseFloat(values[num].nettax)} ,Invoice Amount: {parseFloat(values[num].invamount)} </span>
           <Button layout="outline"
           onClick={() => {
                 let newitem = [...values];
@@ -543,11 +554,13 @@ function PurchaseInventory() {
               <span>Select Category*</span>
               <Select
                 className="mt-1"
-                value={values[num].type}
+                value={values.type}
                 onChange={(e) => {
                   let newlist = [...values];
-                  newlist[num].type = e.target.value;
-                  newlist[num].type = newlist[num].type.toLowerCase();
+                  // console.log(e.target.value)
+                  newlist[num].type = e.target.value.toLowerCase();
+                  // newlist[num].type = newlist[num].type.toLowerCase();
+                  // console.log(newlist)
 
                   setValues(newlist);
                 }}
@@ -818,6 +831,7 @@ function PurchaseInventory() {
                 type="text"
                 value={values[num].rate}
                 onChange={(e) => {
+
                   let newlist = [...values];
                   newlist[num].rate = e.target.value;
                   setValues(newlist);

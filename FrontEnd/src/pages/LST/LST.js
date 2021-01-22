@@ -417,6 +417,7 @@ function LST() {
                           }
                         });
                         if (added) return;
+                        user.caseId="imprest"
                         let temp = [...SelectedItems, user];
                         setSelectedItems(temp);
                         // setShowInvTable(false);

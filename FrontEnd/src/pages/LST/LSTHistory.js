@@ -289,7 +289,7 @@ const DeleteModal = () => {
                 </option>
                 <option value="">All</option>
                 <option value="In Transit">In Transit</option>
-                <option value="Recieved">Recieved</option>
+                <option value="Received">Received</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

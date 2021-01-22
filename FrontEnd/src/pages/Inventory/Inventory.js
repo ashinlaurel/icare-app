@@ -368,7 +368,7 @@ function Inventory() {
           limit: resultsPerPage,
         },
         filters: {
-          type: type,
+          type: type.toLocaleLowerCase(),
           location: location,
           condition: condition,
           searchtype: searchtype,
