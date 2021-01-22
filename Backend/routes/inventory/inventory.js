@@ -21,7 +21,7 @@ const {
 // const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const router = express.Router();
 
-// router.param("id", getEmpById);
+router.param("id", getEmpById);
 // params route handling
 // router.param("userId", getUserById);
 // router.param("productId", getProductById);

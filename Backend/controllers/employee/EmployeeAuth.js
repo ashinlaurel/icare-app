@@ -70,7 +70,7 @@ exports.isSignedIn = expressjwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  // console.log("isAuth",req.emp);
+  // console.log("isAuth",req.emp,req.auth);
   // req.emp = req.emp;
   // console.log(req.emp);
   let checker = req.emp && req.auth && req.emp.id == req.auth._id;
