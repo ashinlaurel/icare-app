@@ -50,6 +50,16 @@ function PurchaseInventory() {
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
+  const [history, setHistory] = useState([
+    {
+      histtype: "purchase",
+      date: moment().format("DD-MM-YYYY"),
+      callId: "Nil",
+      status: "Good",
+      note: "Inventory Purchased",
+    },
+  ]);
+
   const invdetails = {
     type: "",
     name: "",
@@ -120,6 +130,7 @@ function PurchaseInventory() {
       item.panno = basevalues.panno;
       item.aadharno = basevalues.aadharno;
       item.purchlocation = basevalues.purchtype;
+      item.history = history;
     });
     console.log(newitems);
     await Axios({
@@ -504,15 +515,25 @@ function PurchaseInventory() {
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
-          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
-          <Button layout="outline"
-          onClick={() => {
-                let newitem = [...values];
-                newitem= newitem.filter((item,i)=>{if(i!=num)return item })
-                  setValues(newitem);
-                
-              }}
-               className="">x</Button>
+          <span>Item Number : {num + 1}</span>{" "}
+          <span className="ml-10">
+            {" "}
+            Net Tax:{values[num].nettax} ,Invoice Amount:{" "}
+            {values[num].invamount}{" "}
+          </span>
+          <Button
+            layout="outline"
+            onClick={() => {
+              let newitem = [...values];
+              newitem = newitem.filter((item, i) => {
+                if (i != num) return item;
+              });
+              setValues(newitem);
+            }}
+            className=""
+          >
+            x
+          </Button>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -552,7 +573,7 @@ function PurchaseInventory() {
                   setValues(newlist);
                 }}
               >
-                <option value=""selected disabled>
+                <option value="" selected disabled>
                   Select Type
                 </option>
                 {values[num].systype == "item" ? (
@@ -991,8 +1012,8 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = {...values[0]};
-                console.log(add)
+                let add = { ...values[0] };
+                console.log(add);
                 newitem.push(add);
                 setValues(newitem);
               }}
@@ -1003,7 +1024,6 @@ function PurchaseInventory() {
             >
               Add Similar Item
             </Button>
-
 
             <Button
               onClick={submitItems}

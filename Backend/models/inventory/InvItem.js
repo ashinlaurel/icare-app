@@ -29,6 +29,15 @@ const InvItemSchema = mongoose.Schema({
     ref: "Asset",
     default: null,
   },
+  history: [
+    {
+      histtype: String,
+      date: String,
+      callId: String,
+      status: String,
+      note: String,
+    },
+  ],
 
   sno: String,
   condition: String,

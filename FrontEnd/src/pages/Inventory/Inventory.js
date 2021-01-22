@@ -398,6 +398,8 @@ function Inventory() {
                   key={i}
                   onClick={() => {
                     setActiveRowId(user._id);
+                    setViewId(i);
+                    setIsViewModalOpen(true);
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
@@ -446,12 +448,12 @@ function Inventory() {
                   <TableCell>
                     <Button
                       onClick={() => {
-                        setViewId(i);
-                        setIsViewModalOpen(true);
+                        // setViewId(i);
+                        // setIsViewModalOpen(true);
                       }}
                       layout="outline"
                     >
-                      View
+                      History
                     </Button>
                   </TableCell>
 
