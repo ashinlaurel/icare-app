@@ -57,7 +57,7 @@ function LST() {
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [condition, setCondition] = useState("");
+  const [condition, setCondition] = useState("Good");
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -176,13 +176,25 @@ function LST() {
       return;
     }
     let invIds = [];
+
     SelectedItems.map(async (item) => {
       invIds.push(item._id);
+      // ----history ---
+      let newhistory = {
+        histtype: "lst",
+        date: date,
+        location: "In Transit",
+        callId: "Nil",
+        assetId: "Nil",
+        status: item.condition,
+        note: `Item sent from ${location} to ${toLocation}`,
+      };
       const data = {
         id: item._id,
         update: {
           location: "In Transit",
           caseId: item.caseId,
+          $push: { history: newhistory },
         },
       };
       console.log("PAYLOAD", data);
@@ -247,22 +259,22 @@ function LST() {
                   Item Type
                 </option>
                 <option value="">All</option>
-                <option value="Mouse">Mouse</option>
-                <option value="Keyboard">Keyboard</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Cpu">Cpu</option>
-                <option value="Ram">Ram</option>
-                <option value="Fan">Fan</option>
-                <option value="Motherboard">Motherboard</option>
-                <option value="SMPS">SMPS</option>
-                <option value="HDD">HDD</option>
-                <option value="SMPS">SMPS</option>
-                <option value="GCard">Gcard</option>
-                <option value="EnetCard">Enet Card</option>
-                <option value="SerialCard">Serial Card</option>
-                <option value="ParalellCard">Paralell Card</option>
-                <option value="OpticalDrive">Optical Drive</option>
-                <option value="Others">Others</option>
+                <option value="mouse">Mouse</option>
+                <option value="keyboard">Keyboard</option>
+                <option value="monitor">Monitor</option>
+                <option value="cpu">Cpu</option>
+                <option value="ram">Ram</option>
+                <option value="fan">Fan</option>
+                <option value="motherboard">Motherboard</option>
+                <option value="smps">SMPS</option>
+                <option value="hdd">HDD</option>
+                {/* <option value="SMPS">SMPS</option> */}
+                <option value="gcard">Gcard</option>
+                <option value="enetcard">Enet Card</option>
+                <option value="serialcard">Serial Card</option>
+                <option value="paralellcard">Paralell Card</option>
+                <option value="opticaldrive">Optical Drive</option>
+                <option value="others">Others</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -287,12 +299,15 @@ function LST() {
                   setCondition(e.target.value);
                 }}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Condition
                 </option>
                 <option value="">All</option>
-                <option value="Good">Good</option>
+                <option value="Good" selected>
+                  Good
+                </option>
                 <option value="Bad">Bad</option>
+                <option value="Used">Used</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -417,7 +432,7 @@ function LST() {
                           }
                         });
                         if (added) return;
-                        user.caseId="imprest"
+                        user.caseId = "imprest";
                         let temp = [...SelectedItems, user];
                         setSelectedItems(temp);
                         // setShowInvTable(false);
@@ -534,13 +549,13 @@ function LST() {
                         temp = temp.filter((x) => {
                           if (x._id != user._id) return x;
                           else {
-                            console.log("here",e.target.value)
-                            let t=x;
-                            t.caseId=e.target.value;
-                            return t
-                          };
+                            console.log("here", e.target.value);
+                            let t = x;
+                            t.caseId = e.target.value;
+                            return t;
+                          }
                         });
-                        console.log(temp)
+                        console.log(temp);
                         setSelectedItems(temp);
                       }}
                       defaultValue="Imprest"

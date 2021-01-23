@@ -33,7 +33,9 @@ const InvItemSchema = mongoose.Schema({
     {
       histtype: String,
       date: String,
+      location: String,
       callId: String,
+      assetId: String,
       status: String,
       note: String,
     },

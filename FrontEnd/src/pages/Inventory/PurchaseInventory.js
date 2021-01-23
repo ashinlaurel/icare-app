@@ -53,8 +53,10 @@ function PurchaseInventory() {
   const [history, setHistory] = useState([
     {
       histtype: "purchase",
-      date: moment().format("DD-MM-YYYY"),
+      date: moment().format(),
+      location: basevalues.location,
       callId: "Nil",
+      assetId: "Nil",
       status: "Good",
       note: "Inventory Purchased",
     },

@@ -27,8 +27,8 @@ exports.getCalls = async (req, res) => {
   let { searchquery, searchtype } = filters;
 
   let options = {
-    sort:{
-      date:-1
+    sort: {
+      date: -1,
     },
     populate: {
       path: "assetId",
@@ -63,7 +63,7 @@ exports.getCalls = async (req, res) => {
       filteroptions.customerId = filters.customerId;
     }
 
-    if (filters.employeeId&& filters.employeeId != "") {
+    if (filters.employeeId && filters.employeeId != "") {
       filteroptions.employeeId = filters.employeeId;
     }
     Call.paginate(filteroptions, options, function (err, result) {
@@ -116,6 +116,25 @@ exports.swapItems = async (req, res) => {
   console.log(newswap);
   console.log(call);
 
+  let newexisthistory = {
+    histtype: "swap",
+    date: call.date,
+    location: "Error",
+    callId: call.callNo,
+    assetId: call.assetId,
+    status: "Bad",
+    note: "Item Removed From Asset",
+  };
+  let newswaphistory = {
+    histtype: "swap",
+    date: call.date,
+    location: "Error",
+    callId: call.callNo,
+    assetId: call.assetId,
+    status: "Used",
+    note: "Item Added to Asset",
+  };
+
   try {
     let doesexist = await InvItem.exists({ sno: existswap.sno });
     console.log(doesexist);
@@ -129,11 +148,13 @@ exports.swapItems = async (req, res) => {
         {
           condition: "Bad",
           assetId: null,
+          $push: { history: newexisthistory },
         }
       );
     } else {
       console.log("new addition");
       // // Creating new item in inventory
+      existswap.history = [newexisthistory];
 
       const newitem = new InvItem(existswap);
       await newitem.save();
@@ -143,6 +164,7 @@ exports.swapItems = async (req, res) => {
     const result = await InvItem.findByIdAndUpdate(newswap._id, {
       condition: "Used",
       assetId: call.assetId,
+      $push: { history: newswaphistory },
     });
     console.log(result);
     // Asset update
