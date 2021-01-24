@@ -38,7 +38,7 @@ router.post("/:id/getAll", getAllEngg);
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
   // console.log("Authenticated Successfull", req.emp);
-  console.log("Authenticated Successfull");
+  // console.log("Authenticated Successfull");
   res.json({
     user: {
       email: req.emp.email,

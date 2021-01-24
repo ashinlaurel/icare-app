@@ -14,6 +14,15 @@ import {
   Button,
   Badge,
   Select,
+  TableBody,
+  TableContainer,
+  Table,
+  TableHeader,
+  TableCell,
+  TableRow,
+  TableFooter,
+  Avatar,
+  Pagination,
 } from "@windmill/react-ui";
 
 import { signup, signin, authenticate } from "../../helpers/auth";
@@ -34,6 +43,15 @@ function PurchaseInventory() {
   const [calculate, setCalculate] = useState(false);
   const [datecalculate, setDateCalculate] = useState(false);
   const [calnum, setCalnum] = useState(-1);
+  const [isVendorModalopen, setIsVendorModalopen] = useState(false);
+  const [vendors, setVendors] = useState([])
+  const [selectedVendor, setselectedVendor] = useState({
+                                                        _id:"",
+                                                        name:"",
+                                                        aadharNo:"",
+                                                        PANNo:"",
+                                                        GSTNo:""
+                                                        })
 
   const thebval = {
     purchtype: "",
@@ -47,6 +65,7 @@ function PurchaseInventory() {
     aadharno: "",
     purchlocation: "Local",
     totalInvoice: "0",
+    vendorId:"",
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
@@ -83,6 +102,7 @@ function PurchaseInventory() {
     expirydate: "",
     //-------------------------
     purchtype: "",
+    vendorId:"",
     vendor: "",
     invnumber: "",
     invdate: "",
@@ -123,14 +143,15 @@ function PurchaseInventory() {
     const newitems = [...values];
     newitems.map((item) => {
       item.purchtype = basevalues.purchtype;
-      item.vendor = basevalues.vendor;
+      item.vendorId=selectedVendor._id;
+      item.vendor = selectedVendor.name;
       item.invnumber = basevalues.invnumber;
       item.invdate = basevalues.invdate;
       item.location = basevalues.location;
       item.invtype = basevalues.invtype;
-      item.gstno = basevalues.gstno;
-      item.panno = basevalues.panno;
-      item.aadharno = basevalues.aadharno;
+      item.gstno = selectedVendor.GSTNo;
+      item.panno = selectedVendor.PANNo;
+      item.aadharno = selectedVendor.aadharNo;
       item.purchlocation = basevalues.purchtype;
       item.history = history;
     });
@@ -177,6 +198,27 @@ function PurchaseInventory() {
       });
   };
 
+  async function getVendorList() {
+    let payload = {
+      filters: {
+        searchquery: "",
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/vendor/${Emp.getId()}/getAll`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      setVendors(response.data.out);
+    } catch (error) {
+      throw error;
+    }
+  }
+  useEffect(() => {
+    getVendorList();
+  }, [])
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
@@ -268,43 +310,43 @@ function PurchaseInventory() {
     if (calnum != -1) {
       switch (newlist[calnum].wty) {
         case "3M":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(3, "M")
             .format("DD-MM-YYYY");
 
           break;
         case "6M":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(6, "M")
             .format("DD-MM-YYYY");
 
           break;
         case "1Y":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(1, "Y")
             .format("DD-MM-YYYY");
 
           break;
         case "2Y":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(2, "Y")
             .format("DD-MM-YYYY");
 
           break;
         case "3Y":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(3, "Y")
             .format("DD-MM-YYYY");
 
           break;
         case "4Y":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(4, "Y")
             .format("DD-MM-YYYY");
 
           break;
         case "5Y":
-          newlist[calnum].expirydate = moment()
+          newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(5, "Y")
             .format("DD-MM-YYYY");
 
@@ -370,6 +412,64 @@ function PurchaseInventory() {
   //       </>
   //     );
   //   };
+// Vendor PICK
+
+const VendorModal = () => {
+  return (
+    <>
+      <Modal isOpen={isVendorModalopen} onClose={() => setIsVendorModalopen(false)}>
+        <ModalHeader>Pink Vendor</ModalHeader>
+        <ModalBody>
+        <TableContainer>
+        <Table>
+          <TableHeader>
+            <tr>
+              <TableCell>Customer</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
+              {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {vendors.map((user, i) => (
+              <TableRow
+                key={i}
+                className="hover:bg-purple-900 "
+                onClick={() => {
+                  console.log(user)
+                  setselectedVendor(user);
+                setIsVendorModalopen(false);
+              }}
+            >
+              <TableCell>
+                <div>
+                  <div>
+                      <p className="font-semibold">{user.name}</p>
+                    </div>
+                  </div>
+                </TableCell>
+                
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        
+      </TableContainer>
+
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            className="w-full sm:w-auto"
+            onClick={() => setIsVendorModalopen(false)}
+          >
+            Okay!
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+};
+
 
   //   Basic Form
 
@@ -384,7 +484,8 @@ function PurchaseInventory() {
         <hr className="mb-5 mt-2" />
         {/* -----Row 1 --------- */}
         <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
+
+        <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Purchase Type*</span>
               <Input
@@ -395,14 +496,20 @@ function PurchaseInventory() {
               />
             </Label>
           </div>
+        
+          <div className="flex flex-col w-full  ">
+          <Label className="w-full">
+            <Button layout="outline" className="-mb-10 w-full" onClick={()=>setIsVendorModalopen(true)}>Select Vendor</Button>
+            </Label>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Vendor Name*</span>
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.vendor}
-                onChange={handleBaseChange("vendor")}
+                value={selectedVendor.name}
+                // onChange={handleBaseChange("vendor")}
               />
             </Label>
           </div>
@@ -424,7 +531,10 @@ function PurchaseInventory() {
                 className="mt-1"
                 type="date"
                 value={basevalues.invdate}
-                onChange={handleBaseChange("invdate")}
+                onChange={(e)=>{
+                              setBaseValues({ ...basevalues, invdate: e.target.value });
+                              setDateCalculate(!datecalculate)
+                              }}
               />
             </Label>
           </div>
@@ -463,8 +573,8 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.gstno}
-                onChange={handleBaseChange("gstno")}
+                value={selectedVendor.GSTNo}
+                // onChange={handleBaseChange("gstno")}
               />
             </Label>
           </div>
@@ -474,8 +584,8 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.panno}
-                onChange={handleBaseChange("panno")}
+                value={selectedVendor.PANNo}
+                // onChange={handleBaseChange("panno")}
               />
             </Label>
           </div>
@@ -489,8 +599,8 @@ function PurchaseInventory() {
               <Input
                 className="mt-1"
                 type="text"
-                value={basevalues.aadharno}
-                onChange={handleBaseChange("aadharno")}
+                value={selectedVendor.aadharNo}
+                // onChange={handleBaseChange("aadharno")}
               />
             </Label>
           </div>
@@ -1026,7 +1136,8 @@ function PurchaseInventory() {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = { ...values[0] };
+                let add = { ...values[values.length-1] };
+                add.sno="";
                 console.log(add);
                 newitem.push(add);
                 setValues(newitem);
@@ -1057,10 +1168,12 @@ function PurchaseInventory() {
   return (
     <>
       {BasicForm()}
+      
       {values.map((item, i) => {
         return ItemForm(i);
       })}
       {BottomCard()}
+      {VendorModal()}
     </>
   );
 }

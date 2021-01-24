@@ -155,7 +155,11 @@ exports.getAllItems = (req, res) => {
     filteroptions.location = filters.location;
   }
   if (filters.condition != "") {
+    if(filters.condition=="Available"){
+      filteroptions.condition={$in:["Good","Bad"]} 
+    }else{
     filteroptions.condition = filters.condition;
+    }
   }
   if (filters.searchquery != "") {
     filteroptions.sno = fuzzyquery;

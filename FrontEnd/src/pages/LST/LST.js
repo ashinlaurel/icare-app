@@ -57,7 +57,7 @@ function LST() {
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [condition, setCondition] = useState("Good");
+  const [condition, setCondition] = useState("Available");
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -303,11 +303,12 @@ function LST() {
                   Condition
                 </option>
                 <option value="">All</option>
-                <option value="Good" selected>
+                <option value="Good" >
                   Good
                 </option>
                 <option value="Bad">Bad</option>
                 <option value="Used">Used</option>
+                <option value="Available" selected >Available</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

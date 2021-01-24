@@ -146,7 +146,7 @@ export default function VendorDetails() {
                 {values.aadharNo}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
-                <span className="font-semibold"> PAN No:</span> {values.PANno}
+                <span className="font-semibold"> PAN No:</span> {values.PANNo}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
                 <span className="font-semibold"> GST No.:</span>{" "}

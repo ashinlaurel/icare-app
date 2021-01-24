@@ -109,7 +109,7 @@ exports.deleteEmployee = async (req, res) => {
 
 exports.updateEmployee = async (req, res) => {
   let { id, update } = req.body;
-  console.log(id, update);
+  console.log("id:",id,"update", update);
   try {
     let employee = await EmployeeLogin.findByIdAndUpdate(id, update, {
       safe: true,

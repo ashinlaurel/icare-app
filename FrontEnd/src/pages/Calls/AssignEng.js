@@ -108,7 +108,7 @@ function AssignEng() {
           <ModalHeader>Confirm Assignment</ModalHeader>
           <ModalBody>
             <div className="font-xl">
-              Assign {engineer.enggName} to call ${selectedprod.callNo}
+              Assign {engineer.enggName} to call {selectedprod.callNo}
             </div>
           </ModalBody>
           <ModalFooter>
@@ -124,6 +124,19 @@ function AssignEng() {
                     callStatus: 2,
                   },
                 };
+                let employeepayload={
+                  id:engineer._id,
+                  update:{
+                    $push:{
+                      assignedCalls:{
+                    priority:99,
+                    callId:selectedprod._id,
+                    date:new Date()
+
+                    }
+                  }
+                  }
+                }
                 try {
                   let response = await axios({
                     url: `${API}/call/${Emp.getId()}/assignEngg`,
@@ -140,6 +153,13 @@ function AssignEng() {
                       return c;
                     }
                     setData(temp);
+                  });
+                  // updating employee modal
+
+                  await axios({
+                    url: `${API}/admin/${Emp.getId()}/update`,
+                    method: "POST",
+                    data: employeepayload,
                   });
                   // console.log(response.data);
                   setaddEnggModalOpen(false);
@@ -469,7 +489,7 @@ function AssignEng() {
                   <TableCell>
                     {call.employeeId ? (
                       <>
-                        <div className="px-4 py-2 bg-purple-200 inline-block rounded-lg text-purple-700">
+                        <div className="px-4 py-2 dark:border-purple-400 border-purple-600 dark:bg-gray-700 bg-purple-100 inline-block rounded-lg dark:text-purple-400 text-purple-700">
                           {call.employeeName}
                           <Button
                             layout="link"

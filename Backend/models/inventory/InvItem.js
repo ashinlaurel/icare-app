@@ -51,6 +51,11 @@ const InvItemSchema = mongoose.Schema({
   purchtype: String,
   purchlocation: String,
   vendor: String,
+  vendorId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Vendor",
+    default: null,
+  },
   gstno: String,
   panno: String,
   aadharno: String,

@@ -38,6 +38,15 @@ const employeeLoginSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  assignedCalls:[{
+    priority:Number,
+    callId:{
+      type:mongoose.Schema.ObjectId,
+      ref:"Call"
+    },
+    date:Date
+
+  }],
   location: String,
   address: String,
   district: String,
