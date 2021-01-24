@@ -120,6 +120,7 @@ function Notifications() {
           method: "POST",
           data: payload,
         });
+
         console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;

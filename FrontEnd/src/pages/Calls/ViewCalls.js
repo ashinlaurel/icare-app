@@ -663,7 +663,7 @@ function ViewCalls() {
                 <TableCell>Date</TableCell>
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
-                <TableCell>Call Status</TableCell>
+                {/* <TableCell>Call Status</TableCell> */}
                 <TableCell>Assigned Employee</TableCell>
                 <TableCell>Update</TableCell>
               </tr>
@@ -705,10 +705,10 @@ function ViewCalls() {
                   <TableCell>
                     <span className="text-sm">{call.phone}</span>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex ">
+                  {/* <TableCell> */}
+                  {/* <div className="flex ">
                       {/* <Label className="w-full"> */}
-                      <Select
+                  {/* <Select
                         className="inline"
                         onChange={(e) => {
                           // setAccType(parseInt(e.target.value));
@@ -736,9 +736,9 @@ function ViewCalls() {
                         <option value="9"> Spare in Transit</option>
                         <option value="10"> Cancelled Calls</option>
                         <option value="11"> Closed Calls</option>
-                      </Select>
-                      {/* </Label> */}
-                      <div
+                      </Select> */}
+                  {/* </Label> */}
+                  {/* <div
                         className="p-1 m-2 dark:hover:bg-green-700 hover:bg-green-200 rounded-full text-green-400"
                         onClick={async () => {
                           let payload = {
@@ -764,9 +764,9 @@ function ViewCalls() {
                           className="w-5 h-5 fill-current"
                           aria-hidden="true"
                         />
-                      </div>
-                    </div>
-                  </TableCell>
+                      </div> */}
+                  {/* </div> */}
+                  {/* </TableCell> */}
                   <TableCell>
                     {call.employeeId ? (
                       <>

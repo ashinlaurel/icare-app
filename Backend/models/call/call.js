@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
 
-
 const callSchema = mongoose.Schema({
   callNo: {
     type: String,
@@ -36,22 +35,33 @@ const callSchema = mongoose.Schema({
   phone: {
     type: String,
   },
-  assetId:{
+  assetId: {
     type: mongoose.Schema.ObjectId,
     ref: "Asset",
-    required: true, 
+    required: true,
   },
   callStatus: Number,
   problem: String,
-  employeeId:{
+  employeeId: {
     type: mongoose.Schema.ObjectId,
     ref: "EmployeeLogin",
-    default:null
+    default: null,
   },
-  employeeName:{
-    type: String
+  employeeName: {
+    type: String,
   },
-  
+  callAttendDate: {
+    type: String,
+  },
+  startOfService: {
+    type: String,
+  },
+  endOfService: {
+    type: String,
+  },
+  spareUsed: {
+    type: String,
+  },
 });
 
 callSchema.plugin(mongoosePaginate);

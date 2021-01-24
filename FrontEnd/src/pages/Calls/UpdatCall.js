@@ -438,6 +438,30 @@ function UpdateCall() {
     }
   };
 
+  const handleUpdate = async () => {
+    let payload = {
+      id: call._id,
+      update: {
+        callStatus: call.callStatus,
+        callAttendDate: call.callAttendDate,
+        startOfService: call.startOfService,
+        endOfService: call.endOfService,
+      },
+    };
+    console.log(payload);
+    try {
+      let response = await axios({
+        url: `${API}/call/${Emp.getId()}/assignEngg`,
+        method: "POST",
+        data: payload,
+      });
+      console.log("updated");
+      // setIsReviewModalOpen(true);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const handleSwap = async () => {
     let payload = {
       existswap: existswap[0],
@@ -486,17 +510,66 @@ function UpdateCall() {
         {/* Row 1  */}
         {/* <div className="text-xl font-semibold">Asset Information</div> */}
         {/* Call Details */}
-        <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
-          <div className="my-3 font-semibold">
-            <span>Call Number :{call.callNo}</span>
+        <div className="flex flex-col lg:flex-row items-center justify-start text-sm font-semibold space-x-4 ">
+          <div className="my-3 ">
+            <span>Call Number: {call.callNo}</span>
           </div>
-          <div className="my-3 font-semibold">
-            <span>Contact Person:{call.contactPerson}</span>
+          <div className="my-3 ">
+            <span>Contact Person: {call.contactPerson}</span>
           </div>
-          <div className="my-3 font-semibold">
+          <div className="my-3 ">
             <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
           </div>
+          <div className="my-3 ml-24 ">
+            <span>
+              {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
+              {call.callStatus == 1 ? (
+                <Badge>Pending for Percall Approval</Badge>
+              ) : null}
+              {call.callStatus == 2 ? (
+                <Badge>Pending for Response</Badge>
+              ) : null}
+              {call.callStatus == 3 ? (
+                <Badge>Pending for OEM Response</Badge>
+              ) : null}
+              {call.callStatus == 4 ? (
+                <Badge>Pending for 2nd Response</Badge>
+              ) : null}
+              {call.callStatus == 5 ? (
+                <Badge>Pending for Customer</Badge>
+              ) : null}
+              {call.callStatus == 6 ? <Badge>Under Observation</Badge> : null}
+              {call.callStatus == 7 ? <Badge>Pending for Others</Badge> : null}
+              {call.callStatus == 8 ? <Badge>Pending for Spare</Badge> : null}
+              {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
+              {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
+              {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
+            </span>
+          </div>
         </div>
+
+        <div className="flex flex-col lg:flex-row items-center justify-start text-sm font-semibold space-x-4">
+          <div className="mb-2 font-semibold">
+            <span>Brand :{brand}</span>
+          </div>
+          <div className="mb-2 font-semibold">
+            <span>Model:{model}</span>
+          </div>
+          <div className="mb-2 font-semibold">
+            <span>Serial Number: {serialno}</span>
+          </div>
+
+          {product == "Laptop" ||
+          product == "Server" ||
+          product == "Desktop" ? (
+            <>
+              <div className="mb-2 font-semibold">
+                <span>Operating System :{os}</span>
+              </div>
+            </>
+          ) : null}
+        </div>
+
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
           {/* Row - 1 */}
           <div className="flex flex-col  text-sm my-1 w-full ">
@@ -673,33 +746,26 @@ function UpdateCall() {
         </div>
 
         {/* <hr className="my-4" /> */}
-        <div className=" text-sm">
-          <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
-            {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
-            <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
-              <div className="my-3 font-semibold">
-                <span>Brand :{brand}</span>
-              </div>
-              <div className="my-3 font-semibold">
-                <span>Model:{model}</span>
-              </div>
-              <div className="my-3 font-semibold">
-                <span>Serial Number: {serialno}</span>
-              </div>
 
-              {product == "Laptop" ||
-              product == "Server" ||
-              product == "Desktop" ? (
-                <>
-                  <div className="font-semibold">
-                    <span>Operating System :{os}</span>
-                  </div>
-                </>
-              ) : null}
-            </div>
-            <br />
+        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
+          <div className=" font-semibold">
+            <span>
+              Engineer: <span className="font-normal">{call.employeeName}</span>
+            </span>
           </div>
         </div>
+
+        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
+          <div className=" font-semibold">
+            <span>
+              Problem Description:{" "}
+              <span className="font-normal"> {call.problem}</span>
+            </span>
+          </div>
+        </div>
+
         {/* //////////////////////////////////////////////////////////////////////////// */}
       </div>
     );
@@ -1343,28 +1409,94 @@ function UpdateCall() {
     );
   };
 
+  const CallUpdater = () => {
+    return (
+      <div className="flex-row flex  space-x-3">
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Call Attended Date</span>
+            <Input
+              className=""
+              type="date"
+              value={call.callAttendDate}
+              onChange={(e) => {
+                setCall({ ...call, callAttendDate: e.target.value });
+              }}
+            />
+          </Label>
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Start Of Service</span>
+            <Input
+              className=""
+              type="time"
+              value={call.startOfService}
+              onChange={(e) => {
+                setCall({ ...call, startOfService: e.target.value });
+              }}
+            />
+          </Label>
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>End Of Service</span>
+            <Input
+              className=""
+              type="time"
+              value={call.endOfService}
+              onChange={(e) => {
+                setCall({ ...call, endOfService: e.target.value });
+              }}
+            />
+          </Label>
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Status Update</span>
+            <Select
+              className="inline"
+              onChange={(e) => {
+                setCall({ ...call, callStatus: e.target.value });
+                console.log(call);
+              }}
+              value={call.callStatus}
+            >
+              <option value="0">Not Allocated</option>
+              <option value="1">Pending for Percall Approval</option>
+              <option value="2"> Pending for Response</option>
+              <option value="3"> Pending for OEM Response</option>
+              <option value="4"> Pending for 2nd Response</option>
+              <option value="5"> Pending for Customer</option>
+              <option value="6"> Under Observation</option>
+              <option value="7"> Pending for Others</option>
+              <option value="8"> Pending for Spare</option>
+              <option value="9"> Spare in Transit</option>
+              <option value="10"> Cancelled Calls</option>
+              <option value="11"> Closed Calls</option>
+            </Select>
+          </Label>
+        </div>
+        <div className="flex flex-col w-1/2 mt-5">
+          <Button
+            onClick={() => {
+              handleUpdate();
+            }}
+            layout="outline"
+          >
+            Update
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       {AssetBar()}
-      {/* <div className=" ">
-        <div className="text-xl dark:text-white">Call</div>
-        <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
-          {/* /////////////////////////////// . PRODUCT INFO  ///////////////////////////////////////////// */}
-      {/* <div className="flex flex-col lg:flex-row items-center justify-between lg:space-x-8 w-8/12">
-            <div className="my-3 font-semibold">
-              <span>Call Number :{call.callNo}</span>
-            </div>
-            <div className="my-3 font-semibold">
-              <span>Contact Person:{call.contactPerson}</span>
-            </div>
-            <div className="my-3 font-semibold">
-              <span>Date: {call.date}</span>
-            </div>
-          </div> */}
-      {/* <br /> */}
-      {/* </div> */}
-      {/* </div> */}
-      {AssetItemPick()}
+      {CallUpdater()}
+
+      {/* {AssetItemPick()} */}
       {UpdatedModal()}
     </>
   );
