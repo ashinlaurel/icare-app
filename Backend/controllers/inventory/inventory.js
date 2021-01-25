@@ -5,6 +5,7 @@ const PurchaseHistory = require("../../models/PurchaseHistory/PurchaseHistory");
 const { Schema } = require("mongoose");
 const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
+const server = require("../../models/products/server");
 
 // ---------------Counter Controllers -------------------
 // exports.countAssets = (req, res) => {
@@ -79,18 +80,172 @@ exports.createItem = async (req, res) => {
 
 exports.createItems = async (req, res) => {
   let newitems = req.body;
-  // console.log(newitems);
+  
  
-  try {
-    // Saving the asset
+  
+    let flag=false;
+    // Searching in assets////////////////////////////////////////
+    newitems.map(item=>{
+      console.log(item.sno)
+    let options = {};
+    let filteroptions = {
+      $or:[
+        {mouse:{
+        $elemMatch:{
+          mousesno:item.sno
+        }
+      }},
+        {keyboard:{
+          $elemMatch:{
+            kbdsno:item.sno
+          }
+         }}
+         ,
 
+        {cpu:{
+          $elemMatch:{
+            cpusno:item.sno
+          }}
+        } ,
+        {ram:{
+          $elemMatch:{
+            ramsno:item.sno
+          }}
+        } ,
+
+        {hdd:{
+          $elemMatch:{
+            
+         hddsno:item.sno }
+        }}
+        ,
+        {smps:{
+          $elemMatch:{
+            
+         smpssno:item.sno }
+        } }
+        ,
+        {fan:{
+          $elemMatch:{
+            
+         fansno:item.sno }
+        } }
+        ,
+        {motherboard:{
+          $elemMatch:{
+         motherboardsno:item.sno }
+        } }
+        ,
+        {opticaldrive:{
+          $elemMatch:{
+            
+         opticaldrivesno:item.sno }
+        } }
+        ,
+        {monitor:{
+          $elemMatch:{
+            
+         monitorsno:item.sno }
+        } }
+        ,
+        {gcard:{
+          $elemMatch:{
+            
+         gcardsno:item.sno }
+        } }
+        ,
+        {enetcard:{
+          $elemMatch:{
+            
+         enetcardsno:item.sno }
+        } }
+        ,
+        {serialcard:{
+          $elemMatch:{
+            
+         serialcardsno:item.sno }
+        } }
+        ,
+        {parallelcard:{
+          $elemMatch:{
+            
+         parallelcardsno:item.sno }
+        } }
+        ,
+        {hbacard:{
+          $elemMatch:{
+            
+         hbacardsno:item.sno }
+        } }
+        ,
+        {raidcontroller:{
+          $elemMatch:{
+            
+         raidcontrollersno:item.sno }
+        } }
+        ,
+        {tapecontroller:{
+          $elemMatch:{
+            
+         tapecontrollersno:item.sno }
+        } }
+        ,
+        {others:{
+          $elemMatch:{
+            
+         otherssno:item.sno }
+        } ,}
+
+
+      ]
+    
+    }
+    // Server.find({"mouse.mousesno":"123"},function (err, result) {
+    Server.paginate(filteroptions, options, function (err, result) {
+      // console.log(result);
+      // if (err || !result) {
+      //   return res.status(400).json({
+      //     error: "No items found",
+      //     err: err,
+      //   });
+      // }
+      console.log(result.docs.length);
+      if(result.docs.length>0){
+        console.log("asset found")
+        let message="Item with this serial number already exists in Assets."
+        return res.status(400).json({message});
+        
+         
+      }
+      // let output = {
+      //   total: result.total,
+      //   out: result.docs,
+      // };
+      // console.log(output)
+      // return res.status(200).json(output);
+    })
+    
+      })
+
+
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // return res.status(400).json("NOT SUPPOSED TO BE HERE") ;
+    // Saving the asset
+    try{
     const result = await InvItem.insertMany(newitems);
     return res.status(200).json(result);
   } catch (err) {
     console.log("Inventory Item Creating error", err.message);
     let message = err.message;
-    if (err.code == 11000) message = "Item exists with serial Number.";
-    res.status(400).json({ message });
+    console.log(err.message)
+    if (err.code == 11000){
+      message = "Item with this serial number already exists in Inventory.";
+      // console.log(message)
+      // res.statusMessage="Item exists with serial Number"
+    } 
+     return res.status(400).json({message});
+
     // throw error;
   }
 };

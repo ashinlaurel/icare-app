@@ -41,7 +41,11 @@ const InvItemSchema = mongoose.Schema({
     },
   ],
 
-  sno: String,
+  sno: {
+    type:String,
+    unique:true,
+    required:true
+  },
   condition: String,
   location: String,
   invnumber: String,

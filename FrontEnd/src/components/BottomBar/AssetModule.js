@@ -56,6 +56,7 @@ const AssetModule = ({ selectedprod }) => {
   // let raidcontroller = [];
   // let tapecontroller = [];
   console.log(selectedprod.product);
+  console.log("Producy type",product);
   return (
     <div className=" ">
       {/* Row 1  */}
@@ -241,9 +242,9 @@ const AssetModule = ({ selectedprod }) => {
               <span>Serial Number: {serialno}</span>
             </div>
 
-            {product == "Laptop" ||
-            product == "Server" ||
-            product == "Desktop" ? (
+            {product == "laptop" ||
+            product == "server" ||
+            product == "desktop" ? (
               <>
                 <div className="font-semibold">
                   <span>Operating System :{os}</span>
@@ -257,9 +258,9 @@ const AssetModule = ({ selectedprod }) => {
         {/* -------------------CPU and RAM-------------------------- */}
         <div className="flex flex-col lg:flex-row items-start lg:space-x-3 ">
           {/* ----------------CPU------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ? (
             <div className="w-full  my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center ">
@@ -289,9 +290,9 @@ const AssetModule = ({ selectedprod }) => {
           ) : null}
           {/* ----------------CPU------------------------------- */}
           {/* ----------------ram------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center mx-2">
@@ -324,10 +325,10 @@ const AssetModule = ({ selectedprod }) => {
           {/* </div> */}
           {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
           {/* ----------------fan------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Storage" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "storage" ? (
             <div className="w-full  my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-col lg:flex-row items-start lg:space-x-3 mx-2">
@@ -358,9 +359,9 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------fan------------------------------- */}
           {/* ----------------motherboard------------------------------- */}
 
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center ">
@@ -392,10 +393,10 @@ const AssetModule = ({ selectedprod }) => {
         </div>
         <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
           {/* ----------------hdd------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Storage" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "storage" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -427,10 +428,10 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------hdd------------------------------- */}
 
           {/* ----------------smps------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Storage" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "storage" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -464,10 +465,10 @@ const AssetModule = ({ selectedprod }) => {
 
           {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
           {/* ----------------kbd------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Router" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "router" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -499,10 +500,10 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------kbd------------------------------- */}
 
           {/* ----------------mouse------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Storage" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "storage" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -536,10 +537,10 @@ const AssetModule = ({ selectedprod }) => {
 
         <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
           {/* ----------------monitor------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ||
-          product == "Router" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ||
+          product == "router" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -571,9 +572,9 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------monitor------------------------------- */}
 
           {/* ----------------gcard------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -607,9 +608,9 @@ const AssetModule = ({ selectedprod }) => {
 
           {/* <div className="flex flex-col lg:flex-row items-start lg:space-x-3"> */}
           {/* ----------------enetcard------------------------------- */}
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
+          {product == "laptop" ||
+          product == "server" ||
+          product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -641,7 +642,7 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------enetcard------------------------------- */}
 
           {/* ----------------serialcard------------------------------- */}
-          {product == "Server" || product == "Desktop" ? (
+          {product == "server" || product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -675,7 +676,7 @@ const AssetModule = ({ selectedprod }) => {
 
         <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
           {/* ----------------parallelcard------------------------------- */}
-          {product == "Server" || product == "Desktop" ? (
+          {product == "server" || product == "desktop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -707,7 +708,7 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------parallelcard------------------------------- */}
 
           {/* ----------------hbacard------------------------------- */}
-          {product == "Server" || product == "Storage" ? (
+          {product == "server" || product == "storage" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -739,7 +740,7 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------hbacard------------------------------- */}
 
           {/* ----------------raidcontroller------------------------------- */}
-          {product == "Server" ? (
+          {product == "server" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -772,7 +773,7 @@ const AssetModule = ({ selectedprod }) => {
         </div>
         <div className="flex flex-col lg:flex-row items-start lg:space-x-3">
           {/* ----------------tapecontroller------------------------------- */}
-          {product == "Server" ? (
+          {product == "server" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
@@ -804,9 +805,9 @@ const AssetModule = ({ selectedprod }) => {
           {/* ----------------tapecontroller------------------------------- */}
 
           {/* ----------------opticaldrive------------------------------- */}
-          {product == "Server" ||
-          product == "Desktop" ||
-          product == "Laptop" ? (
+          {product == "server" ||
+          product == "desktop" ||
+          product == "laptop" ? (
             <div className="w-full my-4 bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
               <>
                 <div className="flex flex-row items-center">
