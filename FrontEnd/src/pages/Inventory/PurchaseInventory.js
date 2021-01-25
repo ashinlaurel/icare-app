@@ -45,6 +45,8 @@ function PurchaseInventory() {
   const [calnum, setCalnum] = useState(-1);
   const [isVendorModalopen, setIsVendorModalopen] = useState(false);
   const [vendors, setVendors] = useState([])
+  const [ismessageModal, setIsmessageModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [selectedVendor, setselectedVendor] = useState({
                                                         _id:"",
                                                         name:"",
@@ -133,11 +135,30 @@ function PurchaseInventory() {
   });
 
   const submitItems = async () => {
-    if (values.name === "" || values.sno === "" || values.invnumber === "") {
+    
+    let flag=false;
+    values.map(value=>{
+    if (value.name === "" || value.sno === "" ) {
       //   setIsReqFieldModal(true);
+      setModalMessage(`Required fields not filled!`)
+      setIsmessageModal(true);
       console.log("missing inputs");
-      return;
+      flag=true;
     }
+  })
+  
+  values.map(i=>{
+    values.map(j=>{
+      console.log(i.sno,j.sno);
+      if(i!=j && i.sno==j.sno){
+        setModalMessage(`Serial numbers have to be unique!`)
+        setIsmessageModal(true);
+        console.log("serial num same");
+        flag=true;
+      }
+    })
+  })
+  if(flag==true) return;
     let ids = [];
     console.log("Submission Start");
     const newitems = [...values];
@@ -188,12 +209,15 @@ function PurchaseInventory() {
             });
           })
           .catch((err) => {
-            console.log("err", err);
+            console.log("Purchase Hisry err", err.response);
             setErr({ ...err });
           });
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log("INV err", err.response);
+        
+        if(err.response) setModalMessage(err.response.data.message)
+        setIsmessageModal(true);
         setErr({ ...err });
       });
   };
@@ -391,27 +415,27 @@ function PurchaseInventory() {
   //     );
   //   };
 
-  //   const ReqFieldErrModal = () => {
-  //     return (
-  //       <>
-  //         <Modal
-  //           isOpen={isReqFieldModal}
-  //           onClose={() => setIsReqFieldModal(false)}
-  //         >
-  //           <ModalHeader>Required fields are not filled!</ModalHeader>
-  //           <ModalBody></ModalBody>
-  //           <ModalFooter>
-  //             <Button
-  //               className="w-full sm:w-auto"
-  //               onClick={() => setIsReqFieldModal(false)}
-  //             >
-  //               Okay!
-  //             </Button>
-  //           </ModalFooter>
-  //         </Modal>
-  //       </>
-  //     );
-  //   };
+    const MessageModalComponent = () => {
+      return (
+        <>
+          <Modal
+            isOpen={ismessageModal}
+            onClose={() => setIsmessageModal(false)}
+          >
+            <ModalHeader></ModalHeader>
+            <ModalBody>{modalMessage}</ModalBody>
+            <ModalFooter>
+              <Button
+                className="w-full sm:w-auto"
+                onClick={() => setIsmessageModal(false)}
+              >
+                Okay!
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </>
+      );
+    };
 // Vendor PICK
 
 const VendorModal = () => {
@@ -680,13 +704,13 @@ const VendorModal = () => {
               </Select>
             </Label>
           </div>
-
+          {values[num].systype == "item" ? ( 
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Select Category*</span>
               <Select
                 className="mt-1"
-                value={values.type}
+                value={values[num].type}
                 onChange={(e) => {
                   let newlist = [...values];
                   // console.log(e.target.value)
@@ -700,26 +724,70 @@ const VendorModal = () => {
                 <option value="" selected disabled>
                   Select Type
                 </option>
-                {values[num].systype == "item" ? (
-                  <>
-                    <option value="Mouse">Mouse</option>
-                    <option value="Keyboard">Keyboard</option>
-                    <option value="Monitor">Monitor</option>
+                
+        
+                    <option value="mouse">Mouse</option>
+                    <option value="keyboard">Keyboard</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="cpu">Cpu</option>
+                    <option value="ram">Ram</option>
+                    <option value="fan">Fan</option>
+                    <option value="motherboard">Motherboard</option>
+                    <option value="smps">SMPS</option>
+                    <option value="gdd">HDD</option>
+                    <option value="gcard">Gcard</option>
+                    <option value="enetcard">Enet Card</option>
+                    <option value="serialcard">Serial Card</option>
+                    <option value="paralellcard">Paralell Card</option>
+                    <option value="opticaldrive">Optical Drive</option>
+                    <option value="others">Others</option>
+              
+                    {/* <option value="Mouse">Mouse</option>
+                    <option value="Keyboard">Keyboard </option>
+                    <option value="Monitor">Monitor </option>
                     <option value="Cpu">Cpu</option>
-                    <option value="Ram">Ram</option>
-                    <option value="Fan">Fan</option>
-                    <option value="Motherboard">Motherboard</option>
-                    <option value="SMPS">SMPS</option>
-                    <option value="HDD">HDD</option>
-                    <option value="GCard">Gcard</option>
-                    <option value="EnetCard">Enet Card</option>
-                    <option value="SerialCard">Serial Card</option>
-                    <option value="ParalellCard">Paralell Card</option>
-                    <option value="OpticalDrive">Optical Drive</option>
-                    <option value="Others">Others</option>
-                  </>
-                ) : (
-                  <>
+                    <option value="laptop">Laptop</option>
+                    <option value="laser">Laser</option>
+                    <option value="LMP">LMP</option>
+                    <option value="module">Module</option>
+                    <option value="router">Router</option>
+                    <option value="scanner">Scanner</option>
+                    <option value="server">Server</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="storage">Storage</option>
+                    <option value="switch">Switch</option>
+                    <option value="UPS">UPS</option>
+                    <option value="others">Others</option> */}
+                
+
+              </Select>
+            </Label>
+          </div>
+
+
+          ) : (
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Select Category*</span>
+              <Select
+                className="mt-1"
+                value={values[num].type}
+                onChange={(e) => {
+                  let newlist = [...values];
+                  // console.log(e.target.value)
+                  newlist[num].type = e.target.value.toLowerCase();
+                  // newlist[num].type = newlist[num].type.toLowerCase();
+                  // console.log(newlist)
+
+                  setValues(newlist);
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Type
+                </option>
+                
+  
                     <option value="console">Console</option>
                     <option value="DMP">DMP</option>
                     <option value="inkjet">Inkjet</option>
@@ -736,11 +804,13 @@ const VendorModal = () => {
                     <option value="switch">Switch</option>
                     <option value="UPS">UPS</option>
                     <option value="others">Others</option>
-                  </>
-                )}
+         
+                
               </Select>
             </Label>
           </div>
+          )}
+
 
           {values[num].systype == "item" ? (
             <>
@@ -1168,6 +1238,7 @@ const VendorModal = () => {
   return (
     <>
       {BasicForm()}
+      {MessageModalComponent()}
       
       {values.map((item, i) => {
         return ItemForm(i);
