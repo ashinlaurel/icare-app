@@ -1211,7 +1211,7 @@ function UpdateCall() {
                 )}
               </Dropdown>
             </div>
-            <Button
+            {/* <Button
               layout="outline"
               className="dark:border-green-700 border-green-400"
               onClick={() => {
@@ -1220,7 +1220,7 @@ function UpdateCall() {
               }}
             >
               Swap
-            </Button>
+            </Button> */}
           </div>
         </div>
 
