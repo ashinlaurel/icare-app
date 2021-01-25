@@ -44,6 +44,7 @@ function UpdateCall() {
   // console.log(id);
   //modal
   const [submitModal, setSubmitModal] = useState(false);
+  const [sparemodal, setSpareModal] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -330,6 +331,8 @@ function UpdateCall() {
     getCall();
   }, []);
 
+  // ------Modals------
+
   const UpdatedModal = () => {
     return (
       <>
@@ -349,6 +352,38 @@ function UpdateCall() {
     );
   };
 
+  const SpareRequiredModal = () => {
+    return (
+      <>
+        <Modal isOpen={sparemodal}>
+          <ModalHeader>Spare Usage</ModalHeader>
+          <ModalBody> Was any spare used in this call ?</ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setCall({ ...call, spareUsed: "Yes" });
+                setSpareModal(false);
+              }}
+            >
+              Yes
+            </Button>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setCall({ ...call, spareUsed: "No" });
+                setSpareModal(false);
+              }}
+            >
+              No
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  // --------------------  Functions ---------------------------
   const handleInventory = async () => {
     let payload = { inventory, assetId: id, product: product };
     console.log(payload);
@@ -365,79 +400,6 @@ function UpdateCall() {
     }
   };
 
-  //functions
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log(inventory);
-
-    let payload = {
-      business: Business,
-      producttype: product,
-      ponumber: POnumber,
-      podate: POdate,
-      contractfrom: ContractFrom,
-      contractto: ContractTo,
-      billingfrom: BillingFrom,
-      billingto: BillingTo,
-      amcrate: AMCRate,
-      gstperc: GST,
-      gstamount: GSTAMOUNT,
-      netamount: NetAmount,
-      ///------------------ cust info
-      // unitId: unit._id,
-      // unitName: unit.unitName,
-      // accountId: account._id,
-      // accountName: account.accountName,
-      // customerId: customer._id,
-      // customerName: customer.customerName,
-    };
-    if (payload.podate == "Invalid date") payload.podate = "";
-    if (payload.contractfrom == "Invalid date") payload.contractfrom = "";
-    if (payload.contractto == "Invalid date") payload.contractto = "";
-    if (payload.billingfrom == "Invalid date") payload.billingfrom = "";
-    if (payload.billingto == "Invalid date") payload.billingto = "";
-    let newproduct = {
-      brand: brand,
-      model: model,
-      serialno: serialno,
-      os: os,
-      cpu: cpu,
-      ram: ram,
-      hdd: hdd,
-      smps: smps,
-      fan: fan,
-      motherboard: motherboard,
-      opticaldrive: opticaldrive,
-      keyboard: kbd,
-      mouse: mouse,
-      monitor: monitor,
-      gcard: gcard,
-      enetcard: enetcard,
-      serialcard: serialcard,
-      parallelcard: parallelcard,
-      hbacard: hbacard,
-      raidcontroller: raidcontroller,
-      tapecontroller: tapecontroller,
-      others: others,
-    };
-    console.log(payload);
-
-    const data = { id: id, newasset: payload, newproduct: newproduct };
-    // console.log(API);
-    try {
-      let update = await axios({
-        url: `${API}/asset/${Emp.getId()}/update`,
-        method: "POST",
-        data: data,
-      });
-      handleInventory();
-      setSubmitModal(true);
-      console.log("Done");
-    } catch (error) {
-      throw error;
-    }
-  };
-
   const handleUpdate = async () => {
     let payload = {
       id: call._id,
@@ -446,6 +408,7 @@ function UpdateCall() {
         callAttendDate: call.callAttendDate,
         startOfService: call.startOfService,
         endOfService: call.endOfService,
+        spareUsed: call.spareUsed,
       },
     };
     console.log(payload);
@@ -509,18 +472,24 @@ function UpdateCall() {
       <div className="dark:text-white my-4 ">
         {/* Row 1  */}
         {/* <div className="text-xl font-semibold">Asset Information</div> */}
-        {/* Call Details */}
-        <div className="flex flex-col lg:flex-row items-center justify-start text-sm font-semibold space-x-4 ">
-          <div className="my-3 ">
-            <span>Call Number: {call.callNo}</span>
+        {/* Row 1*/}
+        <div className="flex space-x-1">
+          <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+            <div className=" ">
+              <span>Call Number: {call.callNo}</span>
+            </div>
+            <div className=" ">
+              <span>Contact Person: {call.contactPerson}</span>
+            </div>
+            <div className=" ">
+              <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
+            </div>
           </div>
-          <div className="my-3 ">
-            <span>Contact Person: {call.contactPerson}</span>
-          </div>
-          <div className="my-3 ">
-            <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
-          </div>
-          <div className="my-3 ml-24 ">
+
+          <div className="dark:text-gray-200 text-black text-sm  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-1/4 my-2 ">
+            <div className=" font-semibold ">
+              <span>Call Status:</span>
+            </div>
             <span>
               {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
               {call.callStatus == 1 ? (
@@ -548,26 +517,36 @@ function UpdateCall() {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-start text-sm font-semibold space-x-4">
-          <div className="mb-2 font-semibold">
-            <span>Brand :{brand}</span>
-          </div>
-          <div className="mb-2 font-semibold">
-            <span>Model:{model}</span>
-          </div>
-          <div className="mb-2 font-semibold">
-            <span>Serial Number: {serialno}</span>
+        {/*  Row 2*/}
+
+        <div className="flex space-x-1">
+          <div className="dark:text-gray-200 text-black text-sm space-x-2  flex items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-full my-2">
+            <div className=" ">
+              <span>Brand :{brand}</span>
+            </div>
+            <div className=" ">
+              <span>Model:{model}</span>
+            </div>
+            <div className=" ">
+              <span>Serial Number: {serialno}</span>
+            </div>
+
+            {product == "Laptop" ||
+            product == "Server" ||
+            product == "Desktop" ? (
+              <>
+                <div className="">
+                  <span>Operating System :{os}</span>
+                </div>
+              </>
+            ) : null}
           </div>
 
-          {product == "Laptop" ||
-          product == "Server" ||
-          product == "Desktop" ? (
-            <>
-              <div className="mb-2 font-semibold">
-                <span>Operating System :{os}</span>
-              </div>
-            </>
-          ) : null}
+          <div className="dark:text-gray-200 text-black text-sm  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-1/4 my-2 ">
+            <div className=" font-semibold ">
+              <span>Engineer:</span> {call.employeeName}
+            </div>
+          </div>
         </div>
 
         <div className="dark:text-gray-200 text-black flex flex-row  items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
@@ -747,13 +726,36 @@ function UpdateCall() {
 
         {/* <hr className="my-4" /> */}
 
-        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
-          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
-          <div className=" font-semibold">
-            <span>
-              Engineer: <span className="font-normal">{call.employeeName}</span>
-            </span>
+        <div className="flex space-x-1">
+          <div className="dark:text-gray-200 text-black text-sm flex  flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+            {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
+            <div className=" font-semibold">
+              <span>
+                Engineer:{" "}
+                <span className="font-normal">{call.employeeName}</span>
+              </span>
+            </div>
           </div>
+
+          {call.callStatus == "11" ? (
+            <div className="dark:text-gray-200 text-black text-sm flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-full my-2 ">
+              {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
+              <div className=" font-semibold w-1/4">
+                <span>Spare Used:</span>
+              </div>
+              <Select
+                className="inline w-1/2"
+                onChange={(e) => {
+                  setCall({ ...call, spareUsed: e.target.value });
+                  console.log(call);
+                }}
+                value={call.spareUsed}
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
+            </div>
+          ) : null}
         </div>
 
         <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
@@ -853,7 +855,7 @@ function UpdateCall() {
 
   const AssetItemPick = () => {
     return (
-      <div>
+      <div className="my-2">
         {/* <div className="text-xl dark:text-white">Swap Items</div> */}
 
         {/* -----Type Selection---- */}
@@ -1411,7 +1413,7 @@ function UpdateCall() {
 
   const CallUpdater = () => {
     return (
-      <div className="flex-row flex  space-x-3">
+      <div className="flex-row flex  space-x-3 border-b pb-3">
         <div className="flex flex-col w-full">
           <Label className="w-full">
             <span>Call Attended Date</span>
@@ -1459,6 +1461,9 @@ function UpdateCall() {
               onChange={(e) => {
                 setCall({ ...call, callStatus: e.target.value });
                 console.log(call);
+                if (e.target.value == "11") {
+                  setSpareModal(true);
+                }
               }}
               value={call.callStatus}
             >
@@ -1496,8 +1501,9 @@ function UpdateCall() {
       {AssetBar()}
       {CallUpdater()}
 
-      {/* {AssetItemPick()} */}
+      {call.spareUsed == "Yes" ? AssetItemPick() : null}
       {UpdatedModal()}
+      {SpareRequiredModal()}
     </>
   );
 }
