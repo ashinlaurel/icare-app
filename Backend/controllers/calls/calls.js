@@ -110,7 +110,14 @@ exports.getCallById = async (req, res) => {
 };
 
 exports.swapItems = async (req, res) => {
-  let { existswap, newswap, call, type } = req.body;
+  let {
+    existswap,
+    newswap,
+    call,
+    type,
+    servicelocation,
+    assetserial,
+  } = req.body;
 
   console.log(existswap);
   console.log(newswap);
@@ -119,18 +126,18 @@ exports.swapItems = async (req, res) => {
   let newexisthistory = {
     histtype: "swap",
     date: call.date,
-    location: "Error",
+    location: servicelocation,
     callId: call.callNo,
-    assetId: call.assetId,
+    assetId: assetserial,
     status: "Bad",
     note: "Item Removed From Asset",
   };
   let newswaphistory = {
     histtype: "swap",
     date: call.date,
-    location: "Error",
+    location: servicelocation,
     callId: call.callNo,
-    assetId: call.assetId,
+    assetId: assetserial,
     status: "Used",
     note: "Item Added to Asset",
   };
@@ -139,7 +146,6 @@ exports.swapItems = async (req, res) => {
     let doesexist = await InvItem.exists({ sno: existswap.sno });
     console.log(doesexist);
 
-    // ----Code To Be Completed ----------
     if (doesexist) {
       // Updating the existswap inventory
 
@@ -155,6 +161,7 @@ exports.swapItems = async (req, res) => {
       console.log("new addition");
       // // Creating new item in inventory
       existswap.history = [newexisthistory];
+      existswap.location = servicelocation;
 
       const newitem = new InvItem(existswap);
       await newitem.save();

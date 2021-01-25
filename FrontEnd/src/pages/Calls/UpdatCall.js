@@ -91,6 +91,7 @@ function UpdateCall() {
   //asset
 
   const [Business, setBusiness] = useState("");
+  const [servicelocation, setServiceLocation] = useState("");
   const [POnumber, setPOnumber] = useState("");
   const [POdate, setPOdate] = useState("");
   const [ContractFrom, setContractFrom] = useState("");
@@ -226,6 +227,7 @@ function UpdateCall() {
       });
       console.log("asset", res.data);
       let asset = res.data;
+      setServiceLocation(asset.servicelocation);
       setProduct(asset.producttype);
       setUnit({ _id: id, unitName: asset.unitName });
       setCustomer({ _id: asset.customerId, customerName: asset.customerName });
@@ -423,6 +425,10 @@ function UpdateCall() {
     } catch (error) {
       throw error;
     }
+
+    if (call.spareUsed == "Yes") {
+      handleSwap();
+    }
   };
 
   const handleSwap = async () => {
@@ -431,6 +437,8 @@ function UpdateCall() {
       newswap: inventswap[0],
       call: call,
       type: selectedItem.toLowerCase(),
+      servicelocation: servicelocation,
+      assetserial: POnumber,
     };
 
     try {

@@ -85,6 +85,10 @@ const assetSchema = new Schema({
     required: false,
     trim: true,
   },
+  servicelocation: {
+    type: String,
+    required: true,
+  },
   product: {
     type: Schema.Types.ObjectId,
     ref: "Server",

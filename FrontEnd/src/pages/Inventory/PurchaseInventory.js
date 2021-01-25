@@ -44,16 +44,16 @@ function PurchaseInventory() {
   const [datecalculate, setDateCalculate] = useState(false);
   const [calnum, setCalnum] = useState(-1);
   const [isVendorModalopen, setIsVendorModalopen] = useState(false);
-  const [vendors, setVendors] = useState([])
+  const [vendors, setVendors] = useState([]);
   const [ismessageModal, setIsmessageModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [selectedVendor, setselectedVendor] = useState({
-                                                        _id:"",
-                                                        name:"",
-                                                        aadharNo:"",
-                                                        PANNo:"",
-                                                        GSTNo:""
-                                                        })
+    _id: "",
+    name: "",
+    aadharNo: "",
+    PANNo: "",
+    GSTNo: "",
+  });
 
   const thebval = {
     purchtype: "",
@@ -67,7 +67,7 @@ function PurchaseInventory() {
     aadharno: "",
     purchlocation: "Local",
     totalInvoice: "0",
-    vendorId:"",
+    vendorId: "",
   };
   const [basevalues, setBaseValues] = useState(thebval);
 
@@ -104,7 +104,7 @@ function PurchaseInventory() {
     expirydate: "",
     //-------------------------
     purchtype: "",
-    vendorId:"",
+    vendorId: "",
     vendor: "",
     invnumber: "",
     invdate: "",
@@ -135,36 +135,35 @@ function PurchaseInventory() {
   });
 
   const submitItems = async () => {
-    
-    let flag=false;
-    values.map(value=>{
-    if (value.name === "" || value.sno === "" ) {
-      //   setIsReqFieldModal(true);
-      setModalMessage(`Required fields not filled!`)
-      setIsmessageModal(true);
-      console.log("missing inputs");
-      flag=true;
-    }
-  })
-  
-  values.map(i=>{
-    values.map(j=>{
-      console.log(i.sno,j.sno);
-      if(i!=j && i.sno==j.sno){
-        setModalMessage(`Serial numbers have to be unique!`)
+    let flag = false;
+    values.map((value) => {
+      if (value.name === "" || value.sno === "") {
+        //   setIsReqFieldModal(true);
+        setModalMessage(`Required fields not filled!`);
         setIsmessageModal(true);
-        console.log("serial num same");
-        flag=true;
+        console.log("missing inputs");
+        flag = true;
       }
-    })
-  })
-  if(flag==true) return;
+    });
+
+    values.map((i) => {
+      values.map((j) => {
+        console.log(i.sno, j.sno);
+        if (i != j && i.sno == j.sno) {
+          setModalMessage(`Serial numbers have to be unique!`);
+          setIsmessageModal(true);
+          console.log("serial num same");
+          flag = true;
+        }
+      });
+    });
+    if (flag == true) return;
     let ids = [];
     console.log("Submission Start");
     const newitems = [...values];
     newitems.map((item) => {
       item.purchtype = basevalues.purchtype;
-      item.vendorId=selectedVendor._id;
+      item.vendorId = selectedVendor._id;
       item.vendor = selectedVendor.name;
       item.invnumber = basevalues.invnumber;
       item.invdate = basevalues.invdate;
@@ -215,8 +214,8 @@ function PurchaseInventory() {
       })
       .catch((err) => {
         console.log("INV err", err.response);
-        
-        if(err.response) setModalMessage(err.response.data.message)
+
+        if (err.response) setModalMessage(err.response.data.message);
         setIsmessageModal(true);
         setErr({ ...err });
       });
@@ -242,7 +241,7 @@ function PurchaseInventory() {
   }
   useEffect(() => {
     getVendorList();
-  }, [])
+  }, []);
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
@@ -415,85 +414,81 @@ function PurchaseInventory() {
   //     );
   //   };
 
-    const MessageModalComponent = () => {
-      return (
-        <>
-          <Modal
-            isOpen={ismessageModal}
-            onClose={() => setIsmessageModal(false)}
-          >
-            <ModalHeader></ModalHeader>
-            <ModalBody>{modalMessage}</ModalBody>
-            <ModalFooter>
-              <Button
-                className="w-full sm:w-auto"
-                onClick={() => setIsmessageModal(false)}
-              >
-                Okay!
-              </Button>
-            </ModalFooter>
-          </Modal>
-        </>
-      );
-    };
-// Vendor PICK
-
-const VendorModal = () => {
-  return (
-    <>
-      <Modal isOpen={isVendorModalopen} onClose={() => setIsVendorModalopen(false)}>
-        <ModalHeader>Pink Vendor</ModalHeader>
-        <ModalBody>
-        <TableContainer>
-        <Table>
-          <TableHeader>
-            <tr>
-              <TableCell>Customer</TableCell>
-              {/* <TableCell>Unit</TableCell> */}
-              {/* <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell> */}
-            </tr>
-          </TableHeader>
-          <TableBody>
-            {vendors.map((user, i) => (
-              <TableRow
-                key={i}
-                className="hover:bg-purple-900 "
-                onClick={() => {
-                  console.log(user)
-                  setselectedVendor(user);
-                setIsVendorModalopen(false);
-              }}
+  const MessageModalComponent = () => {
+    return (
+      <>
+        <Modal isOpen={ismessageModal} onClose={() => setIsmessageModal(false)}>
+          <ModalHeader></ModalHeader>
+          <ModalBody>{modalMessage}</ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsmessageModal(false)}
             >
-              <TableCell>
-                <div>
-                  <div>
-                      <p className="font-semibold">{user.name}</p>
-                    </div>
-                  </div>
-                </TableCell>
-                
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        
-      </TableContainer>
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+  // Vendor PICK
 
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            className="w-full sm:w-auto"
-            onClick={() => setIsVendorModalopen(false)}
-          >
-            Okay!
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
-};
-
+  const VendorModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isVendorModalopen}
+          onClose={() => setIsVendorModalopen(false)}
+        >
+          <ModalHeader>Pink Vendor</ModalHeader>
+          <ModalBody>
+            <TableContainer>
+              <Table>
+                <TableHeader>
+                  <tr>
+                    <TableCell>Customer</TableCell>
+                    {/* <TableCell>Unit</TableCell> */}
+                    {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+                  </tr>
+                </TableHeader>
+                <TableBody>
+                  {vendors.map((user, i) => (
+                    <TableRow
+                      key={i}
+                      className="hover:bg-purple-900 "
+                      onClick={() => {
+                        console.log(user);
+                        setselectedVendor(user);
+                        setIsVendorModalopen(false);
+                      }}
+                    >
+                      <TableCell>
+                        <div>
+                          <div>
+                            <p className="font-semibold">{user.name}</p>
+                          </div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsVendorModalopen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   //   Basic Form
 
@@ -508,8 +503,7 @@ const VendorModal = () => {
         <hr className="mb-5 mt-2" />
         {/* -----Row 1 --------- */}
         <div className="flex-row flex  space-x-3">
-
-        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Purchase Type*</span>
               <Input
@@ -520,10 +514,16 @@ const VendorModal = () => {
               />
             </Label>
           </div>
-        
+
           <div className="flex flex-col w-full  ">
-          <Label className="w-full">
-            <Button layout="outline" className="-mb-10 w-full" onClick={()=>setIsVendorModalopen(true)}>Select Vendor</Button>
+            <Label className="w-full">
+              <Button
+                layout="outline"
+                className="-mb-10 w-full"
+                onClick={() => setIsVendorModalopen(true)}
+              >
+                Select Vendor
+              </Button>
             </Label>
           </div>
           <div className="flex flex-col w-full">
@@ -555,10 +555,10 @@ const VendorModal = () => {
                 className="mt-1"
                 type="date"
                 value={basevalues.invdate}
-                onChange={(e)=>{
-                              setBaseValues({ ...basevalues, invdate: e.target.value });
-                              setDateCalculate(!datecalculate)
-                              }}
+                onChange={(e) => {
+                  setBaseValues({ ...basevalues, invdate: e.target.value });
+                  setDateCalculate(!datecalculate);
+                }}
               />
             </Label>
           </div>
@@ -704,45 +704,44 @@ const VendorModal = () => {
               </Select>
             </Label>
           </div>
-          {values[num].systype == "item" ? ( 
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Select Category*</span>
-              <Select
-                className="mt-1"
-                value={values[num].type}
-                onChange={(e) => {
-                  let newlist = [...values];
-                  // console.log(e.target.value)
-                  newlist[num].type = e.target.value.toLowerCase();
-                  // newlist[num].type = newlist[num].type.toLowerCase();
-                  // console.log(newlist)
+          {values[num].systype == "item" ? (
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={values[num].type}
+                  onChange={(e) => {
+                    let newlist = [...values];
+                    // console.log(e.target.value)
+                    newlist[num].type = e.target.value.toLowerCase();
+                    // newlist[num].type = newlist[num].type.toLowerCase();
+                    // console.log(newlist)
 
-                  setValues(newlist);
-                }}
-              >
-                <option value="" selected disabled>
-                  Select Type
-                </option>
-                
-        
-                    <option value="mouse">Mouse</option>
-                    <option value="keyboard">Keyboard</option>
-                    <option value="monitor">Monitor</option>
-                    <option value="cpu">Cpu</option>
-                    <option value="ram">Ram</option>
-                    <option value="fan">Fan</option>
-                    <option value="motherboard">Motherboard</option>
-                    <option value="smps">SMPS</option>
-                    <option value="gdd">HDD</option>
-                    <option value="gcard">Gcard</option>
-                    <option value="enetcard">Enet Card</option>
-                    <option value="serialcard">Serial Card</option>
-                    <option value="paralellcard">Paralell Card</option>
-                    <option value="opticaldrive">Optical Drive</option>
-                    <option value="others">Others</option>
-              
-                    {/* <option value="Mouse">Mouse</option>
+                    setValues(newlist);
+                  }}
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
+
+                  <option value="mouse">Mouse</option>
+                  <option value="keyboard">Keyboard</option>
+                  <option value="monitor">Monitor</option>
+                  <option value="cpu">Cpu</option>
+                  <option value="ram">Ram</option>
+                  <option value="fan">Fan</option>
+                  <option value="motherboard">Motherboard</option>
+                  <option value="smps">SMPS</option>
+                  <option value="hdd">HDD</option>
+                  <option value="gcard">Gcard</option>
+                  <option value="enetcard">Enet Card</option>
+                  <option value="serialcard">Serial Card</option>
+                  <option value="paralellcard">Paralell Card</option>
+                  <option value="opticaldrive">Optical Drive</option>
+                  <option value="others">Others</option>
+
+                  {/* <option value="Mouse">Mouse</option>
                     <option value="Keyboard">Keyboard </option>
                     <option value="Monitor">Monitor </option>
                     <option value="Cpu">Cpu</option>
@@ -758,59 +757,50 @@ const VendorModal = () => {
                     <option value="switch">Switch</option>
                     <option value="UPS">UPS</option>
                     <option value="others">Others</option> */}
-                
-
-              </Select>
-            </Label>
-          </div>
-
-
+                </Select>
+              </Label>
+            </div>
           ) : (
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={values[num].type}
+                  onChange={(e) => {
+                    let newlist = [...values];
+                    // console.log(e.target.value)
+                    newlist[num].type = e.target.value.toLowerCase();
+                    // newlist[num].type = newlist[num].type.toLowerCase();
+                    // console.log(newlist)
 
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Select Category*</span>
-              <Select
-                className="mt-1"
-                value={values[num].type}
-                onChange={(e) => {
-                  let newlist = [...values];
-                  // console.log(e.target.value)
-                  newlist[num].type = e.target.value.toLowerCase();
-                  // newlist[num].type = newlist[num].type.toLowerCase();
-                  // console.log(newlist)
+                    setValues(newlist);
+                  }}
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
 
-                  setValues(newlist);
-                }}
-              >
-                <option value="" selected disabled>
-                  Select Type
-                </option>
-                
-  
-                    <option value="console">Console</option>
-                    <option value="DMP">DMP</option>
-                    <option value="inkjet">Inkjet</option>
-                    <option value="KVM">KVM</option>
-                    <option value="laptop">Laptop</option>
-                    <option value="laser">Laser</option>
-                    <option value="LMP">LMP</option>
-                    <option value="module">Module</option>
-                    <option value="router">Router</option>
-                    <option value="scanner">Scanner</option>
-                    <option value="server">Server</option>
-                    <option value="desktop">Desktop</option>
-                    <option value="storage">Storage</option>
-                    <option value="switch">Switch</option>
-                    <option value="UPS">UPS</option>
-                    <option value="others">Others</option>
-         
-                
-              </Select>
-            </Label>
-          </div>
+                  <option value="console">Console</option>
+                  <option value="DMP">DMP</option>
+                  <option value="inkjet">Inkjet</option>
+                  <option value="KVM">KVM</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="laser">Laser</option>
+                  <option value="LMP">LMP</option>
+                  <option value="module">Module</option>
+                  <option value="router">Router</option>
+                  <option value="scanner">Scanner</option>
+                  <option value="server">Server</option>
+                  <option value="desktop">Desktop</option>
+                  <option value="storage">Storage</option>
+                  <option value="switch">Switch</option>
+                  <option value="UPS">UPS</option>
+                  <option value="others">Others</option>
+                </Select>
+              </Label>
+            </div>
           )}
-
 
           {values[num].systype == "item" ? (
             <>
@@ -1206,8 +1196,8 @@ const VendorModal = () => {
             <Button
               onClick={() => {
                 let newitem = [...values];
-                let add = { ...values[values.length-1] };
-                add.sno="";
+                let add = { ...values[values.length - 1] };
+                add.sno = "";
                 console.log(add);
                 newitem.push(add);
                 setValues(newitem);
@@ -1239,7 +1229,7 @@ const VendorModal = () => {
     <>
       {BasicForm()}
       {MessageModalComponent()}
-      
+
       {values.map((item, i) => {
         return ItemForm(i);
       })}
