@@ -486,9 +486,9 @@ function UpdateCall() {
             </div>
           </div>
 
-          <div className="dark:text-gray-200 text-black text-sm  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-1/4 my-2 ">
+          <div className="dark:text-gray-200 text-black text-sm space-x-1  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start   w-1/4 my-2 ">
             <div className=" font-semibold ">
-              <span>Call Status:</span>
+              <span>Call Status: </span>
             </div>
             <span>
               {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
