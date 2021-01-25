@@ -41,20 +41,19 @@ function CreateVendor() {
   const [values, setValues] = useState({
     //both
 
-    name:"",
-    aadharNo:"",
-    PANNo:"",
-    GSTNo:"",
-    address:"",
-    district:"",
-    state:"",
-    PIN:"",
-    phno1:"",
-    phno2:""
+    name: "",
+    aadharNo: "",
+    PANNo: "",
+    GSTNo: "",
+    address: "",
+    district: "Trivandrum",
+    state: "Kerala",
+    PIN: "",
+    phno1: "",
+    phno2: "",
 
     // ---new ones
   });
-
 
   // ----------------------Heading Use Effect-------------
 
@@ -70,15 +69,13 @@ function CreateVendor() {
     setValues({ ...values, [name]: e.target.value });
   };
 
-  
-
   const submitItem = async () => {
     if (values.name === "") {
-        setIsReqFieldModal(true);
+      setIsReqFieldModal(true);
       console.log("missing inputs");
       return;
     }
-  
+
     await Axios({
       url: `${API}/vendor/${Emp.getId()}/create`,
       method: "POST",
@@ -88,18 +85,18 @@ function CreateVendor() {
         console.log("Added", data._id);
         setIsReviewModalOpen(true);
         setValues({
-          name:"",
-          aadharNo:"",
-          PANNo:"",
-          GSTNo:"",
-          address:"",
-          district:"",
-          state:"",
-          PIN:"",
-          phno1:"",
-          phno2:""
-        }
-        )})
+          name: "",
+          aadharNo: "",
+          PANNo: "",
+          GSTNo: "",
+          address: "",
+          district: "",
+          state: "",
+          PIN: "",
+          phno1: "",
+          phno2: "",
+        });
+      })
       .catch((err) => {
         console.log("err", err);
         // setErr({ ...err });
@@ -113,9 +110,7 @@ function CreateVendor() {
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
         >
-          <ModalHeader>
-           Vendor Created Successfully!
-          </ModalHeader>
+          <ModalHeader>Vendor Created Successfully!</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -161,11 +156,9 @@ function CreateVendor() {
           <span>Add Vendor</span>
         </Label>
         <hr className="mb-5 mt-2" />
-  
+
         {/* -------Row - 1 ---------------------- */}
         <div className="flex-row flex space-x-3 mt-3 mb-2">
-         
-
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Name*</span>
@@ -177,7 +170,6 @@ function CreateVendor() {
             </Label>{" "}
           </div>
 
-         
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>GST Number</span>
@@ -187,8 +179,7 @@ function CreateVendor() {
                 onChange={handleChange("GSTNo")}
               />
             </Label>
-
-            </div>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PAN Number</span>
@@ -200,7 +191,6 @@ function CreateVendor() {
             </Label>{" "}
           </div>
 
-
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Aadhar Number</span>
@@ -211,12 +201,10 @@ function CreateVendor() {
               />
             </Label>{" "}
           </div>
-            
-          
         </div>
         {/* ---------------Row 4 ---------------- */}
         <div className="flex-row flex space-x-3 mt-3 mb-2">
-        <div className="flex flex-col w-full flex-none">
+          <div className="flex flex-col w-full ">
             <Label className="w-full">
               <span>Address</span>
               <Input
@@ -226,13 +214,12 @@ function CreateVendor() {
               />
             </Label>{" "}
           </div>
-          
+
           <div className="flex flex-col w-full ">
             <Label className="w-full">
               <span>PIN Number</span>
               <Input
                 className="mt-1"
-                
                 value={values.PIN}
                 onChange={handleChange("PIN")}
               />
@@ -241,9 +228,9 @@ function CreateVendor() {
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
         </div>
 
-         {/* ---------------Row 3 ---------------- */}
-         <div className="flex-row flex space-x-3 mt-3 mb-2">
-         <div className="flex flex-col w-full">
+        {/* ---------------Row 3 ---------------- */}
+        <div className="flex-row flex space-x-3 mt-3 mb-2">
+          <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>District</span>
               <Input
@@ -264,7 +251,7 @@ function CreateVendor() {
               />
             </Label>{" "}
           </div>
-        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Phone Number 1</span>
               <Input
@@ -284,10 +271,10 @@ function CreateVendor() {
               />
             </Label>
           </div>
-         
+
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
         </div>
-      
+
         {/* ///////////////////////////////////////////////////////// */}
         <Button
           onClick={submitItem}
