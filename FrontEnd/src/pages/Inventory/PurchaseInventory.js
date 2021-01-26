@@ -138,6 +138,11 @@ function PurchaseInventory() {
 
   const submitItems = async () => {
     let flag = false;
+    if(selectedVendor._id==""){
+      setModalMessage("Please select vendor")
+      setIsmessageModal(true);
+      return
+    }
     values.map((value) => {
       if (value.name === "" || value.sno === "") {
         //   setIsReqFieldModal(true);
