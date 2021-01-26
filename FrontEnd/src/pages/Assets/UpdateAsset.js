@@ -90,6 +90,7 @@ function UpdateAsset() {
   const [GST, setGST] = useState("");
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
+  const [servicelocation, setServiceLocation] = useState("");
 
   //////////////-------------------------------------------->Product name not in asset
   const [product, setProduct] = useState("Server");
@@ -104,6 +105,7 @@ function UpdateAsset() {
       });
       console.log("asset", res.data);
       let asset = res.data;
+      setServiceLocation(asset.servicelocation);
       setProduct(asset.producttype);
       setUnit({ _id: id, unitName: asset.unitName });
       setCustomer({ _id: asset.customerId, customerName: asset.customerName });
@@ -225,6 +227,7 @@ function UpdateAsset() {
       gstperc: GST,
       gstamount: GSTAMOUNT,
       netamount: NetAmount,
+      servicelocation: servicelocation,
       ///------------------ cust info
       // unitId: unit._id,
       // unitName: unit.unitName,
@@ -286,7 +289,7 @@ function UpdateAsset() {
   //ASSET----------------------------------------------------
   const assetPicker = () => {
     return (
-      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+      <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         {/* {floatbox ? (
           <UpdateAssetFloat Business={Business} POnumber={POnumber} />
         ) : null} */}
@@ -349,6 +352,25 @@ function UpdateAsset() {
                   setPOnumber(e.target.value);
                 }}
               />
+            </Label>
+          </div>
+          <div className="w-full ">
+            <Label className="my-3">
+              <span>Service Location*</span>
+              <Select
+                value={servicelocation}
+                onChange={(e) => {
+                  setServiceLocation(e.target.value);
+                }}
+                className="mt-1"
+              >
+                <option value="" selected disabled>
+                  Select Service Location
+                </option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              </Select>
             </Label>
           </div>
         </div>
@@ -2099,20 +2121,7 @@ function UpdateAsset() {
         setAccount={setAccount}
       />
       {/* Heading of page with float button */}
-      <div className="flex items-center">
-        <PageTitle>Assets Management</PageTitle>
-        <div>
-          <Button
-            className="mx-3"
-            onClick={() => {
-              setFloatBox(!floatbox);
-            }}
-            icon={HeartIcon}
-            layout="link"
-            aria-label="Like"
-          />
-        </div>
-      </div>
+
       {assetPicker()}
       {/* <SectionTitle>Pick Product</SectionTitle> */}
       {/* {dropdown()} */}

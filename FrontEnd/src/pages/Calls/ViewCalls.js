@@ -663,7 +663,7 @@ function ViewCalls() {
                 <TableCell>Date</TableCell>
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
-                {/* <TableCell>Call Status</TableCell> */}
+                <TableCell>Call Status</TableCell>
                 <TableCell>Assigned Employee</TableCell>
                 <TableCell>Update</TableCell>
               </tr>
@@ -704,6 +704,34 @@ function ViewCalls() {
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{call.phone}</span>
+                  </TableCell>
+                  <TableCell>
+                  
+            <span>
+              {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
+              {call.callStatus == 1 ? (
+                <Badge>Pending for Percall Approval</Badge>
+              ) : null}
+              {call.callStatus == 2 ? (
+                <Badge>Pending for Response</Badge>
+              ) : null}
+              {call.callStatus == 3 ? (
+                <Badge>Pending for OEM Response</Badge>
+              ) : null}
+              {call.callStatus == 4 ? (
+                <Badge>Pending for 2nd Response</Badge>
+              ) : null}
+              {call.callStatus == 5 ? (
+                <Badge>Pending for Customer</Badge>
+              ) : null}
+              {call.callStatus == 6 ? <Badge>Under Observation</Badge> : null}
+              {call.callStatus == 7 ? <Badge>Pending for Others</Badge> : null}
+              {call.callStatus == 8 ? <Badge>Pending for Spare</Badge> : null}
+              {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
+              {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
+              {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
+            </span>
+          
                   </TableCell>
                   {/* <TableCell> */}
                   {/* <div className="flex ">

@@ -142,10 +142,24 @@ function Notifications() {
     let invItem = lstItem.invItems[j];
     console.log(lstItem, invItem);
 
+    let todaydate = moment().format();
+
+    // ----history ---
+    let newhistory = {
+      histtype: "lst",
+      date: todaydate,
+      location: lstItem.to,
+      callId: "Nil",
+      assetId: "Nil",
+      status: invItem.condition,
+      note: `Item received at ${lstItem.to}`,
+    };
+
     const update = {
       id: invItem._id,
       update: {
         location: lstItem.to,
+        $push: { history: newhistory },
       },
     };
     console.log("PAYLOAD", update);
@@ -218,7 +232,7 @@ function Notifications() {
                   <TableCell>Location</TableCell>
                   <TableCell>Inv Number</TableCell>
                   <TableCell>Condition</TableCell>
-                  <TableCell>Recieve</TableCell>
+                  <TableCell>Receive</TableCell>
                 </tr>
               </TableHeader>
               <TableBody>
@@ -281,7 +295,7 @@ function Notifications() {
                           if (user.location == "In Transit")
                             updateInventory(num, i);
                           else {
-                            setModalMessage("Already Recieved");
+                            setModalMessage("Already Received");
                             setMessageModal(true);
                           }
                         }}

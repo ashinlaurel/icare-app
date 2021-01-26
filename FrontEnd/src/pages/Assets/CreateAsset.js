@@ -102,6 +102,7 @@ function CreateAsset() {
   const [GST, setGST] = useState("");
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
+  const [servicelocation, setServiceLocation] = useState("");
 
   //
   const [product, setProduct] = useState("null");
@@ -244,6 +245,7 @@ function CreateAsset() {
         accountName: account.accountName,
         customerId: customer._id,
         customerName: customer.customerName,
+        servicelocation: servicelocation,
       },
       product: {
         brand: brand,
@@ -377,17 +379,6 @@ function CreateAsset() {
         {/* ----------------------------Row - 1 --------------------------------------------------------------------- */}
         <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
           <div className="w-full ">
-            {/* <Label className="my-3">
-              <span>Business</span>
-              <Input
-                className="mt-1"
-                name="brand"
-                value={Business}
-                onChange={(e) => {
-                  setBusiness(e.target.value);
-                }}
-              />
-            </Label> */}
             <Label className="my-3">
               <span>Business Type*</span>
               <Select
@@ -416,6 +407,24 @@ function CreateAsset() {
                   setPOnumber(e.target.value);
                 }}
               />
+            </Label>
+          </div>
+          <div className="w-full ">
+            <Label className="my-3">
+              <span>Service Location*</span>
+              <Select
+                onChange={(e) => {
+                  setServiceLocation(e.target.value);
+                }}
+                className="mt-1"
+              >
+                <option value="" selected disabled>
+                  Select Service Location
+                </option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              </Select>
             </Label>
           </div>
         </div>

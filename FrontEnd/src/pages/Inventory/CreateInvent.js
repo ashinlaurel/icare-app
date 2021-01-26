@@ -100,7 +100,7 @@ const CreateInvent = () => {
               }}
             >
               <option value="Mouse">Mouse</option>
-              <option value="Keyboard">Keyboard</option>
+              <option value="Kbd">Keyboard</option>
               <option value="Monitor">Monitor</option>
               <option value="Cpu">Cpu</option>
               <option value="Ram">Ram</option>
