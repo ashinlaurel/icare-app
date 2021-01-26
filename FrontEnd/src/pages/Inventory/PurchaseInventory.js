@@ -517,18 +517,7 @@ function PurchaseInventory() {
             </Label>
           </div>
 
-          <div className="flex flex-col w-full  ">
-            <Label className="w-full">
-              <Button
-                layout="outline"
-                className="-mb-10 w-full"
-                onClick={() => setIsVendorModalopen(true)}
-              >
-                Select Vendor
-              </Button>
-            </Label>
-          </div>
-          
+        
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Invoice Number*</span>
@@ -554,6 +543,17 @@ function PurchaseInventory() {
               />
             </Label>
           </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Invoice Type*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={basevalues.invtype}
+                onChange={handleBaseChange("invtype")}
+              />
+            </Label>
+          </div>
         </div>
         {/* ------------------------Row 2-------------------------- */}
         <div className="flex-row flex  space-x-3">
@@ -572,17 +572,7 @@ function PurchaseInventory() {
               </Select>
             </Label>
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Invoice Type*</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={basevalues.invtype}
-                onChange={handleBaseChange("invtype")}
-              />
-            </Label>
-          </div>
+          
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -608,6 +598,18 @@ function PurchaseInventory() {
               </Select>
             </Label>
           </div>
+          <div className="flex flex-col w-full  ">
+            <Label className="w-full">
+              <Button
+                layout="outline"
+                className="-mb-10 w-full"
+                onClick={() => setIsVendorModalopen(true)}
+              >
+                Select Vendor
+              </Button>
+            </Label>
+          </div>
+          
          
           
         </div>
