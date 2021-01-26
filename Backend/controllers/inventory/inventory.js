@@ -213,7 +213,7 @@ exports.createItems = async (req, res) => {
       if(result.docs.length>0){
         console.log("asset found")
         let message="Item with this serial number already exists in Assets."
-        return res.status(400).json({message});
+        // return res.status(400).json({message});
         
          
       }

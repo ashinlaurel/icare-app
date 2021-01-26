@@ -35,6 +35,8 @@ import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
 import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
+import { CloseIcon } from "../../icons";
+
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function PurchaseInventory() {
@@ -526,17 +528,7 @@ const VendorModal = () => {
             <Button layout="outline" className="-mb-10 w-full" onClick={()=>setIsVendorModalopen(true)}>Select Vendor</Button>
             </Label>
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Vendor Name*</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={selectedVendor.name}
-                // onChange={handleBaseChange("vendor")}
-              />
-            </Label>
-          </div>
+          
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Invoice Number*</span>
@@ -591,43 +583,7 @@ const VendorModal = () => {
               />
             </Label>
           </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>GST Number*</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={selectedVendor.GSTNo}
-                // onChange={handleBaseChange("gstno")}
-              />
-            </Label>
-          </div>
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Pan No*</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={selectedVendor.PANNo}
-                // onChange={handleBaseChange("panno")}
-              />
-            </Label>
-          </div>
-        </div>
 
-        {/* -------------------------ROw 3-------------------- */}
-        <div className="flex-row flex  space-x-3">
-          <div className="flex flex-col w-full">
-            <Label className="w-full">
-              <span>Aadhar No*</span>
-              <Input
-                className="mt-1"
-                type="text"
-                value={selectedVendor.aadharNo}
-                // onChange={handleBaseChange("aadharno")}
-              />
-            </Label>
-          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Purchase Location*</span>
@@ -652,6 +608,24 @@ const VendorModal = () => {
               </Select>
             </Label>
           </div>
+         
+          
+        </div>
+
+        {/* -------------------------ROw 3-------------------- */}
+        <div className="flex-row flex  space-x-3">
+          <Label className=" mt-3">
+            Vendor Name:{selectedVendor.name}
+          </Label>
+          <Label className=" ml-3 mt-3">
+          GST No. {selectedVendor.GSTNo}
+          </Label>
+          <Label className=" ml-3 mt-3">
+          PAN No. {selectedVendor.PANNo}
+          </Label>
+          <Label className=" ml-3 mt-3">
+          Aadhar No. {selectedVendor.aadharNo}
+          </Label>
         </div>
       </div>
     );
@@ -662,12 +636,8 @@ const VendorModal = () => {
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
           <span>Item Number : {num + 1}</span>{" "}
-          <span className="ml-10">
-            {" "}
-            Net Tax:{parseFloat(values[num].nettax)} ,Invoice Amount:{" "}
-            {parseFloat(values[num].invamount)}{" "}
-          </span>
-          <Button
+          
+          <div
             layout="outline"
             onClick={() => {
               let newitem = [...values];
@@ -676,10 +646,10 @@ const VendorModal = () => {
               });
               setValues(newitem);
             }}
-            className=""
-          >
-            x
-          </Button>
+            className="border-gray-100 rounded-full cursor pointer"
+          ><CloseIcon fill="lightgray" className="w-5 h-5 cursor-pointer " aria-hidden="true"/>
+            
+          </div>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -1043,6 +1013,16 @@ const VendorModal = () => {
             </Label>
           </div>
         </div>
+        {/* -------------------------ROw 3-------------------- */}
+        <div className="flex-row flex  space-x-3">
+          <Label className=" mt-3">
+            Net Tax:{parseFloat(values[num].nettax)} 
+          </Label>
+          <Label className=" ml-5 mt-3">
+          Invoice Amount:
+            {parseFloat(values[num].invamount)}
+          </Label>
+        </div>
         {/* --------Row 4 ------------- */}
         {/* <div className="flex-row flex space-x-3 my-2">
           {basevalues.purchlocation == "Local" ? (
@@ -1171,7 +1151,7 @@ const VendorModal = () => {
     return (
       <Card className="mb-4 shadow-md ">
         <CardBody>
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap justify-around">
             <Button
               onClick={() => {
                 let newitem = [...values];
@@ -1229,6 +1209,11 @@ const VendorModal = () => {
             >
               Submit
             </Button>
+            <div className=" dark:text-gray-100 text-black font-bold flex-1 my-auto mx-20">
+              <span>
+                 Invoice Amount: {basevalues.totalInvoice}
+              </span>
+            </div>
           </div>
         </CardBody>
       </Card>

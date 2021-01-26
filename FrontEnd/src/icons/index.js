@@ -30,6 +30,7 @@ import { ReactComponent as Add } from "./plus.svg";
 import { ReactComponent as Remove } from "./minus.svg";
 import { ReactComponent as TickIcon } from "./tick.svg";
 import { ReactComponent as DownloadIcon } from "./download.svg";
+import { ReactComponent as CloseIcon } from "./cancel.svg";
 
 export {
   ButtonsIcon,
@@ -63,5 +64,6 @@ export {
   Add,
   Remove,
   TickIcon,
-  DownloadIcon
+  DownloadIcon,
+  CloseIcon
 };
