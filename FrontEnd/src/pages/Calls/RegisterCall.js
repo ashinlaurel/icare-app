@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
 import moment from "moment";
@@ -717,7 +717,7 @@ function RegisterCall() {
   // *
   //---------------------------------- ASSETS VIEW STATES
 
-  const [values, setValues] = useState({
+  let valobj = {
     //both
     callNo: "",
     date: "",
@@ -725,7 +725,8 @@ function RegisterCall() {
     phone: "",
     callStatus: "Pending for allocation",
     problem: "",
-  });
+  };
+  const [values, setValues] = useState(valobj);
   const [err, setErr] = useState({});
 
   // ----------------------Heading Use Effect-------------
@@ -739,7 +740,40 @@ function RegisterCall() {
   // -----------------------------------------------------
 
   const handleChange = (name) => (e) => {
+    let thedate = e.target.value;
     setValues({ ...values, [name]: e.target.value });
+    if (name == "date") {
+      callNumberSetter(thedate);
+    }
+  };
+
+  const callNumberSetter = async (date) => {
+    let payload = {
+      date: date,
+    };
+    let thecallcount = 0;
+    try {
+      thecallcount = await axios({
+        url: `${API}/call/${Emp.getId()}/callsbydate`,
+        method: "POST",
+        data: payload,
+      });
+    } catch (error) {
+      throw error;
+    }
+
+    let year = moment(date).format("YY");
+    let month = moment(date).format("MM");
+    let day = moment(date).format("DD");
+    let callnumber = thecallcount.data;
+    if (callnumber < 10) {
+      callnumber = "0" + callnumber;
+    }
+
+    let thestring = year + month + day + callnumber;
+    setValues({ ...values, callNo: thestring, date: date });
+
+    console.log(thestring);
   };
 
   const submitCall = async () => {
@@ -781,6 +815,7 @@ function RegisterCall() {
         data: newcall,
       });
       setIsReviewModalOpen(true);
+      setValues(valobj);
       console.log("Done");
     } catch (error) {
       console.log(error);
@@ -864,6 +899,7 @@ function RegisterCall() {
               <Label className="w-full">
                 <span>Call Number*</span>
                 <Input
+                  disabled
                   className="mt-1"
                   type="text"
                   value={values.callNo}

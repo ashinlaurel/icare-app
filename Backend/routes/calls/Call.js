@@ -6,6 +6,7 @@ const {
   assignEnggToCall,
   getCallById,
   swapItems,
+  countCallsByDate,
 } = require("../../controllers/calls/calls");
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.post("/:id/assignEngg", assignEnggToCall);
 router.post("/:id/getbyId", getCallById);
 router.post("/:id/swapitems", swapItems);
 // router.post("/:id/update", updateCall);
+//---- counters -----
+router.post("/:id/callsbydate", countCallsByDate);
 
 module.exports = router;
