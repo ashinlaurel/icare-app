@@ -97,7 +97,19 @@ function RegisterCall() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
-  // Getting data states
+  // call history
+  const [callhistory, setCallHistory] = useState([
+    {
+      date: "",
+      callStatus: "0",
+      engineer: "Yet To Be Assigned",
+      callAttendDate: "Nil",
+      startOfService: "Nil",
+      endOfService: "Nil",
+      note: "Call has been registered",
+      actionTaken: "Nil",
+    },
+  ]);
 
   // pagination setup
   const resultsPerPage = 10;
@@ -772,6 +784,10 @@ function RegisterCall() {
 
     let thestring = year + month + day + callnumber;
     setValues({ ...values, callNo: thestring, date: date });
+    // ------history management
+    let temp = callhistory;
+    temp[0].date = date;
+    setCallHistory(temp);
 
     console.log(thestring);
   };
@@ -805,6 +821,7 @@ function RegisterCall() {
       customerName: selectedprod.customerName,
       assetId: selectedprod._id,
       callStatus: 0,
+      history: callhistory,
       // employeeId:""
     };
     console.log("CALL->", newcall);

@@ -152,6 +152,19 @@ function AssignEng() {
                 if (assignedDate == "" || assignedETA == "") {
                   return;
                 }
+
+                // ----- history ---
+                let newcallhistory = {
+                  date: moment().format(),
+                  callStatus: "2",
+                  engineer: engineer.enggName,
+                  callAttendDate: "Nil",
+                  startOfService: "Nil",
+                  endOfService: "Nil",
+                  note: `${engineer.enggName} has been assigned to the call. Assigned Date: ${assignedDate} Assigned ETA: ${assignedETA}`,
+                  actionTaken: "Nil",
+                };
+
                 let payload = {
                   id: selectedprod._id,
                   update: {
@@ -160,6 +173,7 @@ function AssignEng() {
                     callStatus: 2,
                     assignedDate: assignedDate,
                     assignedETA: assignedETA,
+                    $push: { history: newcallhistory },
                   },
                 };
                 let employeepayload = {

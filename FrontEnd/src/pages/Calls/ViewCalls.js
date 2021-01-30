@@ -40,6 +40,7 @@ import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { isAutheticated } from "../../helpers/auth";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 function ViewCalls() {
   // Bottom bar stuff
@@ -47,6 +48,7 @@ function ViewCalls() {
   // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
   const [isSetStatusModal, setisSetStatusModal] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [historyModalOpen, setHistoryModalOpen] = useState(false);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
@@ -59,6 +61,7 @@ function ViewCalls() {
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  const [viewId, setViewId] = useState("");
   // dropdown and modals
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
@@ -253,6 +256,154 @@ function ViewCalls() {
     );
   };
 
+  const HistoryModal = () => {
+    if (data[viewId]) {
+      let item = data[viewId];
+      let history = data[viewId].history;
+      console.log(history);
+
+      return (
+        <>
+          <Modal
+            isOpen={historyModalOpen}
+            onClose={() => setHistoryModalOpen(false)}
+            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          >
+            <ModalHeader className="flex flex-row justify-between text-xl">
+              <div>{item.name}</div>
+              <div>
+                Call No: <Badge>{item.callNo}</Badge>{" "}
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <div className="font-semibold text-xl my-2">Call History</div>
+              {/* ------------------------- Table ------------------------------ */}
+              <TableContainer className="mt-4">
+                <Table>
+                  <TableHeader>
+                    <tr>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Engineer</TableCell>
+                      <TableCell>Attended Date</TableCell>
+                      <TableCell>Start Of Service</TableCell>
+                      <TableCell>End Of Service</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Notes</TableCell>
+                      <TableCell>Action Taken</TableCell>
+                    </tr>
+                  </TableHeader>
+                  <TableBody>
+                    {history.map((entry, i) => (
+                      <TableRow
+                        className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                          activerowid == entry._id
+                            ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                            : "white"
+                        } `}
+                        key={i}
+                        onClick={() => {
+                          // setActiveRowId(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].kbdname);
+                        }}
+                      >
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            <div>
+                              <p className="font-semibold">
+                                {moment(entry.date).format("DD-MM-YYYY")}
+                              </p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {capitalize(entry.engineer)}
+                          </span>
+                        </TableCell>
+
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.callAttendDate}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.startOfService}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.endOfService}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span>
+                            {entry.callStatus == 0 ? (
+                              <Badge>Not Allocated</Badge>
+                            ) : null}
+                            {entry.callStatus == 1 ? (
+                              <Badge>Pending for Percall Approval</Badge>
+                            ) : null}
+                            {entry.callStatus == 2 ? (
+                              <Badge>Pending for Response</Badge>
+                            ) : null}
+                            {entry.callStatus == 3 ? (
+                              <Badge>Pending for OEM Response</Badge>
+                            ) : null}
+                            {entry.callStatus == 4 ? (
+                              <Badge>Pending for 2nd Response</Badge>
+                            ) : null}
+                            {entry.callStatus == 5 ? (
+                              <Badge>Pending for Customer</Badge>
+                            ) : null}
+                            {entry.callStatus == 6 ? (
+                              <Badge>Under Observation</Badge>
+                            ) : null}
+                            {entry.callStatus == 7 ? (
+                              <Badge>Pending for Others</Badge>
+                            ) : null}
+                            {entry.callStatus == 8 ? (
+                              <Badge>Pending for Spare</Badge>
+                            ) : null}
+                            {entry.callStatus == 9 ? (
+                              <Badge>Spare in Transit</Badge>
+                            ) : null}
+                            {entry.callStatus == 10 ? (
+                              <Badge>Cancelled Calls</Badge>
+                            ) : null}
+                            {entry.callStatus == 11 ? (
+                              <Badge>Closed Calls</Badge>
+                            ) : null}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm ">{entry.note}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.actionTaken}</span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                {/* <TableFooter>
+                  <Pagination
+                    totalResults={totalResults}
+                    resultsPerPage={resultsPerPage}
+                    label="Table navigation"
+                    onChange={onPageChange}
+                  />
+                </TableFooter> */}
+              </TableContainer>
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </Modal>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
@@ -270,6 +421,7 @@ function ViewCalls() {
       /> */}
       <SetStatusModal />
       <ReviewSubmit />
+      {HistoryModal()}
 
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
@@ -665,7 +817,7 @@ function ViewCalls() {
                 <TableCell>Phone</TableCell>
                 <TableCell>Call Status</TableCell>
                 <TableCell>Assigned Employee</TableCell>
-                <TableCell>Update</TableCell>
+                <TableCell>Update / History</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -706,32 +858,44 @@ function ViewCalls() {
                     <span className="text-sm">{call.phone}</span>
                   </TableCell>
                   <TableCell>
-                  
-            <span>
-              {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
-              {call.callStatus == 1 ? (
-                <Badge>Pending for Percall Approval</Badge>
-              ) : null}
-              {call.callStatus == 2 ? (
-                <Badge>Pending for Response</Badge>
-              ) : null}
-              {call.callStatus == 3 ? (
-                <Badge>Pending for OEM Response</Badge>
-              ) : null}
-              {call.callStatus == 4 ? (
-                <Badge>Pending for 2nd Response</Badge>
-              ) : null}
-              {call.callStatus == 5 ? (
-                <Badge>Pending for Customer</Badge>
-              ) : null}
-              {call.callStatus == 6 ? <Badge>Under Observation</Badge> : null}
-              {call.callStatus == 7 ? <Badge>Pending for Others</Badge> : null}
-              {call.callStatus == 8 ? <Badge>Pending for Spare</Badge> : null}
-              {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
-              {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
-              {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
-            </span>
-          
+                    <span>
+                      {call.callStatus == 0 ? (
+                        <Badge>Not Allocated</Badge>
+                      ) : null}
+                      {call.callStatus == 1 ? (
+                        <Badge>Pending for Percall Approval</Badge>
+                      ) : null}
+                      {call.callStatus == 2 ? (
+                        <Badge>Pending for Response</Badge>
+                      ) : null}
+                      {call.callStatus == 3 ? (
+                        <Badge>Pending for OEM Response</Badge>
+                      ) : null}
+                      {call.callStatus == 4 ? (
+                        <Badge>Pending for 2nd Response</Badge>
+                      ) : null}
+                      {call.callStatus == 5 ? (
+                        <Badge>Pending for Customer</Badge>
+                      ) : null}
+                      {call.callStatus == 6 ? (
+                        <Badge>Under Observation</Badge>
+                      ) : null}
+                      {call.callStatus == 7 ? (
+                        <Badge>Pending for Others</Badge>
+                      ) : null}
+                      {call.callStatus == 8 ? (
+                        <Badge>Pending for Spare</Badge>
+                      ) : null}
+                      {call.callStatus == 9 ? (
+                        <Badge>Spare in Transit</Badge>
+                      ) : null}
+                      {call.callStatus == 10 ? (
+                        <Badge>Cancelled Calls</Badge>
+                      ) : null}
+                      {call.callStatus == 11 ? (
+                        <Badge>Closed Calls</Badge>
+                      ) : null}
+                    </span>
                   </TableCell>
                   {/* <TableCell> */}
                   {/* <div className="flex ">
@@ -814,14 +978,29 @@ function ViewCalls() {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Link
-                      key={call._id}
-                      to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
-                    >
-                      <Button layout="outline" onClick={() => {}} className=" ">
-                        Update
+                    <div className="flex justify-start items-center space-x-2">
+                      <Link
+                        key={call._id}
+                        to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
+                      >
+                        <Button
+                          layout="outline"
+                          onClick={() => {}}
+                          className=" "
+                        >
+                          Update
+                        </Button>
+                      </Link>
+                      <Button
+                        onClick={() => {
+                          setViewId(i);
+                          setHistoryModalOpen(true);
+                        }}
+                        layout="outline"
+                      >
+                        History
                       </Button>
-                    </Link>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

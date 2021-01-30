@@ -32,6 +32,7 @@ import { useParams } from "react-router-dom";
 import { DropdownIcon } from "../../icons";
 import { useMemo } from "react";
 import { TopBarContext } from "../../context/TopBarContext";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 function UpdateCall() {
   // floatbox
@@ -45,6 +46,7 @@ function UpdateCall() {
   //modal
   const [submitModal, setSubmitModal] = useState(false);
   const [sparemodal, setSpareModal] = useState(false);
+  const [historyModalOpen, setHistoryModalOpen] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -217,6 +219,150 @@ function UpdateCall() {
       throw error;
     }
   }
+
+  // History Modal
+  const HistoryModal = () => {
+    if (call.history) {
+      let data = call.history;
+
+      return (
+        <>
+          <Modal
+            isOpen={historyModalOpen}
+            onClose={() => setHistoryModalOpen(false)}
+            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          >
+            <ModalHeader className="flex flex-row justify-between text-xl">
+              {/* <div>{item.name}</div> */}
+              <div>
+                Call No: <Badge>{call.callNo}</Badge>{" "}
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <div className="font-semibold text-xl my-2">Call History</div>
+              {/* ------------------------- Table ------------------------------ */}
+              <TableContainer className="mt-4">
+                <Table>
+                  <TableHeader>
+                    <tr>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Engineer</TableCell>
+                      <TableCell>Attended Date</TableCell>
+                      <TableCell>Start Of Service</TableCell>
+                      <TableCell>End Of Service</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Notes</TableCell>
+                      <TableCell>Action Taken</TableCell>
+                    </tr>
+                  </TableHeader>
+                  <TableBody>
+                    {data.map((entry, i) => (
+                      <TableRow
+                        className={`hover:shadow-lg dark:hover:bg-gray-600 
+                       `}
+                        key={i}
+                        onClick={() => {
+                          // setActiveRowId(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].kbdname);
+                        }}
+                      >
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            <div>
+                              <p className="font-semibold">
+                                {moment(entry.date).format("DD-MM-YYYY")}
+                              </p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {capitalize(entry.engineer)}
+                          </span>
+                        </TableCell>
+
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.callAttendDate}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.startOfService}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.endOfService}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span>
+                            {call.callStatus == 0 ? (
+                              <Badge>Not Allocated</Badge>
+                            ) : null}
+                            {call.callStatus == 1 ? (
+                              <Badge>Pending for Percall Approval</Badge>
+                            ) : null}
+                            {call.callStatus == 2 ? (
+                              <Badge>Pending for Response</Badge>
+                            ) : null}
+                            {call.callStatus == 3 ? (
+                              <Badge>Pending for OEM Response</Badge>
+                            ) : null}
+                            {call.callStatus == 4 ? (
+                              <Badge>Pending for 2nd Response</Badge>
+                            ) : null}
+                            {call.callStatus == 5 ? (
+                              <Badge>Pending for Customer</Badge>
+                            ) : null}
+                            {call.callStatus == 6 ? (
+                              <Badge>Under Observation</Badge>
+                            ) : null}
+                            {call.callStatus == 7 ? (
+                              <Badge>Pending for Others</Badge>
+                            ) : null}
+                            {call.callStatus == 8 ? (
+                              <Badge>Pending for Spare</Badge>
+                            ) : null}
+                            {call.callStatus == 9 ? (
+                              <Badge>Spare in Transit</Badge>
+                            ) : null}
+                            {call.callStatus == 10 ? (
+                              <Badge>Cancelled Calls</Badge>
+                            ) : null}
+                            {call.callStatus == 11 ? (
+                              <Badge>Closed Calls</Badge>
+                            ) : null}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.note}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.actionTaken}</span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                {/* <TableFooter>
+                  <Pagination
+                    totalResults={totalResults}
+                    resultsPerPage={resultsPerPage}
+                    label="Table navigation"
+                    onChange={onPageChange}
+                  />
+                </TableFooter> */}
+              </TableContainer>
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </Modal>
+        </>
+      );
+    }
+  };
 
   // -----getting inventory items
 
@@ -761,6 +907,18 @@ function UpdateCall() {
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </Select>
+          </div>
+
+          <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 ">
+            {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
+            <Button
+              onClick={() => {
+                setHistoryModalOpen(true);
+              }}
+              layout="outline"
+            >
+              History
+            </Button>
           </div>
         </div>
 
@@ -1550,6 +1708,7 @@ function UpdateCall() {
 
   return (
     <>
+      {HistoryModal()}
       {AssetBar()}
       {CallUpdater()}
 

@@ -70,12 +70,14 @@ const callSchema = mongoose.Schema({
   },
   history: [
     {
+      date: String,
       callStatus: String,
       engineer: String,
       callAttendDate: String,
       startOfService: String,
       endOfService: String,
       note: String,
+      actionTaken: String,
     },
   ],
 });
