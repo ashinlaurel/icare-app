@@ -254,9 +254,12 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
-      vendorId:selectedVendor._id,
-      vendorName:selectedVendor.name
     };
+    if(selectedVendor._id!=""){
+      console.log("here")
+      lst.vendorId=selectedVendor._id
+      lst.vendorName=selectedVendor.name
+    }
     console.log("LST", lst);
 
     try {

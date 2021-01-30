@@ -35,6 +35,7 @@ function LSTHistory() {
   const [activerowid, setActiveRowId] = useState(0);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
+  const [deleteNum, setDeleteNum] = useState(-1);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -141,6 +142,29 @@ const DeleteModal = () => {
           <Button
             className="w-full sm:w-auto"
             onClick={async () => {
+              let invs=data[deleteNum].invItems;
+              console.log(invs)
+              invs.map(async (item)=>{
+                const payload = {
+                id: item._id,
+                update: {
+                  location: data[deleteNum].from,
+                },
+              };
+              console.log("PAYLOAD", payload);
+              try {
+                await axios({
+                  url: `${API}/inventory/${Emp.getId()}/invupdate`,
+                  method: "POST",
+                  data: payload,
+                });
+                // setIsReviewModalOpen(true);
+                console.log("Done");
+              } catch (error) {
+                console.log(error);
+                throw error;
+              }
+              })
               try {
                 let response = await axios({
                   url: `${API}/lst/${Emp.getId()}/delete`,
@@ -506,6 +530,7 @@ const DeleteModal = () => {
                           console.log("delete LST");
                           setIsDeleteModalOpen(true);
                           setDeleteId(user._id);
+                          setDeleteNum(i);
                         }}
                       >
                         <TrashIcon className="w-5 h-5" aria-hidden="true" />

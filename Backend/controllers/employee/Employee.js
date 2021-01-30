@@ -7,6 +7,10 @@ exports.getAllEmployees = (req, res) => {
   console.log("employee list");
 
   let options = {
+    // assignedCalls:{
+    //   populate:"callId"
+    // },
+    populate:"assignedCalls.callId",
     // populate: "product",
     page: 1,
     limit: 10,
@@ -49,6 +53,20 @@ exports.getAllEmployees = (req, res) => {
 
 exports.getAllEmpData = (req, res) => {
   EmployeeLogin.paginate({}, {}, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No employees found",
+        err: err,
+      });
+    }
+    console.log(result.docs);
+    return res.json(result.docs);
+  });
+};
+
+exports.getAllEmpCalls = (req, res) => {
+  EmployeeLogin.paginate({}, {populate:"assignedCalls.callId"}, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({

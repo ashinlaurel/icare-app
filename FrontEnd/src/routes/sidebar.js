@@ -33,6 +33,11 @@ export const aroutes = [
         name: "Assign Engineer",
       },
       {
+        path: "/app/AssignCallPriority",
+        name: "Assign Call Priority",
+      },
+      
+      {
         path: "/app/viewcalls",
         name: "View Calls",
       },
