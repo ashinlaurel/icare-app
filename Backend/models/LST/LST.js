@@ -33,6 +33,11 @@ const LSTSchema = new Schema({
     type: String,
     trim: true,
   },
+  vendorId: {
+  type: Schema.Types.ObjectId,
+  ref:'Vendor',
+},
+  vendorName:String
 
   
 });

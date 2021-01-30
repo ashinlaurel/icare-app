@@ -74,6 +74,41 @@ function LST() {
   const [messageModal, setMessageModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
+  //vendors
+  const [isVendorModalopen, setIsVendorModalopen] = useState(false);
+  const [vendors, setVendors] = useState([]);
+  const [selectedVendor, setselectedVendor] = useState({
+    _id: "",
+    name: "",
+    aadharNo: "",
+    PANNo: "",
+    GSTNo: "",
+  });
+
+  const [isVendor, setIsVendor] = useState(false)
+
+  async function getVendorList() {
+    let payload = {
+      filters: {
+        searchquery: "",
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/vendor/${Emp.getId()}/getAll`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      setVendors(response.data.out);
+    } catch (error) {
+      throw error;
+    }
+  }
+  useEffect(() => {
+    getVendorList();
+  }, []);
+
   // Getting data states
 
   // pagination setup
@@ -219,6 +254,8 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
+      vendorId:selectedVendor._id,
+      vendorName:selectedVendor.name
     };
     console.log("LST", lst);
 
@@ -239,6 +276,63 @@ function LST() {
       throw error;
     }
   };
+
+  const VendorModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isVendorModalopen}
+          onClose={() => setIsVendorModalopen(false)}
+        >
+          <ModalHeader>Pink Vendor</ModalHeader>
+          <ModalBody>
+            <TableContainer>
+              <Table>
+                <TableHeader>
+                  <tr>
+                    <TableCell>Customer</TableCell>
+                    {/* <TableCell>Unit</TableCell> */}
+                    {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+                  </tr>
+                </TableHeader>
+                <TableBody>
+                  {vendors.map((user, i) => (
+                    <TableRow
+                      key={i}
+                      className="hover:bg-purple-900 "
+                      onClick={() => {
+                        console.log(user);
+                        setselectedVendor(user);
+                        setIsVendorModalopen(false);
+                      }}
+                    >
+                      <TableCell>
+                        <div>
+                          <div>
+                            <p className="font-semibold">{user.name}</p>
+                          </div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsVendorModalopen(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
 
   const invTable = () => {
     return (
@@ -658,6 +752,8 @@ function LST() {
             </div>
           </div>
 
+         
+
           <div className="flex flex-row dark:text-white  ">
             <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
@@ -667,6 +763,9 @@ function LST() {
                 value={toLocation}
                 onChange={(e) => {
                   setToLocation(e.target.value);
+                  if(e.target.value=="Vendor"){
+                    setIsVendor(true);
+                  }else setIsVendor(false);
                 }}
               >
                 <option value="" disabled selected>
@@ -676,6 +775,7 @@ function LST() {
                 <option value="Trivandrum">Trivandrum</option>
                 <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
+                <option value="Vendor">Vendor</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -689,6 +789,16 @@ function LST() {
               </div>
             </div>
           </div>
+          {isVendor?(
+          <div className="mx-2">
+              <Button
+                layout="outline"
+                className="w-full"
+                onClick={() => setIsVendorModalopen(true)}
+              >
+                Select Vendor
+              </Button>
+            </div>):null}
 
           {/* -----------------------------------------Location ----------------------- */}
           <div className=" flex flex-row dark:text-white  ">
@@ -739,6 +849,7 @@ function LST() {
       </div>
 
       {messageModalComponent()}
+     {VendorModal()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );
