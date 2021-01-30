@@ -121,7 +121,7 @@ exports.swapItems = async (req, res) => {
 
   console.log(existswap);
   console.log(newswap);
-  console.log(call);
+  // console.log(call);
 
   let newexisthistory = {
     histtype: "swap",
@@ -142,63 +142,156 @@ exports.swapItems = async (req, res) => {
     note: "Item Added to Asset",
   };
 
-  try {
-    let doesexist = await InvItem.exists({ sno: existswap.sno });
-    console.log(doesexist);
+  console.log("---------------------------------------------------");
 
-    if (doesexist) {
-      // Updating the existswap inventory
+  // ---------Adding Into Asset ------------------
+  if (!existswap._id && newswap._id) {
+    console.log("add new item into asset");
 
-      const resultone = await InvItem.findOneAndUpdate(
-        { sno: existswap.sno },
-        {
-          condition: "Bad",
-          assetId: null,
-          $push: { history: newexisthistory },
-        }
-      );
-    } else {
-      console.log("new addition");
-      // // Creating new item in inventory
-      existswap.history = [newexisthistory];
-      existswap.location = servicelocation;
+    let additem = {
+      [`${type}name`]: newswap.name,
+      [`${type}sno`]: newswap.sno,
+    };
 
-      const newitem = new InvItem(existswap);
-      await newitem.save();
+    console.log(additem);
+
+    try {
+      // Updating the newswap inventory
+      const result = await InvItem.findByIdAndUpdate(newswap._id, {
+        condition: "Used",
+        assetId: call.assetId,
+        $push: { history: newswaphistory },
+      });
+
+      const theasset = await assets.findById(call.assetId).populate("product");
+      await theasset.product[type].push(additem);
+      // console.log(theasset.product[type]);
+      const theproduct = theasset.product;
+
+      let prod = await server.findById(theproduct._id);
+      console.log(prod);
+      prod = theproduct;
+      prod.save();
+      return res.status(200).json({ hello: "hello" });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: err });
     }
-    // Updating the newswap inventory
+  }
 
-    const result = await InvItem.findByIdAndUpdate(newswap._id, {
-      condition: "Used",
-      assetId: call.assetId,
-      $push: { history: newswaphistory },
-    });
-    console.log(result);
-    // Asset update
+  // --------------Taking Asset Item into inventory
+  if (existswap._id && !newswap._id) {
+    console.log("receive");
+    try {
+      let doesexist = await InvItem.exists({ sno: existswap.sno });
+      console.log(doesexist);
 
-    const theasset = await assets.findById(call.assetId).populate("product");
-    // console.log(theasset);
-    // console.log(type);
-    // console.log(theasset.product[type]);
-    await theasset.product[type].map((item, i) => {
-      if (item[`${type}sno`] == existswap.sno) {
-        console.log("here");
-        item[`${type}name`] = newswap.name;
-        item[`${type}sno`] = newswap.sno;
+      if (doesexist) {
+        // Updating the existswap inventory
+
+        const resultone = await InvItem.findOneAndUpdate(
+          { sno: existswap.sno },
+          {
+            condition: "Bad",
+            assetId: null,
+            $push: { history: newexisthistory },
+          }
+        );
+      } else {
+        console.log("new addition");
+        // // Creating new item in inventory
+        existswap.history = [newexisthistory];
+        existswap.location = servicelocation;
+
+        const newitem = new InvItem(existswap);
+        await newitem.save();
       }
-    });
-    // console.log(theasset.product[type]);
-    const theproduct = theasset.product;
 
-    let prod = await server.findById(theproduct._id);
-    console.log(prod);
-    prod = theproduct;
-    prod.save();
-    // let call = await Call.findById(req.body.id);
-    return res.status(200).json({ hello: "hello" });
-  } catch (err) {
-    console.log(err);
-    return res.status(400).json({ error: err });
+      // Asset update
+
+      const theasset = await assets.findById(call.assetId).populate("product");
+
+      theasset.product[type] = theasset.product[type].filter(
+        (item) => !(item[`${type}sno`] == existswap.sno)
+      );
+
+      // console.log("here baby");
+      // console.log(theasset.product[type]);
+      const theproduct = theasset.product;
+
+      let prod = await server.findById(theproduct._id);
+      console.log(prod);
+      prod = theproduct;
+      prod.save();
+
+      return res.status(200).json({ hello: "hello" });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: err });
+    }
+  }
+  if (existswap._id && newswap._id) {
+    console.log("swap");
+    try {
+      // ------------
+      let doesexist = await InvItem.exists({ sno: existswap.sno });
+      console.log(doesexist);
+
+      if (doesexist) {
+        // Updating the existswap inventory
+
+        const resultone = await InvItem.findOneAndUpdate(
+          { sno: existswap.sno },
+          {
+            condition: "Bad",
+            assetId: null,
+            $push: { history: newexisthistory },
+          }
+        );
+      } else {
+        console.log("new addition");
+        // // Creating new item in inventory
+        existswap.history = [newexisthistory];
+        existswap.location = servicelocation;
+
+        const newitem = new InvItem(existswap);
+        await newitem.save();
+      }
+      // Updating the newswap inventory
+
+      const result = await InvItem.findByIdAndUpdate(newswap._id, {
+        condition: "Used",
+        assetId: call.assetId,
+        $push: { history: newswaphistory },
+      });
+      console.log(result);
+      // Asset update
+
+      const theasset = await assets.findById(call.assetId).populate("product");
+      // console.log(theasset);
+      // console.log(type);
+      // console.log(theasset.product[type]);
+      await theasset.product[type].map((item, i) => {
+        if (item[`${type}sno`] == existswap.sno) {
+          console.log("here");
+          item[`${type}name`] = newswap.name;
+          item[`${type}sno`] = newswap.sno;
+        }
+      });
+      // console.log(theasset.product[type]);
+      const theproduct = theasset.product;
+
+      let prod = await server.findById(theproduct._id);
+      console.log(prod);
+      prod = theproduct;
+      prod.save();
+      // -----------------------------------
+      // let call = await Call.findById(req.body.id);
+      return res.status(200).json({ hello: "hello" });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: err });
+    }
   }
 };
 

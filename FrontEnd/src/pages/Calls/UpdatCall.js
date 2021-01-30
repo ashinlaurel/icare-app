@@ -29,6 +29,8 @@ import {
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import { DropdownIcon } from "../../icons";
 import { useMemo } from "react";
 import { TopBarContext } from "../../context/TopBarContext";
@@ -159,6 +161,12 @@ function UpdateCall() {
   const [searchtype, setSearchType] = useState("");
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
+
+  // imp states
+  const [callAttendDate, setCallAttendDate] = useState("");
+  const [startOfService, setStartOfService] = useState("");
+  const [endOfService, setEndOfService] = useState("");
+  const [actionTaken, setActionTaken] = useState("");
 
   // use effect to add fields to the item coming from asset
   useEffect(() => {
@@ -549,14 +557,26 @@ function UpdateCall() {
   };
 
   const handleUpdate = async () => {
+    // ----- history ---
+    let newcallhistory = {
+      date: moment().format(),
+      callStatus: call.callStatus,
+      engineer: call.employeeName,
+      callAttendDate: callAttendDate,
+      startOfService: startOfService,
+      endOfService: endOfService,
+      note: `Call Status Updated to ${call.callStatus}`,
+      actionTaken: actionTaken,
+    };
     let payload = {
       id: call._id,
       update: {
         callStatus: call.callStatus,
-        callAttendDate: call.callAttendDate,
-        startOfService: call.startOfService,
-        endOfService: call.endOfService,
+        // callAttendDate: call.callAttendDate,
+        // startOfService: call.startOfService,
+        // endOfService: call.endOfService,
         spareUsed: call.spareUsed,
+        $push: { history: newcallhistory },
       },
     };
     console.log(payload);
@@ -572,7 +592,7 @@ function UpdateCall() {
       throw error;
     }
 
-    if (call.spareUsed == "Yes") {
+    if (existswap[0] || inventswap[0]) {
       handleSwap();
     }
   };
@@ -1646,9 +1666,9 @@ function UpdateCall() {
               <Input
                 className=""
                 type="date"
-                value={call.callAttendDate}
+                value={callAttendDate}
                 onChange={(e) => {
-                  setCall({ ...call, callAttendDate: e.target.value });
+                  setCallAttendDate(e.target.value);
                 }}
               />
             </Label>
@@ -1659,9 +1679,9 @@ function UpdateCall() {
               <Input
                 className=""
                 type="time"
-                value={call.startOfService}
+                value={startOfService}
                 onChange={(e) => {
-                  setCall({ ...call, startOfService: e.target.value });
+                  setStartOfService(e.target.value);
                 }}
               />
             </Label>
@@ -1672,23 +1692,12 @@ function UpdateCall() {
               <Input
                 className=""
                 type="time"
-                value={call.endOfService}
+                value={endOfService}
                 onChange={(e) => {
-                  setCall({ ...call, endOfService: e.target.value });
+                  setEndOfService(e.target.value);
                 }}
               />
             </Label>
-          </div>
-
-          <div className="flex flex-col w-1/2 mt-5">
-            <Button
-              onClick={() => {
-                handleUpdate();
-              }}
-              layout="outline"
-            >
-              Update
-            </Button>
           </div>
         </div>
 
@@ -1698,9 +1707,9 @@ function UpdateCall() {
             <Input
               className=""
               type="text"
-              // value={call.assignedDate}
+              value={actionTaken}
               onChange={(e) => {
-                setCall({ ...call, callAttendDate: e.target.value });
+                setActionTaken(e.target.value);
               }}
             />
           </Label>
@@ -1717,6 +1726,18 @@ function UpdateCall() {
       {AssetItemPick()}
       {UpdatedModal()}
       {SpareRequiredModal()}
+      <div className="flex flex-col items-center w-full mt-5">
+        <Link to={`/app/viewcalls`}>
+          <Button
+            onClick={() => {
+              handleUpdate();
+            }}
+            layout="outline"
+          >
+            Update Call
+          </Button>
+        </Link>
+      </div>
     </>
   );
 }
