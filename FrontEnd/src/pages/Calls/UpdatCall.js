@@ -904,6 +904,9 @@ function UpdateCall() {
               }}
               value={call.spareUsed}
             >
+              <option value="" disabled>
+                Select Spare Status
+              </option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </Select>
@@ -1399,7 +1402,7 @@ function UpdateCall() {
                 )}
               </Dropdown>
             </div>
-            {/* <Button
+            <Button
               layout="outline"
               className="dark:border-green-700 border-green-400"
               onClick={() => {
@@ -1408,7 +1411,7 @@ function UpdateCall() {
               }}
             >
               Swap
-            </Button> */}
+            </Button>
           </div>
         </div>
 
@@ -1711,8 +1714,7 @@ function UpdateCall() {
       {HistoryModal()}
       {AssetBar()}
       {CallUpdater()}
-
-      {call.spareUsed == "Yes" ? AssetItemPick() : null}
+      {AssetItemPick()}
       {UpdatedModal()}
       {SpareRequiredModal()}
     </>
