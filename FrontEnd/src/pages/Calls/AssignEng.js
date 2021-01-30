@@ -24,6 +24,9 @@ import {
   TableCell,
   TableRow,
   TableFooter,
+  Input,
+  HelperText,
+  Label,
   Avatar,
   Badge,
   Pagination,
@@ -87,8 +90,9 @@ function AssignEng() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
-  // Getting data states
-
+  // Dates of call
+  const [assignedDate, setAssignedDate] = useState("");
+  const [assignedETA, setAssignedETA] = useState("");
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
@@ -107,8 +111,37 @@ function AssignEng() {
         >
           <ModalHeader>Confirm Assignment</ModalHeader>
           <ModalBody>
-            <div className="font-xl">
+            <div className="font-xl text-xl">
               Assign {engineer.enggName} to call {selectedprod.callNo}
+            </div>
+
+            <div className="flex flex-col w-full mt-2">
+              <Label className="w-full">
+                <span>Assign Date</span>
+                <Input
+                  className=""
+                  type="date"
+                  value={assignedDate}
+                  onChange={(e) => {
+                    // setCall({ ...call, callAttendDate: e.target.value });
+                    setAssignedDate(e.target.value);
+                  }}
+                />
+              </Label>
+            </div>
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Assign ETA</span>
+                <Input
+                  className=""
+                  type="time"
+                  value={assignedETA}
+                  onChange={(e) => {
+                    // setCall({ ...call, startOfService: e.target.value });
+                    setAssignedETA(e.target.value);
+                  }}
+                />
+              </Label>
             </div>
           </ModalBody>
           <ModalFooter>
@@ -116,27 +149,31 @@ function AssignEng() {
               className="w-full sm:w-auto"
               onClick={async () => {
                 console.log(selectedprod);
+                if (assignedDate == "" || assignedETA == "") {
+                  return;
+                }
                 let payload = {
                   id: selectedprod._id,
                   update: {
                     employeeId: engineer._id,
                     employeeName: engineer.enggName,
                     callStatus: 2,
+                    assignedDate: assignedDate,
+                    assignedETA: assignedETA,
                   },
                 };
-                let employeepayload={
-                  id:engineer._id,
-                  update:{
-                    $push:{
-                      assignedCalls:{
-                    priority:99,
-                    callId:selectedprod._id,
-                    date:new Date()
-
-                    }
-                  }
-                  }
-                }
+                let employeepayload = {
+                  id: engineer._id,
+                  update: {
+                    $push: {
+                      assignedCalls: {
+                        priority: 99,
+                        callId: selectedprod._id,
+                        date: new Date(),
+                      },
+                    },
+                  },
+                };
                 try {
                   let response = await axios({
                     url: `${API}/call/${Emp.getId()}/assignEngg`,
@@ -163,6 +200,8 @@ function AssignEng() {
                   });
                   // console.log(response.data);
                   setaddEnggModalOpen(false);
+                  setAssignedDate("");
+                  setAssignedETA("");
                 } catch (error) {
                   throw error;
                 }
@@ -421,9 +460,8 @@ function AssignEng() {
                     setBBarOpen(1);
                     // console.log("the id is " + call._id);
                     setSelectedProd(call);
-                    if(call.assetId)
-                      setAssetDetails(call.assetId);
-                    else setAssetDetails({})
+                    if (call.assetId) setAssetDetails(call.assetId);
+                    else setAssetDetails({});
                     console.log(call.assetId);
                     // console.log(call.product.keyboard[0].kbdname);
                   }}
@@ -495,7 +533,11 @@ function AssignEng() {
                             layout="link"
                             size="icon"
                             aria-label="Edit"
-                            onClick={() => setIsEnggModalOpen(true)}
+                            onClick={() => {
+                              setIsEnggModalOpen(true);
+                              setAssignedETA(call.assignedETA);
+                              setAssignedDate(call.assignedDate);
+                            }}
                             className="rounded-full mx-2 "
                           >
                             <EditIcon className="w-5 h-5" aria-hidden="true" />

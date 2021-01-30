@@ -50,18 +50,34 @@ const callSchema = mongoose.Schema({
   employeeName: {
     type: String,
   },
-  callAttendDate: {
+  assignedDate: {
     type: String,
   },
-  startOfService: {
+  assignedETA: {
     type: String,
   },
-  endOfService: {
-    type: String,
-  },
+  // callAttendDate: {
+  //   type: String,
+  // },
+  // startOfService: {
+  //   type: String,
+  // },
+  // endOfService: {
+  //   type: String,
+  // },
   spareUsed: {
     type: String,
   },
+  history: [
+    {
+      callStatus: String,
+      engineer: String,
+      callAttendDate: String,
+      startOfService: String,
+      endOfService: String,
+      note: String,
+    },
+  ],
 });
 
 callSchema.plugin(mongoosePaginate);
