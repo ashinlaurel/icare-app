@@ -9,7 +9,8 @@ const {
   getAllSalary,
   deleteSalary,
   getSalById,
-  downloadsalaryPdf
+  downloadsalaryPdf,
+  getAllEmpCalls
   
 } = require("../../controllers/employee/Employee");
 const {
@@ -48,6 +49,7 @@ router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
 });
 // getting all employees data
 router.post("/:id/getAllEmpData", getAllEmpData);
+router.post("/:id/getAllEmpCalls", isSignedIn, isAuthenticated, getAllEmpCalls);
 
 router.post("/signup", signup);
 router.post("/:id/signup", signup);

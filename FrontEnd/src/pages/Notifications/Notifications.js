@@ -217,7 +217,9 @@ function Notifications() {
     }
   };
 
-  const InvTable = (items, num) => {
+  const InvTable = ( num,to) => {
+    let items=data[num].invItems;
+    console.log("TO",items.to)
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
         <div className="mb- mt-4">
@@ -236,7 +238,7 @@ function Notifications() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {items.map((user, i) => (
+                {data[num].invItems.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
                       activerowid == user._id
@@ -272,7 +274,39 @@ function Notifications() {
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.sno}</span>
+                      <span className="text-sm">
+                      {data[num].to=="Vendor"?(
+                        <input
+                      value={user.sno}
+                      onChange={(e) => {
+                        let tempdata=data
+                        let tempnum = data[num];
+                        let temp= tempnum.invItems
+
+                        // newuser["caseId"]=e.target.value
+                        temp = temp.filter((x) => {
+                          if (x._id != user._id) return x;
+                          else {
+                            console.log("here", e.target.value);
+                            let t = x;
+                            t.sno = e.target.value;
+                            return t;
+                          }
+                        });
+                        tempnum.invItems=temp;
+                        tempdata[num]=tempnum
+                        console.log(tempdata);
+                        tempdata[num].from="TETS"
+                        setData(tempdata);
+                      }}
+                      
+                      placeholder="Cse Id."
+                      class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                    />
+                      ):
+                      user.sno
+                      }
+                      </span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">{user.location}</span>
@@ -518,7 +552,7 @@ function Notifications() {
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.to}</span>
+                      <span className="text-sm">{user.to=="Vendor"?user.vendorName:user.to}</span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">
@@ -567,7 +601,7 @@ function Notifications() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable(user.invItems, i) : null}
+                  {activeRowID == i ? InvTable( i,user.to) : null}
                 </div>
               ))}
             </TableBody>
