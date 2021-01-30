@@ -745,34 +745,64 @@ function UpdateCall() {
             </div>
           </div>
 
-          {call.callStatus == "11" ? (
-            <div className="dark:text-gray-200 text-black text-sm flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-full my-2 ">
-              {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
-              <div className=" font-semibold w-1/4">
-                <span>Spare Used:</span>
-              </div>
-              <Select
-                className="inline w-1/2"
-                onChange={(e) => {
-                  setCall({ ...call, spareUsed: e.target.value });
-                  console.log(call);
-                }}
-                value={call.spareUsed}
-              >
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </Select>
+          <div className="dark:text-gray-200 text-black text-sm flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-full my-2 ">
+            {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
+            <div className=" font-semibold w-1/4">
+              <span>Spare Used:</span>
             </div>
-          ) : null}
+            <Select
+              className="inline w-1/2"
+              onChange={(e) => {
+                setCall({ ...call, spareUsed: e.target.value });
+                console.log(call);
+              }}
+              value={call.spareUsed}
+            >
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </Select>
+          </div>
         </div>
 
-        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full  ">
           {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
           <div className=" font-semibold">
             <span>
               Problem Description:{" "}
               <span className="font-normal"> {call.problem}</span>
             </span>
+          </div>
+        </div>
+        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Status Update</span>
+              <Select
+                className="inline"
+                onChange={(e) => {
+                  setCall({ ...call, callStatus: e.target.value });
+                  console.log(call);
+                  if (e.target.value == "11") {
+                    setSpareModal(true);
+                  }
+                }}
+                value={call.callStatus}
+              >
+                <option value="0">Not Allocated</option>
+                <option value="1">Pending for Percall Approval</option>
+                <option value="2"> Pending for Response</option>
+                <option value="3"> Pending for OEM Response</option>
+                <option value="4"> Pending for 2nd Response</option>
+                <option value="5"> Pending for Customer</option>
+                <option value="6"> Under Observation</option>
+                <option value="7"> Pending for Others</option>
+                <option value="8"> Pending for Spare</option>
+                <option value="9"> Spare in Transit</option>
+                <option value="10"> Cancelled Calls</option>
+                <option value="11"> Closed Calls</option>
+              </Select>
+            </Label>
           </div>
         </div>
 
@@ -1421,84 +1451,98 @@ function UpdateCall() {
 
   const CallUpdater = () => {
     return (
-      <div className="flex-row flex  space-x-3 border-b pb-3">
+      <div className="border-b pb-3">
+        <div className="flex-row flex  space-x-3 mb-2">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Assigned Date</span>
+              <Input
+                className=""
+                type="date"
+                value={call.assignedDate}
+                onChange={(e) => {
+                  setCall({ ...call, callAttendDate: e.target.value });
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Call Attended ETA</span>
+              <Input
+                className=""
+                type="time"
+                value={call.assignedETA}
+                onChange={(e) => {
+                  setCall({ ...call, callAttendDate: e.target.value });
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Call Attended Date</span>
+              <Input
+                className=""
+                type="date"
+                value={call.callAttendDate}
+                onChange={(e) => {
+                  setCall({ ...call, callAttendDate: e.target.value });
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Start Of Service</span>
+              <Input
+                className=""
+                type="time"
+                value={call.startOfService}
+                onChange={(e) => {
+                  setCall({ ...call, startOfService: e.target.value });
+                }}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>End Of Service</span>
+              <Input
+                className=""
+                type="time"
+                value={call.endOfService}
+                onChange={(e) => {
+                  setCall({ ...call, endOfService: e.target.value });
+                }}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-1/2 mt-5">
+            <Button
+              onClick={() => {
+                handleUpdate();
+              }}
+              layout="outline"
+            >
+              Update
+            </Button>
+          </div>
+        </div>
+
         <div className="flex flex-col w-full">
           <Label className="w-full">
-            <span>Call Attended Date</span>
+            <span>Action Taken</span>
             <Input
               className=""
-              type="date"
-              value={call.callAttendDate}
+              type="text"
+              // value={call.assignedDate}
               onChange={(e) => {
                 setCall({ ...call, callAttendDate: e.target.value });
               }}
             />
           </Label>
-        </div>
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>Start Of Service</span>
-            <Input
-              className=""
-              type="time"
-              value={call.startOfService}
-              onChange={(e) => {
-                setCall({ ...call, startOfService: e.target.value });
-              }}
-            />
-          </Label>
-        </div>
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>End Of Service</span>
-            <Input
-              className=""
-              type="time"
-              value={call.endOfService}
-              onChange={(e) => {
-                setCall({ ...call, endOfService: e.target.value });
-              }}
-            />
-          </Label>
-        </div>
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>Status Update</span>
-            <Select
-              className="inline"
-              onChange={(e) => {
-                setCall({ ...call, callStatus: e.target.value });
-                console.log(call);
-                if (e.target.value == "11") {
-                  setSpareModal(true);
-                }
-              }}
-              value={call.callStatus}
-            >
-              <option value="0">Not Allocated</option>
-              <option value="1">Pending for Percall Approval</option>
-              <option value="2"> Pending for Response</option>
-              <option value="3"> Pending for OEM Response</option>
-              <option value="4"> Pending for 2nd Response</option>
-              <option value="5"> Pending for Customer</option>
-              <option value="6"> Under Observation</option>
-              <option value="7"> Pending for Others</option>
-              <option value="8"> Pending for Spare</option>
-              <option value="9"> Spare in Transit</option>
-              <option value="10"> Cancelled Calls</option>
-              <option value="11"> Closed Calls</option>
-            </Select>
-          </Label>
-        </div>
-        <div className="flex flex-col w-1/2 mt-5">
-          <Button
-            onClick={() => {
-              handleUpdate();
-            }}
-            layout="outline"
-          >
-            Update
-          </Button>
         </div>
       </div>
     );

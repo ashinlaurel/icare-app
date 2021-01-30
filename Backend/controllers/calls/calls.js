@@ -201,3 +201,20 @@ exports.swapItems = async (req, res) => {
     return res.status(400).json({ error: err });
   }
 };
+
+// -----COunters ----
+
+exports.countCallsByDate = (req, res) => {
+  let { date } = req.body;
+  // console.log(date);
+  Call.count({ date: date }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count customers",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
