@@ -621,13 +621,17 @@ function Inventory() {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>Type</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Serial Number</TableCell>
                 <TableCell>Location</TableCell>
-                <TableCell>Inv Number</TableCell>
-                <TableCell>Condition</TableCell>
-                <TableCell>View / History</TableCell>
+                <TableCell>Stock Type</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>S.No</TableCell>
+                <TableCell>Vendor</TableCell>
+                <TableCell>Inv No.</TableCell>
+                <TableCell>Inv Date</TableCell>
+                <TableCell>Wty Expiry</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>View/History</TableCell>
                 <TableCell>Edit/Delete</TableCell>
               </tr>
             </TableHeader>
@@ -649,18 +653,57 @@ function Inventory() {
                     // console.log(user.product.keyboard[0].kbdname);
                   }}
                 >
+                <TableCell>
+                    <span className="text-sm">{user.location}</span>
+                  </TableCell>
+
+                  <TableCell>
+                    <span className="text-sm">{user.stocktype}</span>
+                  </TableCell>
                   <TableCell className="w-8">
+                     <div>
+                        <p className="font-semibold">{capitalize(user.type)}</p>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {user.systype == "item" ? (
+                      <span className="text-sm">{user.name}</span>
+                    ) : (
+                      <span className="text-sm">{user.brand + user.model}</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.sno}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.vendor}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.invnumber}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{moment(user.invdate).format("DD/MM/YY")}</span>
+                  </TableCell>
+                  <TableCell>
+                    {/* <span className="text-sm">{moment(user.expirydate).format("DD/MM/YY")}</span> */}
+                    <span className="text-sm">{user.expirydate}</span>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      type={user.condition == "Good" ? "primary" : "danger"}
+                    >
+                      {user.condition}
+                    </Badge>
+                  </TableCell>
+
+
+
+{/* ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+                  {/* <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
-                      {/* <Avatar
-                        className="hidden ml-2 mr-3 md:block"
-                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
-                        alt="User image"
-                      /> */}
                       <div>
                         <p className="font-semibold">{capitalize(user.type)}</p>
-                        {/* <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.accountName}
-                        </p> */}
+                       
                       </div>
                     </div>
                   </TableCell>
@@ -687,7 +730,9 @@ function Inventory() {
                     >
                       {user.condition}
                     </Badge>
-                  </TableCell>
+                  </TableCell> */}
+
+
                   <TableCell>
                     <div className="flex justify-start items-center space-x-2">
                       <Button

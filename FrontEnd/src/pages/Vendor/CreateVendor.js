@@ -51,6 +51,13 @@ function CreateVendor() {
     PIN: "",
     phno1: "",
     phno2: "",
+    contactPerson:"",
+    bankName:"",
+    bankAcNo:"",
+    bankAcName:"",
+    branch:"",
+    IFSCCode:"",
+    creditDays:"",
 
     // ---new ones
   });
@@ -95,6 +102,13 @@ function CreateVendor() {
           PIN: "",
           phno1: "",
           phno2: "",
+          contactPerson:"",
+          bankName:"",
+          bankAcNo:"",
+          bankAcName:"",
+          branch:"",
+          IFSCCode:"",
+          creditDays:"",
         });
       })
       .catch((err) => {
@@ -166,6 +180,17 @@ function CreateVendor() {
                 className="mt-1"
                 value={values.name}
                 onChange={handleChange("name")}
+              />
+            </Label>{" "}
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Person</span>
+              <Input
+                className="mt-1"
+                value={values.contactPerson}
+                onChange={handleChange("contactPerson")}
               />
             </Label>{" "}
           </div>
@@ -268,6 +293,74 @@ function CreateVendor() {
                 className="mt-1"
                 value={values.phno2}
                 onChange={handleChange("phno2")}
+              />
+            </Label>
+          </div>
+
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+        </div>
+
+           {/* ---------------Row 4 ---------------- */}
+           <div className="flex-row flex space-x-3 mt-3 mb-2">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Bank Name</span>
+              <Input
+                className="mt-1"
+                value={values.bankName}
+                onChange={handleChange("bankName")}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Acc Name</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.bankAcName}
+                onChange={handleChange("bankAcName")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Acc No.</span>
+              <Input
+                className="mt-1"
+                value={values.bankAcNo}
+                onChange={handleChange("bankAcNo")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Branch</span>
+              <Input
+                className="mt-1"
+                value={values.branch}
+                onChange={handleChange("branch")}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>IFSC Code</span>
+              <Input
+                className="mt-1"
+                value={values.IFSCCode}
+                onChange={handleChange("IFSCCode")}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Credit Days</span>
+              <Input
+                className="mt-1"
+                value={values.creditDays}
+                onChange={handleChange("creditDays")}
               />
             </Label>
           </div>

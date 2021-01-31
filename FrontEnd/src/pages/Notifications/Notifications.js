@@ -23,6 +23,7 @@ import {
   Pagination,
   Dropdown,
   DropdownItem,
+  Select
 } from "@windmill/react-ui";
 
 import { API } from "../../backendapi";
@@ -154,14 +155,27 @@ function Notifications() {
       status: invItem.condition,
       note: `Item received at ${lstItem.to}`,
     };
-
-    const update = {
+    let update={};
+    if(lstItem.to=="Vendor"){
+      newhistory.note=`Item received from ${lstItem.vendorName} back to ${lstItem.from}`
+      update = {
+        id: invItem._id,
+        update: {
+          location: lstItem.from,
+          sno:invItem.sno,
+          condition:invItem.condition,
+          $push: { history: newhistory },
+        },
+      }; 
+    }else{
+     update = {
       id: invItem._id,
       update: {
         location: lstItem.to,
         $push: { history: newhistory },
       },
     };
+    }
     console.log("PAYLOAD", update);
     try {
       await axios({
@@ -228,8 +242,8 @@ function Notifications() {
             <Table>
               <TableHeader>
                 <tr>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Name</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Description</TableCell>
                   <TableCell>Serial Number</TableCell>
                   <TableCell>Location</TableCell>
                   <TableCell>Inv Number</TableCell>
@@ -256,16 +270,8 @@ function Notifications() {
                   >
                     <TableCell className="w-8">
                       <div className="flex items-center text-sm ">
-                        {/* <Avatar
-                        className="hidden ml-2 mr-3 md:block"
-                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
-                        alt="User image"
-                      /> */}
                         <div>
                           <p className="font-semibold">{user.type}</p>
-                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.accountName}
-                        </p> */}
                         </div>
                       </div>
                     </TableCell>
@@ -274,39 +280,36 @@ function Notifications() {
                     </TableCell>
 
                     <TableCell>
+                    {data[num].to=="Vendor"&& user.location=="In Transit"?(
                       <span className="text-sm">
-                      {data[num].to=="Vendor"?(
+                      
                         <input
                       value={user.sno}
                       onChange={(e) => {
                         let tempdata=data
-                        let tempnum = data[num];
-                        let temp= tempnum.invItems
-
-                        // newuser["caseId"]=e.target.value
+                        let temp= data[num].invItems
                         temp = temp.filter((x) => {
                           if (x._id != user._id) return x;
                           else {
-                            console.log("here", e.target.value);
-                            let t = x;
-                            t.sno = e.target.value;
-                            return t;
+                            console.log("here", e.target.value,x.name);
+                            x.sno = e.target.value;
+                            return x;
                           }
                         });
-                        tempnum.invItems=temp;
-                        tempdata[num]=tempnum
+                        // tempnum.invItems=temp;
+                        tempdata[num].invItems=temp
                         console.log(tempdata);
-                        tempdata[num].from="TETS"
-                        setData(tempdata);
+                        // tempdata[num].from="TETS"
+                        setData([...tempdata]);
                       }}
                       
                       placeholder="Cse Id."
                       class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                     />
-                      ):
-                      user.sno
-                      }
+                   
+                      
                       </span>
+                      ):user.sno}
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">{user.location}</span>
@@ -315,11 +318,41 @@ function Notifications() {
                       <span className="text-sm">{user.invnumber}</span>
                     </TableCell>
                     <TableCell>
+                    {data[num].to=="Vendor"&& user.location=="In Transit"?(
+                      <Select
+                      value={user.condition}
+                      className="mt-1"
+                      onChange={(e) => {
+                        let tempdata=data
+                        let temp= data[num].invItems
+                        temp = temp.filter((x) => {
+                          if (x._id != user._id) return x;
+                          else {
+                            console.log("here", e.target.value,x.name);
+                            x.condition = e.target.value;
+                            return x;
+                          }
+                        });
+                        // tempnum.invItems=temp;
+                        tempdata[num].invItems=temp
+                        console.log(tempdata);
+                        // tempdata[num].from="TETS"
+                        setData([...tempdata]);
+                      }}
+                    >
+                      <option value="Good" > Good</option>
+                      <option value="Defective">Defective</option>
+                      <option value="DOA">DOA</option>z
+                      <option value="Damaged">Damaged</option>
+                    </Select>
+
+                    ):(
                       <Badge
                         type={user.condition == "Good" ? "primary" : "danger"}
                       >
                         {user.condition}
                       </Badge>
+                      )}
                     </TableCell>
                     <TableCell>
                       <Button

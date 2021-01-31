@@ -175,10 +175,8 @@ function VendorUpdate() {
         </Label>
         <hr className="mb-5 mt-2" />
   
-        {/* -------Row - 1 ---------------------- */}
-        <div className="flex-row flex space-x-3 mt-3 mb-2">
-         
-
+       {/* -------Row - 1 ---------------------- */}
+       <div className="flex-row flex space-x-3 mt-3 mb-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Name*</span>
@@ -190,7 +188,17 @@ function VendorUpdate() {
             </Label>{" "}
           </div>
 
-         
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Contact Person</span>
+              <Input
+                className="mt-1"
+                value={values.contactPerson}
+                onChange={handleChange("contactPerson")}
+              />
+            </Label>{" "}
+          </div>
+
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>GST Number</span>
@@ -200,8 +208,7 @@ function VendorUpdate() {
                 onChange={handleChange("GSTNo")}
               />
             </Label>
-
-            </div>
+          </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>PAN Number</span>
@@ -213,7 +220,6 @@ function VendorUpdate() {
             </Label>{" "}
           </div>
 
-
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Aadhar Number</span>
@@ -224,12 +230,10 @@ function VendorUpdate() {
               />
             </Label>{" "}
           </div>
-            
-          
         </div>
         {/* ---------------Row 4 ---------------- */}
         <div className="flex-row flex space-x-3 mt-3 mb-2">
-        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full ">
             <Label className="w-full">
               <span>Address</span>
               <Input
@@ -239,6 +243,22 @@ function VendorUpdate() {
               />
             </Label>{" "}
           </div>
+
+          <div className="flex flex-col w-full ">
+            <Label className="w-full">
+              <span>PIN Number</span>
+              <Input
+                className="mt-1"
+                value={values.PIN}
+                onChange={handleChange("PIN")}
+              />
+            </Label>{" "}
+          </div>
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+        </div>
+
+        {/* ---------------Row 3 ---------------- */}
+        <div className="flex-row flex space-x-3 mt-3 mb-2">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>District</span>
@@ -262,16 +282,96 @@ function VendorUpdate() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>PIN</span>
+              <span>Phone Number 1</span>
               <Input
                 className="mt-1"
-                value={values.PIN}
-                onChange={handleChange("PIN")}
+                value={values.phno1}
+                onChange={handleChange("phno1")}
               />
             </Label>{" "}
           </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Phone Number 2</span>
+              <Input
+                className="mt-1"
+                value={values.phno2}
+                onChange={handleChange("phno2")}
+              />
+            </Label>
+          </div>
+
           {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
         </div>
+
+           {/* ---------------Row 4 ---------------- */}
+           <div className="flex-row flex space-x-3 mt-3 mb-2">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Bank Name</span>
+              <Input
+                className="mt-1"
+                value={values.bankName}
+                onChange={handleChange("bankName")}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Acc Name</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={values.bankAcName}
+                onChange={handleChange("bankAcName")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Acc No.</span>
+              <Input
+                className="mt-1"
+                value={values.bankAcNo}
+                onChange={handleChange("bankAcNo")}
+              />
+            </Label>{" "}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Branch</span>
+              <Input
+                className="mt-1"
+                value={values.branch}
+                onChange={handleChange("branch")}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>IFSC Code</span>
+              <Input
+                className="mt-1"
+                value={values.IFSCCode}
+                onChange={handleChange("IFSCCode")}
+              />
+            </Label>
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Credit Days</span>
+              <Input
+                className="mt-1"
+                value={values.creditDays}
+                onChange={handleChange("creditDays")}
+              />
+            </Label>
+          </div>
+
+          {/* <HelperText valid={false}>{digiterr.contactNo}</HelperText> */}
+        </div>
+        
       
         {/* ///////////////////////////////////////////////////////// */}
         <Button

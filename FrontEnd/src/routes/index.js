@@ -369,5 +369,9 @@ export const enggroutes = [
     path: "/engcalls/viewmycalls",
     component: ViewEngineerCalls,
   },
+  {
+    path: "/call/updatecall/:callid/:assetid",
+    component: UpdateCall,
+  },
   
 ];

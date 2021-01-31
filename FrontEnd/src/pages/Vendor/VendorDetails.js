@@ -152,6 +152,24 @@ export default function VendorDetails() {
                 <span className="font-semibold"> GST No.:</span>{" "}
                 {values.GSTNo}
               </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Contact Person.:</span>{" "}
+                {values.contactPerson}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Bank Name.:</span>{" "}
+                {values.bankName}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Acc Name.:</span>{" "}
+                {values.bankAcName}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Acc No.:</span>{" "}
+                {values.bankAcNo}
+              </p>
+
+              
 
   
             </div>
@@ -171,6 +189,18 @@ export default function VendorDetails() {
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
                 <span className="font-semibold"> Pincode:</span>{" "}
                 {values.PIN}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Branch:</span>{" "}
+                {values.branch}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> IFSC Code:</span>{" "}
+                {values.IFSCCode}
+              </p>
+              <p className="text-md text-gray-900 dark:text-gray-100 py-2">
+                <span className="font-semibold"> Credit Days:</span>{" "}
+                {values.creditDays}
               </p>
              
             </div>
