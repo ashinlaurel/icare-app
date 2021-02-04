@@ -213,6 +213,8 @@ function PurchaseInventory() {
               location: "",
               invnumber: "",
             });
+            setModalMessage("Item(s) Added")
+              setIsmessageModal(true);
           })
           .catch((err) => {
             console.log("Purchase Hisry err", err.response);
@@ -381,6 +383,12 @@ function PurchaseInventory() {
             .format("DD-MM-YYYY");
 
           break;
+          case "20Y":
+          newlist[calnum].expirydate = moment(basevalues.invdate)
+            .add(20, "Y")
+            .format("DD-MM-YYYY");
+
+          break;
 
         default:
           break;
@@ -522,6 +530,52 @@ function PurchaseInventory() {
             </Label>
           </div>
 
+          {/* ---------------- */}
+
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Location*</span>
+              <Select
+                className="mt-1"
+                onChange={(e) => {
+                  setBaseValues({ ...basevalues, location: e.target.value });
+                }}
+              >
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              </Select>
+            </Label>
+          </div>
+          
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Purchase Location*</span>
+              <Select
+                className="mt-1"
+                onChange={(e) => {
+                  setBaseValues({
+                    ...basevalues,
+                    purchlocation: e.target.value,
+                  });
+
+                  let newlist = [...values];
+                  newlist.map((item, i) => {
+                    item.taxcategory = "";
+                    item.taxperc = "";
+                  });
+                  setValues([invdetails]);
+                }}
+              >
+                <option value="Local">Local</option>
+                <option value="IGST">IGST</option>
+              </Select>
+            </Label>
+          </div>
+          
+          {/* -------------------- */}
         
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -559,9 +613,21 @@ function PurchaseInventory() {
               />
             </Label>
           </div>
+
+          <div className="flex flex-col w-full  ">
+            <Label className="w-full">
+              <Button
+                layout="outline"
+                className="-mb-10 w-full"
+                onClick={() => setIsVendorModalopen(true)}
+              >
+                Select Vendor
+              </Button>
+            </Label>
+          </div>
         </div>
         {/* ------------------------Row 2-------------------------- */}
-        <div className="flex-row flex  space-x-3">
+        {/* <div className="flex-row flex  space-x-3">
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Location*</span>
@@ -617,7 +683,7 @@ function PurchaseInventory() {
           
          
           
-        </div>
+        </div> */}
 
         {/* -------------------------ROw 3-------------------- */}
         <div className="flex-row flex  space-x-3">
@@ -627,12 +693,12 @@ function PurchaseInventory() {
           <Label className=" ml-3 mt-3">
           GST No. {selectedVendor.GSTNo}
           </Label>
-          <Label className=" ml-3 mt-3">
+          {/* <Label className=" ml-3 mt-3">
           PAN No. {selectedVendor.PANNo}
           </Label>
           <Label className=" ml-3 mt-3">
           Aadhar No. {selectedVendor.aadharNo}
-          </Label>
+          </Label> */}
         </div>
       </div>
     );
@@ -871,7 +937,9 @@ function PurchaseInventory() {
                 <option value="Good" selected>
                   Good
                 </option>
-                <option value="Bad">Bad</option>
+                <option value="Defective">Defective</option>
+                <option value="DOA">DOA</option>
+                <option value="Damaged">Damaged</option>
               </Select>
             </Label>
           </div>
@@ -919,10 +987,11 @@ function PurchaseInventory() {
                 <option value="3M">3 Months</option>
                 <option value="6M">6 Months</option>
                 <option value="1Y">1 Year</option>
-                <option value="2Y">2 Year</option>
-                <option value="3Y">3 Year</option>
-                <option value="4Y">4 Year</option>
-                <option value="5Y">5 Year</option>
+                <option value="2Y">2 Years</option>
+                <option value="3Y">3 Years</option>
+                <option value="4Y">4 Years</option>
+                <option value="5Y">5 Years</option>
+                <option value="20Y">20 Years</option>
               </Select>
             </Label>
           </div>

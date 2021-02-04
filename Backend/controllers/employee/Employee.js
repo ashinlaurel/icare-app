@@ -74,8 +74,32 @@ exports.getAllEmpCalls = (req, res) => {
         err: err,
       });
     }
-    console.log(result.docs);
-    return res.json(result.docs);
+    let out=[]
+    result.docs.map(i=>{
+      out.push({_id:i._id,assignedCalls:i.assignedCalls,employeeName:i.employeeName,email:i.email})
+    })
+    // console.log(result.docs);
+    return res.json(out);
+  });
+};
+
+exports.getCallsByEmpId = (req, res) => {
+  let { id } = req.body;
+  // console.log("ID",id)
+  EmployeeLogin.paginate({_id:id}, {populate:"assignedCalls.callId"}, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No employees found",
+        err: err,
+      });
+    }
+    let out=[]
+    result.docs.map(i=>{
+      out.push({_id:i._id,assignedCalls:i.assignedCalls,employeeName:i.employeeName,email:i.email})
+    })
+    // console.log(result.docs);
+    return res.json(out);
   });
 };
 

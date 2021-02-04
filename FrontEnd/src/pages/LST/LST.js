@@ -406,6 +406,9 @@ function LST() {
                 <option value="Bad">Bad</option>
                 <option value="Used">Used</option>
                 <option value="Available" selected >Available</option>
+                <option value="Defective"  >Defective</option>
+                <option value="Damaged"  >Damaged</option>
+                <option value="DOA"  >DOA</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -450,12 +453,13 @@ function LST() {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>Type</TableCell>
-                <TableCell>Name</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Description</TableCell>
                 <TableCell>Serial Number</TableCell>
                 <TableCell>Location</TableCell>
-                <TableCell>Inv Number</TableCell>
-                <TableCell>Condition</TableCell>
+                <TableCell>Stock Type</TableCell>
+                <TableCell>Wty.</TableCell>
+                <TableCell>Status</TableCell>
                 <TableCell>Add</TableCell>
               </tr>
             </TableHeader>
@@ -502,7 +506,10 @@ function LST() {
                     <span className="text-sm">{user.location}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{user.invnumber}</span>
+                    <span className="text-sm">{user.stocktype}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.expirydate}</span>
                   </TableCell>
                   <TableCell>
                     <Badge

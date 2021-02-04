@@ -30,7 +30,9 @@ const CreateInvent = () => {
     sno: "",
     condition: "",
     location: "",
-    invnumber: "",
+    // invnumber: "",
+    takenFrom:"",
+    caseId:""
   });
 
   useEffect(() => {
@@ -181,15 +183,27 @@ const CreateInvent = () => {
         </div>
         <div className="flex flex-col w-full">
           <Label className="w-full">
-            <span>Invoice Number*</span>
+            <span>Taken From</span>
             <Input
               className="mt-1"
               type="text"
-              value={values.invnumber}
-              onChange={handleChange("invnumber")}
+              value={values.takenFrom}
+              onChange={handleChange("takenFrom")}
             />
           </Label>
-          <HelperText valid={false}>{err.invnumber}</HelperText>
+          {/* <HelperText valid={false}>{err.invnumber}</HelperText> */}
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Case ID</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.caseId}
+              onChange={handleChange("caseId")}
+            />
+          </Label>
+          {/* <HelperText valid={false}>{err.invnumber}</HelperText> */}
         </div>
       </div>
       {/* ///////////////////////////////////////////////////////// */}

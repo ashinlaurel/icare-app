@@ -18,6 +18,13 @@ const VendorSchema = new Schema({
   PIN:String,
   phno1:String,
   phno2:String,
+  contactPerson:String,
+  bankName:String,
+  bankAcNo:String,
+  bankAcName:String,
+  branch:String,
+  IFSCCode:String,
+  creditDays:String,
   
 });
 VendorSchema.plugin(mongoosePaginate);
