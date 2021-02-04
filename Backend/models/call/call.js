@@ -65,9 +65,9 @@ const callSchema = mongoose.Schema({
   // endOfService: {
   //   type: String,
   // },
-  spareUsed: {
-    type: String,
-  },
+  // spareUsed: {
+  //   type: String,
+  // },
   history: [
     {
       date: String,

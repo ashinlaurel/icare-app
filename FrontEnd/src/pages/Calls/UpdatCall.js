@@ -49,6 +49,8 @@ function UpdateCall() {
   const [submitModal, setSubmitModal] = useState(false);
   const [sparemodal, setSpareModal] = useState(false);
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
+  const [spareStatus, setSpareStatus] = useState("");
+  const [ccfrStatus, setCcfrStatus] = useState("");
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -518,7 +520,8 @@ function UpdateCall() {
             <Button
               className="w-full sm:w-auto"
               onClick={() => {
-                setCall({ ...call, spareUsed: "Yes" });
+                // setCall({ ...call, spareUsed: "Yes" });
+                setSpareStatus("Yes");
                 setSpareModal(false);
               }}
             >
@@ -527,7 +530,8 @@ function UpdateCall() {
             <Button
               className="w-full sm:w-auto"
               onClick={() => {
-                setCall({ ...call, spareUsed: "No" });
+                // setCall({ ...call, spareUsed: "No" });
+                setSpareStatus("No");
                 setSpareModal(false);
               }}
             >
@@ -575,7 +579,7 @@ function UpdateCall() {
         // callAttendDate: call.callAttendDate,
         // startOfService: call.startOfService,
         // endOfService: call.endOfService,
-        spareUsed: call.spareUsed,
+        // spareUsed: call.spareUsed,
         $push: { history: newcallhistory },
       },
     };
@@ -716,10 +720,16 @@ function UpdateCall() {
             ) : null}
           </div>
 
-          <div className="dark:text-gray-200 text-black text-sm  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-1/4 my-2 ">
-            <div className=" font-semibold ">
-              <span>Engineer:</span> {call.employeeName}
-            </div>
+          <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 w-1/4 flex items-center justify-center">
+            {/* /////////////////////////////// . History  ///////////////////////////////////////////// */}
+            <Button
+              onClick={() => {
+                setHistoryModalOpen(true);
+              }}
+              layout="outline"
+            >
+              View Call History
+            </Button>
           </div>
         </div>
 
@@ -910,43 +920,10 @@ function UpdateCall() {
               </span>
             </div>
           </div>
-
-          <div className="dark:text-gray-200 text-black text-sm flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-center   w-full my-2 ">
-            {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
-            <div className=" font-semibold w-1/4">
-              <span>Spare Used:</span>
-            </div>
-            <Select
-              className="inline w-1/2"
-              onChange={(e) => {
-                setCall({ ...call, spareUsed: e.target.value });
-                console.log(call);
-              }}
-              value={call.spareUsed}
-            >
-              <option value="" disabled>
-                Select Spare Status
-              </option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </Select>
-          </div>
-
-          <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 ">
-            {/* /////////////////////////////// . Spare Status  ///////////////////////////////////////////// */}
-            <Button
-              onClick={() => {
-                setHistoryModalOpen(true);
-              }}
-              layout="outline"
-            >
-              History
-            </Button>
-          </div>
         </div>
 
         <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full  ">
-          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
+          {/* /////////////////////////////// . Problem Description  ///////////////////////////////////////////// */}
           <div className=" font-semibold">
             <span>
               Problem Description:{" "}
@@ -954,9 +931,9 @@ function UpdateCall() {
             </span>
           </div>
         </div>
-        <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
-          {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
-          <div className="flex flex-col w-full">
+        <div className="dark:text-gray-200 text-black text-sm flex  space-x-2 items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+          {/* /////////////////////////////// . Update  ///////////////////////////////////////////// */}
+          <div className="flex flex-col w-3/4">
             <Label className="w-full">
               <span>Status Update</span>
               <Select
@@ -982,6 +959,26 @@ function UpdateCall() {
                 <option value="9"> Spare in Transit</option>
                 <option value="10"> Cancelled Calls</option>
                 <option value="11"> Closed Calls</option>
+              </Select>
+            </Label>
+          </div>
+          <div className="flex flex-col w-1/4">
+            <Label className="w-full">
+              <span>Spare Update</span>
+              <Select
+                className="inline w-1/2"
+                onChange={(e) => {
+                  // setCall({ ...call, spareUsed: e.target.value });
+                  setSpareStatus(e.target.value);
+                  console.log(call);
+                }}
+                value={spareStatus}
+              >
+                <option value="" disabled>
+                  Select Spare Status
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </Select>
             </Label>
           </div>
@@ -1718,25 +1715,95 @@ function UpdateCall() {
     );
   };
 
+  const CallEnder = () => {
+    return (
+      <div className="dark:text-gray-200 text-black text-sm flex  space-x-2 items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+        {/* /////////////////////////////// . Update  ///////////////////////////////////////////// */}
+
+        <div className="flex flex-col w-1/4">
+          <Label className="w-full">
+            <span>CCFR Signed</span>
+            <Select
+              className="inline w-1/2"
+              onChange={(e) => {
+                // setCall({ ...call, spareUsed: e.target.value });
+                setCcfrStatus(e.target.value);
+                // console.log(call);
+              }}
+              value={ccfrStatus}
+            >
+              <option value="" disabled>
+                Select CCFR Status
+              </option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </Select>
+          </Label>
+        </div>
+
+        {ccfrStatus == "Yes" ? (
+          <div className="flex flex-col items-center  mt-5">
+            <Button
+              onClick={() => {
+                console.log("Upload CCFR");
+              }}
+              layout="outline"
+            >
+              Upload CCFR
+            </Button>
+          </div>
+        ) : null}
+
+        {existswap[0]._id ? (
+          <div className="flex flex-col items-center  mt-5">
+            <Button
+              onClick={() => {
+                console.log("Upload Defective");
+              }}
+              layout="outline"
+            >
+              Upload Defective
+            </Button>
+          </div>
+        ) : null}
+        {inventswap[0]._id ? (
+          <div className="flex flex-col items-center  mt-5">
+            <Button
+              onClick={() => {
+                console.log("Upload Good Spare ");
+              }}
+              layout="outline"
+            >
+              Upload Good Spare
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    );
+  };
+
   return (
     <>
       {HistoryModal()}
       {AssetBar()}
       {CallUpdater()}
-      {AssetItemPick()}
+      {spareStatus == "Yes" ? AssetItemPick() : null}
       {UpdatedModal()}
       {SpareRequiredModal()}
-      <div className="flex flex-col items-center w-full mt-5">
-        <Link to={`/app/viewcalls`}>
-          <Button
-            onClick={() => {
-              handleUpdate();
-            }}
-            layout="outline"
-          >
-            Update Call
-          </Button>
-        </Link>
+      {CallEnder()}
+      <div>
+        <div className="flex flex-col items-center w-full mt-5">
+          <Link to={`/app/viewcalls`}>
+            <Button
+              onClick={() => {
+                handleUpdate();
+              }}
+              layout="outline"
+            >
+              Update Call
+            </Button>
+          </Link>
+        </div>
       </div>
     </>
   );
