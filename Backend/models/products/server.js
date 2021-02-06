@@ -20,6 +20,23 @@ const serverSchema = new Schema({
     trim: true,
     unique: true,
   },
+  history: [
+    {
+      date: String,
+      callStatus: String,
+      engineer: String,
+      callAttendDate: String,
+      startOfService: String,
+      endOfService: String,
+      note: String,
+      actionTaken: String,
+      existUrl: String,
+      newUrl: String,
+      ccfrImgUrl: String,
+      existserial: String,
+      newserial: String,
+    },
+  ],
   //   ------------------------------
   os: {
     type: String,

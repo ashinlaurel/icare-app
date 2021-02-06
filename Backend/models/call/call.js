@@ -81,6 +81,8 @@ const callSchema = mongoose.Schema({
       existUrl: String,
       newUrl: String,
       ccfrImgUrl: String,
+      existserial: String,
+      newserial: String,
     },
   ],
 });

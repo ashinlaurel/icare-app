@@ -145,6 +145,10 @@ function UpdateCall() {
   // Image states -----------------------------------------------------------------
   const [isImgUploadModal, setIsImgUploadModal] = useState(false);
   const [imageUploadMessage, setImageUploadMessage] = useState("");
+  const [isImgUploadMenuModal, setIsImgUploadMenuModal] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
+  const [imgFile, setImgFile] = useState(null);
+  const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
   const [goodSpareImg, setGoodSpareImg] = useState(null);
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
   const [defectiveImg, setDefectiveImg] = useState(null);
@@ -227,6 +231,85 @@ function UpdateCall() {
             <Button
               className="w-full sm:w-auto"
               onClick={() => setIsImgUploadModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const handleImgUpload = (message) => {
+    if (message == "defective") {
+      photoUpload(imgFile, (url) => {
+        console.log("PHOTO URL", url);
+        setImgUrl(url);
+        setDefectiveImgUrl(url);
+      });
+    } else if (message == "good") {
+      photoUpload(imgFile, (url) => {
+        console.log("PHOTO URL", url);
+        setImgUrl(url);
+        setGoodSpareImgUrl(url);
+      });
+    } else if (message == "ccfr") {
+      photoUpload(imgFile, (url) => {
+        console.log("PHOTO URL", url);
+        setImgUrl(url);
+        setCcfrImgUrl(url);
+      });
+    }
+  };
+  const ImgUploadMenuModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isImgUploadMenuModal}
+          onClose={() => {
+            setImgUrl("");
+            setImgFile(null);
+            setIsImgUploadMenuModal(false);
+          }}
+        >
+          <ModalHeader>{imageUploadMenuMessage}</ModalHeader>
+          <ModalBody>
+            <>
+              <img src={imgUrl} className="my-2" width="100" height="100" />
+              <div className="flex-row flex  space-x-3 mt-3 ">
+                <div className="flex flex-col ">
+                  <Label className="">
+                    <span>Image upload</span>
+                    <Input
+                      className="mt-1"
+                      type="file"
+                      // value={photo}
+                      onChange={(e) => photoUploadHandler(e, setImgFile)}
+                    />
+                  </Label>
+
+                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+                </div>
+                <Button
+                  onClick={() => {
+                    handleImgUpload(imageUploadMenuMessage);
+                  }}
+                  layout="outline"
+                  className="my-6    "
+                >
+                  Upload Image
+                </Button>
+              </div>
+            </>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setImgUrl("");
+                setImgFile(null);
+                setIsImgUploadMenuModal(false);
+              }}
             >
               Okay!
             </Button>
@@ -332,6 +415,7 @@ function UpdateCall() {
   const HistoryModal = () => {
     if (call.history) {
       let data = call.history;
+      console.log(data);
 
       return (
         <>
@@ -446,7 +530,7 @@ function UpdateCall() {
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm">{entry.note}</span>
+                          <span className="text-sm  w-1/2">{entry.note}</span>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
@@ -726,22 +810,6 @@ function UpdateCall() {
         method: "POST",
         data: payload,
       });
-
-      console.log("Done");
-      setInventswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-      setExistswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-      getAsset();
-      setSubmitModal(true);
     } catch (error) {
       throw error;
     }
@@ -759,15 +827,13 @@ function UpdateCall() {
       actionTaken: actionTaken,
       existUrl: defectiveImgUrl,
       newUrl: goodSpareImgUrl,
+      existserial: existswap[0].sno,
+      newserial: inventswap[0].sno,
     };
     let payloadtwo = {
       id: call._id,
       update: {
         callStatus: call.callStatus,
-        // callAttendDate: call.callAttendDate,
-        // startOfService: call.startOfService,
-        // endOfService: call.endOfService,
-        // spareUsed: call.spareUsed,
         $push: { history: newcallhistory },
       },
     };
@@ -779,6 +845,21 @@ function UpdateCall() {
         data: payloadtwo,
       });
       console.log("updated");
+      console.log("Done");
+      setInventswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      setExistswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      getAsset();
+      setSubmitModal(true);
       // setIsReviewModalOpen(true);
     } catch (error) {
       throw error;
@@ -1576,6 +1657,30 @@ function UpdateCall() {
             >
               Swap
             </Button>
+            {existswap[0]._id || 1 ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400"
+                onClick={() => {
+                  setImageUploadMenuMessage("defective");
+                  setIsImgUploadMenuModal(true);
+                }}
+              >
+                Upload Defective Spare
+              </Button>
+            ) : null}
+            {inventswap[0]._id || 1 ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400"
+                onClick={() => {
+                  setImageUploadMenuMessage("good");
+                  setIsImgUploadMenuModal(true);
+                }}
+              >
+                Upload Good Spare
+              </Button>
+            ) : null}
           </div>
         </div>
 
@@ -1870,7 +1975,7 @@ function UpdateCall() {
 
   const CallEnder = () => {
     return (
-      <div className="dark:text-gray-200 text-black text-sm flex flex-col  space-x-2  items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md   w-full my-2 ">
+      <div className="dark:text-gray-200 text-black text-sm flex   space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
         {/* /////////////////////////////// . Update  ///////////////////////////////////////////// */}
 
         <div className="flex flex-col w-1/4">
@@ -1894,116 +1999,18 @@ function UpdateCall() {
           </Label>
         </div>
 
-        <div className="flex flex-col ">
-          {ccfrStatus == "Yes" || 1 ? (
-            <>
-              <img src={ccfrImgUrl} className="my-2" width="100" height="100" />
-              <div className="flex-row flex  space-x-3 mt-3 ">
-                <div className="flex flex-col ">
-                  <Label className="">
-                    <span>CCFR upload</span>
-                    <Input
-                      className="mt-1"
-                      type="file"
-                      // value={photo}
-                      onChange={(e) => photoUploadHandler(e, setCcfrImg)}
-                    />
-                  </Label>
-
-                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-                </div>
-                <Button
-                  onClick={() => {
-                    photoUpload(ccfrImg, (url) => {
-                      console.log("PHOTO URL", url);
-                      setCcfrImgUrl(url);
-                      // setValues({ ...values, DegreeCertificate: url });
-                    });
-                  }}
-                  layout="outline"
-                  className="my-6    "
-                >
-                  Upload CCFR
-                </Button>
-              </div>
-            </>
-          ) : null}
-
-          {existswap[0]._id || 1 ? (
-            <>
-              <img
-                src={defectiveImgUrl}
-                className="my-2"
-                width="100"
-                height="100"
-              />
-              <div className="flex-row flex  space-x-3 mt-3 ">
-                <div className="flex flex-col ">
-                  <Label className="">
-                    <span>Defective upload</span>
-                    <Input
-                      className="mt-1"
-                      type="file"
-                      // value={photo}
-                      onChange={(e) => photoUploadHandler(e, setDefectiveImg)}
-                    />
-                  </Label>
-
-                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-                </div>
-                <Button
-                  onClick={() => {
-                    photoUpload(defectiveImg, (url) => {
-                      console.log("PHOTO URL", url);
-                      setDefectiveImgUrl(url);
-                      // setValues({ ...values, DegreeCertificate: url });
-                    });
-                  }}
-                  layout="outline"
-                  className="my-6    "
-                >
-                  Upload Defective
-                </Button>
-              </div>
-            </>
-          ) : null}
-          {inventswap[0]._id || 1 ? (
-            <>
-              <img
-                src={goodSpareImgUrl}
-                className="my-2"
-                width="100"
-                height="100"
-              />
-              <div className="flex-row flex  space-x-3 mt-3 ">
-                <div className="flex flex-col ">
-                  <Label className="">
-                    <span>Good Spare upload</span>
-                    <Input
-                      className="mt-1"
-                      type="file"
-                      // value={photo}
-                      onChange={(e) => photoUploadHandler(e, setGoodSpareImg)}
-                    />
-                  </Label>
-
-                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-                </div>
-                <Button
-                  onClick={() => {
-                    photoUpload(goodSpareImg, (url) => {
-                      console.log("PHOTO URL", url);
-                      setGoodSpareImgUrl(url);
-                      // setValues({ ...values, DegreeCertificate: url });
-                    });
-                  }}
-                  layout="outline"
-                  className="my-6    "
-                >
-                  Upload Good Spare
-                </Button>
-              </div>
-            </>
+        <div className="flex flex-col w-1/4 mt-5">
+          {ccfrStatus == "Yes" ? (
+            <Button
+              layout="outline"
+              className=""
+              onClick={() => {
+                setImageUploadMenuMessage("ccfr");
+                setIsImgUploadMenuModal(true);
+              }}
+            >
+              Upload CCFR
+            </Button>
           ) : null}
         </div>
       </div>
@@ -2014,6 +2021,7 @@ function UpdateCall() {
     <>
       {HistoryModal()}
       {ImgUploadModal()}
+      {ImgUploadMenuModal()}
       {AssetBar()}
       {CallUpdater()}
       {spareStatus == "Yes" ? AssetItemPick() : null}
@@ -2031,6 +2039,19 @@ function UpdateCall() {
             layout="outline"
           >
             Update Call
+          </Button>
+          {/* </Link> */}
+        </div>
+        <div className="flex flex-col items-center w-full mt-5">
+          {/* <Link to={`/app/viewcalls`}> */}
+          <Button
+            onClick={() => {
+              console.log(existswap);
+              console.log(inventswap);
+            }}
+            layout="outline"
+          >
+            Test
           </Button>
           {/* </Link> */}
         </div>
