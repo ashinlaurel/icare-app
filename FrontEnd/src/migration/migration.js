@@ -82,7 +82,7 @@ export const handleMigration = async () => {
           },
         ],
         // keyboard: kbd,
-        keyboard: [{ kbdname: doc.kbd1, kbdsno: doc.kbd1sno }],
+        keyboard: [{ keyboardname: doc.kbd1, keyboardsno: doc.kbd1sno }],
         // mouse: mouse,
         mouse: [{ mousename: doc.mouse1, mousesno: doc.mouse1sno }],
         // monitor: monitor,

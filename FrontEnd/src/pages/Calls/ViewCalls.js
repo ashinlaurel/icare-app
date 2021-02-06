@@ -306,7 +306,7 @@ function ViewCalls() {
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
-                          // console.log(user.product.keyboard[0].kbdname);
+                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
                         <TableCell className="w-8">
@@ -679,7 +679,7 @@ function ViewCalls() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);
-                    setSearchType("kbdsno");
+                    setSearchType("keyboardsno");
                     setSearchLabel("Keyboard Serial");
                     setDisabler(false);
                   }}
@@ -836,7 +836,7 @@ function ViewCalls() {
                     setSelectedProd(call);
                     console.log("SELECTD", call);
                     setAssetDetails(call.assetId);
-                    // console.log(call.product.keyboard[0].kbdname);
+                    // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">

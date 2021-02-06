@@ -45,9 +45,14 @@ router.post(
 );
 
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteInventory);
-router.post("/:id/createpurchasehistory", isSignedIn, isAuthenticated, createPurchaseHistrory);
+router.post(
+  "/:id/createpurchasehistory",
+  isSignedIn,
+  isAuthenticated,
+  createPurchaseHistrory
+);
 // --------------------DropDown Searches --------------------------------
-// router.post("/:id/getkbd", isSignedIn, isAuthenticated, getKbdSno);
+// router.post("/:id/getkbd", isSignedIn, isAuthenticated, getkeyboardsno);
 router.post("/:id/getproduct", isSignedIn, isAuthenticated, getProductSno);
 //------------------ Migration create route----------------------------
 // router.post("/create", createAsset);

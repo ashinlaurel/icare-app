@@ -70,10 +70,12 @@ function AssignCallPriority() {
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
-
-
   /////// engineer
-  const [engineer, setEngineer] = useState({ _id: "", enggName: "" ,assignedCalls:[]});
+  const [engineer, setEngineer] = useState({
+    _id: "",
+    enggName: "",
+    assignedCalls: [],
+  });
   const [isEnggModalOpen, setIsEnggModalOpen] = useState(false);
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -95,9 +97,9 @@ function AssignCallPriority() {
     setPage(p);
   }
 
-useEffect(() => {
-  setData(engineer.assignedCalls)
-}, [engineer])
+  useEffect(() => {
+    setData(engineer.assignedCalls);
+  }, [engineer]);
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -121,15 +123,15 @@ useEffect(() => {
   // -----------------------------------------------------
 
   const submitCustomer = async () => {
-    console.log("DATA",data)
+    console.log("DATA", data);
     // e.preventDefault();
     const newuser = {
-      assignedCalls:[...data]
+      assignedCalls: [...data],
     };
     console.log(newuser);
 
-    const payload= {
-       id: engineer._id,
+    const payload = {
+      id: engineer._id,
       update: newuser,
     };
     try {
@@ -144,8 +146,6 @@ useEffect(() => {
       throw error;
     }
   };
-
-
 
   // console.log(selectedprod);
 
@@ -168,19 +168,19 @@ useEffect(() => {
         isModalOpen={isEnggModalOpen}
         setIsModalOpen={setIsEnggModalOpen}
         setEmployee={setEngineer}
-        
       />
       <SelectEmployeeModalForCalls />
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-       
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <Button layout="outline" onClick={()=>setIsEnggModalOpen(true)}>Select Engineer</Button> 
-          <Button  onClick={()=>submitCustomer(true)}>Submit</Button> 
+          <Button layout="outline" onClick={() => setIsEnggModalOpen(true)}>
+            Select Engineer
+          </Button>
+          <Button onClick={() => submitCustomer(true)}>Submit</Button>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
@@ -196,7 +196,7 @@ useEffect(() => {
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map(({_id,callId,priority}, i) => (
+              {data.map(({ _id, callId, priority }, i) => (
                 <TableRow
                   className={`hover:shadow-lg dark:hover:bg-gray-600 ${
                     activerowid == callId._id
@@ -212,7 +212,7 @@ useEffect(() => {
                     // if (callId.assetId) setAssetDetails(callId.assetId);
                     // else setAssetDetails({});
                     // console.log(callId.assetId);
-                    // console.log(call.product.keyboard[0].kbdname);
+                    // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">
@@ -274,8 +274,9 @@ useEffect(() => {
                     ) : null}
                   </TableCell>
                   <TableCell>
-                    <input value={priority}
-                            onChange={(e) => {
+                    <input
+                      value={priority}
+                      onChange={(e) => {
                         let temp = data;
                         // newuser["caseId"]=e.target.value
                         temp = temp.filter((x) => {
@@ -290,7 +291,6 @@ useEffect(() => {
                         console.log(temp);
                         setData(temp);
                       }}
-
                     />
                   </TableCell>
                 </TableRow>

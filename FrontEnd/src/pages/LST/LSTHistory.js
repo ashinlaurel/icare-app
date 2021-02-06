@@ -127,69 +127,68 @@ function LSTHistory() {
   }, [page, location, ToLocation, condition, status, refresh]);
 
   console.log(selectedprod);
-// DElete Modal
+  // DElete Modal
 
-const DeleteModal = () => {
-  return (
-    <>
-      <Modal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-      >
-        <ModalHeader>Are you sure you want to delete!</ModalHeader>
-        <ModalBody></ModalBody>
-        <ModalFooter>
-          <Button
-            className="w-full sm:w-auto"
-            onClick={async () => {
-              let invs=data[deleteNum].invItems;
-              console.log(invs)
-              invs.map(async (item)=>{
-                const payload = {
-                id: item._id,
-                update: {
-                  location: data[deleteNum].from,
-                },
-              };
-              console.log("PAYLOAD", payload);
-              try {
-                await axios({
-                  url: `${API}/inventory/${Emp.getId()}/invupdate`,
-                  method: "POST",
-                  data: payload,
+  const DeleteModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Are you sure you want to delete!</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                let invs = data[deleteNum].invItems;
+                console.log(invs);
+                invs.map(async (item) => {
+                  const payload = {
+                    id: item._id,
+                    update: {
+                      location: data[deleteNum].from,
+                    },
+                  };
+                  console.log("PAYLOAD", payload);
+                  try {
+                    await axios({
+                      url: `${API}/inventory/${Emp.getId()}/invupdate`,
+                      method: "POST",
+                      data: payload,
+                    });
+                    // setIsReviewModalOpen(true);
+                    console.log("Done");
+                  } catch (error) {
+                    console.log(error);
+                    throw error;
+                  }
                 });
-                // setIsReviewModalOpen(true);
-                console.log("Done");
-              } catch (error) {
-                console.log(error);
-                throw error;
-              }
-              })
-              try {
-                let response = await axios({
-                  url: `${API}/lst/${Emp.getId()}/delete`,
-                  method: "POST",
-                  data: { id: deleteId },
-                });
-                console.log(response.data);
-                let temp = data.filter((x) => x._id != deleteId);
-                setData(temp);
-                setIsDeleteModalOpen(false);
+                try {
+                  let response = await axios({
+                    url: `${API}/lst/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: deleteId },
+                  });
+                  console.log(response.data);
+                  let temp = data.filter((x) => x._id != deleteId);
+                  setData(temp);
+                  setIsDeleteModalOpen(false);
 
-                // setData(response.data);
-              } catch (error) {
-                throw error;
-              }
-            }}
-          >
-            Confirm Delete
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
-};
-
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   // PDF Download Functions
 
@@ -240,7 +239,7 @@ const DeleteModal = () => {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -445,8 +444,12 @@ const DeleteModal = () => {
                 <TableCell>No</TableCell>
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
-                <TableCell><span className="ml-10">Date</span> </TableCell>
-                <TableCell ><span className="ml-2 mr-2">Num</span> </TableCell>
+                <TableCell>
+                  <span className="ml-10">Date</span>{" "}
+                </TableCell>
+                <TableCell>
+                  <span className="ml-2 mr-2">Num</span>{" "}
+                </TableCell>
                 {/* <TableCell>Status</TableCell> */}
                 <TableCell> Report</TableCell>
                 <TableCell> Delete</TableCell>
@@ -475,7 +478,7 @@ const DeleteModal = () => {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -520,9 +523,8 @@ const DeleteModal = () => {
                       </Button>
                     </TableCell>
 
-
                     <TableCell className="text-center ">
-                    <Button
+                      <Button
                         layout="link"
                         size="icon"
                         aria-label="Delete"
@@ -536,8 +538,6 @@ const DeleteModal = () => {
                         <TrashIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
                     </TableCell>
-
-
 
                     <TableCell className="text-center ">
                       <Button

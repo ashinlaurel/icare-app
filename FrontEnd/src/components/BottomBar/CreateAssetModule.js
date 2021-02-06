@@ -360,11 +360,11 @@ const CreateAssetModule = ({ asset }) => {
                       <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
                         <div className="w-full my-1">
                           <span>
-                            kbd {i + 1}: {item.kbdname}
+                            kbd {i + 1}: {item.keyboardname}
                           </span>
                         </div>
                         <div className="w-full my-1">
-                          <span>S.No :{item.kbdsno}</span>
+                          <span>S.No :{item.keyboardsno}</span>
                         </div>
                       </div>
                     </div>

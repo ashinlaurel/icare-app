@@ -68,7 +68,7 @@ function CreateAsset() {
   const [opticaldrive, setopticaldrive] = useState([
     { opticaldrivename: "", opticaldrivesno: "" },
   ]);
-  const [kbd, setkbd] = useState([{ kbdname: "", kbdsno: "" }]);
+  const [kbd, setkbd] = useState([{ keyboardname: "", keyboardsno: "" }]);
   const [mouse, setmouse] = useState([{ mousename: "", mousesno: "" }]);
   const [monitor, setmonitor] = useState([{ monitorname: "", monitorsno: "" }]);
   const [gcard, setgcard] = useState([{ gcardname: "", gcardsno: "" }]);
@@ -260,7 +260,7 @@ function CreateAsset() {
         motherboard: motherboard[0].motherboardname == "" ? [] : motherboard,
         opticaldrive:
           opticaldrive[0].opticaldrivename == "" ? [] : opticaldrive,
-        keyboard: kbd[0].kbdname == "" ? [] : kbd,
+        keyboard: kbd[0].keyboardname == "" ? [] : kbd,
         mouse: mouse[0].mousename == "" ? [] : mouse,
         monitor: monitor[0].monitorname == "" ? [] : monitor,
         gcard: gcard[0].gcardname == "" ? [] : gcard,
@@ -1149,7 +1149,7 @@ function CreateAsset() {
                         <Button
                           onClick={() => {
                             let newkbd = [...kbd];
-                            let add = { kbdname: "", kbdsno: "" };
+                            let add = { keyboardname: "", keyboardsno: "" };
                             newkbd.push(add);
                             setkbd(newkbd);
                           }}
@@ -1183,11 +1183,11 @@ function CreateAsset() {
                               <Input
                                 className="mt-1"
                                 placeholder={`Keyboard ${i + 1}`}
-                                name="kbdname"
-                                value={item.kbdname}
+                                name="keyboardname"
+                                value={item.keyboardname}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdname = e.target.value;
+                                  newlist[i].keyboardname = e.target.value;
                                   setkbd(newlist);
                                 }}
                               />
@@ -1199,11 +1199,11 @@ function CreateAsset() {
                                 placeholder={`Keyboard ${
                                   i + 1
                                 }'s Serial Number `}
-                                name="kbdsno"
-                                value={item.kbdsno}
+                                name="keyboardsno"
+                                value={item.keyboardsno}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdsno = e.target.value;
+                                  newlist[i].keyboardsno = e.target.value;
                                   setkbd(newlist);
                                 }}
                               />
@@ -1212,8 +1212,8 @@ function CreateAsset() {
                                 placeholder={`Keyboard ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdsno = e.value;
-                                  newlist[i].kbdname = e.name;
+                                  newlist[i].keyboardsno = e.value;
+                                  newlist[i].keyboardname = e.name;
                                   setkbd(newlist);
                                   console.log(e);
                                 }}
@@ -2670,11 +2670,11 @@ function CreateAsset() {
                               <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
                                 <div className="w-full my-1">
                                   <span>
-                                    kbd {i + 1}: {item.kbdname}
+                                    kbd {i + 1}: {item.keyboardname}
                                   </span>
                                 </div>
                                 <div className="w-full my-1">
-                                  <span>S.No :{item.kbdsno}</span>
+                                  <span>S.No :{item.keyboardsno}</span>
                                 </div>
                               </div>
                             </div>
@@ -3125,7 +3125,7 @@ function CreateAsset() {
     setfan([{ fanname: "", fansno: "" }]);
     setmotherboard([{ motherboardname: "", motherboardsno: "" }]);
     setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
-    setkbd([{ kbdname: "", kbdsno: "" }]);
+    setkbd([{ keyboardname: "", keyboardsno: "" }]);
     setmouse([{ mousename: "", mousesno: "" }]);
     setmonitor([{ monitorname: "", monitorsno: "" }]);
     setgcard([{ gcardname: "", gcardsno: "" }]);
