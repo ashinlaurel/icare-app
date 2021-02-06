@@ -78,6 +78,9 @@ const callSchema = mongoose.Schema({
       endOfService: String,
       note: String,
       actionTaken: String,
+      existUrl: String,
+      newUrl: String,
+      ccfrImgUrl: String,
     },
   ],
 });

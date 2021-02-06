@@ -49,6 +49,7 @@ function UpdateCall() {
   const [submitModal, setSubmitModal] = useState(false);
   const [sparemodal, setSpareModal] = useState(false);
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
+  const [notswapModalOpen, setNotSwapModalOpen] = useState(false);
   const [spareStatus, setSpareStatus] = useState("");
   const [ccfrStatus, setCcfrStatus] = useState("");
 
@@ -143,14 +144,13 @@ function UpdateCall() {
 
   // Image states -----------------------------------------------------------------
   const [isImgUploadModal, setIsImgUploadModal] = useState(false);
-  const [imageUploadMessage, setImageUploadMessage] = useState("")
+  const [imageUploadMessage, setImageUploadMessage] = useState("");
   const [goodSpareImg, setGoodSpareImg] = useState(null);
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
   const [defectiveImg, setDefectiveImg] = useState(null);
   const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
   const [ccfrImg, setCcfrImg] = useState(null);
   const [ccfrImgUrl, setCcfrImgUrl] = useState("");
-
 
   const photoUploadHandler = (e, callback) => {
     callback(e.target.files[0]);
@@ -213,7 +213,6 @@ function UpdateCall() {
     //  this.ocShowAlert( 'Please upload file', 'red' );
     // }
   };
-
 
   const ImgUploadModal = () => {
     return (
@@ -597,9 +596,32 @@ function UpdateCall() {
           <ModalHeader>Swap Successfull</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
+            {/* <Link to={`/app/viewcalls`}> */}
             <Button
               className="w-full sm:w-auto"
               onClick={() => setSubmitModal(false)}
+            >
+              Okay!
+            </Button>
+            {/* </Link> */}
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const NotSwapModal = () => {
+    return (
+      <>
+        <Modal isOpen={notswapModalOpen} onClose={() => setSubmitModal(false)}>
+          <ModalHeader>Inventory Process Pending</ModalHeader>
+          <ModalBody>
+            Please finish add/remove/swap of items before updating call.
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setNotSwapModalOpen(false)}
             >
               Okay!
             </Button>
@@ -643,23 +665,12 @@ function UpdateCall() {
   };
 
   // --------------------  Functions ---------------------------
-  const handleInventory = async () => {
-    let payload = { inventory, assetId: id, product: product };
-    console.log(payload);
-    try {
-      let update = await axios({
-        url: `${API}/inventory/${Emp.getId()}/assetupdate`,
-        method: "POST",
-        data: payload,
-      });
-      // setSubmitModal(true);
-      console.log("Done");
-    } catch (error) {
-      throw error;
-    }
-  };
 
   const handleUpdate = async () => {
+    if (existswap[0] || inventswap[0] || spareStatus == "Yes") {
+      setNotSwapModalOpen(true);
+      return;
+    }
     // ----- history ---
     let newcallhistory = {
       date: moment().format(),
@@ -670,6 +681,7 @@ function UpdateCall() {
       endOfService: endOfService,
       note: `Call Status Updated to ${call.callStatus}`,
       actionTaken: actionTaken,
+      ccfrImgUrl: ccfrImgUrl,
     };
     let payload = {
       id: call._id,
@@ -694,11 +706,9 @@ function UpdateCall() {
     } catch (error) {
       throw error;
     }
-
-    if (existswap[0] || inventswap[0]) {
-      handleSwap();
-    }
   };
+
+  // -------handle swap --------
 
   const handleSwap = async () => {
     let payload = {
@@ -708,8 +718,6 @@ function UpdateCall() {
       type: selectedItem.toLowerCase(),
       servicelocation: servicelocation,
       assetserial: POnumber,
-      existUrl:defectiveImgUrl,
-      newUrl:goodSpareImgUrl,
     };
 
     try {
@@ -734,6 +742,44 @@ function UpdateCall() {
       ]);
       getAsset();
       setSubmitModal(true);
+    } catch (error) {
+      throw error;
+    }
+
+    // ----- call history update --------
+    // ----- call history ---
+    let newcallhistory = {
+      date: moment().format(),
+      callStatus: call.callStatus,
+      engineer: call.employeeName,
+      callAttendDate: callAttendDate,
+      startOfService: startOfService,
+      endOfService: endOfService,
+      note: `Items Swapped/Added/Removed`,
+      actionTaken: actionTaken,
+      existUrl: defectiveImgUrl,
+      newUrl: goodSpareImgUrl,
+    };
+    let payloadtwo = {
+      id: call._id,
+      update: {
+        callStatus: call.callStatus,
+        // callAttendDate: call.callAttendDate,
+        // startOfService: call.startOfService,
+        // endOfService: call.endOfService,
+        // spareUsed: call.spareUsed,
+        $push: { history: newcallhistory },
+      },
+    };
+    console.log(payloadtwo);
+    try {
+      let response = await axios({
+        url: `${API}/call/${Emp.getId()}/assignEngg`,
+        method: "POST",
+        data: payloadtwo,
+      });
+      console.log("updated");
+      // setIsReviewModalOpen(true);
     } catch (error) {
       throw error;
     }
@@ -1538,6 +1584,9 @@ function UpdateCall() {
           {/* -------Existing Item Table ----------*/}
 
           <TableContainer className="mt-4">
+            <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
+              Items In Asset
+            </div>
             <Table>
               <TableHeader>
                 <tr className="flex flex-row justify-between">
@@ -1633,6 +1682,9 @@ function UpdateCall() {
           {/*----------- Inventory Selection Table ----------- */}
 
           <TableContainer className="mt-4">
+            <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
+              Items In Inventory
+            </div>
             <Table>
               <TableHeader>
                 <tr className="flex flex-row justify-between">
@@ -1843,117 +1895,116 @@ function UpdateCall() {
         </div>
 
         <div className="flex flex-col ">
+          {ccfrStatus == "Yes" || 1 ? (
+            <>
+              <img src={ccfrImgUrl} className="my-2" width="100" height="100" />
+              <div className="flex-row flex  space-x-3 mt-3 ">
+                <div className="flex flex-col ">
+                  <Label className="">
+                    <span>CCFR upload</span>
+                    <Input
+                      className="mt-1"
+                      type="file"
+                      // value={photo}
+                      onChange={(e) => photoUploadHandler(e, setCcfrImg)}
+                    />
+                  </Label>
 
-        {ccfrStatus == "Yes" || 1 ? (<>
-          <img
-          src={ccfrImgUrl}
-          className="my-2"
-          width="100"
-          height="100"
-        />
-          <div className="flex-row flex  space-x-3 mt-3 ">
-          <div className="flex flex-col ">
-            <Label className="">
-              <span>CCFR upload</span>
-              <Input
-                className="mt-1"
-                type="file"
-                // value={photo}
-                onChange={(e) => photoUploadHandler(e, setCcfrImg)}
+                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+                </div>
+                <Button
+                  onClick={() => {
+                    photoUpload(ccfrImg, (url) => {
+                      console.log("PHOTO URL", url);
+                      setCcfrImgUrl(url);
+                      // setValues({ ...values, DegreeCertificate: url });
+                    });
+                  }}
+                  layout="outline"
+                  className="my-6    "
+                >
+                  Upload CCFR
+                </Button>
+              </div>
+            </>
+          ) : null}
+
+          {existswap[0]._id || 1 ? (
+            <>
+              <img
+                src={defectiveImgUrl}
+                className="my-2"
+                width="100"
+                height="100"
               />
-            </Label>
+              <div className="flex-row flex  space-x-3 mt-3 ">
+                <div className="flex flex-col ">
+                  <Label className="">
+                    <span>Defective upload</span>
+                    <Input
+                      className="mt-1"
+                      type="file"
+                      // value={photo}
+                      onChange={(e) => photoUploadHandler(e, setDefectiveImg)}
+                    />
+                  </Label>
 
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <Button
-            onClick={() => {
-              photoUpload(ccfrImg, (url) => {
-                console.log("PHOTO URL", url);
-                setCcfrImgUrl(url)
-                // setValues({ ...values, DegreeCertificate: url });
-              });
-            }}
-            layout="outline"
-            className="my-6    "
-          >
-            Upload CCFR
-          </Button>
-        </div>
-       </> ) : null}
-
-        {existswap[0]._id || 1  ? (<>
-
-        <img
-          src={defectiveImgUrl}
-          className="my-2"
-          width="100"
-          height="100"
-        />
-          <div className="flex-row flex  space-x-3 mt-3 ">
-          <div className="flex flex-col ">
-            <Label className="">
-              <span>Defective upload</span>
-              <Input
-                className="mt-1"
-                type="file"
-                // value={photo}
-                onChange={(e) => photoUploadHandler(e, setDefectiveImg)}
+                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+                </div>
+                <Button
+                  onClick={() => {
+                    photoUpload(defectiveImg, (url) => {
+                      console.log("PHOTO URL", url);
+                      setDefectiveImgUrl(url);
+                      // setValues({ ...values, DegreeCertificate: url });
+                    });
+                  }}
+                  layout="outline"
+                  className="my-6    "
+                >
+                  Upload Defective
+                </Button>
+              </div>
+            </>
+          ) : null}
+          {inventswap[0]._id || 1 ? (
+            <>
+              <img
+                src={goodSpareImgUrl}
+                className="my-2"
+                width="100"
+                height="100"
               />
-            </Label>
+              <div className="flex-row flex  space-x-3 mt-3 ">
+                <div className="flex flex-col ">
+                  <Label className="">
+                    <span>Good Spare upload</span>
+                    <Input
+                      className="mt-1"
+                      type="file"
+                      // value={photo}
+                      onChange={(e) => photoUploadHandler(e, setGoodSpareImg)}
+                    />
+                  </Label>
 
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <Button
-            onClick={() => {
-              photoUpload(defectiveImg, (url) => {
-                console.log("PHOTO URL", url);
-                setDefectiveImgUrl(url)
-                // setValues({ ...values, DegreeCertificate: url });
-              });
-            }}
-            layout="outline"
-            className="my-6    "
-          >
-            Upload Defective
-          </Button>
-        </div>
-        </>) : null}
-        {inventswap[0]._id  || 1 ?  (<>
-          <img
-          src={goodSpareImgUrl}
-          className="my-2"
-          width="100"
-          height="100"
-        />
-          <div className="flex-row flex  space-x-3 mt-3 ">
-          <div className="flex flex-col ">
-            <Label className="">
-              <span>Good Spare upload</span>
-              <Input
-                className="mt-1"
-                type="file"
-                // value={photo}
-                onChange={(e) => photoUploadHandler(e, setGoodSpareImg)}
-              />
-            </Label>
-
-            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
-          </div>
-          <Button
-            onClick={() => {
-              photoUpload(goodSpareImg, (url) => {
-                console.log("PHOTO URL", url);
-                setGoodSpareImgUrl(url)
-                // setValues({ ...values, DegreeCertificate: url });
-              });
-            }}
-            layout="outline"
-            className="my-6    "
-          >
-            Upload Good Spare
-          </Button>
-        </div>
-        </>) : null}
+                  {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+                </div>
+                <Button
+                  onClick={() => {
+                    photoUpload(goodSpareImg, (url) => {
+                      console.log("PHOTO URL", url);
+                      setGoodSpareImgUrl(url);
+                      // setValues({ ...values, DegreeCertificate: url });
+                    });
+                  }}
+                  layout="outline"
+                  className="my-6    "
+                >
+                  Upload Good Spare
+                </Button>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     );
@@ -1967,20 +2018,21 @@ function UpdateCall() {
       {CallUpdater()}
       {spareStatus == "Yes" ? AssetItemPick() : null}
       {UpdatedModal()}
+      {NotSwapModal()}
       {SpareRequiredModal()}
       {CallEnder()}
       <div>
         <div className="flex flex-col items-center w-full mt-5">
-          <Link to={`/app/viewcalls`}>
-            <Button
-              onClick={() => {
-                handleUpdate();
-              }}
-              layout="outline"
-            >
-              Update Call
-            </Button>
-          </Link>
+          {/* <Link to={`/app/viewcalls`}> */}
+          <Button
+            onClick={() => {
+              handleUpdate();
+            }}
+            layout="outline"
+          >
+            Update Call
+          </Button>
+          {/* </Link> */}
         </div>
       </div>
     </>

@@ -142,6 +142,17 @@ exports.swapItems = async (req, res) => {
     note: "Item Added to Asset",
   };
 
+  // let newcallhistory = {
+  //   date: moment().format(),
+  //   callStatus: call.callStatus,
+  //   engineer: call.employeeName,
+  //   callAttendDate: callAttendDate,
+  //   startOfService: startOfService,
+  //   endOfService: endOfService,
+  //   note: `Call Status Updated to ${call.callStatus}`,
+  //   actionTaken: actionTaken,
+  // };
+
   console.log("---------------------------------------------------");
 
   // ---------Adding Into Asset ------------------
@@ -179,7 +190,7 @@ exports.swapItems = async (req, res) => {
     }
   }
 
-  // --------------Taking Asset Item into inventory
+  // --------------Taking Asset Item into inventory -------------
   if (existswap._id && !newswap._id) {
     console.log("receive");
     try {
@@ -230,6 +241,7 @@ exports.swapItems = async (req, res) => {
       return res.status(400).json({ error: err });
     }
   }
+  // --------------------Swapping Both --------------
   if (existswap._id && newswap._id) {
     console.log("swap");
     try {
