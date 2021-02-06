@@ -336,14 +336,15 @@ function UpdateCall() {
           onClose={() => {
             setDefectiveHistoryImg("");
             setGoodSpareHistoryImg("");
-            setCcfrImgUrl("");
+            setCcfrHistoryImg("");
             setIsHistoryImgViewModal(false);
           }}
-          className="w-6/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll text-cente items-center justify-center"
+          className="w-8/12 dark:bg-gray-800 p-10 my-12 h-screen  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          // className="w-6/12 h-8/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll text-cente items-center justify-center"
         >
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
             {defectiveHistoryImg!=""?(<>
             <div className="text-lg font-semibold my-2"> Replaced Item</div>
             <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
@@ -351,6 +352,10 @@ function UpdateCall() {
             {goodSpareHistoryImg!=""?(<>
             <div className="text-lg font-semibold my-2"> Replaced by</div>
             <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
+            </>):null}
+            {ccfrHistoryImg!=""?(<>
+            <div className="text-lg font-semibold my-2"> CCFR</div>
+            <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
             </>):null}
             </div>
           </ModalBody>
@@ -360,7 +365,7 @@ function UpdateCall() {
               onClick={() => {
                 setDefectiveHistoryImg("");
                 setGoodSpareHistoryImg("");
-                setCcfrImgUrl("");
+                setCcfrHistoryImg("");
                 setIsHistoryImgViewModal(false);
               }}
             >
@@ -594,8 +599,9 @@ function UpdateCall() {
                         <TableCell>
                           
                           <Button layout="outline" onClick={()=>{
-                            setGoodSpareHistoryImg(entry.newUrl);
-                            setDefectiveHistoryImg(entry.existUrl)
+                            if(entry.newUrl) setGoodSpareHistoryImg(entry.newUrl);
+                            if(entry.existUrl) setDefectiveHistoryImg(entry.existUrl);
+                            if(entry.ccfrImgUrl) setCcfrHistoryImg(entry.ccfrImgUrl)
                             setIsHistoryImgViewModal(true)
                           }
                           }>Show</Button>
