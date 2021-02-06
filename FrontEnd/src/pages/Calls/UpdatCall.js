@@ -141,6 +141,104 @@ function UpdateCall() {
     },
   ]);
 
+  // Image states -----------------------------------------------------------------
+  const [isImgUploadModal, setIsImgUploadModal] = useState(false);
+  const [imageUploadMessage, setImageUploadMessage] = useState("")
+  const [goodSpareImg, setGoodSpareImg] = useState(null);
+  const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
+  const [defectiveImg, setDefectiveImg] = useState(null);
+  const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
+  const [ccfrImg, setCcfrImg] = useState(null);
+  const [ccfrImgUrl, setCcfrImgUrl] = useState("");
+
+
+  const photoUploadHandler = (e, callback) => {
+    callback(e.target.files[0]);
+  };
+
+  const photoUpload = (photo, cb) => {
+    console.log(photo);
+    if (photo == null) {
+      setImageUploadMessage("Image not selected");
+      setIsImgUploadModal(true);
+      return;
+    }
+    setImageUploadMessage("Loading...");
+    setIsImgUploadModal(true);
+
+    const data = new FormData(); // If file selected
+    data.append("imageUpload", photo, photo.name);
+    // console.log(data);
+
+    axios
+      .post(`${API}/upload/img-upload`, data, {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      })
+      .then((response) => {
+        if (200 === response.status) {
+          // If file size is larger than expected.
+          if (response.data.error) {
+            if ("LIMIT_FILE_SIZE" === response.data.error.code) {
+              console.log("Max size: 2MB", "red");
+              setImageUploadMessage("Maximum size is 2MB");
+              setIsImgUploadModal(true);
+            } else {
+              console.log(response.data); // If not the given file type
+              // console.log( response.data.error, 'red' );
+              setImageUploadMessage("Given format not supported");
+            }
+          } else {
+            // Success
+            let fileName = response.data;
+            console.log("fileName", fileName.location);
+            console.log("File Uploaded");
+            setImageUploadMessage("Image Uploaded");
+            setIsImgUploadModal(true);
+            cb(response.data.location);
+          }
+        }
+      })
+      .catch((error) => {
+        // If another error
+        setImageUploadMessage("Error Occured");
+        setIsImgUploadModal(true);
+        console.log(error);
+      });
+    // } else {
+    //  // if file not selected throw error
+    //  this.ocShowAlert( 'Please upload file', 'red' );
+    // }
+  };
+
+
+  const ImgUploadModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isImgUploadModal}
+          onClose={() => setIsImgUploadModal(false)}
+        >
+          <ModalHeader>{imageUploadMessage}</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsImgUploadModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  //-----------------------------------------------------------------
+
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
     setTopHeading("Update Call");
@@ -609,6 +707,8 @@ function UpdateCall() {
       type: selectedItem.toLowerCase(),
       servicelocation: servicelocation,
       assetserial: POnumber,
+      existUrl:defectiveImgUrl,
+      newUrl:goodSpareImgUrl,
     };
 
     try {
@@ -1717,7 +1817,7 @@ function UpdateCall() {
 
   const CallEnder = () => {
     return (
-      <div className="dark:text-gray-200 text-black text-sm flex  space-x-2 items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
+      <div className="dark:text-gray-200 text-black text-sm flex flex-col  space-x-2  items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md   w-full my-2 ">
         {/* /////////////////////////////// . Update  ///////////////////////////////////////////// */}
 
         <div className="flex flex-col w-1/4">
@@ -1741,43 +1841,119 @@ function UpdateCall() {
           </Label>
         </div>
 
-        {ccfrStatus == "Yes" ? (
-          <div className="flex flex-col items-center  mt-5">
-            <Button
-              onClick={() => {
-                console.log("Upload CCFR");
-              }}
-              layout="outline"
-            >
-              Upload CCFR
-            </Button>
-          </div>
-        ) : null}
+        <div className="flex flex-col ">
 
-        {existswap[0]._id ? (
-          <div className="flex flex-col items-center  mt-5">
-            <Button
-              onClick={() => {
-                console.log("Upload Defective");
-              }}
-              layout="outline"
-            >
-              Upload Defective
-            </Button>
+        {ccfrStatus == "Yes" || 1 ? (<>
+          <img
+          src={ccfrImgUrl}
+          className="my-2"
+          width="100"
+          height="100"
+        />
+          <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>CCFR upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={(e) => photoUploadHandler(e, setCcfrImg)}
+              />
+            </Label>
+
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
-        ) : null}
-        {inventswap[0]._id ? (
-          <div className="flex flex-col items-center  mt-5">
-            <Button
-              onClick={() => {
-                console.log("Upload Good Spare ");
-              }}
-              layout="outline"
-            >
-              Upload Good Spare
-            </Button>
+          <Button
+            onClick={() => {
+              photoUpload(ccfrImg, (url) => {
+                console.log("PHOTO URL", url);
+                setCcfrImgUrl(url)
+                // setValues({ ...values, DegreeCertificate: url });
+              });
+            }}
+            layout="outline"
+            className="my-6    "
+          >
+            Upload CCFR
+          </Button>
+        </div>
+       </> ) : null}
+
+        {existswap[0]._id || 1  ? (<>
+
+        <img
+          src={defectiveImgUrl}
+          className="my-2"
+          width="100"
+          height="100"
+        />
+          <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Defective upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={(e) => photoUploadHandler(e, setDefectiveImg)}
+              />
+            </Label>
+
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
           </div>
-        ) : null}
+          <Button
+            onClick={() => {
+              photoUpload(defectiveImg, (url) => {
+                console.log("PHOTO URL", url);
+                setDefectiveImgUrl(url)
+                // setValues({ ...values, DegreeCertificate: url });
+              });
+            }}
+            layout="outline"
+            className="my-6    "
+          >
+            Upload Defective
+          </Button>
+        </div>
+        </>) : null}
+        {inventswap[0]._id  || 1 ?  (<>
+          <img
+          src={goodSpareImgUrl}
+          className="my-2"
+          width="100"
+          height="100"
+        />
+          <div className="flex-row flex  space-x-3 mt-3 ">
+          <div className="flex flex-col ">
+            <Label className="">
+              <span>Good Spare upload</span>
+              <Input
+                className="mt-1"
+                type="file"
+                // value={photo}
+                onChange={(e) => photoUploadHandler(e, setGoodSpareImg)}
+              />
+            </Label>
+
+            {/* <HelperText valid={false}>{err.employeeName}</HelperText> */}
+          </div>
+          <Button
+            onClick={() => {
+              photoUpload(goodSpareImg, (url) => {
+                console.log("PHOTO URL", url);
+                setGoodSpareImgUrl(url)
+                // setValues({ ...values, DegreeCertificate: url });
+              });
+            }}
+            layout="outline"
+            className="my-6    "
+          >
+            Upload Good Spare
+          </Button>
+        </div>
+        </>) : null}
+        </div>
       </div>
     );
   };
@@ -1785,6 +1961,7 @@ function UpdateCall() {
   return (
     <>
       {HistoryModal()}
+      {ImgUploadModal()}
       {AssetBar()}
       {CallUpdater()}
       {spareStatus == "Yes" ? AssetItemPick() : null}
