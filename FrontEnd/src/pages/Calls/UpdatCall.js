@@ -344,19 +344,19 @@ function UpdateCall() {
         >
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
-            <div className="flex flex-col ">
-            {defectiveHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> Replaced Item</div>
-            <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
-            {goodSpareHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> Replaced by</div>
-            <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
-            {ccfrHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> CCFR</div>
-            <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
+            <div className="flex flex-col justify-center ">
+              {defectiveHistoryImg!=""?(<>
+              <div className="text-lg font-semibold my-2 w-full"> Replaced Item</div>
+              <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
+              </>):null}
+              {goodSpareHistoryImg!=""?(<>
+              <div className="text-lg font-semibold my-2 w-full"> Replaced by</div>
+              <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
+              </>):null}
+              {ccfrHistoryImg!=""?(<>
+              <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
+              <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
+              </>):null}
             </div>
           </ModalBody>
           <ModalFooter>
@@ -1218,26 +1218,50 @@ function UpdateCall() {
               <span className="font-semibold w-1/5">Product Type :</span>{" "}
               {product}
             </div>
+            {unit.customerId?(
             <div>
-              <span className="font-semibold w-1/5">Customer : </span>{" "}
-              {customer.customerName}
+              <span className="font-semibold w-1/5">State : </span>{" "}
+              {unit.customerId.state}
             </div>
+            ):null}
             <div>
               <span className="font-semibold w-1/5">Account :</span>{" "}
               {account.accountName}
+            </div> 
+            {/* ---------------------------------------------------------------------------------------------------------------- */}
+            
+            {mouse[0] ? (
+              <div>
+                <span className="font-semibold w-1/5">Mouse Model :</span>{" "}
+                {mouse[0] ? mouse[0].mousename : ""}
+              </div>
+            ) : null}
+            {mouse[0] ? (
+              <div>
+                <span className="font-semibold w-1/5">Mouse Serial : </span>{" "}
+                {mouse[0] ? mouse[0].mousesno : ""}
+              </div>
+            ) : null}
+          </div>
+
+          {/*  Row 2 */}
+         
+          <div className="flex flex-col  text-sm my-1 w-full ">
+          <div>
+              <span className="font-semibold w-1/5">Customer : </span>{" "}
+              {customer.customerName}
             </div>
             <div>
               <span className="font-semibold w-1/5">Unit : </span>{" "}
               {unit.unitName}
             </div>
+            {unit.customerId?(
             <div>
-              <span className="font-semibold w-1/5">Business : </span>{" "}
-              {Business}
+              <span className="font-semibold w-1/5">PIN Code : </span>{" "}
+              {unit.customerId.pincode}
             </div>
-          </div>
-
-          {/*  Row 2 */}
-          <div className="flex flex-col  text-sm my-1 w-full ">
+            ):null}
+            {/* ---------------------------------------------------------------------------------------------------------------- */}
             {kbd[0] ? (
               <div>
                 <span className="font-semibold w-1/5">KBD Model :</span>{" "}
@@ -1251,27 +1275,27 @@ function UpdateCall() {
                 {kbd[0] ? kbd[0].keyboardsno : ""}
               </div>
             ) : null}
-            {mouse[0] ? (
+            
+            
+          </div>
+          {/*  Row 3 */}
+         
+            
+          <div className=" flex flex-col  text-sm my-1 w-full">
+         
+            {unit.customerId?(
+            <div>
+              <span className="font-semibold w-1/5 ml-2">Location type : </span>{" "}
+              {unit.customerId.locationType}
+            </div>
+            ):null}
+          {/* ---------------------------------------------------------------------------------------------------------------- */}
+          {monitor[0] ? (
               <div>
-                <span className="font-semibold w-1/5">Mouse Model :</span>{" "}
-                {mouse[0] ? mouse[0].mousename : ""}
-              </div>
-            ) : null}
-            {mouse[0] ? (
-              <div>
-                <span className="font-semibold w-1/5">Mouse Serial : </span>{" "}
-                {mouse[0] ? mouse[0].mousesno : ""}
-              </div>
-            ) : null}
-            {monitor[0] ? (
-              <div>
-                <span className="font-semibold w-1/5">Monitor : </span>{" "}
+                <span className="font-semibold w-1/5 ml-2">Monitor : </span>{" "}
                 {monitor[0] ? monitor[0].monitorname : ""}
               </div>
             ) : null}
-          </div>
-          {/*  Row 3 */}
-          <div className=" flex flex-col  text-sm my-1 w-full">
             {monitor[0] ? (
               <div>
                 <span className="font-semibold w-1/5 ml-2">
@@ -1295,6 +1319,39 @@ function UpdateCall() {
                 {smps[0] ? smps[0].smpssno : ""}
               </div>
             ) : null}
+            
+          </div>
+          {/* Row 4 */}
+            
+          <div className="flex flex-col  text-sm my-1 w-full ">
+         
+            {/* ---------------------------------------------------------------------------------------------------------------- */}
+            {hdd[0] ? (
+              <div>
+                <span className="font-semibold w-1/5 ml-2">HDD1 Model:</span>{" "}
+                {hdd[0] ? hdd[0].hddname : ""}
+              </div>
+            ) : null}
+            {hdd[0] ? (
+              <div>
+                <span className="font-semibold w-1/5 ml-2">HDD1 Serial :</span>{" "}
+                {hdd[0] ? hdd[0].hddsno : ""}
+              </div>
+            ) : null}
+
+            {hdd[1] ? (
+              <div>
+                <span className="font-semibold w-1/5 ml-2">HDD2 Model : </span>{" "}
+                {hdd[1] ? hdd[1].hddname : ""}
+              </div>
+            ) : null}
+
+            {hdd[1] ? (
+              <div>
+                <span className="font-semibold w-1/5 ml-2">HDD2 Serial: </span>{" "}
+                {hdd[1] ? hdd[1].hddsno : ""}
+              </div>
+            ) : null}
             {motherboard[0] ? (
               <div>
                 <span className="font-semibold w-1/5 ml-2">Motherboard: </span>{" "}
@@ -1308,48 +1365,28 @@ function UpdateCall() {
                 {motherboard[0] ? motherboard[0].motherboardsno : ""}
               </div>
             ) : null}
-          </div>
-          {/* Row 4 */}
-          <div className="flex flex-col  text-sm my-1 w-full ">
-            {hdd[0] ? (
-              <div>
-                <span className="font-semibold w-1/5">HDD1 Model:</span>{" "}
-                {hdd[0] ? hdd[0].hddname : ""}
-              </div>
-            ) : null}
-            {hdd[0] ? (
-              <div>
-                <span className="font-semibold w-1/5">HDD1 Serial :</span>{" "}
-                {hdd[0] ? hdd[0].hddsno : ""}
-              </div>
-            ) : null}
-
-            {hdd[1] ? (
-              <div>
-                <span className="font-semibold w-1/5">HDD2 Model : </span>{" "}
-                {hdd[1] ? hdd[1].hddname : ""}
-              </div>
-            ) : null}
-
-            {hdd[1] ? (
-              <div>
-                <span className="font-semibold w-1/5">HDD2 Serial: </span>{" "}
-                {hdd[1] ? hdd[1].hddsno : ""}
-              </div>
-            ) : null}
-            {
-              ram[
-                0 ? (
-                  <div>
-                    <span className="font-semibold w-1/5">RAM1 Model : </span>{" "}
-                    {ram[0] ? ram[0].ramname : ""}
-                  </div>
-                ) : null
-              ]
-            }
+            
           </div>
           {/* -----------Row 5---------- */}
           <div className="flex flex-col  text-sm my-1 w-full ">
+          <div>
+              <span className="font-semibold w-1/5">Business : </span>{" "}
+              {Business}
+            </div>
+          {unit.customerId?(
+          <div>
+              <span className="font-semibold w-1/5">District : </span>{" "}
+              {unit.customerId.district}
+            </div>
+            ):null}
+           {/* ---------------------------------------------------------------------------------------------------------------- */}
+
+            {ram[0] ? (
+              <div>
+                <span className="font-semibold w-1/5">RAM1 Modell:</span>{" "}
+                {ram[0] ? ram[0].ramname : ""}
+              </div>
+            ) : null}
             {ram[0] ? (
               <div>
                 <span className="font-semibold w-1/5">RAM1 Serial:</span>{" "}
@@ -1370,7 +1407,7 @@ function UpdateCall() {
                 {ram[1] ? ram[1].ramsno : ""}
               </div>
             ) : null}
-            {opticaldrive[0] ? (
+            {/* {opticaldrive[0] ? (
               <div>
                 <span className="font-semibold w-1/5">Optical Model: </span>{" "}
                 {opticaldrive[0] ? opticaldrive[0].opticaldrivename : ""}
@@ -1382,7 +1419,7 @@ function UpdateCall() {
                 <span className="font-semibold w-1/5">Optical Serial : </span>{" "}
                 {opticaldrive[0] ? opticaldrive[0].opticaldrivesno : ""}
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
 
