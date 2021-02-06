@@ -14,7 +14,7 @@ import { Input, HelperText, Label, Select } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { saveAs } from "file-saver"
+import { saveAs } from "file-saver";
 
 import { EditIcon, TrashIcon, DownloadIcon } from "../../icons";
 import {
@@ -119,10 +119,9 @@ function SalaryHistory() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, startDate]);
 
-
   const createAndDownloadPdf = async (id) => {
     let payload = {
-      id:id
+      id: id,
     };
     let response = await axios({
       url: `${API}/admin/${Emp.getId()}/downloadsalarypdf`,
@@ -135,8 +134,6 @@ function SalaryHistory() {
 
     saveAs(pdfBlob, "Salary.pdf");
   };
-
-
 
   const DeleteModal = () => {
     return (
@@ -227,7 +224,7 @@ function SalaryHistory() {
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     setSalaryDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">
@@ -281,19 +278,18 @@ function SalaryHistory() {
                   </TableCell>
 
                   <TableCell className="text-center ">
-                  <Button
-                        layout="outline"
-                        aria-label="DropDown"
-                        onClick={() => {
-                          console.log("dwlod");
-                          createAndDownloadPdf(user._id);
-                        }}
-                        className="rounded-lg m-1"
-                      >
-                        Download
-                      </Button>
-                    </TableCell>
-
+                    <Button
+                      layout="outline"
+                      aria-label="DropDown"
+                      onClick={() => {
+                        console.log("dwlod");
+                        createAndDownloadPdf(user._id);
+                      }}
+                      className="rounded-lg m-1"
+                    >
+                      Download
+                    </Button>
+                  </TableCell>
 
                   <TableCell>
                     <div className="flex items-center space-x-4">

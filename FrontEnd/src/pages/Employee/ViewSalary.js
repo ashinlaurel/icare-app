@@ -169,7 +169,7 @@ function ViewSalary() {
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">

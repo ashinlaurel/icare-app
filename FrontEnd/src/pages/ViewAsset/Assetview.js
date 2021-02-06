@@ -56,7 +56,7 @@ function AssetView() {
   const [opticaldrive, setopticaldrive] = useState([
     { opticaldrivename: "", opticaldrivesno: "" },
   ]);
-  const [kbd, setkbd] = useState([{ kbdname: "", kbdsno: "" }]);
+  const [kbd, setkbd] = useState([{ keyboardname: "", keyboardsno: "" }]);
   const [mouse, setmouse] = useState([{ mousename: "", mousesno: "" }]);
   const [monitor, setmonitor] = useState([{ monitorname: "", monitorsno: "" }]);
   const [gcard, setgcard] = useState([{ gcardname: "", gcardsno: "" }]);
@@ -146,7 +146,7 @@ function AssetView() {
         setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
       else setopticaldrive(asset.product.opticaldrive);
       if (asset.product.keyboard.length == 0)
-        setkbd([{ kbdname: "", kbdsno: "" }]);
+        setkbd([{ keyboardname: "", keyboardsno: "" }]);
       else setkbd(asset.product.keyboard);
       if (asset.product.mouse.length == 0)
         setmouse([{ mousename: "", mousesno: "" }]);
@@ -988,7 +988,7 @@ function AssetView() {
                         <Button
                           onClick={() => {
                             let newkbd = [...kbd];
-                            let add = { kbdname: "", kbdsno: "" };
+                            let add = { keyboardname: "", keyboardsno: "" };
                             newkbd.push(add);
                             setkbd(newkbd);
                           }}
@@ -1022,11 +1022,11 @@ function AssetView() {
                               <Input
                                 className="mt-1"
                                 placeholder={`Keyboard ${i + 1}`}
-                                name="kbdname"
-                                value={item.kbdname}
+                                name="keyboardname"
+                                value={item.keyboardname}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdname = e.target.value;
+                                  newlist[i].keyboardname = e.target.value;
                                   setkbd(newlist);
                                 }}
                               />
@@ -1038,11 +1038,11 @@ function AssetView() {
                                 placeholder={`Keyboard ${
                                   i + 1
                                 }'s Serial Number `}
-                                name="kbdsno"
-                                value={item.kbdsno}
+                                name="keyboardsno"
+                                value={item.keyboardsno}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdsno = e.target.value;
+                                  newlist[i].keyboardsno = e.target.value;
                                   setkbd(newlist);
                                 }}
                               />

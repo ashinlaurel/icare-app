@@ -80,126 +80,143 @@ exports.createItem = async (req, res) => {
 
 exports.createItems = async (req, res) => {
   let newitems = req.body;
-  
- 
-  
-    let flag=false;
-    // Searching in assets////////////////////////////////////////
-    newitems.map(item=>{
-      console.log(item.sno)
+
+  let flag = false;
+  // Searching in assets////////////////////////////////////////
+  newitems.map((item) => {
+    console.log(item.sno);
     let options = {};
     let filteroptions = {
-      $or:[
-        {mouse:{
-        $elemMatch:{
-          mousesno:item.sno
-        }
-      }},
-        {keyboard:{
-          $elemMatch:{
-            kbdsno:item.sno
-          }
-         }}
-         ,
+      $or: [
+        {
+          mouse: {
+            $elemMatch: {
+              mousesno: item.sno,
+            },
+          },
+        },
+        {
+          keyboard: {
+            $elemMatch: {
+              keyboardsno: item.sno,
+            },
+          },
+        },
+        {
+          cpu: {
+            $elemMatch: {
+              cpusno: item.sno,
+            },
+          },
+        },
+        {
+          ram: {
+            $elemMatch: {
+              ramsno: item.sno,
+            },
+          },
+        },
 
-        {cpu:{
-          $elemMatch:{
-            cpusno:item.sno
-          }}
-        } ,
-        {ram:{
-          $elemMatch:{
-            ramsno:item.sno
-          }}
-        } ,
-
-        {hdd:{
-          $elemMatch:{
-            
-         hddsno:item.sno }
-        }}
-        ,
-        {smps:{
-          $elemMatch:{
-            
-         smpssno:item.sno }
-        } }
-        ,
-        {fan:{
-          $elemMatch:{
-            
-         fansno:item.sno }
-        } }
-        ,
-        {motherboard:{
-          $elemMatch:{
-         motherboardsno:item.sno }
-        } }
-        ,
-        {opticaldrive:{
-          $elemMatch:{
-            
-         opticaldrivesno:item.sno }
-        } }
-        ,
-        {monitor:{
-          $elemMatch:{
-            
-         monitorsno:item.sno }
-        } }
-        ,
-        {gcard:{
-          $elemMatch:{
-            
-         gcardsno:item.sno }
-        } }
-        ,
-        {enetcard:{
-          $elemMatch:{
-            
-         enetcardsno:item.sno }
-        } }
-        ,
-        {serialcard:{
-          $elemMatch:{
-            
-         serialcardsno:item.sno }
-        } }
-        ,
-        {parallelcard:{
-          $elemMatch:{
-            
-         parallelcardsno:item.sno }
-        } }
-        ,
-        {hbacard:{
-          $elemMatch:{
-            
-         hbacardsno:item.sno }
-        } }
-        ,
-        {raidcontroller:{
-          $elemMatch:{
-            
-         raidcontrollersno:item.sno }
-        } }
-        ,
-        {tapecontroller:{
-          $elemMatch:{
-            
-         tapecontrollersno:item.sno }
-        } }
-        ,
-        {others:{
-          $elemMatch:{
-            
-         otherssno:item.sno }
-        } ,}
-
-
-      ]
-    
-    }
+        {
+          hdd: {
+            $elemMatch: {
+              hddsno: item.sno,
+            },
+          },
+        },
+        {
+          smps: {
+            $elemMatch: {
+              smpssno: item.sno,
+            },
+          },
+        },
+        {
+          fan: {
+            $elemMatch: {
+              fansno: item.sno,
+            },
+          },
+        },
+        {
+          motherboard: {
+            $elemMatch: {
+              motherboardsno: item.sno,
+            },
+          },
+        },
+        {
+          opticaldrive: {
+            $elemMatch: {
+              opticaldrivesno: item.sno,
+            },
+          },
+        },
+        {
+          monitor: {
+            $elemMatch: {
+              monitorsno: item.sno,
+            },
+          },
+        },
+        {
+          gcard: {
+            $elemMatch: {
+              gcardsno: item.sno,
+            },
+          },
+        },
+        {
+          enetcard: {
+            $elemMatch: {
+              enetcardsno: item.sno,
+            },
+          },
+        },
+        {
+          serialcard: {
+            $elemMatch: {
+              serialcardsno: item.sno,
+            },
+          },
+        },
+        {
+          parallelcard: {
+            $elemMatch: {
+              parallelcardsno: item.sno,
+            },
+          },
+        },
+        {
+          hbacard: {
+            $elemMatch: {
+              hbacardsno: item.sno,
+            },
+          },
+        },
+        {
+          raidcontroller: {
+            $elemMatch: {
+              raidcontrollersno: item.sno,
+            },
+          },
+        },
+        {
+          tapecontroller: {
+            $elemMatch: {
+              tapecontrollersno: item.sno,
+            },
+          },
+        },
+        {
+          others: {
+            $elemMatch: {
+              otherssno: item.sno,
+            },
+          },
+        },
+      ],
+    };
     // Server.find({"mouse.mousesno":"123"},function (err, result) {
     Server.paginate(filteroptions, options, function (err, result) {
       // console.log(result);
@@ -210,12 +227,10 @@ exports.createItems = async (req, res) => {
       //   });
       // }
       console.log(result.docs.length);
-      if(result.docs.length>0){
-        console.log("asset found")
-        let message="Item with this serial number already exists in Assets."
+      if (result.docs.length > 0) {
+        console.log("asset found");
+        let message = "Item with this serial number already exists in Assets.";
         // return res.status(400).json({message});
-        
-         
       }
       // let output = {
       //   total: result.total,
@@ -223,28 +238,25 @@ exports.createItems = async (req, res) => {
       // };
       // console.log(output)
       // return res.status(200).json(output);
-    })
-    
-      })
+    });
+  });
 
-
-    
-    ////////////////////////////////////////////////////////////////////////////////
-    // return res.status(400).json("NOT SUPPOSED TO BE HERE") ;
-    // Saving the asset
-    try{
+  ////////////////////////////////////////////////////////////////////////////////
+  // return res.status(400).json("NOT SUPPOSED TO BE HERE") ;
+  // Saving the asset
+  try {
     const result = await InvItem.insertMany(newitems);
     return res.status(200).json(result);
   } catch (err) {
     console.log("Inventory Item Creating error", err.message);
     let message = err.message;
-    console.log(err.message)
-    if (err.code == 11000){
+    console.log(err.message);
+    if (err.code == 11000) {
       message = "Item with this serial number already exists in Inventory.";
       // console.log(message)
       // res.statusMessage="Item exists with serial Number"
-    } 
-     return res.status(400).json({message});
+    }
+    return res.status(400).json({ message });
 
     // throw error;
   }
@@ -310,10 +322,10 @@ exports.getAllItems = (req, res) => {
     filteroptions.location = filters.location;
   }
   if (filters.condition != "") {
-    if(filters.condition=="Available"){
-      filteroptions.condition={$in:["Good","Bad"]} 
-    }else{
-    filteroptions.condition = filters.condition;
+    if (filters.condition == "Available") {
+      filteroptions.condition = { $in: ["Good", "Bad"] };
+    } else {
+      filteroptions.condition = filters.condition;
     }
   }
   if (filters.searchquery != "") {
@@ -429,7 +441,7 @@ exports.updateInventory = async (req, res) => {
 
 exports.getInvById = async (req, res) => {
   try {
-    let vend = await InvItem.findById(req.body.id)
+    let vend = await InvItem.findById(req.body.id);
     return res.status(200).json(vend);
   } catch (err) {
     console.log(id);
@@ -438,7 +450,7 @@ exports.getInvById = async (req, res) => {
 };
 // ------------history-------------------------------------------
 
-exports.createPurchaseHistrory= async (req, res) => {
+exports.createPurchaseHistrory = async (req, res) => {
   let item = req.body;
   console.log(item);
   try {
@@ -454,11 +466,10 @@ exports.createPurchaseHistrory= async (req, res) => {
   }
 };
 
-
 exports.getAllHistory = (req, res) => {
   let { pages, filters } = req.body;
 
-  let { searchquery,vendorsearchquery } = filters;
+  let { searchquery, vendorsearchquery } = filters;
   // console.log(filters);
   // console.log(searchquery);
   // console.log(searchtype);
@@ -469,7 +480,7 @@ exports.getAllHistory = (req, res) => {
     // populate: "product",
     page: pages.page,
     limit: pages.limit,
-    populate: "invItems"
+    populate: "invItems",
   };
 
   let filteroptions = {
@@ -492,7 +503,6 @@ exports.getAllHistory = (req, res) => {
   if (filters.vendorsearchquery != "") {
     filteroptions.vendor = vendorfuzzyquery;
   }
- 
 
   // -----------------------------------------------------------------------
 

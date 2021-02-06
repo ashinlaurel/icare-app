@@ -395,7 +395,7 @@ function UnitAsset() {
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);
-                    setSearchType("kbdsno");
+                    setSearchType("keyboardsno");
                     setSearchLabel("Keyboard Serial");
                     setDisabler(false);
                   }}
@@ -575,7 +575,7 @@ function UnitAsset() {
                     // console.log("the id is " + user._id);
                     setSelectedProd(user);
                     // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">

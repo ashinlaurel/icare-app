@@ -45,8 +45,8 @@ function PurchaseHistory() {
   const [disabler, setDisabler] = useState(true);
 
   // filterhooks
-  const [type, setType] = useState("")
-  const [stocktype, setStocktype] = useState("")
+  const [type, setType] = useState("");
+  const [stocktype, setStocktype] = useState("");
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
@@ -101,7 +101,7 @@ function PurchaseHistory() {
           ////////////////
           searchquery: searchquery,
           vendorsearchquery: vendorsearchquery,
-          stocktype: stocktype
+          stocktype: stocktype,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -123,7 +123,7 @@ function PurchaseHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition,type, refresh,stocktype]);
+  }, [page, location, ToLocation, condition, type, refresh, stocktype]);
 
   console.log(selectedprod);
 
@@ -160,7 +160,7 @@ function PurchaseHistory() {
                   <TableCell>Location</TableCell>
                   <TableCell>Invoice Number</TableCell>
                   <TableCell>Inv Date</TableCell>
-                <TableCell>Wty Expiry</TableCell>
+                  <TableCell>Wty Expiry</TableCell>
                   <TableCell>Status</TableCell>
                 </tr>
               </TableHeader>
@@ -178,7 +178,7 @@ function PurchaseHistory() {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -210,12 +210,14 @@ function PurchaseHistory() {
                       <span className="text-sm">{user.invnumber}</span>
                     </TableCell>
                     <TableCell>
-                    <span className="text-sm">{moment(user.invdate).format("DD/MM/YY")}</span>
-                  </TableCell>
-                  <TableCell>
-                    {/* <span className="text-sm">{moment(user.expirydate).format("DD/MM/YY")}</span> */}
-                    <span className="text-sm">{user.expirydate}</span>
-                  </TableCell>
+                      <span className="text-sm">
+                        {moment(user.invdate).format("DD/MM/YY")}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      {/* <span className="text-sm">{moment(user.expirydate).format("DD/MM/YY")}</span> */}
+                      <span className="text-sm">{user.expirydate}</span>
+                    </TableCell>
 
                     <TableCell>
                       <Badge
@@ -254,7 +256,7 @@ function PurchaseHistory() {
                 }}
               >
                 <option value="" disabled selected>
-                   Type
+                  Type
                 </option>
                 <option value="">All</option>
                 <option value="item">Item</option>
@@ -272,8 +274,6 @@ function PurchaseHistory() {
               </div>
             </div>
 
-
-
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -284,7 +284,7 @@ function PurchaseHistory() {
                 }}
               >
                 <option value="" disabled selected>
-                   Location
+                  Location
                 </option>
                 <option value="">All</option>
                 <option value="Trivandrum">Trivandrum</option>
@@ -302,7 +302,6 @@ function PurchaseHistory() {
                 </svg>
               </div>
             </div>
-            
 
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
@@ -392,7 +391,7 @@ function PurchaseHistory() {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">

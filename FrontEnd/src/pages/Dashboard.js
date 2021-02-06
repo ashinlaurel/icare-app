@@ -305,7 +305,7 @@ function Dashboard() {
             <DropdownItem
               onClick={() => {
                 setIsOpenTwo(false);
-                setSearchType("kbdsno");
+                setSearchType("keyboardsno");
                 setSearchLabel("Keyboard Serial");
                 setDisabler(false);
               }}

@@ -85,7 +85,7 @@ function LST() {
     GSTNo: "",
   });
 
-  const [isVendor, setIsVendor] = useState(false)
+  const [isVendor, setIsVendor] = useState(false);
 
   async function getVendorList() {
     let payload = {
@@ -255,10 +255,10 @@ function LST() {
       invItems: invIds,
       status: "In Transit",
     };
-    if(selectedVendor._id!=""){
-      console.log("here")
-      lst.vendorId=selectedVendor._id
-      lst.vendorName=selectedVendor.name
+    if (selectedVendor._id != "") {
+      console.log("here");
+      lst.vendorId = selectedVendor._id;
+      lst.vendorName = selectedVendor.name;
     }
     console.log("LST", lst);
 
@@ -336,7 +336,6 @@ function LST() {
     );
   };
 
-
   const invTable = () => {
     return (
       <div className="dark:bg-gray-700 bg-gray-100 px-2 py-2 rounded-lg">
@@ -400,15 +399,15 @@ function LST() {
                   Condition
                 </option>
                 <option value="">All</option>
-                <option value="Good" >
-                  Good
-                </option>
+                <option value="Good">Good</option>
                 <option value="Bad">Bad</option>
                 <option value="Used">Used</option>
-                <option value="Available" selected >Available</option>
-                <option value="Defective"  >Defective</option>
-                <option value="Damaged"  >Damaged</option>
-                <option value="DOA"  >DOA</option>
+                <option value="Available" selected>
+                  Available
+                </option>
+                <option value="Defective">Defective</option>
+                <option value="Damaged">Damaged</option>
+                <option value="DOA">DOA</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -477,7 +476,7 @@ function LST() {
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">
@@ -606,7 +605,7 @@ function LST() {
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">
@@ -762,8 +761,6 @@ function LST() {
             </div>
           </div>
 
-         
-
           <div className="flex flex-row dark:text-white  ">
             <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
@@ -773,9 +770,9 @@ function LST() {
                 value={toLocation}
                 onChange={(e) => {
                   setToLocation(e.target.value);
-                  if(e.target.value=="Vendor"){
+                  if (e.target.value == "Vendor") {
                     setIsVendor(true);
-                  }else setIsVendor(false);
+                  } else setIsVendor(false);
                 }}
               >
                 <option value="" disabled selected>
@@ -799,8 +796,8 @@ function LST() {
               </div>
             </div>
           </div>
-          {isVendor?(
-          <div className="mx-2">
+          {isVendor ? (
+            <div className="mx-2">
               <Button
                 layout="outline"
                 className="w-full"
@@ -808,7 +805,8 @@ function LST() {
               >
                 Select Vendor
               </Button>
-            </div>):null}
+            </div>
+          ) : null}
 
           {/* -----------------------------------------Location ----------------------- */}
           <div className=" flex flex-row dark:text-white  ">
@@ -859,7 +857,7 @@ function LST() {
       </div>
 
       {messageModalComponent()}
-     {VendorModal()}
+      {VendorModal()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );

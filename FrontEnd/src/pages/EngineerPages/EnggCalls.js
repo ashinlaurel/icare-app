@@ -81,8 +81,6 @@ function ViewEngineerCalls() {
     setPage(p);
   }
 
-
-
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -111,7 +109,7 @@ function ViewEngineerCalls() {
         let response = await axios({
           url: `${API}/admin/${Emp.getId()}/getCallsByEmpId`,
           method: "POST",
-          data: {id:EmpProfile.getId()},
+          data: { id: EmpProfile.getId() },
         });
         console.log(response.data[0].assignedCalls);
         // setTotalResults(response);
@@ -171,13 +169,12 @@ function ViewEngineerCalls() {
 
       {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-       
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
           <Table>
             <TableHeader>
               <tr>
-              <TableCell>Priority</TableCell>
+                <TableCell>Priority</TableCell>
                 <TableCell>Call No</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Unit Name</TableCell>
@@ -188,7 +185,7 @@ function ViewEngineerCalls() {
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map(({_id,callId,priority}, i) => (
+              {data.map(({ _id, callId, priority }, i) => (
                 <TableRow
                   className={`hover:shadow-lg dark:hover:bg-gray-600 ${
                     activerowid == callId._id
@@ -203,11 +200,10 @@ function ViewEngineerCalls() {
                     // setSelectedProd(call);
                     // console.log("SELECTD", call);
                     // setAssetDetails(call.assetId);
-                    // // console.log(call.product.keyboard[0].kbdname);
+                    // // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
-
-                    <TableCell className="w-8">
+                  <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
                       <div>
                         <p className="font-semibold">{priority}</p>
@@ -234,7 +230,7 @@ function ViewEngineerCalls() {
                     <span className="text-sm">{callId.phone}</span>
                   </TableCell>
                   <TableCell>
-                  <div className="flex justify-start items-center space-x-2">
+                    <div className="flex justify-start items-center space-x-2">
                       <Link
                         key={callId._id}
                         to={`/app/call/updatecall/${callId._id}/${callId.assetId}`}
@@ -286,9 +282,7 @@ function ViewEngineerCalls() {
               ))}
             </TableBody>
           </Table>
-          <TableFooter>
-            
-          </TableFooter>
+          <TableFooter></TableFooter>
         </TableContainer>
 
         {/* ----------------------------------------------Table----------------------------------------------------- */}

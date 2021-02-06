@@ -130,7 +130,7 @@ exports.getAllAssets = (req, res) => {
     limit: pages.limit,
   };
   let pfilteroptions = {
-    // "keyboard.kbdsno": "21321",
+    // "keyboard.keyboardsno": "21321",
   };
 
   // -----------------------------------------------------------------------
@@ -173,8 +173,8 @@ exports.getAllAssets = (req, res) => {
       pfilteroptions["serialno"] = fuzzyquery;
       // console.log("inside");
     }
-    if (searchtype == "kbdsno") {
-      pfilteroptions["keyboard.kbdsno"] = fuzzyquery;
+    if (searchtype == "keyboardsno") {
+      pfilteroptions["keyboard.keyboardsno"] = fuzzyquery;
       // console.log("inside");
     }
     if (searchtype == "mousesno") {

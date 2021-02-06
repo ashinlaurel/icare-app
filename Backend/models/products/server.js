@@ -33,7 +33,7 @@ const serverSchema = new Schema({
   fan: [{ fanname: String, fansno: String }],
   motherboard: [{ motherboardname: String, motherboardsno: String }],
   opticaldrive: [{ opticaldrivename: String, opticaldrivesno: String }],
-  keyboard: [{ kbdname: String, kbdsno: String }],
+  keyboard: [{ keyboardname: String, keyboardsno: String }],
   mouse: [{ mousename: String, mousesno: String }],
   monitor: [{ monitorname: String, monitorsno: String }],
   gcard: [{ gcardname: String, gcardsno: String }],

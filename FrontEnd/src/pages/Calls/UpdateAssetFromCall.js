@@ -32,8 +32,8 @@ import { useParams } from "react-router-dom";
 function UpdateAssetFromCall() {
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
-  const params  = useParams();
-  const id=params.assetid;
+  const params = useParams();
+  const id = params.assetid;
   // console.log(id);
   //modal
   const [submitModal, setSubmitModal] = useState(false);
@@ -58,7 +58,7 @@ function UpdateAssetFromCall() {
   const [opticaldrive, setopticaldrive] = useState([
     { opticaldrivename: "", opticaldrivesno: "" },
   ]);
-  const [kbd, setkbd] = useState([{ kbdname: "", kbdsno: "" }]);
+  const [kbd, setkbd] = useState([{ keyboardname: "", keyboardsno: "" }]);
   const [mouse, setmouse] = useState([{ mousename: "", mousesno: "" }]);
   const [monitor, setmonitor] = useState([{ monitorname: "", monitorsno: "" }]);
   const [gcard, setgcard] = useState([{ gcardname: "", gcardsno: "" }]);
@@ -97,7 +97,7 @@ function UpdateAssetFromCall() {
   const [product, setProduct] = useState("Server");
 
   ////////////---------------- INVENTORY state
-  const [inventory  , setInventory]  = useState([]);
+  const [inventory, setInventory] = useState([]);
 
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -151,7 +151,7 @@ function UpdateAssetFromCall() {
         setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
       else setopticaldrive(asset.product.opticaldrive);
       if (asset.product.keyboard.length == 0)
-        setkbd([{ kbdname: "", kbdsno: "" }]);
+        setkbd([{ keyboardname: "", keyboardsno: "" }]);
       else setkbd(asset.product.keyboard);
       if (asset.product.mouse.length == 0)
         setmouse([{ mousename: "", mousesno: "" }]);
@@ -213,9 +213,9 @@ function UpdateAssetFromCall() {
     );
   };
 
-  const handleInventory =async ()=>{
-    let payload={inventory,assetId:id,product:product}
-    console.log(payload)
+  const handleInventory = async () => {
+    let payload = { inventory, assetId: id, product: product };
+    console.log(payload);
     try {
       let update = await axios({
         url: `${API}/inventory/${Emp.getId()}/assetupdate`,
@@ -226,14 +226,14 @@ function UpdateAssetFromCall() {
       console.log("Done");
     } catch (error) {
       throw error;
-    } 
-  }
+    }
+  };
 
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(inventory);
-    
+
     let payload = {
       business: Business,
       producttype: product,
@@ -255,11 +255,11 @@ function UpdateAssetFromCall() {
       // customerId: customer._id,
       // customerName: customer.customerName,
     };
-    if(payload.podate=="Invalid date")payload.podate="";
-    if(payload.contractfrom=="Invalid date")payload.contractfrom="";
-    if(payload.contractto=="Invalid date")payload.contractto="";
-    if(payload.billingfrom=="Invalid date")payload.billingfrom="";
-    if(payload.billingto=="Invalid date")payload.billingto="";
+    if (payload.podate == "Invalid date") payload.podate = "";
+    if (payload.contractfrom == "Invalid date") payload.contractfrom = "";
+    if (payload.contractto == "Invalid date") payload.contractto = "";
+    if (payload.billingfrom == "Invalid date") payload.billingfrom = "";
+    if (payload.billingto == "Invalid date") payload.billingto = "";
     let newproduct = {
       brand: brand,
       model: model,
@@ -304,10 +304,10 @@ function UpdateAssetFromCall() {
 
   //--------- Loading Functions --------
 
-  const loadProductOption = async (type,inputText, callback) => {
+  const loadProductOption = async (type, inputText, callback) => {
     console.log(inputText);
     let temp = [];
-    let payload = { input: inputText ,Producttype:type};
+    let payload = { input: inputText, Producttype: type };
     try {
       let response = await axios({
         url: `${API}/inventory/${Emp.getId()}/getProduct`,
@@ -701,9 +701,14 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.cpusno, value:item.cpusno}}
+                                value={{
+                                  label: item.cpusno,
+                                  value: item.cpusno,
+                                }}
                                 // value={item.cpusno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Cpu",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption("Cpu", inputText, callback)
+                                }
                                 placeholder={`CPU ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...cpu];
@@ -715,16 +720,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = cpu.filter(x=>{
-                                    if(!(x.cpusno==item.cpusno&&x.cpuname==item.cpuname)) return x;
+                                  let newarr = cpu.filter((x) => {
+                                    if (
+                                      !(
+                                        x.cpusno == item.cpusno &&
+                                        x.cpuname == item.cpuname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setCpu(newarr);
-                                  
+
+                                  setCpu(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -816,9 +826,14 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.ramsno, value:item.ramsno}}
+                                value={{
+                                  label: item.ramsno,
+                                  value: item.ramsno,
+                                }}
                                 // value={item.ramsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Ram",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption("Ram", inputText, callback)
+                                }
                                 placeholder={`Graphics Card ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...ram];
@@ -830,16 +845,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = ram.filter(x=>{
-                                    if(!(x.ramsno==item.ramsno&&x.ramname==item.ramname)) return x;
+                                  let newarr = ram.filter((x) => {
+                                    if (
+                                      !(
+                                        x.ramsno == item.ramsno &&
+                                        x.ramname == item.ramname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setram(newarr);
-                                  
+
+                                  setram(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -935,9 +955,14 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.fansno, value:item.fansno}}
+                                value={{
+                                  label: item.fansno,
+                                  value: item.fansno,
+                                }}
                                 // value={item.fansno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Fan",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption("Fan", inputText, callback)
+                                }
                                 placeholder={`Fan ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...fan];
@@ -949,16 +974,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = fan.filter(x=>{
-                                    if(!(x.fansno==item.fansno&&x.fanname==item.fanname)) return x;
+                                  let newarr = fan.filter((x) => {
+                                    if (
+                                      !(
+                                        x.fansno == item.fansno &&
+                                        x.fanname == item.fanname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setfan(newarr);
-                                  
+
+                                  setfan(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1055,9 +1085,18 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.motherboardsno, value:item.motherboardsno}}
+                                value={{
+                                  label: item.motherboardsno,
+                                  value: item.motherboardsno,
+                                }}
                                 // value={item.motherboardsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Motherboard",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "Motherboard",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Motherboard ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...motherboard];
@@ -1069,16 +1108,23 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = motherboard.filter(x=>{
-                                    if(!(x.motherboardsno==item.motherboardsno&&x.motherboardname==item.motherboardname)) return x;
+                                  let newarr = motherboard.filter((x) => {
+                                    if (
+                                      !(
+                                        x.motherboardsno ==
+                                          item.motherboardsno &&
+                                        x.motherboardname ==
+                                          item.motherboardname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setmotherboard(newarr);
-                                  
+
+                                  setmotherboard(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1174,9 +1220,14 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.hddsno, value:item.hddsno}}
+                                value={{
+                                  label: item.hddsno,
+                                  value: item.hddsno,
+                                }}
                                 // value={item.hddsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("HDD",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption("HDD", inputText, callback)
+                                }
                                 placeholder={`HDD ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...hdd];
@@ -1188,23 +1239,27 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = hdd.filter(x=>{
-                                    if(!(x.hddsno==item.hddsno&&x.hddname==item.hddname)) return x;
+                                  let newarr = hdd.filter((x) => {
+                                    if (
+                                      !(
+                                        x.hddsno == item.hddsno &&
+                                        x.hddname == item.hddname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    sethdd(newarr);
-                                  
+
+                                  sethdd(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
                                 aria-label="Like"
                               />
                             </div>
-
                           </div>
                         </div>
                       );
@@ -1291,9 +1346,14 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.smpssno, value:item.smpssno}}
+                                value={{
+                                  label: item.smpssno,
+                                  value: item.smpssno,
+                                }}
                                 // value={item.smpssno}
-                                loadOptions={(inputText, callback)=>loadProductOption("SMPS",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption("SMPS", inputText, callback)
+                                }
                                 placeholder={`SMPS ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...smps];
@@ -1305,16 +1365,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = smps.filter(x=>{
-                                    if(!(x.smpssno==item.smpssno&&x.smpsname==item.smpsname)) return x;
+                                  let newarr = smps.filter((x) => {
+                                    if (
+                                      !(
+                                        x.smpssno == item.smpssno &&
+                                        x.smpsname == item.smpsname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setsmps(newarr);
-                                  
+
+                                  setsmps(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1348,7 +1413,7 @@ function UpdateAssetFromCall() {
                         <Button
                           onClick={() => {
                             let newkbd = [...kbd];
-                            let add = { kbdname: "", kbdsno: "" };
+                            let add = { keyboardname: "", keyboardsno: "" };
                             newkbd.push(add);
                             setkbd(newkbd);
                           }}
@@ -1382,11 +1447,11 @@ function UpdateAssetFromCall() {
                               <Input
                                 className="mt-1"
                                 placeholder={`Keyboard ${i + 1}`}
-                                name="kbdname"
-                                value={item.kbdname}
+                                name="keyboardname"
+                                value={item.keyboardname}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdname = e.target.value;
+                                  newlist[i].keyboardname = e.target.value;
                                   setkbd(newlist);
                                 }}
                               />
@@ -1398,30 +1463,46 @@ function UpdateAssetFromCall() {
                                 placeholder={`Keyboard ${
                                   i + 1
                                 }'s Serial Number `}
-                                name="kbdsno"
-                                value={item.kbdsno}
+                                name="keyboardsno"
+                                value={item.keyboardsno}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdsno = e.target.value;
+                                  newlist[i].keyboardsno = e.target.value;
                                   setkbd(newlist);
                                 }}
                               /> */}
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.kbdsno, value:item.kbdsno}}
-                                // value={item.kbdsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Keyboard",inputText, callback)}
+                                value={{
+                                  label: item.keyboardsno,
+                                  value: item.keyboardsno,
+                                }}
+                                // value={item.keyboardsno}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "Keyboard",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Keyboard ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...kbd];
-                                  newlist[i].kbdsno = e.value;
-                                  newlist[i].kbdname = e.name;
+                                  newlist[i].keyboardsno = e.value;
+                                  newlist[i].keyboardname = e.name;
                                   setkbd(newlist);
-                                  let tempInv=inventory;
-                                  tempInv.push([{name:e.name,sno:e.value,type:"Keyboard",op:"ADD"}])
+                                  let tempInv = inventory;
+                                  tempInv.push([
+                                    {
+                                      name: e.name,
+                                      sno: e.value,
+                                      type: "Keyboard",
+                                      op: "ADD",
+                                    },
+                                  ]);
                                   setInventory(tempInv);
-                                 console.log(e);
+                                  console.log(e);
                                 }}
                                 defaultOptions={false}
                               />
@@ -1429,16 +1510,28 @@ function UpdateAssetFromCall() {
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let tempInv=inventory;
-                                  tempInv.push([{name:item.kbdname,sno:item.kbdsno,type:"Keyboard",op:"DEL"}])
+                                  let tempInv = inventory;
+                                  tempInv.push([
+                                    {
+                                      name: item.keyboardname,
+                                      sno: item.keyboardsno,
+                                      type: "Keyboard",
+                                      op: "DEL",
+                                    },
+                                  ]);
                                   setInventory(tempInv);
 
-                                  let newkbd = kbd.filter(x=>{
-                                    if(!(x.kbdsno==item.kbdsno&&x.kbdname==item.kbdname)) return x;
+                                  let newkbd = kbd.filter((x) => {
+                                    if (
+                                      !(
+                                        x.keyboardsno == item.keyboardsno &&
+                                        x.keyboardname == item.keyboardname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setkbd(newkbd);
-                                  
+
+                                  setkbd(newkbd);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1528,9 +1621,18 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.mousesno, value:item.mousesno}}
+                                value={{
+                                  label: item.mousesno,
+                                  value: item.mousesno,
+                                }}
                                 // value={item.mousesno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Mouse",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "Mouse",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Mouse ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...mouse];
@@ -1542,16 +1644,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = mouse.filter(x=>{
-                                    if(!(x.mousesno==item.mousesno&&x.mousename==item.mousename)) return x;
+                                  let newarr = mouse.filter((x) => {
+                                    if (
+                                      !(
+                                        x.mousesno == item.mousesno &&
+                                        x.mousename == item.mousename
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setmouse(newarr);
-                                  
+
+                                  setmouse(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1649,9 +1756,18 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.monitorsno, value:item.monitorsno}}
+                                value={{
+                                  label: item.monitorsno,
+                                  value: item.monitorsno,
+                                }}
                                 // value={item.monitorsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("Monitor",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "Monitor",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Monitor ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...monitor];
@@ -1663,16 +1779,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = monitor.filter(x=>{
-                                    if(!(x.monitorsno==item.monitorsno&&x.monitorname==item.monitorname)) return x;
+                                  let newarr = monitor.filter((x) => {
+                                    if (
+                                      !(
+                                        x.monitorsno == item.monitorsno &&
+                                        x.monitorname == item.monitorname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setmonitor(newarr);
-                                  
+
+                                  setmonitor(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1766,9 +1887,18 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.gcardsno, value:item.gcardsno}}
+                                value={{
+                                  label: item.gcardsno,
+                                  value: item.gcardsno,
+                                }}
                                 // value={item.gcardsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("GCard",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "GCard",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Graphics Card ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...gcard];
@@ -1780,16 +1910,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = gcard.filter(x=>{
-                                    if(!(x.gcardsno==item.gcardsno&&x.gcardname==item.gcardname)) return x;
+                                  let newarr = gcard.filter((x) => {
+                                    if (
+                                      !(
+                                        x.gcardsno == item.gcardsno &&
+                                        x.gcardname == item.gcardname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setgcard(newarr);
-                                  
+
+                                  setgcard(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"
@@ -1886,9 +2021,18 @@ function UpdateAssetFromCall() {
                               <AsyncSelect
                                 cacheOptions
                                 defaultOptions
-                                value={{label:item.enetcardsno, value:item.enetcardsno}}
+                                value={{
+                                  label: item.enetcardsno,
+                                  value: item.enetcardsno,
+                                }}
                                 // value={item.enetcardsno}
-                                loadOptions={(inputText, callback)=>loadProductOption("EnetCard",inputText, callback)}
+                                loadOptions={(inputText, callback) =>
+                                  loadProductOption(
+                                    "EnetCard",
+                                    inputText,
+                                    callback
+                                  )
+                                }
                                 placeholder={`Enet Card ${i + 1}`}
                                 onChange={(e) => {
                                   let newlist = [...enetcard];
@@ -1900,16 +2044,21 @@ function UpdateAssetFromCall() {
                                 defaultOptions={false}
                               />
                             </Label>
-                            
+
                             <div className="ml-3">
                               <Button
                                 onClick={() => {
-                                  let newarr = enetcard.filter(x=>{
-                                    if(!(x.enetcardsno==item.enetcardsno&&x.enetcardname==item.enetcardname)) return x;
+                                  let newarr = enetcard.filter((x) => {
+                                    if (
+                                      !(
+                                        x.enetcardsno == item.enetcardsno &&
+                                        x.enetcardname == item.enetcardname
+                                      )
+                                    )
+                                      return x;
                                   });
-                                  
-                                    setenetcard(newarr);
-                                  
+
+                                  setenetcard(newarr);
                                 }}
                                 icon={Remove}
                                 layout="link"

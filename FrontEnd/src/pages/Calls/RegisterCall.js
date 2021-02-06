@@ -460,7 +460,7 @@ function RegisterCall() {
                   <DropdownItem
                     onClick={() => {
                       setIsOpenTwo(false);
-                      setSearchType("kbdsno");
+                      setSearchType("keyboardsno");
                       setSearchLabel("Keyboard Serial");
                       setDisabler(false);
                     }}
@@ -642,7 +642,7 @@ function RegisterCall() {
                       setSelectedProd(user);
                       setAssetDetails(user);
                       setBBarOpen(1);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">

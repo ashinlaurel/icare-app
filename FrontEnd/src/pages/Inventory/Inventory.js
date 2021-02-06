@@ -332,7 +332,7 @@ function Inventory() {
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
-                          // console.log(user.product.keyboard[0].kbdname);
+                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
                         <TableCell className="w-8">
@@ -650,10 +650,10 @@ function Inventory() {
                     // console.log("the id is " + user._id);
                     // setSelectedProd(user);
                     // setAssetDetails(user);
-                    // console.log(user.product.keyboard[0].kbdname);
+                    // console.log(user.product.keyboard[0].keyboardname);
                   }}
                 >
-                <TableCell>
+                  <TableCell>
                     <span className="text-sm">{user.location}</span>
                   </TableCell>
 
@@ -661,8 +661,8 @@ function Inventory() {
                     <span className="text-sm">{user.stocktype}</span>
                   </TableCell>
                   <TableCell className="w-8">
-                     <div>
-                        <p className="font-semibold">{capitalize(user.type)}</p>
+                    <div>
+                      <p className="font-semibold">{capitalize(user.type)}</p>
                     </div>
                   </TableCell>
                   <TableCell>
@@ -682,7 +682,9 @@ function Inventory() {
                     <span className="text-sm">{user.invnumber}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{moment(user.invdate).format("DD/MM/YY")}</span>
+                    <span className="text-sm">
+                      {moment(user.invdate).format("DD/MM/YY")}
+                    </span>
                   </TableCell>
                   <TableCell>
                     {/* <span className="text-sm">{moment(user.expirydate).format("DD/MM/YY")}</span> */}
@@ -696,9 +698,7 @@ function Inventory() {
                     </Badge>
                   </TableCell>
 
-
-
-{/* ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+                  {/* ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
                   {/* <TableCell className="w-8">
                     <div className="flex items-center text-sm ">
                       <div>
@@ -731,7 +731,6 @@ function Inventory() {
                       {user.condition}
                     </Badge>
                   </TableCell> */}
-
 
                   <TableCell>
                     <div className="flex justify-start items-center space-x-2">

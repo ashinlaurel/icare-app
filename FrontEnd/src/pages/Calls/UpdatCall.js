@@ -73,7 +73,7 @@ function UpdateCall() {
   const [opticaldrive, setopticaldrive] = useState([
     { opticaldrivename: "", opticaldrivesno: "" },
   ]);
-  const [kbd, setkbd] = useState([{ kbdname: "", kbdsno: "" }]);
+  const [kbd, setkbd] = useState([{ keyboardname: "", keyboardsno: "" }]);
   const [mouse, setmouse] = useState([{ mousename: "", mousesno: "" }]);
   const [monitor, setmonitor] = useState([{ monitorname: "", monitorsno: "" }]);
   const [gcard, setgcard] = useState([{ gcardname: "", gcardsno: "" }]);
@@ -281,6 +281,7 @@ function UpdateCall() {
       item.condition = "Bad";
       item.systype = theitemandsystem;
     });
+
     console.log(temp);
     setData(temp);
     return () => {
@@ -374,7 +375,7 @@ function UpdateCall() {
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
-                          // console.log(user.product.keyboard[0].kbdname);
+                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
                         <TableCell className="w-8">
@@ -524,7 +525,7 @@ function UpdateCall() {
         setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
       else setopticaldrive(asset.product.opticaldrive);
       if (asset.product.keyboard.length == 0)
-        setkbd([{ kbdname: "", kbdsno: "" }]);
+        setkbd([{ keyboardname: "", keyboardsno: "" }]);
       else setkbd(asset.product.keyboard);
       if (asset.product.mouse.length == 0)
         setmouse([{ mousename: "", mousesno: "" }]);
@@ -863,14 +864,14 @@ function UpdateCall() {
             {kbd[0] ? (
               <div>
                 <span className="font-semibold w-1/5">KBD Model :</span>{" "}
-                {kbd[0].kbdname}
+                {kbd[0].keyboardname}
               </div>
             ) : null}
 
             {kbd[0] ? (
               <div>
                 <span className="font-semibold w-1/5">KBD Serial: </span>{" "}
-                {kbd[0] ? kbd[0].kbdsno : ""}
+                {kbd[0] ? kbd[0].keyboardsno : ""}
               </div>
             ) : null}
             {mouse[0] ? (
@@ -1118,7 +1119,7 @@ function UpdateCall() {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -1379,7 +1380,7 @@ function UpdateCall() {
                       onClick={() => {
                         setIsOpen(false);
                         setActiveRowID(-1);
-                        setSelectedItem("Kbd");
+                        setSelectedItem("Keyboard");
                         setData(kbd);
                       }}
                     >

@@ -56,7 +56,7 @@ const AssetModule = ({ selectedprod }) => {
   // let raidcontroller = [];
   // let tapecontroller = [];
   console.log(selectedprod.product);
-  console.log("Producy type",product);
+  console.log("Producy type", product);
   return (
     <div className=" ">
       {/* Row 1  */}
@@ -86,14 +86,14 @@ const AssetModule = ({ selectedprod }) => {
           {keyboard[0] ? (
             <div>
               <span className="font-semibold w-1/5">KBD Model :</span>{" "}
-              {keyboard[0].kbdname}
+              {keyboard[0].keyboardname}
             </div>
           ) : null}
 
           {keyboard[0] ? (
             <div>
               <span className="font-semibold w-1/5">KBD Serial: </span>{" "}
-              {keyboard[0] ? keyboard[0].kbdsno : ""}
+              {keyboard[0] ? keyboard[0].keyboardsno : ""}
             </div>
           ) : null}
           {mouse[0] ? (
@@ -483,11 +483,11 @@ const AssetModule = ({ selectedprod }) => {
                       <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
                         <div className="w-full my-1">
                           <span>
-                            kbd {i + 1}: {item.kbdname}
+                            kbd {i + 1}: {item.keyboardname}
                           </span>
                         </div>
                         <div className="w-full my-1">
-                          <span>S.No :{item.kbdsno}</span>
+                          <span>S.No :{item.keyboardsno}</span>
                         </div>
                       </div>
                     </div>

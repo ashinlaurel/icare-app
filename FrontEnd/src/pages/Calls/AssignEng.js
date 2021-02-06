@@ -477,7 +477,7 @@ function AssignEng() {
                     if (call.assetId) setAssetDetails(call.assetId);
                     else setAssetDetails({});
                     console.log(call.assetId);
-                    // console.log(call.product.keyboard[0].kbdname);
+                    // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
                   <TableCell className="w-8">

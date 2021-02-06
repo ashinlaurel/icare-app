@@ -23,7 +23,7 @@ import {
   Pagination,
   Dropdown,
   DropdownItem,
-  Select
+  Select,
 } from "@windmill/react-ui";
 
 import { API } from "../../backendapi";
@@ -155,26 +155,26 @@ function Notifications() {
       status: invItem.condition,
       note: `Item received at ${lstItem.to}`,
     };
-    let update={};
-    if(lstItem.to=="Vendor"){
-      newhistory.note=`Item received from ${lstItem.vendorName} back to ${lstItem.from}`
+    let update = {};
+    if (lstItem.to == "Vendor") {
+      newhistory.note = `Item received from ${lstItem.vendorName} back to ${lstItem.from}`;
       update = {
         id: invItem._id,
         update: {
           location: lstItem.from,
-          sno:invItem.sno,
-          condition:invItem.condition,
+          sno: invItem.sno,
+          condition: invItem.condition,
           $push: { history: newhistory },
         },
-      }; 
-    }else{
-     update = {
-      id: invItem._id,
-      update: {
-        location: lstItem.to,
-        $push: { history: newhistory },
-      },
-    };
+      };
+    } else {
+      update = {
+        id: invItem._id,
+        update: {
+          location: lstItem.to,
+          $push: { history: newhistory },
+        },
+      };
     }
     console.log("PAYLOAD", update);
     try {
@@ -231,9 +231,9 @@ function Notifications() {
     }
   };
 
-  const InvTable = ( num,to) => {
-    let items=data[num].invItems;
-    console.log("TO",items.to)
+  const InvTable = (num, to) => {
+    let items = data[num].invItems;
+    console.log("TO", items.to);
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
         <div className="mb- mt-4">
@@ -265,7 +265,7 @@ function Notifications() {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -280,36 +280,35 @@ function Notifications() {
                     </TableCell>
 
                     <TableCell>
-                    {data[num].to=="Vendor"&& user.location=="In Transit"?(
-                      <span className="text-sm">
-                      
-                        <input
-                      value={user.sno}
-                      onChange={(e) => {
-                        let tempdata=data
-                        let temp= data[num].invItems
-                        temp = temp.filter((x) => {
-                          if (x._id != user._id) return x;
-                          else {
-                            console.log("here", e.target.value,x.name);
-                            x.sno = e.target.value;
-                            return x;
-                          }
-                        });
-                        // tempnum.invItems=temp;
-                        tempdata[num].invItems=temp
-                        console.log(tempdata);
-                        // tempdata[num].from="TETS"
-                        setData([...tempdata]);
-                      }}
-                      
-                      placeholder="Cse Id."
-                      class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                    />
-                   
-                      
-                      </span>
-                      ):user.sno}
+                      {data[num].to == "Vendor" &&
+                      user.location == "In Transit" ? (
+                        <span className="text-sm">
+                          <input
+                            value={user.sno}
+                            onChange={(e) => {
+                              let tempdata = data;
+                              let temp = data[num].invItems;
+                              temp = temp.filter((x) => {
+                                if (x._id != user._id) return x;
+                                else {
+                                  console.log("here", e.target.value, x.name);
+                                  x.sno = e.target.value;
+                                  return x;
+                                }
+                              });
+                              // tempnum.invItems=temp;
+                              tempdata[num].invItems = temp;
+                              console.log(tempdata);
+                              // tempdata[num].from="TETS"
+                              setData([...tempdata]);
+                            }}
+                            placeholder="Cse Id."
+                            class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                          />
+                        </span>
+                      ) : (
+                        user.sno
+                      )}
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">{user.location}</span>
@@ -318,40 +317,40 @@ function Notifications() {
                       <span className="text-sm">{user.invnumber}</span>
                     </TableCell>
                     <TableCell>
-                    {data[num].to=="Vendor"&& user.location=="In Transit"?(
-                      <Select
-                      value={user.condition}
-                      className="mt-1"
-                      onChange={(e) => {
-                        let tempdata=data
-                        let temp= data[num].invItems
-                        temp = temp.filter((x) => {
-                          if (x._id != user._id) return x;
-                          else {
-                            console.log("here", e.target.value,x.name);
-                            x.condition = e.target.value;
-                            return x;
-                          }
-                        });
-                        // tempnum.invItems=temp;
-                        tempdata[num].invItems=temp
-                        console.log(tempdata);
-                        // tempdata[num].from="TETS"
-                        setData([...tempdata]);
-                      }}
-                    >
-                      <option value="Good" > Good</option>
-                      <option value="Defective">Defective</option>
-                      <option value="DOA">DOA</option>z
-                      <option value="Damaged">Damaged</option>
-                    </Select>
-
-                    ):(
-                      <Badge
-                        type={user.condition == "Good" ? "primary" : "danger"}
-                      >
-                        {user.condition}
-                      </Badge>
+                      {data[num].to == "Vendor" &&
+                      user.location == "In Transit" ? (
+                        <Select
+                          value={user.condition}
+                          className="mt-1"
+                          onChange={(e) => {
+                            let tempdata = data;
+                            let temp = data[num].invItems;
+                            temp = temp.filter((x) => {
+                              if (x._id != user._id) return x;
+                              else {
+                                console.log("here", e.target.value, x.name);
+                                x.condition = e.target.value;
+                                return x;
+                              }
+                            });
+                            // tempnum.invItems=temp;
+                            tempdata[num].invItems = temp;
+                            console.log(tempdata);
+                            // tempdata[num].from="TETS"
+                            setData([...tempdata]);
+                          }}
+                        >
+                          <option value="Good"> Good</option>
+                          <option value="Defective">Defective</option>
+                          <option value="DOA">DOA</option>z
+                          <option value="Damaged">Damaged</option>
+                        </Select>
+                      ) : (
+                        <Badge
+                          type={user.condition == "Good" ? "primary" : "danger"}
+                        >
+                          {user.condition}
+                        </Badge>
                       )}
                     </TableCell>
                     <TableCell>
@@ -570,7 +569,7 @@ function Notifications() {
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].kbdname);
+                      // console.log(user.product.keyboard[0].keyboardname);
                     }}
                   >
                     <TableCell className="w-8">
@@ -585,7 +584,9 @@ function Notifications() {
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.to=="Vendor"?user.vendorName:user.to}</span>
+                      <span className="text-sm">
+                        {user.to == "Vendor" ? user.vendorName : user.to}
+                      </span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">
@@ -634,7 +635,7 @@ function Notifications() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable( i,user.to) : null}
+                  {activeRowID == i ? InvTable(i, user.to) : null}
                 </div>
               ))}
             </TableBody>
