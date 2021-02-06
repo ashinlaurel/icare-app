@@ -849,7 +849,10 @@ function UpdateCall() {
   const NotSwapModal = () => {
     return (
       <>
-        <Modal isOpen={notswapModalOpen} onClose={() => setSubmitModal(false)}>
+        <Modal
+          isOpen={notswapModalOpen}
+          onClose={() => setNotSwapModalOpen(false)}
+        >
           <ModalHeader>Inventory Process Pending</ModalHeader>
           <ModalBody>
             Please finish add/remove/swap of items before updating call.
@@ -907,6 +910,11 @@ function UpdateCall() {
       setNotSwapModalOpen(true);
       return;
     }
+    if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
+      setNotSwapModalOpen(true);
+      return;
+    }
+
     // ----- history ---
     let newcallhistory = {
       date: moment().format(),
