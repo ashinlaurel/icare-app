@@ -28,7 +28,7 @@ import {
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { DropdownIcon } from "../../icons";
@@ -38,7 +38,7 @@ import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 function UpdateCall() {
   // floatbox
-
+  let movehistory = useHistory();
   const params = useParams();
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -49,6 +49,7 @@ function UpdateCall() {
   const [submitModal, setSubmitModal] = useState(false);
   const [sparemodal, setSpareModal] = useState(false);
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
+  const [assethistoryModalOpen, setAssetHistoryModalOpen] = useState(false);
   const [notswapModalOpen, setNotSwapModalOpen] = useState(false);
   const [spareStatus, setSpareStatus] = useState("");
   const [ccfrStatus, setCcfrStatus] = useState("");
@@ -59,6 +60,7 @@ function UpdateCall() {
   const [account, setAccount] = useState({ _id: "", accountName: "" });
 
   //prodcut
+  const [productID, setProductID] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [serialno, setSerialNo] = useState("");
@@ -109,6 +111,7 @@ function UpdateCall() {
   const [GST, setGST] = useState("");
   const [GSTAMOUNT, setGSTAMOUNT] = useState("");
   const [NetAmount, setNetAmount] = useState("");
+  const [assethistory, setAssetHistory] = useState([]);
 
   //////////////-------------------------------------------->Product name not in asset
   const [product, setProduct] = useState("Server");
@@ -465,7 +468,7 @@ function UpdateCall() {
   const HistoryModal = () => {
     if (call.history) {
       let data = call.history;
-      console.log(data);
+      // console.log(data);
 
       return (
         <>
@@ -618,6 +621,151 @@ function UpdateCall() {
     }
   };
 
+  // Asset History Modal
+  const AssetHistoryModal = () => {
+    if (assethistory[0]) {
+      // let data = call.history;
+      // console.log(data);
+
+      return (
+        <>
+          <Modal
+            isOpen={assethistoryModalOpen}
+            onClose={() => setAssetHistoryModalOpen(false)}
+            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          >
+            <ModalHeader className="flex flex-row justify-between text-xl">
+              {/* <div>{item.name}</div> */}
+              <div>
+                Asset Serial: <Badge>{call.callNo}</Badge>{" "}
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <div className="font-semibold text-xl my-2">Asset History</div>
+              {/* ------------------------- Table ------------------------------ */}
+              <TableContainer className="mt-4">
+                <Table>
+                  <TableHeader>
+                    <tr>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Engineer</TableCell>
+                      <TableCell>Attended Date</TableCell>
+                      <TableCell>Start Of Service</TableCell>
+                      <TableCell>End Of Service</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Notes</TableCell>
+                      <TableCell>Action Taken</TableCell>
+                    </tr>
+                  </TableHeader>
+                  <TableBody>
+                    {assethistory.map((entry, i) => (
+                      <TableRow
+                        className={`hover:shadow-lg dark:hover:bg-gray-600 
+                       `}
+                        key={i}
+                        onClick={() => {
+                          // setActiveRowId(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].keyboardname);
+                        }}
+                      >
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            <div>
+                              <p className="font-semibold">
+                                {moment(entry.date).format("DD-MM-YYYY")}
+                              </p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {capitalize(entry.engineer)}
+                          </span>
+                        </TableCell>
+
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.callAttendDate}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">
+                            {entry.startOfService}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.endOfService}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span>
+                            {call.callStatus == 0 ? (
+                              <Badge>Not Allocated</Badge>
+                            ) : null}
+                            {call.callStatus == 1 ? (
+                              <Badge>Pending for Percall Approval</Badge>
+                            ) : null}
+                            {call.callStatus == 2 ? (
+                              <Badge>Pending for Response</Badge>
+                            ) : null}
+                            {call.callStatus == 3 ? (
+                              <Badge>Pending for OEM Response</Badge>
+                            ) : null}
+                            {call.callStatus == 4 ? (
+                              <Badge>Pending for 2nd Response</Badge>
+                            ) : null}
+                            {call.callStatus == 5 ? (
+                              <Badge>Pending for Customer</Badge>
+                            ) : null}
+                            {call.callStatus == 6 ? (
+                              <Badge>Under Observation</Badge>
+                            ) : null}
+                            {call.callStatus == 7 ? (
+                              <Badge>Pending for Others</Badge>
+                            ) : null}
+                            {call.callStatus == 8 ? (
+                              <Badge>Pending for Spare</Badge>
+                            ) : null}
+                            {call.callStatus == 9 ? (
+                              <Badge>Spare in Transit</Badge>
+                            ) : null}
+                            {call.callStatus == 10 ? (
+                              <Badge>Cancelled Calls</Badge>
+                            ) : null}
+                            {call.callStatus == 11 ? (
+                              <Badge>Closed Calls</Badge>
+                            ) : null}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm  w-1/2">{entry.note}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{entry.actionTaken}</span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                {/* <TableFooter>
+                  <Pagination
+                    totalResults={totalResults}
+                    resultsPerPage={resultsPerPage}
+                    label="Table navigation"
+                    onChange={onPageChange}
+                  />
+                </TableFooter> */}
+              </TableContainer>
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </Modal>
+        </>
+      );
+    }
+  };
+
   // -----getting inventory items
 
   const getAsset = async () => {
@@ -627,11 +775,15 @@ function UpdateCall() {
       });
       console.log("asset", res.data);
       let asset = res.data;
+      setProductID(asset.product._id);
+      setAssetHistory(asset.product.history);
+
       setServiceLocation(asset.servicelocation);
       setProduct(asset.producttype);
       setUnit({ _id: id, unitName: asset.unitName });
       setCustomer({ _id: asset.customerId, customerName: asset.customerName });
       setAccount({ _id: asset.accountId, accountName: asset.accountName });
+
       ////------------------------>>>>>>>>
       // setProduct("Server");
       ////////---------ASSET INFO
@@ -813,7 +965,7 @@ function UpdateCall() {
   // --------------------  Functions ---------------------------
 
   const handleUpdate = async () => {
-    if (existswap[0] || inventswap[0] || spareStatus == "Yes") {
+    if (spareStatus == "Yes") {
       setNotSwapModalOpen(true);
       return;
     }
@@ -852,6 +1004,7 @@ function UpdateCall() {
     } catch (error) {
       throw error;
     }
+    movehistory.push("/app/viewcalls");
   };
 
   // -------handle swap --------
@@ -899,12 +1052,32 @@ function UpdateCall() {
         $push: { history: newcallhistory },
       },
     };
+
     console.log(payloadtwo);
     try {
       let response = await axios({
         url: `${API}/call/${Emp.getId()}/assignEngg`,
         method: "POST",
         data: payloadtwo,
+      });
+
+      // setIsReviewModalOpen(true);
+    } catch (error) {
+      throw error;
+    }
+
+    let assetpayload = {
+      id: productID,
+      update: {
+        $push: { history: newcallhistory },
+      },
+    };
+
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/updateProductWithID`,
+        method: "POST",
+        data: assetpayload,
       });
       console.log("updated");
       console.log("Done");
@@ -920,7 +1093,7 @@ function UpdateCall() {
           sno: "Not Selected",
         },
       ]);
-      getAsset();
+      await getAsset();
       setSubmitModal(true);
       // setIsReviewModalOpen(true);
     } catch (error) {
@@ -1010,8 +1183,17 @@ function UpdateCall() {
             ) : null}
           </div>
 
-          <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 w-1/4 flex items-center justify-center">
+          <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 w-1/2 flex items-center justify-end space-x-1">
             {/* /////////////////////////////// . History  ///////////////////////////////////////////// */}
+            <Button
+              onClick={() => {
+                setAssetHistoryModalOpen(true);
+              }}
+              layout="outline"
+            >
+              View Asset History
+            </Button>
+
             <Button
               onClick={() => {
                 setHistoryModalOpen(true);
@@ -2082,6 +2264,7 @@ function UpdateCall() {
   return (
     <>
       {HistoryModal()}
+      {AssetHistoryModal()}
       {ImgUploadModal()}
       {ImgUploadMenuModal()}
       {HistoryImgViewModal()}
