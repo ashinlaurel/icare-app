@@ -274,6 +274,7 @@ function UpdateCall() {
           isOpen={isImgUploadMenuModal}
           onClose={() => {
             setImgUrl("");
+            setImgFile(null)
             setIsImgUploadMenuModal(false)}
           }
         >
@@ -318,6 +319,7 @@ function UpdateCall() {
               className="w-full sm:w-auto"
               onClick={() => {
                 setImgUrl("");
+                setImgFile(null)
                 setIsImgUploadMenuModal(false)
               }}
             >
@@ -425,6 +427,7 @@ function UpdateCall() {
   const HistoryModal = () => {
     if (call.history) {
       let data = call.history;
+      console.log(data)
 
       return (
         <>
@@ -539,7 +542,7 @@ function UpdateCall() {
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm">{entry.note}</span>
+                          <span className="text-sm  w-1/2">{entry.note}</span>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
