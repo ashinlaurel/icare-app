@@ -152,12 +152,18 @@ function UpdateCall() {
   const [imgUrl, setImgUrl] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
-  const [goodSpareImg, setGoodSpareImg] = useState(null);
+  
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
-  const [defectiveImg, setDefectiveImg] = useState(null);
   const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
-  const [ccfrImg, setCcfrImg] = useState(null);
   const [ccfrImgUrl, setCcfrImgUrl] = useState("");
+
+  const [isHistoryImgViewModal, setIsHistoryImgViewModal] = useState(false);
+  const [goodSpareHistoryImg, setGoodSpareHistoryImg] = useState("");
+  const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
+  const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
+
+
+
 
   const photoUploadHandler = (e, callback) => {
     callback(e.target.files[0]);
@@ -322,6 +328,55 @@ function UpdateCall() {
     );
   };
 
+  const HistoryImgViewModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isHistoryImgViewModal}
+          onClose={() => {
+            setDefectiveHistoryImg("");
+            setGoodSpareHistoryImg("");
+            setCcfrHistoryImg("");
+            setIsHistoryImgViewModal(false);
+          }}
+          className="w-8/12 dark:bg-gray-800 p-10 my-12 h-screen  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          // className="w-6/12 h-8/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll text-cente items-center justify-center"
+        >
+          <ModalHeader>Images</ModalHeader>
+          <ModalBody>
+            <div className="flex flex-col ">
+            {defectiveHistoryImg!=""?(<>
+            <div className="text-lg font-semibold my-2"> Replaced Item</div>
+            <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
+            </>):null}
+            {goodSpareHistoryImg!=""?(<>
+            <div className="text-lg font-semibold my-2"> Replaced by</div>
+            <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
+            </>):null}
+            {ccfrHistoryImg!=""?(<>
+            <div className="text-lg font-semibold my-2"> CCFR</div>
+            <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
+            </>):null}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setDefectiveHistoryImg("");
+                setGoodSpareHistoryImg("");
+                setCcfrHistoryImg("");
+                setIsHistoryImgViewModal(false);
+              }}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+  
   //-----------------------------------------------------------------
 
   // ----------------------Heading Use Effect-------------
@@ -448,6 +503,7 @@ function UpdateCall() {
                       <TableCell>Status</TableCell>
                       <TableCell>Notes</TableCell>
                       <TableCell>Action Taken</TableCell>
+                      <TableCell>Images</TableCell>
                     </tr>
                   </TableHeader>
                   <TableBody>
@@ -457,8 +513,9 @@ function UpdateCall() {
                        `}
                         key={i}
                         onClick={() => {
+
                           // setActiveRowId(user._id);
-                          // console.log("the id is " + user._id);
+                          // console.log("the id is " );
                           // setSelectedProd(user);
                           // setAssetDetails(user);
                           // console.log(user.product.keyboard[0].keyboardname);
@@ -537,6 +594,17 @@ function UpdateCall() {
                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
+                        </TableCell>
+
+                        <TableCell>
+                          
+                          <Button layout="outline" onClick={()=>{
+                            if(entry.newUrl) setGoodSpareHistoryImg(entry.newUrl);
+                            if(entry.existUrl) setDefectiveHistoryImg(entry.existUrl);
+                            if(entry.ccfrImgUrl) setCcfrHistoryImg(entry.ccfrImgUrl)
+                            setIsHistoryImgViewModal(true)
+                          }
+                          }>Show</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -2213,6 +2281,7 @@ function UpdateCall() {
       {AssetHistoryModal()}
       {ImgUploadModal()}
       {ImgUploadMenuModal()}
+      {HistoryImgViewModal()}
       {AssetBar()}
       {CallUpdater()}
       {spareStatus == "Yes" ? AssetItemPick() : null}
