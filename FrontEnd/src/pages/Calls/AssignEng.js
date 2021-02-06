@@ -70,6 +70,7 @@ function AssignEng() {
 
   // filterhooks
   const [type, setType] = useState("");
+  const [callStatus, setCallStatus] = useState("0")
   const [location, setLocation] = useState("");
   const [condition, setCondition] = useState("");
 
@@ -260,15 +261,10 @@ function AssignEng() {
           limit: resultsPerPage,
         },
         filters: {
-          business: Business,
-          producttype: product,
-          customer: customer,
-          account: account,
-          unitId: unit._id,
-          customerId: customer._id,
-          accountId: account._id,
-          searchtype: searchtype,
+          callStatus: callStatus,
           searchquery: searchquery,
+          fromDate:"",
+          toDate:""
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -290,7 +286,7 @@ function AssignEng() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh]);
+  }, [page, Business, product, refresh,callStatus,searchquery]);
 
   // console.log(selectedprod);
 
@@ -341,17 +337,17 @@ function AssignEng() {
             <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={type}
+                value={callStatus}
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setCallStatus(e.target.value);
                 }}
               >
                 <option value="" disabled selected>
                   Call Status
                 </option>
                 <option value="">All</option>
-                <option value="Mouse">Pending For Allocation</option>
-                <option value="Keyboard">Allocated</option>
+                <option selected value="0">Pending For Allocation</option>
+                {/* <option value="-1">Allocated</option> */}
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -365,61 +361,6 @@ function AssignEng() {
               </div>
             </div>
 
-            {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Location
-                </option>
-                <option value="">All</option>
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-            {/* ---------------------------Condition Drop Down-------------------------------------- */}
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={condition}
-                onChange={(e) => {
-                  setCondition(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Condition
-                </option>
-                <option value="">All</option>
-                <option value="Good">Good</option>
-                <option value="Bad">Bad</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
 
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
@@ -440,7 +381,7 @@ function AssignEng() {
                 <input
                   value={searchquery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search"
+                  placeholder="Search by Call No."
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>

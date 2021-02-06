@@ -24,7 +24,9 @@ exports.getCalls = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   let { pages, filters } = req.body;
 
-  let { searchquery, searchtype } = filters;
+  let { searchquery } = filters;
+
+  const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
 
   let options = {
     sort: {
@@ -43,29 +45,32 @@ exports.getCalls = async (req, res) => {
   let filteroptions = {
     // product: { brand: "IBM" },
   };
-
-  searchquery = "";
-  if (searchquery == "") {
-    // Logic to add to filter when required
-    if (filters.business != "") {
-      filteroptions.business = filters.business;
-    }
-    if (filters.producttype != "") {
-      filteroptions.producttype = filters.producttype;
-    }
-    // -----------------Customer,Account,Unit ID filters-------
-    if (filters.unitId != "") {
-      filteroptions.unitId = filters.unitId;
-    } else if (filters.accountId != "") {
-      filteroptions.accountId = filters.accountId;
-    } else if (filters.customerId != "") {
-      // console.log(filters.customerId);
-      filteroptions.customerId = filters.customerId;
+  if(filters.toDate !="" && filters.fromDate !=""  ){
+    filteroptions.date={
+      $gte: filters.fromDate,
+      $lt: filters.toDate
+    };
+  }
+    else if(filters.fromDate !=""){
+      filteroptions.date={
+        $gte: filters.fromDate,
+      };
     }
 
-    if (filters.employeeId && filters.employeeId != "") {
-      filteroptions.employeeId = filters.employeeId;
+    else if(filters.toDate !=""){
+      filteroptions.date={
+        $lt: filters.toDate
+      };
     }
+
+    if (filters.searchquery != "") {
+      filteroptions.callNo = fuzzyquery;
+    }
+
+    if (filters.callStatus != "") {
+      // console.log(filters.callStatus);
+        filteroptions.callStatus = filters.callStatus;
+      }
     Call.paginate(filteroptions, options, function (err, result) {
       // console.log(result);
       if (err || !result) {
@@ -81,7 +86,7 @@ exports.getCalls = async (req, res) => {
       };
       return res.json(output);
     });
-  }
+  // }
 };
 
 exports.assignEnggToCall = async (req, res) => {
@@ -323,3 +328,9 @@ exports.countCallsByDate = (req, res) => {
     return res.status(200).json(result);
   });
 };
+
+// -----------------------Fuzzy Search Regex----------------
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
