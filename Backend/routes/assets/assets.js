@@ -10,6 +10,7 @@ const {
   countAmcAssets,
   countWtyAssets,
   countNosAssets,
+  assetUpdateWithId,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 const {
@@ -47,4 +48,10 @@ router.get("/countnos", countNosAssets);
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getAssetById);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteAsset);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateAsset);
+router.post(
+  "/:id/updateProductWithID",
+  isSignedIn,
+  isAuthenticated,
+  assetUpdateWithId
+);
 module.exports = router;

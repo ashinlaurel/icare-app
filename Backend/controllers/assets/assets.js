@@ -290,6 +290,21 @@ exports.getAssetById = async (req, res) => {
   }
 };
 
+exports.assetUpdateWithId = async (req, res) => {
+  let { id, update } = req.body;
+  console.log(id, update);
+  try {
+    let product = await Server.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
+    return res.status(200).json({ product });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
 //   category.name = req.body.name;
