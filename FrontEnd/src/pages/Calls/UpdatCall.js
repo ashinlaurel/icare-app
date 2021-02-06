@@ -152,7 +152,7 @@ function UpdateCall() {
   const [imgUrl, setImgUrl] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
-  
+
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
   const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
   const [ccfrImgUrl, setCcfrImgUrl] = useState("");
@@ -161,9 +161,6 @@ function UpdateCall() {
   const [goodSpareHistoryImg, setGoodSpareHistoryImg] = useState("");
   const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
   const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
-
-
-
 
   const photoUploadHandler = (e, callback) => {
     callback(e.target.files[0]);
@@ -345,18 +342,42 @@ function UpdateCall() {
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
             <div className="flex flex-col ">
-            {defectiveHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> Replaced Item</div>
-            <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
-            {goodSpareHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> Replaced by</div>
-            <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
-            {ccfrHistoryImg!=""?(<>
-            <div className="text-lg font-semibold my-2"> CCFR</div>
-            <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
-            </>):null}
+              {defectiveHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2">
+                    {" "}
+                    Replaced Item
+                  </div>
+                  <img
+                    src={defectiveHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {goodSpareHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2"> Replaced by</div>
+                  <img
+                    src={goodSpareHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {ccfrHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2"> CCFR</div>
+                  <img
+                    src={ccfrHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
             </div>
           </ModalBody>
           <ModalFooter>
@@ -376,7 +397,7 @@ function UpdateCall() {
       </>
     );
   };
-  
+
   //-----------------------------------------------------------------
 
   // ----------------------Heading Use Effect-------------
@@ -513,7 +534,6 @@ function UpdateCall() {
                        `}
                         key={i}
                         onClick={() => {
-
                           // setActiveRowId(user._id);
                           // console.log("the id is " );
                           // setSelectedProd(user);
@@ -589,22 +609,30 @@ function UpdateCall() {
                             ) : null}
                           </span>
                         </TableCell>
-                        <TableCell>
-                          <span className="text-sm  w-1/2">{entry.note}</span>
+                        <TableCell className="flex flex-row max-w-sm">
+                          <span className="w-full overflow-auto">
+                            {entry.note}
+                          </span>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
                         </TableCell>
 
                         <TableCell>
-                          
-                          <Button layout="outline" onClick={()=>{
-                            if(entry.newUrl) setGoodSpareHistoryImg(entry.newUrl);
-                            if(entry.existUrl) setDefectiveHistoryImg(entry.existUrl);
-                            if(entry.ccfrImgUrl) setCcfrHistoryImg(entry.ccfrImgUrl)
-                            setIsHistoryImgViewModal(true)
-                          }
-                          }>Show</Button>
+                          <Button
+                            layout="outline"
+                            onClick={() => {
+                              if (entry.newUrl)
+                                setGoodSpareHistoryImg(entry.newUrl);
+                              if (entry.existUrl)
+                                setDefectiveHistoryImg(entry.existUrl);
+                              if (entry.ccfrImgUrl)
+                                setCcfrHistoryImg(entry.ccfrImgUrl);
+                              setIsHistoryImgViewModal(true);
+                            }}
+                          >
+                            Show
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -979,7 +1007,8 @@ function UpdateCall() {
       return;
     }
     if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
-      setNotSwapModalOpen(true);
+      // setNotSwapModalOpen(true);
+      alert("Please enter the compulsory fields");
       return;
     }
 
@@ -994,6 +1023,8 @@ function UpdateCall() {
       note: `Call Status Updated to ${call.callStatus}`,
       actionTaken: actionTaken,
       ccfrImgUrl: ccfrImgUrl,
+      existserial: existswap[0].sno,
+      newserial: inventswap[0].sno,
     };
     let payload = {
       id: call._id,
@@ -1018,12 +1049,55 @@ function UpdateCall() {
     } catch (error) {
       throw error;
     }
+
+    let assetpayload = {
+      id: productID,
+      update: {
+        $push: { history: newcallhistory },
+      },
+    };
+
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/updateProductWithID`,
+        method: "POST",
+        data: assetpayload,
+      });
+      console.log("updated");
+      console.log("Done");
+      setInventswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      setExistswap([
+        {
+          name: "Not Selected",
+          sno: "Not Selected",
+        },
+      ]);
+      await getAsset();
+      setSubmitModal(true);
+      // setIsReviewModalOpen(true);
+    } catch (error) {
+      throw error;
+    }
     movehistory.push("/app/viewcalls");
   };
 
   // -------handle swap --------
 
   const handleSwap = async () => {
+    if (existswap[0]._id && !(defectiveImgUrl == "")) {
+      alert("Upload Image!!");
+      return;
+    }
+    if (existswap[0]._id && !(defectiveImgUrl == "")) {
+      alert("Upload Image!!");
+      return;
+    }
+
     let payload = {
       existswap: existswap[0],
       newswap: inventswap[0],
@@ -1915,7 +1989,7 @@ function UpdateCall() {
             >
               Swap
             </Button>
-            {existswap[0]._id || 1 ? (
+            {existswap[0]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
@@ -1927,7 +2001,7 @@ function UpdateCall() {
                 Upload Defective Spare
               </Button>
             ) : null}
-            {inventswap[0]._id || 1 ? (
+            {inventswap[0]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
@@ -2175,7 +2249,7 @@ function UpdateCall() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Call Attended Date</span>
+              <span>Call Attended Date*</span>
               <Input
                 className=""
                 type="date"
@@ -2188,7 +2262,7 @@ function UpdateCall() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Start Of Service</span>
+              <span>Start Of Service*</span>
               <Input
                 className=""
                 type="time"
@@ -2201,7 +2275,7 @@ function UpdateCall() {
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>End Of Service</span>
+              <span>End Of Service*</span>
               <Input
                 className=""
                 type="time"
@@ -2216,7 +2290,7 @@ function UpdateCall() {
 
         <div className="flex flex-col w-full">
           <Label className="w-full">
-            <span>Action Taken</span>
+            <span>Action Taken*</span>
             <Input
               className=""
               type="text"
@@ -2299,19 +2373,6 @@ function UpdateCall() {
             layout="outline"
           >
             Update Call
-          </Button>
-          {/* </Link> */}
-        </div>
-        <div className="flex flex-col items-center w-full mt-5">
-          {/* <Link to={`/app/viewcalls`}> */}
-          <Button
-            onClick={() => {
-              console.log(existswap);
-              console.log(inventswap);
-            }}
-            layout="outline"
-          >
-            Test
           </Button>
           {/* </Link> */}
         </div>

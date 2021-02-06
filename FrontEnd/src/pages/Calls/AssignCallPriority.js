@@ -175,7 +175,7 @@ function AssignCallPriority() {
       {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
-        <div className="">
+        <div className="flex flex-row items-center justify-start space-x-2">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <Button layout="outline" onClick={() => setIsEnggModalOpen(true)}>
             Select Engineer
