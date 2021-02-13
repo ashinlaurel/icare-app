@@ -130,8 +130,8 @@ function UpdateCall() {
   // ---------------New States------------
   // const [itemtype, setItemtype] = useState(""); //Full system vs item
   const [selectedItem, setSelectedItem] = useState([""]); //the selected item category
-  const [data, setData] = useState([]); //for first table expansion
-  const [inventdata, setInventData] = useState([]); //for second table expansion
+  const [data, setData] = useState([{}]); //for first table expansion
+  const [inventdata, setInventData] = useState([{}]); //for second table expansion
   const [existswap, setExistswap] = useState([
     {
       name: "Not Selected",
@@ -435,13 +435,34 @@ function UpdateCall() {
   const [endOfService, setEndOfService] = useState("");
   const [actionTaken, setActionTaken] = useState("");
 
-  // use effect to add fields to the item coming from asset
-  useEffect(() => {
-    let temp = data;
-    let thetype = selectedItem[0].toLowerCase();
+  // function to add fields to the item coming from asset
+
+  // useEffect(() => {
+  //   let temp = data;
+  //   let thetype = selectedItem[0].toLowerCase();
+  //   let theitemandsystem = "item";
+
+  //   temp.map((item, i) => {
+  //     item.name = item[`${thetype}name`];
+  //     item.sno = item[`${thetype}sno`];
+  //     item.type = thetype;
+  //     item.condition = "Bad";
+  //     item.systype = theitemandsystem;
+  //   });
+
+  //   console.log(temp);
+  //   setData(temp);
+  //   return () => {
+  //     "Data Updation Done";
+  //   };
+  // }, [data]);
+
+  const dataSetter = (obj, number) => {
+    let temp = [...obj];
+    let thetype = selectedItem[number].toLowerCase();
     let theitemandsystem = "item";
 
-    temp.map((item, i) => {
+    obj.map((item, i) => {
       item.name = item[`${thetype}name`];
       item.sno = item[`${thetype}sno`];
       item.type = thetype;
@@ -450,11 +471,11 @@ function UpdateCall() {
     });
 
     console.log(temp);
-    setData(temp);
-    return () => {
-      "Data Updation Done";
-    };
-  }, [data]);
+
+    let tempdata = [...data];
+    tempdata[number] = obj;
+    setData(tempdata);
+  };
 
   // -----use effect to pull new inventory list according to filters
   useEffect(() => {
@@ -1647,7 +1668,13 @@ function UpdateCall() {
     );
   };
 
-  const InvTable = (items, activeRowID, setActiveRowID, setExistswap) => {
+  const InvTable = (
+    number,
+    items,
+    activeRowID,
+    setActiveRowID,
+    setExistswap
+  ) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
         <div className="mb- mt-4">
@@ -1666,7 +1693,7 @@ function UpdateCall() {
                 {items.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                      activeRowID == user._id
+                      activeRowID[number] == user._id
                         ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                         : "white"
                     } `}
@@ -1706,8 +1733,14 @@ function UpdateCall() {
                         layout="outline"
                         className="dark:border-green-700 border-green-400"
                         onClick={() => {
-                          setExistswap([user]);
-                          setActiveRowID(-1);
+                          let tempexist = [...existswap];
+                          tempexist[number] = user;
+                          setExistswap(tempexist);
+
+                          // -----------row id
+                          let temp = [...activeRowID];
+                          temp[number] = -1;
+                          setActiveRowID(temp);
                         }}
                       >
                         Select
@@ -1747,6 +1780,17 @@ function UpdateCall() {
                   let temp = selectedItem;
                   selectedItem[number] = e.target.value;
                   setSelectedItem(temp);
+
+                  let thevalue = e.target.value;
+
+                  // -------setting the data for the tables -----
+                  if (thevalue == "Mouse") {
+                    dataSetter(mouse, number);
+                  } else if (thevalue == "Keyboard") {
+                    dataSetter(kbd, number);
+                  } else if (thevalue == "Monitor") {
+                    dataSetter(monitor, number);
+                  }
                 }}
                 className="mt-1 "
               >
@@ -1789,6 +1833,24 @@ function UpdateCall() {
                     let tempsecondactiveid = [...secondactiveRowID];
                     tempsecondactiveid.push(-1);
                     setSecondactiveRowID(tempsecondactiveid);
+
+                    // -----data and invent data
+                    let tempd = [...data];
+                    tempd.push({});
+                    setData(tempd);
+                    // ---exists swap and inventswap  ----
+                    let texist = [...existswap];
+                    texist.push({
+                      name: "Not Selected",
+                      sno: "Not Selected",
+                    });
+                    setExistswap(texist);
+                    let tinvent = [...inventswap];
+                    tinvent.push({
+                      name: "Not Selected",
+                      sno: "Not Selected",
+                    });
+                    setInventswap(tinvent);
                   }}
                   icon={Add}
                   layout="link"
@@ -1811,6 +1873,14 @@ function UpdateCall() {
                       let tempsecondactiveid = [...secondactiveRowID];
                       tempsecondactiveid.pop();
                       setSecondactiveRowID(tempsecondactiveid);
+
+                      // ---exists swap and inventswap  ----
+                      let texist = [...existswap];
+                      texist.pop();
+                      setExistswap(texist);
+                      let tinvent = [...inventswap];
+                      tinvent.pop();
+                      setInventswap(tinvent);
                     }}
                     icon={Remove}
                     layout="link"
@@ -1883,37 +1953,37 @@ function UpdateCall() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {existswap.map((user, i) => (
-                  <div className="flex flex-col justify-around">
-                    <TableRow
-                      className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                        activeRowID[number] == user._id
-                          ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                          : "white"
-                      } `}
-                      key={i}
-                      onClick={() => {
-                        // setActiveRowID(i);
-                      }}
-                    >
-                      <TableCell className="w-8">
-                        <div className="flex items-center text-sm ">
-                          <div>
-                            <p className="font-semibold">
-                              {selectedItem[number]}
-                            </p>
-                          </div>
+                <div className="flex flex-col justify-around">
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      activeRowID[number] == existswap[number]._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={number}
+                    onClick={() => {
+                      // setActiveRowID(i);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">
+                            {selectedItem[number]}
+                          </p>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{user.name}</span>
-                      </TableCell>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{existswap[number].name}</span>
+                    </TableCell>
 
-                      <TableCell>
-                        <span className="text-sm">{user.sno}</span>
-                      </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{existswap[number].sno}</span>
+                    </TableCell>
 
-                      <TableCell className="text-center ">
+                    <TableCell className="text-center ">
+                      {selectedItem[number] == "" ? null : (
                         <Button
                           // layout="link"
                           size="icon"
@@ -1926,7 +1996,7 @@ function UpdateCall() {
                               setActiveRowID(temp);
                             } else {
                               let temp = [...activeRowID];
-                              temp[number] = i;
+                              temp[number] = number;
                               setActiveRowID(temp);
                             }
                             // setActiveRowID(-1);
@@ -1938,19 +2008,24 @@ function UpdateCall() {
                             aria-hidden="true"
                           />
                         </Button>
-                      </TableCell>
-                    </TableRow>
+                      )}
+                    </TableCell>
+                  </TableRow>
 
-                    {activeRowID[number] == i
-                      ? InvTable(
-                          data,
-                          activeRowID[number],
-                          setActiveRowID[number],
-                          setExistswap
-                        )
-                      : null}
-                  </div>
-                ))}
+                  {activeRowID[number] == number
+                    ? InvTable(
+                        number,
+                        data[number],
+                        activeRowID,
+                        setActiveRowID,
+                        setExistswap
+                      )
+                    : null}
+                </div>
+
+                {/* {existswap.map((user, i) => (
+                  
+                ))} */}
               </TableBody>
             </Table>
             {/* <TableFooter>
@@ -1987,37 +2062,37 @@ function UpdateCall() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {inventswap.map((user, i) => (
-                  <div className="flex flex-col justify-around">
-                    <TableRow
-                      className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                        secondactiveRowID[number] == user._id
-                          ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                          : "white"
-                      } `}
-                      key={i}
-                      onClick={() => {
-                        // setActiveRowID(i);
-                      }}
-                    >
-                      <TableCell className="w-8">
-                        <div className="flex items-center text-sm ">
-                          <div>
-                            <p className="font-semibold">
-                              {selectedItem[number]}
-                            </p>
-                          </div>
+                <div className="flex flex-col justify-around">
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
+                      secondactiveRowID[number] == inventswap[number]._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={number}
+                    onClick={() => {
+                      // setActiveRowID(i);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">
+                            {selectedItem[number]}
+                          </p>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{user.name}</span>
-                      </TableCell>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{inventswap[number].name}</span>
+                    </TableCell>
 
-                      <TableCell>
-                        <span className="text-sm">{user.sno}</span>
-                      </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{inventswap[number].sno}</span>
+                    </TableCell>
 
-                      <TableCell className="text-center ">
+                    <TableCell className="text-center ">
+                      {selectedItem[number] == "" ? null : (
                         <Button
                           // layout="link"
                           size="icon"
@@ -2029,7 +2104,7 @@ function UpdateCall() {
                               setSecondactiveRowID(temp);
                             } else {
                               let temp = [...secondactiveRowID];
-                              temp[number] = i;
+                              temp[number] = number;
                               setSecondactiveRowID(temp);
                             }
                             // setActiveRowID(-1);
@@ -2041,19 +2116,20 @@ function UpdateCall() {
                             aria-hidden="true"
                           />
                         </Button>
-                      </TableCell>
-                    </TableRow>
+                      )}
+                    </TableCell>
+                  </TableRow>
 
-                    {secondactiveRowID[number] == i
-                      ? InvTable(
-                          inventdata,
-                          secondactiveRowID[number],
-                          setSecondactiveRowID[number],
-                          setInventswap
-                        )
-                      : null}
-                  </div>
-                ))}
+                  {secondactiveRowID[number] == number
+                    ? InvTable(
+                        number,
+                        inventdata[number],
+                        secondactiveRowID,
+                        setSecondactiveRowID,
+                        setInventswap
+                      )
+                    : null}
+                </div>
               </TableBody>
             </Table>
             {/* <TableFooter>
@@ -2233,9 +2309,12 @@ function UpdateCall() {
           </Button>
           <Button
             onClick={() => {
-              console.log(selectedItem);
-              console.log(activeRowID);
-              console.log(secondactiveRowID);
+              // console.log(selectedItem);
+              // console.log(activeRowID);
+              // console.log(secondactiveRowID);
+              // console.log(data);
+              console.log(existswap);
+              console.log(inventswap);
             }}
             layout="outline"
           >
