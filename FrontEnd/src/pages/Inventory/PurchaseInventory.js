@@ -138,10 +138,10 @@ function PurchaseInventory() {
 
   const submitItems = async () => {
     let flag = false;
-    if(selectedVendor._id==""){
-      setModalMessage("Please select vendor")
+    if (selectedVendor._id == "") {
+      setModalMessage("Please select vendor");
       setIsmessageModal(true);
-      return
+      return;
     }
     values.map((value) => {
       if (value.name === "" || value.sno === "") {
@@ -213,8 +213,8 @@ function PurchaseInventory() {
               location: "",
               invnumber: "",
             });
-            setModalMessage("Item(s) Added")
-              setIsmessageModal(true);
+            setModalMessage("Item(s) Added");
+            setIsmessageModal(true);
           })
           .catch((err) => {
             console.log("Purchase Hisry err", err.response);
@@ -294,14 +294,16 @@ function PurchaseInventory() {
 
     if (calnum != -1) {
       newlist[calnum].tcs = parseFloat(newlist[calnum].amount) * 0.001;
+
       newlist[calnum].invamount =
         parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
+
       newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
-      console.log(basevalues.totalInvoice, newlist[calnum].invamount);
-      console.log(
-        parseFloat(basevalues.totalInvoice) +
-          parseFloat(newlist[calnum].invamount)
-      );
+      // console.log(basevalues.totalInvoice, newlist[calnum].invamount);
+      // console.log(
+      //   parseFloat(basevalues.totalInvoice) +
+      //     parseFloat(newlist[calnum].invamount)
+      // );
 
       let newbaseval = basevalues;
       // newbaseval.totalInvoice=(
@@ -309,14 +311,10 @@ function PurchaseInventory() {
       //     parseFloat(newlist[calnum].invamount)
       // ).toString();
 
-      let val =
-        parseFloat(basevalues.totalInvoice) +
-        parseFloat(newlist[calnum].invamount);
-      //  console.log("base cal",toString(val))
-      if (toString(val) != "[object Undefined]") {
-        // console.log("gere")
-        newbaseval.totalInvoice = toString(val);
-      }
+      // let val =
+      //   parseFloat(basevalues.totalInvoice) +
+      //   parseFloat(newlist[calnum].invamount);
+
       // console.log(newbaseval)
       setBaseValues(newbaseval);
     }
@@ -349,48 +347,56 @@ function PurchaseInventory() {
         case "3M":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(3, "M")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "6M":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(6, "M")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "1Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(1, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "2Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(2, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "3Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(3, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "4Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(4, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
         case "5Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(5, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
-          case "20Y":
+        case "20Y":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(20, "Y")
+            .subtract(1, "days")
             .format("DD-MM-YYYY");
 
           break;
@@ -526,17 +532,22 @@ function PurchaseInventory() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Purchase Type*</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
-                value={basevalues.purchtype}
-                onChange={handleBaseChange("purchtype")}
-              />
+                onChange={(e) => {
+                  setBaseValues({ ...basevalues, purchtype: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Purchase Type
+                </option>
+                <option value="B2B">B2B</option>
+                <option value="B2C">B2C</option>
+              </Select>
             </Label>
           </div>
 
           {/* ---------------- */}
-
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -553,7 +564,6 @@ function PurchaseInventory() {
               </Select>
             </Label>
           </div>
-          
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -579,9 +589,9 @@ function PurchaseInventory() {
               </Select>
             </Label>
           </div>
-          
+
           {/* -------------------- */}
-        
+
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Invoice Number*</span>
@@ -610,12 +620,19 @@ function PurchaseInventory() {
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Invoice Type*</span>
-              <Input
+              <Select
                 className="mt-1"
-                type="text"
-                value={basevalues.invtype}
-                onChange={handleBaseChange("invtype")}
-              />
+                onChange={(e) => {
+                  setBaseValues({ ...basevalues, invtype: e.target.value });
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Invoice Type
+                </option>
+                <option value="Material">Material</option>
+                <option value="AMC">AMC</option>
+                <option value="Addtl Wty">Addtl Wty</option>
+              </Select>
             </Label>
           </div>
 
@@ -692,12 +709,8 @@ function PurchaseInventory() {
 
         {/* -------------------------ROw 3-------------------- */}
         <div className="flex-row flex  space-x-3">
-          <Label className=" mt-3">
-            Vendor Name:{selectedVendor.name}
-          </Label>
-          <Label className=" ml-3 mt-3">
-          GST No. {selectedVendor.GSTNo}
-          </Label>
+          <Label className=" mt-3">Vendor Name:{selectedVendor.name}</Label>
+          <Label className=" ml-3 mt-3">GST No. {selectedVendor.GSTNo}</Label>
           {/* <Label className=" ml-3 mt-3">
           PAN No. {selectedVendor.PANNo}
           </Label>
@@ -714,7 +727,6 @@ function PurchaseInventory() {
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
           <span>Item Number : {num + 1}</span>{" "}
-          
           <div
             layout="outline"
             onClick={() => {
@@ -725,8 +737,12 @@ function PurchaseInventory() {
               setValues(newitem);
             }}
             className="border-gray-100 rounded-full cursor pointer"
-          ><CloseIcon fill="lightgray" className="w-5 h-5 cursor-pointer " aria-hidden="true"/>
-            
+          >
+            <CloseIcon
+              fill="lightgray"
+              className="w-5 h-5 cursor-pointer "
+              aria-hidden="true"
+            />
           </div>
         </Label>
         <hr className="mb-5 mt-2" />
@@ -1088,10 +1104,10 @@ function PurchaseInventory() {
         {/* -------------------------ROw 3-------------------- */}
         <div className="flex-row flex  space-x-3">
           <Label className=" mt-3">
-            Net Tax:{parseFloat(values[num].nettax)} 
+            Net Tax:{parseFloat(values[num].nettax)}
           </Label>
           <Label className=" ml-5 mt-3">
-          Invoice Amount:
+            Invoice Amount:
             {parseFloat(values[num].invamount)}
           </Label>
         </div>
@@ -1281,10 +1297,19 @@ function PurchaseInventory() {
             >
               Submit
             </Button>
+            <Button
+              onClick={() => {
+                console.log(basevalues);
+              }}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              // layout="outline"
+              className=" mx-2 "
+            >
+              Test
+            </Button>
             <div className=" dark:text-gray-100 text-black font-bold flex-1 my-auto mx-20">
-              <span>
-                 Invoice Amount: {basevalues.totalInvoice}
-              </span>
+              <span>Invoice Amount: {parseFloat(basevalues.totalInvoice)}</span>
             </div>
           </div>
         </CardBody>
