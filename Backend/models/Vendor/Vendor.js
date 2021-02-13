@@ -25,6 +25,7 @@ const VendorSchema = new Schema({
   branch:String,
   IFSCCode:String,
   creditDays:String,
+  email:String,
   
 });
 VendorSchema.plugin(mongoosePaginate);

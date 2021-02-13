@@ -41,6 +41,8 @@ import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { isAutheticated } from "../../helpers/auth";
 import EmpProfile from "../../helpers/auth/EmpProfile";
+import RoundIcon from "../../components/RoundIcon";
+import CallCard from "../../components/Cards/CallCard";
 
 function ViewEngineerCalls() {
   // Bottom bar stuff
@@ -150,26 +152,37 @@ function ViewEngineerCalls() {
 
   return (
     <>
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
-      {/* <CustomerSelection
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setUnit={setUnit}
-        unit={unit}
-        customer={customer}
-        setCustomer={setCustomer}
-        account={account}
-        setAccount={setAccount}
-        refresh={refresh}
-        setRefresh={setRefresh}
-      /> */}
+
+
+<div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-5">
+        {data.map(({ _id, callId, priority }, i) => (
+          <Link to={`/app/call/calldetails/${callId._id}/${callId.assetId}`}>
+            <CallCard
+              value={callId.callNo}
+              contactPerson={callId.contactPerson}
+              problem={callId.problem}
+              priority={priority}
+              link={`/app/call/calldetails/${callId._id}/${callId.assetId}`} 
+            >
+              
+                 <RoundIcon
+                icon={PeopleIcon}
+                // width="60" height="60"
+                iconColorClass="text-orange-500 dark:text-orange-100"
+                bgColorClass="bg-orange-100 dark:bg-orange-500"
+                className="mr-4"
+              />
+             
+              
+            </CallCard>
+          </Link>
+        ))}
+      </div>
+
+{/*       
       <ReviewSubmit />
 
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
-
-      {/* {floatbox ? <AssetFloat /> : null} */}
       <div className="mb-64 mt-4">
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
           <Table>
             <TableHeader>
@@ -180,8 +193,6 @@ function ViewEngineerCalls() {
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Update</TableCell>
-                {/* <TableCell>Assigned Employee</TableCell>
-                <TableCell>Update</TableCell> */}
               </tr>
             </TableHeader>
             <TableBody>
@@ -194,13 +205,7 @@ function ViewEngineerCalls() {
                   } `}
                   key={i}
                   onClick={() => {
-                    // setActiveRowId(call._id);
-                    // setBBarOpen(1);
-                    // // console.log("the id is " + call._id);
-                    // setSelectedProd(call);
-                    // console.log("SELECTD", call);
-                    // setAssetDetails(call.assetId);
-                    // // console.log(call.product.keyboard[0].keyboardname);
+ ;
                   }}
                 >
                   <TableCell className="w-8">
@@ -243,41 +248,10 @@ function ViewEngineerCalls() {
                           Update
                         </Button>
                       </Link>
-                      {/* <Button
-                        onClick={() => {
-                          setViewId(i);
-                          setHistoryModalOpen(true);
-                        }}
-                        layout="outline"
-                      >
-                        History
-                      </Button> */}
+                    
                     </div>
                   </TableCell>
-                  {/* <TableCell>
-                    {call.employeeId ? (
-                      <>
-                        {call.employeeName}
-                    
-                      </>
-                    ) : (
-                      <>
-                      
-                        Not Assigned
-                 
-                      </>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Link
-                      key={call._id}
-                      // to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
-                    >
-                      <Button layout="outline" onClick={() => {}} className=" ">
-                        Update
-                      </Button>
-                    </Link>
-                  </TableCell> */}
+               
                 </TableRow>
               ))}
             </TableBody>
@@ -285,10 +259,8 @@ function ViewEngineerCalls() {
           <TableFooter></TableFooter>
         </TableContainer>
 
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
-      </div>
+      </div> */}
 
-      {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );
 }

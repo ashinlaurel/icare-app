@@ -195,6 +195,11 @@ function LST() {
       setMessageModal(true);
       return;
     }
+    if (location == toLocation) {
+      setModalMessage("From and to Location is same!");
+      setMessageModal(true);
+      return;
+    }
     if (location == "") {
       setModalMessage("From location not selected");
       setMessageModal(true);
