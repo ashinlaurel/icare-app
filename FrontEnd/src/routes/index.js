@@ -49,6 +49,7 @@ const UpdateCall = lazy(() => import("../pages/Calls/UpdatCall"));
 const UpdateAssetFromCall = lazy(() =>
   import("../pages/Calls/UpdateAssetFromCall")
 );
+const CallDetails = lazy(() => import("../pages/Calls/CallDetails"));
 
 
 // ----------------------------- Inventory Imports
@@ -372,6 +373,10 @@ export const enggroutes = [
   {
     path: "/call/updatecall/:callid/:assetid",
     component: UpdateCall,
+  },
+  {
+    path: "/call/calldetails/:callid/:assetid",
+    component: CallDetails,
   },
   
 ];

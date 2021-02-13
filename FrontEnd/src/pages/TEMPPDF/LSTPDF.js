@@ -61,6 +61,16 @@ const [sum, setSum] = useState(0)
         console.log("FROM",fromResponse.data.out[0]);
         setFromAddr(fromResponse.data.out[0]);
 
+        if(response.data.to=="Vendor"){
+          let toresponse = await axios({
+            url: `${API}/vendor/getbyid`,
+            method: "POST",
+            data: {id:response.data.vendorId},
+          });
+          console.log("To",toresponse.data);
+          setToArrd(toresponse.data);
+
+        }else{
         let topayload = {
           filters: {
             icarelocation: response.data.to,
@@ -75,6 +85,7 @@ const [sum, setSum] = useState(0)
         });
         console.log("To",toresponse.data.out[0]);
         setToArrd(toresponse.data.out[0]);
+      }
 
       } catch (error) {
         console.log(error)
@@ -161,7 +172,7 @@ const [sum, setSum] = useState(0)
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2">SubTotal</td>
-                <td className="tb-head tb-row px-2">{data.invItems?data.invItems.length:0}</td>
+                <td className="tb-head tb-row px-2">Rs.{data.invItems?data.invItems.length:0}</td>
                 <td className="tb-head tb-row px-2">{sum} </td>
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2"></td>

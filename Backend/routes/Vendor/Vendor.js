@@ -21,6 +21,7 @@ router.post("/:id/update", isSignedIn, isAuthenticated, updateVendor);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteVendor);
 
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getVendorById);
+router.post("/getbyid", getVendorById);
 
 
 module.exports = router;

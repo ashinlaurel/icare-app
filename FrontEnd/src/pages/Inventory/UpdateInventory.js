@@ -532,6 +532,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Type*</span>
               <Select
+                value={values[num].systype}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];
@@ -552,6 +553,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Category*</span>
               <Select
+              value={values[num].type}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];
@@ -688,6 +690,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Condition*</span>
               <Select
+              value={values[num].condition}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];

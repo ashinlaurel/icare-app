@@ -58,6 +58,7 @@ function CreateVendor() {
     branch:"",
     IFSCCode:"",
     creditDays:"",
+    email:""
 
     // ---new ones
   });
@@ -109,6 +110,7 @@ function CreateVendor() {
           branch:"",
           IFSCCode:"",
           creditDays:"",
+          email:""
         });
       })
       .catch((err) => {
@@ -197,6 +199,17 @@ function CreateVendor() {
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
+              <span>Email</span>
+              <Input
+                className="mt-1"
+                value={values.email}
+                onChange={handleChange("email")}
+              />
+            </Label>{" "}
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
               <span>GST Number</span>
               <Input
                 className="mt-1"
@@ -242,7 +255,7 @@ function CreateVendor() {
 
           <div className="flex flex-col w-full ">
             <Label className="w-full">
-              <span>PIN Number</span>
+              <span>PIN Code</span>
               <Input
                 className="mt-1"
                 value={values.PIN}

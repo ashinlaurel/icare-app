@@ -9,6 +9,7 @@ import {
   Badge,
   Select,
 } from "@windmill/react-ui";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui"
 
 import { TopBarContext } from "../../context/TopBarContext";
 import { API } from "../../backendapi";
@@ -16,6 +17,8 @@ import Axios from "axios";
 
 const CreateInvent = () => {
   const { topheading, setTopHeading } = useContext(TopBarContext);
+  const [messageModal, setMessageModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [itemType, setItemType] = useState("Mouse");
   const [condition, setCondition] = useState("Good");
   const [location, setLocation] = useState("Trivandrum");
@@ -47,11 +50,18 @@ const CreateInvent = () => {
   };
 
   const submitItem = async () => {
-    if (values.name === "" || values.sno === "" || values.invnumber === "") {
-      //   setIsReqFieldModal(true);
+    if (values.name === "") {
+        setModalMessage("Product name necessary");
+        setMessageModal(true);
+        console.log("missing inputs");
+        return;
+    }
+    if ( values.sno === "" ) {
+      setModalMessage("Serial number necessary");
+      setMessageModal(true);
       console.log("missing inputs");
       return;
-    }
+  }
     const newitem = {
       name: values.name,
       sno: values.sno,
@@ -67,6 +77,8 @@ const CreateInvent = () => {
     })
       .then((data) => {
         console.log("Added", data._id);
+        setModalMessage("Added to Inventory");
+        setMessageModal(true);
         // setIsReviewModalOpen(true);
         setValues({ name: "", sno: "", invnumber: "" });
         setErr({
@@ -83,6 +95,25 @@ const CreateInvent = () => {
         setErr({ ...err });
       });
   };
+
+  const messageModalComponent = () => {
+    return (
+      <>
+        <Modal isOpen={messageModal} onClose={() => setMessageModal(false)}>
+          <ModalHeader>{modalMessage}</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setMessageModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  }
 
   return (
     <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -225,7 +256,9 @@ const CreateInvent = () => {
         {" "}
         Add Item
       </Button>
+      {messageModalComponent()}
     </div>
+    
   );
 };
 

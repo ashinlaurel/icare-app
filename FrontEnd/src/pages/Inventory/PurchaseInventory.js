@@ -58,16 +58,16 @@ function PurchaseInventory() {
   });
 
   const thebval = {
-    purchtype: "",
+    purchtype: "B2B",
     vendor: "",
     invnumber: "",
-    invdate: "",
+    invdate: moment().format(),
     location: "Trivandrum",
-    invtype: "",
+    invtype: "Material",
     gstno: "",
     panno: "",
     aadharno: "",
-    purchlocation: "Local",
+    purchlocation: "Trivandrum",
     totalInvoice: "0",
     vendorId: "",
   };
@@ -92,7 +92,7 @@ function PurchaseInventory() {
     // assetId: "",
     sno: "",
     condition: "Good",
-    taxcategory: "",
+    taxcategory: "GST 18%",
     taxperc: "",
     rate: "",
     igst: "0",
@@ -109,7 +109,7 @@ function PurchaseInventory() {
     vendorId: "",
     vendor: "",
     invnumber: "",
-    invdate: "",
+    invdate: moment().format(),
     location: "",
     invtype: "",
     gstno: "",
@@ -119,8 +119,8 @@ function PurchaseInventory() {
 
     brand: "",
     model: "",
-    systype: "",
-    stocktype: "",
+    systype: "item",
+    stocktype: "Purchased",
 
     //-------
     caseId: "imprest",
@@ -339,6 +339,11 @@ function PurchaseInventory() {
 
     if (calnum != -1) {
       switch (newlist[calnum].wty) {
+        case "0D":
+          newlist[calnum].expirydate = moment(basevalues.invdate)
+            .format("DD-MM-YYYY");
+
+          break;
         case "3M":
           newlist[calnum].expirydate = moment(basevalues.invdate)
             .add(3, "M")
@@ -1000,6 +1005,7 @@ function PurchaseInventory() {
                 <option value="" selected disabled>
                   Select Category
                 </option>
+                <option value="0D">0 days</option>
                 <option value="3M">3 Months</option>
                 <option value="6M">6 Months</option>
                 <option value="1Y">1 Year</option>

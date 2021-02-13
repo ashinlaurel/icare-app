@@ -493,7 +493,7 @@ function LSTHistory() {
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.to}</span>
+                      <span className="text-sm">{user.vendorId?user.vendorName:user.to}</span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">
