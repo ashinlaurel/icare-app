@@ -1794,6 +1794,31 @@ function UpdateCall() {
                     dataSetter(kbd, number);
                   } else if (thevalue == "Monitor") {
                     dataSetter(monitor, number);
+                  }else if (thevalue == "Cpu") {
+                    dataSetter(cpu, number);
+                  }else if (thevalue == "Ram") {
+                    dataSetter(ram, number);
+                  }else if (thevalue == "Fan") {
+                    dataSetter(fan, number);
+                  }else if (thevalue == "Motherboard") {
+                    dataSetter(motherboard, number);
+                  }else if (thevalue == "SMPS") {
+                    dataSetter(smps, number);
+                  }else if (thevalue == "HDD") {
+                    dataSetter(hdd, number);
+                  }else if (thevalue == "Gcard") {
+                    dataSetter(gcard, number);
+                  }else if (thevalue == "EnetCard") {
+                    dataSetter(enetcard, number);
+                  }else if (thevalue == "SerialCard") {
+                    dataSetter(serialcard, number);
+                  }else if (thevalue == "ParalellCard") {
+                    dataSetter(parallelcard, number);
+                  }else if (thevalue == "OpticalDrive") {
+                    dataSetter(opticaldrive, number);
+                  }
+                  else if (thevalue == "Others") {
+                    dataSetter(others, number);
                   }
                   // ----------getting inventory
                   thegetter(number);
