@@ -478,11 +478,11 @@ function UpdateCall() {
   };
 
   // -----use effect to pull new inventory list according to filters
-  useEffect(() => {
-    thegetter();
-  }, [selectedItem]);
+  // useEffect(() => {
+  //   thegetter();
+  // }, [selectedItem]);
 
-  async function thegetter() {
+  async function thegetter(number) {
     console.log("getter called");
     console.log(selectedItem);
     let payload = {
@@ -491,7 +491,7 @@ function UpdateCall() {
         limit: 1000000,
       },
       filters: {
-        type: selectedItem[0].toLowerCase(),
+        type: selectedItem[number].toLowerCase(),
         location: location,
         condition: "Good",
         searchtype: searchtype,
@@ -511,7 +511,11 @@ function UpdateCall() {
       // const { total, data } = response.data;
       // console.log(data + "Now");
 
-      setInventData(response.data.out);
+      let tempinvent = inventdata;
+      tempinvent[number] = response.data.out;
+      setInventData(tempinvent);
+
+      // setInventData(response.data.out);
     } catch (error) {
       throw error;
     }
@@ -1791,6 +1795,8 @@ function UpdateCall() {
                   } else if (thevalue == "Monitor") {
                     dataSetter(monitor, number);
                   }
+                  // ----------getting inventory
+                  thegetter(number);
                 }}
                 className="mt-1 "
               >
@@ -1838,6 +1844,9 @@ function UpdateCall() {
                     let tempd = [...data];
                     tempd.push({});
                     setData(tempd);
+                    let tempinvdata = [...inventdata];
+                    tempinvdata.push({});
+                    setInventData(tempinvdata);
                     // ---exists swap and inventswap  ----
                     let texist = [...existswap];
                     texist.push({
