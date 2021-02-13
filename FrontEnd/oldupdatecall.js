@@ -31,7 +31,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import { useHistory, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { Add, DropdownIcon, Remove } from "../../icons";
+import { DropdownIcon } from "../../icons";
 import { useMemo } from "react";
 import { TopBarContext } from "../../context/TopBarContext";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
@@ -128,8 +128,8 @@ function UpdateCall() {
   const [secondactiveRowID, setSecondactiveRowID] = useState(-1);
 
   // ---------------New States------------
-  // const [itemtype, setItemtype] = useState(""); //Full system vs item
-  const [selectedItem, setSelectedItem] = useState([""]); //the selected item category
+  const [itemtype, setItemtype] = useState(""); //Full system vs item
+  const [selectedItem, setSelectedItem] = useState(""); //the selected item category
   const [data, setData] = useState([]); //for first table expansion
   const [inventdata, setInventData] = useState([]); //for second table expansion
   const [existswap, setExistswap] = useState([
@@ -161,9 +161,6 @@ function UpdateCall() {
   const [goodSpareHistoryImg, setGoodSpareHistoryImg] = useState("");
   const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
   const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
-
-  // ----------- Multi update states ---------------
-  const [assetpickerarray, setAssetpickerarray] = useState([{ item: "test" }]);
 
   const photoUploadHandler = (e, callback) => {
     callback(e.target.files[0]);
@@ -438,8 +435,8 @@ function UpdateCall() {
   // use effect to add fields to the item coming from asset
   useEffect(() => {
     let temp = data;
-    let thetype = selectedItem[0].toLowerCase();
-    let theitemandsystem = "item";
+    let thetype = selectedItem.toLowerCase();
+    let theitemandsystem = itemtype.toLowerCase();
 
     temp.map((item, i) => {
       item.name = item[`${thetype}name`];
@@ -470,7 +467,7 @@ function UpdateCall() {
         limit: 1000000,
       },
       filters: {
-        type: selectedItem[0].toLowerCase(),
+        type: selectedItem.toLowerCase(),
         location: location,
         condition: "Good",
         searchtype: searchtype,
@@ -1258,8 +1255,9 @@ function UpdateCall() {
 
   //DROPDOWN------------------------------------------------------------------------------------
 
+  const [isOpen, setIsOpen] = useState(false);
   function toggleDropdown() {
-    // setIsOpen(!isOpen);
+    setIsOpen(!isOpen);
   }
 
   const AssetBar = () => {
@@ -1727,7 +1725,7 @@ function UpdateCall() {
     );
   };
 
-  const AssetItemPick = (number) => {
+  const AssetItemPick = () => {
     return (
       <div className="my-2">
         {/* <div className="text-xl dark:text-white">Swap Items</div> */}
@@ -1736,56 +1734,348 @@ function UpdateCall() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
-            {/* ---------------------------Product Drop Down-------------------------------------- */}
-
-            <Select
-              onChange={(e) => {
-                // setBusiness(e.target.value);
-                let temp = selectedItem;
-                selectedItem[number] = e.target.value;
-                setSelectedItem(temp);
-              }}
-              className="mt-1"
-            >
-              <option value="" selected disabled>
-                Pick Item
-              </option>
-              <option value="Mouse">Mouse</option>
-              <option value="WTY">Warranty</option>
-              <option value="NOS">Not Under Service (NOS) </option>
-            </Select>
-
-            <div className="ml-3">
-              <Button
-                onClick={() => {
-                  selectedItem.push("");
-                  let tempassetpicker = [...assetpickerarray];
-                  let temp = { item: "test" };
-                  tempassetpicker.push(temp);
-                  setAssetpickerarray(tempassetpicker);
+            <div class="relative  ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={itemtype}
+                onChange={(e) => {
+                  setItemtype(e.target.value);
                 }}
-                icon={Add}
-                layout="link"
-                aria-label="Like"
-              />
-            </div>
-            {number == 0 ? null : (
-              <div className="ml-3">
-                <Button
-                  onClick={() => {
-                    selectedItem.pop();
-                    let tempassetpicker = [...assetpickerarray];
-                    tempassetpicker.pop();
-                    setAssetpickerarray(tempassetpicker);
-                  }}
-                  icon={Remove}
-                  layout="link"
-                  aria-label="Like"
-                />
-              </div>
-            )}
+              >
+                <option value="" disabled selected>
+                  Select Inventory Category
+                </option>
 
-            {/* <Button
+                <option value="Full System" disabled>
+                  Full System
+                </option>
+                <option value="Item">Item</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+            {/* ---------------------------Product Drop Down-------------------------------------- */}
+            <div className="relative z-40 ">
+              <button
+                onClick={() => {
+                  if (itemtype != "") {
+                    setIsOpen(!isOpen);
+                  }
+                }}
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                {selectedItem ? selectedItem : "Pick Item"}
+              </button>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+              <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                {itemtype == "Full" ? (
+                  <>
+                    {" "}
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Console");
+                      }}
+                    >
+                      <span>Console</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("DMP");
+                      }}
+                    >
+                      <span>DMP</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Inkjet");
+                      }}
+                    >
+                      <span>Inkjet</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("KVM");
+                      }}
+                    >
+                      <span>KVM</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Laptop");
+                      }}
+                    >
+                      <span>Laptop</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Laser");
+                      }}
+                    >
+                      <span>Laser</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("LMP");
+                      }}
+                    >
+                      <span>LMP</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Module");
+                      }}
+                    >
+                      <span>Module</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Router");
+                      }}
+                    >
+                      <span>Router</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Scanner");
+                      }}
+                    >
+                      <span>Scanner</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Server");
+                      }}
+                    >
+                      <span>Server</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Desktop");
+                      }}
+                    >
+                      <span>Desktop</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Storage");
+                      }}
+                    >
+                      <span>Storage</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Switch");
+                      }}
+                    >
+                      <span>Switch</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("UPS");
+                      }}
+                    >
+                      <span>UPS</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setSelectedItem("Others");
+                      }}
+                    >
+                      <span>Others</span>
+                    </DropdownItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Mouse");
+                        // thegetter();
+                        setData(mouse);
+                      }}
+                    >
+                      <span>Mouse</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Keyboard");
+                        setData(kbd);
+                      }}
+                    >
+                      <span>Keyboard</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Monitor");
+                        setData(monitor);
+                      }}
+                    >
+                      <span>Monitor</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Cpu");
+                        setData(cpu);
+                      }}
+                    >
+                      <span>Cpu</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Ram");
+                        setData(ram);
+                      }}
+                    >
+                      <span>Ram</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Fan");
+                        setData(fan);
+                      }}
+                    >
+                      <span>Fan</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Motherboard");
+                        setData(motherboard);
+                      }}
+                    >
+                      <span>Motherboard</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("SMPS");
+                        setData(smps);
+                      }}
+                    >
+                      <span>SMPS</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("HDD");
+                        setData(hdd);
+                      }}
+                    >
+                      <span>HDD</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Gcard");
+                        setData(gcard);
+                      }}
+                    >
+                      <span>Gcard</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("EnetCard");
+                        setData(enetcard);
+                      }}
+                    >
+                      <span>Enet Card</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("SerialCard");
+                        setData(serialcard);
+                      }}
+                    >
+                      <span>Serial Card</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("ParalellCard");
+                        setData(parallelcard);
+                      }}
+                    >
+                      <span>Paralell Card</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("OpticalDrive");
+                        setData(opticaldrive);
+                      }}
+                    >
+                      <span>Optical Drive</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setActiveRowID(-1);
+                        setSelectedItem("Others");
+                        setData(others);
+                      }}
+                    >
+                      <span>Others</span>
+                    </DropdownItem>
+                  </>
+                )}
+              </Dropdown>
+            </div>
+            <Button
               layout="outline"
               className="dark:border-green-700 border-green-400"
               onClick={() => {
@@ -1794,7 +2084,7 @@ function UpdateCall() {
               }}
             >
               Swap
-            </Button> */}
+            </Button>
             {existswap[0]._id ? (
               <Button
                 layout="outline"
@@ -2164,11 +2454,7 @@ function UpdateCall() {
       {HistoryImgViewModal()}
       {AssetBar()}
       {CallUpdater()}
-      {/* {spareStatus == "Yes" ? AssetItemPick() : null} */}
-      {assetpickerarray.map((obj, i) => {
-        return AssetItemPick(i);
-      })}
-
+      {spareStatus == "Yes" ? AssetItemPick() : null}
       {UpdatedModal()}
       {NotSwapModal()}
       {SpareRequiredModal()}
@@ -2183,14 +2469,6 @@ function UpdateCall() {
             layout="outline"
           >
             Update Call
-          </Button>
-          <Button
-            onClick={() => {
-              console.log(selectedItem);
-            }}
-            layout="outline"
-          >
-            Test
           </Button>
           {/* </Link> */}
         </div>
