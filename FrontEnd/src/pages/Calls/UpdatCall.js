@@ -1751,8 +1751,20 @@ function UpdateCall() {
                 Pick Item
               </option>
               <option value="Mouse">Mouse</option>
-              <option value="WTY">Warranty</option>
-              <option value="NOS">Not Under Service (NOS) </option>
+              <option value="Keyboard">Keyboard</option>
+              <option value="Monitor">Monitor</option>
+              <option value="Cpu">Cpu</option>
+              <option value="Ram">Ram</option>
+              <option value="Fan">Fan</option>
+              <option value="Motherboard">Motherboard</option>
+              <option value="SMPS">SMPS</option>
+              <option value="HDD">HDD</option>
+              <option value="Gcard">Gcard</option>
+              <option value="EnetCard">EnetCard</option>
+              <option value="SerialCard">SerialCard</option>
+              <option value="ParalellCard">ParalellCard</option>
+              <option value="OpticalDrive">OpticalDrive</option>
+              <option value="Others">Others</option>
             </Select>
 
             <div className="ml-3">
