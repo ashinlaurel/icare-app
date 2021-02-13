@@ -124,8 +124,8 @@ function UpdateCall() {
 
   // table variable styles
 
-  const [activeRowID, setActiveRowID] = useState(-1);
-  const [secondactiveRowID, setSecondactiveRowID] = useState(-1);
+  const [activeRowID, setActiveRowID] = useState([-1]);
+  const [secondactiveRowID, setSecondactiveRowID] = useState([-1]);
 
   // ---------------New States------------
   // const [itemtype, setItemtype] = useState(""); //Full system vs item
@@ -1730,72 +1730,95 @@ function UpdateCall() {
   const AssetItemPick = (number) => {
     return (
       <div className="my-2">
-        {/* <div className="text-xl dark:text-white">Swap Items</div> */}
+        <div className="text-sm font-bold dark:text-white ">
+          Inventory Movement: {number + 1}
+        </div>
 
         {/* -----Type Selection---- */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
+          <div className="mt-1 flex flex-row items-between justify-between w-full ">
             {/* ---------------------------Product Drop Down-------------------------------------- */}
 
-            <Select
-              onChange={(e) => {
-                // setBusiness(e.target.value);
-                let temp = selectedItem;
-                selectedItem[number] = e.target.value;
-                setSelectedItem(temp);
-              }}
-              className="mt-1"
-            >
-              <option value="" selected disabled>
-                Pick Item
-              </option>
-              <option value="Mouse">Mouse</option>
-              <option value="Keyboard">Keyboard</option>
-              <option value="Monitor">Monitor</option>
-              <option value="Cpu">Cpu</option>
-              <option value="Ram">Ram</option>
-              <option value="Fan">Fan</option>
-              <option value="Motherboard">Motherboard</option>
-              <option value="SMPS">SMPS</option>
-              <option value="HDD">HDD</option>
-              <option value="Gcard">Gcard</option>
-              <option value="EnetCard">EnetCard</option>
-              <option value="SerialCard">SerialCard</option>
-              <option value="ParalellCard">ParalellCard</option>
-              <option value="OpticalDrive">OpticalDrive</option>
-              <option value="Others">Others</option>
-            </Select>
-
-            <div className="ml-3">
-              <Button
-                onClick={() => {
-                  selectedItem.push("");
-                  let tempassetpicker = [...assetpickerarray];
-                  let temp = { item: "test" };
-                  tempassetpicker.push(temp);
-                  setAssetpickerarray(tempassetpicker);
+            <div className="w-1/4">
+              <Select
+                onChange={(e) => {
+                  // setBusiness(e.target.value);
+                  let temp = selectedItem;
+                  selectedItem[number] = e.target.value;
+                  setSelectedItem(temp);
                 }}
-                icon={Add}
-                layout="link"
-                aria-label="Like"
-              />
+                className="mt-1 "
+              >
+                <option value="" selected disabled>
+                  Pick Item
+                </option>
+                <option value="Mouse">Mouse</option>
+                <option value="Keyboard">Keyboard</option>
+                <option value="Monitor">Monitor</option>
+                <option value="Cpu">Cpu</option>
+                <option value="Ram">Ram</option>
+                <option value="Fan">Fan</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="SMPS">SMPS</option>
+                <option value="HDD">HDD</option>
+                <option value="Gcard">Gcard</option>
+                <option value="EnetCard">EnetCard</option>
+                <option value="SerialCard">SerialCard</option>
+                <option value="ParalellCard">ParalellCard</option>
+                <option value="OpticalDrive">OpticalDrive</option>
+                <option value="Others">Others</option>
+              </Select>
             </div>
-            {number == 0 ? null : (
+
+            <div className="flex flex-row">
               <div className="ml-3">
                 <Button
                   onClick={() => {
-                    selectedItem.pop();
+                    selectedItem.push("");
+                    // -----new module-----
                     let tempassetpicker = [...assetpickerarray];
-                    tempassetpicker.pop();
+                    let temp = { item: "test" };
+                    tempassetpicker.push(temp);
                     setAssetpickerarray(tempassetpicker);
+
+                    // ------- new active row ids
+                    let tempactiveid = [...activeRowID];
+                    tempactiveid.push(-1);
+                    setActiveRowID(tempactiveid);
+                    let tempsecondactiveid = [...secondactiveRowID];
+                    tempsecondactiveid.push(-1);
+                    setSecondactiveRowID(tempsecondactiveid);
                   }}
-                  icon={Remove}
+                  icon={Add}
                   layout="link"
                   aria-label="Like"
                 />
               </div>
-            )}
+              {number == 0 ? null : (
+                <div className="ml-3">
+                  <Button
+                    onClick={() => {
+                      selectedItem.pop();
+                      let tempassetpicker = [...assetpickerarray];
+                      tempassetpicker.pop();
+                      setAssetpickerarray(tempassetpicker);
+
+                      // ------- new active row ids
+                      let tempactiveid = [...activeRowID];
+                      tempactiveid.pop();
+                      setActiveRowID(tempactiveid);
+                      let tempsecondactiveid = [...secondactiveRowID];
+                      tempsecondactiveid.pop();
+                      setSecondactiveRowID(tempsecondactiveid);
+                    }}
+                    icon={Remove}
+                    layout="link"
+                    aria-label="Like"
+                  />
+                </div>
+              )}
+            </div>
 
             {/* <Button
               layout="outline"
@@ -1864,7 +1887,7 @@ function UpdateCall() {
                   <div className="flex flex-col justify-around">
                     <TableRow
                       className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                        activeRowID == user._id
+                        activeRowID[number] == user._id
                           ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                           : "white"
                       } `}
@@ -1876,7 +1899,9 @@ function UpdateCall() {
                       <TableCell className="w-8">
                         <div className="flex items-center text-sm ">
                           <div>
-                            <p className="font-semibold">{selectedItem}</p>
+                            <p className="font-semibold">
+                              {selectedItem[number]}
+                            </p>
                           </div>
                         </div>
                       </TableCell>
@@ -1894,11 +1919,15 @@ function UpdateCall() {
                           size="icon"
                           aria-label="DropDown"
                           onClick={() => {
-                            console.log(activeRowID);
-                            if (activeRowID != -1) {
-                              setActiveRowID(-1);
+                            console.log(activeRowID[number]);
+                            if (activeRowID[number] != -1) {
+                              let temp = [...activeRowID];
+                              temp[number] = -1;
+                              setActiveRowID(temp);
                             } else {
-                              setActiveRowID(i);
+                              let temp = [...activeRowID];
+                              temp[number] = i;
+                              setActiveRowID(temp);
                             }
                             // setActiveRowID(-1);
                           }}
@@ -1912,11 +1941,11 @@ function UpdateCall() {
                       </TableCell>
                     </TableRow>
 
-                    {activeRowID == i
+                    {activeRowID[number] == i
                       ? InvTable(
                           data,
-                          activeRowID,
-                          setActiveRowID,
+                          activeRowID[number],
+                          setActiveRowID[number],
                           setExistswap
                         )
                       : null}
@@ -1962,7 +1991,7 @@ function UpdateCall() {
                   <div className="flex flex-col justify-around">
                     <TableRow
                       className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                        secondactiveRowID == user._id
+                        secondactiveRowID[number] == user._id
                           ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                           : "white"
                       } `}
@@ -1974,7 +2003,9 @@ function UpdateCall() {
                       <TableCell className="w-8">
                         <div className="flex items-center text-sm ">
                           <div>
-                            <p className="font-semibold">{selectedItem}</p>
+                            <p className="font-semibold">
+                              {selectedItem[number]}
+                            </p>
                           </div>
                         </div>
                       </TableCell>
@@ -1992,10 +2023,14 @@ function UpdateCall() {
                           size="icon"
                           aria-label="DropDown"
                           onClick={() => {
-                            if (secondactiveRowID != -1) {
-                              setSecondactiveRowID(-1);
+                            if (secondactiveRowID[number] != -1) {
+                              let temp = [...secondactiveRowID];
+                              temp[number] = -1;
+                              setSecondactiveRowID(temp);
                             } else {
-                              setSecondactiveRowID(i);
+                              let temp = [...secondactiveRowID];
+                              temp[number] = i;
+                              setSecondactiveRowID(temp);
                             }
                             // setActiveRowID(-1);
                           }}
@@ -2009,11 +2044,11 @@ function UpdateCall() {
                       </TableCell>
                     </TableRow>
 
-                    {secondactiveRowID == i
+                    {secondactiveRowID[number] == i
                       ? InvTable(
                           inventdata,
-                          secondactiveRowID,
-                          setSecondactiveRowID,
+                          secondactiveRowID[number],
+                          setSecondactiveRowID[number],
                           setInventswap
                         )
                       : null}
@@ -2199,6 +2234,8 @@ function UpdateCall() {
           <Button
             onClick={() => {
               console.log(selectedItem);
+              console.log(activeRowID);
+              console.log(secondactiveRowID);
             }}
             layout="outline"
           >
