@@ -46,14 +46,8 @@ function CallDetails() {
   const callid = params.callid;
   // console.log(id);
   //modal
-  const [submitModal, setSubmitModal] = useState(false);
-  const [sparemodal, setSpareModal] = useState(false);
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
   const [assethistoryModalOpen, setAssetHistoryModalOpen] = useState(false);
-  const [notswapModalOpen, setNotSwapModalOpen] = useState(false);
-  const [spareStatus, setSpareStatus] = useState("");
-  const [ccfrStatus, setCcfrStatus] = useState("");
-
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
@@ -893,29 +887,6 @@ function CallDetails() {
 
   // ------Modals------
 
-  const UpdatedModal = () => {
-    return (
-      <>
-        <Modal isOpen={submitModal} onClose={() => setSubmitModal(false)}>
-          <ModalHeader>Swap Successfull</ModalHeader>
-          <ModalBody></ModalBody>
-          <ModalFooter>
-            {/* <Link to={`/app/viewcalls`}> */}
-            <Button
-              className="w-full sm:w-auto"
-              onClick={() => setSubmitModal(false)}
-            >
-              Okay!
-            </Button>
-            {/* </Link> */}
-          </ModalFooter>
-        </Modal>
-      </>
-    );
-  };
-
-
-  
 
 
 
@@ -930,13 +901,25 @@ function CallDetails() {
         <div className="flex space-x-1 flex-wrap">
           <div className="dark:text-gray-200 text-black text-sm flex flex-wrap space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
             <div className=" ">
-              <span>Call Number: {call.callNo}</span>
+              <span> 
+               <span className=" font-semibold ">
+              <span>Call Number: </span>
+              </span>
+             {call.callNo}</span>
             </div>
             <div className=" ">
-              <span>Contact Person: {call.contactPerson}</span>
+              <span>
+              <span className=" font-semibold ">
+              <span>Contact Person: </span>
+              </span>
+               {call.contactPerson}</span>
             </div>
             <div className=" ">
-              <span>Date: {moment(call.date).format("DD-MM-YYYY")}</span>
+              <span>
+              <span className=" font-semibold ">
+              <span>Date:  </span>
+              </span>
+              {moment(call.date).format("DD-MM-YYYY")}</span>
             </div>
           </div>
 
@@ -988,13 +971,32 @@ function CallDetails() {
         <div className="flex space-x-1">
           <div className="dark:text-gray-200 text-black text-sm space-x-2  flex items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-full my-2">
             <div className=" ">
-              <span>Brand :{brand}</span>
+              <span> <span className=" font-semibold ">
+              Brand :
+              </span>
+              {brand}</span>
             </div>
             <div className=" ">
-              <span>Model:{model}</span>
+              <span>
+              <span className=" font-semibold ">
+              Model:
+              </span>
+              {model}</span>
             </div>
+
+          </div>
+
+          
+        </div>
+        <div className="flex space-x-1">
+          <div className="dark:text-gray-200 text-black text-sm space-x-2  flex items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-full my-2">
+
             <div className=" ">
-              <span>Serial Number: {serialno}</span>
+              <span>
+              <span className=" font-semibold ">
+              Serial Number: 
+              </span>
+              {serialno}</span>
             </div>
 
             {product == "Laptop" ||
@@ -1002,7 +1004,10 @@ function CallDetails() {
             product == "Desktop" ? (
               <>
                 <div className="">
-                  <span>Operating System :{os}</span>
+                
+                  <span><span className=" font-semibold ">
+                  Operating System :
+              </span>{os}</span>
                 </div>
               </>
             ) : null}
@@ -1030,9 +1035,9 @@ function CallDetails() {
             </Button>
           </div> */}
 
-        <div className="dark:text-gray-200 text-black flex flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start lg:space-x-8  w-full ">
+        <div className="dark:text-gray-200  text-black flex flex-col md:flex-row flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-begin lg:justify-around lg:space-x-8  w-full ">
           {/* Row - 1 */}
-          <div className="flex flex-col  text-sm my-1  ">
+          <div className="flex flex-col  text-sm my-3  mx-3  align-left w-full lg:w-1/6">
             <div>
               <span className="font-semibold w-1/5">Product Type :</span>{" "}
               {product}
@@ -1047,7 +1052,6 @@ function CallDetails() {
               <span className="font-semibold w-1/5">Account :</span>{" "}
               {account.accountName}
             </div> 
-            {/* ---------------------------------------------------------------------------------------------------------------- */}
             
             {mouse[0] ? (
               <div>
@@ -1065,7 +1069,7 @@ function CallDetails() {
 
           {/*  Row 2 */}
          
-          <div className="flex flex-col  text-sm my-1  ">
+          <div className="flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6  ">
           <div>
               <span className="font-semibold w-1/5">Customer : </span>{" "}
               {customer.customerName}
@@ -1100,7 +1104,7 @@ function CallDetails() {
           {/*  Row 3 */}
          
             
-          <div className=" flex flex-col  text-sm my-1 ">
+          <div className=" flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6 ">
          
             {unit.customerId?(
             <div>
@@ -1142,7 +1146,7 @@ function CallDetails() {
           </div>
           {/* Row 4 */}
             
-          <div className="flex flex-col  text-sm my-1  ">
+          <div className="flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6 ">
          
             {/* ---------------------------------------------------------------------------------------------------------------- */}
             {hdd[0] ? (
@@ -1187,7 +1191,7 @@ function CallDetails() {
             
           </div>
           {/* -----------Row 5---------- */}
-          <div className="flex flex-col  text-sm my-1  ">
+          <div className="flex flex-col  text-sm my-3  mx-3 align-left w-full lg:w-1/6 ">
           <div>
               <span className="font-semibold w-1/5">Business : </span>{" "}
               {Business}
