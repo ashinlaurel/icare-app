@@ -373,6 +373,7 @@ function UpdateCall() {
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
             <div className="flex flex-col justify-center ">
+              <hr></hr>
               {defectiveHistoryImg != "" ? (
                 <>
                   <div className="text-lg font-semibold my-2 w-full">
@@ -381,7 +382,7 @@ function UpdateCall() {
                   </div>
                   <img
                     src={defectiveHistoryImg}
-                    className="my-2"
+                    className="my-4 border-4"
                     width="500"
                     height="500"
                   />
@@ -395,7 +396,7 @@ function UpdateCall() {
                   </div>
                   <img
                     src={goodSpareHistoryImg}
-                    className="my-2"
+                    className="my-4 border-4"
                     width="500"
                     height="500"
                   />
@@ -406,7 +407,7 @@ function UpdateCall() {
                   <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
                   <img
                     src={ccfrHistoryImg}
-                    className="my-2"
+                    className="my-4 border-4"
                     width="500"
                     height="500"
                   />
@@ -462,28 +463,6 @@ function UpdateCall() {
   const [startOfService, setStartOfService] = useState("");
   const [endOfService, setEndOfService] = useState("");
   const [actionTaken, setActionTaken] = useState("");
-
-  // function to add fields to the item coming from asset
-
-  // useEffect(() => {
-  //   let temp = data;
-  //   let thetype = selectedItem[0].toLowerCase();
-  //   let theitemandsystem = "item";
-
-  //   temp.map((item, i) => {
-  //     item.name = item[`${thetype}name`];
-  //     item.sno = item[`${thetype}sno`];
-  //     item.type = thetype;
-  //     item.condition = "Bad";
-  //     item.systype = theitemandsystem;
-  //   });
-
-  //   console.log(temp);
-  //   setData(temp);
-  //   return () => {
-  //     "Data Updation Done";
-  //   };
-  // }, [data]);
 
   const dataSetter = (obj, number) => {
     let temp = [...obj];
@@ -560,7 +539,7 @@ function UpdateCall() {
           <Modal
             isOpen={historyModalOpen}
             onClose={() => setHistoryModalOpen(false)}
-            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+            className="w-9/12 overflow-y-scroll h-screen dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg "
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
               {/* <div>{item.name}</div> */}
@@ -725,7 +704,7 @@ function UpdateCall() {
           <Modal
             isOpen={assethistoryModalOpen}
             onClose={() => setAssetHistoryModalOpen(false)}
-            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll h-screen"
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
               {/* <div>{item.name}</div> */}
@@ -1001,13 +980,13 @@ function UpdateCall() {
     return (
       <>
         <Modal isOpen={submitModal} onClose={() => setSubmitModal(false)}>
-          <ModalHeader>Swap Successfull</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalHeader>Call Update Successfull</ModalHeader>
+          <ModalBody>Your Call Was Successfully Updated</ModalBody>
           <ModalFooter>
             {/* <Link to={`/app/viewcalls`}> */}
             <Button
               className="w-full sm:w-auto"
-              onClick={() => setSubmitModal(false)}
+              onClick={() => movehistory.push("/app/viewcalls")}
             >
               Okay!
             </Button>
@@ -1082,24 +1061,33 @@ function UpdateCall() {
     //   setNotSwapModalOpen(true);
     //   return;
     // }
-    // if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
-    //   // setNotSwapModalOpen(true);
-    //   alert("Please enter the compulsory fields");
-    //   return;
-    // }
+    if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
+      // setNotSwapModalOpen(true);
+      alert("Please enter the compulsory fields");
+      return;
+    }
+    if (ccfrStatus == "") {
+      alert("Select CCFR Status");
+      return;
+    }
 
     // ------ Image Checker ---
 
-    // for (let i = 0; i < existswap.length; i++) {
-    //   if (existswap[i]._id && !(defectiveImgUrl == "")) {
-    //     alert(`Upload Image for the ${i + 1}th Inventory Change`);
-    //     return;
-    //   }
-    //   if (inventswap[i]._id && !(defectiveImgUrl == "")) {
-    //     alert(`Upload Image for the ${i + 1}th Inventory Change`);
-    //     return;
-    //   }
-    // }
+    if (ccfrStatus == "Yes" && ccfrImgUrl == "") {
+      alert("Please Upload CCFR Image");
+      return;
+    }
+
+    for (let i = 0; i < existswap.length; i++) {
+      if (existswap[i]._id && defectiveImgUrl[i] == "") {
+        alert(`Upload Image for the ${i + 1}th Defective Spare`);
+        return;
+      }
+      if (inventswap[i]._id && goodSpareImgUrl[i] == "") {
+        alert(`Upload Image for the ${i + 1}th Good Spare`);
+        return;
+      }
+    }
 
     let tempcallstatus = "";
 
@@ -1225,7 +1213,7 @@ function UpdateCall() {
     } catch (error) {
       throw error;
     }
-    movehistory.push("/app/viewcalls");
+    setSubmitModal(true);
   };
 
   // -------handle swap --------
@@ -1261,8 +1249,8 @@ function UpdateCall() {
       endOfService: endOfService,
       note: `Items Swapped/Added/Removed`,
       actionTaken: actionTaken,
-      existUrl: defectiveImgUrl,
-      newUrl: goodSpareImgUrl,
+      existUrl: defectiveImgUrl[i],
+      newUrl: goodSpareImgUrl[i],
       existserial: existswap[i].sno,
       newserial: inventswap[i].sno,
     };
@@ -1707,6 +1695,7 @@ function UpdateCall() {
     items,
     activeRowID,
     setActiveRowID,
+    existswap,
     setExistswap
   ) => {
     return (
@@ -1803,9 +1792,9 @@ function UpdateCall() {
           Inventory Movement: {number + 1}
         </div>
         {/* -----Type Selection---- */}
-        <div className="">
+        <div className="flex flex-row items-center">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div className="mt-1 flex flex-row items-between justify-between w-full ">
+          <div className="mt-1 flex flex-row items-center justify-start w-full ">
             {/* ---------------------------Product Drop Down-------------------------------------- */}
 
             <div className="w-1/4">
@@ -1852,6 +1841,19 @@ function UpdateCall() {
                   }
                   // ----------getting inventory
                   thegetter(number);
+                  // ----clearing that existswap and inventswap
+                  let tempexist = [...existswap];
+                  tempexist[number] = {
+                    name: "Not Selected",
+                    sno: "Not Selected",
+                  };
+                  setExistswap(tempexist);
+                  let tempinvent = [...inventswap];
+                  tempinvent[number] = {
+                    name: "Not Selected",
+                    sno: "Not Selected",
+                  };
+                  setInventswap(tempinvent);
                 }}
                 className="mt-1 "
               >
@@ -1887,11 +1889,50 @@ function UpdateCall() {
               Swap
             </Button> */}
 
-            <div className="flex flex-row items-center justify-center">
-              <div
-                className="ml-3 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full
-            "
+            {/* <Button
+              layout="outline"
+              className="dark:border-green-700 border-green-400"
+              onClick={() => {
+                console.log("Swap");
+                handleSwap();
+              }}
+            >
+              Swap
+            </Button> */}
+            {existswap[number]._id ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400 ml-2"
+                onClick={() => {
+                  setImageUploadMenuMessage("defective");
+                  setimageIndex(number);
+                  setIsImgUploadMenuModal(true);
+                }}
               >
+                Upload Defective Spare
+              </Button>
+            ) : null}
+            {inventswap[number]._id ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400 ml-2"
+                onClick={() => {
+                  setImageUploadMenuMessage("good");
+                  setimageIndex(number);
+                  setIsImgUploadMenuModal(true);
+                }}
+              >
+                Upload Good Spare
+              </Button>
+            ) : null}
+          </div>
+          {/* + and - buttons */}
+          <div className="flex flex-row items-center justify-center  ">
+            <div
+              className="ml-3 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full
+            "
+            >
+              {number == assetpickerarray.length - 1 ? (
                 <Button
                   onClick={() => {
                     selectedItem.push("");
@@ -1937,82 +1978,56 @@ function UpdateCall() {
 
                     let tempdefective = [...defectiveImgUrl];
                     tempdefective.push("");
-                    setGoodSpareImgUrl(tempdefective);
+                    setDefectiveImgUrl(tempdefective);
                   }}
                   icon={Add}
                   layout="link"
                   aria-label="Like"
                   size="small"
                 />
-              </div>
-              {number == 0 ? null : (
-                <div className="ml-1 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full">
-                  <Button
-                    onClick={() => {
-                      selectedItem.pop();
-                      let tempassetpicker = [...assetpickerarray];
-                      tempassetpicker.pop();
-                      setAssetpickerarray(tempassetpicker);
-
-                      // ------- new active row ids
-                      let tempactiveid = [...activeRowID];
-                      tempactiveid.pop();
-                      setActiveRowID(tempactiveid);
-                      let tempsecondactiveid = [...secondactiveRowID];
-                      tempsecondactiveid.pop();
-                      setSecondactiveRowID(tempsecondactiveid);
-
-                      // ---exists swap and inventswap  ----
-                      let texist = [...existswap];
-                      texist.pop();
-                      setExistswap(texist);
-                      let tinvent = [...inventswap];
-                      tinvent.pop();
-                      setInventswap(tinvent);
-
-                      //image
-                      let tempgoodspare = [...goodSpareImgUrl];
-                      tempgoodspare.pop();
-                      setGoodSpareImgUrl(tempgoodspare);
-
-                      let tempdefective = [...defectiveImgUrl];
-                      tempdefective.pop();
-                      setGoodSpareImgUrl(tempdefective);
-                    }}
-                    icon={Remove}
-                    layout="link"
-                    aria-label="Like"
-                    size="small"
-                  />
-                </div>
-              )}
+              ) : null}
             </div>
-            {existswap[number]._id ? (
-              <Button
-                layout="outline"
-                className="dark:border-green-700 border-green-400"
-                onClick={() => {
-                  setImageUploadMenuMessage("defective");
-                  setimageIndex(number);
-                  setIsImgUploadMenuModal(true);
-                }}
-              >
-                Upload Defective Spare
-              </Button>
-            ) : null}
-            {inventswap[number]._id ? (
-              <Button
-                layout="outline"
-                className="dark:border-green-700 border-green-400"
-                onClick={() => {
-                  setImageUploadMenuMessage("good");
-                  setimageIndex(number);
-                  setIsImgUploadMenuModal(true);
-                }}
-              >
-                Upload Good Spare
-              </Button>
-            ) : null}
+            {number == 0 || number != assetpickerarray.length - 1 ? null : (
+              <div className="ml-1 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full">
+                <Button
+                  onClick={() => {
+                    selectedItem.pop();
+                    let tempassetpicker = [...assetpickerarray];
+                    tempassetpicker.pop();
+                    setAssetpickerarray(tempassetpicker);
+
+                    // ------- new active row ids
+                    let tempactiveid = [...activeRowID];
+                    tempactiveid.pop();
+                    setActiveRowID(tempactiveid);
+                    let tempsecondactiveid = [...secondactiveRowID];
+                    tempsecondactiveid.pop();
+                    setSecondactiveRowID(tempsecondactiveid);
+
+                    // ---exists swap and inventswap  ----
+                    let texist = [...existswap];
+                    texist.pop();
+                    setExistswap(texist);
+                    let tinvent = [...inventswap];
+                    tinvent.pop();
+                    setInventswap(tinvent);
+
+                    //image
+                    let tempgoodspare = [...goodSpareImgUrl];
+                    tempgoodspare.pop();
+                    setGoodSpareImgUrl(tempgoodspare);
+
+                    let tempdefective = [...defectiveImgUrl];
+                    tempdefective.pop();
+                    setDefectiveImgUrl(tempdefective);
+                  }}
+                  icon={Remove}
+                  layout="link"
+                  aria-label="Like"
+                  size="small"
+                />
+              </div>
+            )}
           </div>
         </div>
         {/* Selection Modules */}
@@ -2106,6 +2121,7 @@ function UpdateCall() {
                         data[number],
                         activeRowID,
                         setActiveRowID,
+                        existswap,
                         setExistswap
                       )
                     : null}
@@ -2214,6 +2230,7 @@ function UpdateCall() {
                         inventdata[number],
                         secondactiveRowID,
                         setSecondactiveRowID,
+                        inventswap,
                         setInventswap
                       )
                     : null}
@@ -2385,7 +2402,7 @@ function UpdateCall() {
       {SpareRequiredModal()}
       {CallEnder()}
       <div>
-        <div className="flex flex-col items-center w-full mt-5">
+        <div className="flex flex-col items-center w-full mt-5 mb-5">
           {/* <Link to={`/app/viewcalls`}> */}
           <Button
             onClick={() => {
@@ -2395,16 +2412,25 @@ function UpdateCall() {
           >
             Update Call
           </Button>
-          <Button
+          {/* <Button
             onClick={() => {
-              console.log(imageIndex);
-              console.log(goodSpareImgUrl);
-              console.log(defectiveImgUrl);
+              // console.log(selectedItem);
+              // console.log(activeRowID);
+              // console.log(secondactiveRowID);
+              // console.log(data);
+              console.log(existswap);
+              console.log(inventswap);
+              // console.log(imageIndex);
+              // console.log(goodSpareImgUrl);
+              // console.log(defectiveImgUrl);
+
+              // console.log(selectedItem);
+              // console.log(existswap.length);
             }}
             layout="outline"
           >
             Test
-          </Button>
+          </Button> */}
           {/* </Link> */}
         </div>
       </div>

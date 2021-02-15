@@ -30,7 +30,7 @@ import Axios from "axios";
 
 function UpdateInventory() {
   const { id } = useParams();
-  
+  let movehistory = useHistory();
 
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
@@ -105,7 +105,7 @@ function UpdateInventory() {
 
   useEffect(() => {
     thegetter();
-  }, [])
+  }, []);
 
   const thegetter = async () => {
     let data = { id: id };
@@ -131,7 +131,7 @@ function UpdateInventory() {
         aadharno: res.data.aadharno,
         purchlocation: res.data.purchlocation,
         totalInvoice: res.data.totalInvoice,
-      })
+      });
 
       console.log("Done", res.data);
     } catch (error) {
@@ -160,10 +160,10 @@ function UpdateInventory() {
       item.aadharno = basevalues.aadharno;
       item.purchlocation = basevalues.purchtype;
     });
-    let payload={
-      id:id,
-      update:newitems[0]
-    }
+    let payload = {
+      id: id,
+      update: newitems[0],
+    };
     console.log(newitems);
     await Axios({
       url: `${API}/inventory/${Emp.getId()}/invupdate`,
@@ -172,9 +172,7 @@ function UpdateInventory() {
     })
       .then((data) => {
         console.log("Updated", data);
-        
-
-       
+        movehistory.push("/app/inventory");
       })
       .catch((err) => {
         console.log("err", err);
@@ -522,8 +520,12 @@ function UpdateInventory() {
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
-          <span>Item Number : {num + 1}</span> <span className="ml-10"> Net Tax:{values[num].nettax} ,Invoice Amount: {values[num].invamount} </span>
-          
+          <span>Item Number : {num + 1}</span>{" "}
+          <span className="ml-10">
+            {" "}
+            Net Tax:{values[num].nettax} ,Invoice Amount:{" "}
+            {values[num].invamount}{" "}
+          </span>
         </Label>
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
@@ -553,7 +555,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Category*</span>
               <Select
-              value={values[num].type}
+                value={values[num].type}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];
@@ -690,7 +692,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Condition*</span>
               <Select
-              value={values[num].condition}
+                value={values[num].condition}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];
@@ -702,6 +704,7 @@ function UpdateInventory() {
                   Good
                 </option>
                 <option value="Bad">Bad</option>
+                <option value="Used">Used</option>
               </Select>
             </Label>
           </div>
@@ -969,10 +972,6 @@ function UpdateInventory() {
       <Card className="mb-4 shadow-md ">
         <CardBody>
           <div className="flex flex-row flex-wrap">
-           
-
-
-
             <Button
               onClick={submitItems}
               aria-label="Notifications"
