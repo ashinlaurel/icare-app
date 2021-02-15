@@ -1050,15 +1050,28 @@ function UpdateCall() {
   // --------------------  Functions ---------------------------
 
   const handleUpdate = async () => {
-    if (spareStatus == "Yes") {
-      setNotSwapModalOpen(true);
-      return;
-    }
-    if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
-      // setNotSwapModalOpen(true);
-      alert("Please enter the compulsory fields");
-      return;
-    }
+    // if (spareStatus == "Yes") {
+    //   setNotSwapModalOpen(true);
+    //   return;
+    // }
+    // if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
+    //   // setNotSwapModalOpen(true);
+    //   alert("Please enter the compulsory fields");
+    //   return;
+    // }
+
+    // ------ Image Checker ---
+
+    // for (let i = 0; i < existswap.length; i++) {
+    //   if (existswap[i]._id && !(defectiveImgUrl == "")) {
+    //     alert(`Upload Image for the ${i + 1}th Inventory Change`);
+    //     return;
+    //   }
+    //   if (inventswap[i]._id && !(defectiveImgUrl == "")) {
+    //     alert(`Upload Image for the ${i + 1}th Inventory Change`);
+    //     return;
+    //   }
+    // }
 
     let tempcallstatus = "";
 
@@ -1102,6 +1115,11 @@ function UpdateCall() {
       tempcallstatus = "Closed Calls";
     }
 
+    // ------- Handling the swaps -----------
+    for (let i = 0; i < existswap.length; i++) {
+      await handleSwap(i);
+    }
+
     // ----- history --------
 
     let newcallhistory = {
@@ -1114,8 +1132,8 @@ function UpdateCall() {
       note: `Call Status Updated to ${tempcallstatus}`,
       actionTaken: actionTaken,
       ccfrImgUrl: ccfrImgUrl,
-      existserial: existswap[0].sno,
-      newserial: inventswap[0].sno,
+      // existserial: existswap[0].sno,
+      // newserial: inventswap[0].sno,
     };
     let payload = {
       id: call._id,
@@ -1142,6 +1160,8 @@ function UpdateCall() {
       throw error;
     }
 
+    // ----- asset history update -----
+
     let assetpayload = {
       id: productID,
       update: {
@@ -1157,6 +1177,7 @@ function UpdateCall() {
       });
       console.log("updated");
       console.log("Done");
+      await setAssetpickerarray([{ item: "test" }]);
       setInventswap([
         {
           name: "Not Selected",
@@ -1169,8 +1190,9 @@ function UpdateCall() {
           sno: "Not Selected",
         },
       ]);
-      await getAsset();
-      setSubmitModal(true);
+
+      // await getAsset();
+      // setSubmitModal(true);
       // setIsReviewModalOpen(true);
     } catch (error) {
       throw error;
@@ -1180,21 +1202,12 @@ function UpdateCall() {
 
   // -------handle swap --------
 
-  const handleSwap = async () => {
-    if (existswap[0]._id && !(defectiveImgUrl == "")) {
-      alert("Upload Image!!");
-      return;
-    }
-    if (existswap[0]._id && !(defectiveImgUrl == "")) {
-      alert("Upload Image!!");
-      return;
-    }
-
+  const handleSwap = async (i) => {
     let payload = {
-      existswap: existswap[0],
-      newswap: inventswap[0],
+      existswap: existswap[i],
+      newswap: inventswap[i],
       call: call,
-      type: selectedItem.toLowerCase(),
+      type: selectedItem[i].toLowerCase(),
       servicelocation: servicelocation,
       assetserial: POnumber,
     };
@@ -1222,8 +1235,8 @@ function UpdateCall() {
       actionTaken: actionTaken,
       existUrl: defectiveImgUrl,
       newUrl: goodSpareImgUrl,
-      existserial: existswap[0].sno,
-      newserial: inventswap[0].sno,
+      existserial: existswap[i].sno,
+      newserial: inventswap[i].sno,
     };
     let payloadtwo = {
       id: call._id,
@@ -1259,22 +1272,11 @@ function UpdateCall() {
         method: "POST",
         data: assetpayload,
       });
-      console.log("updated");
-      console.log("Done");
-      setInventswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-      setExistswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-      await getAsset();
-      setSubmitModal(true);
+      // console.log("updated");
+      // console.log("Done");
+
+      // await getAsset();
+      // setSubmitModal(true);
       // setIsReviewModalOpen(true);
     } catch (error) {
       throw error;
@@ -1794,30 +1796,29 @@ function UpdateCall() {
                     dataSetter(kbd, number);
                   } else if (thevalue == "Monitor") {
                     dataSetter(monitor, number);
-                  }else if (thevalue == "Cpu") {
+                  } else if (thevalue == "Cpu") {
                     dataSetter(cpu, number);
-                  }else if (thevalue == "Ram") {
+                  } else if (thevalue == "Ram") {
                     dataSetter(ram, number);
-                  }else if (thevalue == "Fan") {
+                  } else if (thevalue == "Fan") {
                     dataSetter(fan, number);
-                  }else if (thevalue == "Motherboard") {
+                  } else if (thevalue == "Motherboard") {
                     dataSetter(motherboard, number);
-                  }else if (thevalue == "SMPS") {
+                  } else if (thevalue == "SMPS") {
                     dataSetter(smps, number);
-                  }else if (thevalue == "HDD") {
+                  } else if (thevalue == "HDD") {
                     dataSetter(hdd, number);
-                  }else if (thevalue == "Gcard") {
+                  } else if (thevalue == "Gcard") {
                     dataSetter(gcard, number);
-                  }else if (thevalue == "EnetCard") {
+                  } else if (thevalue == "EnetCard") {
                     dataSetter(enetcard, number);
-                  }else if (thevalue == "SerialCard") {
+                  } else if (thevalue == "SerialCard") {
                     dataSetter(serialcard, number);
-                  }else if (thevalue == "ParalellCard") {
+                  } else if (thevalue == "ParalellCard") {
                     dataSetter(parallelcard, number);
-                  }else if (thevalue == "OpticalDrive") {
+                  } else if (thevalue == "OpticalDrive") {
                     dataSetter(opticaldrive, number);
-                  }
-                  else if (thevalue == "Others") {
+                  } else if (thevalue == "Others") {
                     dataSetter(others, number);
                   }
                   // ----------getting inventory
@@ -2349,6 +2350,8 @@ function UpdateCall() {
               // console.log(data);
               console.log(existswap);
               console.log(inventswap);
+              console.log(selectedItem);
+              // console.log(existswap.length);
             }}
             layout="outline"
           >
