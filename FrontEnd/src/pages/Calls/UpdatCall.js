@@ -149,12 +149,13 @@ function UpdateCall() {
   const [isImgUploadModal, setIsImgUploadModal] = useState(false);
   const [imageUploadMessage, setImageUploadMessage] = useState("");
   const [isImgUploadMenuModal, setIsImgUploadMenuModal] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
+  
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
 
-  const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
-  const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
+  const [goodSpareImgUrl, setGoodSpareImgUrl] = useState([""]);
+  const [defectiveImgUrl, setDefectiveImgUrl] = useState([""]);
+  const [imgUrl, setImgUrl] = useState([""]);
   const [ccfrImgUrl, setCcfrImgUrl] = useState("");
 
   const [isHistoryImgViewModal, setIsHistoryImgViewModal] = useState(false);
@@ -1888,6 +1889,16 @@ function UpdateCall() {
                       sno: "Not Selected",
                     });
                     setInventswap(tinvent);
+                    //image push
+  
+                    let tempgoodspare=[...goodSpareImgUrl];
+                    tempgoodspare.push("")
+                    setGoodSpareImgUrl(tempgoodspare)
+
+                    let tempdefective=[...defectiveImgUrl];
+                    tempdefective.push("")
+                    setGoodSpareImgUrl(tempdefective)
+
                   }}
                   icon={Add}
                   layout="link"
@@ -1918,6 +1929,15 @@ function UpdateCall() {
                       let tinvent = [...inventswap];
                       tinvent.pop();
                       setInventswap(tinvent);
+
+                      //image
+                      let tempgoodspare=[...goodSpareImgUrl];
+                    tempgoodspare.pop();
+                    setGoodSpareImgUrl(tempgoodspare)
+
+                    let tempdefective=[...defectiveImgUrl];
+                    tempdefective.pop();
+                    setGoodSpareImgUrl(tempdefective)
                     }}
                     icon={Remove}
                     layout="link"
