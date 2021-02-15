@@ -1735,22 +1735,24 @@ function UpdateCall() {
                       <span className="text-sm">{user.sno}</span>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        layout="outline"
-                        className="dark:border-green-700 border-green-400"
-                        onClick={() => {
-                          let tempexist = [...existswap];
-                          tempexist[number] = user;
-                          setExistswap(tempexist);
+                      {user.sno != "" ? (
+                        <Button
+                          layout="outline"
+                          className="dark:border-green-700 border-green-400"
+                          onClick={() => {
+                            let tempexist = [...existswap];
+                            tempexist[number] = user;
+                            setExistswap(tempexist);
 
-                          // -----------row id
-                          let temp = [...activeRowID];
-                          temp[number] = -1;
-                          setActiveRowID(temp);
-                        }}
-                      >
-                        Select
-                      </Button>
+                            // -----------row id
+                            let temp = [...activeRowID];
+                            temp[number] = -1;
+                            setActiveRowID(temp);
+                          }}
+                        >
+                          Select
+                        </Button>
+                      ) : null}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -2348,9 +2350,11 @@ function UpdateCall() {
               // console.log(activeRowID);
               // console.log(secondactiveRowID);
               // console.log(data);
-              console.log(existswap);
-              console.log(inventswap);
-              console.log(selectedItem);
+              // console.log(existswap);
+              // console.log(inventswap);
+              // console.log(selectedItem);
+              // console.log(inventdata);
+              // console.log(data);
               // console.log(existswap.length);
             }}
             layout="outline"
