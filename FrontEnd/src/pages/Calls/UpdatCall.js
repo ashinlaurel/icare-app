@@ -1903,7 +1903,7 @@ function UpdateCall() {
 
                     let tempdefective=[...defectiveImgUrl];
                     tempdefective.push("")
-                    setGoodSpareImgUrl(tempdefective)
+                    setDefectiveImgUrl(tempdefective)
 
                   }}
                   icon={Add}
@@ -1943,7 +1943,7 @@ function UpdateCall() {
 
                     let tempdefective=[...defectiveImgUrl];
                     tempdefective.pop();
-                    setGoodSpareImgUrl(tempdefective)
+                    setDefectiveImgUrl(tempdefective)
                     }}
                     icon={Remove}
                     layout="link"
@@ -1963,7 +1963,7 @@ function UpdateCall() {
             >
               Swap
             </Button> */}
-            {existswap[0]._id ? (
+            {existswap[number]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
@@ -1976,7 +1976,7 @@ function UpdateCall() {
                 Upload Defective Spare
               </Button>
             ) : null}
-            {inventswap[0]._id ? (
+            {inventswap[number]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
@@ -2378,9 +2378,12 @@ function UpdateCall() {
               // console.log(activeRowID);
               // console.log(secondactiveRowID);
               // console.log(data);
-              console.log(existswap);
-              console.log(inventswap);
-              console.log(selectedItem);
+              // console.log(existswap);
+              console.log(imageIndex);
+              console.log(goodSpareImgUrl);
+              console.log(defectiveImgUrl)
+              // console.log(inventswap);
+              // console.log(selectedItem);
               // console.log(existswap.length);
             }}
             layout="outline"
