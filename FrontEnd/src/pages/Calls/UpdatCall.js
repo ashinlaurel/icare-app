@@ -254,17 +254,17 @@ function UpdateCall() {
   const handleImgUpload = (message) => {
     if (message == "defective") {
       photoUpload(imgFile, (url) => {
-        console.log("PHOTO URL", url,imageIndex);
+        console.log("PHOTO URL", url, imageIndex);
         // setImgUrl(url);
-        let temp= defectiveImgUrl;
-        temp[imageIndex]=url
+        let temp = defectiveImgUrl;
+        temp[imageIndex] = url;
         setDefectiveImgUrl(temp);
       });
     } else if (message == "good") {
       photoUpload(imgFile, (url) => {
-        let temp= goodSpareImgUrl;
-        temp[imageIndex]=url
-        console.log("PHOTO URL", url,imageIndex);
+        let temp = goodSpareImgUrl;
+        temp[imageIndex] = url;
+        console.log("PHOTO URL", url, imageIndex);
         // setImgUrl(url);
         setGoodSpareImgUrl(temp);
       });
@@ -290,10 +290,29 @@ function UpdateCall() {
           <ModalHeader>{imageUploadMenuMessage}</ModalHeader>
           <ModalBody>
             <>
-            {imageUploadMenuMessage == "defective"?<img src={defectiveImgUrl[imageIndex]} className="my-2" width="100" height="100" />
-            :imageUploadMenuMessage == "good"?<img src={goodSpareImgUrl[imageIndex]} className="my-2" width="100" height="100" />
-            :imageUploadMenuMessage == "defective"?<img src={ccfrImgUrl} className="my-2" width="100" height="100" />:null}
-              
+              {imageUploadMenuMessage == "defective" ? (
+                <img
+                  src={defectiveImgUrl[imageIndex]}
+                  className="my-2"
+                  width="100"
+                  height="100"
+                />
+              ) : imageUploadMenuMessage == "good" ? (
+                <img
+                  src={goodSpareImgUrl[imageIndex]}
+                  className="my-2"
+                  width="100"
+                  height="100"
+                />
+              ) : imageUploadMenuMessage == "defective" ? (
+                <img
+                  src={ccfrImgUrl}
+                  className="my-2"
+                  width="100"
+                  height="100"
+                />
+              ) : null}
+
               <div className="flex-row flex  space-x-3 mt-3 ">
                 <div className="flex flex-col ">
                   <Label className="">
@@ -1783,7 +1802,6 @@ function UpdateCall() {
         <div className="text-sm font-bold dark:text-white ">
           Inventory Movement: {number + 1}
         </div>
-
         {/* -----Type Selection---- */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
@@ -1868,20 +1886,121 @@ function UpdateCall() {
             >
               Swap
             </Button> */}
-            {existswap[0]._id ? (
+
+            <div className="flex flex-row items-center justify-center">
+              <div
+                className="ml-3 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full
+            "
+              >
+                <Button
+                  onClick={() => {
+                    selectedItem.push("");
+                    // -----new module-----
+                    let tempassetpicker = [...assetpickerarray];
+                    let temp = { item: "test" };
+                    tempassetpicker.push(temp);
+                    setAssetpickerarray(tempassetpicker);
+
+                    // ------- new active row ids
+                    let tempactiveid = [...activeRowID];
+                    tempactiveid.push(-1);
+                    setActiveRowID(tempactiveid);
+                    let tempsecondactiveid = [...secondactiveRowID];
+                    tempsecondactiveid.push(-1);
+                    setSecondactiveRowID(tempsecondactiveid);
+
+                    // -----data and invent data
+                    let tempd = [...data];
+                    tempd.push({});
+                    setData(tempd);
+                    let tempinvdata = [...inventdata];
+                    tempinvdata.push({});
+                    setInventData(tempinvdata);
+                    // ---exists swap and inventswap  ----
+                    let texist = [...existswap];
+                    texist.push({
+                      name: "Not Selected",
+                      sno: "Not Selected",
+                    });
+                    setExistswap(texist);
+                    let tinvent = [...inventswap];
+                    tinvent.push({
+                      name: "Not Selected",
+                      sno: "Not Selected",
+                    });
+                    setInventswap(tinvent);
+                    //image push
+
+                    let tempgoodspare = [...goodSpareImgUrl];
+                    tempgoodspare.push("");
+                    setGoodSpareImgUrl(tempgoodspare);
+
+                    let tempdefective = [...defectiveImgUrl];
+                    tempdefective.push("");
+                    setGoodSpareImgUrl(tempdefective);
+                  }}
+                  icon={Add}
+                  layout="link"
+                  aria-label="Like"
+                  size="small"
+                />
+              </div>
+              {number == 0 ? null : (
+                <div className="ml-1 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full">
+                  <Button
+                    onClick={() => {
+                      selectedItem.pop();
+                      let tempassetpicker = [...assetpickerarray];
+                      tempassetpicker.pop();
+                      setAssetpickerarray(tempassetpicker);
+
+                      // ------- new active row ids
+                      let tempactiveid = [...activeRowID];
+                      tempactiveid.pop();
+                      setActiveRowID(tempactiveid);
+                      let tempsecondactiveid = [...secondactiveRowID];
+                      tempsecondactiveid.pop();
+                      setSecondactiveRowID(tempsecondactiveid);
+
+                      // ---exists swap and inventswap  ----
+                      let texist = [...existswap];
+                      texist.pop();
+                      setExistswap(texist);
+                      let tinvent = [...inventswap];
+                      tinvent.pop();
+                      setInventswap(tinvent);
+
+                      //image
+                      let tempgoodspare = [...goodSpareImgUrl];
+                      tempgoodspare.pop();
+                      setGoodSpareImgUrl(tempgoodspare);
+
+                      let tempdefective = [...defectiveImgUrl];
+                      tempdefective.pop();
+                      setGoodSpareImgUrl(tempdefective);
+                    }}
+                    icon={Remove}
+                    layout="link"
+                    aria-label="Like"
+                    size="small"
+                  />
+                </div>
+              )}
+            </div>
+            {existswap[number]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
                 onClick={() => {
                   setImageUploadMenuMessage("defective");
-                  setimageIndex(number)
+                  setimageIndex(number);
                   setIsImgUploadMenuModal(true);
                 }}
               >
                 Upload Defective Spare
               </Button>
             ) : null}
-            {inventswap[0]._id ? (
+            {inventswap[number]._id ? (
               <Button
                 layout="outline"
                 className="dark:border-green-700 border-green-400"
@@ -1896,7 +2015,6 @@ function UpdateCall() {
             ) : null}
           </div>
         </div>
-
         {/* Selection Modules */}
         <div className="flex flex-row items-start space-x-2">
           {/* -------Existing Item Table ----------*/}
@@ -2111,108 +2229,7 @@ function UpdateCall() {
             />
           </TableFooter> */}
           </TableContainer>
-        </div>
-
-        <div className="my-2   ">
-          <div className="flex flex-row items-center justify-center">
-            <div
-              className="ml-3 bg-gray-100 rounded-full
-            "
-            >
-              <Button
-                onClick={() => {
-                  selectedItem.push("");
-                  // -----new module-----
-                  let tempassetpicker = [...assetpickerarray];
-                  let temp = { item: "test" };
-                  tempassetpicker.push(temp);
-                  setAssetpickerarray(tempassetpicker);
-
-                  // ------- new active row ids
-                  let tempactiveid = [...activeRowID];
-                  tempactiveid.push(-1);
-                  setActiveRowID(tempactiveid);
-                  let tempsecondactiveid = [...secondactiveRowID];
-                  tempsecondactiveid.push(-1);
-                  setSecondactiveRowID(tempsecondactiveid);
-
-                  // -----data and invent data
-                  let tempd = [...data];
-                  tempd.push({});
-                  setData(tempd);
-                  let tempinvdata = [...inventdata];
-                  tempinvdata.push({});
-                  setInventData(tempinvdata);
-                  // ---exists swap and inventswap  ----
-                  let texist = [...existswap];
-                  texist.push({
-                    name: "Not Selected",
-                    sno: "Not Selected",
-                  });
-                  setExistswap(texist);
-                  let tinvent = [...inventswap];
-                  tinvent.push({
-                    name: "Not Selected",
-                    sno: "Not Selected",
-                  });
-                  setInventswap(tinvent);
-                  //image push
-
-                  let tempgoodspare = [...goodSpareImgUrl];
-                  tempgoodspare.push("");
-                  setGoodSpareImgUrl(tempgoodspare);
-
-                  let tempdefective = [...defectiveImgUrl];
-                  tempdefective.push("");
-                  setGoodSpareImgUrl(tempdefective);
-                }}
-                icon={Add}
-                layout="link"
-                aria-label="Like"
-              />
-            </div>
-            {number == 0 ? null : (
-              <div className="ml-3 bg-gray-100 rounded-full">
-                <Button
-                  onClick={() => {
-                    selectedItem.pop();
-                    let tempassetpicker = [...assetpickerarray];
-                    tempassetpicker.pop();
-                    setAssetpickerarray(tempassetpicker);
-
-                    // ------- new active row ids
-                    let tempactiveid = [...activeRowID];
-                    tempactiveid.pop();
-                    setActiveRowID(tempactiveid);
-                    let tempsecondactiveid = [...secondactiveRowID];
-                    tempsecondactiveid.pop();
-                    setSecondactiveRowID(tempsecondactiveid);
-
-                    // ---exists swap and inventswap  ----
-                    let texist = [...existswap];
-                    texist.pop();
-                    setExistswap(texist);
-                    let tinvent = [...inventswap];
-                    tinvent.pop();
-                    setInventswap(tinvent);
-
-                    //image
-                    let tempgoodspare = [...goodSpareImgUrl];
-                    tempgoodspare.pop();
-                    setGoodSpareImgUrl(tempgoodspare);
-
-                    let tempdefective = [...defectiveImgUrl];
-                    tempdefective.pop();
-                    setGoodSpareImgUrl(tempdefective);
-                  }}
-                  icon={Remove}
-                  layout="link"
-                  aria-label="Like"
-                />
-              </div>
-            )}
-          </div>{" "}
-        </div>
+        </div>{" "}
       </div>
     );
   };
@@ -2380,16 +2397,9 @@ function UpdateCall() {
           </Button>
           <Button
             onClick={() => {
-              // console.log(selectedItem);
-              // console.log(activeRowID);
-              // console.log(secondactiveRowID);
-              // console.log(data);
-              // console.log(existswap);
-              // console.log(inventswap);
-              // console.log(selectedItem);
-              // console.log(inventdata);
-              // console.log(data);
-              // console.log(existswap.length);
+              console.log(imageIndex);
+              console.log(goodSpareImgUrl);
+              console.log(defectiveImgUrl);
             }}
             layout="outline"
           >
