@@ -56,7 +56,7 @@ function LST() {
   const [location, setLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(moment().format());
   const [condition, setCondition] = useState("Available");
 
   // Selected Prod for the bottom bar----------
@@ -119,6 +119,51 @@ function LST() {
   function onPageChange(p) {
     setPage(p);
   }
+
+  // LST NUM
+  const LSTNumberSetter = async (date,from) => {
+    console.log(date,from)
+    if(from=="" || date=="") return;
+    let payload = {
+      from:from,
+      date: date,
+    };
+    let thecallcount = 0;
+    try {
+      thecallcount = await axios({
+        url: `${API}/lst/${Emp.getId()}/lstbydate`,
+        method: "POST",
+        data: payload,
+      });
+    } catch (error) {
+      throw error;
+    }
+
+    let locstr;
+    from=="Trivandrum"?locstr="TVM":from=="Kottayam"?locstr="KTM":locstr="CLT";
+
+    let year = moment(date).format("YY");
+    let month = moment(date).format("MM");
+    let day = moment(date).format("DD");
+    let callnumber = thecallcount.data+1;
+    if (callnumber < 10) {
+      callnumber = "00" + callnumber;
+    }else if(callnumber < 100) {
+      callnumber = "0" + callnumber;
+    }
+    console.log(thecallcount.data)
+
+    let thestring = "ICS"+locstr+year + callnumber;
+    setLSTNo(thestring)
+    // setValues({ ...values, callNo: thestring, date: date });
+    // // ------history management
+    // let temp = callhistory;
+    // temp[0].date = date;
+    // setCallHistory(temp);
+
+    // console.log(thestring);
+  };
+
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -742,7 +787,9 @@ function LST() {
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={location}
                 onChange={(e) => {
+                  
                   setLocation(e.target.value);
+                  LSTNumberSetter(date,e.target.value);
                 }}
               >
                 <option value="" disabled selected>
@@ -819,8 +866,9 @@ function LST() {
             <div class="relative mx-1 ">
               <input
                 value={LSTNo}
+                disabled
                 onChange={(e) => setLSTNo(e.target.value)}
-                placeholder="LST No."
+                // placeholder="LST No."
                 class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
               />
             </div>
@@ -831,7 +879,12 @@ function LST() {
               <input
                 type="date"
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
+                onChange={(e) => {
+                  
+                  setDate(e.target.value)
+                  LSTNumberSetter(e.target.value,location);
+
+                }}
                 placeholder="LST No."
                 class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
               />

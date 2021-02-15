@@ -12,6 +12,7 @@ const {
   downloadPdf,
   getById,
   deleteLST,
+  countLSTByDate,
 } = require("../../controllers/LST/LST");
 
 const router = express.Router();
@@ -30,5 +31,7 @@ router.post("/:id/update", isSignedIn, isAuthenticated, updateLST);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteLST);
 
 router.post("/:id/downloadpdf", isSignedIn, isAuthenticated, downloadPdf);
+
+router.post("/:id/lstbydate", countLSTByDate)
 
 module.exports = router;

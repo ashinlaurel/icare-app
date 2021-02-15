@@ -118,6 +118,22 @@ exports.deleteLST= async (req, res) => {
 };
 
 
+exports.countLSTByDate = (req, res) => {
+  let { date ,from} = req.body;
+  console.log(date,from);
+  LST.count({ date:date,from: from }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count customers",
+        err: err,
+      });
+    }
+    console.log(result);
+    return res.status(200).json(result);
+  });
+};
+
+
 
 // Pdf Download ------------------
 
