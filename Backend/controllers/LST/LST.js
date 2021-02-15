@@ -2,6 +2,7 @@ const LST = require("../../models/LST/LST");
 const pdf = require("html-pdf");
 const pdfTemplate = require("../../documents/lst");
 const puppeteer = require("puppeteer");
+const moment = require("moment")
 
 exports.LSTCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
@@ -121,7 +122,26 @@ exports.deleteLST= async (req, res) => {
 exports.countLSTByDate = (req, res) => {
   let { date ,from} = req.body;
   console.log(date,from);
-  LST.count({ date:date,from: from }, function (err, result) {
+  let year = moment(date).format("YYYY");
+  let month = moment(date).format("MM")
+  let day = moment(date).format("DD");
+  let fromdate,todate;
+  if(month== "03"|| month=="02" || month=="01" ){
+     fromdate=new Date(parseInt(year)-1,3,1);
+     todate=new Date(parseInt(year),2,31);
+  }else{
+  fromdate=new Date(parseInt(year),3,1);
+  todate=new Date(parseInt(year)+1,2,31);
+  }
+
+  
+  
+  console.log("Dates",fromdate,todate,month);
+  LST.count({ date:{
+      "$gte":fromdate,
+      "$lte":todate
+        }
+      ,from: from }, function (err, result) {
     if (err) {
       return res.status(400).json({
         error: "Cant count customers",
