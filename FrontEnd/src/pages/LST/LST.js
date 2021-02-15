@@ -861,18 +861,7 @@ function LST() {
           ) : null}
 
           {/* -----------------------------------------Location ----------------------- */}
-          <div className=" flex flex-row dark:text-white  ">
-            <div className=" mx-3 my-1 ">LST No.</div>
-            <div class="relative mx-1 ">
-              <input
-                value={LSTNo}
-                disabled
-                onChange={(e) => setLSTNo(e.target.value)}
-                // placeholder="LST No."
-                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-              />
-            </div>
-          </div>
+          
           <div className="flex flex-row dark:text-white  ">
             <div className=" my-2 ">Date</div>
             <div class="relative mx-1 ">
@@ -887,6 +876,18 @@ function LST() {
                 }}
                 placeholder="LST No."
                 class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className=" flex flex-row dark:text-white  ">
+            <div className=" mx-3 my-1 ">LST No.</div>
+            <div class="relative mx-1 ">
+              <input
+                value={LSTNo}
+                disabled
+                onChange={(e) => setLSTNo(e.target.value)}
+                // placeholder="LST No."
+                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
               />
             </div>
           </div>
