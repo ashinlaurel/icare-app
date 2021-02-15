@@ -136,7 +136,7 @@ exports.countLSTByDate = (req, res) => {
 
   
   
-  console.log("Dates",fromdate,todate,month);
+  // console.log("Dates",fromdate,todate,month);
   LST.count({ date:{
       "$gte":fromdate,
       "$lte":todate
