@@ -69,9 +69,9 @@ function ViewCalls() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
-  const [callStatus, setCallStatus] = useState("")
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("")
+  const [callStatus, setCallStatus] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   // filterhooks
   const [Business, setBusiness] = useState("");
@@ -91,7 +91,11 @@ function ViewCalls() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
-  // Getting data states
+  // Image States
+  const [isHistoryImgViewModal, setIsHistoryImgViewModal] = useState(false);
+  const [goodSpareHistoryImg, setGoodSpareHistoryImg] = useState("");
+  const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
+  const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
 
   // pagination setup
   const resultsPerPage = 10;
@@ -173,6 +177,83 @@ function ViewCalls() {
     );
   };
 
+  const HistoryImgViewModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isHistoryImgViewModal}
+          onClose={() => {
+            setDefectiveHistoryImg("");
+            setGoodSpareHistoryImg("");
+            setCcfrHistoryImg("");
+            setIsHistoryImgViewModal(false);
+          }}
+          className="w-8/12 dark:bg-gray-800 p-10 my-12 h-screen  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          // className="w-6/12 h-8/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll text-cente items-center justify-center"
+        >
+          <ModalHeader>Images</ModalHeader>
+          <ModalBody>
+            <div className="flex flex-col justify-center ">
+              <hr></hr>
+              {defectiveHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full">
+                    {" "}
+                    Replaced Item
+                  </div>
+                  <img
+                    src={defectiveHistoryImg}
+                    className="my-4 border-4"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {goodSpareHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full">
+                    {" "}
+                    Replaced by
+                  </div>
+                  <img
+                    src={goodSpareHistoryImg}
+                    className="my-4 border-4"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {ccfrHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
+                  <img
+                    src={ccfrHistoryImg}
+                    className="my-4 border-4"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setDefectiveHistoryImg("");
+                setGoodSpareHistoryImg("");
+                setCcfrHistoryImg("");
+                setIsHistoryImgViewModal(false);
+              }}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -206,8 +287,8 @@ function ViewCalls() {
         filters: {
           callStatus: callStatus,
           searchquery: searchquery,
-          fromDate:fromDate,
-          toDate:toDate
+          fromDate: fromDate,
+          toDate: toDate,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -229,7 +310,16 @@ function ViewCalls() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh,callStatus,searchquery,fromDate,toDate]);
+  }, [
+    page,
+    Business,
+    product,
+    refresh,
+    callStatus,
+    searchquery,
+    fromDate,
+    toDate,
+  ]);
 
   // console.log(selectedprod);
 
@@ -266,7 +356,7 @@ function ViewCalls() {
           <Modal
             isOpen={historyModalOpen}
             onClose={() => setHistoryModalOpen(false)}
-            className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+            className="w-9/12 h-screen dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
               <div>{item.name}</div>
@@ -289,6 +379,7 @@ function ViewCalls() {
                       <TableCell>Status</TableCell>
                       <TableCell>Notes</TableCell>
                       <TableCell>Action Taken</TableCell>
+                      <TableCell>Images</TableCell>
                     </tr>
                   </TableHeader>
                   <TableBody>
@@ -382,6 +473,22 @@ function ViewCalls() {
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
                         </TableCell>
+                        <TableCell>
+                          <Button
+                            layout="outline"
+                            onClick={() => {
+                              if (entry.newUrl)
+                                setGoodSpareHistoryImg(entry.newUrl);
+                              if (entry.existUrl)
+                                setDefectiveHistoryImg(entry.existUrl);
+                              if (entry.ccfrImgUrl)
+                                setCcfrHistoryImg(entry.ccfrImgUrl);
+                              setIsHistoryImgViewModal(true);
+                            }}
+                          >
+                            Show
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -421,6 +528,7 @@ function ViewCalls() {
       <SetStatusModal />
       <ReviewSubmit />
       {HistoryModal()}
+      {HistoryImgViewModal()}
 
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
@@ -430,15 +538,13 @@ function ViewCalls() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
-          
-          
-          <Label className="">
+            <Label className="">
               <span>From Date</span>
               <input
                 className="mt-1 p-3 rounded-sm mx-1"
                 type="date"
                 value={fromDate}
-                onChange={e=>setFromDate(e.target.value)}
+                onChange={(e) => setFromDate(e.target.value)}
               />
             </Label>
             <Label className="">
@@ -447,7 +553,7 @@ function ViewCalls() {
                 className="mt-1 p-3 rounded-sm mx-1"
                 type="date"
                 value={toDate}
-                onChange={e=>setToDate(e.target.value)}
+                onChange={(e) => setToDate(e.target.value)}
               />
             </Label>
 
@@ -463,18 +569,20 @@ function ViewCalls() {
                   Call Status
                 </option>
                 <option value="">All</option>
-                <option selected value="0">Not Allocated</option>
-                <option  value="1">Pending for Percall Approval</option>
-                <option  value="2">Pending for Response</option>
-                <option  value="3">Pending for OEM Response</option>
-                <option  value="4">Pending for 2nd Response</option>
-                <option  value="5">Pending for Customer</option>
-                <option  value="6">Under Observation</option>
-                <option  value="7">Pending for Others</option>
-                <option  value="8">Pending for Spare</option>
-                <option  value="9">Spare in Transit</option>
-                <option  value="10">Cancelled Calls</option>
-                <option  value="11">Closed Calls</option>
+                <option selected value="0">
+                  Not Allocated
+                </option>
+                <option value="1">Pending for Percall Approval</option>
+                <option value="2">Pending for Response</option>
+                <option value="3">Pending for OEM Response</option>
+                <option value="4">Pending for 2nd Response</option>
+                <option value="5">Pending for Customer</option>
+                <option value="6">Under Observation</option>
+                <option value="7">Pending for Others</option>
+                <option value="8">Pending for Spare</option>
+                <option value="9">Spare in Transit</option>
+                <option value="10">Cancelled Calls</option>
+                <option value="11">Closed Calls</option>
                 {/* <option value="-1">Allocated</option> */}
               </select>
 
@@ -489,14 +597,8 @@ function ViewCalls() {
               </div>
             </div>
 
-
-          
-
-          
-           
-            
-             {/* -----------------Search Bar------------------------------------ */}
-             <div class="block relative xl:ml-64">
+            {/* -----------------Search Bar------------------------------------ */}
+            <div class="block relative xl:ml-64">
               <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                 <svg
                   viewBox="0 0 24 24"

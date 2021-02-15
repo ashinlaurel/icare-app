@@ -777,7 +777,7 @@ function RegisterCall() {
     let year = moment(date).format("YY");
     let month = moment(date).format("MM");
     let day = moment(date).format("DD");
-    let callnumber = thecallcount.data;
+    let callnumber = thecallcount.data + 1;
     if (callnumber < 10) {
       callnumber = "0" + callnumber;
     }
