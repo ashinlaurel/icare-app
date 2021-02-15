@@ -149,7 +149,7 @@ function UpdateCall() {
   const [isImgUploadModal, setIsImgUploadModal] = useState(false);
   const [imageUploadMessage, setImageUploadMessage] = useState("");
   const [isImgUploadMenuModal, setIsImgUploadMenuModal] = useState(false);
-  
+
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
 
@@ -1850,103 +1850,6 @@ function UpdateCall() {
               </Select>
             </div>
 
-            <div className="flex flex-row">
-              <div className="ml-3">
-                <Button
-                  onClick={() => {
-                    selectedItem.push("");
-                    // -----new module-----
-                    let tempassetpicker = [...assetpickerarray];
-                    let temp = { item: "test" };
-                    tempassetpicker.push(temp);
-                    setAssetpickerarray(tempassetpicker);
-
-                    // ------- new active row ids
-                    let tempactiveid = [...activeRowID];
-                    tempactiveid.push(-1);
-                    setActiveRowID(tempactiveid);
-                    let tempsecondactiveid = [...secondactiveRowID];
-                    tempsecondactiveid.push(-1);
-                    setSecondactiveRowID(tempsecondactiveid);
-
-                    // -----data and invent data
-                    let tempd = [...data];
-                    tempd.push({});
-                    setData(tempd);
-                    let tempinvdata = [...inventdata];
-                    tempinvdata.push({});
-                    setInventData(tempinvdata);
-                    // ---exists swap and inventswap  ----
-                    let texist = [...existswap];
-                    texist.push({
-                      name: "Not Selected",
-                      sno: "Not Selected",
-                    });
-                    setExistswap(texist);
-                    let tinvent = [...inventswap];
-                    tinvent.push({
-                      name: "Not Selected",
-                      sno: "Not Selected",
-                    });
-                    setInventswap(tinvent);
-                    //image push
-  
-                    let tempgoodspare=[...goodSpareImgUrl];
-                    tempgoodspare.push("")
-                    setGoodSpareImgUrl(tempgoodspare)
-
-                    let tempdefective=[...defectiveImgUrl];
-                    tempdefective.push("")
-                    setGoodSpareImgUrl(tempdefective)
-
-                  }}
-                  icon={Add}
-                  layout="link"
-                  aria-label="Like"
-                />
-              </div>
-              {number == 0 ? null : (
-                <div className="ml-3">
-                  <Button
-                    onClick={() => {
-                      selectedItem.pop();
-                      let tempassetpicker = [...assetpickerarray];
-                      tempassetpicker.pop();
-                      setAssetpickerarray(tempassetpicker);
-
-                      // ------- new active row ids
-                      let tempactiveid = [...activeRowID];
-                      tempactiveid.pop();
-                      setActiveRowID(tempactiveid);
-                      let tempsecondactiveid = [...secondactiveRowID];
-                      tempsecondactiveid.pop();
-                      setSecondactiveRowID(tempsecondactiveid);
-
-                      // ---exists swap and inventswap  ----
-                      let texist = [...existswap];
-                      texist.pop();
-                      setExistswap(texist);
-                      let tinvent = [...inventswap];
-                      tinvent.pop();
-                      setInventswap(tinvent);
-
-                      //image
-                      let tempgoodspare=[...goodSpareImgUrl];
-                    tempgoodspare.pop();
-                    setGoodSpareImgUrl(tempgoodspare)
-
-                    let tempdefective=[...defectiveImgUrl];
-                    tempdefective.pop();
-                    setGoodSpareImgUrl(tempdefective)
-                    }}
-                    icon={Remove}
-                    layout="link"
-                    aria-label="Like"
-                  />
-                </div>
-              )}
-            </div>
-
             {/* <Button
               layout="outline"
               className="dark:border-green-700 border-green-400"
@@ -2198,6 +2101,107 @@ function UpdateCall() {
             />
           </TableFooter> */}
           </TableContainer>
+        </div>
+
+        <div className="my-2   ">
+          <div className="flex flex-row items-center justify-center">
+            <div
+              className="ml-3 bg-gray-100 rounded-full
+            "
+            >
+              <Button
+                onClick={() => {
+                  selectedItem.push("");
+                  // -----new module-----
+                  let tempassetpicker = [...assetpickerarray];
+                  let temp = { item: "test" };
+                  tempassetpicker.push(temp);
+                  setAssetpickerarray(tempassetpicker);
+
+                  // ------- new active row ids
+                  let tempactiveid = [...activeRowID];
+                  tempactiveid.push(-1);
+                  setActiveRowID(tempactiveid);
+                  let tempsecondactiveid = [...secondactiveRowID];
+                  tempsecondactiveid.push(-1);
+                  setSecondactiveRowID(tempsecondactiveid);
+
+                  // -----data and invent data
+                  let tempd = [...data];
+                  tempd.push({});
+                  setData(tempd);
+                  let tempinvdata = [...inventdata];
+                  tempinvdata.push({});
+                  setInventData(tempinvdata);
+                  // ---exists swap and inventswap  ----
+                  let texist = [...existswap];
+                  texist.push({
+                    name: "Not Selected",
+                    sno: "Not Selected",
+                  });
+                  setExistswap(texist);
+                  let tinvent = [...inventswap];
+                  tinvent.push({
+                    name: "Not Selected",
+                    sno: "Not Selected",
+                  });
+                  setInventswap(tinvent);
+                  //image push
+
+                  let tempgoodspare = [...goodSpareImgUrl];
+                  tempgoodspare.push("");
+                  setGoodSpareImgUrl(tempgoodspare);
+
+                  let tempdefective = [...defectiveImgUrl];
+                  tempdefective.push("");
+                  setGoodSpareImgUrl(tempdefective);
+                }}
+                icon={Add}
+                layout="link"
+                aria-label="Like"
+              />
+            </div>
+            {number == 0 ? null : (
+              <div className="ml-3 bg-gray-100 rounded-full">
+                <Button
+                  onClick={() => {
+                    selectedItem.pop();
+                    let tempassetpicker = [...assetpickerarray];
+                    tempassetpicker.pop();
+                    setAssetpickerarray(tempassetpicker);
+
+                    // ------- new active row ids
+                    let tempactiveid = [...activeRowID];
+                    tempactiveid.pop();
+                    setActiveRowID(tempactiveid);
+                    let tempsecondactiveid = [...secondactiveRowID];
+                    tempsecondactiveid.pop();
+                    setSecondactiveRowID(tempsecondactiveid);
+
+                    // ---exists swap and inventswap  ----
+                    let texist = [...existswap];
+                    texist.pop();
+                    setExistswap(texist);
+                    let tinvent = [...inventswap];
+                    tinvent.pop();
+                    setInventswap(tinvent);
+
+                    //image
+                    let tempgoodspare = [...goodSpareImgUrl];
+                    tempgoodspare.pop();
+                    setGoodSpareImgUrl(tempgoodspare);
+
+                    let tempdefective = [...defectiveImgUrl];
+                    tempdefective.pop();
+                    setGoodSpareImgUrl(tempdefective);
+                  }}
+                  icon={Remove}
+                  layout="link"
+                  aria-label="Like"
+                />
+              </div>
+            )}
+          </div>{" "}
         </div>
       </div>
     );
