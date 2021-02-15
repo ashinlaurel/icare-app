@@ -152,6 +152,7 @@ function UpdateCall() {
   
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
+  const [imageIndex, setimageIndex] = useState("");
 
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState([""]);
   const [defectiveImgUrl, setDefectiveImgUrl] = useState([""]);
@@ -253,20 +254,24 @@ function UpdateCall() {
   const handleImgUpload = (message) => {
     if (message == "defective") {
       photoUpload(imgFile, (url) => {
-        console.log("PHOTO URL", url);
-        setImgUrl(url);
-        setDefectiveImgUrl(url);
+        console.log("PHOTO URL", url,imageIndex);
+        // setImgUrl(url);
+        let temp= defectiveImgUrl;
+        temp[imageIndex]=url
+        setDefectiveImgUrl(temp);
       });
     } else if (message == "good") {
       photoUpload(imgFile, (url) => {
-        console.log("PHOTO URL", url);
-        setImgUrl(url);
-        setGoodSpareImgUrl(url);
+        let temp= goodSpareImgUrl;
+        temp[imageIndex]=url
+        console.log("PHOTO URL", url,imageIndex);
+        // setImgUrl(url);
+        setGoodSpareImgUrl(temp);
       });
     } else if (message == "ccfr") {
       photoUpload(imgFile, (url) => {
         console.log("PHOTO URL", url);
-        setImgUrl(url);
+        // setImgUrl(url);
         setCcfrImgUrl(url);
       });
     }
@@ -285,7 +290,10 @@ function UpdateCall() {
           <ModalHeader>{imageUploadMenuMessage}</ModalHeader>
           <ModalBody>
             <>
-              <img src={imgUrl} className="my-2" width="100" height="100" />
+            {imageUploadMenuMessage == "defective"?<img src={defectiveImgUrl[imageIndex]} className="my-2" width="100" height="100" />
+            :imageUploadMenuMessage == "good"?<img src={goodSpareImgUrl[imageIndex]} className="my-2" width="100" height="100" />
+            :imageUploadMenuMessage == "defective"?<img src={ccfrImgUrl} className="my-2" width="100" height="100" />:null}
+              
               <div className="flex-row flex  space-x-3 mt-3 ">
                 <div className="flex flex-col ">
                   <Label className="">
@@ -1961,6 +1969,7 @@ function UpdateCall() {
                 className="dark:border-green-700 border-green-400"
                 onClick={() => {
                   setImageUploadMenuMessage("defective");
+                  setimageIndex(number)
                   setIsImgUploadMenuModal(true);
                 }}
               >
@@ -1973,6 +1982,7 @@ function UpdateCall() {
                 className="dark:border-green-700 border-green-400"
                 onClick={() => {
                   setImageUploadMenuMessage("good");
+                  setimageIndex(number);
                   setIsImgUploadMenuModal(true);
                 }}
               >
