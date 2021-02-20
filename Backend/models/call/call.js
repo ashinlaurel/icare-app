@@ -51,7 +51,7 @@ const callSchema = mongoose.Schema({
     type: String,
   },
   assignedDate: {
-    type: String,
+    type: Date,
   },
   assignedETA: {
     type: String,

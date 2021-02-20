@@ -172,8 +172,8 @@ const [sum, setSum] = useState(0)
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2">SubTotal</td>
-                <td className="tb-head tb-row px-2">Rs.{data.invItems?data.invItems.length:0}</td>
-                <td className="tb-head tb-row px-2">{sum} </td>
+                <td className="tb-head tb-row px-2">{data.invItems?data.invItems.length:0}</td>
+                <td className="tb-head tb-row px-2">Rs.{sum} </td>
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2"></td>
             </tr>
@@ -201,7 +201,7 @@ const [sum, setSum] = useState(0)
         </table>
 
         <div className="bold m-t">Declaration: TO WHOM SOEVER IT MAY CONCERN</div>
-        <div>This is to certify that we are stock transferring  1  packet containing computer spares to our Office  at {toArrd.district} through Professional Courier on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
+        <div>This is to certify that we are stock transferring  ___  packet containing computer spares to our Office  at {toArrd.district} through Professional Courier on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
         <div>This is only internal transaction of goods between our offices for our own use not meant for sale and hence has no commercial value. The value of goods for statuary purpose is Rs {sum}/-</div>
         
         <div className="sign">Yours Faithfully</div>

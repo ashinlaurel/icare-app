@@ -105,24 +105,59 @@ function ViewEngineerCalls() {
   // -----------------------------------------------------
 
   useEffect(() => {
-    // Using an IIFE
-    (async function thegetter() {
+    // // Using an IIFE
+    // (async function thegetter() {
+    //   try {
+    //     let response = await axios({
+    //       url: `${API}/admin/${Emp.getId()}/getCallsByEmpId`,
+    //       method: "POST",
+    //       data: { id: EmpProfile.getId() },
+    //     });
+    //     console.log(response.data[0].assignedCalls);
+    //     // setTotalResults(response);
+    //     // const { total, data } = response.data;
+    //     // console.log(data + "Now");
+
+    //     setData(response.data[0].assignedCalls);
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // })();
+
+    (async()=>{
+      
+      let payload = {
+        pages: {
+          page: 1,
+          limit: 10000,
+        },
+        filters: {
+          callStatus: "",
+          searchquery: "",
+          fromDate: "",
+          toDate: "",
+          employeeId:EmpProfile.getId()
+        },
+      };
+    console.log("HERE",payload)
       try {
         let response = await axios({
-          url: `${API}/admin/${Emp.getId()}/getCallsByEmpId`,
+          url: `${API}/call/${Emp.getId()}/getall`,
           method: "POST",
-          data: { id: EmpProfile.getId() },
+          data: payload,
         });
-        console.log(response.data[0].assignedCalls);
-        // setTotalResults(response);
+        console.log(response.data.out);
+        // setTotalResults(response.data.total);
+        setData(response.data.out)
         // const { total, data } = response.data;
-        // console.log(data + "Now");
-
-        setData(response.data[0].assignedCalls);
+        console.log(data + "Now");
+    
+        setData(response.data.out);
       } catch (error) {
         throw error;
       }
-    })();
+      // console.log(engineer)
+    })()
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
@@ -155,14 +190,16 @@ function ViewEngineerCalls() {
 
 
 <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-5">
-        {data.map(({ _id, callId, priority }, i) => (
-          <Link to={`/app/call/calldetails/${callId._id}/${callId.assetId}`}>
+        {data.map((item, i) => (
+          <Link to={`/app/call/calldetails/${item._id}/${item.assetId}`}>
             <CallCard
-              value={callId.callNo}
-              contactPerson={callId.contactPerson}
-              problem={callId.problem}
-              priority={priority}
-              link={`/app/call/calldetails/${callId._id}/${callId.assetId}`} 
+              value={item.callNo}
+              contactPerson={item.contactPerson}
+              problem={item.problem}
+              priority={i+1}
+              link={`/app/call/calldetails/${item._id}/${item.assetId}`} 
+              assignedDate={item.assignedDate}
+              assignedETA={item.assignedETA}
             >
               
                  <RoundIcon

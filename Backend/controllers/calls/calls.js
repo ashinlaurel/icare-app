@@ -37,7 +37,9 @@ exports.getCalls = async (req, res) => {
       populate: {
         path: "product",
       },
+      
     },
+    
     page: pages.page,
     limit: pages.limit,
   };
@@ -68,9 +70,20 @@ exports.getCalls = async (req, res) => {
     }
 
     if (filters.callStatus != "") {
-      // console.log(filters.callStatus);
+      if(filters.callStatus=="priority"){
+        filteroptions.callStatus={$not:{$gt:10}}
+      }else
         filteroptions.callStatus = filters.callStatus;
+    }
+    if (filters.employeeId&& filters.employeeId != "") {
+        // console.log(filters.callStatus);
+        options.sort={
+          assignedDate:1,
+          assignedETA:1
+        }
+          filteroptions.employeeId = filters.employeeId;
       }
+
     Call.paginate(filteroptions, options, function (err, result) {
       // console.log(result);
       if (err || !result) {

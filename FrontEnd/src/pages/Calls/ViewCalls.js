@@ -541,7 +541,7 @@ function ViewCalls() {
             <Label className="">
               <span>From Date</span>
               <input
-                className="mt-1 p-3 rounded-sm mx-1"
+                className="mt-1 p-2 rounded-sm mx-1"
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
@@ -550,7 +550,7 @@ function ViewCalls() {
             <Label className="">
               <span>To Date</span>
               <input
-                className="mt-1 p-3 rounded-sm mx-1"
+                className="mt-1 p-2 rounded-sm mx-1"
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}

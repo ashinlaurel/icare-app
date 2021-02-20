@@ -370,6 +370,7 @@ function LSTHistory() {
                 <option value="Trivandrum">Trivandrum</option>
                 <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
+                <option value="Vendor">Vendor</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

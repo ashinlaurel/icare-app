@@ -73,6 +73,8 @@ function AssignEng() {
   const [callStatus, setCallStatus] = useState("0")
   const [location, setLocation] = useState("");
   const [condition, setCondition] = useState("");
+  const [fromDate, setFromDate] = useState("")
+  const [toDate, setToDate] = useState("")
 
   const [Business, setBusiness] = useState("");
   const [product, setProduct] = useState("");
@@ -263,8 +265,8 @@ function AssignEng() {
         filters: {
           callStatus: callStatus,
           searchquery: searchquery,
-          fromDate:"",
-          toDate:""
+          fromDate:fromDate,
+          toDate:toDate
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -286,7 +288,7 @@ function AssignEng() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh,callStatus,searchquery]);
+  }, [page, Business, product, refresh,callStatus,searchquery,fromDate,toDate]);
 
   // console.log(selectedprod);
 
@@ -347,6 +349,7 @@ function AssignEng() {
                 </option>
                 <option value="">All</option>
                 <option selected value="0">Pending For Allocation</option>
+                <option value="priority">Priority</option>
                 {/* <option value="-1">Allocated</option> */}
               </select>
 
@@ -360,6 +363,25 @@ function AssignEng() {
                 </svg>
               </div>
             </div>
+
+            <Label className="">
+              <span>From Date</span>
+              <input
+                className="mt-1 p-2 rounded-sm mx-1"
+                type="date"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+            </Label>
+            <Label className="">
+              <span>To Date</span>
+              <input
+                className="mt-1 p-2 rounded-sm mx-1 mr-5"
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+            </Label>
 
 
             {/* -----------------Search Bar------------------------------------ */}

@@ -45,6 +45,9 @@ exports.getAllItems = (req, res) => {
     populate: "invItems",
     page: pages.page,
     limit: pages.limit,
+    sort: {
+      date: -1,
+    },
   };
 
   let filteroptions = {

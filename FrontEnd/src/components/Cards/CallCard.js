@@ -15,6 +15,8 @@ function CallCard({
   children: icon,
   link,
   desc,
+  assignedDate,
+              assignedETA
 }) {
   return (
     <Card className="cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-100 py-4">
@@ -30,6 +32,12 @@ function CallCard({
           <p className=" text-sm text-gray-700 dark:text-gray-200">
           Contact Person:{contactPerson}
           </p>
+          {/* <p className=" text-sm text-gray-700 dark:text-gray-200">
+          assigned Date:{assignedDate}
+          </p>
+          <p className=" text-sm text-gray-700 dark:text-gray-200">
+          assigned ETA:{assignedETA}
+          </p> */}
           <p className=" text-sm text-gray-700 dark:text-gray-200">
           Problem:{problem}
           </p>

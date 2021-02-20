@@ -91,12 +91,19 @@ function Inventory() {
         page: page,
         limit: 10000000,
       },
+      // filters: {
+      //   type: "",
+      //   location: "",
+      //   condition: "",
+      //   searchtype: "",
+      //   searchquery: "",
+      // },
       filters: {
-        type: "",
-        location: "",
-        condition: "",
-        searchtype: "",
-        searchquery: "",
+        type: type.toLocaleLowerCase(),
+        location: location,
+        condition: condition,
+        searchtype: searchtype,
+        searchquery: searchquery,
       },
     };
     try {
@@ -395,7 +402,7 @@ function Inventory() {
           className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
         >
           <ModalHeader className="flex flex-row justify-between text-xl">
-            <div className="text-lg">Download Full Inventory Data?</div>
+            <div className="text-lg">Download Inventory Data?</div>
           </ModalHeader>
           <ModalBody>
             <Button layout="outline" onClick={downloadInv}>

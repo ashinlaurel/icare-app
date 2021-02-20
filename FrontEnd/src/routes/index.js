@@ -44,6 +44,7 @@ const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
 const AssignCallPriority = lazy(() => import("../pages/Calls/AssignCallPriority"));
+const EnggPriorityList = lazy(() => import("../pages/Calls/EnggPriorityList"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
 const UpdateCall = lazy(() => import("../pages/Calls/UpdatCall"));
 const UpdateAssetFromCall = lazy(() =>
@@ -245,6 +246,10 @@ export const aroutes = [
   {
     path: "/AssignCallPriority",
     component: AssignCallPriority,
+  },
+  {
+    path: "/EnggPriorityList",
+    component: EnggPriorityList,
   },
   
   {

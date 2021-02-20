@@ -77,13 +77,14 @@ function LST() {
   //vendors
   const [isVendorModalopen, setIsVendorModalopen] = useState(false);
   const [vendors, setVendors] = useState([]);
-  const [selectedVendor, setselectedVendor] = useState({
+  const defVendor={
     _id: "",
     name: "",
     aadharNo: "",
     PANNo: "",
     GSTNo: "",
-  });
+  }
+  const [selectedVendor, setselectedVendor] = useState(defVendor);
 
   const [isVendor, setIsVendor] = useState(false);
 
@@ -321,6 +322,11 @@ function LST() {
       // setIsReviewModalOpen(true);
       console.log("Done");
       setModalMessage("LST Submitted");
+      // setLocation("")
+      setToLocation("")
+      setDate("")
+      setselectedVendor(defVendor)
+      // setData([]);
       setMessageModal(true);
       setSelectedItems([]);
       thegetter();
@@ -623,6 +629,9 @@ function LST() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="mb-1 mt-5 dark:text-white font-semibold ">
+            {selectedVendor.name!==""?(<> Vendor:{selectedVendor.name}</>):null}
+          </div>
+          <div class="mb-1 mt-5 dark:text-white font-semibold ">
             Selected Items
           </div>
         </div>
@@ -822,6 +831,7 @@ function LST() {
                 value={toLocation}
                 onChange={(e) => {
                   setToLocation(e.target.value);
+                  setselectedVendor(defVendor)
                   if (e.target.value == "Vendor") {
                     setIsVendor(true);
                   } else setIsVendor(false);
