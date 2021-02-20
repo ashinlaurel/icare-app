@@ -1057,10 +1057,6 @@ function UpdateCall() {
   // --------------------  Functions ---------------------------
 
   const handleUpdate = async () => {
-    // if (spareStatus == "Yes") {
-    //   setNotSwapModalOpen(true);
-    //   return;
-    // }
     if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
       // setNotSwapModalOpen(true);
       alert("Please enter the compulsory fields");
@@ -1132,6 +1128,7 @@ function UpdateCall() {
     }
 
     // ------- Handling the swaps -----------
+
     for (let i = 0; i < existswap.length; i++) {
       await handleSwap(i);
     }
@@ -1234,6 +1231,10 @@ function UpdateCall() {
         method: "POST",
         data: payload,
       });
+      if (update.data.hello == "empty") {
+        console.log("empty swap return");
+        return;
+      }
     } catch (error) {
       throw error;
     }

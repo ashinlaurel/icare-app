@@ -67,7 +67,7 @@ function PurchaseInventory() {
     gstno: "",
     panno: "",
     aadharno: "",
-    purchlocation: "Trivandrum",
+    purchlocation: "Local",
     totalInvoice: "0",
     vendorId: "",
   };
@@ -340,8 +340,9 @@ function PurchaseInventory() {
     if (calnum != -1) {
       switch (newlist[calnum].wty) {
         case "0D":
-          newlist[calnum].expirydate = moment(basevalues.invdate)
-            .format("DD-MM-YYYY");
+          newlist[calnum].expirydate = moment(basevalues.invdate).format(
+            "DD-MM-YYYY"
+          );
 
           break;
         case "3M":
@@ -534,6 +535,7 @@ function PurchaseInventory() {
               <span>Purchase Type*</span>
               <Select
                 className="mt-1"
+                value={basevalues.purchtype}
                 onChange={(e) => {
                   setBaseValues({ ...basevalues, purchtype: e.target.value });
                 }}

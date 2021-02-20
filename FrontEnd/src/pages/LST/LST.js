@@ -27,6 +27,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 function LST() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -121,11 +122,11 @@ function LST() {
   }
 
   // LST NUM
-  const LSTNumberSetter = async (date,from) => {
-    console.log(date,from)
-    if(from=="" || date=="") return;
+  const LSTNumberSetter = async (date, from) => {
+    console.log(date, from);
+    if (from == "" || date == "") return;
     let payload = {
-      from:from,
+      from: from,
       date: date,
     };
     let thecallcount = 0;
@@ -140,21 +141,25 @@ function LST() {
     }
 
     let locstr;
-    from=="Trivandrum"?locstr="TVM":from=="Kottayam"?locstr="KTM":locstr="CLT";
+    from == "Trivandrum"
+      ? (locstr = "TVM")
+      : from == "Kottayam"
+      ? (locstr = "KTM")
+      : (locstr = "CLT");
 
     let year = moment(date).format("YY");
     let month = moment(date).format("MM");
     let day = moment(date).format("DD");
-    let callnumber = thecallcount.data+1;
+    let callnumber = thecallcount.data + 1;
     if (callnumber < 10) {
       callnumber = "00" + callnumber;
-    }else if(callnumber < 100) {
+    } else if (callnumber < 100) {
       callnumber = "0" + callnumber;
     }
-    console.log(thecallcount.data)
+    console.log(thecallcount.data);
 
-    let thestring = "ICS"+locstr+year + callnumber;
-    setLSTNo(thestring)
+    let thestring = "ICS" + locstr + year + callnumber;
+    setLSTNo(thestring);
     // setValues({ ...values, callNo: thestring, date: date });
     // // ------history management
     // let temp = callhistory;
@@ -163,7 +168,6 @@ function LST() {
 
     // console.log(thestring);
   };
-
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -537,7 +541,7 @@ function LST() {
                         alt="User image"
                       /> */}
                       <div>
-                        <p className="font-semibold">{user.type}</p>
+                        <p className="font-semibold">{capitalize(user.type)}</p>
                         {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
@@ -787,9 +791,8 @@ function LST() {
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={location}
                 onChange={(e) => {
-                  
                   setLocation(e.target.value);
-                  LSTNumberSetter(date,e.target.value);
+                  LSTNumberSetter(date, e.target.value);
                 }}
               >
                 <option value="" disabled selected>
@@ -861,7 +864,7 @@ function LST() {
           ) : null}
 
           {/* -----------------------------------------Location ----------------------- */}
-          
+
           <div className="flex flex-row dark:text-white  ">
             <div className=" my-2 ">Date</div>
             <div class="relative mx-1 ">
@@ -869,10 +872,8 @@ function LST() {
                 type="date"
                 value={date}
                 onChange={(e) => {
-                  
-                  setDate(e.target.value)
-                  LSTNumberSetter(e.target.value,location);
-
+                  setDate(e.target.value);
+                  LSTNumberSetter(e.target.value, location);
                 }}
                 placeholder="LST No."
                 class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
