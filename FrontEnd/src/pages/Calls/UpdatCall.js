@@ -2262,7 +2262,7 @@ function UpdateCall() {
               <Input
                 className=""
                 type="date"
-                value={call.assignedDate}
+                value={moment(call.assignedDate).format("YYYY-MM-DD")}
                 onChange={(e) => {
                   setCall({ ...call, callAttendDate: e.target.value });
                 }}

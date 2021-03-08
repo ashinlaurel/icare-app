@@ -37,9 +37,8 @@ exports.getCalls = async (req, res) => {
       populate: {
         path: "product",
       },
-      
     },
-    
+
     page: pages.page,
     limit: pages.limit,
   };
@@ -47,59 +46,55 @@ exports.getCalls = async (req, res) => {
   let filteroptions = {
     // product: { brand: "IBM" },
   };
-  if(filters.toDate !="" && filters.fromDate !=""  ){
-    filteroptions.date={
+  if (filters.toDate != "" && filters.fromDate != "") {
+    filteroptions.date = {
       $gte: filters.fromDate,
-      $lt: filters.toDate
+      $lt: filters.toDate,
+    };
+  } else if (filters.fromDate != "") {
+    filteroptions.date = {
+      $gte: filters.fromDate,
+    };
+  } else if (filters.toDate != "") {
+    filteroptions.date = {
+      $lt: filters.toDate,
     };
   }
-    else if(filters.fromDate !=""){
-      filteroptions.date={
-        $gte: filters.fromDate,
-      };
-    }
 
-    else if(filters.toDate !=""){
-      filteroptions.date={
-        $lt: filters.toDate
-      };
-    }
+  if (filters.searchquery != "") {
+    filteroptions.callNo = fuzzyquery;
+  }
 
-    if (filters.searchquery != "") {
-      filteroptions.callNo = fuzzyquery;
-    }
+  if (filters.callStatus != "") {
+    if (filters.callStatus == "priority") {
+      filteroptions.callStatus = { $not: { $gt: 10 } };
+    } else filteroptions.callStatus = filters.callStatus;
+  }
+  if (filters.employeeId && filters.employeeId != "") {
+    // console.log(filters.callStatus);
+    options.sort = {
+      assignedDate: 1,
+      assignedETA: 1,
+    };
+    filteroptions.callStatus = { $not: { $gt: 10 } };
+    filteroptions.employeeId = filters.employeeId;
+  }
 
-    if (filters.callStatus != "") {
-      if(filters.callStatus=="priority"){
-        filteroptions.callStatus={$not:{$gt:10}}
-      }else
-        filteroptions.callStatus = filters.callStatus;
+  Call.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No assets found",
+        err: err,
+      });
     }
-    if (filters.employeeId&& filters.employeeId != "") {
-        // console.log(filters.callStatus);
-        options.sort={
-          assignedDate:1,
-          assignedETA:1
-        }
-        filteroptions.callStatus={$not:{$gt:10}}
-          filteroptions.employeeId = filters.employeeId;
-      }
-
-    Call.paginate(filteroptions, options, function (err, result) {
-      // console.log(result);
-      if (err || !result) {
-        return res.status(400).json({
-          error: "No assets found",
-          err: err,
-        });
-      }
-      // console.log(result.docs);
-      let output = {
-        total: result.total,
-        out: result.docs,
-      };
-      return res.json(output);
-    });
+    // console.log(result.docs);
+    let output = {
+      total: result.total,
+      out: result.docs,
+    };
+    return res.json(output);
+  });
   // }
 };
 
@@ -324,6 +319,10 @@ exports.swapItems = async (req, res) => {
       return res.status(400).json({ error: err });
     }
   }
+
+  // ------------When both not there ------
+
+  return res.status(200).json({ hello: "empty" });
 };
 
 // -----COunters ----
@@ -347,4 +346,3 @@ exports.countCallsByDate = (req, res) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
-
