@@ -417,6 +417,14 @@ function AssignEng() {
               <tr>
                 <TableCell>Call No</TableCell>
                 <TableCell>Date</TableCell>
+                {callStatus=="priority"?(<>
+                  <TableCell>Assigned Date</TableCell>
+                <TableCell>Assigned ETA</TableCell>
+                </>
+                ):null}
+                
+                <TableCell>Type</TableCell>
+                <TableCell>PO No.</TableCell>
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Call Status</TableCell>
@@ -439,7 +447,7 @@ function AssignEng() {
                     setSelectedProd(call);
                     if (call.assetId) setAssetDetails(call.assetId);
                     else setAssetDetails({});
-                    console.log(call.assetId);
+                    console.log("CALL ASSET",call.assetId);
                     // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
@@ -454,6 +462,25 @@ function AssignEng() {
                     <span className="text-sm">
                       {moment(call.date).format("DD/MM/YYYY")}
                     </span>
+                  </TableCell>
+                  {callStatus=="priority"?(<>
+                  <TableCell>
+                    <span className="text-sm">
+                      {moment(call.assignedDate).format("DD/MM/YYYY")}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                      {call.assignedETA}
+                    </span>
+                  </TableCell>
+                  </>
+                ):null}
+                <TableCell>
+                    <span className="text-sm">{call.assetId.producttype}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{call.assetId.ponumber}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{call.unitName}</span>
