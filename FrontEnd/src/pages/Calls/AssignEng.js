@@ -124,7 +124,7 @@ function AssignEng() {
                 <Input
                   className=""
                   type="date"
-                  value={assignedDate}
+                  value={moment(assignedDate).format("YYYY-MM-DD")}
                   onChange={(e) => {
                     // setCall({ ...call, callAttendDate: e.target.value });
                     setAssignedDate(e.target.value);
