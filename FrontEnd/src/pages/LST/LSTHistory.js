@@ -489,12 +489,14 @@ function LSTHistory() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.from}</span>
+                    <TableCell className="">
+                      <span className=" ">{user.from}</span>
                     </TableCell>
 
-                    <TableCell>
-                      <span className="text-sm">{user.vendorId?user.vendorName:user.to}</span>
+                    <TableCell className="  ">
+                      <span className="  ">
+                        {user.vendorId ? user.vendorName : user.to}
+                      </span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">
