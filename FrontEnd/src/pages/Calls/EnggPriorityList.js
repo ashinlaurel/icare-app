@@ -95,6 +95,134 @@ function EnggPriorityList() {
     setPage(p);
   }
 
+
+  const AddEnggModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={addEnggModalOpen}
+          onClose={() => setaddEnggModalOpen(false)}
+        >
+          <ModalHeader>Confirm Assignment</ModalHeader>
+          <ModalBody>
+            <div className="font-xl text-xl">
+              Assign {engineer.enggName} to call {selectedprod.callNo}
+            </div>
+
+            <div className="flex flex-col w-full mt-2">
+              <Label className="w-full">
+                <span>Assign Date</span>
+                <Input
+                  className=""
+                  type="date"
+                  value={moment(assignedDate).format("YYYY-MM-DD")}
+                  onChange={(e) => {
+                    // setCall({ ...call, callAttendDate: e.target.value });
+                    setAssignedDate(e.target.value);
+                  }}
+                />
+              </Label>
+            </div>
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Assign ETA</span>
+                <Input
+                  className=""
+                  type="time"
+                  value={assignedETA}
+                  onChange={(e) => {
+                    // setCall({ ...call, startOfService: e.target.value });
+                    setAssignedETA(e.target.value);
+                  }}
+                />
+              </Label>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                console.log(selectedprod);
+                if (assignedDate == "" || assignedETA == "") {
+                  return;
+                }
+
+                // ----- history ---
+                let newcallhistory = {
+                  date: moment().format(),
+                  callStatus: "2",
+                  engineer: engineer.enggName,
+                  callAttendDate: "Nil",
+                  startOfService: "Nil",
+                  endOfService: "Nil",
+                  note: `${engineer.enggName} has been assigned to the call. Assigned Date: ${assignedDate} Assigned ETA: ${assignedETA}`,
+                  actionTaken: "Nil",
+                };
+
+                let payload = {
+                  id: selectedprod._id,
+                  update: {
+                    employeeId: engineer._id,
+                    employeeName: engineer.enggName,
+                    callStatus: 2,
+                    assignedDate: assignedDate,
+                    assignedETA: assignedETA,
+                    $push: { history: newcallhistory },
+                  },
+                };
+                let employeepayload = {
+                  id: engineer._id,
+                  update: {
+                    $push: {
+                      assignedCalls: {
+                        priority: 99,
+                        callId: selectedprod._id,
+                        date: new Date(),
+                      },
+                    },
+                  },
+                };
+                try {
+                  let response = await axios({
+                    url: `${API}/call/${Emp.getId()}/assignEngg`,
+                    method: "POST",
+                    data: payload,
+                  });
+                  let temp = data;
+                  console.log(temp);
+                  temp = temp.filter((c) => {
+                    if (c._id === selectedprod._id) {
+                      c.callStatus = 2;
+                      c.employeeName = engineer.enggName;
+                      c.employeeId = engineer._id;
+                      return c;
+                    }
+                    setData(temp);
+                  });
+                  // updating employee modal
+
+                  await axios({
+                    url: `${API}/admin/${Emp.getId()}/update`,
+                    method: "POST",
+                    data: employeepayload,
+                  });
+                  // console.log(response.data);
+                  setaddEnggModalOpen(false);
+                  setAssignedDate("");
+                  setAssignedETA("");
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Confirm Assignment
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  }
+
   // useEffect(() => {
   //   setData(engineer.assignedCalls);
   // }, [engineer]);
@@ -231,6 +359,7 @@ function EnggPriorityList() {
                 <TableCell>Phone</TableCell>
                 <TableCell>Call Status</TableCell>
                 <TableCell>Priority</TableCell>
+                {/* <TableCell>Edit </TableCell> */}
               </tr>
             </TableHeader>
             <TableBody>
@@ -341,6 +470,27 @@ function EnggPriorityList() {
                       }} */}
                     
                   </TableCell>
+                  {/* <TableCell>
+                    
+                      
+                        <div className="px-2 py-2 dark:border-purple-400 border-purple-600 dark:bg-gray-700 bg-purple-100 inline-block rounded-full dark:text-purple-400 text-purple-700">
+                          
+                          <Button
+                            layout="link"
+                            size="icon"
+                            aria-label="Edit"
+                            onClick={() => {
+                              setIsEnggModalOpen(true);
+                              setAssignedETA(item.assignedETA);
+                              setAssignedDate(item.assignedDate);
+                            }}
+                            className="rounded-full mx-2 "
+                          >
+                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                          </Button>
+                        </div>
+                      
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

@@ -68,6 +68,10 @@ exports.getCalls = async (req, res) => {
   if (filters.callStatus != "") {
     if (filters.callStatus == "priority") {
       filteroptions.callStatus = { $not: { $gt: 10 } };
+      options.sort = {
+        assignedDate: 1,
+        assignedETA: 1,
+      };
     } else filteroptions.callStatus = filters.callStatus;
   }
   if (filters.employeeId && filters.employeeId != "") {
