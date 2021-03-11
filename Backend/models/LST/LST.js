@@ -37,7 +37,9 @@ const LSTSchema = new Schema({
   type: Schema.Types.ObjectId,
   ref:'Vendor',
 },
-  vendorName:String
+  vendorName:String,
+  courierName:String,
+  docketNo:String
 
   
 });

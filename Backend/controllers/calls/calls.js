@@ -11,11 +11,16 @@ exports.callCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   const call = req.body;
   try {
+    let ifexist = await Call.find({ assetId: call.assetId}).exec();
+    console.log(ifexist);
+    if(ifexist.length>0) throw({errid:1,message:ifexist[0].callNo})
+    // return res.status(201).json(newcall);
     const temp = new Call(call);
     const newcall = await temp.save();
-
+    
     return res.status(201).json(newcall);
   } catch (err) {
+    console.log("Call create error")
     res.status(400).json(err);
   }
 };

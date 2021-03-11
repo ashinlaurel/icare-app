@@ -53,6 +53,8 @@ function RegisterCall() {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReqFieldModal, setIsReqFieldModal] = useState(false);
   const [isAssetModal, setIsAssetModal] = useState(false);
+  const [IsassetexistModal, setIsassetexistModal] = useState(false);
+  const [assetexistmessage, setAssetexistmessage] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
 
   //---------------------------------- ASSETS VIEW STATES
@@ -114,6 +116,7 @@ function RegisterCall() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
+  const [successfulCallNo, setSuccessfulCallNo] = useState("");
 
   // pagination change control
   function onPageChange(p) {
@@ -807,6 +810,7 @@ function RegisterCall() {
       return;
     }
     // e.preventDefault();
+    setSuccessfulCallNo(values.callNo);
     const newcall = {
       callNo: values.callNo,
       date: values.date,
@@ -835,7 +839,11 @@ function RegisterCall() {
       setValues(valobj);
       console.log("Done");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
+      if(error.response.data.errid==1){
+        setAssetexistmessage(error.response.data.message)
+        setIsassetexistModal(true);
+      }
     }
   };
 
@@ -846,7 +854,7 @@ function RegisterCall() {
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
         >
-          <ModalHeader>Created Successfully!</ModalHeader>
+          <ModalHeader>Created Call No. {successfulCallNo} Successfully!</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -893,6 +901,25 @@ function RegisterCall() {
             <Button
               className="w-full sm:w-auto"
               onClick={() => setIsAssetModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const AssetExistsModal = () => {
+    return (
+      <>
+        <Modal isOpen={IsassetexistModal} onClose={() => setIsassetexistModal(false)}>
+          <ModalHeader>Call already raised for asset!</ModalHeader>
+          <ModalBody>Call No {assetexistmessage} already raised for asset.</ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setIsassetexistModal(false)}
             >
               Okay!
             </Button>
@@ -1015,6 +1042,7 @@ function RegisterCall() {
       {ReviewSubmit()}
       {ReqFieldErrModal()}
       {AssetSelectedModal()}
+      {AssetExistsModal()}
     </>
   );
 }

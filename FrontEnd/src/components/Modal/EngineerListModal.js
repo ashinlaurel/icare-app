@@ -50,7 +50,8 @@ export default function EngineerListModal({
           <TableHeader>
             <tr>
               <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
+              {/* <TableCell>Email</TableCell> */}
+              <TableCell>Employee ID</TableCell>
               {/* <TableCell>Status</TableCell>
               <TableCell>Date</TableCell> */}
             </tr>
@@ -79,7 +80,7 @@ export default function EngineerListModal({
                 <TableCell>
                   <div>
                     <div>
-                      <p className="font-semibold">{user.email}</p>
+                      <p className="font-semibold">{user.employeeID}</p>
                     </div>
                   </div>
                 </TableCell>

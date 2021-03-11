@@ -1904,7 +1904,7 @@ function CreateAsset() {
                   <>
                     <div className="flex flex-row items-center">
                       <Label className="font-bold">
-                        <span>Tape Controller</span>
+                        <span>Tape Drive</span>
                       </Label>
                       <div className="ml-3">
                         <Button
@@ -1943,10 +1943,10 @@ function CreateAsset() {
                         <div key={i}>
                           <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
                             <Label className="my-3 w-full">
-                              <span>Tape Controller {i + 1}</span>
+                              <span>Tape Drive {i + 1}</span>
                               <Input
                                 className="mt-1"
-                                placeholder={`Tape Controller ${i + 1}`}
+                                placeholder={`Tape Drive ${i + 1}`}
                                 name="tapecontrollername"
                                 value={item.tapecontrollername}
                                 onChange={(e) => {
@@ -1959,11 +1959,11 @@ function CreateAsset() {
                             </Label>
                             <Label className="my-3 w-full">
                               <span>
-                                Tape Controller {i + 1}: Serial Number
+                                Tape Drive {i + 1}: Serial Number
                               </span>
                               <Input
                                 className="mt-1"
-                                placeholder={`Tape Controller ${
+                                placeholder={`Tape Drive ${
                                   i + 1
                                 }'s Serial Number `}
                                 name="tapecontrollersno"

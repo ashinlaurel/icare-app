@@ -192,7 +192,7 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id) => {
+  const createAndDownloadPdf = async (id,LSTno) => {
     let payload = {
       id: id,
     };
@@ -205,12 +205,14 @@ function LSTHistory() {
 
     const pdfBlob = new Blob([response.data], { type: "application/pdf" });
 
-    saveAs(pdfBlob, "LST.pdf");
+    saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
-  const InvTable = (items) => {
+  const InvTable = (items,docketNo,courierName) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+      <span>Docket No: {docketNo}</span>
+      <span className="mx-4">Courier Name: {courierName}</span>
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -452,6 +454,7 @@ function LSTHistory() {
                   <span className="ml-2 mr-2">Num</span>{" "}
                 </TableCell>
                 {/* <TableCell>Status</TableCell> */}
+         
                 <TableCell> Report</TableCell>
                 <TableCell> Delete</TableCell>
                 <TableCell>
@@ -506,6 +509,12 @@ function LSTHistory() {
                       <span className="text-sm">{user.invItems.length}</span>
                     </TableCell>
                     {/* <TableCell>
+                      <span className="text-sm">{user.docketNo}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.courierName}</span>
+                    </TableCell> */}
+                    {/* <TableCell>
                     <Badge>
                       condition
                     </Badge>
@@ -516,7 +525,7 @@ function LSTHistory() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
-                          createAndDownloadPdf(user._id);
+                          createAndDownloadPdf(user._id,user.LSTNo);
                         }}
                         className="rounded-lg m-1"
                       >
@@ -561,7 +570,7 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable(user.invItems) : null}
+                  {activeRowID == i ? InvTable(user.invItems,user.docketNo,user.courierName) : null}
                 </div>
               ))}
             </TableBody>

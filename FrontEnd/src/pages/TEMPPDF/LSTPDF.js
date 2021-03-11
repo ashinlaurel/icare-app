@@ -124,6 +124,7 @@ const [sum, setSum] = useState(0)
                 
                 <div>{fromAddr.district}, {fromAddr.state}, {fromAddr.PIN}</div> 
                 <div>Ph: {fromAddr.phno1}, {fromAddr.phno2}</div> 
+                <div>GST No: {fromAddr.GSTNo}</div> 
             </div> 
             <div className="w-8/12 bg-blue-400"> </div>
             <div className="text-left ">
@@ -134,6 +135,7 @@ const [sum, setSum] = useState(0)
                 
                 <div>{toArrd.district}, {toArrd.state}, {toArrd.PIN}</div> 
                 <div>Ph: {toArrd.phno1}, {toArrd.phno2}</div> 
+                <div>GST No: {toArrd.GSTNo}</div> 
             </div>
         </div>
         {/* ////////////////////////////// */}
@@ -201,7 +203,7 @@ const [sum, setSum] = useState(0)
         </table>
 
         <div className="bold m-t">Declaration: TO WHOM SOEVER IT MAY CONCERN</div>
-        <div>This is to certify that we are stock transferring  ___  packet containing computer spares to our Office  at {toArrd.district} through Professional Courier on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
+        <div>This is to certify that we are stock transferring  ___  packet containing computer spares to our Office  at {toArrd.district} through _______________________________ on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
         <div>This is only internal transaction of goods between our offices for our own use not meant for sale and hence has no commercial value. The value of goods for statuary purpose is Rs {sum}/-</div>
         
         <div className="sign">Yours Faithfully</div>

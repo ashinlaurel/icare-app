@@ -219,6 +219,7 @@ function AssignEng() {
                   setaddEnggModalOpen(false);
                   setAssignedDate("");
                   setAssignedETA("");
+                  setRefresh(!refresh)
                 } catch (error) {
                   throw error;
                 }

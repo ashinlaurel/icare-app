@@ -58,6 +58,8 @@ function LST() {
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
   const [date, setDate] = useState(moment().format());
+  const [courierName, setCourierName] = useState("")
+  const [docketNo, setDocketNo] = useState("");
   const [condition, setCondition] = useState("Available");
 
   // Selected Prod for the bottom bar----------
@@ -309,6 +311,8 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
+      docketNo:docketNo,
+      courierName:courierName
     };
     if (selectedVendor._id != "") {
       console.log("here");
@@ -908,8 +912,52 @@ function LST() {
             <Button onClick={updateInventory}>Submit</Button>
           </div>
         </div>
-        {SelectedInv()}
-        <div className="my-5">
+
+        <div className="flex flex-row dark:text-white my-3 w-full ">
+        <Button
+            onClick={() => {
+              if (location == "" || toLocation == "") {
+                setModalMessage("Select From and To Locations");
+                setMessageModal(true);
+                return;
+              }
+              setShowInvTable(true);
+            }}
+          >
+            Add Product from Inventory
+          </Button>
+          <div className="mr-2 flex flex-row dark:text-white  ">
+            <div className="mx-1 my-1  ">Courier Name</div>
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 ">
+              <input
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={courierName}
+                onChange={(e) => {
+                  setCourierName(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="mr-2 flex flex-row dark:text-white  ">
+            <div className="mx-1 my-1  ">Docket No</div>
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 ">
+              <input
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={docketNo}
+                onChange={(e) => {
+                  setDocketNo(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          </div>
+
+
+        {/* <div className="my-5">
           <Button
             onClick={() => {
               if (location == "" || toLocation == "") {
@@ -922,7 +970,7 @@ function LST() {
           >
             Add Product from Inventory
           </Button>
-        </div>
+        </div> */}
         {showInvTable ? invTable() : null}
       </div>
 
