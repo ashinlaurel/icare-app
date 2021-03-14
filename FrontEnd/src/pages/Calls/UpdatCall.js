@@ -1057,7 +1057,14 @@ function UpdateCall() {
   // --------------------  Functions ---------------------------
 
   const handleUpdate = async () => {
-    if (callAttendDate == "" || startOfService == "" || actionTaken == "") {
+    if (
+      callAttendDate == "" ||
+      startOfService == "" ||
+      actionTaken == "" ||
+      moment(call.assignedDate).format("YYYY-MM-DD") >
+        moment(callAttendDate).format("YYYY-MM-DD") ||
+      endOfService < startOfService
+    ) {
       // setNotSwapModalOpen(true);
       alert("Please enter the compulsory fields");
       return;
@@ -2294,6 +2301,12 @@ function UpdateCall() {
                 }}
               />
             </Label>
+            {moment(call.assignedDate).format("YYYY-MM-DD") >
+            moment(callAttendDate).format("YYYY-MM-DD") ? (
+              <span className="text-red-700 text-xs">
+                Error: Selected date is before the assigned date!
+              </span>
+            ) : null}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -2320,6 +2333,12 @@ function UpdateCall() {
                 }}
               />
             </Label>
+
+            {endOfService < startOfService && endOfService != "" ? (
+              <span className="text-red-700 text-xs">
+                Error: Selected date is before the assigned date!
+              </span>
+            ) : null}
           </div>
         </div>
 

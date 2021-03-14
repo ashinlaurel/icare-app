@@ -70,11 +70,11 @@ function AssignEng() {
 
   // filterhooks
   const [type, setType] = useState("");
-  const [callStatus, setCallStatus] = useState("0")
+  const [callStatus, setCallStatus] = useState("0");
   const [location, setLocation] = useState("");
   const [condition, setCondition] = useState("");
-  const [fromDate, setFromDate] = useState("")
-  const [toDate, setToDate] = useState("")
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   const [Business, setBusiness] = useState("");
   const [product, setProduct] = useState("");
@@ -131,6 +131,12 @@ function AssignEng() {
                   }}
                 />
               </Label>
+              {moment(selectedprod.date).format("YYYY-MM-DD") >
+              moment(assignedDate).format("YYYY-MM-DD") ? (
+                <span className="text-red-700">
+                  Error: Selected date is before the call date!
+                </span>
+              ) : null}
             </div>
             <div className="flex flex-col w-full">
               <Label className="w-full">
@@ -153,6 +159,12 @@ function AssignEng() {
               onClick={async () => {
                 console.log(selectedprod);
                 if (assignedDate == "" || assignedETA == "") {
+                  return;
+                }
+                if (
+                  moment(selectedprod.date).format("YYYY-MM-DD") >
+                  moment(assignedDate).format("YYYY-MM-DD")
+                ) {
                   return;
                 }
 
@@ -219,7 +231,7 @@ function AssignEng() {
                   setaddEnggModalOpen(false);
                   setAssignedDate("");
                   setAssignedETA("");
-                  setRefresh(!refresh)
+                  setRefresh(!refresh);
                 } catch (error) {
                   throw error;
                 }
@@ -266,8 +278,8 @@ function AssignEng() {
         filters: {
           callStatus: callStatus,
           searchquery: searchquery,
-          fromDate:fromDate,
-          toDate:toDate
+          fromDate: fromDate,
+          toDate: toDate,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -289,7 +301,16 @@ function AssignEng() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh,callStatus,searchquery,fromDate,toDate]);
+  }, [
+    page,
+    Business,
+    product,
+    refresh,
+    callStatus,
+    searchquery,
+    fromDate,
+    toDate,
+  ]);
 
   // console.log(selectedprod);
 
@@ -349,7 +370,9 @@ function AssignEng() {
                   Call Status
                 </option>
                 <option value="">All</option>
-                <option selected value="0">Pending For Allocation</option>
+                <option selected value="0">
+                  Pending For Allocation
+                </option>
                 <option value="priority">Priority</option>
                 {/* <option value="-1">Allocated</option> */}
               </select>
@@ -384,7 +407,6 @@ function AssignEng() {
               />
             </Label>
 
-
             {/* -----------------Search Bar------------------------------------ */}
             <div class="block relative xl:ml-64">
               <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -418,12 +440,13 @@ function AssignEng() {
               <tr>
                 <TableCell>Call No</TableCell>
                 <TableCell>Date</TableCell>
-                {callStatus=="priority"?(<>
-                  <TableCell>Assigned Date</TableCell>
-                <TableCell>Assigned ETA</TableCell>
-                </>
-                ):null}
-                
+                {callStatus == "priority" ? (
+                  <>
+                    <TableCell>Assigned Date</TableCell>
+                    <TableCell>Assigned ETA</TableCell>
+                  </>
+                ) : null}
+
                 <TableCell>Type</TableCell>
                 <TableCell>PO No.</TableCell>
                 <TableCell>Unit Name</TableCell>
@@ -448,7 +471,7 @@ function AssignEng() {
                     setSelectedProd(call);
                     if (call.assetId) setAssetDetails(call.assetId);
                     else setAssetDetails({});
-                    console.log("CALL ASSET",call.assetId);
+                    console.log("CALL ASSET", call.assetId);
                     // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
@@ -464,20 +487,19 @@ function AssignEng() {
                       {moment(call.date).format("DD/MM/YYYY")}
                     </span>
                   </TableCell>
-                  {callStatus=="priority"?(<>
+                  {callStatus == "priority" ? (
+                    <>
+                      <TableCell>
+                        <span className="text-sm">
+                          {moment(call.assignedDate).format("DD/MM/YYYY")}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{call.assignedETA}</span>
+                      </TableCell>
+                    </>
+                  ) : null}
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(call.assignedDate).format("DD/MM/YYYY")}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {call.assignedETA}
-                    </span>
-                  </TableCell>
-                  </>
-                ):null}
-                <TableCell>
                     <span className="text-sm">{call.assetId.producttype}</span>
                   </TableCell>
                   <TableCell>

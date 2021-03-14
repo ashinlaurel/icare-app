@@ -37,14 +37,12 @@ export const aroutes = [
       //   name: "Assign Call Priority",
       // },
       {
+        path: "/app/viewcalls",
+        name: "Update Calls",
+      },
+      {
         path: "/app/EnggPriorityList",
         name: "Call Priority View",
-      },
-      
-      
-      {
-        path: "/app/viewcalls",
-        name: "View Calls",
       },
     ],
   },
@@ -84,14 +82,12 @@ export const aroutes = [
         path: "/app/inventory/purchase",
         name: "Purchase Items",
       },
-      
+
       {
         path: "/app/inventory/purchasehistory",
         name: "Purchase History",
       },
-      
-      
-      
+
       {
         path: "/app/inventory/create",
         name: "Add Item",
@@ -164,7 +160,6 @@ export const aroutes = [
         path: "/app/createvendor",
         name: "Add Vendor",
       },
-      
     ],
   },
 
@@ -274,10 +269,8 @@ export const enggroutes = [
         path: "/app/engcalls/viewmycalls",
         name: "View My Calls",
       },
-     
     ],
   },
 ];
 
 // export { aroutes, croutes };
-
