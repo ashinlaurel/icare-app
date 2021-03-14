@@ -550,6 +550,9 @@ function AssignEng() {
                     {call.callStatus == 11 ? (
                       <span className="text-sm">Closed Calls</span>
                     ) : null}
+                    {call.callStatus == 12 ? (
+                      <span className="text-sm">Spare Taken CMRR</span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     {call.employeeId ? (

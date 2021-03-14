@@ -192,7 +192,7 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id,LSTno) => {
+  const createAndDownloadPdf = async (id, LSTno) => {
     let payload = {
       id: id,
     };
@@ -208,11 +208,11 @@ function LSTHistory() {
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
-  const InvTable = (items,docketNo,courierName) => {
+  const InvTable = (items, docketNo, courierName) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-      <span>Docket No: {docketNo}</span>
-      <span className="mx-4">Courier Name: {courierName}</span>
+        <span>Docket No: {docketNo}</span>
+        <span className="mx-4">Courier Name: {courierName}</span>
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -454,7 +454,7 @@ function LSTHistory() {
                   <span className="ml-2 mr-2">Num</span>{" "}
                 </TableCell>
                 {/* <TableCell>Status</TableCell> */}
-         
+
                 <TableCell> Report</TableCell>
                 <TableCell> Delete</TableCell>
                 <TableCell>
@@ -527,7 +527,7 @@ function LSTHistory() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
-                          createAndDownloadPdf(user._id,user.LSTNo);
+                          createAndDownloadPdf(user._id, user.LSTNo);
                         }}
                         className="rounded-lg m-1"
                       >
@@ -572,7 +572,9 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable(user.invItems,user.docketNo,user.courierName) : null}
+                  {activeRowID == i
+                    ? InvTable(user.invItems, user.docketNo, user.courierName)
+                    : null}
                 </div>
               ))}
             </TableBody>

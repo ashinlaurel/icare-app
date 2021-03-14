@@ -102,7 +102,7 @@ export default function EmployeeDetails() {
       var curage = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          curage--;
+        curage--;
       }
       setValues({
         employeeID: res.data[0].employeeID,
@@ -124,8 +124,6 @@ export default function EmployeeDetails() {
         age: curage,
         // WhatsappNo:WhatsappNo ,
       });
-
-      
 
       console.log("Done", res.data[0]);
       //   console.log("Hello");

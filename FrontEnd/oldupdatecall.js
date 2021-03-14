@@ -610,6 +610,9 @@ function UpdateCall() {
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
                             ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -774,6 +777,9 @@ function UpdateCall() {
                             ) : null}
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
+                            ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
                             ) : null}
                           </span>
                         </TableCell>

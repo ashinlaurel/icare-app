@@ -465,6 +465,9 @@ function ViewCalls() {
                             {entry.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
                             ) : null}
+                            {entry.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -712,6 +715,9 @@ function ViewCalls() {
                       ) : null}
                       {call.callStatus == 11 ? (
                         <Badge>Closed Calls</Badge>
+                      ) : null}
+                      {call.callStatus == 12 ? (
+                        <Badge>Spare Taken CMRR</Badge>
                       ) : null}
                     </span>
                   </TableCell>
