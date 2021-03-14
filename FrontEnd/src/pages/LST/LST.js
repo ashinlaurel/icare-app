@@ -367,7 +367,7 @@ function LST() {
                   {vendors.map((user, i) => (
                     <TableRow
                       key={i}
-                      className="hover:bg-purple-900 "
+                      className="dark:hover:bg-purple-900 hover:bg-purple-200 "
                       onClick={() => {
                         console.log(user);
                         setselectedVendor(user);
@@ -926,7 +926,7 @@ function LST() {
           >
             Add Product from Inventory
           </Button>
-          <div className="mr-2 flex flex-row dark:text-white  ">
+          <div className="mx-2 flex flex-row dark:text-white  ">
             <div className="mx-1 my-1  ">Courier Name</div>
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
