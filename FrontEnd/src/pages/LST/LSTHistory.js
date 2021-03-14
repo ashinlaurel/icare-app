@@ -280,7 +280,63 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
                 ))}
-                </>):(<></>)}
+                </>):
+                (<>
+                {CMRRItems.map((user, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].keyboardname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        {/* <Avatar
+                        className="hidden ml-2 mr-3 md:block"
+                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
+                        alt="User image"
+                      /> */}
+                        <div>
+                          <p className="font-semibold">{user.type}</p>
+                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {user.accountName}
+                        </p> */}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
+
+                    <TableCell>
+                      <span className="text-sm">{user.sno}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.location}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invnumber}</span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        type={user.condition == "Good" ? "primary" : "danger"}
+                      >
+                        {user.condition}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                </>)
+                }
               </TableBody>
             </Table>
           </TableContainer>
