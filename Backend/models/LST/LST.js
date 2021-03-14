@@ -38,8 +38,8 @@ const LSTSchema = new Schema({
   ref:'Vendor',
 },
   vendorName:String,
-  courierName:String,
-  docketNo:String
+  LSTtype:String,
+  CMRRItems:[]
 
   
 });

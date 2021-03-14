@@ -208,11 +208,9 @@ function LSTHistory() {
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
-  const InvTable = (items,docketNo,courierName) => {
+  const InvTable = (items,docketNo,courierName,LSTtype,CMRRItems) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-      <span>Docket No: {docketNo}</span>
-      <span className="mx-4">Courier Name: {courierName}</span>
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -228,6 +226,7 @@ function LSTHistory() {
                 </tr>
               </TableHeader>
               <TableBody>
+              {LSTtype=="Normal"?(<>
                 {items.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
@@ -281,6 +280,7 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
                 ))}
+                </>):(<></>)}
               </TableBody>
             </Table>
           </TableContainer>
@@ -572,7 +572,7 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
 
-                  {activeRowID == i ? InvTable(user.invItems,user.docketNo,user.courierName) : null}
+                  {activeRowID == i ? InvTable(user.invItems,user.docketNo,user.courierName,user.LSTtype,user.CMRRItems) : null}
                 </div>
               ))}
             </TableBody>

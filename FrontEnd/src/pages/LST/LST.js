@@ -20,6 +20,12 @@ import {
   Pagination,
   Dropdown,
   DropdownItem,
+  Input,
+  HelperText,
+  Label,
+  Select,
+  Card,
+  CardBody
 } from "@windmill/react-ui";
 
 import { API } from "../../backendapi";
@@ -28,6 +34,7 @@ import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+import { CloseIcon } from "../../icons";
 
 function LST() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -53,13 +60,12 @@ function LST() {
   const [disabler, setDisabler] = useState(true);
 
   // filterhooks
+  const [LSTtype, setLSTtype] = useState("Normal");
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
   const [date, setDate] = useState(moment().format());
-  const [courierName, setCourierName] = useState("")
-  const [docketNo, setDocketNo] = useState("");
   const [condition, setCondition] = useState("Available");
 
   // Selected Prod for the bottom bar----------
@@ -90,6 +96,21 @@ function LST() {
   const [selectedVendor, setselectedVendor] = useState(defVendor);
 
   const [isVendor, setIsVendor] = useState(false);
+  // CMRR
+
+  const CMRRinvdetails = {
+    type: "",
+    name: "",
+    sno: "",
+    condition: "Good",
+    invnumber: "",
+    location: "",
+    //-------
+    caseId: "imprest",
+  };
+  const [CMRRvalues, setCMRRValues] = useState([CMRRinvdetails]);
+
+
 
   async function getVendorList() {
     let payload = {
@@ -237,6 +258,10 @@ function LST() {
   console.log(selectedprod);
 
   const updateInventory = async () => {
+    if(LSTtype=="CMRR"){
+      console.log(CMRRvalues)
+      MakeCMRR();
+    }
     if (LSTNo == "") {
       setModalMessage("LST Number necessary");
       setMessageModal(true);
@@ -311,8 +336,7 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
-      docketNo:docketNo,
-      courierName:courierName
+      LSTtype:LSTtype
     };
     if (selectedVendor._id != "") {
       console.log("here");
@@ -344,6 +368,44 @@ function LST() {
     }
   };
 
+  const MakeCMRR = async ()=>{
+    let lst = {
+      from: location,
+      to: toLocation,
+      LSTNo: LSTNo,
+      date: date,
+      invItems: [],
+      status: "In Transit",
+      LSTtype:LSTtype,
+      CMRRItems:CMRRvalues
+    };
+   
+    console.log("LST", lst);
+     try {
+      await axios({
+        url: `${API}/lst/${Emp.getId()}/create`,
+        method: "POST",
+        data: lst,
+      });
+      // setIsReviewModalOpen(true);
+      console.log("Done");
+      setModalMessage("LST Submitted");
+      // setLocation("")
+      setToLocation("")
+      setDate("")
+      setselectedVendor(defVendor)
+      // setData([]);
+      setCMRRValues([CMRRinvdetails])
+      setMessageModal(true);
+      setSelectedItems([]);
+      thegetter();
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+
+  }
+
   const VendorModal = () => {
     return (
       <>
@@ -367,7 +429,7 @@ function LST() {
                   {vendors.map((user, i) => (
                     <TableRow
                       key={i}
-                      className="dark:hover:bg-purple-900 hover:bg-purple-200 "
+                      className="hover:bg-purple-900 "
                       onClick={() => {
                         console.log(user);
                         setselectedVendor(user);
@@ -792,11 +854,259 @@ function LST() {
     );
   };
 
+  const CMRRMenu = (num) => {
+    return (
+      <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <Label className="font-bold flex-row flex justify-between">
+          <span>Item Number : {num + 1}</span>{" "}
+          <div
+            layout="outline"
+            onClick={() => {
+              let newitem = [...CMRRvalues];
+              newitem = newitem.filter((item, i) => {
+                if (i != num) return item;
+              });
+              setCMRRValues(newitem);
+            }}
+            className="border-gray-100 rounded-full cursor pointer"
+          >
+            <CloseIcon
+              fill="lightgray"
+              className="w-5 h-5 cursor-pointer "
+              aria-hidden="true"
+            />
+          </div>
+        </Label>
+        <hr className="mb-5 mt-2" />
+        {/* ------------------------Row 1-------------------------- */}
+        <div className="flex-row flex space-x-3">
+          
+         
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={CMRRvalues[num].type}
+                  onChange={(e) => {
+                    let newlist = [...CMRRvalues];
+                    // console.log(e.target.value)
+                    newlist[num].type = e.target.value.toLowerCase();
+                    // newlist[num].type = newlist[num].type.toLowerCase();
+                    // console.log(newlist)
+
+                    setCMRRValues(newlist);
+                  }}
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
+
+                  <option value="mouse">Mouse</option>
+                  <option value="keyboard">Keyboard</option>
+                  <option value="monitor">Monitor</option>
+                  <option value="cpu">Cpu</option>
+                  <option value="ram">Ram</option>
+                  <option value="fan">Fan</option>
+                  <option value="motherboard">Motherboard</option>
+                  <option value="smps">SMPS</option>
+                  <option value="hdd">HDD</option>
+                  <option value="gcard">Gcard</option>
+                  <option value="enetcard">Enet Card</option>
+                  <option value="serialcard">Serial Card</option>
+                  <option value="paralellcard">Paralell Card</option>
+                  <option value="opticaldrive">Optical Drive</option>
+                  <option value="others">Others</option>
+
+               
+                </Select>
+              </Label>
+            </div>
+          
+
+            <>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Product Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={CMRRvalues[num].name}
+                    onChange={(e) => {
+                      let newlist = [...CMRRvalues];
+                      newlist[num].name = e.target.value;
+                      setCMRRValues(newlist);
+                    }}
+                  />
+                </Label>
+            
+              </div>
+            </>
+         
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Serial Number*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={CMRRvalues[num].sno}
+                onChange={(e) => {
+                  let newlist = [...CMRRvalues];
+                  newlist[num].sno = e.target.value;
+                  setCMRRValues(newlist);
+                }}
+              />
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Select Condition*</span>
+              <Select
+                className="mt-1"
+                onChange={(e) => {
+                  let newlist = [...CMRRvalues];
+                  newlist[num].condition = e.target.value;
+                  setCMRRValues(newlist);
+                }}
+              >
+                <option value="Good" selected>
+                  Good
+                </option>
+                <option value="Defective">Defective</option>
+                <option value="DOA">DOA</option>
+                <option value="Damaged">Damaged</option>
+              </Select>
+            </Label>
+          </div>
+        </div>
+
+        {/* -------------Row 2 --------- */}
+        <div className="flex-row flex space-x-3">
+          
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Warranty*</span>
+              <Select
+                className="mt-1"
+                value={CMRRvalues[num].wty}
+                onChange={(e) => {
+                  let newlist = [...CMRRvalues];
+                  newlist[num].wty = e.target.value;
+                  setCMRRValues(newlist);
+                 
+                }}
+              >
+                <option value="" selected disabled>
+                  Select Category
+                </option>
+                <option value="0D">0 days</option>
+                <option value="3M">3 Months</option>
+                <option value="6M">6 Months</option>
+                <option value="1Y">1 Year</option>
+                <option value="2Y">2 Years</option>
+                <option value="3Y">3 Years</option>
+                <option value="4Y">4 Years</option>
+                <option value="5Y">5 Years</option>
+                <option value="20Y">20 Years</option>
+              </Select>
+            </Label>
+          </div>
+
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Case ID*</span>
+              <Input
+                className="mt-1"
+                type="text"
+                value={CMRRvalues[num].caseId}
+                onChange={(e) => {
+                  let newlist = [...CMRRvalues];
+                  newlist[num].caseId = e.target.value;
+                  setCMRRValues(newlist);
+                }}
+              />
+            </Label>
+          </div>
+
+
+        </div>
+        
+      </div>
+    );
+  };
+
+  const CMRRBottomCard = () => {
+    return (
+      <Card className="mb-4 shadow-md ">
+        <CardBody>
+          <div className="flex flex-row flex-wrap justify-start">
+            <Button
+              onClick={() => {
+                let newitem = [...CMRRvalues];
+                let add = CMRRinvdetails;
+                newitem.push(add);
+                setCMRRValues(newitem);
+              }}
+              aria-label="Notifications"
+              aria-haspopup="true"
+              layout="outline"
+              className=" mx-2 "
+            >
+              Add Item
+            </Button>
+
+          
+
+           
+
+            
+          
+          </div>
+        </CardBody>
+      </Card>
+    );
+  }
+ 
+
   return (
     <>
-      <div className="mb-64 mt-4">
+      <div className=" mt-4">
         <div className="flex flex-row dark:text-white  ">
-          <div className="mr-2 flex flex-row dark:text-white  ">
+        <div className="mr-1 flex flex-row dark:text-white  ">
+            <div className="mx-1 my-1  "> Type</div>
+            {/* -----------------------------------------CMRR ----------------------- */}
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={LSTtype}
+                onChange={(e) => {
+                  setLSTtype(e.target.value);
+                }}
+              >
+                
+                {/* <option value="">All</option> */}
+                <option value="Normal" default selected>Normal</option>
+                <option value="CMRR">CMRR</option>
+              
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="mr-1 flex flex-row dark:text-white  ">
             <div className="mx-1 my-1  ">From</div>
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
@@ -833,6 +1143,7 @@ function LST() {
             <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
+            {LSTtype=="Normal"?(<>
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={toLocation}
@@ -853,6 +1164,31 @@ function LST() {
                 <option value="Kozhikode">Kozhikode</option>
                 <option value="Vendor">Vendor</option>
               </select>
+              </>):(<>
+                
+                <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={toLocation}
+                onChange={(e) => {
+                  setToLocation(e.target.value);
+                  setselectedVendor(defVendor)
+                  if (e.target.value == "Vendor") {
+                    setIsVendor(true);
+                  } else setIsVendor(false);
+                }}
+              >
+                <option value="" disabled selected>
+                  Location
+                </option>
+                {/* <option value="">All</option> */}
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+              
+              </select>
+
+
+              </>)}
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -866,7 +1202,7 @@ function LST() {
             </div>
           </div>
           {isVendor ? (
-            <div className="mx-2">
+            <div className="mx-1">
               <Button
                 layout="outline"
                 className="w-full"
@@ -895,7 +1231,7 @@ function LST() {
             </div>
           </div>
           <div className=" flex flex-row dark:text-white  ">
-            <div className=" mx-3 my-1 ">LST No.</div>
+            <div className=" mx-1 my-1 ">LST No.</div>
             <div class="relative mx-1 ">
               <input
                 value={LSTNo}
@@ -912,52 +1248,9 @@ function LST() {
             <Button onClick={updateInventory}>Submit</Button>
           </div>
         </div>
-
-        <div className="flex flex-row dark:text-white my-3 w-full ">
-        <Button
-            onClick={() => {
-              if (location == "" || toLocation == "") {
-                setModalMessage("Select From and To Locations");
-                setMessageModal(true);
-                return;
-              }
-              setShowInvTable(true);
-            }}
-          >
-            Add Product from Inventory
-          </Button>
-          <div className="mx-2 flex flex-row dark:text-white  ">
-            <div className="mx-1 my-1  ">Courier Name</div>
-            {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              <input
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={courierName}
-                onChange={(e) => {
-                  setCourierName(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="mr-2 flex flex-row dark:text-white  ">
-            <div className="mx-1 my-1  ">Docket No</div>
-            {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              <input
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={docketNo}
-                onChange={(e) => {
-                  setDocketNo(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-
-          </div>
-
-
-        {/* <div className="my-5">
+        {LSTtype=="Normal"?(<>
+        {SelectedInv()}
+        <div className="my-5">
           <Button
             onClick={() => {
               if (location == "" || toLocation == "") {
@@ -970,12 +1263,20 @@ function LST() {
           >
             Add Product from Inventory
           </Button>
-        </div> */}
+        </div>
         {showInvTable ? invTable() : null}
+        </>):null}
       </div>
 
       {messageModalComponent()}
       {VendorModal()}
+      {LSTtype=="CMRR"?(<>
+      {CMRRvalues.map((item, i) => {
+        return CMRRMenu(i);
+      })}
+      {CMRRBottomCard()}
+      </>):null}
+      
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );

@@ -85,7 +85,7 @@ exports.getCalls = async (req, res) => {
       assignedDate: 1,
       assignedETA: 1,
     };
-    filteroptions.callStatus = { $not: { $gt: 10 } };
+    filteroptions.callStatus = { $not: { $gt: 10, $lt:12 } };
     filteroptions.employeeId = filters.employeeId;
   }
 
