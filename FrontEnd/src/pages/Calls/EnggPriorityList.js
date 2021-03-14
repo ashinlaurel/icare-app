@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
@@ -94,7 +92,6 @@ function EnggPriorityList() {
   function onPageChange(p) {
     setPage(p);
   }
-
 
   const AddEnggModal = () => {
     return (
@@ -221,49 +218,49 @@ function EnggPriorityList() {
         </Modal>
       </>
     );
-  }
+  };
 
   // useEffect(() => {
   //   setData(engineer.assignedCalls);
   // }, [engineer]);
-  
-  useEffect( () => {
-    (async()=>{
-    if(engineer){  
-    
-    let payload = {
-      pages: {
-        page: 1,
-        limit: 10000,
-      },
-      filters: {
-        callStatus: "",
-        searchquery: "",
-        fromDate: "",
-        toDate: "",
-        employeeId:engineer._id
-      },
-    };
-  console.log("HERE",payload)
-    try {
-      let response = await axios({
-        url: `${API}/call/${Emp.getId()}/getall`,
-        method: "POST",
-        data: payload,
-      });
-      console.log(response.data.out);
-      setTotalResults(response.data.total);
-      setData(response.data.out)
-      // const { total, data } = response.data;
-      // console.log(data + "Now");
-  
-      setData(response.data.out);
-    } catch (error) {
-      throw error;
-    }
-    // console.log(engineer)
-  }})()}, [engineer]);
 
+  useEffect(() => {
+    (async () => {
+      if (engineer) {
+        let payload = {
+          pages: {
+            page: 1,
+            limit: 10000,
+          },
+          filters: {
+            callStatus: "",
+            searchquery: "",
+            fromDate: "",
+            toDate: "",
+            employeeId: engineer._id,
+          },
+        };
+        console.log("HERE", payload);
+        try {
+          let response = await axios({
+            url: `${API}/call/${Emp.getId()}/getall`,
+            method: "POST",
+            data: payload,
+          });
+          console.log(response.data.out);
+          setTotalResults(response.data.total);
+          setData(response.data.out);
+          // const { total, data } = response.data;
+          // console.log(data + "Now");
+
+          setData(response.data.out);
+        } catch (error) {
+          throw error;
+        }
+        // console.log(engineer)
+      }
+    })();
+  }, [engineer]);
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -363,95 +360,102 @@ function EnggPriorityList() {
               </tr>
             </TableHeader>
             <TableBody>
-              {engineer && data.map((item, i) => (
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == item._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    // setActiveRowId(callId._id);
-                    // setBBarOpen(1);
-                    // // console.log("the id is " + call._id);
-                    // setSelectedProd(callId);
-                    // if (callId.assetId) setAssetDetails(callId.assetId);
-                    // else setAssetDetails({});
-                    // console.log(callId.assetId);
-                    // console.log(call.product.keyboard[0].keyboardname);
-                  }}
-                >
-                  <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      <div>
-                        <p className="font-semibold">{item.callNo}</p>
+              {engineer &&
+                data.map((item, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == item._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      // setActiveRowId(callId._id);
+                      // setBBarOpen(1);
+                      // // console.log("the id is " + call._id);
+                      // setSelectedProd(callId);
+                      // if (callId.assetId) setAssetDetails(callId.assetId);
+                      // else setAssetDetails({});
+                      // console.log(callId.assetId);
+                      // console.log(call.product.keyboard[0].keyboardname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{item.callNo}</p>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {moment(item.date).format("DD/MM/YYYY")}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {moment(item.assignedDate).format("DD/MM/YYYY")}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {item.assignedETA}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{item.unitName}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{item.phone}</span>
-                  </TableCell>
-                  <TableCell>
-                    {item.callStatus == 0 ? (
-                      <span className="text-sm">Not Allocated</span>
-                    ) : null}
-                    {item.callStatus == 1 ? (
+                    </TableCell>
+                    <TableCell>
                       <span className="text-sm">
-                        Pending for Percall Approval
+                        {moment(item.date).format("DD/MM/YYYY")}
                       </span>
-                    ) : null}
-                    {item.callStatus == 2 ? (
-                      <span className="text-sm">Pending for Response</span>
-                    ) : null}
-                    {item.callStatus == 3 ? (
-                      <span className="text-sm">Pending for OEM Response</span>
-                    ) : null}
-                    {item.callStatus == 4 ? (
-                      <span className="text-sm">Pending for 2nd Response</span>
-                    ) : null}
-                    {item.callStatus == 5 ? (
-                      <span className="text-sm">Pending for Customer</span>
-                    ) : null}
-                    {item.callStatus == 6 ? (
-                      <span className="text-sm">Under Observation</span>
-                    ) : null}
-                    {item.callStatus == 7 ? (
-                      <span className="text-sm">Pending for Others</span>
-                    ) : null}
-                    {item.callStatus == 8 ? (
-                      <span className="text-sm">Pending for Spare</span>
-                    ) : null}
-                    {item.callStatus == 9 ? (
-                      <span className="text-sm">Spare in Transit</span>
-                    ) : null}
-                    {item.callStatus == 10 ? (
-                      <span className="text-sm">Cancelled Calls</span>
-                    ) : null}
-                    {item.callStatus == 11 ? (
-                      <span className="text-sm">Closed Calls</span>
-                    ) : null}
-                  </TableCell>
-                  <TableCell>{i+1}
-                    {/* <input
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {moment(item.assignedDate).format("DD/MM/YYYY")}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{item.assignedETA}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{item.unitName}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{item.phone}</span>
+                    </TableCell>
+                    <TableCell>
+                      {item.callStatus == 0 ? (
+                        <span className="text-sm">Not Allocated</span>
+                      ) : null}
+                      {item.callStatus == 1 ? (
+                        <span className="text-sm">
+                          Pending for Percall Approval
+                        </span>
+                      ) : null}
+                      {item.callStatus == 2 ? (
+                        <span className="text-sm">Pending for Response</span>
+                      ) : null}
+                      {item.callStatus == 3 ? (
+                        <span className="text-sm">
+                          Pending for OEM Response
+                        </span>
+                      ) : null}
+                      {item.callStatus == 4 ? (
+                        <span className="text-sm">
+                          Pending for 2nd Response
+                        </span>
+                      ) : null}
+                      {item.callStatus == 5 ? (
+                        <span className="text-sm">Pending for Customer</span>
+                      ) : null}
+                      {item.callStatus == 6 ? (
+                        <span className="text-sm">Under Observation</span>
+                      ) : null}
+                      {item.callStatus == 7 ? (
+                        <span className="text-sm">Pending for Others</span>
+                      ) : null}
+                      {item.callStatus == 8 ? (
+                        <span className="text-sm">Pending for Spare</span>
+                      ) : null}
+                      {item.callStatus == 9 ? (
+                        <span className="text-sm">Spare in Transit</span>
+                      ) : null}
+                      {item.callStatus == 10 ? (
+                        <span className="text-sm">Cancelled Calls</span>
+                      ) : null}
+                      {item.callStatus == 11 ? (
+                        <span className="text-sm">Closed Calls</span>
+                      ) : null}
+                      {item.callStatus == 12 ? (
+                        <span className="text-sm">Closed Calls</span>
+                      ) : null}
+                    </TableCell>
+                    <TableCell>
+                      {i + 1}
+                      {/* <input
                       value={priority}
                       onChange={(e) => {
                         let temp = data;
@@ -468,9 +472,8 @@ function EnggPriorityList() {
                         console.log(temp);
                         setData(temp);
                       }} */}
-                    
-                  </TableCell>
-                  {/* <TableCell>
+                    </TableCell>
+                    {/* <TableCell>
                     
                       
                         <div className="px-2 py-2 dark:border-purple-400 border-purple-600 dark:bg-gray-700 bg-purple-100 inline-block rounded-full dark:text-purple-400 text-purple-700">
@@ -491,8 +494,8 @@ function EnggPriorityList() {
                         </div>
                       
                   </TableCell> */}
-                </TableRow>
-              ))}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
           <TableFooter>

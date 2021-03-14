@@ -146,7 +146,7 @@ function CallDetails() {
   const [imgUrl, setImgUrl] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const [imageUploadMenuMessage, setImageUploadMenuMessage] = useState("");
-  
+
   const [goodSpareImgUrl, setGoodSpareImgUrl] = useState("");
   const [defectiveImgUrl, setDefectiveImgUrl] = useState("");
   const [ccfrImgUrl, setCcfrImgUrl] = useState("");
@@ -155,9 +155,6 @@ function CallDetails() {
   const [goodSpareHistoryImg, setGoodSpareHistoryImg] = useState("");
   const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
   const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
-
-
-
 
   const photoUploadHandler = (e, callback) => {
     callback(e.target.files[0]);
@@ -339,18 +336,45 @@ function CallDetails() {
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
             <div className="flex flex-col justify-center ">
-              {defectiveHistoryImg!=""?(<>
-              <div className="text-lg font-semibold my-2 w-full"> Replaced Item</div>
-              <img src={defectiveHistoryImg} className="my-2" width="500" height="500" /> 
-              </>):null}
-              {goodSpareHistoryImg!=""?(<>
-              <div className="text-lg font-semibold my-2 w-full"> Replaced by</div>
-              <img src={goodSpareHistoryImg} className="my-2" width="500" height="500" /> 
-              </>):null}
-              {ccfrHistoryImg!=""?(<>
-              <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
-              <img src={ccfrHistoryImg} className="my-2" width="500" height="500" /> 
-              </>):null}
+              {defectiveHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full">
+                    {" "}
+                    Replaced Item
+                  </div>
+                  <img
+                    src={defectiveHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {goodSpareHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full">
+                    {" "}
+                    Replaced by
+                  </div>
+                  <img
+                    src={goodSpareHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
+              {ccfrHistoryImg != "" ? (
+                <>
+                  <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
+                  <img
+                    src={ccfrHistoryImg}
+                    className="my-2"
+                    width="500"
+                    height="500"
+                  />
+                </>
+              ) : null}
             </div>
           </ModalBody>
           <ModalFooter>
@@ -370,7 +394,7 @@ function CallDetails() {
       </>
     );
   };
-  
+
   //-----------------------------------------------------------------
 
   // ----------------------Heading Use Effect-------------
@@ -507,7 +531,6 @@ function CallDetails() {
                        `}
                         key={i}
                         onClick={() => {
-
                           // setActiveRowId(user._id);
                           // console.log("the id is " );
                           // setSelectedProd(user);
@@ -581,6 +604,9 @@ function CallDetails() {
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
                             ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -591,14 +617,20 @@ function CallDetails() {
                         </TableCell>
 
                         <TableCell>
-                          
-                          <Button layout="outline" onClick={()=>{
-                            if(entry.newUrl) setGoodSpareHistoryImg(entry.newUrl);
-                            if(entry.existUrl) setDefectiveHistoryImg(entry.existUrl);
-                            if(entry.ccfrImgUrl) setCcfrHistoryImg(entry.ccfrImgUrl)
-                            setIsHistoryImgViewModal(true)
-                          }
-                          }>Show</Button>
+                          <Button
+                            layout="outline"
+                            onClick={() => {
+                              if (entry.newUrl)
+                                setGoodSpareHistoryImg(entry.newUrl);
+                              if (entry.existUrl)
+                                setDefectiveHistoryImg(entry.existUrl);
+                              if (entry.ccfrImgUrl)
+                                setCcfrHistoryImg(entry.ccfrImgUrl);
+                              setIsHistoryImgViewModal(true);
+                            }}
+                          >
+                            Show
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -736,6 +768,9 @@ function CallDetails() {
                             ) : null}
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
+                            ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
                             ) : null}
                           </span>
                         </TableCell>
@@ -887,11 +922,6 @@ function CallDetails() {
 
   // ------Modals------
 
-
-
-
-
-
   const AssetBar = () => {
     return (
       <div className="dark:text-white my-4 ">
@@ -901,60 +931,58 @@ function CallDetails() {
         <div className="flex space-x-1 flex-wrap">
           <div className="dark:text-gray-200 text-black text-sm flex flex-wrap space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
             <div className=" ">
-              <span> 
-               <span className=" font-semibold ">
-              <span>Call Number: </span>
+              <span>
+                <span className=" font-semibold ">
+                  <span>Call Number: </span>
+                </span>
+                {call.callNo}
               </span>
-             {call.callNo}</span>
             </div>
             <div className=" ">
               <span>
-              <span className=" font-semibold ">
-              <span>Contact Person: </span>
+                <span className=" font-semibold ">
+                  <span>Contact Person: </span>
+                </span>
+                {call.contactPerson}
               </span>
-               {call.contactPerson}</span>
             </div>
             <div className=" ">
               <span>
-              <span className=" font-semibold ">
-              <span>Date:  </span>
+                <span className=" font-semibold ">
+                  <span>Date: </span>
+                </span>
+                {moment(call.date).format("DD-MM-YYYY")}
               </span>
-              {moment(call.date).format("DD-MM-YYYY")}</span>
             </div>
           </div>
-
-        
         </div>
 
         <div className="dark:text-gray-200 text-black text-sm space-x-1  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start my-2 ">
-            <div className=" font-semibold ">
-              <span>Call Status: </span>
-            </div>
-            <span>
-              {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
-              {call.callStatus == 1 ? (
-                <Badge>Pending for Percall Approval</Badge>
-              ) : null}
-              {call.callStatus == 2 ? (
-                <Badge>Pending for Response</Badge>
-              ) : null}
-              {call.callStatus == 3 ? (
-                <Badge>Pending for OEM Response</Badge>
-              ) : null}
-              {call.callStatus == 4 ? (
-                <Badge>Pending for 2nd Response</Badge>
-              ) : null}
-              {call.callStatus == 5 ? (
-                <Badge>Pending for Customer</Badge>
-              ) : null}
-              {call.callStatus == 6 ? <Badge>Under Observation</Badge> : null}
-              {call.callStatus == 7 ? <Badge>Pending for Others</Badge> : null}
-              {call.callStatus == 8 ? <Badge>Pending for Spare</Badge> : null}
-              {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
-              {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
-              {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
-            </span>
+          <div className=" font-semibold ">
+            <span>Call Status: </span>
           </div>
+          <span>
+            {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
+            {call.callStatus == 1 ? (
+              <Badge>Pending for Percall Approval</Badge>
+            ) : null}
+            {call.callStatus == 2 ? <Badge>Pending for Response</Badge> : null}
+            {call.callStatus == 3 ? (
+              <Badge>Pending for OEM Response</Badge>
+            ) : null}
+            {call.callStatus == 4 ? (
+              <Badge>Pending for 2nd Response</Badge>
+            ) : null}
+            {call.callStatus == 5 ? <Badge>Pending for Customer</Badge> : null}
+            {call.callStatus == 6 ? <Badge>Under Observation</Badge> : null}
+            {call.callStatus == 7 ? <Badge>Pending for Others</Badge> : null}
+            {call.callStatus == 8 ? <Badge>Pending for Spare</Badge> : null}
+            {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
+            {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
+            {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
+            {call.callStatus == 12 ? <Badge>Spare Taken CMRR</Badge> : null}
+          </span>
+        </div>
 
         <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full  ">
           {/* /////////////////////////////// . Problem Description  ///////////////////////////////////////////// */}
@@ -971,32 +999,27 @@ function CallDetails() {
         <div className="flex space-x-1">
           <div className="dark:text-gray-200 text-black text-sm space-x-2  flex items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-full my-2">
             <div className=" ">
-              <span> <span className=" font-semibold ">
-              Brand :
+              <span>
+                {" "}
+                <span className=" font-semibold ">Brand :</span>
+                {brand}
               </span>
-              {brand}</span>
             </div>
             <div className=" ">
               <span>
-              <span className=" font-semibold ">
-              Model:
+                <span className=" font-semibold ">Model:</span>
+                {model}
               </span>
-              {model}</span>
             </div>
-
           </div>
-
-          
         </div>
         <div className="flex space-x-1">
           <div className="dark:text-gray-200 text-black text-sm space-x-2  flex items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start w-full my-2">
-
             <div className=" ">
               <span>
-              <span className=" font-semibold ">
-              Serial Number: 
+                <span className=" font-semibold ">Serial Number:</span>
+                {serialno}
               </span>
-              {serialno}</span>
             </div>
 
             {product == "Laptop" ||
@@ -1004,16 +1027,14 @@ function CallDetails() {
             product == "Desktop" ? (
               <>
                 <div className="">
-                
-                  <span><span className=" font-semibold ">
-                  Operating System :
-              </span>{os}</span>
+                  <span>
+                    <span className=" font-semibold ">Operating System :</span>
+                    {os}
+                  </span>
                 </div>
               </>
             ) : null}
           </div>
-
-          
         </div>
         {/* <div className="dark:text-gray-200 text-black text-sm  bg-gray-100 dark:bg-gray-800 p-2 rounded-md  my-2 w-1/2 flex items-center justify-end space-x-1">
             <Button
@@ -1042,17 +1063,17 @@ function CallDetails() {
               <span className="font-semibold w-1/5">Product Type :</span>{" "}
               {product}
             </div>
-            {unit.customerId?(
-            <div>
-              <span className="font-semibold w-1/5">State : </span>{" "}
-              {unit.customerId.state}
-            </div>
-            ):null}
+            {unit.customerId ? (
+              <div>
+                <span className="font-semibold w-1/5">State : </span>{" "}
+                {unit.customerId.state}
+              </div>
+            ) : null}
             <div>
               <span className="font-semibold w-1/5">Account :</span>{" "}
               {account.accountName}
-            </div> 
-            
+            </div>
+
             {mouse[0] ? (
               <div>
                 <span className="font-semibold w-1/5">Mouse Model :</span>{" "}
@@ -1068,9 +1089,9 @@ function CallDetails() {
           </div>
 
           {/*  Row 2 */}
-         
+
           <div className="flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6  ">
-          <div>
+            <div>
               <span className="font-semibold w-1/5">Customer : </span>{" "}
               {customer.customerName}
             </div>
@@ -1078,12 +1099,12 @@ function CallDetails() {
               <span className="font-semibold w-1/5">Unit : </span>{" "}
               {unit.unitName}
             </div>
-            {unit.customerId?(
-            <div>
-              <span className="font-semibold w-1/5">PIN Code : </span>{" "}
-              {unit.customerId.pincode}
-            </div>
-            ):null}
+            {unit.customerId ? (
+              <div>
+                <span className="font-semibold w-1/5">PIN Code : </span>{" "}
+                {unit.customerId.pincode}
+              </div>
+            ) : null}
             {/* ---------------------------------------------------------------------------------------------------------------- */}
             {kbd[0] ? (
               <div>
@@ -1098,22 +1119,18 @@ function CallDetails() {
                 {kbd[0] ? kbd[0].keyboardsno : ""}
               </div>
             ) : null}
-            
-            
           </div>
           {/*  Row 3 */}
-         
-            
+
           <div className=" flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6 ">
-         
-            {unit.customerId?(
-            <div>
-              <span className="font-semibold w-1/5 ">Location type : </span>{" "}
-              {unit.customerId.locationType}
-            </div>
-            ):null}
-          {/* ---------------------------------------------------------------------------------------------------------------- */}
-          {monitor[0] ? (
+            {unit.customerId ? (
+              <div>
+                <span className="font-semibold w-1/5 ">Location type : </span>{" "}
+                {unit.customerId.locationType}
+              </div>
+            ) : null}
+            {/* ---------------------------------------------------------------------------------------------------------------- */}
+            {monitor[0] ? (
               <div>
                 <span className="font-semibold w-1/5 ">Monitor : </span>{" "}
                 {monitor[0] ? monitor[0].monitorname : ""}
@@ -1121,9 +1138,7 @@ function CallDetails() {
             ) : null}
             {monitor[0] ? (
               <div>
-                <span className="font-semibold w-1/5 ">
-                  Monitor Serial :
-                </span>{" "}
+                <span className="font-semibold w-1/5 ">Monitor Serial :</span>{" "}
                 {monitor[0] ? monitor[0].monitorsno : ""}
               </div>
             ) : null}
@@ -1136,18 +1151,14 @@ function CallDetails() {
             ) : null}
             {smps[0] ? (
               <div>
-                <span className="font-semibold w-1/5 ">
-                  SMPS1 Serial :{" "}
-                </span>{" "}
+                <span className="font-semibold w-1/5 ">SMPS1 Serial : </span>{" "}
                 {smps[0] ? smps[0].smpssno : ""}
               </div>
             ) : null}
-            
           </div>
           {/* Row 4 */}
-            
+
           <div className="flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6 ">
-         
             {/* ---------------------------------------------------------------------------------------------------------------- */}
             {hdd[0] ? (
               <div>
@@ -1188,21 +1199,20 @@ function CallDetails() {
                 {motherboard[0] ? motherboard[0].motherboardsno : ""}
               </div>
             ) : null}
-            
           </div>
           {/* -----------Row 5---------- */}
           <div className="flex flex-col  text-sm my-3  mx-3 align-left w-full lg:w-1/6 ">
-          <div>
+            <div>
               <span className="font-semibold w-1/5">Business : </span>{" "}
               {Business}
             </div>
-          {unit.customerId?(
-          <div>
-              <span className="font-semibold w-1/5">District : </span>{" "}
-              {unit.customerId.district}
-            </div>
-            ):null}
-           {/* ---------------------------------------------------------------------------------------------------------------- */}
+            {unit.customerId ? (
+              <div>
+                <span className="font-semibold w-1/5">District : </span>{" "}
+                {unit.customerId.district}
+              </div>
+            ) : null}
+            {/* ---------------------------------------------------------------------------------------------------------------- */}
 
             {ram[0] ? (
               <div>
@@ -1260,20 +1270,10 @@ function CallDetails() {
           </div>
         </div>
 
-        
-       
-
         {/* //////////////////////////////////////////////////////////////////////////// */}
       </div>
     );
   };
-
- 
-
-
-
-
-
 
   return (
     <>
@@ -1283,7 +1283,6 @@ function CallDetails() {
       {ImgUploadMenuModal()}
       {HistoryImgViewModal()}
       {AssetBar()}
-     
     </>
   );
 }

@@ -645,6 +645,9 @@ function UpdateCall() {
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
                             ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -809,6 +812,9 @@ function UpdateCall() {
                             ) : null}
                             {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
+                            ) : null}
+                            {call.callStatus == 12 ? (
+                              <Badge>Spare Taken CMRR</Badge>
                             ) : null}
                           </span>
                         </TableCell>
@@ -1112,14 +1118,11 @@ function UpdateCall() {
     if (call.callStatus == 5) {
       tempcallstatus = "Pending for Customer";
     }
-    if (call.callStatus == 5) {
+    if (call.callStatus == 6) {
       tempcallstatus = "Under Observation";
     }
-    if (call.callStatus == 6) {
-      tempcallstatus = "Pending for Others";
-    }
     if (call.callStatus == 7) {
-      tempcallstatus = "Pending for Spare";
+      tempcallstatus = "Pending for Others";
     }
     if (call.callStatus == 8) {
       tempcallstatus = "Pending for Spare";
@@ -1132,6 +1135,9 @@ function UpdateCall() {
     }
     if (call.callStatus == 11) {
       tempcallstatus = "Closed Calls";
+    }
+    if (call.callStatus == 12) {
+      tempcallstatus = "Spare Taken CMRR";
     }
 
     // ------- Handling the swaps -----------
@@ -1359,6 +1365,7 @@ function UpdateCall() {
               {call.callStatus == 9 ? <Badge>Spare in Transit</Badge> : null}
               {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
               {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
+              {call.callStatus == 12 ? <Badge>Spare Taken CMRR</Badge> : null}
             </span>
           </div>
         </div>
@@ -1665,6 +1672,7 @@ function UpdateCall() {
                 <option value="6"> Under Observation</option>
                 <option value="7"> Pending for Others</option>
                 <option value="8"> Pending for Spare</option>
+                <option value="12"> Spare Taken CMRR</option>
                 <option value="9"> Spare in Transit</option>
                 <option value="10"> Cancelled Calls</option>
                 <option value="11"> Closed Calls</option>
