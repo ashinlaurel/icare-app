@@ -610,7 +610,7 @@ function UpdateCall() {
                         <TableCell>
                           <span>
                             {call.callStatus == 0 ? (
-                              <Badge>Not Allocated</Badge>
+                              <Badge>Pending For Allocation</Badge>
                             ) : null}
                             {call.callStatus == 1 ? (
                               <Badge>Pending for Percall Approval</Badge>
@@ -778,7 +778,7 @@ function UpdateCall() {
                         <TableCell>
                           <span>
                             {call.callStatus == 0 ? (
-                              <Badge>Not Allocated</Badge>
+                              <Badge>Pending For Allocation</Badge>
                             ) : null}
                             {call.callStatus == 1 ? (
                               <Badge>Pending for Percall Approval</Badge>
@@ -1101,7 +1101,7 @@ function UpdateCall() {
     let tempcallstatus = "";
 
     if (call.callStatus == 0) {
-      tempcallstatus = "Not Allocated";
+      tempcallstatus = "Pending For Allocation";
     }
     if (call.callStatus == 1) {
       tempcallstatus = "Pending for Percall Approval";
@@ -1261,7 +1261,7 @@ function UpdateCall() {
       callAttendDate: callAttendDate,
       startOfService: startOfService,
       endOfService: endOfService,
-      note: `Items Swapped/Added/Removed`,
+      note: `Items Swapped/Added/Removed (Received:${existswap[i].sno} Sent:${inventswap[i].sno})`,
       actionTaken: actionTaken,
       existUrl: defectiveImgUrl[i],
       newUrl: goodSpareImgUrl[i],
@@ -1343,7 +1343,9 @@ function UpdateCall() {
               <span>Call Status: </span>
             </div>
             <span>
-              {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
+              {call.callStatus == 0 ? (
+                <Badge>Pending For Allocation</Badge>
+              ) : null}
               {call.callStatus == 1 ? (
                 <Badge>Pending for Percall Approval</Badge>
               ) : null}
@@ -1663,7 +1665,7 @@ function UpdateCall() {
                 }}
                 value={call.callStatus}
               >
-                <option value="0">Not Allocated</option>
+                <option value="0">Pending For Allocation</option>
                 <option value="1">Pending for Percall Approval</option>
                 <option value="2"> Pending for Response</option>
                 <option value="3"> Pending for OEM Response</option>

@@ -569,7 +569,7 @@ function CallDetails() {
                         <TableCell>
                           <span>
                             {call.callStatus == 0 ? (
-                              <Badge>Not Allocated</Badge>
+                              <Badge>Pending For Allocation</Badge>
                             ) : null}
                             {call.callStatus == 1 ? (
                               <Badge>Pending for Percall Approval</Badge>
@@ -734,7 +734,7 @@ function CallDetails() {
                         <TableCell>
                           <span>
                             {call.callStatus == 0 ? (
-                              <Badge>Not Allocated</Badge>
+                              <Badge>Pending For Allocation</Badge>
                             ) : null}
                             {call.callStatus == 1 ? (
                               <Badge>Pending for Percall Approval</Badge>
@@ -962,7 +962,9 @@ function CallDetails() {
             <span>Call Status: </span>
           </div>
           <span>
-            {call.callStatus == 0 ? <Badge>Not Allocated</Badge> : null}
+            {call.callStatus == 0 ? (
+              <Badge>Pending For Allocation</Badge>
+            ) : null}
             {call.callStatus == 1 ? (
               <Badge>Pending for Percall Approval</Badge>
             ) : null}

@@ -11,16 +11,16 @@ exports.callCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   const call = req.body;
   try {
-    let ifexist = await Call.find({ assetId: call.assetId}).exec();
+    let ifexist = await Call.find({ assetId: call.assetId }).exec();
     console.log(ifexist);
-    if(ifexist.length>0) throw({errid:1,message:ifexist[0].callNo})
+    if (ifexist.length > 0) throw { errid: 1, message: ifexist[0].callNo };
     // return res.status(201).json(newcall);
     const temp = new Call(call);
     const newcall = await temp.save();
-    
+
     return res.status(201).json(newcall);
   } catch (err) {
-    console.log("Call create error")
+    console.log("Call create error");
     res.status(400).json(err);
   }
 };
@@ -72,7 +72,7 @@ exports.getCalls = async (req, res) => {
 
   if (filters.callStatus != "") {
     if (filters.callStatus == "priority") {
-      filteroptions.callStatus = { $not: { $gt: 10,$lt:12  } };
+      filteroptions.callStatus = { $nin: [10, 11] };
       options.sort = {
         assignedDate: 1,
         assignedETA: 1,
@@ -85,7 +85,7 @@ exports.getCalls = async (req, res) => {
       assignedDate: 1,
       assignedETA: 1,
     };
-    filteroptions.callStatus = { $not: { $gt: 10, $lt:12 } };
+    filteroptions.callStatus = { $not: { $gt: 10, $lt: 12 } };
     filteroptions.employeeId = filters.employeeId;
   }
 

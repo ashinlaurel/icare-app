@@ -235,7 +235,7 @@ function AssignCallPriority() {
                   </TableCell>
                   <TableCell>
                     {callId.callStatus == 0 ? (
-                      <span className="text-sm">Not Allocated</span>
+                      <span className="text-sm">Pending For Allocation</span>
                     ) : null}
                     {callId.callStatus == 1 ? (
                       <span className="text-sm">

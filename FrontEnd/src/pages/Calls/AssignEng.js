@@ -85,6 +85,7 @@ function AssignEng() {
   /////// engineer
   const [engineer, setEngineer] = useState({ _id: "", enggName: "" });
   const [isEnggModalOpen, setIsEnggModalOpen] = useState(false);
+  const [isProblemDesc, setIsProblemDesc] = useState(false);
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
 
@@ -245,6 +246,21 @@ function AssignEng() {
     );
   };
 
+  const ProblemModal = () => {
+    return (
+      <>
+        <Modal isOpen={isProblemDesc} onClose={() => setIsProblemDesc(false)}>
+          <ModalHeader>Problem Description</ModalHeader>
+          <ModalBody>
+            <div className="font-xl text-xl overflow-scroll">
+              {selectedprod.problem}
+            </div>
+          </ModalBody>
+        </Modal>
+      </>
+    );
+  };
+
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -336,6 +352,7 @@ function AssignEng() {
         nextModal={setaddEnggModalOpen}
       />
       <AddEnggModal />
+      {ProblemModal()}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
@@ -448,10 +465,11 @@ function AssignEng() {
                 ) : null}
 
                 <TableCell>Type</TableCell>
-                <TableCell>PO No.</TableCell>
+                <TableCell>Product SNO.</TableCell>
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Call Status</TableCell>
+                <TableCell>Problem Description</TableCell>
                 <TableCell>Assigned Employee</TableCell>
               </tr>
             </TableHeader>
@@ -513,7 +531,7 @@ function AssignEng() {
                   </TableCell>
                   <TableCell>
                     {call.callStatus == 0 ? (
-                      <span className="text-sm">Not Allocated</span>
+                      <span className="text-sm">Pending For Allocation</span>
                     ) : null}
                     {call.callStatus == 1 ? (
                       <span className="text-sm">
@@ -553,6 +571,9 @@ function AssignEng() {
                     {call.callStatus == 12 ? (
                       <span className="text-sm">Spare Taken CMRR</span>
                     ) : null}
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={() => setIsProblemDesc(true)}>View</Button>
                   </TableCell>
                   <TableCell>
                     {call.employeeId ? (
