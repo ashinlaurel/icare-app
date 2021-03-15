@@ -64,6 +64,9 @@ exports.getAllItems = (req, res) => {
   if (filters.status != "") {
     filteroptions.status = filters.status;
   }
+  if (filters.LSTtype != "") {
+    filteroptions.LSTtype = filters.LSTtype;
+  }
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
   // }

@@ -82,6 +82,8 @@ const InvItemSchema = mongoose.Schema({
   stocktype: String,
   // ----------------
   caseId: String,
+  LSTtype:String,
+  LSTCustomer:String,
 });
 InvItemSchema.plugin(mongoosePaginate);
 

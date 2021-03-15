@@ -52,6 +52,7 @@ function LSTHistory() {
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
+  const [LSTtype, setLSTtype] = useState("Normal");
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -101,6 +102,7 @@ function LSTHistory() {
           from: location,
           to: ToLocation,
           status: status,
+          LSTtype:LSTtype,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -124,7 +126,7 @@ function LSTHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, status, refresh]);
+  }, [page, location, ToLocation, condition, status, refresh,LSTtype]);
 
   console.log(selectedprod);
   // DElete Modal
@@ -208,9 +210,10 @@ function LSTHistory() {
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
-  const InvTable = (items, docketNo, courierName, LSTtype, CMRRItems) => {
+  const InvTable = (items,Customer, LSTtype, CMRRItems) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+     {(LSTtype == "Customer") ?(<div>Customer:{Customer}</div>):null}
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -226,7 +229,7 @@ function LSTHistory() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {LSTtype == "Normal" ? (
+                {(LSTtype == "Normal"||LSTtype == "Customer") ? (
                   <>
                     {items.map((user, i) => (
                       <TableRow
@@ -372,11 +375,38 @@ function LSTHistory() {
                 }}
               >
                 <option value="" disabled selected>
-                  Type
+                  Status
                 </option>
                 <option value="">All</option>
                 <option value="In Transit">In Transit</option>
                 <option value="Received">Received</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+
+
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={LSTtype}
+                onChange={(e) => {
+                  setLSTtype(e.target.value);
+                }}
+              >
+                
+                <option value="" selected>LST type</option>
+                <option value="Normal" >Normal</option>
+                <option value="CMRR">CMRR</option>
+                <option value="Customer">Customer</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -570,7 +600,7 @@ function LSTHistory() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{user.invItems.length}</span>
+                      <span className="text-sm">{(user.LSTtype == "Normal"||user.LSTtype == "Customer")?user.invItems.length:user.CMRRItems.length}</span>
                     </TableCell>
                     {/* <TableCell>
                       <span className="text-sm">{user.docketNo}</span>
@@ -637,8 +667,7 @@ function LSTHistory() {
                   {activeRowID == i
                     ? InvTable(
                         user.invItems,
-                        user.docketNo,
-                        user.courierName,
+                       user.Customer,
                         user.LSTtype,
                         user.CMRRItems
                       )
