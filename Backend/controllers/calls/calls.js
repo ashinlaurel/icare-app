@@ -12,8 +12,12 @@ exports.callCreate = async (req, res) => {
   const call = req.body;
   try {
     let ifexist = await Call.find({ assetId: call.assetId }).exec();
-    console.log(ifexist);
-    if (ifexist.length > 0) throw { errid: 1, message: ifexist[0].callNo };
+    // console.log(ifexist);
+    ifexist.map(call=>{
+      console.log(call.callStatus)
+      if(call.callStatus!=10&& call.callStatus!=11) throw { errid: 1, message: call.callNo };
+    })
+  
     // return res.status(201).json(newcall);
     const temp = new Call(call);
     const newcall = await temp.save();

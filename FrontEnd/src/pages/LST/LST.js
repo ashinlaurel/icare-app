@@ -65,6 +65,7 @@ function LST() {
   const [location, setLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
+  const [customer, setCustomer] = useState("");
   const [date, setDate] = useState(moment().format());
   const [condition, setCondition] = useState("Available");
 
@@ -258,10 +259,7 @@ function LST() {
   console.log(selectedprod);
 
   const updateInventory = async () => {
-    if(LSTtype=="CMRR"){
-      console.log(CMRRvalues)
-      MakeCMRR();
-    }
+    
     if (LSTNo == "") {
       setModalMessage("LST Number necessary");
       setMessageModal(true);
@@ -286,6 +284,10 @@ function LST() {
       setModalMessage("To location not selected");
       setMessageModal(true);
       return;
+    }
+    if(LSTtype=="CMRR"){
+      console.log(CMRRvalues)
+      MakeCMRR();
     }
     if (SelectedItems.length == 0) {
       setModalMessage("No items selected");
@@ -312,8 +314,11 @@ function LST() {
           location: "In Transit",
           caseId: item.caseId,
           $push: { history: newhistory },
+          LSTtype:LSTtype,
+          LSTCustomer:""
         },
       };
+      if(LSTtype=="Customer") data.update.LSTCustomer=customer;
       console.log("PAYLOAD", data);
       try {
         await axios({
@@ -336,7 +341,8 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
-      LSTtype:LSTtype
+      LSTtype:LSTtype,
+      Customer:customer
     };
     if (selectedVendor._id != "") {
       console.log("here");
@@ -1074,8 +1080,12 @@ function LST() {
   return (
     <>
       <div className=" mt-4">
-        <div className="flex flex-row dark:text-white  ">
-        <div className="mr-1 flex flex-row dark:text-white  ">
+      
+      
+      
+      
+      <div className="flex flex-row dark:text-white  ">
+         <div className="mr-1 flex flex-row dark:text-white  ">
             <div className="mx-1 my-1  "> Type</div>
             {/* -----------------------------------------CMRR ----------------------- */}
             <div class="relative mx-1 ">
@@ -1090,6 +1100,7 @@ function LST() {
                 {/* <option value="">All</option> */}
                 <option value="Normal" default selected>Normal</option>
                 <option value="CMRR">CMRR</option>
+                <option value="Customer">Customer</option>
               
               </select>
 
@@ -1139,11 +1150,13 @@ function LST() {
             </div>
           </div>
 
+          
+
           <div className="flex flex-row dark:text-white  ">
             <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
-            {LSTtype=="Normal"?(<>
+            {(LSTtype=="Normal"||LSTtype=="Customer")?(<>
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
                 value={toLocation}
@@ -1232,7 +1245,7 @@ function LST() {
           </div>
           <div className=" flex flex-row dark:text-white  ">
             <div className=" mx-1 my-1 ">LST No.</div>
-            <div class="relative mx-1 ">
+            <div class="relative  ">
               <input
                 value={LSTNo}
                 disabled
@@ -1248,7 +1261,22 @@ function LST() {
             <Button onClick={updateInventory}>Submit</Button>
           </div>
         </div>
-        {LSTtype=="Normal"?(<>
+        {LSTtype=="Customer"?(
+        <div className="flex flex-row dark:text-white  ">
+          <div className=" flex flex-row dark:text-white mt-2 ">
+              <div className=" mx-1 my-1 ">Customer </div>
+              <div class="relative  ">
+                <input
+                  value={customer}
+                  onChange={(e) => setCustomer(e.target.value)}
+                  // placeholder="LST No."
+                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                />
+              </div>
+            </div> 
+        </div>):null}
+
+        {(LSTtype=="Normal"|| LSTtype=="Customer")?(<>
         {SelectedInv()}
         <div className="my-5">
           <Button

@@ -39,7 +39,8 @@ const LSTSchema = new Schema({
 },
   vendorName:String,
   LSTtype:String,
-  CMRRItems:[]
+  CMRRItems:[],
+  Customer:String
 
   
 });
