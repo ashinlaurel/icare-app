@@ -53,6 +53,7 @@ function Notifications() {
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
+  const [LSTtype, setLSTtype] = useState("Normal")
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -108,6 +109,7 @@ function Notifications() {
           from: location,
           to: ToLocation,
           status: "In Transit",
+          LSTtype:LSTtype,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -133,7 +135,7 @@ function Notifications() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, status, refresh]);
+  }, [page, location, ToLocation, condition, status, refresh,LSTtype]);
 
   console.log(selectedprod);
 
@@ -231,8 +233,64 @@ function Notifications() {
     }
   };
 
+  const updateCMRRInventory = async (i, j) => {
+    let items = data;
+    let lstItem = data[i];
+    let CMRRItem = lstItem.CMRRItems[j];
+    console.log(lstItem, CMRRItem);
+
+
+   
+      items[i].CMRRItems[j].location = lstItem.to;
+      setData(items);
+      
+      // setIsReviewModalOpen(true);
+      console.log("Done",items);
+  
+    let flag = false;
+    items[i].CMRRItems.map((item) => {
+      if (item.location == "In Transit") flag = true;
+    });
+    const updatelst = {
+      id: lstItem._id,
+      update: {
+        CMRRItems:items[i].CMRRItems,
+        
+      },
+    };
+    if (flag == false){
+      updatelst.update.status="Received";
+    }
+    
+    try {
+      await axios({
+        url: `${API}/lst/${Emp.getId()}/update`,
+        method: "POST",
+        data: updatelst,
+      });
+      if (flag == true) {
+        setModalMessage(`${CMRRItem.name} Recieved`);
+        setMessageModal(true);
+        // return;
+      }else { 
+      setModalMessage(
+        `${CMRRItem.name} Recieved.\n All Items Received from LST`
+      );
+      setMessageModal(true);
+      }
+      
+      console.log("Done");
+      return;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
   const InvTable = (num, to) => {
     let items = data[num].invItems;
+    let LSTtype= data[num].LSTtype;
+    let CMRRItems= data[num].CMRRItems;
     console.log("TO", items.to);
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
@@ -252,6 +310,8 @@ function Notifications() {
                 </tr>
               </TableHeader>
               <TableBody>
+              {(LSTtype == "Normal"||LSTtype == "Customer") ? (
+                <>
                 {data[num].invItems.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
@@ -375,6 +435,80 @@ function Notifications() {
                     </TableCell>
                   </TableRow>
                 ))}
+                </>
+                ) : (
+                  <>
+                {data[num].CMRRItems.map((user, i) => (
+                  <TableRow
+                    // className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                    //   activerowid == user._id
+                    //     ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                    //     : "white"
+                    // } `}
+                    key={i}
+                    onClick={() => {
+                      // setActiveRowId(user._id);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].keyboardname);
+                    }}
+                  >
+                    <TableCell className="w-8">
+                      <div className="flex items-center text-sm ">
+                        <div>
+                          <p className="font-semibold">{user.type}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.name}</span>
+                    </TableCell>
+
+                    <TableCell>
+                      
+                        {user.sno}
+                      
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.location}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.invnumber}</span>
+                    </TableCell>
+                    <TableCell>
+                     
+                        <Badge
+                          type={user.condition == "Good" ? "primary" : "danger"}
+                        >
+                          {user.condition}
+                        </Badge>
+                    
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        layout="outline"
+                        className="dark:border-green-700 border-green-400"
+                        onClick={() => {
+                          if (user.location == "In Transit")
+                            updateCMRRInventory(num, i);
+                          else {
+                            setModalMessage("Already Received");
+                            setMessageModal(true);
+                          }
+                        }}
+                      >
+                        {user.location == "In Transit" ? (
+                          <>Receive</>
+                        ) : (
+                          <>Received</>
+                        )}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                </>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -478,6 +612,33 @@ function Notifications() {
                 </div>
               </>
             ) : null}
+
+            <div class="relative mx-1 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={LSTtype}
+                onChange={(e) => {
+                  setLSTtype(e.target.value);
+                }}
+              >
+                
+                <option value="" selected>LST type</option>
+                <option value="Normal" >Normal</option>
+                <option value="CMRR">CMRR</option>
+                <option value="Customer">Customer</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -595,7 +756,7 @@ function Notifications() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{user.invItems.length}</span>
+                      <span className="text-sm">{(user.LSTtype == "Normal"||user.LSTtype == "Customer")?user.invItems.length:user.CMRRItems.length}</span>
                     </TableCell>
                     {/* <TableCell>
                     <Badge>
