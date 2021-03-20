@@ -246,8 +246,9 @@ function LSTHistory() {
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
-              onClick={async () => {}}
-               
+              onClick={async () => {
+                          createAndDownloadPdf(data[downloadNum]._id, data[downloadNum].LSTNo,data[downloadNum].CourierNumber,data[downloadNum].DocketType);
+                        }}
             >
               Download
             </Button>
@@ -259,9 +260,13 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id, LSTno) => {
+  const createAndDownloadPdf = async (id, LSTno,CourierNumber,DocketType) => {
     let payload = {
       id: id,
+      update: {
+        CourierNumber,
+        DocketType
+      }
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -684,10 +689,10 @@ function LSTHistory() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
-                          createAndDownloadPdf(user._id, user.LSTNo);
-                          // setDownloadLST(user);
-                          // setisDownloadModalOpen(true);
-                          // setDownloadNum(i);
+                          // createAndDownloadPdf(user._id, user.LSTNo);
+                          setDownloadLST(user);
+                          setisDownloadModalOpen(true);
+                          setDownloadNum(i);
                         }}
                         className="rounded-lg m-1"
                       >
