@@ -276,7 +276,7 @@ function LSTHistory() {
     });
 
     const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-
+    setisDownloadModalOpen(false);
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
