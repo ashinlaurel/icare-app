@@ -1069,10 +1069,14 @@ function UpdateCall() {
       actionTaken == "" ||
       moment(call.assignedDate).format("YYYY-MM-DD") >
         moment(callAttendDate).format("YYYY-MM-DD") ||
-      endOfService < startOfService
+      endOfService < startOfService ||
+      (call.assignedETA > startOfService &&
+        moment(call.assignedDate).format("YYYY-MM-DD") ==
+          moment(callAttendDate).format("YYYY-MM-DD") &&
+        startOfService != "")
     ) {
       // setNotSwapModalOpen(true);
-      alert("Please enter the compulsory fields");
+      alert("Please enter the right values into all compulsory fields");
       return;
     }
     if (ccfrStatus == "") {
@@ -2330,6 +2334,14 @@ function UpdateCall() {
                 }}
               />
             </Label>
+            {call.assignedETA > startOfService &&
+            moment(call.assignedDate).format("YYYY-MM-DD") ==
+              moment(callAttendDate).format("YYYY-MM-DD") &&
+            startOfService != "" ? (
+              <span className="text-red-700 text-xs">
+                Error: Time before assigned ETA!
+              </span>
+            ) : null}
           </div>
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -2346,7 +2358,7 @@ function UpdateCall() {
 
             {endOfService < startOfService && endOfService != "" ? (
               <span className="text-red-700 text-xs">
-                Error: Selected date is before the assigned date!
+                Error: Selected time is before start service time!
               </span>
             ) : null}
           </div>
