@@ -1,10 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-<<<<<<< HEAD:FrontEnd/build/precache-manifest.a1a72b78a64f74d810e36ecf7cb035b7.js
     "revision": "982b7396bcfc7c6b6244068a9f5267a0",
-=======
-    "revision": "943cc09e3ac667439ae956bad9c54d71",
->>>>>>> 0cbd807bd84da00675fa58ff26115bfcbb1fa75d:FrontEnd/build/precache-manifest.f7a51c4ba5a0aff2dbabc1ff1bde79a2.js
     "url": "/index.html"
   },
   {
@@ -28,11 +24,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/17.5c17b9f1.chunk.css"
   },
   {
-<<<<<<< HEAD:FrontEnd/build/precache-manifest.a1a72b78a64f74d810e36ecf7cb035b7.js
     "revision": "b4c8d0b540981c8d3744",
-=======
-    "revision": "54a902a35334550c6ebb",
->>>>>>> 0cbd807bd84da00675fa58ff26115bfcbb1fa75d:FrontEnd/build/precache-manifest.f7a51c4ba5a0aff2dbabc1ff1bde79a2.js
     "url": "/static/css/18.5c17b9f1.chunk.css"
   },
   {
@@ -164,13 +156,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/17.16e39cef.chunk.js"
   },
   {
-<<<<<<< HEAD:FrontEnd/build/precache-manifest.a1a72b78a64f74d810e36ecf7cb035b7.js
     "revision": "b4c8d0b540981c8d3744",
     "url": "/static/js/18.6f09f38c.chunk.js"
-=======
-    "revision": "54a902a35334550c6ebb",
-    "url": "/static/js/18.2b85e2c0.chunk.js"
->>>>>>> 0cbd807bd84da00675fa58ff26115bfcbb1fa75d:FrontEnd/build/precache-manifest.f7a51c4ba5a0aff2dbabc1ff1bde79a2.js
   },
   {
     "revision": "44a9b00615096047d8cd",
@@ -461,13 +448,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/main.f4a71145.chunk.js"
   },
   {
-<<<<<<< HEAD:FrontEnd/build/precache-manifest.a1a72b78a64f74d810e36ecf7cb035b7.js
     "revision": "932898b144c27951b5d2",
     "url": "/static/js/runtime-main.0080eab2.js"
-=======
-    "revision": "d9a5bbc15d247e3cdc3b",
-    "url": "/static/js/runtime-main.7015a705.js"
->>>>>>> 0cbd807bd84da00675fa58ff26115bfcbb1fa75d:FrontEnd/build/precache-manifest.f7a51c4ba5a0aff2dbabc1ff1bde79a2.js
   },
   {
     "revision": "739297c3ec0f727c32c8135aca85df15",

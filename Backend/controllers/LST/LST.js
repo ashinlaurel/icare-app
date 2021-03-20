@@ -195,9 +195,14 @@ exports.countLSTByDate = (req, res) => {
 // };
 
 exports.downloadPdf = async (req, res) => {
-  let { id } = req.body;
+  let { id,update } = req.body;
+  console.log(id,update)
 
   try {
+    let lst = await LST.findByIdAndUpdate(id, update, {
+      safe: true,
+      useFindAndModify: false,
+    });
     const browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox"],
