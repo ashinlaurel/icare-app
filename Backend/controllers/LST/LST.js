@@ -24,7 +24,7 @@ exports.getById = async (req, res) => {
   try {
     let { id } = req.body;
     // console.log(req.body.id)
-    let lst = await LST.findById(id).populate("invItems");
+    let lst = await LST.findById(id).populate("invItems").populate("customerId");
     return res.status(200).json(lst);
   } catch (err) {
     console.log(id);
