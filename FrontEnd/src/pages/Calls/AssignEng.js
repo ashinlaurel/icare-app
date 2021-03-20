@@ -521,7 +521,9 @@ function AssignEng() {
                     <span className="text-sm">{call.assetId.producttype}</span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">{call.assetId.ponumber}</span>
+                    <span className="text-sm">
+                      {call.assetId.product.serialno}
+                    </span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{call.unitName}</span>
