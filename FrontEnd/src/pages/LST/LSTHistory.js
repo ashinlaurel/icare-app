@@ -208,7 +208,7 @@ function LSTHistory() {
           <ModalBody>
 
 
-
+        {data[downloadNum]?(<>
        <div className="flex flex-row">
         <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
                 <input
@@ -238,6 +238,7 @@ function LSTHistory() {
                   class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
             </div>
+            </>):null}
 
 
 

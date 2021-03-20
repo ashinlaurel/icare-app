@@ -191,13 +191,13 @@ function ViewEngineerCalls() {
 
 <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-5">
         {data.map((item, i) => (
-          <Link to={`/app/call/calldetails/${item._id}/${item.assetId}`}>
+          <Link to={`/app/call/calldetails/${item._id}/${item.assetId._id}`}>
             <CallCard
               value={item.callNo}
               contactPerson={item.contactPerson}
               problem={item.problem}
               priority={i+1}
-              link={`/app/call/calldetails/${item._id}/${item.assetId}`} 
+              link={`/app/call/calldetails/${item._id}/${item.assetId._id}`} 
               assignedDate={item.assignedDate}
               assignedETA={item.assignedETA}
             >
