@@ -354,14 +354,19 @@ function LST() {
       invItems: invIds,
       status: "In Transit",
       LSTtype:LSTtype,
-      unitId: unit._id,
-        unitName: unit.unitName,
-        accountId: account._id,
-        accountName: account.accountName,
-        customerId: customer._id,
-        customerName: customer.customerName,
+     
+        
     };
 
+
+    if(LSTtype=="Customer"){
+      lst. unitId= unit._id;
+      lst.unitName= unit.unitName;
+      lst.accountId= account._id;
+      lst.accountName= account.accountName;
+      lst.customerId= customer._id;
+      lst.customerName= customer.customerName;
+    }
 
     if (selectedVendor._id != "") {
       console.log("here");
