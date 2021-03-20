@@ -40,7 +40,30 @@ const LSTSchema = new Schema({
   vendorName:String,
   LSTtype:String,
   CMRRItems:[],
-  Customer:String
+  
+  DocketType:{
+    type:String,
+    default:""
+  },
+  CourierNumber:{
+    type:String,
+    default:""
+  },
+  unitId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Unit",
+  },
+  unitName: String,
+  accountId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Account",
+  },
+  accountName: String,
+  customerId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CustomerLogin",
+  },
+  customerName: String,
 
   
 });
