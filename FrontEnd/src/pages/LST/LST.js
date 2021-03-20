@@ -5,6 +5,8 @@ import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon, Remove } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import UnitListModal from "../../components/Modal/UnitListModal"
+import SectionTitle from "../../components/Typography/SectionTitle";
 
 import {
   TableBody,
@@ -65,7 +67,7 @@ function LST() {
   const [location, setLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [LSTNo, setLSTNo] = useState("");
-  const [customer, setCustomer] = useState("");
+  // const [customer, setCustomer] = useState("");
   const [date, setDate] = useState(moment().format());
   const [condition, setCondition] = useState("Available");
 
@@ -97,6 +99,15 @@ function LST() {
   const [selectedVendor, setselectedVendor] = useState(defVendor);
 
   const [isVendor, setIsVendor] = useState(false);
+
+   //customer
+   const [unit, setUnit] = useState({ _id: "", unitName: "" });
+   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+   const [account, setAccount] = useState({ _id: "", accountName: "" })
+  const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+
+
+
   // CMRR
 
   const CMRRinvdetails = {
@@ -343,8 +354,15 @@ function LST() {
       invItems: invIds,
       status: "In Transit",
       LSTtype:LSTtype,
-      Customer:customer
+      unitId: unit._id,
+        unitName: unit.unitName,
+        accountId: account._id,
+        accountName: account.accountName,
+        customerId: customer._id,
+        customerName: customer.customerName,
     };
+
+
     if (selectedVendor._id != "") {
       console.log("here");
       lst.vendorId = selectedVendor._id;
@@ -1327,15 +1345,27 @@ function LST() {
         {LSTtype=="Customer"?(
         <div className="flex flex-row dark:text-white  ">
           <div className=" flex flex-row dark:text-white mt-2 ">
-              <div className=" mx-1 my-1 ">Customer </div>
-              <div class="relative  ">
-                <input
-                  value={customer}
-                  onChange={(e) => setCustomer(e.target.value)}
-                  // placeholder="LST No."
-                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-              </div>
+          
+
+              <div className="flex items-center  space-x-3 my-3">
+          
+
+          <Button
+            onClick={() => setIsCustomerModalOpen(true)}
+            aria-label="Notifications"
+            aria-haspopup="true"
+          >
+            Pick Customer
+          </Button>
+        </div>
+        {customer._id?(<>
+        <div className="align-center my-auto mx-4">
+          Customer: {customer.customerName} - Account: {account.accountName} - Unit:{" "}
+          {unit.unitName}
+        </div>
+        </>):null}
+
+              
             </div> 
         </div>):null}
 
@@ -1367,6 +1397,17 @@ function LST() {
       })}
       {CMRRBottomCard()}
       </>):null}
+
+      <UnitListModal
+        isModalOpen={isCustomerModalOpen}
+        setIsModalOpen={setIsCustomerModalOpen}
+        setUnit={setUnit}
+        unit={unit}
+        customer={customer}
+        setCustomer={setCustomer}
+        account={account}
+        setAccount={setAccount}
+      />
       
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>

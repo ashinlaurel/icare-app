@@ -37,11 +37,15 @@ function LSTHistory() {
   const [deleteId, setDeleteId] = useState(0);
   const [deleteNum, setDeleteNum] = useState(-1);
 
+  const [isDownloadModalOpen, setisDownloadModalOpen] = useState(false)
+  const [downloadLST, setDownloadLST] = useState({});
+  const [downloadNum, setDownloadNum] = useState(0);
+
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{CMRRItems:[]}]);
   // dropdown and modals
 
   const [refresh, setRefresh] = useState(true);
@@ -185,6 +189,67 @@ function LSTHistory() {
               }}
             >
               Confirm Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const DownloadModal = () => {
+    console.log(downloadLST);
+    return (
+      <>
+        <Modal
+          isOpen={isDownloadModalOpen}
+          onClose={() => setisDownloadModalOpen(false)}
+        >
+          <ModalHeader>Download LST</ModalHeader>
+          <ModalBody>
+
+
+
+       <div className="flex flex-row">
+        <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
+                <input
+                  value={data[downloadNum].DocketType}
+                  onChange={(e) =>{
+                    let temp = [...data];
+                    temp[downloadNum].DocketType=e.target.value
+                    // console.log( temp[downloadNum].DocketType)
+                    setData(temp);
+                  } }
+                  
+                  class="w-full mr-5 shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                />
+            </div>
+
+            <div className="flex flex-row my-2">
+        <div className="my-2 ml-5 mr-2 w-full">Courier Number:</div>
+                <input
+                  value={data[downloadNum].CourierNumber}
+                  onChange={(e) =>{
+                    let temp = [...data];
+                    temp[downloadNum].CourierNumber=e.target.value
+                    // console.log( temp[downloadNum].CourierNumber)
+                    setData(temp);
+                  } }
+                  
+                  class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                />
+            </div>
+
+
+
+
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {}}
+               
+            >
+              Download
             </Button>
           </ModalFooter>
         </Modal>
@@ -360,7 +425,7 @@ function LSTHistory() {
 
   return (
     <>
-      {DeleteModal()}
+      {DeleteModal()}{DownloadModal()}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -620,6 +685,9 @@ function LSTHistory() {
                         onClick={() => {
                           console.log("dwlod");
                           createAndDownloadPdf(user._id, user.LSTNo);
+                          // setDownloadLST(user);
+                          // setisDownloadModalOpen(true);
+                          // setDownloadNum(i);
                         }}
                         className="rounded-lg m-1"
                       >

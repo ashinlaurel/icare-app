@@ -129,7 +129,7 @@ const [sum, setSum] = useState(0)
         let t=0;
         if(response.data.LSTtype=="CMRR"){
           response.data.CMRRItems.map(item=>{
-            t+=lstcmrr[item.type.toLowerCase()]
+            t+=lstcmrr[item.type.toLowerCase()]?lstcmrr[item.type.toLowerCase()]:0;
           })
         }else{
         response.data.invItems.map(item=>{
