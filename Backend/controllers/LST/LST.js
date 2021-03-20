@@ -64,7 +64,7 @@ exports.getAllItems = (req, res) => {
   if (filters.status != "") {
     filteroptions.status = filters.status;
   }
-  if (filters.LSTtype != "") {
+  if (filters.LSTtype&&filters.LSTtype != "") {
     filteroptions.LSTtype = filters.LSTtype;
   }
   // if (filters.location != "") {
@@ -76,18 +76,19 @@ exports.getAllItems = (req, res) => {
   if (filters.searchquery != "") {
     filteroptions.LSTNo = fuzzyquery;
   }
+  console.log(filteroptions);
 
   // -----------------------------------------------------------------------
 
   LST.paginate(filteroptions, options, function (err, result) {
-    // console.log(result);
+    console.log(result);
     if (err || !result) {
       return res.status(400).json({
         error: "No items found",
         err: err,
       });
     }
-    // console.log(result.docs);
+    console.log(result.docs);
     let output = {
       total: result.total,
       out: result.docs,

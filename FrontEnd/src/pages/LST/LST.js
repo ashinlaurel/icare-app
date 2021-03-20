@@ -105,9 +105,10 @@ function LST() {
     sno: "",
     condition: "Good",
     invnumber: "",
-    location: "",
+    location: "In Transit",
     //-------
     caseId: "imprest",
+    systype:"item"
   };
   const [CMRRvalues, setCMRRValues] = useState([CMRRinvdetails]);
 
@@ -861,6 +862,7 @@ function LST() {
   };
 
   const CMRRMenu = (num) => {
+    let itemtype="item";
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
@@ -886,8 +888,28 @@ function LST() {
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex space-x-3">
+
+        <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Select Type*</span>
+              <Select
+                className="mt-1"
+                value={CMRRvalues[num].systype}
+                onChange={(e) => {
+                  let newlist = [...CMRRvalues  ];
+                  newlist[num].systype = e.target.value;
+                  setCMRRValues(newlist);
+                }}
+              >
+                
+                <option selected value="item">Item</option>
+                <option value="full system">Full System</option>
+              </Select>
+            </Label>
+          </div>
           
          
+          {CMRRvalues[num].systype == "item" ? (
             <div className="flex flex-col w-full">
               <Label className="w-full">
                 <span>Select Category*</span>
@@ -897,7 +919,7 @@ function LST() {
                   onChange={(e) => {
                     let newlist = [...CMRRvalues];
                     // console.log(e.target.value)
-                    newlist[num].type = e.target.value.toLowerCase();
+                    newlist[num].type = e.target.value;
                     // newlist[num].type = newlist[num].type.toLowerCase();
                     // console.log(newlist)
 
@@ -924,10 +946,51 @@ function LST() {
                   <option value="opticaldrive">Optical Drive</option>
                   <option value="others">Others</option>
 
-               
+    
                 </Select>
               </Label>
             </div>
+          ) : (
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={CMRRvalues[num].type}
+                  onChange={(e) => {
+                    let newlist = [...CMRRvalues];
+                    // console.log(e.target.value)
+                    newlist[num].type = e.target.value;
+                    // newlist[num].type = newlist[num].type.toLowerCase();
+                    // console.log(newlist)
+
+                    setCMRRValues(newlist);
+                  }}
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
+
+                  <option value="console">Console</option>
+                  <option value="DMP">DMP</option>
+                  <option value="inkjet">Inkjet</option>
+                  <option value="KVM">KVM</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="laser">Laser</option>
+                  <option value="LMP">LMP</option>
+                  <option value="module">Module</option>
+                  <option value="router">Router</option>
+                  <option value="scanner">Scanner</option>
+                  <option value="server">Server</option>
+                  <option value="desktop">Desktop</option>
+                  <option value="storage">Storage</option>
+                  <option value="switch">Switch</option>
+                  <option value="UPS">UPS</option>
+                  <option value="others">Others</option>
+                </Select>
+              </Label>
+            </div>
+          )}
           
 
             <>

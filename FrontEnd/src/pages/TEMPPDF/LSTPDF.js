@@ -16,7 +16,93 @@ const [data, setData] = useState({});
 const [fromAddr, setFromAddr] = useState({})
 const [toArrd, setToArrd] = useState({});
 
+
 const { id } = useParams();
+
+let lstpurchased={
+mouse:	100,
+keyboard:	100,
+monitor:	2000,
+cpu:	2000,
+ram:	500,
+fan:	100,
+motherboard:	2000,
+smps:	200,
+hdd:	250,
+gcard:	250,
+enetcard:	100,
+serialcard:	100,
+parallelcard:	100,
+opticaldrive:	250,
+hbacard:	1000,
+raidcontroller:	1000,
+tapedrive:	1000,
+others:	100,
+}
+
+let lstserviced={
+  mouse:	50,
+keyboard:	50,
+monitor:	1000,
+cpu:	1000,
+ram:	250,
+fan:	50,
+motherboard:	1000,
+smps:	100,
+hdd:	125,
+gcard:	125,
+enetcard:	50,
+serialcard:	50,
+parallelcard:	50,
+opticaldrive:	125,
+hbacard:	500,
+raidcontroller:	500,
+tapedrive:	500,
+others:	100,
+}
+let lstdefective={
+  mouse:	50,
+keyboard:	50,
+monitor:	250,
+cpu:	250,
+ram:	50,
+fan:	50,
+motherboard:	250,
+smps:	50,
+hdd:	50,
+gcard:	50,
+enetcard:	50,
+serialcard:	50,
+parallelcard:	50,
+opticaldrive:	50,
+hbacard:	250,
+raidcontroller:	250,
+tapedrive:	250,
+others:	50,
+
+}
+
+let lstcmrr = {
+  console:	1000,
+  dmp:	1000,
+  inkjet:	1000,
+  kvm:	1000,
+  laptop:	4000,
+  laser:	1000,
+  lmp:	4000,
+  module:	1000,
+  router:	1000,
+  scanner:	1000,
+  server:	4000,
+  desktop:	2000,
+  storage:	4000,
+  switch:	1000,
+  ups:	2000,
+  others:	1000,
+  
+
+}
+
  
 
 const [sum, setSum] = useState(0)
@@ -41,10 +127,19 @@ const [sum, setSum] = useState(0)
 
         setData(response.data);
         let t=0;
-        response.data.invItems.map(i=>{
-          t+=parseInt(i.amount);
+        if(response.data.LSTtype=="CMRR"){
+          response.data.CMRRItems.map(item=>{
+            t+=lstcmrr[item.type.toLowerCase()]
+          })
+        }else{
+        response.data.invItems.map(item=>{
+          t+=!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+          item.stocktype=="Purchased"?lstpurchased[item.type]:
+             item.stocktype=="Serviced"?lstserviced[item.type]:
+                item.stocktype=="Defective"?lstdefective[item.type]:null;
         })
-        setSum(t/100);
+      }
+        setSum(t);
         ////// getiing vendor address
         let frompayload = {
           filters: {
@@ -155,21 +250,44 @@ const [sum, setSum] = useState(0)
             </thead>
             <tbody>
             {/* {console.log(data.invItems)} */}
-             {data.invItems?data.invItems.map((item,i)=>(
+              {data.LSTtype=="CMRR"?
+              data.CMRRItems.map((item,i)=>(
                 <>
 
                 <tr>
-                <td className="tb-row px-2">{i}</td>
+                <td className="tb-row px-2">{i+1}</td>
                 <td className="tb-row px-2">{item.type}</td>
                 <td className="tb-row px-2">{item.name}</td>
                 <td className="tb-row px-2">1</td>
-                <td className="tb-row px-2">Rs.{parseInt(item.amount)/100}</td>
+                <td className="tb-row px-2">Rs.{lstcmrr[item.type.toLowerCase()]}</td>
                 <td className="tb-row px-2">{item.sno}</td>
                 <td className="tb-row px-2">{item.caseId}</td>
                 </tr>
 
                 </>
-            )):null}
+            ))
+
+              :
+
+             data.invItems?data.invItems.map((item,i)=>(
+                <>
+
+                <tr>
+                <td className="tb-row px-2">{i+1}</td>
+                <td className="tb-row px-2">{item.type}</td>
+                <td className="tb-row px-2">{item.name}</td>
+                <td className="tb-row px-2">1</td>
+                <td className="tb-row px-2">Rs.{!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+                                                    item.stocktype=="Purchased"?lstpurchased[item.type]:
+                                                       item.stocktype=="Serviced"?lstserviced[item.type]:
+                                                          item.stocktype=="Defective"?lstdefective[item.type]:null}</td>
+                <td className="tb-row px-2">{item.sno}</td>
+                <td className="tb-row px-2">{item.caseId}</td>
+                </tr>
+
+                </>
+            )):null
+            }
             <tr className="">
                 <td className="tb-head tb-row px-2"></td>
                 <td className="tb-head tb-row px-2"></td>
