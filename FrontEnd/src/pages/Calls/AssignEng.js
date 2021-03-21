@@ -386,7 +386,7 @@ function AssignEng() {
                 <option value="" disabled selected>
                   Call Status
                 </option>
-                <option value="">All</option>
+                <option value="all">All But Closed</option>
                 <option selected value="0">
                   Pending For Allocation
                 </option>
