@@ -607,6 +607,9 @@ function CallDetails() {
                             {call.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
                             ) : null}
+                            {call.callStatus == 13 ? (
+                              <Badge>Pending For Spare Collection</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -772,6 +775,9 @@ function CallDetails() {
                             {call.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
                             ) : null}
+                            {call.callStatus == 13 ? (
+                              <Badge>Pending For Spare Collection</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -804,7 +810,7 @@ function CallDetails() {
   // -----getting inventory items
 
   const getAsset = async () => {
-    console.log("ASSET CALL")
+    console.log("ASSET CALL");
     try {
       let res = await axios.post(`${API}/asset/${Emp.getId()}/getbyid`, {
         id: id,
@@ -984,6 +990,9 @@ function CallDetails() {
             {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
             {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
             {call.callStatus == 12 ? <Badge>Spare Taken CMRR</Badge> : null}
+            {call.callStatus == 13 ? (
+              <Badge>Pending For Spare Collection</Badge>
+            ) : null}
           </span>
         </div>
 

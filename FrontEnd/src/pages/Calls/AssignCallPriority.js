@@ -275,6 +275,11 @@ function AssignCallPriority() {
                     {callId.callStatus == 12 ? (
                       <span className="text-sm">Spare Taken CMRR</span>
                     ) : null}
+                    {callId.callStatus == 13 ? (
+                      <span className="text-sm">
+                        Pending For Spare Collection
+                      </span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     <input

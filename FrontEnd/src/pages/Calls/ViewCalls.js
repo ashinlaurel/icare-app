@@ -468,6 +468,9 @@ function ViewCalls() {
                             {entry.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
                             ) : null}
+                            {entry.callStatus == 13 ? (
+                              <Badge>Pending For Spare Collection</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -583,6 +586,7 @@ function ViewCalls() {
                 <option value="6">Under Observation</option>
                 <option value="7">Pending for Others</option>
                 <option value="8">Pending for Spare</option>
+                <option value="13">Pending For Spare Collection</option>
                 <option value="12">Spare Taken CMRR</option>
                 <option value="9">Spare in Transit</option>
                 <option value="10">Cancelled Calls</option>
@@ -728,6 +732,9 @@ function ViewCalls() {
                       ) : null}
                       {call.callStatus == 12 ? (
                         <Badge>Spare Taken CMRR</Badge>
+                      ) : null}
+                      {call.callStatus == 13 ? (
+                        <Badge>Pending For Spare Collection</Badge>
                       ) : null}
                     </span>
                   </TableCell>
