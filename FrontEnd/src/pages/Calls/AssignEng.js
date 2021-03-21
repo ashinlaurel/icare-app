@@ -501,9 +501,16 @@ function AssignEng() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(call.date).format("DD/MM/YYYY")}
-                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-sm">
+                        {moment(call.date).format("DD/MM/YYYY")}
+                      </span>
+                      {call.regtimestamp ? (
+                        <span className="text-xs">
+                          {moment(call.regtimestamp).format("h:mm:ss a")}
+                        </span>
+                      ) : null}
+                    </div>
                   </TableCell>
                   {callStatus == "priority" ? (
                     <>

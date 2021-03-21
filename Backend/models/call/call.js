@@ -11,6 +11,10 @@ const callSchema = mongoose.Schema({
     type: Date,
     // required: true,
   },
+  regtimestamp: {
+    type: String,
+    // required: true,
+  },
   unitId: {
     type: mongoose.Schema.ObjectId,
     ref: "Unit",

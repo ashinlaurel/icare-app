@@ -583,6 +583,7 @@ function ViewCalls() {
                 <option value="6">Under Observation</option>
                 <option value="7">Pending for Others</option>
                 <option value="8">Pending for Spare</option>
+                <option value="12">Spare Taken CMRR</option>
                 <option value="9">Spare in Transit</option>
                 <option value="10">Cancelled Calls</option>
                 <option value="11">Closed Calls</option>
@@ -668,9 +669,16 @@ function ViewCalls() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">
-                      {moment(call.date).format("DD/MM/YYYY")}
-                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-sm">
+                        {moment(call.date).format("DD/MM/YYYY")}
+                      </span>
+                      {call.regtimestamp ? (
+                        <span className="text-xs">
+                          {moment(call.regtimestamp).format("h:mm:ss a")}
+                        </span>
+                      ) : null}
+                    </div>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">{call.unitName}</span>

@@ -826,6 +826,7 @@ function RegisterCall() {
       assetId: selectedprod._id,
       callStatus: 0,
       history: callhistory,
+      regtimestamp: moment().format(),
       // employeeId:""
     };
     console.log("CALL->", newcall);
@@ -840,8 +841,8 @@ function RegisterCall() {
       console.log("Done");
     } catch (error) {
       console.log(error.response.data);
-      if(error.response.data.errid==1){
-        setAssetexistmessage(error.response.data.message)
+      if (error.response.data.errid == 1) {
+        setAssetexistmessage(error.response.data.message);
         setIsassetexistModal(true);
       }
     }
@@ -854,7 +855,9 @@ function RegisterCall() {
           isOpen={isReviewModalOpen}
           onClose={() => setIsReviewModalOpen(false)}
         >
-          <ModalHeader>Created Call No. {successfulCallNo} Successfully!</ModalHeader>
+          <ModalHeader>
+            Created Call No. {successfulCallNo} Successfully!
+          </ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -913,9 +916,14 @@ function RegisterCall() {
   const AssetExistsModal = () => {
     return (
       <>
-        <Modal isOpen={IsassetexistModal} onClose={() => setIsassetexistModal(false)}>
+        <Modal
+          isOpen={IsassetexistModal}
+          onClose={() => setIsassetexistModal(false)}
+        >
           <ModalHeader>Call already raised for asset!</ModalHeader>
-          <ModalBody>Call No {assetexistmessage} already raised for asset.</ModalBody>
+          <ModalBody>
+            Call No {assetexistmessage} already raised for asset.
+          </ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
@@ -971,7 +979,7 @@ function RegisterCall() {
               <span>Contact Person*</span>
               <Input
                 className="mt-1"
-                type="email"
+                type="text"
                 placeholder=""
                 value={values.contactPerson}
                 onChange={handleChange("contactPerson")}
