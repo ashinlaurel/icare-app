@@ -16,7 +16,9 @@ function CallCard({
   link,
   desc,
   assignedDate,
-              assignedETA
+  assignedETA,
+  unit,
+  product,
 }) {
   return (
     <Card className="cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-100 py-4">
@@ -27,10 +29,16 @@ function CallCard({
             Call Id: {value}
           </p>
           <p className=" text-sm text-gray-700 dark:text-gray-200">
-          Priority:{priority}
+            Priority:{priority}
           </p>
           <p className=" text-sm text-gray-700 dark:text-gray-200">
-          Contact Person:{contactPerson}
+            Contact Person:{contactPerson}
+          </p>
+          <p className=" text-sm text-gray-700 dark:text-gray-200">
+            Unit:{unit}
+          </p>
+          <p className=" text-sm text-gray-700 dark:text-gray-200">
+            Product :{product}
           </p>
           {/* <p className=" text-sm text-gray-700 dark:text-gray-200">
           assigned Date:{assignedDate}
@@ -39,7 +47,7 @@ function CallCard({
           assigned ETA:{assignedETA}
           </p> */}
           <p className=" text-sm text-gray-700 dark:text-gray-200">
-          Problem:{problem}
+            Problem:{problem}
           </p>
         </div>
       </CardBody>
