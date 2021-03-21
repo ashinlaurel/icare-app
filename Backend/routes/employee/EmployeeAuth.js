@@ -21,6 +21,7 @@ const {
   getEmpById,
   isAdmin,
   getAllEngg,
+  resetPasswordByAdmin,
 } = require("../../controllers/employee/EmployeeAuth");
 const { isAuthenticated } = require("../../controllers/employee/EmployeeAuth");
 const router = express.Router();
@@ -78,5 +79,13 @@ router.post("/:id/getAllSalary", getAllSalary);
 router.post("/:id/deleteSalary", isSignedIn, isAuthenticated, deleteSalary);
 router.post("/getsalarybyid", getSalById);
 router.post("/:id/downloadsalarypdf", isSignedIn, isAuthenticated, downloadsalaryPdf)
+
+
+router.post(
+  "/:id/resetPassByAdmin",
+  isSignedIn,
+  isAuthenticated,
+  resetPasswordByAdmin
+);
 
 module.exports = router;
