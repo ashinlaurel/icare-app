@@ -505,9 +505,11 @@ function AssignEng() {
                       <span className="text-sm">
                         {moment(call.date).format("DD/MM/YYYY")}
                       </span>
-                      {call.regtimestamp ? (
+                      {call.time ? (
                         <span className="text-xs">
-                          {moment(call.regtimestamp).format("h:mm:ss a")}
+                          {moment(`${"2018-04-02"}T${call.time}`).format(
+                            "h:mm a"
+                          )}
                         </span>
                       ) : null}
                     </div>
@@ -582,7 +584,14 @@ function AssignEng() {
                     ) : null}
                   </TableCell>
                   <TableCell>
-                    <Button onClick={() => setIsProblemDesc(true)}>View</Button>
+                    <div className="flex items-center justify-center">
+                      <Button
+                        layout="outline"
+                        onClick={() => setIsProblemDesc(true)}
+                      >
+                        View
+                      </Button>{" "}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {call.employeeId ? (
@@ -605,7 +614,10 @@ function AssignEng() {
                         </div>
                       </>
                     ) : (
-                      <Button onClick={() => setIsEnggModalOpen(true)}>
+                      <Button
+                        layout="outline"
+                        onClick={() => setIsEnggModalOpen(true)}
+                      >
                         Assign Now
                       </Button>
                     )}

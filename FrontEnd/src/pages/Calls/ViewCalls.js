@@ -675,7 +675,9 @@ function ViewCalls() {
                       </span>
                       {call.regtimestamp ? (
                         <span className="text-xs">
-                          {moment(call.regtimestamp).format("h:mm:ss a")}
+                          {moment(`${"2018-04-02"}T${call.time}`).format(
+                            "h:mm a"
+                          )}
                         </span>
                       ) : null}
                     </div>

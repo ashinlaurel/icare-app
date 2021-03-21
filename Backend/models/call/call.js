@@ -11,6 +11,10 @@ const callSchema = mongoose.Schema({
     type: Date,
     // required: true,
   },
+  time: {
+    type: String,
+    // required: true,
+  },
   regtimestamp: {
     type: String,
     // required: true,

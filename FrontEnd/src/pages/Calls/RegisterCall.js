@@ -740,6 +740,7 @@ function RegisterCall() {
     phone: "",
     callStatus: "Pending for allocation",
     problem: "",
+    time: "",
   };
   const [values, setValues] = useState(valobj);
   const [err, setErr] = useState({});
@@ -797,10 +798,12 @@ function RegisterCall() {
 
   const submitCall = async () => {
     if (
-      (values.callNo === "") |
+      values.callNo === "" ||
       // (values.contactPerson === "") |
       // (values.phone === "") |
-      (values.problem === "")
+      values.problem === "" ||
+      values.date === "" ||
+      values.time === ""
     ) {
       setIsReqFieldModal(true);
       return;
@@ -814,6 +817,7 @@ function RegisterCall() {
     const newcall = {
       callNo: values.callNo,
       date: values.date,
+      time: values.time,
       contactPerson: values.contactPerson,
       phone: values.phone,
       problem: values.problem,
@@ -970,6 +974,18 @@ function RegisterCall() {
                 type="date"
                 value={values.date}
                 onChange={handleChange("date")}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.username}</HelperText> */}
+          </div>
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Time*</span>
+              <Input
+                className="mt-1"
+                type="time"
+                value={values.time}
+                onChange={handleChange("time")}
               />
             </Label>
             {/* <HelperText valid={false}>{err.username}</HelperText> */}
