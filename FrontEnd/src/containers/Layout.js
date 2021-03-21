@@ -77,7 +77,8 @@ function Layout() {
                         />
                       ) : null;
                     })}
-                <Redirect exact from="/app" to="/app/dashboard" />
+                    {EmpProfile.getRole() == 0?(<Redirect exact from="/app" to="/app/dashboard" />):EmpProfile.getRole() == 11?(<Redirect exact from="/app" to="/app/engcalls/viewmycalls" />):null}
+                    
                 <Route component={Page404} />
               </Switch>
             </Suspense>

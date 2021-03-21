@@ -1261,7 +1261,9 @@ function LST() {
                 <option value="Trivandrum">Trivandrum</option>
                 <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
+                {LSTtype=="Normal"?(<>
                 <option value="Vendor">Vendor</option>
+                </>):null}
               </select>
               </>):(<>
                 

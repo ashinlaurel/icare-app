@@ -804,6 +804,7 @@ function CallDetails() {
   // -----getting inventory items
 
   const getAsset = async () => {
+    console.log("ASSET CALL")
     try {
       let res = await axios.post(`${API}/asset/${Emp.getId()}/getbyid`, {
         id: id,

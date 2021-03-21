@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import ViewSalary from "../pages/Employee/ViewSalary";
+
 
 
 // use lazy for better code splitting, a.k.a. load faster
@@ -67,6 +67,7 @@ const EmployeeList = lazy(() => import("../pages/Employee/EmployeeList"));
 const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
+const ViewSalary = lazy(() => import("../pages/Employee/ViewSalary"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));

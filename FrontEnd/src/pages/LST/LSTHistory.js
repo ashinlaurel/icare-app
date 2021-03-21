@@ -208,7 +208,7 @@ function LSTHistory() {
           <ModalBody>
 
 
-
+        {data[downloadNum]?(<>
        <div className="flex flex-row">
         <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
                 <input
@@ -238,6 +238,7 @@ function LSTHistory() {
                   class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
             </div>
+            </>):null}
 
 
 
@@ -246,8 +247,9 @@ function LSTHistory() {
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
-              onClick={async () => {}}
-               
+              onClick={async () => {
+                          createAndDownloadPdf(data[downloadNum]._id, data[downloadNum].LSTNo,data[downloadNum].CourierNumber,data[downloadNum].DocketType);
+                        }}
             >
               Download
             </Button>
@@ -259,9 +261,13 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id, LSTno) => {
+  const createAndDownloadPdf = async (id, LSTno,CourierNumber,DocketType) => {
     let payload = {
       id: id,
+      update: {
+        CourierNumber,
+        DocketType
+      }
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -271,7 +277,7 @@ function LSTHistory() {
     });
 
     const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-
+    setisDownloadModalOpen(false);
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
@@ -684,10 +690,10 @@ function LSTHistory() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
-                          createAndDownloadPdf(user._id, user.LSTNo);
-                          // setDownloadLST(user);
-                          // setisDownloadModalOpen(true);
-                          // setDownloadNum(i);
+                          // createAndDownloadPdf(user._id, user.LSTNo);
+                          setDownloadLST(user);
+                          setisDownloadModalOpen(true);
+                          setDownloadNum(i);
                         }}
                         className="rounded-lg m-1"
                       >
