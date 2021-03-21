@@ -13,11 +13,12 @@ exports.callCreate = async (req, res) => {
   try {
     let ifexist = await Call.find({ assetId: call.assetId }).exec();
     // console.log(ifexist);
-    ifexist.map(call=>{
-      console.log(call.callStatus)
-      if(call.callStatus!=10&& call.callStatus!=11) throw { errid: 1, message: call.callNo };
-    })
-  
+    ifexist.map((call) => {
+      console.log(call.callStatus);
+      if (call.callStatus != 10 && call.callStatus != 11)
+        throw { errid: 1, message: call.callNo };
+    });
+
     // return res.status(201).json(newcall);
     const temp = new Call(call);
     const newcall = await temp.save();
@@ -75,7 +76,8 @@ exports.getCalls = async (req, res) => {
   }
 
   if (filters.callStatus != "") {
-    if (filters.callStatus == "priority") {
+    if (filters.callStatus == "priority" || filters.callStatus == "all") {
+      console.log(filters.callStatus);
       filteroptions.callStatus = { $nin: [10, 11] };
       options.sort = {
         assignedDate: 1,
@@ -89,7 +91,7 @@ exports.getCalls = async (req, res) => {
       assignedDate: 1,
       assignedETA: 1,
     };
-    filteroptions.callStatus = { $not: { $gt: 10, $lt: 12 } };
+    filteroptions.callStatus = { $nin: [10, 11] };
     filteroptions.employeeId = filters.employeeId;
   }
 

@@ -5,7 +5,7 @@ import axios from "axios";
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon, Remove } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-import UnitListModal from "../../components/Modal/UnitListModal"
+import UnitListModal from "../../components/Modal/UnitListModal";
 import SectionTitle from "../../components/Typography/SectionTitle";
 
 import {
@@ -27,7 +27,7 @@ import {
   Label,
   Select,
   Card,
-  CardBody
+  CardBody,
 } from "@windmill/react-ui";
 
 import { API } from "../../backendapi";
@@ -89,24 +89,22 @@ function LST() {
   //vendors
   const [isVendorModalopen, setIsVendorModalopen] = useState(false);
   const [vendors, setVendors] = useState([]);
-  const defVendor={
+  const defVendor = {
     _id: "",
     name: "",
     aadharNo: "",
     PANNo: "",
     GSTNo: "",
-  }
+  };
   const [selectedVendor, setselectedVendor] = useState(defVendor);
 
   const [isVendor, setIsVendor] = useState(false);
 
-   //customer
-   const [unit, setUnit] = useState({ _id: "", unitName: "" });
-   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
-   const [account, setAccount] = useState({ _id: "", accountName: "" })
+  //customer
+  const [unit, setUnit] = useState({ _id: "", unitName: "" });
+  const [customer, setCustomer] = useState({ _id: "", customerName: "" });
+  const [account, setAccount] = useState({ _id: "", accountName: "" });
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
-
-
 
   // CMRR
 
@@ -119,11 +117,9 @@ function LST() {
     location: "In Transit",
     //-------
     caseId: "imprest",
-    systype:"item"
+    systype: "item",
   };
   const [CMRRvalues, setCMRRValues] = useState([CMRRinvdetails]);
-
-
 
   async function getVendorList() {
     let payload = {
@@ -271,7 +267,6 @@ function LST() {
   console.log(selectedprod);
 
   const updateInventory = async () => {
-    
     if (LSTNo == "") {
       setModalMessage("LST Number necessary");
       setMessageModal(true);
@@ -297,8 +292,8 @@ function LST() {
       setMessageModal(true);
       return;
     }
-    if(LSTtype=="CMRR"){
-      console.log(CMRRvalues)
+    if (LSTtype == "CMRR") {
+      console.log(CMRRvalues);
       MakeCMRR();
     }
     if (SelectedItems.length == 0) {
@@ -326,11 +321,11 @@ function LST() {
           location: "In Transit",
           caseId: item.caseId,
           $push: { history: newhistory },
-          LSTtype:LSTtype,
-          LSTCustomer:""
+          LSTtype: LSTtype,
+          LSTCustomer: "",
         },
       };
-      if(LSTtype=="Customer") data.update.LSTCustomer=customer;
+      if (LSTtype == "Customer") data.update.LSTCustomer = customer;
       console.log("PAYLOAD", data);
       try {
         await axios({
@@ -353,19 +348,16 @@ function LST() {
       date: date,
       invItems: invIds,
       status: "In Transit",
-      LSTtype:LSTtype,
-     
-        
+      LSTtype: LSTtype,
     };
 
-
-    if(LSTtype=="Customer"){
-      lst. unitId= unit._id;
-      lst.unitName= unit.unitName;
-      lst.accountId= account._id;
-      lst.accountName= account.accountName;
-      lst.customerId= customer._id;
-      lst.customerName= customer.customerName;
+    if (LSTtype == "Customer") {
+      lst.unitId = unit._id;
+      lst.unitName = unit.unitName;
+      lst.accountId = account._id;
+      lst.accountName = account.accountName;
+      lst.customerId = customer._id;
+      lst.customerName = customer.customerName;
     }
 
     if (selectedVendor._id != "") {
@@ -385,9 +377,9 @@ function LST() {
       console.log("Done");
       setModalMessage("LST Submitted");
       // setLocation("")
-      setToLocation("")
-      setDate("")
-      setselectedVendor(defVendor)
+      setToLocation("");
+      setDate("");
+      setselectedVendor(defVendor);
       // setData([]);
       setMessageModal(true);
       setSelectedItems([]);
@@ -398,7 +390,7 @@ function LST() {
     }
   };
 
-  const MakeCMRR = async ()=>{
+  const MakeCMRR = async () => {
     let lst = {
       from: location,
       to: toLocation,
@@ -406,12 +398,12 @@ function LST() {
       date: date,
       invItems: [],
       status: "In Transit",
-      LSTtype:LSTtype,
-      CMRRItems:CMRRvalues
+      LSTtype: LSTtype,
+      CMRRItems: CMRRvalues,
     };
-   
+
     console.log("LST", lst);
-     try {
+    try {
       await axios({
         url: `${API}/lst/${Emp.getId()}/create`,
         method: "POST",
@@ -421,11 +413,11 @@ function LST() {
       console.log("Done");
       setModalMessage("LST Submitted");
       // setLocation("")
-      setToLocation("")
-      setDate("")
-      setselectedVendor(defVendor)
+      setToLocation("");
+      setDate("");
+      setselectedVendor(defVendor);
       // setData([]);
-      setCMRRValues([CMRRinvdetails])
+      setCMRRValues([CMRRinvdetails]);
       setMessageModal(true);
       setSelectedItems([]);
       thegetter();
@@ -433,8 +425,7 @@ function LST() {
       console.log(error);
       throw error;
     }
-
-  }
+  };
 
   const VendorModal = () => {
     return (
@@ -729,7 +720,9 @@ function LST() {
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
           <div class="mb-1 mt-5 dark:text-white font-semibold ">
-            {selectedVendor.name!==""?(<> Vendor:{selectedVendor.name}</>):null}
+            {selectedVendor.name !== "" ? (
+              <> Vendor:{selectedVendor.name}</>
+            ) : null}
           </div>
           <div class="mb-1 mt-5 dark:text-white font-semibold ">
             Selected Items
@@ -885,7 +878,7 @@ function LST() {
   };
 
   const CMRRMenu = (num) => {
-    let itemtype="item";
+    let itemtype = "item";
     return (
       <div className="px-4 py-3 my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label className="font-bold flex-row flex justify-between">
@@ -911,27 +904,26 @@ function LST() {
         <hr className="mb-5 mt-2" />
         {/* ------------------------Row 1-------------------------- */}
         <div className="flex-row flex space-x-3">
-
-        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Select Type*</span>
               <Select
                 className="mt-1"
                 value={CMRRvalues[num].systype}
                 onChange={(e) => {
-                  let newlist = [...CMRRvalues  ];
+                  let newlist = [...CMRRvalues];
                   newlist[num].systype = e.target.value;
                   setCMRRValues(newlist);
                 }}
               >
-                
-                <option selected value="item">Item</option>
+                <option selected value="item">
+                  Item
+                </option>
                 <option value="full system">Full System</option>
               </Select>
             </Label>
           </div>
-          
-         
+
           {CMRRvalues[num].systype == "item" ? (
             <div className="flex flex-col w-full">
               <Label className="w-full">
@@ -968,8 +960,6 @@ function LST() {
                   <option value="paralellcard">Paralell Card</option>
                   <option value="opticaldrive">Optical Drive</option>
                   <option value="others">Others</option>
-
-    
                 </Select>
               </Label>
             </div>
@@ -1014,27 +1004,24 @@ function LST() {
               </Label>
             </div>
           )}
-          
 
-            <>
-              <div className="flex flex-col w-full">
-                <Label className="w-full">
-                  <span>Product Name*</span>
-                  <Input
-                    className="mt-1"
-                    type="text"
-                    value={CMRRvalues[num].name}
-                    onChange={(e) => {
-                      let newlist = [...CMRRvalues];
-                      newlist[num].name = e.target.value;
-                      setCMRRValues(newlist);
-                    }}
-                  />
-                </Label>
-            
-              </div>
-            </>
-         
+          <>
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Product Name*</span>
+                <Input
+                  className="mt-1"
+                  type="text"
+                  value={CMRRvalues[num].name}
+                  onChange={(e) => {
+                    let newlist = [...CMRRvalues];
+                    newlist[num].name = e.target.value;
+                    setCMRRValues(newlist);
+                  }}
+                />
+              </Label>
+            </div>
+          </>
 
           <div className="flex flex-col w-full">
             <Label className="w-full">
@@ -1076,7 +1063,6 @@ function LST() {
 
         {/* -------------Row 2 --------- */}
         <div className="flex-row flex space-x-3">
-          
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Warranty*</span>
@@ -1087,7 +1073,6 @@ function LST() {
                   let newlist = [...CMRRvalues];
                   newlist[num].wty = e.target.value;
                   setCMRRValues(newlist);
-                 
                 }}
               >
                 <option value="" selected disabled>
@@ -1106,7 +1091,6 @@ function LST() {
             </Label>
           </div>
 
-
           <div className="flex flex-col w-full">
             <Label className="w-full">
               <span>Case ID*</span>
@@ -1122,10 +1106,7 @@ function LST() {
               />
             </Label>
           </div>
-
-
         </div>
-        
       </div>
     );
   };
@@ -1149,29 +1130,17 @@ function LST() {
             >
               Add Item
             </Button>
-
-          
-
-           
-
-            
-          
           </div>
         </CardBody>
       </Card>
     );
-  }
- 
+  };
 
   return (
     <>
       <div className=" mt-4">
-      
-      
-      
-      
-      <div className="flex flex-row dark:text-white  ">
-         <div className="mr-1 flex flex-row dark:text-white  ">
+        <div className="flex flex-row dark:text-white  ">
+          <div className="mr-1 flex flex-row dark:text-white  ">
             <div className="mx-1 my-1  "> Type</div>
             {/* -----------------------------------------CMRR ----------------------- */}
             <div class="relative mx-1 ">
@@ -1182,12 +1151,12 @@ function LST() {
                   setLSTtype(e.target.value);
                 }}
               >
-                
                 {/* <option value="">All</option> */}
-                <option value="Normal" default selected>Normal</option>
+                <option value="Normal" default selected>
+                  Normal
+                </option>
                 <option value="CMRR">CMRR</option>
                 <option value="Customer">Customer</option>
-              
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -1201,7 +1170,6 @@ function LST() {
               </div>
             </div>
           </div>
-
 
           <div className="mr-1 flex flex-row dark:text-white  ">
             <div className="mx-1 my-1  ">From</div>
@@ -1236,60 +1204,60 @@ function LST() {
             </div>
           </div>
 
-          
-
           <div className="flex flex-row dark:text-white  ">
             <div className="mx-1 my-1 ">To</div>
             {/* -----------------------------------------Location ----------------------- */}
             <div class="relative mx-1 ">
-            {(LSTtype=="Normal"||LSTtype=="Customer")?(<>
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={toLocation}
-                onChange={(e) => {
-                  setToLocation(e.target.value);
-                  setselectedVendor(defVendor)
-                  if (e.target.value == "Vendor") {
-                    setIsVendor(true);
-                  } else setIsVendor(false);
-                }}
-              >
-                <option value="" disabled selected>
-                  Location
-                </option>
-                {/* <option value="">All</option> */}
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-                {LSTtype=="Normal"?(<>
-                <option value="Vendor">Vendor</option>
-                </>):null}
-              </select>
-              </>):(<>
-                
-                <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={toLocation}
-                onChange={(e) => {
-                  setToLocation(e.target.value);
-                  setselectedVendor(defVendor)
-                  if (e.target.value == "Vendor") {
-                    setIsVendor(true);
-                  } else setIsVendor(false);
-                }}
-              >
-                <option value="" disabled selected>
-                  Location
-                </option>
-                {/* <option value="">All</option> */}
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-              
-              </select>
-
-
-              </>)}
+              {LSTtype == "Normal" || LSTtype == "Customer" ? (
+                <>
+                  <select
+                    class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                    value={toLocation}
+                    onChange={(e) => {
+                      setToLocation(e.target.value);
+                      setselectedVendor(defVendor);
+                      if (e.target.value == "Vendor") {
+                        setIsVendor(true);
+                      } else setIsVendor(false);
+                    }}
+                  >
+                    <option value="" disabled selected>
+                      Location
+                    </option>
+                    {/* <option value="">All</option> */}
+                    <option value="Trivandrum">Trivandrum</option>
+                    <option value="Kottayam">Kottayam</option>
+                    <option value="Kozhikode">Kozhikode</option>
+                    {LSTtype == "Normal" ? (
+                      <>
+                        <option value="Vendor">Vendor</option>
+                      </>
+                    ) : null}
+                  </select>
+                </>
+              ) : (
+                <>
+                  <select
+                    class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                    value={toLocation}
+                    onChange={(e) => {
+                      setToLocation(e.target.value);
+                      setselectedVendor(defVendor);
+                      if (e.target.value == "Vendor") {
+                        setIsVendor(true);
+                      } else setIsVendor(false);
+                    }}
+                  >
+                    <option value="" disabled selected>
+                      Location
+                    </option>
+                    {/* <option value="">All</option> */}
+                    <option value="Trivandrum">Trivandrum</option>
+                    <option value="Kottayam">Kottayam</option>
+                    <option value="Kozhikode">Kozhikode</option>
+                  </select>
+                </>
+              )}
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -1349,61 +1317,63 @@ function LST() {
             <Button onClick={updateInventory}>Submit</Button>
           </div>
         </div>
-        {LSTtype=="Customer"?(
-        <div className="flex flex-row dark:text-white  ">
-          <div className=" flex flex-row dark:text-white mt-2 ">
-          
-
+        {LSTtype == "Customer" ? (
+          <div className="flex flex-row dark:text-white  ">
+            <div className=" flex flex-row dark:text-white mt-2 ">
               <div className="flex items-center  space-x-3 my-3">
-          
+                <Button
+                  onClick={() => setIsCustomerModalOpen(true)}
+                  aria-label="Notifications"
+                  aria-haspopup="true"
+                >
+                  Pick Customer
+                </Button>
+              </div>
+              {customer._id ? (
+                <>
+                  <div className="align-center my-auto mx-4">
+                    Customer: {customer.customerName} - Account:{" "}
+                    {account.accountName} - Unit: {unit.unitName}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
 
-          <Button
-            onClick={() => setIsCustomerModalOpen(true)}
-            aria-label="Notifications"
-            aria-haspopup="true"
-          >
-            Pick Customer
-          </Button>
-        </div>
-        {customer._id?(<>
-        <div className="align-center my-auto mx-4">
-          Customer: {customer.customerName} - Account: {account.accountName} - Unit:{" "}
-          {unit.unitName}
-        </div>
-        </>):null}
-
-              
-            </div> 
-        </div>):null}
-
-        {(LSTtype=="Normal"|| LSTtype=="Customer")?(<>
-        {SelectedInv()}
-        <div className="my-5">
-          <Button
-            onClick={() => {
-              if (location == "" || toLocation == "") {
-                setModalMessage("Select From and To Locations");
-                setMessageModal(true);
-                return;
-              }
-              setShowInvTable(true);
-            }}
-          >
-            Add Product from Inventory
-          </Button>
-        </div>
-        {showInvTable ? invTable() : null}
-        </>):null}
+        {LSTtype == "Normal" || LSTtype == "Customer" ? (
+          <>
+            {SelectedInv()}
+            <div className="my-5">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  if (location == "" || toLocation == "") {
+                    setModalMessage("Select From and To Locations");
+                    setMessageModal(true);
+                    return;
+                  }
+                  setShowInvTable(true);
+                }}
+              >
+                Add Product from Inventory
+              </Button>
+            </div>
+            {showInvTable ? invTable() : null}
+          </>
+        ) : null}
       </div>
 
       {messageModalComponent()}
       {VendorModal()}
-      {LSTtype=="CMRR"?(<>
-      {CMRRvalues.map((item, i) => {
-        return CMRRMenu(i);
-      })}
-      {CMRRBottomCard()}
-      </>):null}
+      {LSTtype == "CMRR" ? (
+        <>
+          {CMRRvalues.map((item, i) => {
+            return CMRRMenu(i);
+          })}
+          {CMRRBottomCard()}
+        </>
+      ) : null}
 
       <UnitListModal
         isModalOpen={isCustomerModalOpen}
@@ -1415,7 +1385,7 @@ function LST() {
         account={account}
         setAccount={setAccount}
       />
-      
+
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );
