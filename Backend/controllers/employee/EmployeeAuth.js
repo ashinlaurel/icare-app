@@ -1,6 +1,8 @@
 const EmployeeLogin = require("../../models/employee/EmployeeLogin");
 const expressjwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
+const { v1: uuidv1 } = require("uuid");
+const crypto = require("crypto");
 
 const handleError = (err) => {
   console.log(err.message, err.code);
@@ -114,5 +116,27 @@ exports.getAllEngg = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).json({ error: "getAll Error" });
+  }
+};
+
+
+exports.resetPasswordByAdmin = async (req, res) => {
+  let { id, pass } = req.body;
+  console.log(id,pass)
+  let salt = uuidv1();
+  if (!pass) return "";
+  try {
+    let encPass = crypto.createHmac("sha256", salt).update(pass).digest("hex");
+    let user = await EmployeeLogin.findByIdAndUpdate(
+      id,
+      { enc_password: encPass, salt: salt ,show_password:pass},
+      {
+        safe: true,
+        useFindAndModify: false,
+      }
+    );
+    return res.status(200).json({ user });
+  } catch (err) {
+    return res.status(400).json({ error: err });
   }
 };

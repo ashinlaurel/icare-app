@@ -72,7 +72,7 @@ export default function EmployeeDetails() {
     let data = { id, pass: newpass };
     try {
       let user = await Axios({
-        url: `${API}/customer/${Emp.getId()}/resetPassByAdmin`,
+        url: `${API}/admin/${Emp.getId()}/resetPassByAdmin`,
         method: "POST",
         data: data,
       });
