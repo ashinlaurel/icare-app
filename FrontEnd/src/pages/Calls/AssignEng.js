@@ -582,6 +582,11 @@ function AssignEng() {
                     {call.callStatus == 12 ? (
                       <span className="text-sm">Spare Taken CMRR</span>
                     ) : null}
+                    {call.callStatus == 13 ? (
+                      <span className="text-sm">
+                        Pending For Spare Collection
+                      </span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center justify-center">

@@ -648,6 +648,9 @@ function UpdateCall() {
                             {call.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
                             ) : null}
+                            {call.callStatus == 13 ? (
+                              <Badge>Pending For Spare Collection</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -815,6 +818,9 @@ function UpdateCall() {
                             ) : null}
                             {call.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
+                            ) : null}
+                            {call.callStatus == 13 ? (
+                              <Badge>Pending For Spare Collection</Badge>
                             ) : null}
                           </span>
                         </TableCell>
@@ -1143,6 +1149,9 @@ function UpdateCall() {
     if (call.callStatus == 12) {
       tempcallstatus = "Spare Taken CMRR";
     }
+    if (call.callStatus == 13) {
+      tempcallstatus = "Pending For Spare Collection";
+    }
 
     // ------- Handling the swaps -----------
 
@@ -1372,6 +1381,9 @@ function UpdateCall() {
               {call.callStatus == 10 ? <Badge>Cancelled Calls</Badge> : null}
               {call.callStatus == 11 ? <Badge>Closed Calls</Badge> : null}
               {call.callStatus == 12 ? <Badge>Spare Taken CMRR</Badge> : null}
+              {call.callStatus == 13 ? (
+                <Badge>Pending For Spare Collection</Badge>
+              ) : null}
             </span>
           </div>
         </div>
@@ -1678,6 +1690,7 @@ function UpdateCall() {
                 <option value="6"> Under Observation</option>
                 <option value="7"> Pending for Others</option>
                 <option value="8"> Pending for Spare</option>
+                <option value="13"> Pending For Spare Collection</option>
                 <option value="12"> Spare Taken CMRR</option>
                 <option value="9"> Spare in Transit</option>
                 <option value="10"> Cancelled Calls</option>

@@ -124,8 +124,7 @@ function ViewEngineerCalls() {
     //   }
     // })();
 
-    (async()=>{
-      
+    (async () => {
       let payload = {
         pages: {
           page: 1,
@@ -136,10 +135,10 @@ function ViewEngineerCalls() {
           searchquery: "",
           fromDate: "",
           toDate: "",
-          employeeId:EmpProfile.getId()
+          employeeId: EmpProfile.getId(),
         },
       };
-    console.log("HERE",payload)
+      console.log("HERE", payload);
       try {
         let response = await axios({
           url: `${API}/call/${Emp.getId()}/getall`,
@@ -148,16 +147,16 @@ function ViewEngineerCalls() {
         });
         console.log(response.data.out);
         // setTotalResults(response.data.total);
-        setData(response.data.out)
+        setData(response.data.out);
         // const { total, data } = response.data;
         console.log(data + "Now");
-    
+
         setData(response.data.out);
       } catch (error) {
         throw error;
       }
       // console.log(engineer)
-    })()
+    })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
@@ -187,36 +186,33 @@ function ViewEngineerCalls() {
 
   return (
     <>
-
-
-<div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-5">
+      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-5">
         {data.map((item, i) => (
           <Link to={`/app/call/calldetails/${item._id}/${item.assetId._id}`}>
             <CallCard
               value={item.callNo}
               contactPerson={item.contactPerson}
               problem={item.problem}
-              priority={i+1}
-              link={`/app/call/calldetails/${item._id}/${item.assetId._id}`} 
+              priority={i + 1}
+              unit={item.unitName}
+              product={item.assetId.producttype}
+              link={`/app/call/calldetails/${item._id}/${item.assetId._id}`}
               assignedDate={item.assignedDate}
               assignedETA={item.assignedETA}
             >
-              
-                 <RoundIcon
+              <RoundIcon
                 icon={PeopleIcon}
                 // width="60" height="60"
                 iconColorClass="text-orange-500 dark:text-orange-100"
                 bgColorClass="bg-orange-100 dark:bg-orange-500"
                 className="mr-4"
               />
-             
-              
             </CallCard>
           </Link>
         ))}
       </div>
 
-{/*       
+      {/*       
       <ReviewSubmit />
 
       <div className="mb-64 mt-4">
@@ -297,7 +293,6 @@ function ViewEngineerCalls() {
         </TableContainer>
 
       </div> */}
-
     </>
   );
 }
