@@ -10,14 +10,16 @@ import {
   DropdownItem,
   Badge,
 } from "@windmill/react-ui"
+import logo from "../assets/img/icarelogo.png"
 function Navbar() {
     const [click, setclick] = useState(false);
     const [solutions, setSolutions] = useState(false)
-    const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
+    const [products, setproducts] = useState(false)
+    const [services, setservices] = useState(false)
+    const [support, setsupport] = useState(false)
+    const [aboutus, setaboutus] = useState(false)
      
-  function handleNotificationsClick() {
-    setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
-  }
+
 
   return (
     <div className="fixed z-50 w-full bg-white">
@@ -40,13 +42,13 @@ function Navbar() {
             >
               <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                 <div class="flex items-center justify-between w-full md:w-auto">
-                  <a href="#">
+                  <span href="#">
                     <span class="sr-only">Workflow</span>
                     <img
                       class="h-8 w-auto sm:h-10"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                    />
-                  </a>
+                      src={logo}
+                    /> 
+                  </span>
                   <div class="-mr-2  flex items-center md:hidden">
                     <button
                       type="button"
@@ -76,7 +78,7 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden md:block">
-              <div class=" flex flex-row md:ml-10 md:pr-4 md:space-x-8  ">
+              <div class=" flex flex-row md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
                 <div
                   
                   class="font-medium text-gray-500 hover:text-gray-900 "
@@ -86,13 +88,11 @@ function Navbar() {
 
 
                   {/* Solutions */}
- 
-
-                  {/* Solutions */}
+                 
                   <div>
 
                   <button
-                    className="z-10 relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
+                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
                     onClick={()=>setSolutions(!solutions)}
                     aria-label="Notifications"
                     aria-haspopup="true"
@@ -114,61 +114,194 @@ function Navbar() {
                     <span>Private Cloud</span>
                    
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>Hybrid Cloud</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>Server Clustering</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>SQL HA</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>MySQL HA</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>PostgreSQL HA</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>Structured Networking</span>
                   </DropdownItem>
-                  <DropdownItem onClick={() => alert("Alerts!")}>
+                  <DropdownItem >
                     <span>CCTV Surveilance</span>
                   </DropdownItem>
                 </Dropdown>
 
 
             </div>
+             {/* Solutions */}
 
-                  <div
+                  {/* products */}
+                 
+                  <div>
+
+                  <button
+                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    onClick={()=>setproducts(!products)}
+                    aria-label="Notifications"
+                    aria-haspopup="true"
+                  >
+                    Products
+                    
+                  </button>
+                  <Dropdown
+                    align="center"
+                    isOpen={products}
+                    onClose={() => setproducts(false)}
+                    className="z-50"
+                  >
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Servers</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Storage SAN & NAS</span>
+                   
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Desktop & Laptop</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Printing</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Networking</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>UPS</span>
+                  </DropdownItem>
+             
+                </Dropdown>
+
+
+            </div>
+             {/* Products */}
+
+                  {/* services */}
+                 
+                  <div>
+
+                  <button
+                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    onClick={()=>setservices(!services)}
+                    aria-label="Notifications"
+                    aria-haspopup="true"
+                  >
+                    Services
+                    
+                  </button>
+                  <Dropdown
+                    align="center"
+                    isOpen={services}
+                    onClose={() => setservices(false)}
+                    className="z-50"
+                  >
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Annual Maintenace Services</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Financial Management Services</span>
+                   
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Managed IT services</span>
+                  </DropdownItem>
                   
-                  class="font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Products
-                  </div>
+                </Dropdown>
+
+
+            </div>
+             {/* Services */}
+                  {/* support */}
+                 
+                  <div>
+
+                  <button
+                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    onClick={()=>setsupport(!support)}
+                    aria-label="Notifications"
+                    aria-haspopup="true"
+                  >
+                    Support
+                    
+                  </button>
+                  <Dropdown
+                    align="center"
+                    isOpen={support}
+                    onClose={() => setsupport(false)}
+                    className="z-50"
+                  >
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Customer Login</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Employee Login</span>
+                   
+                  </DropdownItem>
+                 
+                </Dropdown>
+
+
+            </div>
+             {/* Products */}
+                  {/* aboutus */}
+                 
+                  <div>
+
+                  <button
+                    className=" z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    onClick={()=>setaboutus(!aboutus)}
+                    aria-label="Notifications"
+                    aria-haspopup="true"
+                  >
+                    AboutUs
+                    
+                  </button>
+                  <Dropdown
+                    align="center"
+                    isOpen={aboutus}
+                    onClose={() => setaboutus(false)}
+                    className="z-50"
+                  >
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>About INFOCARE</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Awards & Recognition</span>
+                   
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Contact Us</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Careers</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Case Studies</span>
+                  </DropdownItem>
+                  
+                </Dropdown>
+
+
+            </div>
+             {/* Products */}
 
                 <div
                   
-                  class="font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Services
-                  </div>
-                <div
-                  
-                  class="font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Support
-                    </div>
-                <div
-                  
-                  class="font-medium text-gray-500 hover:text-gray-900"
-                >
-                  About
-                  </div>
-
-                <div
-                  
-                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
                 >
                   Login
                   </div>
