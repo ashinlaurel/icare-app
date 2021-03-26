@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useLocation
 } from "react-router-dom";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { API } from "./backendapi";
@@ -16,13 +17,23 @@ import HomePage from "./pages/Homepage/HomePage";
 import LSTPDF from "./pages/TEMPPDF/LSTPDF";
 import SalaryPDF from "./pages/TEMPPDF/SalaryPDF";
 
+// LANDING PAGE STUFF
+
+import LandingPage from './LandingPage';
+
+
 const Layout = lazy(() => import("./containers/Layout"));
 const CustomerLogin = lazy(() => import("./pages/Customers/CustomerLogin"));
 const SignUp = lazy(() => import("./pages/Signup"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
+
+
+
 function App() {
   // console.log(Cust.isAuthenticated() ? "yes" : "no");
+
+ 
 
   return (
     <>
@@ -31,6 +42,9 @@ function App() {
         <Switch>
           {/* //customer */}
           {/* Home Page */}
+          
+          <Route exact path="/" component={LandingPage} />
+          
           <Route path="/home" component={HomePage} />
           <Route path="/signin">
             {/* {localStorage.getItem("type") == "0" ? ( */}
@@ -51,7 +65,7 @@ function App() {
           {/* Place new routes over this */}
           <PrivateRoute path={`/app`} component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
-          <Redirect exact from="/" to="/home" />
+          {/* <Redirect exact from="/" to="/home" /> */}
         </Switch>
       </Router>
     </>

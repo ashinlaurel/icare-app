@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./assets/css/tailwind.output.css";
+import "./css/style.css";
 import App from "./App";
 import { SidebarProvider } from "./context/SidebarContext";
 import { BottomBarProvider } from "./context/BottomBarContext";
