@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { API } from "./backendapi";
@@ -19,21 +19,15 @@ import SalaryPDF from "./pages/TEMPPDF/SalaryPDF";
 
 // LANDING PAGE STUFF
 
-import LandingPage from './LandingPage';
-
+import LandingPage from "./LandingPage";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const CustomerLogin = lazy(() => import("./pages/Customers/CustomerLogin"));
 const SignUp = lazy(() => import("./pages/Signup"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
-
-
-
 function App() {
   // console.log(Cust.isAuthenticated() ? "yes" : "no");
-
- 
 
   return (
     <>
@@ -42,10 +36,10 @@ function App() {
         <Switch>
           {/* //customer */}
           {/* Home Page */}
-          
-          <Route exact path="/" component={LandingPage} />
-          
-          <Route path="/home" component={HomePage} />
+
+          <Route exact path="/" component={HomePage} />
+
+          <Route path="/website" component={LandingPage} />
           <Route path="/signin">
             {/* {localStorage.getItem("type") == "0" ? ( */}
             {/* <Redirect to="/app" /> */}
