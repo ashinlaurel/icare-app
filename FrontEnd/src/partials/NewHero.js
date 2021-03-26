@@ -1,6 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Input,
+  HelperText,
+  Label,
+  Select,
+  Textarea,
+  Button,
+  Dropdown,
+  DropdownItem,
+  Badge,
+} from "@windmill/react-ui"
 
 const NewHero = () => {
+  const [click, setclick] = useState(false);
+  const [solutions, setSolutions] = useState(false)
+
+  const Solutions = () => {
+    return (
+      <div className="relative z-50 ">
+        <Button
+          onClick={()=>{setSolutions(true)}}
+          aria-label="Notifications"
+          aria-haspopup="true"
+        >
+          Solutions
+        </Button>
+        <Dropdown
+          className="z-40"
+          isOpen={solutions}
+          onClose={() => setSolutions(false)}
+        >
+          <DropdownItem
+            onClick={() => {
+    
+            }}
+          >
+            <span>Console</span>
+          </DropdownItem>
+          <DropdownItem
+            onClick={() => {
+              
+            }}
+          >
+            <span>DMP</span>
+          </DropdownItem>
+          
+       
+          
+        </Dropdown>
+      </div>
+    );
+  };
+
+
   return (
     <div class="relative bg-white overflow-hidden">
       <div class="max-w-7xl mx-auto">
@@ -34,8 +86,9 @@ const NewHero = () => {
                       type="button"
                       class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                       aria-expanded="false"
+                      onClick={()=>setclick(!click)}
                     >
-                      <span class="sr-only">Open main menu</span>
+                      <span class="sr-only" >Open main menu</span>
                       {/* <!-- Heroicon name: outline/menu --> */}
                       <svg
                         class="h-6 w-6"
@@ -61,35 +114,49 @@ const NewHero = () => {
                   href="#"
                   class="font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Product
+                  Home
                 </a>
 
                 <a
                   href="#"
                   class="font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Features
+                  Solutions
+                </a>
+
+                
+
+                <a
+                  href="#"
+                  class="font-medium text-gray-500 hover:text-gray-900"
+                >
+                  Products
                 </a>
 
                 <a
                   href="#"
                   class="font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Marketplace
+                  Services
                 </a>
-
                 <a
                   href="#"
                   class="font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Company
+                  Support
+                </a>
+                <a
+                  href="#"
+                  class="font-medium text-gray-500 hover:text-gray-900"
+                >
+                  About
                 </a>
 
                 <a
                   href="#"
                   class="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Log in
+                  Login
                 </a>
               </div>
             </nav>
@@ -105,7 +172,7 @@ const NewHero = () => {
           From: "opacity-100 scale-100"
           To: "opacity-0 scale-95"
       --> */}
-          <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+          <div class={`absolute top-0 inset-x-0 p-2 transition transform origin-top-right ${!click?`hidden`:null}`}>
             <div class="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
               <div class="px-5 pt-4 flex items-center justify-between">
                 <div>
@@ -118,9 +185,10 @@ const NewHero = () => {
                 <div class="-mr-2">
                   <button
                     type="button"
+                    onClick={()=>setclick(!click)}
                     class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   >
-                    <span class="sr-only">Close main menu</span>
+                    <span class="sr-only"  >Close main menu</span>
                     {/* <!-- Heroicon name: outline/x --> */}
                     <svg
                       class="h-6 w-6"
@@ -145,35 +213,40 @@ const NewHero = () => {
                   href="#"
                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  Product
+                  Home
+                </a>
+               
+                <a
+                  href="#"
+                  class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                >
+                  Products
                 </a>
 
                 <a
                   href="#"
                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  Features
+                  Services
                 </a>
-
                 <a
                   href="#"
                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  Marketplace
+                  Support
                 </a>
-
                 <a
                   href="#"
                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  Company
+                  About
                 </a>
               </div>
               <a
                 href="#"
                 class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
               >
-                Log in
+                Login
               </a>
             </div>
           </div>
