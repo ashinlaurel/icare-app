@@ -11,6 +11,7 @@ import AOS from 'aos';
 import { focusHandling } from 'cruip-js-toolkit';
 
 import Home from './LandingPages/Home';
+import Navbar from './partials/NavBar';
 
 
 function LandingPage() {
@@ -36,6 +37,7 @@ function LandingPage() {
 
   return (
     <>
+    <Navbar/>
       <Switch>
         <Route exact path="/">
           <Home />
