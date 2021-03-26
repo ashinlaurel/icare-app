@@ -39,13 +39,13 @@ function App() {
             <CustomerLogin />
             {/* )} */}
           </Route>
-          <Route path="/signin" component={CustomerLogin} />
-          <Route path="/signup" component={SignUp} />
+          {/* <Route path="/signin" component={CustomerLogin} /> */}
+          {/* <Route path="/signup" component={SignUp} /> */}
           <Route path="/lstpdf/:id" component={LSTPDF} />
           <Route path="/salarypdf/:id" component={SalaryPDF} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}
-          <Route path="/admin/signup" component={AdminSignUp} />
+          {/* <Route path="/admin/signup" component={AdminSignUp} /> */}
           <Route path="/admin/signin" component={AdminLogin} />
 
           {/* Place new routes over this */}

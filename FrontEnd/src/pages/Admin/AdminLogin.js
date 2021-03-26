@@ -14,8 +14,10 @@ function AdminLogin() {
   // isAutheticated();
   let history = useHistory();
   const [values, setValues] = useState({
-    email: "admin@test.com",
-    password: "password",
+     email: "",
+    password: ""
+    // email: "admin@test.com",
+    // password: "password",
   });
   const [err, setErr] = useState();
 
@@ -88,7 +90,7 @@ function AdminLogin() {
                 <Input
                   className="mt-1"
                   type="email"
-                  placeholder="john@doe.com"
+                  placeholder=""
                   value={values.email}
                   onChange={handleChange("email")}
                 />
