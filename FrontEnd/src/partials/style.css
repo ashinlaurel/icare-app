@@ -1,0 +1,9 @@
+#hero{
+    /* background-color: aqua; */
+    background-image: "https://images.unsplash.com/photo-1615932111233-2773a80b3fae?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
+}
+
+.blur {
+
+  opacity: 95%;
+}

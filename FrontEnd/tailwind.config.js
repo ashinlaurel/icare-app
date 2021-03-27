@@ -8,6 +8,12 @@ module.exports = windmill({
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: theme => ({
+
+        'hero-bg': "url(https://unsplash.com/photos/3fPXt37X6UQ/download?force=true&w=1920)",
+
+
+       }),
       boxShadow: {
         bottom: '0 5px 6px -7px rgba(0, 0, 0, 0.6), 0 2px 4px -5px rgba(0, 0, 0, 0.06)',
       },

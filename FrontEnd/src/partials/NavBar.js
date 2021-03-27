@@ -106,31 +106,43 @@ function Navbar() {
                     onClose={() => setSolutions(false)}
                     className="z-50"
                   >
-                  <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>Visualisation</span>
+                  {/* <DropdownItem tag="a" href="#" className="justify-between">
+                    <span className="">Cloud Solutions</span>
                  
-                  </DropdownItem>
+                  </DropdownItem> */}
                   <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>Private Cloud</span>
+                    <span>Cloud Readiness Assesment</span>
                    
                   </DropdownItem>
                   <DropdownItem >
-                    <span>Hybrid Cloud</span>
+                    <span>Build Secure Infrastrucure</span>
                   </DropdownItem>
                   <DropdownItem >
-                    <span>Server Clustering</span>
+                    <span>Migrarte Applications To Cloud</span>
                   </DropdownItem>
                   <DropdownItem >
-                    <span>SQL HA</span>
+                    <span>Cloud Assesment & Optimisation</span>
+                  </DropdownItem>
+                  {/* <DropdownItem >
+                    <span>Infrastructure Solutions</span>
+                  </DropdownItem> */}
+                  <DropdownItem >
+                    <span>Virtualisation</span>
                   </DropdownItem>
                   <DropdownItem >
-                    <span>MySQL HA</span>
-                  </DropdownItem>
-                  <DropdownItem >
-                    <span>PostgreSQL HA</span>
+                    <span>High Availability Database Solutions</span>
                   </DropdownItem>
                   <DropdownItem >
                     <span>Structured Networking</span>
+                  </DropdownItem>
+                  {/* <DropdownItem >
+                    <span>Security Solutions</span>
+                  </DropdownItem> */}
+                  <DropdownItem >
+                    <span>Identity Access & Management Solutions</span>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <span>Infrastructre and Cybersecurity Solutions</span>
                   </DropdownItem>
                   <DropdownItem >
                     <span>CCTV Surveilance</span>
@@ -165,21 +177,26 @@ function Navbar() {
                  
                   </DropdownItem>
                   <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>Storage SAN & NAS</span>
+                    <span>Storage </span>
+                   
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Networking </span>
                    
                   </DropdownItem>
                   <DropdownItem >
-                    <span>Desktop & Laptop</span>
+                    <span>Desktop </span>
+                  </DropdownItem>
+                   <DropdownItem >
+                    <span> Laptop</span>
                   </DropdownItem>
                   <DropdownItem >
-                    <span>Printing</span>
+                    <span>Print Devices</span>
                   </DropdownItem>
                   <DropdownItem >
-                    <span>Networking</span>
+                    <span>Accessories</span>
                   </DropdownItem>
-                  <DropdownItem >
-                    <span>UPS</span>
-                  </DropdownItem>
+                
              
                 </Dropdown>
 
@@ -207,16 +224,26 @@ function Navbar() {
                     className="z-50"
                   >
                   <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>On Premise Infrastructure Management</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Cloud Infrastructure Management</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Facility Management</span>
+                 
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
                     <span>Annual Maintenace Services</span>
                  
                   </DropdownItem>
                   <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>Financial Management Services</span>
+                    <span>On Demand Services</span>
                    
                   </DropdownItem>
-                  <DropdownItem >
-                    <span>Managed IT services</span>
-                  </DropdownItem>
+     
                   
                 </Dropdown>
 
@@ -276,23 +303,21 @@ function Navbar() {
                     className="z-50"
                   >
                   <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>About INFOCARE</span>
+                    <span>Company</span>
                  
                   </DropdownItem>
                   <DropdownItem tag="a" href="#" className="justify-between">
-                    <span>Awards & Recognition</span>
+                    <span>Careera</span>
+                   
+                  </DropdownItem>
+                  <DropdownItem tag="a" href="#" className="justify-between">
+                    <span>Partners</span>
                    
                   </DropdownItem>
                   <DropdownItem >
                     <span>Contact Us</span>
                   </DropdownItem>
-                  <DropdownItem >
-                    <span>Careers</span>
-                  </DropdownItem>
-                  <DropdownItem >
-                    <span>Case Studies</span>
-                  </DropdownItem>
-                  
+              
                 </Dropdown>
 
 

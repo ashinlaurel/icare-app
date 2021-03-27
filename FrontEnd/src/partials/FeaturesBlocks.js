@@ -15,13 +15,14 @@ function FeaturesBlocks() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="text-xl md:text-4xl font-bold mb-4">
-              How InfoCare Works
+              Our Services
             </h2>
             <p className="text-xl text-gray-600">
               Duis aute irure dolor in reprehenderit in voluptate velit esse
               cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
               cupidatat.
             </p>
+            
           </div>
 
           {/* Items */}
@@ -63,11 +64,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Initial Contact
+                Cloud Solutions
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
 
             {/* 2nd item */}
@@ -104,11 +113,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Discovery Session
+                Managed IT Services
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
 
             {/* 3rd item */}
@@ -138,11 +155,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Contracting
+                Security Solutions
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
 
             {/* 4th item */}
@@ -185,11 +210,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Fast Prototyping
+                Enterproce Hardware
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
 
             {/* 5th item */}
@@ -219,11 +252,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Design Phase
+                Networking
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
 
             {/* 6th item */}
@@ -262,11 +303,19 @@ function FeaturesBlocks() {
                 </g>
               </svg>
               <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                Develop & Launch
+                End User Computing
               </h4>
               <p className="text-gray-600 text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
+              <div class="">
+                  <a
+                    href="#"
+                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                  >
+                    Learn More
+                  </a>
+                </div>
             </div>
           </div>
         </div>
