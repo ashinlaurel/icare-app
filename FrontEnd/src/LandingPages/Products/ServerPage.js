@@ -18,7 +18,7 @@ const ServerPage = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-48 flex flex-col items-center justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-3xl z-10 pb-8 bg-white blur   ">
+        <div class=" justify-center items-center max-w-sm md:max-w-3xl z-10 pb-8 bg-white    ">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0 lg:px-8 flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-10 ">
               <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">

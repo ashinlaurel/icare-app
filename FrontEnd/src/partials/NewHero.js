@@ -27,7 +27,7 @@ const NewHero = () => {
         />
       </div>
       <div className="  bg-hero-bg flex flex-row   ">
-        <div class=" justify-center z-10 pb-8 bg-white blur mx-48 -my-64 mb-8 shadow-lg rounded-sm ">
+        <div class=" justify-center z-10 pb-8 bg-white  mx-48 -my-64 mb-8 shadow-lg rounded-sm ">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-5 lg:px-8 ">
             <div class="sm:text-center lg:text-left pt-12 md:pt-16 md:pl-8">
               <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-5xl">
