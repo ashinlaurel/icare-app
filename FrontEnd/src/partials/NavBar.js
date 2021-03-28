@@ -10,7 +10,7 @@ import {
   DropdownItem,
   Badge,
 } from "@windmill/react-ui";
-import logo from "../assets/img/icarelogo.png";
+import logo from "../images/infocarefull.png";
 function Navbar() {
   const [click, setclick] = useState(false);
   const [solutions, setSolutions] = useState(false);
@@ -18,10 +18,16 @@ function Navbar() {
   const [services, setservices] = useState(false);
   const [support, setsupport] = useState(false);
   const [aboutus, setaboutus] = useState(false);
+  const [cloudSolutions, setcloudSolutions] = useState(false)
+  const [infrastructureSolutions, setInfrastructureSolutions] = useState(false)
+  const [securitySolutions, setSecuritySolutions] = useState(false)
+  const [manageIT, setManageIT] = useState(false)
+  const [enterpriseHW, setEnterpriseHW] = useState(false)
+  const [endUserComputing, setendUserComputing] = useState(false)
 
   return (
     <div className="fixed z-50 w-full bg-white">
-      <div class="relative z-10 pb-3   lg:max-w-2xl lg:w-full ">
+      <div class="relative z-10 pb-3 lg:w-full ">
         <svg
           class="hidden lg:block absolute right-0 inset-y-0 h-full text-white transform translate-x-1/2"
           fill="currentColor"
@@ -32,14 +38,15 @@ function Navbar() {
 
         <div class=" pt-6 px-4 sm:px-6 lg:px-8 w-full">
           <nav
-            class="relative flex items-center justify-between sm:h-10 lg:justify-start"
+            class="relative flex items-center justify-end sm:h-10 "
             aria-label="Global"
           >
             <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
               <div class="flex items-center justify-between w-full md:w-auto">
                 <span href="#">
-                  <span class="sr-only">Workflow</span>
+
                   <img class="h-8 w-auto sm:h-10" src={logo} />
+                  {/* <p>INFOCARE SYSTEMS</p> */}
                 </span>
                 <div class="-mr-2  flex items-center md:hidden">
                   <button
@@ -69,9 +76,9 @@ function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="hidden md:block">
-              <div class=" flex flex-row md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
-                <div class="font-medium text-gray-500 hover:text-gray-900 ">
+            <div className="hidden md:block flex-1 ">
+              <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
+                <div class="font-medium  text-gray-500 hover:text-gray-900 ">
                   <a href="/website">Home</a>
                 </div>
 
@@ -96,42 +103,119 @@ function Navbar() {
                     <span className="">Cloud Solutions</span>
                  
                   </DropdownItem> */}
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Cloud Readiness Assesment</span>
+                    <DropdownItem onClick={() => setcloudSolutions(!cloudSolutions)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setcloudSolutions(!cloudSolutions)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Cloud Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={cloudSolutions}
+                              onClose={() => setcloudSolutions(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>Cloud Readiness Assesment</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Build Secure Infrastrucure </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Migrarte Applications To Cloud </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Cloud Assesment & Optimisation </span>
+                              </DropdownItem>
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem>
-                      <span>Build Secure Infrastrucure</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Migrarte Applications To Cloud</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Cloud Assesment & Optimisation</span>
-                    </DropdownItem>
+ 
                     {/* <DropdownItem >
-                    <span>Infrastructure Solutions</span>
+                    <span></span>
                   </DropdownItem> */}
-                    <DropdownItem>
-                      <span>Virtualisation</span>
+                  <DropdownItem onClick={() => setInfrastructureSolutions(!infrastructureSolutions)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setInfrastructureSolutions(!infrastructureSolutions)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Infrastructure Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={infrastructureSolutions}
+                              onClose={() => setInfrastructureSolutions(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>Virtualisation</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>High Availability Database Solutions </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Structured Networking</span>
+                              </DropdownItem>
+                 
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem>
-                      <span>High Availability Database Solutions</span>
+
+
+                    <DropdownItem onClick={() => setSecuritySolutions(!securitySolutions)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setSecuritySolutions(!securitySolutions)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Security Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={securitySolutions}
+                              onClose={() => setSecuritySolutions(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>Identity Access & Management Solutions</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Infrastructre and Cybersecurity Solutions </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>CCTV Surveilance</span>
+                              </DropdownItem>
+                 
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem>
-                      <span>Structured Networking</span>
-                    </DropdownItem>
-                    {/* <DropdownItem >
-                    <span>Security Solutions</span>
-                  </DropdownItem> */}
-                    <DropdownItem>
-                      <span>Identity Access & Management Solutions</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Infrastructre and Cybersecurity Solutions</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>CCTV Surveilance</span>
-                    </DropdownItem>
+ 
+          
+       
                   </Dropdown>
                 </div>
                 {/* Solutions */}
@@ -153,31 +237,82 @@ function Navbar() {
                     onClose={() => setproducts(false)}
                     className="z-50"
                   >
-                    <DropdownItem
-                      tag="a"
-                      href="website/product/servers"
-                      className="justify-between"
-                    >
-                      <span>Servers</span>
+
+                    <DropdownItem onClick={() => setEnterpriseHW(!enterpriseHW)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setEnterpriseHW(!enterpriseHW)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Enterprose Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={enterpriseHW}
+                              onClose={() => setEnterpriseHW(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>Servers</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Storage </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Networking </span>
+                              </DropdownItem>
+                              
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Storage </span>
+ 
+
+             
+                    <DropdownItem onClick={() => setendUserComputing(!endUserComputing)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setendUserComputing(!endUserComputing)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Enterprose Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={endUserComputing}
+                              onClose={() => setendUserComputing(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>Desktop</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Laptop </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Print Devices </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Accessories </span>
+                              </DropdownItem>
+                               
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Networking </span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Desktop </span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span> Laptop</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Print Devices</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Accessories</span>
-                    </DropdownItem>
+ 
                   </Dropdown>
                 </div>
                 {/* Products */}
@@ -193,27 +328,57 @@ function Navbar() {
                   >
                     Services
                   </button>
+
+  
+ 
                   <Dropdown
                     align="center"
                     isOpen={services}
                     onClose={() => setservices(false)}
                     className="z-50"
                   >
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>On Premise Infrastructure Management</span>
+
+                    <DropdownItem onClick={() => setManageIT(!manageIT)} className="justify-between">
+                          <div>
+                            <button
+                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                              onClick={() => setManageIT(!manageIT)}
+                              aria-label="Notifications"
+                              aria-haspopup="true"
+                            >
+                              Enterprose Solutions
+                            </button>
+                            <Dropdown
+                              align="center"
+                              isOpen={manageIT}
+                              onClose={() => setManageIT(false)}
+                              className="z-50 right-full"
+                            >
+                              <DropdownItem
+                                tag="a"
+                                href="website/product/servers"
+                                className="justify-between"
+                              >
+                                <span>On Premise Infrastructure Management</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Cloud Infrastructure Management </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Facility Management</span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>Annual Maintenace Services </span>
+                              </DropdownItem>
+                              <DropdownItem tag="a" href="#" className="justify-between">
+                                <span>On Demand Services </span>
+                              </DropdownItem>
+                               
+                              
+                            </Dropdown>
+                          </div>
                     </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Cloud Infrastructure Management</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Facility Management</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Annual Maintenace Services</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>On Demand Services</span>
-                    </DropdownItem>
+             
                   </Dropdown>
                 </div>
                 {/* Services */}
