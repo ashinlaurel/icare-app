@@ -14,15 +14,12 @@ function FeaturesBlocks() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="text-xl md:text-4xl font-bold mb-4">
-              Our Services
-            </h2>
+            <h2 className="text-xl md:text-5xl font-bold mb-4">Our Services</h2>
             <p className="text-xl text-gray-600">
               Duis aute irure dolor in reprehenderit in voluptate velit esse
               cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
               cupidatat.
             </p>
-            
           </div>
 
           {/* Items */}
@@ -70,13 +67,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
 
             {/* 2nd item */}
@@ -119,13 +116,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
 
             {/* 3rd item */}
@@ -161,13 +158,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
 
             {/* 4th item */}
@@ -216,13 +213,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
 
             {/* 5th item */}
@@ -258,13 +255,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
 
             {/* 6th item */}
@@ -309,13 +306,13 @@ function FeaturesBlocks() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               <div class="">
-                  <a
-                    href="#"
-                    class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-600 rounded-md hover:bg-blue-700 my-4"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
           </div>
         </div>
