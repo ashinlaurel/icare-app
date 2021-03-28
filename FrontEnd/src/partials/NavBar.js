@@ -18,12 +18,12 @@ function Navbar() {
   const [services, setservices] = useState(false);
   const [support, setsupport] = useState(false);
   const [aboutus, setaboutus] = useState(false);
-  const [cloudSolutions, setcloudSolutions] = useState(false)
-  const [infrastructureSolutions, setInfrastructureSolutions] = useState(false)
-  const [securitySolutions, setSecuritySolutions] = useState(false)
-  const [manageIT, setManageIT] = useState(false)
-  const [enterpriseHW, setEnterpriseHW] = useState(false)
-  const [endUserComputing, setendUserComputing] = useState(false)
+  const [cloudSolutions, setcloudSolutions] = useState(false);
+  const [infrastructureSolutions, setInfrastructureSolutions] = useState(false);
+  const [securitySolutions, setSecuritySolutions] = useState(false);
+  const [manageIT, setManageIT] = useState(false);
+  const [enterpriseHW, setEnterpriseHW] = useState(false);
+  const [endUserComputing, setendUserComputing] = useState(false);
 
   return (
     <div className="fixed z-50 w-full bg-white">
@@ -44,7 +44,6 @@ function Navbar() {
             <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
               <div class="flex items-center justify-between w-full md:w-auto">
                 <span href="#">
-
                   <img class="h-8 w-auto sm:h-10" src={logo} />
                   {/* <p>INFOCARE SYSTEMS</p> */}
                 </span>
@@ -103,122 +102,237 @@ function Navbar() {
                     <span className="">Cloud Solutions</span>
                  
                   </DropdownItem> */}
-                    <DropdownItem onClick={() => setcloudSolutions(!cloudSolutions)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setcloudSolutions(!cloudSolutions)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Cloud Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={cloudSolutions}
-                              onClose={() => setcloudSolutions(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>Cloud Readiness Assesment</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Build Secure Infrastrucure </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Migrarte Applications To Cloud </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Cloud Assesment & Optimisation </span>
-                              </DropdownItem>
-                              
-                            </Dropdown>
-                          </div>
+                    <DropdownItem
+                      onClick={() => setcloudSolutions(!cloudSolutions)}
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() => setcloudSolutions(!cloudSolutions)}
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          Cloud Solutions
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={cloudSolutions}
+                          onClose={() => setcloudSolutions(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>Cloud Readiness Assesment</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Build Secure Infrastrucure </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Migrarte Applications To Cloud </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Cloud Assesment & Optimisation </span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
                     </DropdownItem>
- 
+
                     {/* <DropdownItem >
                     <span></span>
                   </DropdownItem> */}
-                  <DropdownItem onClick={() => setInfrastructureSolutions(!infrastructureSolutions)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setInfrastructureSolutions(!infrastructureSolutions)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Infrastructure Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={infrastructureSolutions}
-                              onClose={() => setInfrastructureSolutions(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>Virtualisation</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>High Availability Database Solutions </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Structured Networking</span>
-                              </DropdownItem>
-                 
-                              
-                            </Dropdown>
-                          </div>
+                    <DropdownItem
+                      onClick={() =>
+                        setInfrastructureSolutions(!infrastructureSolutions)
+                      }
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() =>
+                            setInfrastructureSolutions(!infrastructureSolutions)
+                          }
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          Infrastructure Solutions
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={infrastructureSolutions}
+                          onClose={() => setInfrastructureSolutions(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>Virtualisation</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>High Availability Database Solutions </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Structured Networking</span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
                     </DropdownItem>
 
-
-                    <DropdownItem onClick={() => setSecuritySolutions(!securitySolutions)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setSecuritySolutions(!securitySolutions)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Security Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={securitySolutions}
-                              onClose={() => setSecuritySolutions(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>Identity Access & Management Solutions</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Infrastructre and Cybersecurity Solutions </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>CCTV Surveilance</span>
-                              </DropdownItem>
-                 
-                              
-                            </Dropdown>
-                          </div>
+                    <DropdownItem
+                      onClick={() => setSecuritySolutions(!securitySolutions)}
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() =>
+                            setSecuritySolutions(!securitySolutions)
+                          }
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          Security Solutions
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={securitySolutions}
+                          onClose={() => setSecuritySolutions(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>Identity Access & Management Solutions</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>
+                              Infrastructre and Cybersecurity Solutions{" "}
+                            </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>CCTV Surveilance</span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
                     </DropdownItem>
- 
-          
-       
                   </Dropdown>
                 </div>
                 {/* Solutions */}
+
+                {/* services */}
+
+                <div>
+                  <button
+                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    onClick={() => setservices(!services)}
+                    aria-label="Notifications"
+                    aria-haspopup="true"
+                  >
+                    Services
+                  </button>
+
+                  <Dropdown
+                    align="center"
+                    isOpen={services}
+                    onClose={() => setservices(false)}
+                    className="z-50"
+                  >
+                    <DropdownItem
+                      onClick={() => setManageIT(!manageIT)}
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() => setManageIT(!manageIT)}
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          Managed IT Services
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={manageIT}
+                          onClose={() => setManageIT(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>On Premise Infrastructure Management</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Cloud Infrastructure Management </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Facility Management</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Annual Maintenace Services </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>On Demand Services </span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
+                    </DropdownItem>
+                  </Dropdown>
+                </div>
+                {/* Services */}
 
                 {/* products */}
 
@@ -237,154 +351,107 @@ function Navbar() {
                     onClose={() => setproducts(false)}
                     className="z-50"
                   >
-
-                    <DropdownItem onClick={() => setEnterpriseHW(!enterpriseHW)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setEnterpriseHW(!enterpriseHW)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Enterprose Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={enterpriseHW}
-                              onClose={() => setEnterpriseHW(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>Servers</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Storage </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Networking </span>
-                              </DropdownItem>
-                              
-                              
-                            </Dropdown>
-                          </div>
+                    <DropdownItem
+                      onClick={() => setEnterpriseHW(!enterpriseHW)}
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() => setEnterpriseHW(!enterpriseHW)}
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          Enterprise HW
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={enterpriseHW}
+                          onClose={() => setEnterpriseHW(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>Servers</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Storage </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Networking </span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
                     </DropdownItem>
- 
 
-             
-                    <DropdownItem onClick={() => setendUserComputing(!endUserComputing)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setendUserComputing(!endUserComputing)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Enterprose Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={endUserComputing}
-                              onClose={() => setendUserComputing(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>Desktop</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Laptop </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Print Devices </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Accessories </span>
-                              </DropdownItem>
-                               
-                              
-                            </Dropdown>
-                          </div>
+                    <DropdownItem
+                      onClick={() => setendUserComputing(!endUserComputing)}
+                      className="justify-between"
+                    >
+                      <div>
+                        <button
+                          className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
+                          onClick={() => setendUserComputing(!endUserComputing)}
+                          aria-label="Notifications"
+                          aria-haspopup="true"
+                        >
+                          End User Computing
+                        </button>
+                        <Dropdown
+                          align="center"
+                          isOpen={endUserComputing}
+                          onClose={() => setendUserComputing(false)}
+                          className="z-50 right-full"
+                        >
+                          <DropdownItem
+                            tag="a"
+                            href="website/product/servers"
+                            className="justify-between"
+                          >
+                            <span>Desktop</span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Laptop </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Print Devices </span>
+                          </DropdownItem>
+                          <DropdownItem
+                            tag="a"
+                            href="#"
+                            className="justify-between"
+                          >
+                            <span>Accessories </span>
+                          </DropdownItem>
+                        </Dropdown>
+                      </div>
                     </DropdownItem>
- 
                   </Dropdown>
                 </div>
                 {/* Products */}
 
-                {/* services */}
-
-                <div>
-                  <button
-                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
-                    onClick={() => setservices(!services)}
-                    aria-label="Notifications"
-                    aria-haspopup="true"
-                  >
-                    Services
-                  </button>
-
-  
- 
-                  <Dropdown
-                    align="center"
-                    isOpen={services}
-                    onClose={() => setservices(false)}
-                    className="z-50"
-                  >
-
-                    <DropdownItem onClick={() => setManageIT(!manageIT)} className="justify-between">
-                          <div>
-                            <button
-                              className="z-10 relative align-middle rounded-md focus:outline-none  font-medium "
-                              onClick={() => setManageIT(!manageIT)}
-                              aria-label="Notifications"
-                              aria-haspopup="true"
-                            >
-                              Enterprose Solutions
-                            </button>
-                            <Dropdown
-                              align="center"
-                              isOpen={manageIT}
-                              onClose={() => setManageIT(false)}
-                              className="z-50 right-full"
-                            >
-                              <DropdownItem
-                                tag="a"
-                                href="website/product/servers"
-                                className="justify-between"
-                              >
-                                <span>On Premise Infrastructure Management</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Cloud Infrastructure Management </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Facility Management</span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>Annual Maintenace Services </span>
-                              </DropdownItem>
-                              <DropdownItem tag="a" href="#" className="justify-between">
-                                <span>On Demand Services </span>
-                              </DropdownItem>
-                               
-                              
-                            </Dropdown>
-                          </div>
-                    </DropdownItem>
-             
-                  </Dropdown>
-                </div>
-                {/* Services */}
                 {/* support */}
 
-                <div>
+                {/* <div>
                   <button
                     className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
                     onClick={() => setsupport(!support)}
@@ -406,7 +473,7 @@ function Navbar() {
                       <span>Employee Login</span>
                     </DropdownItem>
                   </Dropdown>
-                </div>
+                </div> */}
                 {/* Products */}
                 {/* aboutus */}
 
@@ -417,7 +484,7 @@ function Navbar() {
                     aria-label="Notifications"
                     aria-haspopup="true"
                   >
-                    AboutUs
+                    About Us
                   </button>
                   <Dropdown
                     align="center"
@@ -429,7 +496,7 @@ function Navbar() {
                       <span>Company</span>
                     </DropdownItem>
                     <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Careera</span>
+                      <span>Careers</span>
                     </DropdownItem>
                     <DropdownItem tag="a" href="#" className="justify-between">
                       <span>Partners</span>

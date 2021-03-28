@@ -8,6 +8,7 @@ function FeaturesBlocks() {
         className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-900 pointer-events-none"
         aria-hidden="true"
       ></div>
+
       <div className="absolute left-0 right-0 bottom-0 m-auto w-px p-px h-20 bg-gray-200 transform translate-y-1/2"></div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
@@ -33,14 +34,14 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
                   />
                   <g strokeWidth="2">
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       d="M34.514 35.429l2.057 2.285h8M20.571 26.286h5.715l2.057 2.285"
                     />
                     <path
@@ -48,7 +49,7 @@ function FeaturesBlocks() {
                       d="M20.571 37.714h5.715L36.57 26.286h8"
                     />
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       strokeLinecap="square"
                       d="M41.143 34.286l3.428 3.428-3.428 3.429"
                     />
@@ -69,9 +70,9 @@ function FeaturesBlocks() {
               <div class="">
                 <a
                   href="/website/service/cloudsolutions"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
@@ -85,7 +86,7 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
@@ -103,7 +104,7 @@ function FeaturesBlocks() {
                       d="M19.153 23.267c3.59-2.213 5.99-6.169 5.99-10.696C25.143 5.63 19.514 0 12.57 0 5.63 0 0 5.629 0 12.571c0 4.527 2.4 8.483 5.99 10.696"
                     />
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       d="M16.161 18.406a6.848 6.848 0 003.268-5.835 6.857 6.857 0 00-6.858-6.857 6.857 6.857 0 00-6.857 6.857 6.848 6.848 0 003.268 5.835"
                     />
                   </g>
@@ -117,10 +118,10 @@ function FeaturesBlocks() {
               </p>
               <div class="">
                 <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
@@ -134,14 +135,14 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
                   />
                   <g strokeLinecap="square" strokeWidth="2">
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       d="M38.826 22.504a9.128 9.128 0 00-13.291-.398M35.403 25.546a4.543 4.543 0 00-6.635-.207"
                     />
                     <path
@@ -159,10 +160,10 @@ function FeaturesBlocks() {
               </p>
               <div class="">
                 <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
@@ -176,7 +177,7 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
@@ -197,7 +198,7 @@ function FeaturesBlocks() {
                       d="M19.429 8L24 12.571l-4.571 4.572"
                     />
                     <circle
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       strokeLinecap="square"
                       cx="12.571"
                       cy="12.571"
@@ -214,10 +215,10 @@ function FeaturesBlocks() {
               </p>
               <div class="">
                 <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
@@ -231,7 +232,7 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
@@ -242,7 +243,7 @@ function FeaturesBlocks() {
                       d="M20.571 20.571h13.714v17.143H20.571z"
                     />
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       d="M38.858 26.993l6.397 1.73-4.473 16.549-13.24-3.58"
                     />
                   </g>
@@ -256,10 +257,10 @@ function FeaturesBlocks() {
               </p>
               <div class="">
                 <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
@@ -273,7 +274,7 @@ function FeaturesBlocks() {
               >
                 <g fill="none" fillRule="evenodd">
                   <rect
-                    className="fill-current text-blue-800"
+                    className="fill-current text-gray-600"
                     width="64"
                     height="64"
                     rx="32"
@@ -292,7 +293,7 @@ function FeaturesBlocks() {
                       d="M20.571 26.286A5.714 5.714 0 0126.286 32 5.714 5.714 0 0132 26.286"
                     />
                     <path
-                      className="stroke-current text-blue-800"
+                      className="stroke-current text-gray-600"
                       d="M21.714 40h4.572M24 37.714v4.572M37.714 24h4.572M40 21.714v4.572"
                       strokeLinecap="square"
                     />
@@ -307,10 +308,10 @@ function FeaturesBlocks() {
               </p>
               <div class="">
                 <a
-                  href="#"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-white bg-blue-800 rounded-md hover:bg-blue-700 my-4"
+                  href="/website/service/cloudsolutions"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  Learn More
+                  + Learn More
                 </a>
               </div>
             </div>
