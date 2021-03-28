@@ -9,6 +9,7 @@ import { focusHandling } from "cruip-js-toolkit";
 import Home from "./LandingPages/Home";
 import Navbar from "./partials/NavBar";
 import CloudSolutions from "./LandingPages/Services/CloudSolutions";
+import ServerPage from "./LandingPages/Products/ServerPage";
 
 // import Home from "./LandingPages/Home";
 
@@ -25,7 +26,7 @@ function LandingPage() {
   });
 
   useEffect(() => {
-    console.log("LAnfingPage");
+    console.log("LandingPage");
     document.querySelector("html").style.scrollBehavior = "auto";
     window.scroll({ top: 0 });
     document.querySelector("html").style.scrollBehavior = "";
@@ -39,8 +40,13 @@ function LandingPage() {
         <Route exact path="/website">
           <Home />
         </Route>
+        {/* ----------------Services ---------------- */}
         <Route path="/website/service/cloudsolutions">
           <CloudSolutions />
+        </Route>
+        {/* ----------------Products---------------- */}
+        <Route path="/website/product/servers">
+          <ServerPage />
         </Route>
 
         {/* <Route path="/signin">

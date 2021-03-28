@@ -14,7 +14,7 @@ function FeaturesBlocks() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="text-xl md:text-4xl font-bold mb-4">Our Services</h2>
+            <h2 className="text-xl md:text-5xl font-bold mb-4">Our Services</h2>
             <p className="text-xl text-gray-600">
               Duis aute irure dolor in reprehenderit in voluptate velit esse
               cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
