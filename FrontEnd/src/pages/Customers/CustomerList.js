@@ -11,10 +11,12 @@ import { API } from "../../backendapi";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 
+
 function CustomerList() {
   const [values, setValues] = useState([]);
   const [search, setSearch] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
+
 
   // ----------------------Heading Use Effect-------------
 
@@ -119,6 +121,7 @@ function CustomerList() {
           </Link>
         ))}
       </div>
+
     </div>
   );
 }

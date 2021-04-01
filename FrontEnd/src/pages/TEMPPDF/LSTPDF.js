@@ -333,7 +333,7 @@ const [sum, setSum] = useState(0)
         </table>
 
         <div className="bold m-t">Declaration: TO WHOM SOEVER IT MAY CONCERN</div>
-        <div>This is to certify that we are stock transferring  ___  packet containing computer spares to our Office  at {toArrd.district} through _______________________________ on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
+        <div>This is to certify that we are stock transferring  ___  packet containing computer spares {data.LSTtype=="Customer"?(<>to {data.customerName}</>):(<>to our Office  at {toArrd.district} </>)}  through _______________________________ on { moment(data.date).format("DD/MM/YYYY")} for internal use. </div>
         <div>This is only internal transaction of goods between our offices for our own use not meant for sale and hence has no commercial value. The value of goods for statuary purpose is Rs {sum}/-</div>
         
         <div className="sign">Yours Faithfully</div>

@@ -30,6 +30,7 @@ import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+import EmpProfile from "../../helpers/auth/EmpProfile";
 
 function Inventory() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -75,7 +76,10 @@ function Inventory() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
-
+    console.log("LOACTION",EmpProfile.getLocation())
+    useEffect(() => {
+      if(EmpProfile.getRole()==13) setLocation(EmpProfile.getLocation())
+    }, [])
   // pagination change control
   function onPageChange(p) {
     setPage(p);
@@ -530,6 +534,7 @@ function Inventory() {
             </div>
 
             {/* -----------------------------------------Location ----------------------- */}
+            {EmpProfile.getRole()!==13?
             <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -556,7 +561,7 @@ function Inventory() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div>
+            </div>:null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select

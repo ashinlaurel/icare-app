@@ -31,9 +31,9 @@ function CallCard({
           <p className=" text-sm text-gray-700 dark:text-gray-200">
             Priority:{priority}
           </p>
-          <p className=" text-sm text-gray-700 dark:text-gray-200">
+          {/* <p className=" text-sm text-gray-700 dark:text-gray-200">
             Contact Person:{contactPerson}
-          </p>
+          </p> */}
           <p className=" text-sm text-gray-700 dark:text-gray-200">
             Unit:{unit}
           </p>
