@@ -321,6 +321,8 @@ export default function CustomerSelection({
               if (theunitdetails) {
                 setTheUnitDetails(unit);
               }
+              setAccounts([]);
+              setUnits([]);
             }}
           >
             Select

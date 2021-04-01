@@ -475,6 +475,16 @@ function RegisterCall() {
                   <DropdownItem
                     onClick={() => {
                       setIsOpenTwo(false);
+                      setSearchType("prodserial");
+                      setSearchLabel("Product Serial");
+                      setDisabler(false);
+                    }}
+                  >
+                    <span>Product Serial</span>
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      setIsOpenTwo(false);
                       setSearchType("keyboardsno");
                       setSearchLabel("Keyboard Serial");
                       setDisabler(false);
