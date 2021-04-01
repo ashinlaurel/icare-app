@@ -88,6 +88,7 @@ function RegisterCall() {
   const [Business, setBusiness] = useState("");
   const [product, setProduct] = useState("");
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
+  const [theunitdetails, setTheUnitDetails] = useState({});
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
 
@@ -183,7 +184,16 @@ function RegisterCall() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
-  // console.log("SELECTED PROD",selectedprod,"NOOOO");
+  // ----------------------Unit Details ------------------------------
+  useEffect(() => {
+    console.log("-----------------------unit details ------------------------");
+    console.log(theunitdetails);
+    setValues({
+      ...values,
+      contactPerson: theunitdetails.contactPerson,
+      phone: theunitdetails.contactNo,
+    });
+  }, [refresh]);
 
   const Asset = () => {
     return (
@@ -200,6 +210,8 @@ function RegisterCall() {
           setAccount={setAccount}
           refresh={refresh}
           setRefresh={setRefresh}
+          theunitdetails={theunitdetails}
+          setTheUnitDetails={setTheUnitDetails}
         />
         {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
