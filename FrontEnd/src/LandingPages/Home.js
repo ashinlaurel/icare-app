@@ -22,10 +22,11 @@ function Home() {
         {/* <HeroHome /> */}
         <NewHero />
         <FeaturesBlocks />
-        <FeaturesHome />
+        {/* <FeaturesHome /> */}
 
-        <Testimonials />
-        <Newsletter />
+        {/* <Testimonials /> */}
+        <div className="h-64 w-screen bg-white"></div>
+        {/* <Newsletter /> */}
       </main>
 
       {/*  Site footer */}

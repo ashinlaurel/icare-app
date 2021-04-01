@@ -34,6 +34,8 @@ export default function CustomerSelection({
   setCustomer,
   refresh,
   setRefresh,
+  theunitdetails,
+  setTheUnitDetails,
 }) {
   const [customers, setCustomers] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -146,9 +148,12 @@ export default function CustomerSelection({
   };
 
   const pickUnit = async (unit) => {
+    console.log("-------------piking unit");
     console.log(unit);
     setUnit({
       _id: unit._id,
+      contactPerson: unit.contactPerson,
+      contactNo: unit.contactNo,
       unitName: unit.unitName,
     });
   };
@@ -313,6 +318,11 @@ export default function CustomerSelection({
             onClick={() => {
               setIsModalOpen(false);
               setRefresh(!refresh);
+              if (theunitdetails) {
+                setTheUnitDetails(unit);
+              }
+              setAccounts([]);
+              setUnits([]);
             }}
           >
             Select
