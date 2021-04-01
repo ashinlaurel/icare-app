@@ -961,7 +961,44 @@ function CallDetails() {
                 {moment(call.date).format("DD-MM-YYYY")}
               </span>
             </div>
+            
+            <div className=" ">
+              <span>
+                <span className=" font-semibold ">
+                  <span>Time: </span>
+                </span>
+                {call.time}
+              </span>
+            </div>
           </div>
+        </div>
+
+        <div className="dark:text-gray-200 text-black text-sm space-x-1  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start my-2 ">
+          
+          <div className=" ">
+              <span>
+                <span className=" font-semibold ">
+                  <span>Engineer: </span>
+                </span>
+                {call.employeeName}
+              </span>
+            </div>
+            <div className=" ">
+              <span>
+                <span className=" font-semibold ">
+                  <span>AssignedDate: </span>
+                </span>
+                {moment(call.assignedDate).format("DD-MM-YYYY")}
+              </span>
+            </div>
+            <div className=" ">
+              <span>
+                <span className=" font-semibold ">
+                  <span>ETA: </span>
+                </span>
+                {call.assignedETA}
+              </span>
+            </div>
         </div>
 
         <div className="dark:text-gray-200 text-black text-sm space-x-1  flex flex-row items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start my-2 ">
@@ -994,6 +1031,7 @@ function CallDetails() {
               <Badge>Pending For Spare Collection</Badge>
             ) : null}
           </span>
+          
         </div>
 
         <div className="dark:text-gray-200 text-black text-sm flex flex-col flex-wrap items-start bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full  ">
@@ -1085,14 +1123,14 @@ function CallDetails() {
               <span className="font-semibold w-1/5">Account :</span>{" "}
               {account.accountName}
             </div>
-
-            {mouse[0] ? (
+              
+            { mouse[0] &&mouse[0].mousename !="" ? (
               <div>
                 <span className="font-semibold w-1/5">Mouse Model :</span>{" "}
                 {mouse[0] ? mouse[0].mousename : ""}
               </div>
             ) : null}
-            {mouse[0] ? (
+            {mouse[0] && mouse[0].mousename !="" ? (
               <div>
                 <span className="font-semibold w-1/5">Mouse Serial : </span>{" "}
                 {mouse[0] ? mouse[0].mousesno : ""}
@@ -1118,14 +1156,14 @@ function CallDetails() {
               </div>
             ) : null}
             {/* ---------------------------------------------------------------------------------------------------------------- */}
-            {kbd[0] ? (
+            {kbd[0] && kbd[0].keyboardname !="" ? (
               <div>
                 <span className="font-semibold w-1/5">KBD Model :</span>{" "}
                 {kbd[0].keyboardname}
               </div>
             ) : null}
 
-            {kbd[0] ? (
+            {kbd[0] && kbd[0].keyboardname !="" ? (
               <div>
                 <span className="font-semibold w-1/5">KBD Serial: </span>{" "}
                 {kbd[0] ? kbd[0].keyboardsno : ""}
@@ -1142,26 +1180,26 @@ function CallDetails() {
               </div>
             ) : null}
             {/* ---------------------------------------------------------------------------------------------------------------- */}
-            {monitor[0] ? (
+            { monitor[0] && monitor[0].monitorname !="" ? (
               <div>
                 <span className="font-semibold w-1/5 ">Monitor : </span>{" "}
                 {monitor[0] ? monitor[0].monitorname : ""}
               </div>
             ) : null}
-            {monitor[0] ? (
+            {monitor[0]&& monitor[0].monitorsno !="" ? (
               <div>
                 <span className="font-semibold w-1/5 ">Monitor Serial :</span>{" "}
                 {monitor[0] ? monitor[0].monitorsno : ""}
               </div>
             ) : null}
 
-            {smps[0] ? (
+            {smps[0] && smps[0].smpsname !="" ? (
               <div>
                 <span className="font-semibold w-1/5 ">SMPS1 Model :</span>{" "}
                 {smps[0] ? smps[0].smpsname : ""}
               </div>
             ) : null}
-            {smps[0] ? (
+            {smps[0] &&smps[0].smpssno  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">SMPS1 Serial : </span>{" "}
                 {smps[0] ? smps[0].smpssno : ""}
@@ -1172,40 +1210,40 @@ function CallDetails() {
 
           <div className="flex flex-col  text-sm my-3 mx-3 align-left w-full lg:w-1/6 ">
             {/* ---------------------------------------------------------------------------------------------------------------- */}
-            {hdd[0] ? (
+            {hdd[0] && hdd[0].hddname !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">HDD1 Model:</span>{" "}
                 {hdd[0] ? hdd[0].hddname : ""}
               </div>
             ) : null}
-            {hdd[0] ? (
+            {hdd[0] && hdd[0].hddsno  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">HDD1 Serial :</span>{" "}
                 {hdd[0] ? hdd[0].hddsno : ""}
               </div>
             ) : null}
 
-            {hdd[1] ? (
+            {hdd[1] && hdd[1].hddname  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">HDD2 Model : </span>{" "}
                 {hdd[1] ? hdd[1].hddname : ""}
               </div>
             ) : null}
 
-            {hdd[1] ? (
+            {hdd[1] && hdd[1].hddsno  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">HDD2 Serial: </span>{" "}
                 {hdd[1] ? hdd[1].hddsno : ""}
               </div>
             ) : null}
-            {motherboard[0] ? (
+            { motherboard[0] && motherboard[0].motherboardname  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">Motherboard: </span>{" "}
                 {motherboard[0] ? motherboard[0].motherboardname : ""}
               </div>
             ) : null}
 
-            {motherboard[0] ? (
+            {motherboard[0] && motherboard[0].motherboardsno !=""  ? (
               <div>
                 <span className="font-semibold w-1/5 ">MBD Serial : </span>
                 {motherboard[0] ? motherboard[0].motherboardsno : ""}
@@ -1225,28 +1263,29 @@ function CallDetails() {
               </div>
             ) : null}
             {/* ---------------------------------------------------------------------------------------------------------------- */}
+            
 
-            {ram[0] ? (
+            {ram[0] && ram[0].ramname  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5">RAM1 Modell:</span>{" "}
                 {ram[0] ? ram[0].ramname : ""}
               </div>
             ) : null}
-            {ram[0] ? (
+            {ram[0] && ram[0].ramsno  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5">RAM1 Serial:</span>{" "}
                 {ram[0] ? ram[0].ramsno : ""}
               </div>
             ) : null}
 
-            {ram[1] ? (
+            {ram[1]&& ram[1].ramname  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5">RAM2 Model:</span>{" "}
                 {ram[1] ? ram[1].ramname : ""}
               </div>
             ) : null}
 
-            {ram[1] ? (
+            { ram[1]&& ram[1].ramsno  !=""  ? (
               <div>
                 <span className="font-semibold w-1/5">RAM2 Serial : </span>{" "}
                 {ram[1] ? ram[1].ramsno : ""}
@@ -1270,17 +1309,10 @@ function CallDetails() {
 
         {/* <hr className="my-4" /> */}
 
-        <div className="flex space-x-1">
+        {/* <div className="flex space-x-1">
           <div className="dark:text-gray-200 text-black text-sm flex  flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 ">
             {/* /////////////////////////////// . Engineer INFO  ///////////////////////////////////////////// */}
-            <div className=" font-semibold">
-              <span>
-                Engineer:{" "}
-                <span className="font-normal">{call.employeeName}</span>
-              </span>
-            </div>
-          </div>
-        </div>
+          
 
         {/* //////////////////////////////////////////////////////////////////////////// */}
       </div>

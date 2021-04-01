@@ -386,3 +386,46 @@ export const enggroutes = [
   },
   
 ];
+
+export const storekeeproutes = [
+ // ----------------------Notifications Views ----------------------/
+
+ {
+  path: "/notifications",
+  component: Notifications,
+},
+  
+   // ----------------------Inventory Views ----------------------/
+
+   {
+    path: "/inventory/create",
+    component: CreateInvent,
+  },
+  {
+    path: "/inventory",
+    component: Inventory,
+  },
+  {
+    path: "/inventory/purchase",
+    component: PurchaseInventory,
+  },
+ {
+    path: "/inventory/update/:id",
+    component: UpdateInventory,
+  },
+ 
+  {
+    path: "/inventory/purchasehistory",
+    component:PurchaseHistory,
+  },
+ 
+  {
+    path: "/lst",
+    component: LST,
+  },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
+  
+];

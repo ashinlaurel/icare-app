@@ -151,7 +151,7 @@ function ViewEngineerCalls() {
         // const { total, data } = response.data;
         console.log(data + "Now");
 
-        setData(response.data.out);
+        setData(response.data.out.filter(call=>call.callStatus=="2"||call.callStatus=="3"||call.callStatus=="4"));
       } catch (error) {
         throw error;
       }
