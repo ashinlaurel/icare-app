@@ -1,6 +1,6 @@
 import React, { useState, useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { aroutes, croutes ,enggroutes,storekeeproutes} from "../routes/index";
+import { aroutes, croutes ,enggroutes,storekeeproutes,ostorekeeproutes} from "../routes/index";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -78,6 +78,18 @@ function Layout() {
                         />
                       ) : null;
                     })
+
+                    : EmpProfile.getRole() ==16? 
+                    ostorekeeproutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })
                   
                     : croutes.map((route, i) => {
                       return route.component ? (
@@ -89,7 +101,8 @@ function Layout() {
                         />
                       ) : null;
                     })}
-                    {EmpProfile.getRole() == 0?(<Redirect exact from="/app" to="/app/dashboard" />):EmpProfile.getRole() == 11?(<Redirect exact from="/app" to="/app/engcalls/viewmycalls" />):null}
+                    {EmpProfile.getRole() == 0?(<Redirect exact from="/app" to="/app/dashboard" />):EmpProfile.getRole() == 11?(<Redirect exact from="/app" to="/app/engcalls/viewmycalls" />)
+                    :EmpProfile.getRole() == 13?(<Redirect exact from="/app" to="/app/notifications" />):EmpProfile.getRole() == 16?(<Redirect exact from="/app" to="/app/notifications" />):null}
                     
                 <Route component={Page404} />
               </Switch>

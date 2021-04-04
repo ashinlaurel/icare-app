@@ -256,6 +256,8 @@ function CreateEmployee() {
                 <option value="13">Store Keeper</option>
                 <option value="14">Coordinator</option>
                 <option value="15">Accounts</option>
+                <option value="16">Operating Store Keeper</option>
+                
               </Select>
             </Label>
           </div>

@@ -329,3 +329,71 @@ export const storekeeproutes = [
     ],
   },
 ];
+
+
+export const ostorekeeproutes = [
+
+  {
+    path: "/app/notifications", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Notifications", // name that appear in Sidebar
+  },
+   //  Customer Views
+   {
+    icon: "HomeIcon",
+    name: "My Calls",
+    routes: [
+      // submenu
+      {
+        path: "/app/engcalls/viewmycalls",
+        name: "View My Calls",
+      },
+    ],
+  },
+  // ---------------Inventory---------------------------------------------
+  {
+    icon: "HomeIcon",
+    name: "Inventory",
+    routes: [
+      // submenu
+      {
+        path: "/app/inventory",
+        name: "Inventory",
+      },
+      {
+        path: "/app/inventory/purchase",
+        name: "Purchase Items",
+      },
+
+      {
+        path: "/app/inventory/purchasehistory",
+        name: "Purchase History",
+      },
+
+      {
+        path: "/app/inventory/create",
+        name: "Add Item",
+      },
+      // {
+      //   path: "/app/customer/createunit",
+      //   name: "Add Unit",
+      // },
+    ],
+  },
+  {
+    icon: "HomeIcon",
+    name: "LST",
+    routes: [
+      // submenu
+
+      {
+        path: "/app/lst",
+        name: "LST",
+      },
+      {
+        path: "/app/lst/history",
+        name: "LST History",
+      },
+    ],
+  },
+];

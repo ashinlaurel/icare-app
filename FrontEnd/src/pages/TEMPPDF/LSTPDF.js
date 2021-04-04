@@ -225,12 +225,12 @@ const [sum, setSum] = useState(0)
             <div className="text-left ">
               {data.LSTtype=="Customer"?(<>
                 <div>TO</div> 
-                <div>{data.customerId.name}</div> 
-                <div>{data.customerId.address}</div> 
+                <div>{data.unitId.name}</div> 
+                <div>{data.unitId.address}</div> 
                 
-                <div>{data.customerId.district}, {data.customerId.state}, {data.customerId.PIN}</div> 
-                <div>Ph: {data.customerId.contactNo}, {data.customerId.whatsappNo}</div> 
-                <div>GST No: {data.customerId.GSTnumber}</div> 
+                <div>{data.unitId.district}, {data.unitId.state}, {data.unitId.PIN}</div> 
+                <div>Ph: {data.unitId.contactNo}, {data.unitId.whatsappNo}</div> 
+                <div>GST No: {data.unitId.GSTnumber}</div> 
 
                 
               </>):(<>

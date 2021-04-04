@@ -28,6 +28,8 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import EmpProfile from "../../helpers/auth/EmpProfile";
+
 // import PrintLST from "./PrintLST";
 
 function LSTHistory() {
@@ -619,7 +621,9 @@ function LSTHistory() {
                 {/* <TableCell>Status</TableCell> */}
 
                 <TableCell> Report</TableCell>
+                {EmpProfile.getRole()==0?
                 <TableCell> Delete</TableCell>
+                :null}
                 <TableCell>
                   <span
                     className="cursor-pointer"
@@ -700,7 +704,7 @@ function LSTHistory() {
                         Download
                       </Button>
                     </TableCell>
-
+                    {EmpProfile.getRole()==0?
                     <TableCell className="text-center ">
                       <Button
                         layout="link"
@@ -715,7 +719,7 @@ function LSTHistory() {
                       >
                         <TrashIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
-                    </TableCell>
+                    </TableCell> :null}
 
                     <TableCell className="text-center ">
                       <Button

@@ -78,7 +78,7 @@ function Inventory() {
   const [totalResults, setTotalResults] = useState(20);
     console.log("LOACTION",EmpProfile.getLocation())
     useEffect(() => {
-      if(EmpProfile.getRole()==13) setLocation(EmpProfile.getLocation())
+      if(EmpProfile.getRole()==13&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
     }, [])
   // pagination change control
   function onPageChange(p) {
@@ -476,7 +476,8 @@ function Inventory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, condition, type, refresh]);
+  }, [page, location, condition, location,type, refresh]);
+
 
   console.log(selectedprod);
 
@@ -644,7 +645,8 @@ function Inventory() {
                 <TableCell>Wty Expiry</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>View/History</TableCell>
-                <TableCell>Edit/Delete</TableCell>
+                {EmpProfile.getRole()==0?
+                <TableCell>Edit/Delete</TableCell>:null}
               </tr>
             </TableHeader>
             <TableBody>
@@ -766,7 +768,7 @@ function Inventory() {
                       </Button>
                     </div>
                   </TableCell>
-
+                  {EmpProfile.getRole()==0?
                   <TableCell>
                     <div className="flex items-center space-x-4">
                       <Button layout="link" size="icon" aria-label="Edit">
@@ -792,6 +794,7 @@ function Inventory() {
                       </Button>
                     </div>
                   </TableCell>
+                  :null}
                 </TableRow>
               ))}
             </TableBody>
