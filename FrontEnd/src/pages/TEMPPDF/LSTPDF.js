@@ -133,7 +133,7 @@ const [sum, setSum] = useState(0)
           })
         }else{
         response.data.invItems.map(item=>{
-          t+=!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+          t+=!item.stocktype?item.amount?parseInt(item.amount)/100:lstserviced[item.type] : // << put services temporaroly
           item.stocktype=="Purchased"?lstpurchased[item.type]:
              item.stocktype=="Serviced"?lstserviced[item.type]:
                 item.stocktype=="Defective"?lstdefective[item.type]:null;
@@ -289,7 +289,7 @@ const [sum, setSum] = useState(0)
                 <td className="tb-row px-2">{item.type}</td>
                 <td className="tb-row px-2">{item.name}</td>
                 <td className="tb-row px-2">1</td>
-                <td className="tb-row px-2">Rs.{!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+                <td className="tb-row px-2">Rs.{!item.stocktype?item.amount?parseInt(item.amount)/100:lstserviced[item.type] : //<<----- Should be null, put servied instead temporarily
                                                     item.stocktype=="Purchased"?lstpurchased[item.type]:
                                                        item.stocktype=="Serviced"?lstserviced[item.type]:
                                                           item.stocktype=="Defective"?lstdefective[item.type]:null}</td>

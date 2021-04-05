@@ -745,7 +745,7 @@ function LSTHistory() {
                   {activeRowID == i
                     ? InvTable(
                         user.invItems,
-                       user.Customer,
+                       user.customerName,
                         user.LSTtype,
                         user.CMRRItems
                       )
