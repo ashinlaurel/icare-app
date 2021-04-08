@@ -24,14 +24,14 @@ exports.getAllItems = (req, res) => {
   let { filters } = req.body;
 
   let { searchquery } = filters;
-  // console.log(filters);
-  // console.log(searchquery);
+  console.log(filters);
+  console.log(searchquery);
   // console.log(searchtype);
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
   let options = {
     // populate: "invItems",
     page: 1,
-    limit: 1000,
+    limit: 10,
   };
 
   let filteroptions = {

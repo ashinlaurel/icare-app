@@ -49,6 +49,7 @@ function PurchaseInventory() {
   const [vendors, setVendors] = useState([]);
   const [ismessageModal, setIsmessageModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [vendorsearch, setVendorsearch] = useState("")
   const [selectedVendor, setselectedVendor] = useState({
     _id: "",
     name: "",
@@ -233,7 +234,7 @@ function PurchaseInventory() {
   async function getVendorList() {
     let payload = {
       filters: {
-        searchquery: "",
+        searchquery: vendorsearch,
       },
     };
     try {
@@ -250,7 +251,7 @@ function PurchaseInventory() {
   }
   useEffect(() => {
     getVendorList();
-  }, []);
+  }, [vendorsearch]);
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
@@ -468,7 +469,30 @@ function PurchaseInventory() {
           isOpen={isVendorModalopen}
           onClose={() => setIsVendorModalopen(false)}
         >
-          <ModalHeader>Pink Vendor</ModalHeader>
+          <ModalHeader>
+          
+          <tr>
+              <TableCell>Pink Vendor</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
+              {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+            </tr>
+            <tr>
+              <TableCell>
+                <form 
+                // onSubmit={handlevendorSubmit}
+                >
+                  <input
+                    className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                    placeholder="Search Customers"
+                    onChange={e=>{setVendorsearch(e.target.value)}}
+                  />
+                </form>
+              </TableCell>
+            </tr>
+          
+          
+          </ModalHeader>
           <ModalBody>
             <TableContainer>
               <Table>
@@ -489,6 +513,7 @@ function PurchaseInventory() {
                         console.log(user);
                         setselectedVendor(user);
                         setIsVendorModalopen(false);
+                        
                       }}
                     >
                       <TableCell>
