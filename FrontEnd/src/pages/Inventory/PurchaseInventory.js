@@ -49,7 +49,7 @@ function PurchaseInventory() {
   const [vendors, setVendors] = useState([]);
   const [ismessageModal, setIsmessageModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [vendorsearch, setVendorsearch] = useState("")
+  const [vendorsearch, setVendorsearch] = useState("");
   const [selectedVendor, setselectedVendor] = useState({
     _id: "",
     name: "",
@@ -470,8 +470,7 @@ function PurchaseInventory() {
           onClose={() => setIsVendorModalopen(false)}
         >
           <ModalHeader>
-          
-          <tr>
+            <tr>
               <TableCell>Pink Vendor</TableCell>
               {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
@@ -479,19 +478,19 @@ function PurchaseInventory() {
             </tr>
             <tr>
               <TableCell>
-                <form 
+                <form
                 // onSubmit={handlevendorSubmit}
                 >
                   <input
                     className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
                     placeholder="Search Customers"
-                    onChange={e=>{setVendorsearch(e.target.value)}}
+                    onChange={(e) => {
+                      setVendorsearch(e.target.value);
+                    }}
                   />
                 </form>
               </TableCell>
             </tr>
-          
-          
           </ModalHeader>
           <ModalBody>
             <TableContainer>
@@ -513,7 +512,6 @@ function PurchaseInventory() {
                         console.log(user);
                         setselectedVendor(user);
                         setIsVendorModalopen(false);
-                        
                       }}
                     >
                       <TableCell>
@@ -1324,7 +1322,7 @@ function PurchaseInventory() {
             >
               Submit
             </Button>
-            <Button
+            {/* <Button
               onClick={() => {
                 console.log(basevalues);
               }}
@@ -1334,7 +1332,7 @@ function PurchaseInventory() {
               className=" mx-2 "
             >
               Test
-            </Button>
+            </Button> */}
             <div className=" dark:text-gray-100 text-black font-bold flex-1 my-auto mx-20">
               <span>Invoice Amount: {parseFloat(basevalues.totalInvoice)}</span>
             </div>

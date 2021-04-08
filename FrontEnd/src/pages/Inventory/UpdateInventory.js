@@ -503,7 +503,8 @@ function UpdateInventory() {
                     item.taxcategory = "";
                     item.taxperc = "";
                   });
-                  setValues([invdetails]);
+                  // console.log("ohhhh");
+                  // setValues([invdetails]);
                 }}
               >
                 <option value="Local">Local</option>
