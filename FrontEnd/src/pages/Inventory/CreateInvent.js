@@ -192,8 +192,14 @@ const CreateInvent = () => {
                 setCondition(e.target.value);
               }}
             >
-              <option value="Good">Good</option>
+              <option value="Good" selected>
+                Good
+              </option>
               <option value="Bad">Bad</option>
+              <option value="Used">Used</option>
+              <option value="DOA">DOA</option>
+              <option value="Damaged">Damaged</option>
+              <option value="Damaged">Scrap</option>
             </Select>
           </Label>
         </div>

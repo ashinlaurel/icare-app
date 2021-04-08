@@ -93,7 +93,7 @@ function PurchaseInventory() {
     // assetId: "",
     sno: "",
     condition: "Good",
-    taxcategory: "GST 18%",
+    taxcategory: "",
     taxperc: "",
     rate: "",
     igst: "0",
@@ -986,6 +986,7 @@ function PurchaseInventory() {
                 <option value="Defective">Defective</option>
                 <option value="DOA">DOA</option>
                 <option value="Damaged">Damaged</option>
+                <option value="Damaged">Scrap</option>
               </Select>
             </Label>
           </div>
