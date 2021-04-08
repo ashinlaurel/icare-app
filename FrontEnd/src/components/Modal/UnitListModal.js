@@ -235,7 +235,7 @@ export default function UnitListModal({
   const UnitTable = () => {
     return (
       <TableContainer>
-        <Table>
+        <Table className=" w-full overflow-y-scroll">
           <TableHeader>
             <tr>
               <TableCell>Unit</TableCell>
@@ -272,7 +272,7 @@ export default function UnitListModal({
       {/* <div>
       <Button onClick={openModal}>Open modal</Button>
     </div> */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
         <ModalHeader>
           Select{" "}
           {tabIndex == 0 ? (
@@ -283,7 +283,7 @@ export default function UnitListModal({
             <>Unit</>
           )}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="overflow-y-scroll h-64" >
           <Tabs selectedIndex={tabIndex} onSelect={(ind) => setTabIndex(ind)}>
             <TabList>
               <Tab>Customer</Tab>

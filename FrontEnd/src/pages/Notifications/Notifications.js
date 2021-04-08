@@ -174,6 +174,7 @@ function Notifications() {
         id: invItem._id,
         update: {
           location: lstItem.to,
+          status: invItem.condition, 
           $push: { history: newhistory },
         },
       };
@@ -622,7 +623,7 @@ function Notifications() {
                 }}
               >
                 
-                <option value="" selected>LST type</option>
+                <option value="" selected>All</option>
                 <option value="Normal" >Normal</option>
                 <option value="CMRR">CMRR</option>
                 <option value="Customer">Customer</option>

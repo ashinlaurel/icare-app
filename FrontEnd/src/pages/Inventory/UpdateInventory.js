@@ -43,7 +43,7 @@ function UpdateInventory() {
     vendor: "",
     invnumber: "",
     invdate: "",
-    location: "Trivandrum",
+    location: "",
     invtype: "",
     gstno: "",
     panno: "",
@@ -260,6 +260,11 @@ function UpdateInventory() {
 
     if (calnum != -1) {
       switch (newlist[calnum].wty) {
+        case "0D":
+          newlist[calnum].expirydate = moment(basevalues.invdate).format(
+            "DD-MM-YYYY"
+          );
+          break;
         case "3M":
           newlist[calnum].expirydate = moment()
             .add(3, "M")
@@ -436,6 +441,7 @@ function UpdateInventory() {
                 <option value="Trivandrum">Trivandrum</option>
                 <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
+                <option value="In Transit">In Transit</option>
               </Select>
             </Label>
           </div>
@@ -753,6 +759,7 @@ function UpdateInventory() {
                 <option value="" selected disabled>
                   Select Category
                 </option>
+                <option value="0D">0 days</option>
                 <option value="3M">3 Months</option>
                 <option value="6M">6 Months</option>
                 <option value="1Y">1 Year</option>
