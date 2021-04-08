@@ -9,6 +9,10 @@ module.exports = windmill({
         'sans': ['Inter', ...defaultTheme.fontFamily.sans],
         'business': ['Montserrat', 'sans-serif'],
       },
+      height: {
+        'h-96': '200px',
+        'h-128': '300px',
+      },
       backgroundImage: (theme) => ({
         "hero-bg":
           "url(https://unsplash.com/photos/3fPXt37X6UQ/download?force=true&w=1920)",
