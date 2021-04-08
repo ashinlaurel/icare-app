@@ -72,6 +72,10 @@ exports.countNosAssets = (req, res) => {
 exports.createAsset = async (req, res) => {
   let { asset, product } = req.body;
 
+  if (product.serialno == null) {
+    return res.status(400).json({ error: "Product not passed" });
+  }
+
   try {
     // Saving the asset
     const newasset = new Asset(asset);
