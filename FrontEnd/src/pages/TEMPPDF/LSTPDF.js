@@ -133,7 +133,7 @@ const [sum, setSum] = useState(0)
           })
         }else{
         response.data.invItems.map(item=>{
-          t+=!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+          t+=!item.stocktype?item.amount?parseInt(item.amount)/100:lstserviced[item.type] : // << put services temporaroly
           item.stocktype=="Purchased"?lstpurchased[item.type]:
              item.stocktype=="Serviced"?lstserviced[item.type]:
                 item.stocktype=="Defective"?lstdefective[item.type]:null;
@@ -225,12 +225,12 @@ const [sum, setSum] = useState(0)
             <div className="text-left ">
               {data.LSTtype=="Customer"?(<>
                 <div>TO</div> 
-                <div>{data.customerId.name}</div> 
-                <div>{data.customerId.address}</div> 
+                <div>{data.unitId.name}</div> 
+                <div>{data.unitId.address}</div> 
                 
-                <div>{data.customerId.district}, {data.customerId.state}, {data.customerId.PIN}</div> 
-                <div>Ph: {data.customerId.contactNo}, {data.customerId.whatsappNo}</div> 
-                <div>GST No: {data.customerId.GSTnumber}</div> 
+                <div>{data.unitId.district}, {data.unitId.state}, {data.unitId.PIN}</div> 
+                <div>Ph: {data.unitId.contactNo}, {data.unitId.whatsappNo}</div> 
+                <div>GST No: {data.unitId.GSTnumber}</div> 
 
                 
               </>):(<>
@@ -289,7 +289,7 @@ const [sum, setSum] = useState(0)
                 <td className="tb-row px-2">{item.type}</td>
                 <td className="tb-row px-2">{item.name}</td>
                 <td className="tb-row px-2">1</td>
-                <td className="tb-row px-2">Rs.{!item.stocktype?item.amount?parseInt(item.amount)/100:null :
+                <td className="tb-row px-2">Rs.{!item.stocktype?item.amount?parseInt(item.amount)/100:lstserviced[item.type] : //<<----- Should be null, put servied instead temporarily
                                                     item.stocktype=="Purchased"?lstpurchased[item.type]:
                                                        item.stocktype=="Serviced"?lstserviced[item.type]:
                                                           item.stocktype=="Defective"?lstdefective[item.type]:null}</td>

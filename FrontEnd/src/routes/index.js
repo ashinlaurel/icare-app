@@ -429,3 +429,58 @@ export const storekeeproutes = [
   },
   
 ];
+
+export const ostorekeeproutes = [
+  // ----------------------Notifications Views ----------------------/
+ 
+  {
+   path: "/notifications",
+   component: Notifications,
+ },
+   
+    // ----------------------Inventory Views ----------------------/
+ 
+    {
+     path: "/inventory/create",
+     component: CreateInvent,
+   },
+   {
+     path: "/inventory",
+     component: Inventory,
+   },
+   {
+     path: "/inventory/purchase",
+     component: PurchaseInventory,
+   },
+  {
+     path: "/inventory/update/:id",
+     component: UpdateInventory,
+   },
+  
+   {
+     path: "/inventory/purchasehistory",
+     component:PurchaseHistory,
+   },
+  
+   {
+     path: "/lst",
+     component: LST,
+   },
+   {
+     path: "/lst/history",
+     component: LSTHistory,
+   },
+   {
+    path: "/engcalls/viewmycalls",
+    component: ViewEngineerCalls,
+  },
+  {
+    path: "/call/updatecall/:callid/:assetid",
+    component: UpdateCall,
+  },
+  {
+    path: "/call/calldetails/:callid/:assetid",
+    component: CallDetails,
+  },
+   
+ ]

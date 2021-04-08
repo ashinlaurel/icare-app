@@ -399,7 +399,7 @@ function EmployeeUpdate() {
       employeeName: values.employeeName,
       email: values.email,
       password: values.password,
-      role: accType,
+      role: values.role,
       address: values.address,
       district: values.district,
       state: values.state,
@@ -613,17 +613,19 @@ function EmployeeUpdate() {
             <Label className="w-full">
               <span>Select Account Type*</span>
               <Select
-                value={accType}
+                value={values.role}
                 className="mt-1"
-                onChange={(e) => {
-                  setAccType(parseInt(e.target.value));
-                }}
+                onChange={
+                handleChange("role")
+                }
               >
                 <option value="0">Admin</option>
                 <option value="11">Engineer</option>
                 <option value="12">Assistant</option>
+                <option value="13">Store Keeper</option>
                 <option value="14">Coordinator</option>
                 <option value="15">Accounts</option>
+                <option value="16">Operating Store Keeper</option>
               </Select>
             </Label>
           </div>
