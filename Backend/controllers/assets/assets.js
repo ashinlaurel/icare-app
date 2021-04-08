@@ -282,7 +282,9 @@ exports.updateAsset = async (req, res) => {
 
 exports.getAssetById = async (req, res) => {
   try {
-    let asset = await Asset.findById(req.body.id).populate("product").populate("customerId");
+    let asset = await Asset.findById(req.body.id)
+      .populate("product")
+      .populate("customerId");
     return res.status(200).json(asset);
   } catch (err) {
     console.log(id);

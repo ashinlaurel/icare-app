@@ -9,7 +9,7 @@ import {
   Badge,
   Select,
 } from "@windmill/react-ui";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui"
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import { TopBarContext } from "../../context/TopBarContext";
 import { API } from "../../backendapi";
@@ -26,6 +26,7 @@ const CreateInvent = () => {
     name: "",
     sno: "",
     invnumber: "",
+    systype: "item",
   });
   const [err, setErr] = useState({
     type: "",
@@ -34,8 +35,8 @@ const CreateInvent = () => {
     condition: "",
     location: "",
     // invnumber: "",
-    takenFrom:"",
-    caseId:""
+    takenFrom: "",
+    caseId: "",
   });
 
   useEffect(() => {
@@ -51,17 +52,17 @@ const CreateInvent = () => {
 
   const submitItem = async () => {
     if (values.name === "") {
-        setModalMessage("Product name necessary");
-        setMessageModal(true);
-        console.log("missing inputs");
-        return;
+      setModalMessage("Product name necessary");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
     }
-    if ( values.sno === "" ) {
+    if (values.sno === "") {
       setModalMessage("Serial number necessary");
       setMessageModal(true);
       console.log("missing inputs");
       return;
-  }
+    }
     const newitem = {
       name: values.name,
       sno: values.sno,
@@ -69,7 +70,9 @@ const CreateInvent = () => {
       condition: condition,
       location: location,
       invnumber: values.invnumber,
+      systype: values.systype,
     };
+    console.log(newitem);
     await Axios({
       url: `${API}/inventory/${Emp.getId()}/create`,
       method: "POST",
@@ -113,7 +116,7 @@ const CreateInvent = () => {
         </Modal>
       </>
     );
-  }
+  };
 
   return (
     <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -258,7 +261,6 @@ const CreateInvent = () => {
       </Button>
       {messageModalComponent()}
     </div>
-    
   );
 };
 
