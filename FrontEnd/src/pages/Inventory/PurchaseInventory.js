@@ -299,7 +299,7 @@ function PurchaseInventory() {
       newlist[calnum].invamount =
         parseFloat(newlist[calnum].amount) + parseFloat(newlist[calnum].tcs);
 
-      newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
+      // newlist[calnum].expirydate = moment().format("DD-MM-YYYY");
       // console.log(basevalues.totalInvoice, newlist[calnum].invamount);
       // console.log(
       //   parseFloat(basevalues.totalInvoice) +
