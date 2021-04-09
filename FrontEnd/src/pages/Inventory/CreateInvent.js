@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useMemo } from "react";
 import Emp from "../../helpers/auth/EmpProfile";
 
 import {
@@ -14,6 +14,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import { TopBarContext } from "../../context/TopBarContext";
 import { API } from "../../backendapi";
 import Axios from "axios";
+import moment from "moment";
 
 const CreateInvent = () => {
   const { topheading, setTopHeading } = useContext(TopBarContext);
@@ -22,11 +23,16 @@ const CreateInvent = () => {
   const [itemType, setItemType] = useState("Mouse");
   const [condition, setCondition] = useState("Good");
   const [location, setLocation] = useState("Trivandrum");
+  const [datecalculate, setDateCalculate] = useState(false);
+
   const [values, setValues] = useState({
     name: "",
     sno: "",
     invnumber: "",
     systype: "item",
+    invdate: "",
+    expirydate: "",
+    wty: "",
   });
   const [err, setErr] = useState({
     type: "",
@@ -63,6 +69,18 @@ const CreateInvent = () => {
       console.log("missing inputs");
       return;
     }
+    if (values.invdate === "") {
+      setModalMessage("Added Date Required Necessary");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
+    }
+    if (values.wty === "") {
+      setModalMessage("Warranty Period Necessary");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
+    }
     const newitem = {
       name: values.name,
       sno: values.sno,
@@ -71,6 +89,9 @@ const CreateInvent = () => {
       location: location,
       invnumber: values.invnumber,
       systype: values.systype,
+      invdate: values.invdate,
+      expirydate: values.expirydate,
+      wty: values.wty,
     };
     console.log(newitem);
     await Axios({
@@ -83,7 +104,14 @@ const CreateInvent = () => {
         setModalMessage("Added to Inventory");
         setMessageModal(true);
         // setIsReviewModalOpen(true);
-        setValues({ name: "", sno: "", invnumber: "" });
+        let newval = values;
+        newval.name = "";
+        newval.sno = "";
+        newval.invnumber = "";
+
+        setValues(newval);
+
+        // setValues({ name: "", sno: "", invnumber: "", systype: "item" });
         setErr({
           type: "",
           name: "",
@@ -118,6 +146,90 @@ const CreateInvent = () => {
     );
   };
 
+  // ------Date Calculations-------
+
+  useMemo(() => {
+    // console.log("hello");
+    // console.log(calnum);
+    let newlist = values;
+    // console.log(newlist);
+
+    switch (newlist.wty) {
+      case "0D":
+        newlist.expirydate = moment(values.invdate).format("DD-MM-YYYY");
+
+        break;
+      case "3M":
+        newlist.expirydate = moment(values.invdate)
+          .add(3, "M")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "6M":
+        newlist.expirydate = moment(values.invdate)
+          .add(6, "M")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "1Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(1, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "2Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(2, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "3Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(3, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "4Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(4, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "5Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(5, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+      case "20Y":
+        newlist.expirydate = moment(values.invdate)
+          .add(20, "Y")
+          .subtract(1, "days")
+          .format("DD-MM-YYYY");
+
+        break;
+
+      default:
+        break;
+    }
+
+    setValues(newlist);
+
+    // console.log("newlist", newlist);
+    // console.log("values", values);
+
+    return () => {
+      console.log("Calculations done!");
+    };
+  }, [datecalculate]);
+
   return (
     <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <Label className="font-bold">
@@ -135,22 +247,25 @@ const CreateInvent = () => {
                 setItemType(e.target.value);
               }}
             >
-              <option value="Mouse">Mouse</option>
-              <option value="Kbd">Keyboard</option>
-              <option value="Monitor">Monitor</option>
-              <option value="Cpu">Cpu</option>
-              <option value="Ram">Ram</option>
-              <option value="Fan">Fan</option>
-              <option value="Motherboard">Motherboard</option>
-              <option value="SMPS">SMPS</option>
-              <option value="HDD">HDD</option>
-              <option value="SMPS">SMPS</option>
-              <option value="GCard">Gcard</option>
-              <option value="EnetCard">Enet Card</option>
-              <option value="SerialCard">Serial Card</option>
-              <option value="ParalellCard">Paralell Card</option>
-              <option value="OpticalDrive">Optical Drive</option>
-              <option value="Others">Others</option>
+              <option value="" selected disabled>
+                Select Type
+              </option>
+
+              <option value="mouse">Mouse</option>
+              <option value="keyboard">Keyboard</option>
+              <option value="monitor">Monitor</option>
+              <option value="cpu">Cpu</option>
+              <option value="ram">Ram</option>
+              <option value="fan">Fan</option>
+              <option value="motherboard">Motherboard</option>
+              <option value="smps">SMPS</option>
+              <option value="hdd">HDD</option>
+              <option value="gcard">Gcard</option>
+              <option value="enetcard">Enet Card</option>
+              <option value="serialcard">Serial Card</option>
+              <option value="paralellcard">Paralell Card</option>
+              <option value="opticaldrive">Optical Drive</option>
+              <option value="others">Others</option>
             </Select>
           </Label>
         </div>
@@ -223,6 +338,59 @@ const CreateInvent = () => {
         </div>
         <div className="flex flex-col w-full">
           <Label className="w-full">
+            <span>Date Of Addition*</span>
+            <Input
+              className="mt-1"
+              type="date"
+              value={values.invdate}
+              onChange={handleChange("invdate")}
+            />
+          </Label>
+          {/* <HelperText valid={false}>{err.invnumber}</HelperText> */}
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Warranty*</span>
+            <Select
+              className="mt-1"
+              value={values.wty}
+              onChange={(e) => {
+                let newlist = values;
+                newlist.wty = e.target.value;
+                setValues(newlist);
+                setDateCalculate(!datecalculate);
+              }}
+            >
+              <option value="" selected disabled>
+                Select Category
+              </option>
+              <option value="0D">0 days</option>
+              <option value="3M">3 Months</option>
+              <option value="6M">6 Months</option>
+              <option value="1Y">1 Year</option>
+              <option value="2Y">2 Years</option>
+              <option value="3Y">3 Years</option>
+              <option value="4Y">4 Years</option>
+              <option value="5Y">5 Years</option>
+              <option value="20Y">20 Years</option>
+            </Select>
+          </Label>
+        </div>
+
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
+            <span>Expiry Date</span>
+            <Input
+              className="mt-1"
+              type="text"
+              value={values.expirydate}
+              readOnly={true}
+            />
+          </Label>
+          <HelperText valid={false}>{err.name}</HelperText>
+        </div>
+        <div className="flex flex-col w-full">
+          <Label className="w-full">
             <span>Taken From</span>
             <Input
               className="mt-1"
@@ -248,8 +416,8 @@ const CreateInvent = () => {
       </div>
       {/* ///////////////////////////////////////////////////////// */}
       {/* <Label className="font-bold mt-5 mb-2">
-      <span>Additional Information</span>
-    </Label> */}
+        <span>Expiry Date: {values.expirydate}</span>
+      </Label> */}
       {/* <hr /> */}
 
       {/* ///////////////////////////////////////////////////////// */}
