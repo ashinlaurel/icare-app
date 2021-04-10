@@ -27,6 +27,7 @@ export const handleMigration = async () => {
         accountName: doc.accountName,
         unitName: doc.unitName,
         producttype: doc.producttype,
+        servicelocation:doc.servicelocation,
       },
       product: {
         brand: doc.brand,
