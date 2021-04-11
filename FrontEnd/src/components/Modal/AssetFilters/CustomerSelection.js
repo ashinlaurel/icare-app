@@ -290,7 +290,7 @@ export default function CustomerSelection({
             <>Unit</>
           )}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="overflow-y-scroll h-64"  >
           <Tabs selectedIndex={tabIndex} onSelect={(ind) => setTabIndex(ind)}>
             <TabList>
               <Tab>Customer</Tab>
@@ -301,7 +301,10 @@ export default function CustomerSelection({
             <TabPanel>{AccountTable()}</TabPanel>
             <TabPanel>{UnitTable()}</TabPanel>
           </Tabs>
-          <Badge className="mx-2 text-md" type="success">
+          
+        </ModalBody>
+        <ModalFooter>
+        <Badge className="mx-2 text-md" type="success">
             Customer: {customer.customerName}
           </Badge>
           <Badge className="mx-2 text-md" type="success">
@@ -310,8 +313,6 @@ export default function CustomerSelection({
           <Badge className="mx-2 text-md" type="success">
             Unit: {unit.unitName}
           </Badge>
-        </ModalBody>
-        <ModalFooter>
           <Button
             className="w-full sm:w-auto"
             // layout="outline"

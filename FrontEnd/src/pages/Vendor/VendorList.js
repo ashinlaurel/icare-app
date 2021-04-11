@@ -21,7 +21,7 @@ function VendorList() {
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
-    setTopHeading("Employee List");
+    setTopHeading("Vendor List");
     return () => {
       setTopHeading("");
     };

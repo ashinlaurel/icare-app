@@ -23,6 +23,7 @@ import "react-tabs/style/react-tabs.css";
 
 import { API } from "../../backendapi";
 
+
 export default function UnitListModal({
   isModalOpen,
   setIsModalOpen,
@@ -294,7 +295,10 @@ export default function UnitListModal({
             <TabPanel>{AccountTable()}</TabPanel>
             <TabPanel>{UnitTable()}</TabPanel>
           </Tabs>
-          <Badge className="mx-2 text-md" type="success">
+          
+        </ModalBody>
+        <ModalFooter>
+        <Badge className="mx-2 text-md" type="success">
             Customer: {customer.customerName}
           </Badge>
           <Badge className="mx-2 text-md" type="success">
@@ -303,8 +307,6 @@ export default function UnitListModal({
           <Badge className="mx-2 text-md" type="success">
             Unit: {unit.unitName}
           </Badge>
-        </ModalBody>
-        <ModalFooter>
           <Button
             className="w-full sm:w-auto"
             // layout="outline"

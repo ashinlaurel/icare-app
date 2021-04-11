@@ -145,7 +145,7 @@ function PurchaseInventory() {
       return;
     }
     values.map((value) => {
-      if (value.name === "" || value.sno === "") {
+      if (value.systype=="item"&&(value.name === "" || value.sno === "")) {
         //   setIsReqFieldModal(true);
         setModalMessage(`Required fields not filled!`);
         setIsmessageModal(true);
