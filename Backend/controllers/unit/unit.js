@@ -109,7 +109,7 @@ exports.getUnitByName = (req, res) => {
 
   Unit.find({ unitName: name }, function (err, result) {
     // console.log(name);
-    if (err || result == {}) {
+    if (err || result == []) {
       return res.status(400).json({
         error: "No customer found",
         err: err,

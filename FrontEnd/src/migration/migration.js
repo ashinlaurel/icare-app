@@ -7,7 +7,7 @@ import { API } from "../backendapi";
 export const handleMigration = async () => {
   console.log("migrating!!!!!!!!!!");
   // AssetData.Asset.map(async (doc) => {
-  NewAssetData.map(async (doc) => {
+  NewAssetData.map((async (doc,i) => {
     // console.log(doc);
 
     let payload = {
@@ -167,9 +167,16 @@ export const handleMigration = async () => {
 
       console.log(payload);
     } catch (error) {
-      throw error;
+      console.log("Error -> ",error,"At->",payload.asset.brand,payload.asset.model,payload.asset.serialno,"At index=",i);
+      // throw error;
+      // process.exit(1)
+   
+      
     }
-  });
+  })
+      // throw error;
+    
+  );
   //   console.log("Hello");
   //   console.log();
 

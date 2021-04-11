@@ -367,6 +367,13 @@ function CreateAsset() {
           >
             Pick Customer
           </Button>
+          <Button
+            onClick={() => handleMigration()}
+            aria-label="Notifications"
+            aria-haspopup="true"
+          >
+            Migrate
+          </Button>
         </div>
         <SectionTitle className="">
           Customer: {customer.customerName} Account: {account.accountName} Unit:{" "}
