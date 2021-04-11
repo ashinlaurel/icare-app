@@ -334,9 +334,9 @@ function CreateAsset() {
   };
   // -------Migration Route ----------------------
 
-  // useEffect(() => {
-  //   handleMigration();
-  // }, []);
+  useEffect(() => {
+    handleMigration();
+  }, []);
 
   // Setting Amount
   useEffect(() => {
@@ -1958,9 +1958,7 @@ function CreateAsset() {
                               />
                             </Label>
                             <Label className="my-3 w-full">
-                              <span>
-                                Tape Drive {i + 1}: Serial Number
-                              </span>
+                              <span>Tape Drive {i + 1}: Serial Number</span>
                               <Input
                                 className="mt-1"
                                 placeholder={`Tape Drive ${
