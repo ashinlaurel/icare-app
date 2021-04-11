@@ -124,7 +124,7 @@ exports.getCustomerByName = (req, res) => {
 
   CustomerLogin.find({ name: name }, function (err, result) {
     // console.log(result);
-    if (err || !result) {
+    if (err || result.length==0) {
       return res.status(400).json({
         error: "No customer found",
         err: err,
@@ -132,7 +132,7 @@ exports.getCustomerByName = (req, res) => {
     }
     // console.log("findone");
 
-    // console.log(result[0]._id);
+    console.log(result);
     return res.json(result[0]._id);
   });
 };
