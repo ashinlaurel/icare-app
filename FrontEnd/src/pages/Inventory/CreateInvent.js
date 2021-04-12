@@ -33,6 +33,9 @@ const CreateInvent = () => {
     invdate: "",
     expirydate: "",
     wty: "",
+    brand: "",
+    model: "",
+    stocktype: "Serviced",
   });
   const [err, setErr] = useState({
     type: "",
@@ -57,12 +60,7 @@ const CreateInvent = () => {
   };
 
   const submitItem = async () => {
-    if (values.name === "") {
-      setModalMessage("Product name necessary");
-      setMessageModal(true);
-      console.log("missing inputs");
-      return;
-    }
+    
     if (values.sno === "") {
       setModalMessage("Serial number necessary");
       setMessageModal(true);
@@ -84,7 +82,7 @@ const CreateInvent = () => {
     const newitem = {
       name: values.name,
       sno: values.sno,
-      type: itemType.toLowerCase(),
+      type: values.type,
       condition: condition,
       location: location,
       invnumber: values.invnumber,
@@ -92,6 +90,8 @@ const CreateInvent = () => {
       invdate: values.invdate,
       expirydate: values.expirydate,
       wty: values.wty,
+      brand:values.brand,
+      model:values.model
     };
     console.log(newitem);
     await Axios({
@@ -238,52 +238,159 @@ const CreateInvent = () => {
       <hr className="mb-5 mt-2" />
       {/* ------------------------Row 1-------------------------- */}
       <div className="flex-row flex space-x-3">
-        <div className="flex flex-col w-full">
-          <Label className="w-full">
-            <span>Select Type*</span>
-            <Select
-              className="mt-1"
-              onChange={(e) => {
-                setItemType(e.target.value);
-              }}
-            >
-              <option value="" selected disabled>
-                Select Type
-              </option>
-
-              <option value="mouse">Mouse</option>
-              <option value="keyboard">Keyboard</option>
-              <option value="monitor">Monitor</option>
-              <option value="cpu">Cpu</option>
-              <option value="ram">Ram</option>
-              <option value="fan">Fan</option>
-              <option value="motherboard">Motherboard</option>
-              <option value="smps">SMPS</option>
-              <option value="hdd">HDD</option>
-              <option value="gcard">Gcard</option>
-              <option value="enetcard">Enet Card</option>
-              <option value="serialcard">Serial Card</option>
-              <option value="paralellcard">Paralell Card</option>
-              <option value="opticaldrive">Optical Drive</option>
-              <option value="others">Others</option>
-            </Select>
-          </Label>
-        </div>
-
-        <>
-          <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full">
             <Label className="w-full">
-              <span>Product Name*</span>
-              <Input
+              <span>Select Type*</span>
+              <Select
                 className="mt-1"
-                type="text"
-                value={values.name}
-                onChange={handleChange("name")}
-              />
+                value={values.systype}
+                onChange={
+                  handleChange("systype")                  
+                }
+              >
+                <option value="" selected disabled>
+                  Select Type
+                </option>
+                <option value="item">Item</option>
+                <option value="full system">Full System</option>
+              </Select>
             </Label>
-            <HelperText valid={false}>{err.name}</HelperText>
           </div>
-        </>
+
+          {values.systype == "item" ? (
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={values.type}
+                  onChange={
+                    handleChange("type")
+                  }
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
+
+                  <option value="mouse">Mouse</option>
+                  <option value="keyboard">Keyboard</option>
+                  <option value="monitor">Monitor</option>
+                  <option value="cpu">Cpu</option>
+                  <option value="ram">Ram</option>
+                  <option value="fan">Fan</option>
+                  <option value="motherboard">Motherboard</option>
+                  <option value="smps">SMPS</option>
+                  <option value="hdd">HDD</option>
+                  <option value="gcard">Gcard</option>
+                  <option value="enetcard">Enet Card</option>
+                  <option value="serialcard">Serial Card</option>
+                  <option value="paralellcard">Paralell Card</option>
+                  <option value="opticaldrive">Optical Drive</option>
+                  <option value="others">Others</option>
+
+                  {/* <option value="Mouse">Mouse</option>
+                    <option value="Keyboard">Keyboard </option>
+                    <option value="Monitor">Monitor </option>
+                    <option value="Cpu">Cpu</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="laser">Laser</option>
+                    <option value="LMP">LMP</option>
+                    <option value="module">Module</option>
+                    <option value="router">Router</option>
+                    <option value="scanner">Scanner</option>
+                    <option value="server">Server</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="storage">Storage</option>
+                    <option value="switch">Switch</option>
+                    <option value="UPS">UPS</option>
+                    <option value="others">Others</option> */}
+                </Select>
+              </Label>
+            </div>
+          ) : (
+            <div className="flex flex-col w-full">
+              <Label className="w-full">
+                <span>Select Category*</span>
+                <Select
+                  className="mt-1"
+                  value={values.type}
+                  onChange={
+                    handleChange("type")
+                  }
+                >
+                  <option value="" selected disabled>
+                    Select Type
+                  </option>
+
+                  <option value="console">Console</option>
+                  <option value="DMP">DMP</option>
+                  <option value="inkjet">Inkjet</option>
+                  <option value="KVM">KVM</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="laser">Laser</option>
+                  <option value="LMP">LMP</option>
+                  <option value="module">Module</option>
+                  <option value="router">Router</option>
+                  <option value="scanner">Scanner</option>
+                  <option value="server">Server</option>
+                  <option value="desktop">Desktop</option>
+                  <option value="storage">Storage</option>
+                  <option value="switch">Switch</option>
+                  <option value="UPS">UPS</option>
+                  <option value="others">Others</option>
+                </Select>
+              </Label>
+            </div>
+          )}
+
+      {values.systype == "item" ? (
+            <>
+              <div className="flex flex-col w-full">
+                <Label className="w-full">
+                  <span>Product Name*</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    value={values.name}
+                    onChange={handleChange("name")}
+                  />
+                </Label>
+                <HelperText valid={false}>{err.name}</HelperText>
+              </div>
+            </>
+          ) : (
+            <>
+              <>
+                <div className="flex flex-col w-full">
+                  <Label className="w-full">
+                    <span>Brand*</span>
+                    <Input
+                      className="mt-1"
+                      type="text"
+                      value={values.brand}
+                      onChange={handleChange("brand")}
+                    />
+                  </Label>
+                  <HelperText valid={false}>{err.brand}</HelperText>
+                </div>
+              </>
+
+              <>
+                <div className="flex flex-col w-full">
+                  <Label className="w-full">
+                    <span>Model*</span>
+                    <Input
+                      className="mt-1"
+                      type="text"
+                      value={values.model}
+                      onChange={handleChange("model")}
+                    />
+                  </Label>
+                  <HelperText valid={false}>{err.name}</HelperText>
+                </div>
+              </>
+            </>
+          )}
 
         <div className="flex flex-col w-full">
           <Label className="w-full">

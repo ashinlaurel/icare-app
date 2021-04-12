@@ -216,6 +216,7 @@ function PurchaseInventory() {
             });
             setModalMessage("Item(s) Added");
             setIsmessageModal(true);
+            setCalnum(0);
           })
           .catch((err) => {
             console.log("Purchase Hisry err", err.response);
