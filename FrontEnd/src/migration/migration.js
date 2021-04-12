@@ -153,7 +153,7 @@ export const handleMigration = async () => {
         let temp = { cpuname: doc.cpu4, cpusno: doc.cpu4sno };
         payload.product.cpu.push(temp);
       }
-      
+
       // ---ram insertions------
 
       if (doc.ram1sno != "") {
@@ -227,7 +227,7 @@ export const handleMigration = async () => {
         let temp = { fanname: doc.fan4, fansno: doc.fan4sno };
         payload.product.fan.push(temp);
       }
-      
+
       // -----------------------
 
       try {
