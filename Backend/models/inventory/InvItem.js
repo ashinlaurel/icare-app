@@ -8,7 +8,6 @@ const InvItemSchema = mongoose.Schema({
   },
   name: {
     type: String,
-    maxlength: 32,
     trim: true,
   },
 

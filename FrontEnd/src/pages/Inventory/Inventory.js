@@ -77,8 +77,9 @@ function Inventory() {
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
     console.log("LOACTION",EmpProfile.getLocation())
-    useEffect(() => {
+  useEffect(() => {
       if(EmpProfile.getRole()==13&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
+      setRefresh(!refresh);
     }, [])
   // pagination change control
   function onPageChange(p) {
