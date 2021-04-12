@@ -152,8 +152,82 @@ export const handleMigration = async () => {
         let temp = { cpuname: doc.cpu4, cpusno: doc.cpu4sno };
         payload.product.cpu.push(temp);
       }
-
+      
       // ---ram insertions------
+
+      if (doc.ram1sno != "") {
+        let temp = { ramname: doc.ram1, ramsno: doc.ram1sno };
+        payload.product.ram.push(temp);
+      }
+      if (doc.ram2sno != "") {
+        let temp = { ramname: doc.ram2, ramsno: doc.ram2sno };
+        payload.product.ram.push(temp);
+      }
+      if (doc.ram3sno != "") {
+        let temp = { ramname: doc.ram3, ramsno: doc.ram3sno };
+        payload.product.ram.push(temp);
+      }
+      if (doc.ram4sno != "") {
+        let temp = { ramname: doc.ram4, ramsno: doc.ram4sno };
+        payload.product.ram.push(temp);
+      }
+
+      //  HDD INSERTIONS
+      if (doc.hdd1sno != "") {
+        let temp = { hddname: doc.hdd1, hddsno: doc.hdd1sno };
+        payload.product.hdd.push(temp);
+      }
+      if (doc.hdd2sno != "") {
+        let temp = { hddname: doc.hdd2, hddsno: doc.hdd2sno };
+        payload.product.hdd.push(temp);
+      }
+      if (doc.hdd3sno != "") {
+        let temp = { hddname: doc.hdd3, hddsno: doc.hdd3sno };
+        payload.product.hdd.push(temp);
+      }
+      if (doc.hdd4sno != "") {
+        let temp = { hddname: doc.hdd4, hddsno: doc.hdd4sno };
+        payload.product.hdd.push(temp);
+      }
+      // SMPS INSERTIONS
+
+      if (doc.smps1sno != "") {
+        let temp = { smpsname: doc.smps1, smpssno: doc.smps1sno };
+        payload.product.smps.push(temp);
+      }
+      if (doc.smps2sno != "") {
+        let temp = { smpsname: doc.smps2, smpssno: doc.smps2sno };
+        payload.product.smps.push(temp);
+      }
+      if (doc.smps3sno != "") {
+        let temp = { smpsname: doc.smps3, smpssno: doc.smps3sno };
+        payload.product.smps.push(temp);
+      }
+      if (doc.smps4sno != "") {
+        let temp = { smpsname: doc.smps4, smpssno: doc.smps4sno };
+        payload.product.smps.push(temp);
+      }
+
+      // FANNAME
+
+      if (doc.fan1sno != "") {
+        let temp = { fanname: doc.fan1, fansno: doc.fan1sno };
+        payload.product.fan.push(temp);
+      }
+      if (doc.fan2sno != "") {
+        let temp = { fanname: doc.fan2, fansno: doc.fan2sno };
+        payload.product.fan.push(temp);
+      }
+      if (doc.fan3sno != "") {
+        let temp = { fanname: doc.fan3, fansno: doc.fan3sno };
+        payload.product.fan.push(temp);
+      }
+      if (doc.fan4sno != "") {
+        let temp = { fanname: doc.fan4, fansno: doc.fan4sno };
+        payload.product.fan.push(temp);
+      }
+      
+      // -----------------------
 
       try {
         let customerid = await axios({
