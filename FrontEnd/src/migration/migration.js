@@ -135,6 +135,7 @@ export const handleMigration = async () => {
         },
       };
       // ----  multiitem addition into respective arrays
+      
       // ---cpu insertions------
       if (doc.cpu1sno != "") {
         let temp = { cpuname: doc.cpu1, cpusno: doc.cpu1sno };
@@ -208,7 +209,7 @@ export const handleMigration = async () => {
         payload.product.smps.push(temp);
       }
 
-      // FANNAME
+      // FAN NAME
 
       if (doc.fan1sno != "") {
         let temp = { fanname: doc.fan1, fansno: doc.fan1sno };
