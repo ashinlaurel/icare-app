@@ -145,7 +145,7 @@ function PurchaseInventory() {
       return;
     }
     values.map((value) => {
-      if (value.systype=="item"&&(value.name === "" || value.sno === "")) {
+      if (value.systype == "item" && (value.name === "" || value.sno === "")) {
         //   setIsReqFieldModal(true);
         setModalMessage(`Required fields not filled!`);
         setIsmessageModal(true);
@@ -1131,11 +1131,11 @@ function PurchaseInventory() {
         {/* -------------------------ROw 3-------------------- */}
         <div className="flex-row flex  space-x-3">
           <Label className=" mt-3">
-            Net Tax:{parseFloat(values[num].nettax)}
+            Net Tax: {parseFloat(values[num].nettax).toFixed(2)}
           </Label>
           <Label className=" ml-5 mt-3">
             Invoice Amount:
-            {parseFloat(values[num].invamount)}
+            {parseFloat(values[num].invamount).toFixed(2)}
           </Label>
         </div>
         {/* --------Row 4 ------------- */}

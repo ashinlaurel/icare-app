@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import moment from "moment";
 import axios from "axios";
 
@@ -151,7 +151,7 @@ function Assets() {
   }, []);
   // -----------------------------------------------------
 
-  useEffect(() => {
+  useMemo(() => {
     // Using an IIFE
     (async function thegetter() {
       console.log("getter called");
@@ -181,14 +181,22 @@ function Assets() {
           data: payload,
         });
         console.log(response.data.out);
-        setTotalResults(response.data.total);
+        await setTotalResults(response.data.total);
+
+        console.log("response total", response.data.total);
+
         // const { total, data } = response.data;
         // console.log(data + "Now");
 
         setData(response.data.out);
+        // if (searchquery != "") {
+        //   setPage(1);
+        // }
       } catch (error) {
         throw error;
       }
+
+      console.log("totalResults", totalResults);
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
@@ -603,6 +611,7 @@ function Assets() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+                  // setPage(1);
                   setRefresh(!refresh);
                 }}
               >

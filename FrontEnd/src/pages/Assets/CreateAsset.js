@@ -367,13 +367,13 @@ function CreateAsset() {
           >
             Pick Customer
           </Button>
-          <Button
+          {/* <Button
             onClick={() => handleMigration()}
             aria-label="Notifications"
             aria-haspopup="true"
           >
             Migrate
-          </Button>
+          </Button> */}
         </div>
         <SectionTitle className="">
           Customer: {customer.customerName} Account: {account.accountName} Unit:{" "}
@@ -535,14 +535,17 @@ function CreateAsset() {
             <Label className="my-3 font-bold">
               <span>GST AMOUNT: </span>
 
-              <span> Rs {AMCRate * (GST / 100)}</span>
+              <span> Rs {(AMCRate * (GST / 100)).toFixed(2)}</span>
             </Label>
           </div>
           <div className="w-full font-bold">
             <Label className="my-3">
               <span>Net Amount: </span>
               <span>
-                Rs {parseInt(AMCRate) + parseInt(AMCRate) * (GST / 100)}
+                Rs{" "}
+                {(parseInt(AMCRate) + parseInt(AMCRate) * (GST / 100)).toFixed(
+                  2
+                )}
               </span>
             </Label>
           </div>
