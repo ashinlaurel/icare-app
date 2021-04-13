@@ -7,3 +7,4 @@ cd ~/icare-app/FrontEnd/
 sudo mv build/ /var/www/
 sudo systemctl restart nginx
 sudo pm2 restart all
+
