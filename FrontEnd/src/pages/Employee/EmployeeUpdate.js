@@ -62,6 +62,7 @@ function EmployeeUpdate() {
     altContact: "",
     WhatsappNo: "",
     age: "",
+    location:"",
     // ---Qualification form
     educational: "",
     technical: "",
@@ -259,6 +260,7 @@ function EmployeeUpdate() {
         contactNoLand: res.data[0].contactNoLand,
         dob: res.data[0].dob,
         age: res.data[0].age,
+        location: res.data[0].location,
         WhatsappNo: res.data[0].whatsappNo,
         // ---Qualification form
         educational: res.data[0].educational,
@@ -412,7 +414,7 @@ function EmployeeUpdate() {
       sex: values.sex,
       age: values.age,
       dob: dob,
-
+      location:values.location,
       // ---Qualification form
       educational: values.educational,
       technical: values.technical,
@@ -626,6 +628,22 @@ function EmployeeUpdate() {
                 <option value="14">Coordinator</option>
                 <option value="15">Accounts</option>
                 <option value="16">Operating Store Keeper</option>
+              </Select>
+            </Label>
+          </div>
+
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Location</span>
+              <Select
+              value={values.location}
+                className="mt-1"
+                onChange={handleChange("location")}
+              >
+                <option value="All">All</option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
               </Select>
             </Label>
           </div>

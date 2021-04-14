@@ -76,10 +76,13 @@ function Inventory() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
-    console.log("LOACTION",EmpProfile.getLocation())
+  
+
+
   useEffect(() => {
+    console.log("LOACTION",EmpProfile.getLocation())
       if(EmpProfile.getRole()==13&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
-      setRefresh(!refresh);
+      // setRefresh(!refresh);
     }, [])
   // pagination change control
   function onPageChange(p) {
@@ -477,7 +480,7 @@ function Inventory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, condition, location,type, refresh]);
+  }, [page, location, condition,type, refresh]);
 
 
   console.log(selectedprod);
