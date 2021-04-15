@@ -23,7 +23,14 @@ function EmployeeCard({
             {value.length<15?<>{value}</>:`${value.substring(0,15)}...` }
           </p>
           <p className=" text-sm text-gray-700 dark:text-gray-200">
-            {role == 0 ? "Admin" : role == 11 ? "Engineer" : "Assistant"}
+            {role == 0 ? "Admin" :
+             role == 11 ? "Engineer" : 
+            role == 12 ? "Assistant" : 
+            role == 13 ? "Store Keeper" : 
+            role == 14 ? "Coordinator" : 
+            role == 15 ? "Engineer" : 
+            role == 16 ? "Operating Store Keeper" : 
+            ""}
           </p>
         </div>
       </CardBody>

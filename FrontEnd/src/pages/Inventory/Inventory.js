@@ -79,15 +79,7 @@ function Inventory() {
   
 
 
-  useEffect(() => {
-    console.log("LOACTION",EmpProfile.getLocation())
-      if(EmpProfile.getRole()==13&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
-      // setRefresh(!refresh);
-    }, [])
-  // pagination change control
-  function onPageChange(p) {
-    setPage(p);
-  }
+  
 
   const downloadInv = async () => {
     let csv =
@@ -462,7 +454,7 @@ function Inventory() {
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
-
+      if(EmpProfile.getRole()>12&& EmpProfile.getLocation()!="All") payload.filters.location=EmpProfile.getLocation();
       try {
         let response = await axios({
           url: `${API}/inventory/${Emp.getId()}/getall`,
@@ -472,7 +464,7 @@ function Inventory() {
         console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
-        // console.log(data + "Now");
+        console.log(location , "LOCATIO!!!");
 
         setData(response.data.out);
       } catch (error) {
@@ -484,6 +476,16 @@ function Inventory() {
 
 
   console.log(selectedprod);
+
+  // useEffect(() => {
+  //   console.log("LOACTION",EmpProfile.getLocation())
+  //      if(EmpProfile.getRole()>12&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
+  //      setRefresh(!refresh);
+  //    }, [])
+   // pagination change control
+   function onPageChange(p) {
+     setPage(p);
+   }
 
   return (
     <>
@@ -539,7 +541,7 @@ function Inventory() {
             </div>
 
             {/* -----------------------------------------Location ----------------------- */}
-            {EmpProfile.getRole()!==13?
+            {EmpProfile.getRole()<13?
             <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -548,10 +550,10 @@ function Inventory() {
                   setLocation(e.target.value);
                 }}
               >
-                <option value="" disabled selected>
+                {/* <option value="" disabled selected>
                   Location
-                </option>
-                <option value="">All</option>
+                </option> */}
+                <option value="" selected>All</option>
                 <option value="Trivandrum">Trivandrum</option>
                 <option value="Kottayam">Kottayam</option>
                 <option value="Kozhikode">Kozhikode</option>
@@ -566,7 +568,8 @@ function Inventory() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-            </div>:null}
+            </div>
+            :null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select
