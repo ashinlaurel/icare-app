@@ -455,6 +455,9 @@ function EnggPriorityList() {
                       {item.callStatus == 13 ? (
                         <span className="text-sm">Closed Calls</span>
                       ) : null}
+                      {item.callStatus == 14 ? (
+                        <span className="text-sm">Standby Given</span>
+                      ) : null}
                     </TableCell>
                     <TableCell>
                       {i + 1}
