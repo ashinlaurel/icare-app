@@ -280,6 +280,9 @@ function AssignCallPriority() {
                         Pending For Spare Collection
                       </span>
                     ) : null}
+                    {callId.callStatus == 14 ? (
+                      <span className="text-sm">Standby Given</span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     <input

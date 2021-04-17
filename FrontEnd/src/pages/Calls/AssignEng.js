@@ -587,6 +587,9 @@ function AssignEng() {
                         Pending For Spare Collection
                       </span>
                     ) : null}
+                    {call.callStatus == 14 ? (
+                      <span className="text-sm">Standby Given</span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center justify-center">

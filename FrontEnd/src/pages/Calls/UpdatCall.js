@@ -651,6 +651,9 @@ function UpdateCall() {
                             {call.callStatus == 13 ? (
                               <Badge>Pending For Spare Collection</Badge>
                             ) : null}
+                            {call.callStatus == 14 ? (
+                              <Badge>Standby Given</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -821,6 +824,9 @@ function UpdateCall() {
                             ) : null}
                             {call.callStatus == 13 ? (
                               <Badge>Pending For Spare Collection</Badge>
+                            ) : null}
+                            {call.callStatus == 14 ? (
+                              <Badge>Standby Given</Badge>
                             ) : null}
                           </span>
                         </TableCell>
@@ -1152,6 +1158,9 @@ function UpdateCall() {
     if (call.callStatus == 13) {
       tempcallstatus = "Pending For Spare Collection";
     }
+    if (call.callStatus == 14) {
+      tempcallstatus = "Standby Given";
+    }
 
     // ------- Handling the swaps -----------
 
@@ -1384,6 +1393,7 @@ function UpdateCall() {
               {call.callStatus == 13 ? (
                 <Badge>Pending For Spare Collection</Badge>
               ) : null}
+              {call.callStatus == 14 ? <Badge>Standby Given</Badge> : null}
             </span>
           </div>
         </div>
@@ -1692,6 +1702,7 @@ function UpdateCall() {
                 <option value="8"> Pending for Spare</option>
                 <option value="13"> Pending For Spare Collection</option>
                 <option value="12"> Spare Taken CMRR</option>
+                <option value="14"> Standby Given</option>
                 <option value="9"> Spare in Transit</option>
                 <option value="10"> Cancelled Calls</option>
                 <option value="11"> Closed Calls</option>
@@ -1734,7 +1745,7 @@ function UpdateCall() {
     setExistswap
   ) => {
     return (
-      <div className=" bg-gray-200 dark:bg-gray-700 p-3">
+      <div className=" bg-gray-200 dark:bg-gray-700 p-3 h-64 overflow-y-scroll">
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -1772,19 +1783,26 @@ function UpdateCall() {
                           alt="User image"
                         /> */}
                         <div>
-                          <p className="font-semibold">{user.type}</p>
+                          <p className="font-semibold">
+                            {capitalize(user.type)}
+                          </p>
                           {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                             {user.accountName}
                           </p> */}
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.name}</span>
+                    <TableCell className="">
+                      {/* later add celltextoverflow class */}
+                      <div className="w-40 overflow-auto text-sm">
+                        {user.name}
+                      </div>
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.sno}</span>
+                      <div className="w-40 overflow-auto text-sm">
+                        {user.sno}
+                      </div>
                     </TableCell>
                     <TableCell>
                       {user.sno != "" ? (
@@ -1944,7 +1962,9 @@ function UpdateCall() {
                   setIsImgUploadMenuModal(true);
                 }}
               >
-                Upload Defective Spare
+                {defectiveImgUrl == ""
+                  ? "Upload Defective Spare"
+                  : "Uploaded Defective Spare"}
               </Button>
             ) : null}
             {inventswap[number]._id ? (
@@ -1957,7 +1977,9 @@ function UpdateCall() {
                   setIsImgUploadMenuModal(true);
                 }}
               >
-                Upload Good Spare
+                {goodSpareImgUrl == ""
+                  ? "Upload Good Spare"
+                  : "Uploaded Good Spare"}
               </Button>
             ) : null}
           </div>
