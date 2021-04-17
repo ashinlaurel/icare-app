@@ -26,6 +26,7 @@ import { unitCreate } from "../../helpers/unitHelper";
 import AddUnitModal from "../../components/Modal/AddUnitModal";
 import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 /////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
 
 function UpdateInventory() {
@@ -562,7 +563,7 @@ function UpdateInventory() {
             <Label className="w-full">
               <span>Select Category*</span>
               <Select
-                value={values[num].type}
+                value={capitalize(values[num].type)}
                 className="mt-1"
                 onChange={(e) => {
                   let newlist = [...values];

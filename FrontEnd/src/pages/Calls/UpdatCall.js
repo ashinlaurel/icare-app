@@ -1800,7 +1800,9 @@ function UpdateCall() {
                     </TableCell>
 
                     <TableCell>
-                      <span className="text-sm">{user.sno}</span>
+                      <div className="w-40 overflow-auto text-sm">
+                        {user.sno}
+                      </div>
                     </TableCell>
                     <TableCell>
                       {user.sno != "" ? (
@@ -1960,7 +1962,9 @@ function UpdateCall() {
                   setIsImgUploadMenuModal(true);
                 }}
               >
-                Upload Defective Spare
+                {defectiveImgUrl == ""
+                  ? "Upload Defective Spare"
+                  : "Uploaded Defective Spare"}
               </Button>
             ) : null}
             {inventswap[number]._id ? (
@@ -1973,7 +1977,9 @@ function UpdateCall() {
                   setIsImgUploadMenuModal(true);
                 }}
               >
-                Upload Good Spare
+                {goodSpareImgUrl == ""
+                  ? "Upload Good Spare"
+                  : "Uploaded Good Spare"}
               </Button>
             ) : null}
           </div>
