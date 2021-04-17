@@ -45,6 +45,7 @@ function LST() {
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
     BottomBarContext
   );
+  const [vendorsearch, setVendorsearch] = useState("");
   // table variable styles
   const [activerowid, setActiveRowId] = useState(-1);
 
@@ -124,7 +125,7 @@ function LST() {
   async function getVendorList() {
     let payload = {
       filters: {
-        searchquery: "",
+        searchquery: vendorsearch,
       },
     };
     try {
@@ -141,7 +142,7 @@ function LST() {
   }
   useEffect(() => {
     getVendorList();
-  }, []);
+  }, [vendorsearch]);
 
   // Getting data states
 
@@ -434,7 +435,27 @@ function LST() {
           isOpen={isVendorModalopen}
           onClose={() => setIsVendorModalopen(false)}
         >
-          <ModalHeader>Pink Vendor</ModalHeader>
+          <ModalHeader><tr>
+              <TableCell>Pick Vendor</TableCell>
+              {/* <TableCell>Unit</TableCell> */}
+              {/* <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell> */}
+            </tr>
+            <tr>
+              <TableCell>
+                <form
+                onSubmit={e=>{e.preventDefault()}}
+                >
+                  <input
+                    className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                    placeholder="Search Customers"
+                    onChange={(e) => {
+                      setVendorsearch(e.target.value);
+                    }}
+                  />
+                </form>
+              </TableCell>
+            </tr></ModalHeader>
           <ModalBody>
             <TableContainer>
               <Table>

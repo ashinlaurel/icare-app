@@ -472,7 +472,7 @@ function PurchaseInventory() {
         >
           <ModalHeader>
             <tr>
-              <TableCell>Pink Vendor</TableCell>
+              <TableCell>Pick Vendor</TableCell>
               {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
               <TableCell>Date</TableCell> */}
@@ -481,6 +481,7 @@ function PurchaseInventory() {
               <TableCell>
                 <form
                 // onSubmit={handlevendorSubmit}
+                onSubmit={e=>{e.preventDefault()}}
                 >
                   <input
                     className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
