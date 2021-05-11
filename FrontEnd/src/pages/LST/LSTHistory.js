@@ -34,7 +34,7 @@ import EmpProfile from "../../helpers/auth/EmpProfile";
 
 function LSTHistory() {
   // table variable styles
-  const [activerowid, setActiveRowId] = useState(0);
+  // const [activerowid, setActiveRowId] = useState(0);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
   const [deleteNum, setDeleteNum] = useState(-1);
@@ -307,13 +307,13 @@ function LSTHistory() {
                     {items.map((user, i) => (
                       <TableRow
                         className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                          activerowid == user._id
+                          activeRowID == user._id
                             ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                             : "white"
                         } `}
                         key={i}
                         onClick={() => {
-                          setActiveRowId(user._id);
+                          setActiveRowID(user._id);
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
@@ -365,13 +365,13 @@ function LSTHistory() {
                     {CMRRItems.map((user, i) => (
                       <TableRow
                         className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                          activerowid == user._id
+                          activeRowID == user._id
                             ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                             : "white"
                         } `}
                         key={i}
                         onClick={() => {
-                          setActiveRowId(user._id);
+                          setActiveRowID(user._id);
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
@@ -608,7 +608,7 @@ function LSTHistory() {
         <TableContainer className="mt-4">
           <Table>
             <TableHeader>
-              <tr className="flex flex-row justify-between">
+              <tr className="">
                 <TableCell>No</TableCell>
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
@@ -636,16 +636,17 @@ function LSTHistory() {
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
-                <div className="flex flex-col justify-around">
+                <>
+                {/* <div className="flex flex-col justify-around"> */}
                   <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      activerowid == user._id
+                    className={`hover:shadow-lg dark:hover:bg-gray-600   ${
+                      activeRowID == user._id
                         ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                         : "white"
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowId(i);
+                      // setActiveRowID(i);
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
@@ -677,17 +678,7 @@ function LSTHistory() {
                     <TableCell>
                       <span className="text-sm">{(user.LSTtype == "Normal"||user.LSTtype == "Customer")?user.invItems.length:user.CMRRItems.length}</span>
                     </TableCell>
-                    {/* <TableCell>
-                      <span className="text-sm">{user.docketNo}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.courierName}</span>
-                    </TableCell> */}
-                    {/* <TableCell>
-                    <Badge>
-                      condition
-                    </Badge>
-                  </TableCell> */}
+               
                     <TableCell className="text-center ">
                       <Button
                         layout="outline"
@@ -727,12 +718,12 @@ function LSTHistory() {
                         size="icon"
                         aria-label="DropDown"
                         onClick={() => {
-                          console.log(activerowid);
-                          // if(activerowid==i){
+                          console.log(activeRowID);
+                          if(activeRowID!=-1){
 
-                          // setActiveRowID(-1);
-                          // }
-                          // else
+                          setActiveRowID(-1);
+                          }
+                          else
                           setActiveRowID(i);
                         }}
                         className="rounded-lg m-1"
@@ -742,6 +733,23 @@ function LSTHistory() {
                     </TableCell>
                   </TableRow>
 
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 relative   ${
+                      activeRowID == user._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      // setActiveRowID(i);
+                      // console.log("the id is " + user._id);
+                      // setSelectedProd(user);
+                      // setAssetDetails(user);
+                      // console.log(user.product.keyboard[0].keyboardname);
+                    }}
+                  >
+                    <TableCell className="absolute w-full m-0">
+
                   {activeRowID == i
                     ? InvTable(
                         user.invItems,
@@ -750,7 +758,10 @@ function LSTHistory() {
                         user.CMRRItems
                       )
                     : null}
-                </div>
+                    </TableCell>
+                    </TableRow>
+                {/* </div> */}
+                </>
               ))}
             </TableBody>
           </Table>
