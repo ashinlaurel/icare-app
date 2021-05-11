@@ -83,7 +83,7 @@ function Inventory() {
 
   const downloadInv = async () => {
     let csv =
-      "name,id,sno,condition,location,invnumber,invdate,invtype,purchtype,purchlocation,vendor,gstno,panno,aadharno,taxcategory,taxperc,rate,igst,cgst,sgst,nettax,amount,tcs,invamount,wty,expirydate,brand,model,systype,stocktype,caseId \n";
+      "Name,Type,S.No,Condition,Location,Invnumber,Invdate,Invtype,Purchtype,Purchlocation,Vendor,GST.No,PAN.No,Aadhar.No,Tax-Category,Tax-percentage,Rate,IGST,CGST,SGST,Net-Tax,Amount,TCS,Invenotry-Amount,Warranty,Expiry-Date,Brand,Model,Sys-Type,Stocktype,Case-ID \n";
 
     let array;
     let payload = {
@@ -121,7 +121,7 @@ function Inventory() {
     array.map((i) => {
       csv =
         csv +
-        `${i.name},${i.id},${i.sno},${i.condition},${i.location},${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${i.purchlocation},${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${i.taxperc},${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${i.tcs},${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${i.systype},${i.stocktype},${i.caseId}\n`;
+        `${i.name},${capitalize( i.type)},${i.sno},${i.condition},${i.location},${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${i.purchlocation},${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${i.taxperc},${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${i.tcs},${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${i.systype},${i.stocktype},${i.caseId}\n`;
     });
     // console.log(csv);
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -399,9 +399,9 @@ function Inventory() {
         <Modal
           isOpen={isDwnldModalOpen}
           onClose={() => setIsDwnldModalOpen(false)}
-          className="w-7/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          className=" dark:bg-gray-800 p-5 my-6 mx-10 px-5  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
         >
-          <ModalHeader className="flex flex-row justify-between text-xl">
+          <ModalHeader className="flex flex-row justify-between text-xl mx-10 px-10">
             <div className="text-lg">Download Inventory Data?</div>
           </ModalHeader>
           <ModalBody>
