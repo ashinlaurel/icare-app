@@ -29,6 +29,7 @@ import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import EmpProfile from "../../helpers/auth/EmpProfile";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 // import PrintLST from "./PrintLST";
 
@@ -327,7 +328,9 @@ function LSTHistory() {
                         alt="User image"
                       /> */}
                             <div>
-                              <p className="font-semibold">{user.type}</p>
+                              <p className="font-semibold">
+                                {capitalize(user.type)}
+                              </p>
                               {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
@@ -385,7 +388,9 @@ function LSTHistory() {
                         alt="User image"
                       /> */}
                             <div>
-                              <p className="font-semibold">{user.type}</p>
+                              <p className="font-semibold">
+                                {capitalize(user.type)}
+                              </p>
                               {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
@@ -613,10 +618,10 @@ function LSTHistory() {
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
                 <TableCell>
-                  <span className="ml-10">Date</span>{" "}
+                  <span className="">Date</span>{" "}
                 </TableCell>
                 <TableCell>
-                  <span className="ml-2 mr-2">Num</span>{" "}
+                  <span className="">Num</span>{" "}
                 </TableCell>
                 {/* <TableCell>Status</TableCell> */}
 
@@ -637,7 +642,7 @@ function LSTHistory() {
             <TableBody>
               {data.map((user, i) => (
                 <>
-                {/* <div className="flex flex-col justify-around"> */}
+                  {/* <div className="flex flex-col justify-around"> */}
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600   ${
                       activeRowID == user._id
@@ -682,8 +687,8 @@ function LSTHistory() {
                           : user.CMRRItems.length}
                       </span>
                     </TableCell>
-               
-                    <TableCell className="text-center ">
+
+                    <TableCell className=" ">
                       <Button
                         layout="outline"
                         aria-label="DropDown"
@@ -700,7 +705,7 @@ function LSTHistory() {
                       </Button>
                     </TableCell>
                     {EmpProfile.getRole() == 0 ? (
-                      <TableCell className="text-center ">
+                      <TableCell className=" ">
                         <Button
                           layout="link"
                           size="icon"
@@ -717,19 +722,16 @@ function LSTHistory() {
                       </TableCell>
                     ) : null}
 
-                    <TableCell className="text-center ">
+                    <TableCell className=" ">
                       <Button
                         // layout="link"
                         size="icon"
                         aria-label="DropDown"
                         onClick={() => {
                           console.log(activeRowID);
-                          if(activeRowID!=-1){
-
-                          setActiveRowID(-1);
-                          }
-                          else
-                          setActiveRowID(i);
+                          if (activeRowID != -1) {
+                            setActiveRowID(-1);
+                          } else setActiveRowID(i);
                         }}
                         className="rounded-lg m-1"
                       >
@@ -754,18 +756,17 @@ function LSTHistory() {
                     }}
                   >
                     <TableCell className="absolute w-full m-0">
-
-                  {activeRowID == i
-                    ? InvTable(
-                        user.invItems,
-                        user.customerName,
-                        user.LSTtype,
-                        user.CMRRItems
-                      )
-                    : null}
+                      {activeRowID == i
+                        ? InvTable(
+                            user.invItems,
+                            user.customerName,
+                            user.LSTtype,
+                            user.CMRRItems
+                          )
+                        : null}
                     </TableCell>
-                    </TableRow>
-                {/* </div> */}
+                  </TableRow>
+                  {/* </div> */}
                 </>
               ))}
             </TableBody>

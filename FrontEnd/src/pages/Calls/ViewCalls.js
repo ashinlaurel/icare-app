@@ -188,56 +188,83 @@ function ViewCalls() {
             setCcfrHistoryImg("");
             setIsHistoryImgViewModal(false);
           }}
-          className="w-8/12 dark:bg-gray-800 p-10 my-12 h-screen  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+          className="w-9/12 dark:bg-gray-800 px-5 my-10 bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
           // className="w-6/12 h-8/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll text-cente items-center justify-center"
         >
           <ModalHeader>Images</ModalHeader>
           <ModalBody>
             <div className="flex flex-col justify-center ">
               <hr></hr>
-              {defectiveHistoryImg != "" ? (
-                <>
-                  <div className="text-lg font-semibold my-2 w-full">
-                    {" "}
-                    Replaced Item
+              <div className="flex flex-row justify-evenly flex-wrap items-center ">
+                {defectiveHistoryImg != "" ? (
+                  <div>
+                    <div
+                      onClick={() => {
+                        console.log(defectiveHistoryImg);
+                      }}
+                      className="text-lg font-semibold my-2 w-full"
+                    >
+                      Replaced Item
+                    </div>
+
+                    <a href={defectiveHistoryImg} target="_blank">
+                      {/* <figure
+                      onMouseMove={handleMouseMove}
+                      style={{
+                        backgroundImage: `url(${defectiveHistoryImg})`,
+                        backgroundPosition: `${defectiveHistoryImgPos}`,
+                      }}
+                    >
+                      <img src={defectiveHistoryImg} width="350" height="350" />
+                    </figure> */}
+                      <img
+                        src={defectiveHistoryImg}
+                        className="my-4 border-4"
+                        width="350"
+                        height="350"
+                      />
+                    </a>
                   </div>
-                  <img
-                    src={defectiveHistoryImg}
-                    className="my-4 border-4"
-                    width="500"
-                    height="500"
-                  />
-                </>
-              ) : null}
-              {goodSpareHistoryImg != "" ? (
-                <>
-                  <div className="text-lg font-semibold my-2 w-full">
-                    {" "}
-                    Replaced by
+                ) : null}
+
+                {goodSpareHistoryImg != "" ? (
+                  <div>
+                    <div className="text-lg font-semibold my-2 w-full">
+                      {" "}
+                      Replaced by
+                    </div>
+                    <a href={goodSpareHistoryImg} target="_blank">
+                      <img
+                        src={goodSpareHistoryImg}
+                        className="my-4 border-4"
+                        width="350"
+                        height="350"
+                      />
+                    </a>
                   </div>
-                  <img
-                    src={goodSpareHistoryImg}
-                    className="my-4 border-4"
-                    width="500"
-                    height="500"
-                  />
-                </>
-              ) : null}
-              {ccfrHistoryImg != "" ? (
-                <>
-                  <div className="text-lg font-semibold my-2 w-full"> CCFR</div>
-                  <img
-                    src={ccfrHistoryImg}
-                    className="my-4 border-4"
-                    width="500"
-                    height="500"
-                  />
-                </>
-              ) : null}
+                ) : null}
+
+                {ccfrHistoryImg != "" ? (
+                  <div>
+                    <div className="text-lg font-semibold my-2 w-full">
+                      {" "}
+                      CCFR
+                    </div>
+                    <a href={ccfrHistoryImg} target="_blank">
+                      <img
+                        src={ccfrHistoryImg}
+                        className="my-4 border-4"
+                        width="350"
+                        height="350"
+                      />
+                    </a>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button
+            {/* <Button
               className="w-full sm:w-auto"
               onClick={() => {
                 setDefectiveHistoryImg("");
@@ -247,7 +274,7 @@ function ViewCalls() {
               }}
             >
               Okay!
-            </Button>
+            </Button> */}
           </ModalFooter>
         </Modal>
       </>
@@ -356,7 +383,7 @@ function ViewCalls() {
           <Modal
             isOpen={historyModalOpen}
             onClose={() => setHistoryModalOpen(false)}
-            className="w-9/12 h-screen dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-scroll"
+            className="w-9/12  dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
               <div>{item.name}</div>
@@ -476,8 +503,10 @@ function ViewCalls() {
                             ) : null}
                           </span>
                         </TableCell>
-                        <TableCell>
-                          <span className="text-sm ">{entry.note}</span>
+                        <TableCell className="flex flex-row max-w-sm">
+                          <span className="w-full overflow-auto">
+                            {entry.note}
+                          </span>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{entry.actionTaken}</span>
