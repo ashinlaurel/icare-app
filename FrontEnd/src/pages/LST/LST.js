@@ -456,7 +456,7 @@ function LST() {
                 </form>
               </TableCell>
             </tr></ModalHeader>
-          <ModalBody>
+          <ModalBody className="overflow-y-scroll h-64">
             <TableContainer>
               <Table>
                 <TableHeader>
