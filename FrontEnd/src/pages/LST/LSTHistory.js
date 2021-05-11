@@ -39,7 +39,7 @@ function LSTHistory() {
   const [deleteId, setDeleteId] = useState(0);
   const [deleteNum, setDeleteNum] = useState(-1);
 
-  const [isDownloadModalOpen, setisDownloadModalOpen] = useState(false)
+  const [isDownloadModalOpen, setisDownloadModalOpen] = useState(false);
   const [downloadLST, setDownloadLST] = useState({});
   const [downloadNum, setDownloadNum] = useState(0);
 
@@ -47,7 +47,7 @@ function LSTHistory() {
 
   const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([{CMRRItems:[]}]);
+  const [data, setData] = useState([{ CMRRItems: [] }]);
   // dropdown and modals
 
   const [refresh, setRefresh] = useState(true);
@@ -108,7 +108,7 @@ function LSTHistory() {
           from: location,
           to: ToLocation,
           status: status,
-          LSTtype:LSTtype,
+          LSTtype: LSTtype,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -132,7 +132,7 @@ function LSTHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, status, refresh,LSTtype]);
+  }, [page, location, ToLocation, condition, status, refresh, LSTtype]);
 
   console.log(selectedprod);
   // DElete Modal
@@ -208,50 +208,49 @@ function LSTHistory() {
         >
           <ModalHeader>Download LST</ModalHeader>
           <ModalBody>
+            {data[downloadNum] ? (
+              <>
+                <div className="flex flex-row">
+                  <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
+                  <input
+                    value={data[downloadNum].DocketType}
+                    onChange={(e) => {
+                      let temp = [...data];
+                      temp[downloadNum].DocketType = e.target.value;
+                      // console.log( temp[downloadNum].DocketType)
+                      setData(temp);
+                    }}
+                    class="w-full mr-5 shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </div>
 
-
-        {data[downloadNum]?(<>
-       <div className="flex flex-row">
-        <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
-                <input
-                  value={data[downloadNum].DocketType}
-                  onChange={(e) =>{
-                    let temp = [...data];
-                    temp[downloadNum].DocketType=e.target.value
-                    // console.log( temp[downloadNum].DocketType)
-                    setData(temp);
-                  } }
-                  
-                  class="w-full mr-5 shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-            </div>
-
-            <div className="flex flex-row my-2">
-        <div className="my-2 ml-5 mr-2 w-full">Courier Number:</div>
-                <input
-                  value={data[downloadNum].CourierNumber}
-                  onChange={(e) =>{
-                    let temp = [...data];
-                    temp[downloadNum].CourierNumber=e.target.value
-                    // console.log( temp[downloadNum].CourierNumber)
-                    setData(temp);
-                  } }
-                  
-                  class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-            </div>
-            </>):null}
-
-
-
-
+                <div className="flex flex-row my-2">
+                  <div className="my-2 ml-5 mr-2 w-full">Courier Number:</div>
+                  <input
+                    value={data[downloadNum].CourierNumber}
+                    onChange={(e) => {
+                      let temp = [...data];
+                      temp[downloadNum].CourierNumber = e.target.value;
+                      // console.log( temp[downloadNum].CourierNumber)
+                      setData(temp);
+                    }}
+                    class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </div>
+              </>
+            ) : null}
           </ModalBody>
           <ModalFooter>
             <Button
               className="w-full sm:w-auto"
               onClick={async () => {
-                          createAndDownloadPdf(data[downloadNum]._id, data[downloadNum].LSTNo,data[downloadNum].CourierNumber,data[downloadNum].DocketType);
-                        }}
+                createAndDownloadPdf(
+                  data[downloadNum]._id,
+                  data[downloadNum].LSTNo,
+                  data[downloadNum].CourierNumber,
+                  data[downloadNum].DocketType
+                );
+              }}
             >
               Download
             </Button>
@@ -263,13 +262,13 @@ function LSTHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id, LSTno,CourierNumber,DocketType) => {
+  const createAndDownloadPdf = async (id, LSTno, CourierNumber, DocketType) => {
     let payload = {
       id: id,
       update: {
         CourierNumber,
-        DocketType
-      }
+        DocketType,
+      },
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,
@@ -283,10 +282,10 @@ function LSTHistory() {
     saveAs(pdfBlob, `LST_${LSTno}.pdf`);
   };
 
-  const InvTable = (items,Customer, LSTtype, CMRRItems) => {
+  const InvTable = (items, Customer, LSTtype, CMRRItems) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
-     {(LSTtype == "Customer") ?(<div>Customer:{Customer}</div>):null}
+        {LSTtype == "Customer" ? <div>Customer:{Customer}</div> : null}
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -302,7 +301,7 @@ function LSTHistory() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {(LSTtype == "Normal"||LSTtype == "Customer") ? (
+                {LSTtype == "Normal" || LSTtype == "Customer" ? (
                   <>
                     {items.map((user, i) => (
                       <TableRow
@@ -433,7 +432,8 @@ function LSTHistory() {
 
   return (
     <>
-      {DeleteModal()}{DownloadModal()}
+      {DeleteModal()}
+      {DownloadModal()}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -466,7 +466,6 @@ function LSTHistory() {
               </div>
             </div>
 
-
             <div class="relative mx-1 ">
               <select
                 class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
@@ -475,9 +474,10 @@ function LSTHistory() {
                   setLSTtype(e.target.value);
                 }}
               >
-                
-                <option value="" selected>LST type</option>
-                <option value="Normal" >Normal</option>
+                <option value="" selected>
+                  LST type
+                </option>
+                <option value="Normal">Normal</option>
                 <option value="CMRR">CMRR</option>
                 <option value="Customer">Customer</option>
               </select>
@@ -621,9 +621,9 @@ function LSTHistory() {
                 {/* <TableCell>Status</TableCell> */}
 
                 <TableCell> Report</TableCell>
-                {EmpProfile.getRole()==0?
-                <TableCell> Delete</TableCell>
-                :null}
+                {EmpProfile.getRole() == 0 ? (
+                  <TableCell> Delete</TableCell>
+                ) : null}
                 <TableCell>
                   <span
                     className="cursor-pointer"
@@ -675,7 +675,11 @@ function LSTHistory() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{(user.LSTtype == "Normal"||user.LSTtype == "Customer")?user.invItems.length:user.CMRRItems.length}</span>
+                      <span className="text-sm">
+                        {user.LSTtype == "Normal" || user.LSTtype == "Customer"
+                          ? user.invItems.length
+                          : user.CMRRItems.length}
+                      </span>
                     </TableCell>
                     {/* <TableCell>
                       <span className="text-sm">{user.docketNo}</span>
@@ -704,22 +708,23 @@ function LSTHistory() {
                         Download
                       </Button>
                     </TableCell>
-                    {EmpProfile.getRole()==0?
-                    <TableCell className="text-center ">
-                      <Button
-                        layout="link"
-                        size="icon"
-                        aria-label="Delete"
-                        onClick={async () => {
-                          console.log("delete LST");
-                          setIsDeleteModalOpen(true);
-                          setDeleteId(user._id);
-                          setDeleteNum(i);
-                        }}
-                      >
-                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </TableCell> :null}
+                    {EmpProfile.getRole() == 0 ? (
+                      <TableCell className="text-center ">
+                        <Button
+                          layout="link"
+                          size="icon"
+                          aria-label="Delete"
+                          onClick={async () => {
+                            console.log("delete LST");
+                            setIsDeleteModalOpen(true);
+                            setDeleteId(user._id);
+                            setDeleteNum(i);
+                          }}
+                        >
+                          <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                        </Button>
+                      </TableCell>
+                    ) : null}
 
                     <TableCell className="text-center ">
                       <Button
@@ -745,7 +750,7 @@ function LSTHistory() {
                   {activeRowID == i
                     ? InvTable(
                         user.invItems,
-                       user.customerName,
+                        user.customerName,
                         user.LSTtype,
                         user.CMRRItems
                       )
