@@ -6,12 +6,28 @@ module.exports = windmill({
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Inter', ...defaultTheme.fontFamily.sans],
-        'business': ['Montserrat', 'sans-serif'],
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        business: ["Montserrat", "sans-serif"],
       },
       height: {
-        'h-96': '200px',
-        'h-128': '300px',
+        "h-96": "200px",
+        "h-128": "300px",
+        "h-150": "25rem",
+        "h-151": "26rem",
+        "h-152": "27rem",
+        "h-153": "28rem",
+        "h-154": "29rem",
+        "h-155": "30rem",
+        "h-156": "31rem",
+        "h-157": "32rem",
+        "h-158": "33rem",
+        "h-159": "34rem",
+        "h-160": "35rem",
+        "h-161": "36rem",
+        "h-162": "37rem",
+        "h-163": "38rem",
+        "h-164": "39rem",
+        "h-165": "40rem",
       },
       backgroundImage: (theme) => ({
         "hero-bg":

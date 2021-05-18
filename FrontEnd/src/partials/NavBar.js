@@ -77,7 +77,7 @@ function Navbar() {
             </div>
             <div className="hidden md:block flex-1 ">
               <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
-                <div class="font-medium  text-gray-500 hover:text-gray-900 ">
+                <div class=" text-sm  text-gray-500 hover:text-gray-900 ">
                   <a href="/website">Home</a>
                 </div>
 
@@ -85,7 +85,7 @@ function Navbar() {
 
                 <div>
                   <button
-                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    className="z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                     onClick={() => setSolutions(!solutions)}
                     aria-label="Notifications"
                     aria-haspopup="true"
@@ -259,7 +259,7 @@ function Navbar() {
 
                 <div>
                   <button
-                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    className="z-10 relative align-middle rounded-md focus:outline-none text-sm text-gray-500 hover:text-gray-900"
                     onClick={() => setservices(!services)}
                     aria-label="Notifications"
                     aria-haspopup="true"
@@ -338,7 +338,7 @@ function Navbar() {
 
                 <div>
                   <button
-                    className="z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    className="z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                     onClick={() => setproducts(!products)}
                     aria-label="Notifications"
                     aria-haspopup="true"
@@ -479,7 +479,7 @@ function Navbar() {
 
                 <div>
                   <button
-                    className=" z-10 relative align-middle rounded-md focus:outline-none  font-medium text-gray-500 hover:text-gray-900"
+                    className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                     onClick={() => setaboutus(!aboutus)}
                     aria-label="Notifications"
                     aria-haspopup="true"
