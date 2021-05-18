@@ -17,10 +17,10 @@ import titleImage from "../images/titleimage.jpg"
 
 const NewHero = () => {
   return (
-    <div class="relative bg-white overflow-hidden bg-gray-100  ">
+    <div class="relative  overflow-hidden bg-gray-100  ">
       <div class=" ">
         <img
-          class=" w-full -mt-10 object-cover object-center sm:h-72 md:h-96 lg:w-full "
+          class=" w-full -mt-10 object-cover object-center h-h-155 sm:h-h-150 md:h-h-160 lg:w-full "
           src={titleImage
             // "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           }
@@ -32,14 +32,14 @@ const NewHero = () => {
         <div class=" justify-center z-10 pb-8 bg-white mx-4 md:mx-48 -my-64 mb-8 shadow-lg rounded-sm ">
           <main class="mt-3 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-4 md:mt-2 lg:mt-0 lg:px-5 ">
             <div class="sm:text-center lg:text-left pt-12 md:pt-12 md:pl-8">
-              <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-4xl">
+              {/* <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-4xl">
                 <span class="block xl:inline font-business font-normal">
-                  INFOCARE SYSTEMS
+                 IT Consulting & Services 
                 </span>
-              </h1>
+              </h1> */}
 
               <h2>
-                <span class="block text-blue-800 font-business text-2xl    tracking-tight  sm:text-2xl md:text-2xl ">
+                <span class="block text-blue-800 font-business text-3xl    tracking-tight  sm:text-3xl md:text-3xl ">
                   IT Consulting & Services
                 </span>
               </h2>

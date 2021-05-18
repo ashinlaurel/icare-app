@@ -10,6 +10,10 @@ module.exports = windmill({
         business: ["Montserrat", "sans-serif"],
       },
       height: {
+        "h-80": "20rem",
+        "h-70": "15rem",
+        "h-75": "18rem",
+        "h-85": "22rem",
         "h-96": "200px",
         "h-128": "300px",
         "h-150": "25rem",
