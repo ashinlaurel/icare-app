@@ -3,15 +3,15 @@ import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
 
-const CloudSolutions = () => {
+const CloudReadiness = () => {
   return (
     <div className="">
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-56 w-full  object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+            class="h-40 w-full  object-cover sm:h-72 md:h-56 lg:w-full lg:h-64"
             src={
-              "https://images.unsplash.com/photo-1564457461758-8ff96e439e83?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80"
+              "https://cdn.pixabay.com/photo/2017/01/22/22/11/cloud-computing-2001090_960_720.jpg"
             }
             alt=""
           />
@@ -80,4 +80,4 @@ const CloudSolutions = () => {
   );
 };
 
-export default CloudSolutions;
+export default CloudReadiness;

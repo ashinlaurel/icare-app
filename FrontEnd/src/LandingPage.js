@@ -8,7 +8,7 @@ import { focusHandling } from "cruip-js-toolkit";
 
 import Home from "./LandingPages/Home";
 import Navbar from "./partials/NavBar";
-import CloudSolutions from "./LandingPages/Services/CloudSolutions";
+import CloudReadiness from "./LandingPages/Solutions/CloudReadiness";
 import ServerPage from "./LandingPages/Products/ServerPage";
 
 // import Home from "./LandingPages/Home";
@@ -42,7 +42,7 @@ function LandingPage() {
         </Route>
         {/* ----------------Services ---------------- */}
         <Route path="/website/service/cloudsolutions">
-          <CloudSolutions />
+          <CloudReadiness />
         </Route>
         {/* ----------------Products---------------- */}
         <Route path="/website/product/servers">
