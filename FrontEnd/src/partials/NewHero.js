@@ -13,25 +13,34 @@ import {
 } from "@windmill/react-ui";
 import herobg from "../images/herobg.jpg";
 
-import titleImage from "../images/titleimage.jpg"
+import titleImage from "../images/titleimage.jpg";
 
 const NewHero = () => {
   return (
-    <div class="relative  overflow-hidden bg-gray-100  ">
-      <div class=" ">
+    <div class="  overflow-hidden  ">
+      <div
+        class=" "
+        // style={{
+        //   backgroundImage:
+        //     "url(" +
+        //     "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" +
+        //     ")",
+        // }}
+      >
         <img
-          class=" w-full -mt-10 object-cover object-center h-h-155 sm:h-h-150 md:h-h-160 lg:w-full "
-          src={titleImage
+          class=" w-full -mt-10  object-cover object-center h-h-155 sm:h-h-150 md:h-h-165 lg:w-full "
+          src={
+            titleImage
             // "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           }
           // style={{ height: "42rem" }}
           alt=""
         />
       </div>
-      <div className="  bg-hero-bg flex flex-row   ">
-        <div class=" justify-center z-10 pb-8 bg-white mx-4 md:mx-48 -my-64 mb-8 shadow-lg rounded-sm ">
+      <div className="  bg-hero-bg flex flex-row justify-center   ">
+        <div class=" justify-center z-10 pb-8 bg-gray-100 mx-4 md:mx-48 -my-24 mb-8 rounded-sm w-1/2 ">
           <main class="mt-3 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-4 md:mt-2 lg:mt-0 lg:px-5 ">
-            <div class="sm:text-center lg:text-left pt-12 md:pt-12 md:pl-8">
+            <div class="sm:text-center lg:text-left pt-12 md:pt-5 md:pl-8">
               {/* <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-4xl">
                 <span class="block xl:inline font-business font-normal">
                  IT Consulting & Services 
@@ -39,17 +48,19 @@ const NewHero = () => {
               </h1> */}
 
               <h2>
-                <span class="block text-blue-800 font-business text-3xl    tracking-tight  sm:text-3xl md:text-3xl ">
+                <span class="block text-indigo-900 font-normal text-3xl tracking-tight sm:text-3xl md:text-3xl ">
                   IT Consulting & Services
                 </span>
               </h2>
-              <h2>
+              {/* <h2>
                 <span class="block text-indigo-800 text-4xl tracking-tight font-extrabold sm:text-5xl md:text-4xl "></span>
-              </h2>
-              <p class="font-business mt-2 text-base text-gray-500 sm:mt-2 sm:text-md sm:max-w-xl sm:mx-auto md:mt-2 md:text-md lg:mx-0">
-              We help you transform your IT infrastructure to create or enable additional value to your existing enterprise value chain by providing guidance and custom solutions that fit your needs.
+              </h2> */}
+              <p class="block font-business mt-2 text-base text-gray-900 sm:mt-2 sm:text-md sm:mx-auto md:mt-2 md:text-md lg:mx-0">
+                We help you transform your IT infrastructure to create or enable
+                additional value to your existing enterprise value chain by
+                providing guidance and custom solutions that fit your needs.
               </p>
-              <div class="mt-5 mx-10 sm:mt-8 sm:flex sm:justify-center lg:justify-end">
+              {/* <div class="mt-5 mx-10 sm:mt-8 sm:flex sm:justify-center lg:justify-end">
                 <div class="rounded-md shadow">
                   <a
                     href="#"
@@ -66,8 +77,8 @@ const NewHero = () => {
                   >
                     About Us
                   </a>
-                </div> */}
-              </div>
+                </div> 
+              </div> */}
             </div>
           </main>
         </div>

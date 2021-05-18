@@ -10,6 +10,7 @@ import Home from "./LandingPages/Home";
 import Navbar from "./partials/NavBar";
 import CloudReadiness from "./LandingPages/Solutions/CloudReadiness";
 import ServerPage from "./LandingPages/Products/ServerPage";
+import CloudMigration from "./LandingPages/Solutions/CloudMigration";
 
 // import Home from "./LandingPages/Home";
 
@@ -40,9 +41,12 @@ function LandingPage() {
         <Route exact path="/website">
           <Home />
         </Route>
-        {/* ----------------Services ---------------- */}
+        {/* ----------------Solutions ---------------- */}
         <Route path="/website/service/cloudsolutions">
           <CloudReadiness />
+        </Route>
+        <Route path="/website/service/cloudmigration">
+          <CloudMigration />
         </Route>
         {/* ----------------Products---------------- */}
         <Route path="/website/product/servers">

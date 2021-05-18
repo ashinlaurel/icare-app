@@ -14,6 +14,9 @@ module.exports = windmill({
         "h-70": "15rem",
         "h-75": "18rem",
         "h-85": "22rem",
+        "h-86": "22rem",
+        "h-87": "23rem",
+        "h-88": "24rem",
         "h-96": "200px",
         "h-128": "300px",
         "h-150": "25rem",
@@ -32,6 +35,11 @@ module.exports = windmill({
         "h-163": "38rem",
         "h-164": "39rem",
         "h-165": "40rem",
+        "h-166": "41rem",
+        "h-167": "42rem",
+        "h-168": "43rem",
+        "h-169": "44rem",
+        "h-170": "45rem",
       },
       backgroundImage: (theme) => ({
         "hero-bg":

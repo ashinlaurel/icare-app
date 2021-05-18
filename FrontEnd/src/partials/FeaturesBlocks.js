@@ -2,31 +2,31 @@ import React from "react";
 
 function FeaturesBlocks() {
   return (
-    <section className="relative font-business bg-gray-100">
+    <section className="relative font-business bg-white">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div
-        className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-100 pointer-events-none"
+        className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-white pointer-events-none"
         aria-hidden="true"
       ></div>
 
-      <div className="absolute left-0 right-0 bottom-0 m-auto w-px p-px h-20 bg-gray-200 transform translate-y-1/2"></div>
+      {/* <div className="absolute left-0 right-0 bottom-0 m-auto w-px p-px h-20 bg-gray-200 transform translate-y-1/2"></div> */}
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <div className=" md:py-10">
           {/* Section header */}
-          <div className="max-w-3xl mx-auto text-center  md:pb-20">
+          {/* <div className="max-w-3xl mx-auto text-center  md:pb-20">
             <h2 className="text-xl md:text-4xl font-bold ">Our Services</h2>
             <p className="text-md text-gray-600">
               {/* Duis aute irure dolor in reprehenderit in voluptate velit esse
               cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
-              cupidatat. */}
+              cupidatat. *
             </p>
-          </div>
+          </div> */}
 
           {/* Items */}
-          <div className="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none ">
+          <div className="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-4xl ">
             {/* 1st item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85 ">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded h-h-150 ">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -61,13 +61,15 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
                 Cloud Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              We help in your transformation journey by doing the readiness assessment and provide the right solution that's aligned with your enterprise business strategy.
+                We help in your transformation journey by doing the readiness
+                assessment and provide the right solution that's aligned with
+                your enterprise business strategy.
               </p>
-              <div class="">
+              <div class=" align-bottom">
                 <a
                   href="/website/service/cloudsolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100  rounded-md  my-4"
@@ -78,7 +80,7 @@ function FeaturesBlocks() {
             </div>
 
             {/* 2nd item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded -gray-300  h-h-150">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -110,11 +112,12 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
                 Managed IT Services
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              You can now focus more on your business performance. Find out how Infocare's managed IT services can help you.
+                You can now focus more on your business performance. Find out
+                how Infocare's managed IT services can help you.
               </p>
               <div class="">
                 <a
@@ -127,7 +130,7 @@ function FeaturesBlocks() {
             </div>
 
             {/* 3rd item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded -gray-300  h-h-150">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -152,11 +155,13 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
                 Security Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              Secure your infrastructure by choosing from the wide range of solutions that fits your need, may it be on-premise or cloud infrastructure.
+                Secure your infrastructure by choosing from the wide range of
+                solutions that fits your need, may it be on-premise or cloud
+                infrastructure.
               </p>
               <div class="">
                 <a
@@ -169,7 +174,7 @@ function FeaturesBlocks() {
             </div>
 
             {/* 4th item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded -gray-300  h-h-150">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -207,11 +212,13 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-              Enterprise Products
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+                Enterprise Products
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              We deliver you the right Enterprise hardware for your infrastructure from most trusted brands at best price. Click to browse through the catalog to get more info on the products.
+                We deliver you the right Enterprise hardware for your
+                infrastructure from most trusted brands at best price. Click to
+                browse through the catalog to get more info on the products.
               </p>
               <div class="">
                 <a
@@ -224,7 +231,7 @@ function FeaturesBlocks() {
             </div>
 
             {/* 5th item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded -gray-300  h-h-150">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -249,11 +256,13 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-              Infrastructure Solutions
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+                Infrastructure Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              May it be a LAN, WAN, WLAN for simple to complex infrastructure, we provide you reliable & secure solutions for your enterprise's seamless functionality.
+                May it be a LAN, WAN, WLAN for simple to complex infrastructure,
+                we provide you reliable & secure solutions for your enterprise's
+                seamless functionality.
               </p>
               <div class="">
                 <a
@@ -266,7 +275,7 @@ function FeaturesBlocks() {
             </div>
 
             {/* 6th item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded -gray-300  h-h-85">
+            <div className="relative flex flex-col items-center p-6 bg-gray-100 rounded -gray-300  h-h-150">
               <svg
                 className="w-16 h-16 p-1 -mt-1 mb-2"
                 viewBox="0 0 64 64"
@@ -300,11 +309,12 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-              End User Computing
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+                End User Computing
               </h4>
               <p className="text-gray-600 text-justify mx-2">
-              Choose the right device for your planned and unplanned requirement with committed quality support.
+                Choose the right device for your planned and unplanned
+                requirement with committed quality support.
               </p>
               <div class="">
                 <a
