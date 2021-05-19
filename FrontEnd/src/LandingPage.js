@@ -16,6 +16,13 @@ import EnterpriseStorage from "./LandingPages/Products/EnterpriseStorage";
 import Habcsolution from "./LandingPages/Products/Habcsolution";
 import Networking from "./LandingPages/Products/Networking";
 import Endusercomp from "./LandingPages/Products/Endusercomp";
+import HABCDR from "./LandingPages/Solutions/HABCDR";
+import ITInfra from "./LandingPages/Solutions/ITinfrastructure";
+import StructuredNetworking from "./LandingPages/Solutions/StructuredNetworking";
+import ITSecurity from "./LandingPages/Solutions/ITSecurity";
+import FacilityManagement from "./LandingPages/ManageIT/FacilityManagement";
+import AnnualMaintanence from "./LandingPages/ManageIT/AnnualMaintanence";
+import OnDemand from "./LandingPages/ManageIT/OnDemand";
 
 // import Home from "./LandingPages/Home";
 
@@ -56,6 +63,18 @@ function LandingPage() {
       <Route path="/website/solution/habcsolution">
         <Habcsolution />
       </Route>
+      <Route path="/website/solution/habcdr">
+        <HABCDR />
+      </Route>
+      <Route path="/website/solution/itinfrastructure">
+        <ITInfra />
+      </Route>
+      <Route path="/website/solution/structurednetworking">
+        <StructuredNetworking />
+      </Route>
+      <Route path="/website/solution/itsecurity">
+        <ITSecurity />
+      </Route>
       {/* ----------------Products---------------- */}
       <Route path="/website/product/servers">
         <ServerPage />
@@ -72,6 +91,17 @@ function LandingPage() {
       <Route path="/website/product/endusercomp">
         <Endusercomp />
       </Route>
+       {/* -------------Managed IT---------------------- */}
+       <Route path="/website/managedit/FacilityManagement">
+        <FacilityManagement />
+      </Route>
+      <Route path="/website/managedit/AnnualMaintanence">
+        <AnnualMaintanence />
+      </Route>
+      <Route path="/website/managedit/OnDemand">
+        <OnDemand />
+      </Route>
+
       {/* -------------About Us---------------------- */}
 
       {/* <Route path="/signin">

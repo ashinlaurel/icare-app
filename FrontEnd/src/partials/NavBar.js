@@ -125,17 +125,17 @@ function Navbar() {
                       <Link to="/website/solution/habcsolution">
                         <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
                       </Link>
-                      <Link to="/website">
+                      <Link to="/website/solution/itinfrastructure">
                         <a className="block px-4 py-2 ">
                           IT Infrastructure Consolidation
                         </a>
                       </Link>
-                      <Link to="/website">
+                      <Link to="/website/solution/structurednetworking">
                         <a className="block px-4 py-2 ">
                           Structured Networking
                         </a>
                       </Link>
-                      <Link to="/website">
+                      <Link to="/website/solution/itsecurity">
                         <a className="block px-4 py-2 ">
                           IT Security Solutions
                         </a>
@@ -203,15 +203,15 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/profile">
+                      <Link to="/website/managedit/FacilityManagement">
                         <a className="block px-4 py-2">Facility Management</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/managedit/AnnualMaintanence">
                         <a className="block px-4 py-2 ">
                           Annual Maintanance Service
                         </a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/managedit/OnDemand">
                         <a className="block px-4 py-2 ">On-Demand Service</a>
                       </Link>
                     </div>
