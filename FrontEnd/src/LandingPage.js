@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, Router } from "react-router-dom";
 
 import "./css/style.scss";
 
@@ -41,36 +41,36 @@ function LandingPage() {
   return (
     <>
       <Navbar />
-      <Switch>
-        <Route exact path="/website">
-          <Home />
-        </Route>
-        {/* ----------------Solutions ---------------- */}
-        <Route path="/website/solution/cloudsolutions">
-          <CloudReadiness />
-        </Route>
-        <Route path="/website/solution/cloudmigration">
-          <CloudMigration />
-        </Route>
-        <Route path="/website/solution/habcsolution">
-          <Habcsolution />
-        </Route>
-        {/* ----------------Products---------------- */}
-        <Route path="/website/product/servers">
-          <ServerPage />
-        </Route>
-        <Route path="/website/product/enterpriseservers">
-          <EnterpriseServer />
-        </Route>
-        <Route path="/website/product/enterprisestorage">
-          <EnterpriseStorage />
-        </Route>
-        <Route path="/website/product/networking">
-          <Networking />
-        </Route>
-        {/* -------------About Us---------------------- */}
 
-        {/* <Route path="/signin">
+      <Route exact path="/website">
+        <Home />
+      </Route>
+      {/* ----------------Solutions ---------------- */}
+      <Route path="/website/solution/cloudsolutions">
+        <CloudReadiness />
+      </Route>
+      <Route path="/website/solution/cloudmigration">
+        <CloudMigration />
+      </Route>
+      <Route path="/website/solution/habcsolution">
+        <Habcsolution />
+      </Route>
+      {/* ----------------Products---------------- */}
+      <Route path="/website/product/servers">
+        <ServerPage />
+      </Route>
+      <Route path="/website/product/enterpriseservers">
+        <EnterpriseServer />
+      </Route>
+      <Route path="/website/product/enterprisestorage">
+        <EnterpriseStorage />
+      </Route>
+      <Route path="/website/product/networking">
+        <Networking />
+      </Route>
+      {/* -------------About Us---------------------- */}
+
+      {/* <Route path="/signin">
           <SignIn />
         </Route>
         <Route path="/signup">
@@ -79,7 +79,6 @@ function LandingPage() {
         <Route path="/reset-password">
           <ResetPassword /> 
         </Route> */}
-      </Switch>
     </>
   );
 }

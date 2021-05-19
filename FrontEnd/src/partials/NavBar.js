@@ -9,9 +9,8 @@ import {
   Dropdown,
   DropdownItem,
   Badge,
-  Transition
+  Transition,
 } from "@windmill/react-ui";
-
 
 import logo from "../images/infocarefull.png";
 import { Link } from "react-router-dom";
@@ -81,18 +80,20 @@ function Navbar() {
             <div className="hidden md:block flex-1 ">
               <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
                 <div>
-                  <button
-                    className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
-                    // onClick={() => setSolutions(!solutions)}
-                    aria-label="Notifications"
-                    aria-haspopup="true"
-                  >
-                    Home
-                  </button>
+                  <Link to="/website">
+                    <button
+                      className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
+                      // onClick={() => setSolutions(!solutions)}
+                      aria-label="Notifications"
+                      aria-haspopup="true"
+                    >
+                      Home
+                    </button>
+                  </Link>
                 </div>
                 {/* SOLUTIONNNNNNN */}
 
-                <div  className="relative">
+                <div className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setSolutions(!solutions)}
@@ -111,44 +112,39 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-1 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link href="/profile">
+                      <Link to="/website/solution/cloudsolutions">
                         <a className="block px-4 py-2">
-                        Cloud Readiness Assessment
+                          Cloud Readiness Assessment
                         </a>
                       </Link>
-                      <Link href="/api/logout">
+                      <Link to="/website/solution/cloudmigration">
                         <a className="block px-4 py-2 ">
-                        Cloud Migration Service
+                          Cloud Migration Service
                         </a>
                       </Link>
-                      <Link href="/api/logout">
+                      <Link to="/website/solution/habcsolution">
+                        <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
+                      </Link>
+                      <Link to="/website">
                         <a className="block px-4 py-2 ">
-                        HA & BC/DR Solutions
+                          IT Infrastructure Consolidation
                         </a>
                       </Link>
-                      <Link href="/api/logout">
+                      <Link to="/website">
                         <a className="block px-4 py-2 ">
-                        IT Infrastructure Consolidation
+                          Structured Networking
                         </a>
                       </Link>
-                      <Link href="/api/logout">
+                      <Link to="/website">
                         <a className="block px-4 py-2 ">
-                        Structured Networking
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        IT Security Solutions
+                          IT Security Solutions
                         </a>
                       </Link>
                     </div>
                   </Transition>
-                </div>            
-
+                </div>
 
                 {/* Solutions */}
-
-            
 
                 {/* <div>
                   <button
@@ -188,7 +184,7 @@ function Navbar() {
                 {/* Solutions */}
 
                 {/* services */}
-                <div  className="relative">
+                <div className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setservices(!services)}
@@ -207,30 +203,23 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Facility Management
-                        </a>
+                      <Link to="/profile">
+                        <a className="block px-4 py-2">Facility Management</a>
                       </Link>
-                      <Link href="/api/logout">
+                      <Link to="/api/logout">
                         <a className="block px-4 py-2 ">
-                        Annual Maintanance Service
+                          Annual Maintanance Service
                         </a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        On-Demand Service
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">On-Demand Service</a>
                       </Link>
-                     
                     </div>
                   </Transition>
-                </div> 
+                </div>
 
-                
-                
                 {/* Products */}
-                <div  className="relative">
+                <div className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setproducts(!products)}
@@ -249,39 +238,28 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-48 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Server
-                        </a>
+                      <Link to="/website/product/enterpriseservers">
+                        <a className="block px-4 py-2">Server</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Storage
-                        </a>
+                      <Link to="/website/product/enterprisestorage">
+                        <a className="block px-4 py-2 ">Storage</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Networking
-                        </a>
+                      <Link to="/website/product/networking">
+                        <a className="block px-4 py-2 ">Networking</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        End User Compute
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">End User Compute</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Printing
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">Printing</a>
                       </Link>
-                     
                     </div>
                   </Transition>
                 </div>
-                
+
                 {/* aboutus */}
 
-                <div  className="relative">
+                <div className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setaboutus(!aboutus)}
@@ -300,37 +278,25 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-40 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Company
-                        </a>
+                      <Link to="/profile">
+                        <a className="block px-4 py-2">Company</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Careers
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">Careers</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Partners
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">Partners</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Privacy Policy
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">Privacy Policy</a>
                       </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Contact Us
-                        </a>
+                      <Link to="/api/logout">
+                        <a className="block px-4 py-2 ">Contact Us</a>
                       </Link>
-                     
                     </div>
                   </Transition>
                 </div>
 
-                
                 {/* Products */}
 
                 <div class="font-medium text-gray-400 hover:text-gray-500 cursor-pointer">

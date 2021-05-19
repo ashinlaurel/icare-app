@@ -28,7 +28,7 @@ const NewHero = () => {
         // }}
       >
         <img
-          class=" w-full -mt-10  object-cover object-center h-h-155 sm:h-h-150 md:h-h-165 lg:w-full "
+          class=" w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-165 lg:w-full "
           src={
             titleImage
             // "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -38,9 +38,9 @@ const NewHero = () => {
         />
       </div>
       <div className="  bg-hero-bg flex flex-row justify-center   ">
-        <div class=" justify-center z-10 pb-8 bg-gray-100 mx-4 md:mx-48 -my-24 mb-8 rounded-sm w-1/2 ">
-          <main class="mt-3 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-4 md:mt-2 lg:mt-0 lg:px-5 ">
-            <div class="sm:text-center lg:text-left pt-12 md:pt-5 md:pl-8">
+        <div class=" justify-center z-10 pb-8 bg-gray-100 mx-4 md:mx-48 -my-24 mb-8 rounded-sm lg:w-1/2 ">
+          <main class=" mx-auto max-w-7xl px-4  sm:px-4 md:mt-2 lg:mt-0 lg:px-5 ">
+            <div class="sm:text-center lg:text-left pt-4 lg:pt-6 md:pt-5 md:pl-8">
               {/* <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-4xl">
                 <span class="block xl:inline font-business font-normal">
                  IT Consulting & Services 
