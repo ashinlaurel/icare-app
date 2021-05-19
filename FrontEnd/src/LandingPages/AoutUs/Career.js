@@ -10,8 +10,10 @@ const Career = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
-            src={cloudimage}
+            class="h-40 w-full object-cover object-top sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            src={
+              "https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            }
             alt=""
           />
         </div>
@@ -26,9 +28,7 @@ const Career = () => {
                 <span class="block xl:inline">Careers</span>
               </h1>
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-lg">
-                <span class="block xl:inline">
-                  
-                </span>
+                <span class="block xl:inline"></span>
               </h1>
 
               {/* <h2> */}
@@ -43,24 +43,21 @@ const Career = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-48">
-      <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
-        Why work with INFOCARE
+        <div className="text-indigo-900 text-3xl w-1/2 my-1 font-business ">
+          Why work with INFOCARE
         </div>
         <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
-        Full of Opportunities, Challenges and rewards. A team of skilled and committed colleagues. And we are committed to Excellence.
+          Full of Opportunities, Challenges and rewards. A team of skilled and
+          committed colleagues. And we are committed to Excellence.
         </div>
-       
 
         {/* ----------------bullets block --------------------------- */}
         <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
-        Current Openings
+          Current Openings
         </div>
         <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
-        Nil
+          Nil
         </div>
-       
-   
-        
       </div>
       {/* ------------------------------------------------------------------------ */}
 

@@ -82,7 +82,7 @@ function Navbar() {
                 <div>
                   <Link to="/website">
                     <button
-                      className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
+                      className=" z-10 relative  rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                       // onClick={() => setSolutions(!solutions)}
                       aria-label="Notifications"
                       aria-haspopup="true"
@@ -290,7 +290,7 @@ function Navbar() {
                       <Link to="/website/aboutus/PrivacyPolicy">
                         <a className="block px-4 py-2 ">Privacy Policy</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/aboutus/ContactUs">
                         <a className="block px-4 py-2 ">Contact Us</a>
                       </Link>
                     </div>
@@ -299,9 +299,11 @@ function Navbar() {
 
                 {/* Products */}
 
-                <div class="font-medium text-gray-400 hover:text-gray-500 cursor-pointer">
-                  Login
-                </div>
+                <Link to="/admin/signin">
+                  <div class=" text-gray-500 hover:text-gray-700 cursor-pointer">
+                    Login
+                  </div>
+                </Link>
               </div>
             </div>
           </nav>

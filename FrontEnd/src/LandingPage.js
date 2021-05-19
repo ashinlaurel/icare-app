@@ -28,6 +28,7 @@ import Career from "./LandingPages/AoutUs/Career";
 import PartnersHome from "./partials/PartnersHome";
 import Partners from "./LandingPages/AoutUs/Partners";
 import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
+import ContactUs from "./LandingPages/AoutUs/ContactUs";
 
 // import Home from "./LandingPages/Home";
 
@@ -96,8 +97,8 @@ function LandingPage() {
       <Route path="/website/product/endusercomp">
         <Endusercomp />
       </Route>
-       {/* -------------Managed IT---------------------- */}
-       <Route path="/website/managedit/FacilityManagement">
+      {/* -------------Managed IT---------------------- */}
+      <Route path="/website/managedit/FacilityManagement">
         <FacilityManagement />
       </Route>
       <Route path="/website/managedit/AnnualMaintanence">
@@ -119,6 +120,9 @@ function LandingPage() {
       </Route>
       <Route path="/website/aboutus/PrivacyPolicy">
         <PrivacyPolicy />
+      </Route>
+      <Route path="/website/aboutus/ContactUs">
+        <ContactUs />
       </Route>
       {/* <Route path="/signin">
           <SignIn />

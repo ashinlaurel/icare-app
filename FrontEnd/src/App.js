@@ -37,7 +37,7 @@ function App() {
           {/* //customer */}
           {/* Home Page */}
 
-          <Route exact path="/" component={HomePage} />
+          {/* <Route exact path="/" component={HomePage} /> */}
 
           <Route path="/website" component={LandingPage} />
           <Route path="/signin">
@@ -59,7 +59,7 @@ function App() {
           {/* Place new routes over this */}
           <PrivateRoute path={`/app`} component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
-          {/* <Redirect exact from="/" to="/home" /> */}
+          <Redirect exact from="/" to="/website" />
         </Switch>
       </Router>
     </>
