@@ -29,6 +29,7 @@ import PartnersHome from "./partials/PartnersHome";
 import Partners from "./LandingPages/AoutUs/Partners";
 import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
 import ContactUs from "./LandingPages/AoutUs/ContactUs";
+import Printing from "./LandingPages/Products/Printing";
 
 // import Home from "./LandingPages/Home";
 
@@ -96,6 +97,9 @@ function LandingPage() {
       </Route>
       <Route path="/website/product/endusercomp">
         <Endusercomp />
+      </Route>
+      <Route path="/website/product/printing">
+        <Printing />
       </Route>
       {/* -------------Managed IT---------------------- */}
       <Route path="/website/managedit/FacilityManagement">
