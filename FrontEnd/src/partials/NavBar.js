@@ -123,7 +123,7 @@ function Navbar() {
                         >
                           <DropdownItem
                             tag="a"
-                            href="website/product/servers"
+                            href="website/solution/cloudmigration"
                             className="justify-between"
                           >
                             <span>Cloud Readiness Assesment</span>

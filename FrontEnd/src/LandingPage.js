@@ -11,6 +11,7 @@ import Navbar from "./partials/NavBar";
 import CloudReadiness from "./LandingPages/Solutions/CloudReadiness";
 import ServerPage from "./LandingPages/Products/ServerPage";
 import CloudMigration from "./LandingPages/Solutions/CloudMigration";
+import EnterpriseServer from "./LandingPages/Products/EnterpriseServer";
 
 // import Home from "./LandingPages/Home";
 
@@ -42,16 +43,20 @@ function LandingPage() {
           <Home />
         </Route>
         {/* ----------------Solutions ---------------- */}
-        <Route path="/website/service/cloudsolutions">
+        <Route path="/website/solution/cloudsolutions">
           <CloudReadiness />
         </Route>
-        <Route path="/website/service/cloudmigration">
+        <Route path="/website/solution/cloudmigration">
           <CloudMigration />
         </Route>
         {/* ----------------Products---------------- */}
         <Route path="/website/product/servers">
           <ServerPage />
         </Route>
+        <Route path="/website/product/enterpriseservers">
+          <EnterpriseServer />
+        </Route>
+        {/* -------------About Us---------------------- */}
 
         {/* <Route path="/signin">
           <SignIn />
