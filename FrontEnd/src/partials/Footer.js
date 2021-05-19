@@ -17,7 +17,7 @@ function Footer() {
               </Link>
             </div>
             <div className="text-sm text-gray-600">
-              <Link
+              {/* <Link
                 to="#"
                 className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
               >
@@ -29,7 +29,7 @@ function Footer() {
                 className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
               >
                 Privacy Policy
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -39,42 +39,50 @@ function Footer() {
             <ul className="text-sm">
               <li className="mb-2">
                 <Link
-                  to="#"
+                  to="/website/solution/cloudsolutions"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Web Studio
+                  <a className="block  ">Cloud Readiness Assessment</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
+                  to="/website/solution/cloudmigration"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  DynamicBox Flex
+                  <a className="block   ">Cloud Migration Service</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
+                  to="/website/solution/habcsolution"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Programming Forms
+                  <a className="block   ">HA & BC/DR Solutions</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
+                  to="/website/solution/itinfrastructure"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Integrations
+                  <a className="block   ">IT Infrastructure Consolidation</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
+                  to="/website/solution/structurednetworking"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Command-line
+                  <a className="block   ">Structured Networking</a>
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link
+                  to="/website/solution/itsecurity"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                >
+                  <a className="block   ">IT Security Solutions</a>
                 </Link>
               </li>
             </ul>
@@ -83,45 +91,45 @@ function Footer() {
           {/* 3rd block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-gray-800 font-medium mb-2">Products</h6>
-            <ul className="text-sm">
+            <ul className="text-sm ">
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/product/enterpriseservers"
                 >
-                  Documentation
+                  <a className="block ">Server</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/product/enterprisestorage"
                 >
-                  Tutorials & Guides
+                  <a className="block  ">Storage</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/product/networking"
                 >
-                  Blog
+                  <a className="block  ">Networking</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/product/endusercomp"
                 >
-                  Support Center
+                  <a className="block  ">End User Compute</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/api/logout"
                 >
-                  Partners
+                  <a className="block  ">Printing</a>
                 </Link>
               </li>
             </ul>
@@ -133,42 +141,42 @@ function Footer() {
             <ul className="text-sm">
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/aboutus/Company"
                 >
-                  Home
+                  <a className="block ">Company</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/aboutus/Career"
                 >
-                  About us
+                  <a className="block  ">Careers</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/aboutus/Partners"
                 >
-                  Company values
+                  <a className="block  ">Partners</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/website/aboutus/PrivacyPolicy"
                 >
-                  Pricing
+                  <a className="block  ">Privacy Policy</a>
                 </Link>
               </li>
               <li className="mb-2">
                 <Link
-                  to="#"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                  to="/api/logout"
                 >
-                  Privacy Policy
+                  <a className="block  ">Contact Us</a>
                 </Link>
               </li>
             </ul>
