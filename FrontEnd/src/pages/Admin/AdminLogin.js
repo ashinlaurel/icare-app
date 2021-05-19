@@ -14,8 +14,8 @@ function AdminLogin() {
   // isAutheticated();
   let history = useHistory();
   const [values, setValues] = useState({
-     email: "",
-    password: ""
+    email: "",
+    password: "",
     // email: "admin@test.com",
     // password: "password",
   });
@@ -42,7 +42,6 @@ function AdminLogin() {
     }
     signin(newuser, "admin/signin")
       .then((data) => {
-  
         console.log("Signed In", data.user);
         EmpProfile.setName(data.user.employeeName);
         EmpProfile.setEmail(data.user.email);
@@ -50,7 +49,7 @@ function AdminLogin() {
         EmpProfile.setId(data.user._id);
         EmpProfile.setLocation(data.user.location);
         localStorage.setItem("type", data.user.role); ///////-----------------------------> 0 for employee 1 for customer
-        console.log("authenticated",data);
+        console.log("authenticated", data);
         history.push("/app");
         // return <Redirect to="/app" />;
         // });
@@ -83,7 +82,7 @@ function AdminLogin() {
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Employee Login
+                Login
               </h1>
               <Label>
                 <span>Email</span>
