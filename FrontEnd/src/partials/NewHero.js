@@ -30,8 +30,8 @@ const NewHero = () => {
         <img
           class=" w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-165 lg:w-full "
           src={
-            titleImage
-            // "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            // titleImage
+            "https://www.unitedpensions.nl/global/images/498323251.jpg"
           }
           // style={{ height: "42rem" }}
           alt=""

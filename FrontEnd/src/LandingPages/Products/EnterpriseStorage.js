@@ -16,16 +16,18 @@ const EnterpriseStorage = () => {
       <div class="">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-80"
-            src={cloudimage}
+            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-150 "
+            src={
+              "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            }
             alt=""
           />
         </div>
       </div>
 
       {/* Heading */}
-      <div className="  bg-hero-bg -mt-48 flex flex-col items-left justify-center ">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-50 ml-40">
+      <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center ">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-75 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">

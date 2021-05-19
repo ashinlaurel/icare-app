@@ -247,7 +247,7 @@ function Navbar() {
                       <Link to="/website/product/networking">
                         <a className="block px-4 py-2 ">Networking</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/product/endusercomp">
                         <a className="block px-4 py-2 ">End User Compute</a>
                       </Link>
                       <Link to="/api/logout">
@@ -351,182 +351,148 @@ function Navbar() {
                 Home
               </a>
 
-
-
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={()=>setmobSolutions(!mobsolutions)}
+                onClick={() => setmobSolutions(!mobsolutions)}
               >
                 Products
               </div>
 
               <Transition
-                    show={mobsolutions}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    // enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    // leaveFrom="opacity-100 scale-100"
-                    // leaveTo="opacity-0 scale-95"
-                  >
-                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                      <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Cloud Readiness Assessment
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Cloud Migration Service
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        HA & BC/DR Solutions
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        IT Infrastructure Consolidation
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Structured Networking
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        IT Security Solutions
-                        </a>
-                      </Link>
-                    </div>
-                  </Transition>
+                show={mobsolutions}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                // enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                // leaveFrom="opacity-100 scale-100"
+                // leaveTo="opacity-0 scale-95"
+              >
+                <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                  <Link href="/profile">
+                    <a className="block px-4 py-2">
+                      Cloud Readiness Assessment
+                    </a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Cloud Migration Service</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">
+                      IT Infrastructure Consolidation
+                    </a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Structured Networking</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">IT Security Solutions</a>
+                  </Link>
+                </div>
+              </Transition>
 
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={()=>setmobservices(!mobservices)}
+                onClick={() => setmobservices(!mobservices)}
               >
                 Manage IT Services
               </div>
               <Transition
-                    show={mobservices}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    // enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    // leaveFrom="opacity-100 scale-100"
-                    // leaveTo="opacity-0 scale-95"
-                  >
-                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                    <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Facility Management
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Annual Maintanance Service
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        On-Demand Service
-                        </a>
-                      </Link>
-                    </div>
-                  </Transition>
+                show={mobservices}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                // enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                // leaveFrom="opacity-100 scale-100"
+                // leaveTo="opacity-0 scale-95"
+              >
+                <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                  <Link href="/profile">
+                    <a className="block px-4 py-2">Facility Management</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">
+                      Annual Maintanance Service
+                    </a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">On-Demand Service</a>
+                  </Link>
+                </div>
+              </Transition>
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={()=>setmobproducts(!mobproducts)}
+                onClick={() => setmobproducts(!mobproducts)}
               >
                 Products
               </div>
 
               <Transition
-                    show={mobproducts}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    // enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    // leaveFrom="opacity-100 scale-100"
-                    // leaveTo="opacity-0 scale-95"
-                  >
-                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                    <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Server
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Storage
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Networking
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        End User Compute
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Printing
-                        </a>
-                      </Link>
-                    </div>
-                  </Transition>
+                show={mobproducts}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                // enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                // leaveFrom="opacity-100 scale-100"
+                // leaveTo="opacity-0 scale-95"
+              >
+                <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                  <Link href="/profile">
+                    <a className="block px-4 py-2">Server</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Storage</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Networking</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">End User Compute</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Printing</a>
+                  </Link>
+                </div>
+              </Transition>
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={()=>setmobaboutus(!mobaboutus)}
+                onClick={() => setmobaboutus(!mobaboutus)}
               >
                 About
               </div>
               <Transition
-                    show={mobaboutus}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    // enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    // leaveFrom="opacity-100 scale-100"
-                    // leaveTo="opacity-0 scale-95"
-                  >
-                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                    <Link href="/profile">
-                        <a className="block px-4 py-2">
-                        Company
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Careers
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Partners
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Privacy Policy
-                        </a>
-                      </Link>
-                      <Link href="/api/logout">
-                        <a className="block px-4 py-2 ">
-                        Contact Us
-                        </a>
-                      </Link>
-                    </div>
-                  </Transition>
+                show={mobaboutus}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                // enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                // leaveFrom="opacity-100 scale-100"
+                // leaveTo="opacity-0 scale-95"
+              >
+                <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                  <Link href="/profile">
+                    <a className="block px-4 py-2">Company</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Careers</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Partners</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Privacy Policy</a>
+                  </Link>
+                  <Link href="/api/logout">
+                    <a className="block px-4 py-2 ">Contact Us</a>
+                  </Link>
+                </div>
+              </Transition>
             </div>
             <div
               href="#"

@@ -15,6 +15,7 @@ import EnterpriseServer from "./LandingPages/Products/EnterpriseServer";
 import EnterpriseStorage from "./LandingPages/Products/EnterpriseStorage";
 import Habcsolution from "./LandingPages/Products/Habcsolution";
 import Networking from "./LandingPages/Products/Networking";
+import Endusercomp from "./LandingPages/Products/Endusercomp";
 
 // import Home from "./LandingPages/Home";
 
@@ -67,6 +68,9 @@ function LandingPage() {
       </Route>
       <Route path="/website/product/networking">
         <Networking />
+      </Route>
+      <Route path="/website/product/endusercomp">
+        <Endusercomp />
       </Route>
       {/* -------------About Us---------------------- */}
 
