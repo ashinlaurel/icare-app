@@ -22,7 +22,6 @@ function Navbar() {
   const [services, setservices] = useState(false);
   const [support, setsupport] = useState(false);
   const [aboutus, setaboutus] = useState(false);
-  
 
   return (
     <div className="fixed z-50 w-full bg-white">
@@ -76,7 +75,7 @@ function Navbar() {
             </div>
             <div className="hidden md:block flex-1 ">
               <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
-              <div>
+                <div>
                   <button
                     className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                     // onClick={() => setSolutions(!solutions)}
@@ -85,7 +84,6 @@ function Navbar() {
                   >
                     Home
                   </button>
-                  
                 </div>
                 {/* SOLUTIONNNNNNN */}
 
@@ -162,16 +160,16 @@ function Navbar() {
                     onClose={() => setSolutions(false)}
                     className="z-50"
                   >
-                    <DropdownItem >
+                    <DropdownItem>
                       <span>Cloud Readiness Assessment</span>
                     </DropdownItem>
-                    <DropdownItem >
+                    <DropdownItem>
                       <span>Cloud Migration Service</span>
                     </DropdownItem>
-                    <DropdownItem >
+                    <DropdownItem>
                       <span>HA & BC/DR Solutions</span>
                     </DropdownItem>
-                    <DropdownItem >
+                    <DropdownItem>
                       <span>IT Infrastructure Consolidation</span>
                     </DropdownItem>
                     <DropdownItem>
@@ -346,11 +344,7 @@ function Navbar() {
           <div class="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div class="px-5 pt-4 flex items-center justify-between">
               <div>
-                <img
-                  class="h-8 w-auto"
-                  src={logo}
-                  alt=""
-                />
+                <img class="h-8 w-auto" src={logo} alt="" />
               </div>
               <div class="-mr-2">
                 <button
