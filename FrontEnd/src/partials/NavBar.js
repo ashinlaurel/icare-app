@@ -9,8 +9,12 @@ import {
   Dropdown,
   DropdownItem,
   Badge,
+  Transition
 } from "@windmill/react-ui";
+
+
 import logo from "../images/infocarefull.png";
+import { Link } from "react-router-dom";
 function Navbar() {
   const [click, setclick] = useState(false);
   const [solutions, setSolutions] = useState(false);
@@ -83,10 +87,67 @@ function Navbar() {
                   </button>
                   
                 </div>
+                {/* SOLUTIONNNNNNN */}
+
+                <div  className="relative">
+                  <button
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
+                    onClick={() => setSolutions(!solutions)}
+                    onBlur={() => setSolutions(false)}
+                  >
+                    Solutions
+                  </button>
+
+                  <Transition
+                    show={solutions}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <div className="origin-top-right absolute right-1 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
+                      <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Cloud Readiness Assessment
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Cloud Migration Service
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        HA & BC/DR Solutions
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        IT Infrastructure Consolidation
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Structured Networking
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        IT Security Solutions
+                        </a>
+                      </Link>
+                    </div>
+                  </Transition>
+                </div>            
+
 
                 {/* Solutions */}
 
-                <div>
+            
+
+                {/* <div>
                   <button
                     className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
                     onClick={() => setSolutions(true)}
@@ -120,107 +181,153 @@ function Navbar() {
                       <span>IT Security Solutions</span>
                     </DropdownItem>
                   </Dropdown>
-                </div>
+                </div> */}
                 {/* Solutions */}
 
                 {/* services */}
-
-                <div>
+                <div  className="relative">
                   <button
-                    className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
-                    onClick={() => setservices(true)}
-                    aria-label="Notifications"
-                    aria-haspopup="true"
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
+                    onClick={() => setservices(!services)}
+                    onBlur={() => setservices(false)}
                   >
                     Manage IT Services
                   </button>
-                  <Dropdown
-                    align="center"
-                    isOpen={services}
-                    onClose={() => setservices(false)}
-                    className="z-50"
+
+                  <Transition
+                    show={services}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
                   >
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Facility Management</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Annual Maintanance Service </span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>On-Demand Service</span>
-                    </DropdownItem>
-                 
-                  </Dropdown>
-                </div>
+                    <div className="origin-top-right absolute right-4 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
+                      <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Facility Management
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Annual Maintanance Service
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        On-Demand Service
+                        </a>
+                      </Link>
+                     
+                    </div>
+                  </Transition>
+                </div> 
 
                 
+                
                 {/* Products */}
-                <div>
+                <div  className="relative">
                   <button
-                    className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
-                    onClick={() => setproducts(true)}
-                    aria-label="Notifications"
-                    aria-haspopup="true"
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
+                    onClick={() => setproducts(!products)}
+                    onBlur={() => setproducts(false)}
                   >
                     Products
                   </button>
-                  <Dropdown
-                    align="center"
-                    isOpen={products}
-                    onClose={() => setproducts(false)}
-                    className="z-50"
+
+                  <Transition
+                    show={products}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
                   >
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Server</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Storage</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Networking</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>End User Compute</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Printing</span>
-                    </DropdownItem>
-                  </Dropdown>
+                    <div className="origin-top-right absolute right-4 w-48 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
+                      <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Server
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Storage
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Networking
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        End User Compute
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Printing
+                        </a>
+                      </Link>
+                     
+                    </div>
+                  </Transition>
                 </div>
+                
                 {/* aboutus */}
 
-                <div>
+                <div  className="relative">
                   <button
-                    className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
-                    onClick={() => setaboutus(true)}
-                    aria-label="Notifications"
-                    aria-haspopup="true"
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
+                    onClick={() => setaboutus(!aboutus)}
+                    onBlur={() => setaboutus(false)}
                   >
                     About Us
                   </button>
-                  <Dropdown
-                    align="center"
-                    isOpen={aboutus}
-                    onClose={() => setaboutus(false)}
-                    className="z-50"
+
+                  <Transition
+                    show={aboutus}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
                   >
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Company</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Careers</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Partners</span>
-                    </DropdownItem>
-                    <DropdownItem tag="a" href="#" className="justify-between">
-                      <span>Privacy Policy</span>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <span>Contact Us</span>
-                    </DropdownItem>
-                  </Dropdown>
+                    <div className="origin-top-right absolute right-4 w-40 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
+                      <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Company
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Careers
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Partners
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Privacy Policy
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Contact Us
+                        </a>
+                      </Link>
+                     
+                    </div>
+                  </Transition>
                 </div>
+
+                
                 {/* Products */}
 
                 <div class="font-medium text-gray-400 hover:text-gray-500 cursor-pointer">
