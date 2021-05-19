@@ -20,8 +20,13 @@ function Navbar() {
   const [solutions, setSolutions] = useState(false);
   const [products, setproducts] = useState(false);
   const [services, setservices] = useState(false);
-  const [support, setsupport] = useState(false);
   const [aboutus, setaboutus] = useState(false);
+
+  // MOBILE
+  const [mobsolutions, setmobSolutions] = useState(false);
+  const [mobproducts, setmobproducts] = useState(false);
+  const [mobservices, setmobservices] = useState(false);
+  const [mobaboutus, setmobaboutus] = useState(false);
 
   return (
     <div className="fixed z-50 w-full bg-white">
@@ -372,7 +377,7 @@ function Navbar() {
                 </button>
               </div>
             </div>
-            <div class="px-2 pt-2 pb-3 space-y-1">
+            <div class="px-2 pt-2 pb-3 space-y-1 cursor-pointer">
               <a
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
@@ -380,38 +385,189 @@ function Navbar() {
                 Home
               </a>
 
-              <a
+
+
+              <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={()=>setmobSolutions(!mobsolutions)}
               >
                 Products
-              </a>
+              </div>
 
-              <a
+              <Transition
+                    show={mobsolutions}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    // enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    // leaveFrom="opacity-100 scale-100"
+                    // leaveTo="opacity-0 scale-95"
+                  >
+                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                      <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Cloud Readiness Assessment
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Cloud Migration Service
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        HA & BC/DR Solutions
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        IT Infrastructure Consolidation
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Structured Networking
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        IT Security Solutions
+                        </a>
+                      </Link>
+                    </div>
+                  </Transition>
+
+              <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={()=>setmobservices(!mobservices)}
               >
-                Services
-              </a>
-              <a
+                Manage IT Services
+              </div>
+              <Transition
+                    show={mobservices}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    // enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    // leaveFrom="opacity-100 scale-100"
+                    // leaveTo="opacity-0 scale-95"
+                  >
+                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                    <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Facility Management
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Annual Maintanance Service
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        On-Demand Service
+                        </a>
+                      </Link>
+                    </div>
+                  </Transition>
+              <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={()=>setmobproducts(!mobproducts)}
               >
-                Support
-              </a>
-              <a
+                Products
+              </div>
+
+              <Transition
+                    show={mobproducts}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    // enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    // leaveFrom="opacity-100 scale-100"
+                    // leaveTo="opacity-0 scale-95"
+                  >
+                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                    <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Server
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Storage
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Networking
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        End User Compute
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Printing
+                        </a>
+                      </Link>
+                    </div>
+                  </Transition>
+              <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={()=>setmobaboutus(!mobaboutus)}
               >
                 About
-              </a>
+              </div>
+              <Transition
+                    show={mobaboutus}
+                    enter="transition ease-out duration-100 transform"
+                    enterFrom="opacity-0 scale-95"
+                    // enterTo="opacity-100 scale-100"
+                    leave="transition ease-in duration-75 transform"
+                    // leaveFrom="opacity-100 scale-100"
+                    // leaveTo="opacity-0 scale-95"
+                  >
+                    <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
+                    <Link href="/profile">
+                        <a className="block px-4 py-2">
+                        Company
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Careers
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Partners
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Privacy Policy
+                        </a>
+                      </Link>
+                      <Link href="/api/logout">
+                        <a className="block px-4 py-2 ">
+                        Contact Us
+                        </a>
+                      </Link>
+                    </div>
+                  </Transition>
             </div>
-            <a
+            <div
               href="#"
-              class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+              class="block w-full px-5 py-3 text-center font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 cursor-pointer"
             >
               Login
-            </a>
+            </div>
           </div>
         </div>
       </div>
