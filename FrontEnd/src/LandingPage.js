@@ -23,6 +23,11 @@ import ITSecurity from "./LandingPages/Solutions/ITSecurity";
 import FacilityManagement from "./LandingPages/ManageIT/FacilityManagement";
 import AnnualMaintanence from "./LandingPages/ManageIT/AnnualMaintanence";
 import OnDemand from "./LandingPages/ManageIT/OnDemand";
+import Company from "./LandingPages/AoutUs/Company";
+import Career from "./LandingPages/AoutUs/Career";
+import PartnersHome from "./partials/PartnersHome";
+import Partners from "./LandingPages/AoutUs/Partners";
+import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
 
 // import Home from "./LandingPages/Home";
 
@@ -103,7 +108,18 @@ function LandingPage() {
       </Route>
 
       {/* -------------About Us---------------------- */}
-
+      <Route path="/website/aboutus/Company">
+        <Company />
+      </Route>
+      <Route path="/website/aboutus/Career">
+        <Career />
+      </Route>
+      <Route path="/website/aboutus/Partners">
+        <Partners />
+      </Route>
+      <Route path="/website/aboutus/PrivacyPolicy">
+        <PrivacyPolicy />
+      </Route>
       {/* <Route path="/signin">
           <SignIn />
         </Route>

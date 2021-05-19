@@ -28,7 +28,7 @@ function Navbar() {
   const [mobaboutus, setmobaboutus] = useState(false);
 
   return (
-    <div className="fixed z-50 w-full bg-white">
+    <div className="fixed z-50 w-full bg-white shadow-md">
       <div class="relative z-10 pb-3 lg:w-full ">
         <svg
           class="hidden lg:block absolute right-0 inset-y-0 h-full text-white transform translate-x-1/2"
@@ -278,16 +278,16 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-40 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/profile">
+                      <Link to="/website/aboutus/Company">
                         <a className="block px-4 py-2">Company</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/aboutus/Career">
                         <a className="block px-4 py-2 ">Careers</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/aboutus/Partners">
                         <a className="block px-4 py-2 ">Partners</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/aboutus/PrivacyPolicy">
                         <a className="block px-4 py-2 ">Privacy Policy</a>
                       </Link>
                       <Link to="/api/logout">
