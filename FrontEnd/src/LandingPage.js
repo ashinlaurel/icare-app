@@ -12,6 +12,9 @@ import CloudReadiness from "./LandingPages/Solutions/CloudReadiness";
 import ServerPage from "./LandingPages/Products/ServerPage";
 import CloudMigration from "./LandingPages/Solutions/CloudMigration";
 import EnterpriseServer from "./LandingPages/Products/EnterpriseServer";
+import EnterpriseStorage from "./LandingPages/Products/EnterpriseStorage";
+import Habcsolution from "./LandingPages/Products/Habcsolution";
+import Networking from "./LandingPages/Products/Networking";
 
 // import Home from "./LandingPages/Home";
 
@@ -49,12 +52,21 @@ function LandingPage() {
         <Route path="/website/solution/cloudmigration">
           <CloudMigration />
         </Route>
+        <Route path="/website/solution/habcsolution">
+          <Habcsolution />
+        </Route>
         {/* ----------------Products---------------- */}
         <Route path="/website/product/servers">
           <ServerPage />
         </Route>
         <Route path="/website/product/enterpriseservers">
           <EnterpriseServer />
+        </Route>
+        <Route path="/website/product/enterprisestorage">
+          <EnterpriseStorage />
+        </Route>
+        <Route path="/website/product/networking">
+          <Networking />
         </Route>
         {/* -------------About Us---------------------- */}
 

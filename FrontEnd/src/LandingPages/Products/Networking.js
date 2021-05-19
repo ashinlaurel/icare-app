@@ -2,20 +2,19 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
 import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
-import imgone from "../../images/enterpriseserver/HPE Rack - 1.webp";
-import imgtwo from "../../images/enterpriseserver/HPE Rack - 2.webp";
-import imgthree from "../../images/enterpriseserver/HPE Rack - 3.webp";
-import imgfour from "../../images/enterpriseserver/HPE Rack - 4.webp";
-import imgfive from "../../images/enterpriseserver/HPE Rack - 5.webp";
-import imgsix from "../../images/enterpriseserver/HPE Rack - 6.webp";
-import twrone from "../../images/enterpriseserver/HPE Tower -2.webp";
-import twrtwo from "../../images/enterpriseserver/HPE Tower -3.webp";
-import twrthree from "../../images/enterpriseserver/HPE Tower -4.webp";
-import hypone from "../../images/enterpriseserver/HPE Hyper-1.webp";
-import hyptwo from "../../images/enterpriseserver/HPE Hyper-2.webp";
-import hypthree from "../../images/enterpriseserver/HPE Hyper-3.webp";
+import imgptone from "../../images/networking/set1/HPE NETWORK.webp";
+import imgpt2one from "../../images/networking/set 2/R&M OFC 1.webp";
+import imgpt2two from "../../images/networking/set 2/R&M OFC 3.webp";
+import imgpt2three from "../../images/networking/set 2/R&M OFC 4.webp";
+import imgpt2four from "../../images/networking/set 2/R&M OFC 5.webp";
+import imgpt3one from "../../images/networking/set 3/R&M CAT6 1.webp";
+import imgpt3two from "../../images/networking/set 3/R&M CAT6 2.webp";
+import imgpt3three from "../../images/networking/set 3/R&M CAT6 3.webp";
+import imgpt3four from "../../images/networking/set 3/R&M CAT6 4.webp";
+import imgpt3five from "../../images/networking/set 3/R&M CAT6 5.webp";
+import imgpt3six from "../../images/networking/set 3/R&M CAT6 6.webp";
 
-const EnterpriseServer = () => {
+const Networking = () => {
   return (
     <div className="">
       <div class="">
@@ -34,13 +33,12 @@ const EnterpriseServer = () => {
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
-                <span class="block xl:inline">Enterprise Servers</span>
+                <span class="block xl:inline">Networking</span>
               </h1>
               <h1 class="text-2xl tracking-tight font-business  text-white sm:text-5xl md:text-sm">
                 <span class="block xl:inline">
-                  Cutting-edge IT Solutions to address the futuristic business
-                  with modern technology and hardware using customisable system
-                  architecture and components
+                  We build efficient Network with Capabilities, Capacity and
+                  Security
                 </span>
               </h1>
 
@@ -57,11 +55,11 @@ const EnterpriseServer = () => {
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
         <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
-          In today's digital world, businesses are deploying sophisticated IT
-          systems to automate and modernise their operations, Infocare partners
-          with leading global technology innovators HPE, Lenovo to help bring
-          these technology solutions to your doorstep. We provide end to end
-          solution on Enterprise Servers
+          We have partnered with Hewlett Packard Enterprise and Reichle &
+          De-Massari (R&M India) to deal with their entire range of Active and
+          Passive Networking Components. Our team has enough skills to handle
+          all these products during Installation and after support. We have
+          successfully completed 500+ structured networking sites in Kerala
         </div>
       </div>
 
@@ -69,44 +67,34 @@ const EnterpriseServer = () => {
 
       <div className=" flex-col flex items-center justify-center mb-5 ">
         <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business ">
-          Enterprise range of HPE Servers
+          HPE NETWORK PRODUCTS
         </div>
       </div>
-      <div className=" flex-col flex items-center justify-center mb-5 ">
+      {/* <div className=" flex-col flex items-center justify-center mb-5 ">
         <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Rack Servers
+          Storage Products
         </div>
-      </div>
+      </div> */}
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
-          <div className="w-1/3 my-10">
-            <img src={imgone}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgtwo}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgthree}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgfour}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgfive}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgsix}></img>
+          <div className=" my-10">
+            <img src={imgptone}></img>
           </div>
         </div>
       </div>
       {/* ---------------Part 2 ---------------- */}
 
       <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Tower Servers
+        <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business ">
+          Reichle & De-Massari (R&M)
+        </div>
+      </div>
+      <div className=" flex-col flex items-center justify-center">
+        <div className="text-indigo-900 text-xl text-center  w-1/2 font-business ">
+          FIBER OPTICS
         </div>
       </div>
 
@@ -114,22 +102,30 @@ const EnterpriseServer = () => {
       <div className="flex items-center justify-center w-full">
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
-          <div className="w-1/3 my-10">
-            <img src={twrone}></img>
+          <div className="w-1/4 my-10">
+            <img src={imgpt2one}></img>
           </div>
-          <div className="w-1/3 my-10">
-            <img src={twrtwo}></img>
+          <div className="w-1/4 my-10">
+            <img src={imgpt2two}></img>
           </div>
-          <div className="w-1/3 my-10">
-            <img src={twrthree}></img>
+          <div className="w-1/4 my-10">
+            <img src={imgpt2four}></img>
+          </div>
+          <div className="w-1/4 my-10">
+            <img src={imgpt2three}></img>
           </div>
         </div>
       </div>
       {/* ---------------Part 3 ---------------- */}
 
-      <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Hyper Converged
+      {/* <div className=" flex-col flex items-center justify-center mb-5 ">
+        <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business ">
+          Reichle & De-Massari (R&M)
+        </div>
+      </div> */}
+      <div className=" flex-col flex items-center justify-center">
+        <div className="text-indigo-900 text-xl text-center  w-1/2 font-business ">
+          TWISTED PAIR CABLING
         </div>
       </div>
 
@@ -138,21 +134,29 @@ const EnterpriseServer = () => {
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
-            <img src={hypone}></img>
+            <img src={imgpt3one}></img>
           </div>
           <div className="w-1/3 my-10">
-            <img src={hyptwo}></img>
+            <img src={imgpt3two}></img>
           </div>
           <div className="w-1/3 my-10">
-            <img src={hypthree}></img>
+            <img src={imgpt3three}></img>
+          </div>
+          <div className="w-1/3 my-10">
+            <img src={imgpt3four}></img>
+          </div>
+          <div className="w-1/3 my-10">
+            <img src={imgpt3five}></img>
+          </div>
+          <div className="w-1/3 my-10">
+            <img src={imgpt3six}></img>
           </div>
         </div>
       </div>
-
       {/*  Site footer */}
       <Footer />
     </div>
   );
 };
 
-export default EnterpriseServer;
+export default Networking;

@@ -2,20 +2,15 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
 import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
-import imgone from "../../images/enterpriseserver/HPE Rack - 1.webp";
-import imgtwo from "../../images/enterpriseserver/HPE Rack - 2.webp";
-import imgthree from "../../images/enterpriseserver/HPE Rack - 3.webp";
-import imgfour from "../../images/enterpriseserver/HPE Rack - 4.webp";
-import imgfive from "../../images/enterpriseserver/HPE Rack - 5.webp";
-import imgsix from "../../images/enterpriseserver/HPE Rack - 6.webp";
-import twrone from "../../images/enterpriseserver/HPE Tower -2.webp";
-import twrtwo from "../../images/enterpriseserver/HPE Tower -3.webp";
-import twrthree from "../../images/enterpriseserver/HPE Tower -4.webp";
-import hypone from "../../images/enterpriseserver/HPE Hyper-1.webp";
-import hyptwo from "../../images/enterpriseserver/HPE Hyper-2.webp";
-import hypthree from "../../images/enterpriseserver/HPE Hyper-3.webp";
+import imgone from "../../images/enterprisestorage/HPE Storage 1.webp";
+import imgtwo from "../../images/enterprisestorage/HPE Storage 2.webp";
+import imgthree from "../../images/enterprisestorage/HPE Storage 3.webp";
+import imgfour from "../../images/enterprisestorage/HPE Storage 4.webp";
+import imgfive from "../../images/enterprisestorage/HPE Storage 5.webp";
+import imgsix from "../../images/enterprisestorage/HPE Storage 6.webp";
+import imgseven from "../../images/enterprisestorage/HPE Storage 7.webp";
 
-const EnterpriseServer = () => {
+const EnterpriseStorage = () => {
   return (
     <div className="">
       <div class="">
@@ -34,7 +29,7 @@ const EnterpriseServer = () => {
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
-                <span class="block xl:inline">Enterprise Servers</span>
+                <span class="block xl:inline">Enterprise Storage</span>
               </h1>
               <h1 class="text-2xl tracking-tight font-business  text-white sm:text-5xl md:text-sm">
                 <span class="block xl:inline">
@@ -69,12 +64,12 @@ const EnterpriseServer = () => {
 
       <div className=" flex-col flex items-center justify-center mb-5 ">
         <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business ">
-          Enterprise range of HPE Servers
+          Enterprise range of HPE Storage
         </div>
       </div>
       <div className=" flex-col flex items-center justify-center mb-5 ">
         <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Rack Servers
+          Storage Products
         </div>
       </div>
 
@@ -100,59 +95,15 @@ const EnterpriseServer = () => {
           <div className="w-1/3 my-10">
             <img src={imgsix}></img>
           </div>
-        </div>
-      </div>
-      {/* ---------------Part 2 ---------------- */}
-
-      <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Tower Servers
-        </div>
-      </div>
-
-      {/*------------------- Images Area ---------------------------  */}
-      <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
-          {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
-            <img src={twrone}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={twrtwo}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={twrthree}></img>
+            <img src={imgseven}></img>
           </div>
         </div>
       </div>
-      {/* ---------------Part 3 ---------------- */}
-
-      <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
-          Hyper Converged
-        </div>
-      </div>
-
-      {/*------------------- Images Area ---------------------------  */}
-      <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
-          {/* --------------Images 1 ---------------------- */}
-          <div className="w-1/3 my-10">
-            <img src={hypone}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={hyptwo}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={hypthree}></img>
-          </div>
-        </div>
-      </div>
-
       {/*  Site footer */}
       <Footer />
     </div>
   );
 };
 
-export default EnterpriseServer;
+export default EnterpriseStorage;
