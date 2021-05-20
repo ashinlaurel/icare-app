@@ -422,19 +422,26 @@ function Navbar() {
               </div>
             </div>
             <div class="px-2 pt-2 pb-3 space-y-1 cursor-pointer">
-              <a
-                href="#"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              >
-                Home
-              </a>
+              <Link to="/website" onClick={() => setclick(false)}>
+                <a
+                  href="#"
+                  class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                >
+                  Home
+                </a>
+              </Link>
 
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() => setmobSolutions(!mobsolutions)}
+                onClick={() => {
+                  setmobproducts(false);
+                  setmobservices(false);
+                  setaboutus(false);
+                  setmobSolutions(!mobsolutions);
+                }}
               >
-                Products
+                Solutions
               </div>
 
               <Transition
@@ -447,26 +454,44 @@ function Navbar() {
                 // leaveTo="opacity-0 scale-95"
               >
                 <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                  <Link to="/website/solution/cloudsolutions">
+                  <Link
+                    to="/website/solution/cloudsolutions"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2">
                       Cloud Readiness Assessment
                     </a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/solution/cloudmigration"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Cloud Migration Service</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/solution/habcsolution"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/solution/itinfrastructure"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">
                       IT Infrastructure Consolidation
                     </a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/solution/structurednetworking"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Structured Networking</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/solution/itsecurity"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">IT Security Solutions</a>
                   </Link>
                 </div>
@@ -475,7 +500,12 @@ function Navbar() {
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() => setmobservices(!mobservices)}
+                onClick={() => {
+                  setmobproducts(false);
+                  setmobSolutions(false);
+                  setaboutus(false);
+                  setmobservices(!mobservices);
+                }}
               >
                 Manage IT Services
               </div>
@@ -489,15 +519,24 @@ function Navbar() {
                 // leaveTo="opacity-0 scale-95"
               >
                 <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                  <Link href="/profile">
+                  <Link
+                    to="/website/managedit/FacilityManagement"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2">Facility Management</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/managedit/AnnualMaintanence"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">
                       Annual Maintanance Service
                     </a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/managedit/OnDemand"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">On-Demand Service</a>
                   </Link>
                 </div>
@@ -505,7 +544,12 @@ function Navbar() {
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() => setmobproducts(!mobproducts)}
+                onClick={() => {
+                  setmobservices(false);
+                  setmobSolutions(false);
+                  setaboutus(false);
+                  setmobproducts(!mobproducts);
+                }}
               >
                 Products
               </div>
@@ -520,19 +564,34 @@ function Navbar() {
                 // leaveTo="opacity-0 scale-95"
               >
                 <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                  <Link href="/profile">
+                  <Link
+                    to="/website/product/enterpriseservers"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2">Server</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/product/enterprisestorage"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Storage</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/product/networking"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Networking</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/product/endusercomp"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">End User Compute</a>
                   </Link>
-                  <Link to="/website/product/printing">
+                  <Link
+                    to="/website/product/printing"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Printing</a>
                   </Link>
                 </div>
@@ -540,7 +599,13 @@ function Navbar() {
               <div
                 href="#"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() => setmobaboutus(!mobaboutus)}
+                onClick={() => {
+                  setmobproducts(false);
+                  setmobservices(false);
+                  setmobSolutions(false);
+
+                  setmobaboutus(!mobaboutus);
+                }}
               >
                 About
               </div>
@@ -554,19 +619,34 @@ function Navbar() {
                 // leaveTo="opacity-0 scale-95"
               >
                 <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                  <Link href="/profile">
+                  <Link
+                    to="/website/aboutus/Company"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2">Company</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/aboutus/Career"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Careers</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/aboutus/Partners"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Partners</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/aboutus/PrivacyPolicy"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Privacy Policy</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link
+                    to="/website/aboutus/ContactUs"
+                    onClick={() => setclick(false)}
+                  >
                     <a className="block px-4 py-2 ">Contact Us</a>
                   </Link>
                 </div>
