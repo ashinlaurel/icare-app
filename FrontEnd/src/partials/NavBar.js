@@ -91,13 +91,12 @@ function Navbar() {
                     </button>
                   </Link>
                 </div>
-                {/* SOLUTIONNNNNNN */}
+                {/* ------------Solutions ----------- */}
 
-                <div className="relative">
+                <div onBlur={() => setSolutions(false)} className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setSolutions(!solutions)}
-                    onBlur={() => setSolutions(false)}
                   >
                     Solutions
                   </button>

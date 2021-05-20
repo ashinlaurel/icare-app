@@ -13,7 +13,7 @@ import ServerPage from "./LandingPages/Products/ServerPage";
 import CloudMigration from "./LandingPages/Solutions/CloudMigration";
 import EnterpriseServer from "./LandingPages/Products/EnterpriseServer";
 import EnterpriseStorage from "./LandingPages/Products/EnterpriseStorage";
-import Habcsolution from "./LandingPages/Products/Habcsolution";
+// import Habcsolution from "./LandingPages/Solutions/Habcsolution";
 import Networking from "./LandingPages/Products/Networking";
 import Endusercomp from "./LandingPages/Products/Endusercomp";
 import HABCDR from "./LandingPages/Solutions/HABCDR";
@@ -31,6 +31,7 @@ import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
 import ContactUs from "./LandingPages/AoutUs/ContactUs";
 import Printing from "./LandingPages/Products/Printing";
 import Footer from "./partials/Footer";
+import HabcSolution from "./LandingPages/Solutions/Habcsolution";
 
 // import Home from "./LandingPages/Home";
 
@@ -69,11 +70,11 @@ function LandingPage() {
         <CloudMigration />
       </Route>
       <Route path="/website/solution/habcsolution">
-        <Habcsolution />
+        <HabcSolution />
       </Route>
-      <Route path="/website/solution/habcdr">
+      {/* <Route path="/website/solution/habcdr">
         <HABCDR />
-      </Route>
+      </Route> */}
       <Route path="/website/solution/itinfrastructure">
         <ITInfra />
       </Route>
@@ -99,9 +100,7 @@ function LandingPage() {
       <Route path="/website/product/endusercomp">
         <Endusercomp />
       </Route>
-      <Route path="/website/product/printing">
-        <Printing />
-      </Route>
+      <Route path="/website/product/printing"></Route>
       {/* -------------Managed IT---------------------- */}
       <Route path="/website/managedit/FacilityManagement">
         <FacilityManagement />
