@@ -143,7 +143,12 @@ function Navbar() {
                   >
                     <div className="origin-top-right absolute right-1 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
                       <Link
-                        onClick={() => setSolutions(!solutions)}
+                        onClick={() => {
+                          setSolutions(!solutions);
+                          setproducts(false);
+                          setservices(false);
+                          setaboutus(false);
+                        }}
                         to="/website/solution/cloudsolutions"
                       >
                         <a className="block px-4 py-2">
@@ -231,7 +236,12 @@ function Navbar() {
                 {/* services */}
                 <div className="relative">
                   <button
-                    onClick={() => setservices(!services)}
+                    onClick={() => {
+                      setSolutions(false);
+                      setproducts(false);
+                      setservices(!services);
+                      setaboutus(false);
+                    }}
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Manage IT Services
@@ -273,7 +283,12 @@ function Navbar() {
                 {/* Products */}
                 <div className="relative">
                   <button
-                    onClick={() => setproducts(!products)}
+                    onClick={() => {
+                      setSolutions(false);
+                      setproducts(!products);
+                      setservices(false);
+                      setaboutus(false);
+                    }}
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Products
@@ -325,7 +340,12 @@ function Navbar() {
                 {/* aboutus */}
                 <div className="relative">
                   <button
-                    onClick={() => setaboutus(!aboutus)}
+                    onClick={() => {
+                      setSolutions(false);
+                      setproducts(false);
+                      setservices(false);
+                      setaboutus(!aboutus);
+                    }}
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     About Us

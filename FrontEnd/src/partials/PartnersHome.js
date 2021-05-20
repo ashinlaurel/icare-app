@@ -35,22 +35,22 @@ function PartnersHome() {
           <div className="flex items-center justify-center w-full lg:ml-8 ">
             <div className="flex-row flex flex-wrap items-center justify-center w-3/4">
               {/* --------------Images 1 ---------------------- */}
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgone}></img>
               </div>
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgtwo}></img>
               </div>
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgthree}></img>
               </div>
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgfour}></img>
               </div>
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgfive}></img>
               </div>
-              <div className="w-1/3 my-5 ">
+              <div className="w-1/4 lg:w-1/3 my-5 mx-2 lg:mx-0 ">
                 <img src={imgsix}></img>
               </div>
             </div>

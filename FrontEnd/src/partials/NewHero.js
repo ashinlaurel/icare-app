@@ -28,7 +28,7 @@ const NewHero = () => {
         // }}
       >
         <img
-          class=" w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-165 lg:w-full "
+          class=" w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-165 lg:w-full "
           src={
             // titleImage
             "https://www.unitedpensions.nl/global/images/498323251.jpg"
