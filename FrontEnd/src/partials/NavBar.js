@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Input,
   HelperText,
@@ -27,8 +27,39 @@ function Navbar() {
   const [mobservices, setmobservices] = useState(false);
   const [mobaboutus, setmobaboutus] = useState(false);
 
+  function useOuterClick(callback) {
+    const callbackRef = useRef(); // initialize mutable callback ref
+    const innerRef = useRef(); // returned to client, who sets the "border" element
+
+    // update callback on each render, so second useEffect has most recent callback
+    useEffect(() => {
+      callbackRef.current = callback;
+    });
+    useEffect(() => {
+      document.addEventListener("click", handleClick);
+      return () => document.removeEventListener("click", handleClick);
+      function handleClick(e) {
+        if (
+          innerRef.current &&
+          callbackRef.current &&
+          !innerRef.current.contains(e.target)
+        )
+          callbackRef.current(e);
+      }
+    }, []); // no dependencies -> stable click listener
+
+    return innerRef; // convenience for client (doesn't need to init ref himself)
+  }
+
+  const innerRef = useOuterClick((ev) => {
+    setSolutions(false);
+    setproducts(false);
+    setservices(false);
+    setaboutus(false);
+  });
+
   return (
-    <div className="fixed z-50 w-full bg-white shadow-md">
+    <div className="fixed z-50 w-full bg-white shadow-md" ref={innerRef}>
       <div class="relative z-10 pb-3 lg:w-full ">
         <svg
           class="hidden lg:block absolute right-0 inset-y-0 h-full text-white transform translate-x-1/2"
@@ -93,7 +124,7 @@ function Navbar() {
                 </div>
                 {/* ------------Solutions ----------- */}
 
-                <div onBlur={() => setSolutions(false)} className="relative">
+                <div className="relative">
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setSolutions(!solutions)}
@@ -187,7 +218,6 @@ function Navbar() {
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setservices(!services)}
-                    onBlur={() => setservices(false)}
                   >
                     Manage IT Services
                   </button>
@@ -222,7 +252,6 @@ function Navbar() {
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setproducts(!products)}
-                    onBlur={() => setproducts(false)}
                   >
                     Products
                   </button>
@@ -262,7 +291,6 @@ function Navbar() {
                   <button
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setaboutus(!aboutus)}
-                    onBlur={() => setaboutus(false)}
                   >
                     About Us
                   </button>
