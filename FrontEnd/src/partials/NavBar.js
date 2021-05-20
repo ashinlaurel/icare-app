@@ -126,8 +126,8 @@ function Navbar() {
 
                 <div className="relative">
                   <button
-                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setSolutions(!solutions)}
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Solutions
                   </button>
@@ -142,30 +142,48 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-1 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/website/solution/cloudsolutions">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/cloudsolutions"
+                      >
                         <a className="block px-4 py-2">
                           Cloud Readiness Assessment
                         </a>
                       </Link>
-                      <Link to="/website/solution/cloudmigration">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/cloudmigration"
+                      >
                         <a className="block px-4 py-2 ">
                           Cloud Migration Service
                         </a>
                       </Link>
-                      <Link to="/website/solution/habcsolution">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/habcsolution"
+                      >
                         <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
                       </Link>
-                      <Link to="/website/solution/itinfrastructure">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/itinfrastructure"
+                      >
                         <a className="block px-4 py-2 ">
                           IT Infrastructure Consolidation
                         </a>
                       </Link>
-                      <Link to="/website/solution/structurednetworking">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/structurednetworking"
+                      >
                         <a className="block px-4 py-2 ">
                           Structured Networking
                         </a>
                       </Link>
-                      <Link to="/website/solution/itsecurity">
+                      <Link
+                        onClick={() => setSolutions(!solutions)}
+                        to="/website/solution/itsecurity"
+                      >
                         <a className="block px-4 py-2 ">
                           IT Security Solutions
                         </a>
@@ -173,9 +191,7 @@ function Navbar() {
                     </div>
                   </Transition>
                 </div>
-
                 {/* Solutions */}
-
                 {/* <div>
                   <button
                     className=" z-10 relative align-middle rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900"
@@ -212,12 +228,11 @@ function Navbar() {
                   </Dropdown>
                 </div> */}
                 {/* Solutions */}
-
                 {/* services */}
                 <div className="relative">
                   <button
-                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setservices(!services)}
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Manage IT Services
                   </button>
@@ -232,26 +247,34 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-64 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/website/managedit/FacilityManagement">
+                      <Link
+                        onClick={() => setservices(!services)}
+                        to="/website/managedit/FacilityManagement"
+                      >
                         <a className="block px-4 py-2">Facility Management</a>
                       </Link>
-                      <Link to="/website/managedit/AnnualMaintanence">
+                      <Link
+                        onClick={() => setservices(!services)}
+                        to="/website/managedit/AnnualMaintanence"
+                      >
                         <a className="block px-4 py-2 ">
                           Annual Maintanance Service
                         </a>
                       </Link>
-                      <Link to="/website/managedit/OnDemand">
+                      <Link
+                        onClick={() => setservices(!services)}
+                        to="/website/managedit/OnDemand"
+                      >
                         <a className="block px-4 py-2 ">On-Demand Service</a>
                       </Link>
                     </div>
                   </Transition>
                 </div>
-
                 {/* Products */}
                 <div className="relative">
                   <button
-                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setproducts(!products)}
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Products
                   </button>
@@ -266,31 +289,44 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-48 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/website/product/enterpriseservers">
+                      <Link
+                        onClick={() => setproducts(!products)}
+                        to="/website/product/enterpriseservers"
+                      >
                         <a className="block px-4 py-2">Server</a>
                       </Link>
-                      <Link to="/website/product/enterprisestorage">
+                      <Link
+                        onClick={() => setproducts(!products)}
+                        to="/website/product/enterprisestorage"
+                      >
                         <a className="block px-4 py-2 ">Storage</a>
                       </Link>
-                      <Link to="/website/product/networking">
+                      <Link
+                        onClick={() => setproducts(!products)}
+                        to="/website/product/networking"
+                      >
                         <a className="block px-4 py-2 ">Networking</a>
                       </Link>
-                      <Link to="/website/product/endusercomp">
+                      <Link
+                        onClick={() => setproducts(!products)}
+                        to="/website/product/endusercomp"
+                      >
                         <a className="block px-4 py-2 ">End User Compute</a>
                       </Link>
-                      <Link to="/website/product/printing">
+                      <Link
+                        onClick={() => setproducts(!products)}
+                        to="/website/product/printing"
+                      >
                         <a className="block px-4 py-2 ">Printing</a>
                       </Link>
                     </div>
                   </Transition>
                 </div>
-
                 {/* aboutus */}
-
                 <div className="relative">
                   <button
-                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                     onClick={() => setaboutus(!aboutus)}
+                    className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     About Us
                   </button>
@@ -305,27 +341,40 @@ function Navbar() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <div className="origin-top-right absolute right-4 w-40 py-2 mt-1 bg-white opacity-100  rounded shadow-md">
-                      <Link to="/website/aboutus/Company">
+                      <Link
+                        onClick={() => setaboutus(!aboutus)}
+                        to="/website/aboutus/Company"
+                      >
                         <a className="block px-4 py-2">Company</a>
                       </Link>
-                      <Link to="/website/aboutus/Career">
+                      <Link
+                        onClick={() => setaboutus(!aboutus)}
+                        to="/website/aboutus/Career"
+                      >
                         <a className="block px-4 py-2 ">Careers</a>
                       </Link>
-                      <Link to="/website/aboutus/Partners">
+                      <Link
+                        onClick={() => setaboutus(!aboutus)}
+                        to="/website/aboutus/Partners"
+                      >
                         <a className="block px-4 py-2 ">Partners</a>
                       </Link>
-                      <Link to="/website/aboutus/PrivacyPolicy">
+                      <Link
+                        onClick={() => setaboutus(!aboutus)}
+                        to="/website/aboutus/PrivacyPolicy"
+                      >
                         <a className="block px-4 py-2 ">Privacy Policy</a>
                       </Link>
-                      <Link to="/website/aboutus/ContactUs">
+                      <Link
+                        onClick={() => setaboutus(!aboutus)}
+                        to="/website/aboutus/ContactUs"
+                      >
                         <a className="block px-4 py-2 ">Contact Us</a>
                       </Link>
                     </div>
                   </Transition>
                 </div>
-
                 {/* Products */}
-
                 <Link to="/admin/signin">
                   <div class=" text-gray-500 hover:text-gray-700 cursor-pointer">
                     Login
