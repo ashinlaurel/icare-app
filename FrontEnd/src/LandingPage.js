@@ -98,6 +98,7 @@ function LandingPage() {
       <Route path="/website/product/endusercomp">
         <Endusercomp />
       </Route>
+      <Route path="/website/product/printing"></Route>
       {/* -------------Managed IT---------------------- */}
       <Route path="/website/managedit/FacilityManagement">
         <FacilityManagement />

@@ -254,7 +254,7 @@ function Navbar() {
                       <Link to="/website/product/endusercomp">
                         <a className="block px-4 py-2 ">End User Compute</a>
                       </Link>
-                      <Link to="/api/logout">
+                      <Link to="/website/product/printing">
                         <a className="block px-4 py-2 ">Printing</a>
                       </Link>
                     </div>
@@ -375,7 +375,7 @@ function Navbar() {
                 // leaveTo="opacity-0 scale-95"
               >
                 <div className=" py-2 mt-1 bg-gray-100 w-full  opacity-100 rounded-lg  ">
-                  <Link href="/profile">
+                  <Link to="/website/solution/cloudsolutions">
                     <a className="block px-4 py-2">
                       Cloud Readiness Assessment
                     </a>
@@ -460,7 +460,7 @@ function Navbar() {
                   <Link href="/api/logout">
                     <a className="block px-4 py-2 ">End User Compute</a>
                   </Link>
-                  <Link href="/api/logout">
+                  <Link to="/website/product/printing">
                     <a className="block px-4 py-2 ">Printing</a>
                   </Link>
                 </div>
@@ -500,12 +500,11 @@ function Navbar() {
                 </div>
               </Transition>
             </div>
-            <div
-              href="#"
-              class="block w-full px-5 py-3 text-center font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 cursor-pointer"
-            >
-              Login
-            </div>
+            <Link to="/admin/signin">
+              <div class="block w-full px-5 py-3 text-center font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 cursor-pointer">
+                Login
+              </div>
+            </Link>
           </div>
         </div>
       </div>
