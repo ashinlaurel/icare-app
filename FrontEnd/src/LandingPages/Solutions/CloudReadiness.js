@@ -70,9 +70,6 @@ const CloudReadiness = () => {
           2. Gaps that need to be addressed before moving into cloud
         </div>
       </div>
-
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

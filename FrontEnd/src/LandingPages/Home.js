@@ -32,7 +32,7 @@ function Home() {
       </main>
 
       {/*  Site footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

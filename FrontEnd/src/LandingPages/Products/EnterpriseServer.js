@@ -150,9 +150,6 @@ const EnterpriseServer = () => {
           </div>
         </div>
       </div>
-
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

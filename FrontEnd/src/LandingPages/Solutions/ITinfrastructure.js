@@ -129,8 +129,6 @@ const ITInfra = () => {
           </ul>
         </div>
       </div>
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

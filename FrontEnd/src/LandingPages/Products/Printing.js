@@ -168,8 +168,6 @@ const Printing = () => {
           </div>
         </div>
       </div>
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

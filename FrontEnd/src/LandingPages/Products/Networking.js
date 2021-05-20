@@ -155,8 +155,6 @@ const Networking = () => {
           </div>
         </div>
       </div>
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

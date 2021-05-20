@@ -169,9 +169,6 @@ const Endusercomp = () => {
           </div>
         </div>
       </div>
-
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };

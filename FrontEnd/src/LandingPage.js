@@ -30,6 +30,7 @@ import Partners from "./LandingPages/AoutUs/Partners";
 import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
 import ContactUs from "./LandingPages/AoutUs/ContactUs";
 import Printing from "./LandingPages/Products/Printing";
+import Footer from "./partials/Footer";
 
 // import Home from "./LandingPages/Home";
 
@@ -128,6 +129,8 @@ function LandingPage() {
       <Route path="/website/aboutus/ContactUs">
         <ContactUs />
       </Route>
+
+      <Footer />
       {/* <Route path="/signin">
           <SignIn />
         </Route>

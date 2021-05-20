@@ -125,9 +125,6 @@ const ContactUs = () => {
           </div>
         </form>
       </div>
-
-      {/*  Site footer */}
-      <Footer />
     </div>
   );
 };
