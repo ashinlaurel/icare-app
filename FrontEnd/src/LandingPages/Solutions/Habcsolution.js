@@ -3,10 +3,12 @@ import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
 import cloudimage from "../../images/globeconnect.jpg";
+import Navbar from "../../partials/NavBar";
 
 const HabcSolution = () => {
   return (
     <div className="">
+      <Navbar />
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img

@@ -13,7 +13,7 @@ import ServerPage from "./LandingPages/Products/ServerPage";
 import CloudMigration from "./LandingPages/Solutions/CloudMigration";
 import EnterpriseServer from "./LandingPages/Products/EnterpriseServer";
 import EnterpriseStorage from "./LandingPages/Products/EnterpriseStorage";
-import Habcsolution from "./LandingPages/Products/Habcsolution";
+// import Habcsolution from "./LandingPages/Solutions/Habcsolution";
 import Networking from "./LandingPages/Products/Networking";
 import Endusercomp from "./LandingPages/Products/Endusercomp";
 import HABCDR from "./LandingPages/Solutions/HABCDR";
@@ -29,6 +29,7 @@ import PartnersHome from "./partials/PartnersHome";
 import Partners from "./LandingPages/AoutUs/Partners";
 import PrivacyPolicy from "./LandingPages/AoutUs/PrivacyPolicy";
 import ContactUs from "./LandingPages/AoutUs/ContactUs";
+import HabcSolution from "./LandingPages/Solutions/Habcsolution";
 
 // import Home from "./LandingPages/Home";
 
@@ -54,7 +55,7 @@ function LandingPage() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <Route exact path="/website">
         <Home />
@@ -67,11 +68,11 @@ function LandingPage() {
         <CloudMigration />
       </Route>
       <Route path="/website/solution/habcsolution">
-        <Habcsolution />
+        <HabcSolution />
       </Route>
-      <Route path="/website/solution/habcdr">
+      {/* <Route path="/website/solution/habcdr">
         <HABCDR />
-      </Route>
+      </Route> */}
       <Route path="/website/solution/itinfrastructure">
         <ITInfra />
       </Route>

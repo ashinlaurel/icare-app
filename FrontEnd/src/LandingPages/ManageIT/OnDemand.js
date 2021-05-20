@@ -2,11 +2,13 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
+import Navbar from "../../partials/NavBar";
 // import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
 
 const OnDemand = () => {
   return (
     <div className="">
+      <Navbar />
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
