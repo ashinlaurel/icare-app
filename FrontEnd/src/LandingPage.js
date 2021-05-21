@@ -32,6 +32,12 @@ import ContactUs from "./LandingPages/AoutUs/ContactUs";
 import Printing from "./LandingPages/Products/Printing";
 import Footer from "./partials/Footer";
 import HabcSolution from "./LandingPages/Solutions/Habcsolution";
+import CloudSolutions from "./LandingPages/LearnMore/CloudSolutions";
+import ManagedIt from "./LandingPages/LearnMore/ManagedIt";
+import EnterpriseProd from "./LandingPages/LearnMore/EnterpriseProd";
+import Infrastructure from "./LandingPages/LearnMore/Infrastructure";
+import EndUserComp from "./LandingPages/LearnMore/EndUserComp";
+import SecuritySolutions from "./LandingPages/LearnMore/SecuritySolutions";
 
 // import Home from "./LandingPages/Home";
 
@@ -62,6 +68,26 @@ function LandingPage() {
       <Route exact path="/website">
         <Home />
       </Route>
+      {/* ----------------Learn More  ---------------- */}
+      <Route exact path="/website/service/cloudsolutions">
+        <CloudSolutions />
+      </Route>
+      <Route exact path="/website/service/manageditservice">
+        <ManagedIt />
+      </Route>
+      <Route exact path="/website/service/securitysolutions">
+        <SecuritySolutions />
+      </Route>
+      <Route exact path="/website/service/enterpriseproducts">
+        <EnterpriseProd />
+      </Route>
+      <Route exact path="/website/service/infrastructuresolutions">
+        <Infrastructure />
+      </Route>
+      <Route exact path="/website/service/endusercomputing">
+        <EndUserComp />
+      </Route>
+
       {/* ----------------Solutions ---------------- */}
       <Route path="/website/solution/cloudsolutions">
         <CloudReadiness />

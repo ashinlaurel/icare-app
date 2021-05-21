@@ -119,14 +119,14 @@ function FeaturesBlocks() {
                 You can now focus more on your business performance. Find out
                 how Infocare's managed IT services can help you.
               </p>
-              {/* <div class="">
+              <div class="">
                 <a
-                  href="/website/service/cloudsolutions"
+                  href="/website/service/manageditservice"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
 
             {/* 3rd item */}
@@ -163,14 +163,14 @@ function FeaturesBlocks() {
                 solutions that fits your need, may it be on-premise or cloud
                 infrastructure.
               </p>
-              {/* <div class="">
+              <div class="">
                 <a
-                  href="/website/service/cloudsolutions"
+                  href="/website/service/securitysolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
 
             {/* 4th item */}
@@ -220,14 +220,14 @@ function FeaturesBlocks() {
                 infrastructure from most trusted brands at best price. Click to
                 browse through the catalog to get more info on the products.
               </p>
-              {/* <div class="">
+              <div class="">
                 <a
-                  href="/website/service/cloudsolutions"
+                  href="/website/service/enterpriseproducts"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
 
             {/* 5th item */}
@@ -264,14 +264,14 @@ function FeaturesBlocks() {
                 we provide you reliable & secure solutions for your enterprise's
                 seamless functionality.
               </p>
-              {/* <div class="">
+              <div class="">
                 <a
-                  href="/website/service/cloudsolutions"
+                  href="/website/service/infrastructuresolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
 
             {/* 6th item */}
@@ -316,14 +316,14 @@ function FeaturesBlocks() {
                 Choose the right device for your planned and unplanned
                 requirement with committed quality support.
               </p>
-              {/* <div class="">
+              <div class="">
                 <a
-                  href="/website/service/cloudsolutions"
+                  href="/website/service/endusercomputing"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
