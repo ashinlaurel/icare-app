@@ -69,14 +69,14 @@ function FeaturesBlocks() {
                 assessment and provide the right solution that's aligned with
                 your enterprise business strategy.
               </p>
-              {/* <div class=" align-bottom">
+              <div class=" align-bottom">
                 <a
                   href="/website/service/cloudsolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100  rounded-md  my-4"
                 >
                   + Learn More
                 </a>
-              </div> */}
+              </div>
             </div>
 
             {/* 2nd item */}
