@@ -3,14 +3,23 @@ import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
 import cloudimage from "../../images/stock/Printing.jpg";
 import imgptone from "../../images/networking/set1/HPE NETWORK.webp";
+
 import imgpt1one from "../../images/printing/set1/Epson L3115 -1.webp";
 import imgpt1two from "../../images/printing/set1/Epson M1180 - 1.webp";
 import imgpt1three from "../../images/printing/set1/Epson M200 - 1.webp";
 import imgpt1four from "../../images/printing/set1/Epson M15140.webp";
 
+import imgpt1onedesc from "../../images/printing/set1/Epson L3115 -2.webp";
+import imgpt1twodesc from "../../images/printing/set1/Epson M1180 - 2.webp";
+import imgpt1threedesc from "../../images/printing/set1/Epson M200 - 2.webp";
+
 import imgpt2one from "../../images/printing/set2/Epson Scanner - 1.webp";
 import imgpt2two from "../../images/printing/set2/Epson Scanner - 2.webp";
 import imgpt2three from "../../images/printing/set2/Epson Scanner - 3.webp";
+
+import imgpt2onedesc from "../../images/printing/set2/Epson Scanner - 1d.webp";
+import imgpt2twodesc from "../../images/printing/set2/Epson Scanner - 2d.webp";
+import imgpt2threedesc from "../../images/printing/set2/Epson Scanner - 3d.webp";
 
 import imgpt3one from "../../images/printing/set3/Canon Pixma G2060 - 1.webp";
 import imgpt3two from "../../images/printing/set3/Canon Pixma G7060 - 1.webp";
@@ -19,6 +28,14 @@ import imgpt3four from "../../images/printing/set3/Canon Laser LBP MF232W - 1.we
 import imgpt3five from "../../images/printing/set3/Canon Lide 300 - 1.webp";
 import imgpt3six from "../../images/printing/set3/Canon Lide 400 - 1.webp";
 import imgpt3seven from "../../images/printing/set3/Canon DR-G2090 - 1.webp";
+
+import imgpt3onedesc from "../../images/printing/set3/Canon Pixma G2060 - 2.webp";
+import imgpt3twodesc from "../../images/printing/set3/Canon Pixma G7060 - 2.webp";
+import imgpt3threedesc from "../../images/printing/set3/Canon Laser LBP 2900B - 2.webp";
+import imgpt3fourdesc from "../../images/printing/set3/Canon Laser LBP MF232W - 2.webp";
+import imgpt3fivedesc from "../../images/printing/set3/Canon Lide 300 - 2.webp";
+import imgpt3sixdesc from "../../images/printing/set3/Canon Lide 400 - 2.webp";
+import imgpt3sevendesc from "../../images/printing/set3/Canon DR-G2090 - 2.webp";
 
 const Printing = () => {
   return (
@@ -87,16 +104,39 @@ const Printing = () => {
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/4 my-10">
-            <img src={imgpt1one}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/For-Home/Printers/EcoTank-Printers/EcoTank-L3115-Multifunction-InkTank-Printer-/p/C11CG87515"
+            >
+              <img className="mx-auto" src={imgpt1one}></img>
+              <img className="mx-auto" src={imgpt1onedesc}></img>
+            </a>
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt1two}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/Ink-Tank/Ink-Tank-System-Printers/EcoTank-Monochrome-M1180-Wi-Fi-InkTank-Printer/p/C11CG94504"
+            >
+              <img className="mx-auto" src={imgpt1two}></img>
+              <img className="mx-auto" src={imgpt1twodesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt1three}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/Ink-Tank/Ink-Tank-System-Printers/EcoTank-M200-Multifunction-B%26W-Printer/p/C11CC83412"
+            >
+              <img className="mx-auto" src={imgpt1three}></img>
+              <img className="mx-auto" src={imgpt1threedesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt1four}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/EcoTank-Printers/Epson-EcoTank-M15140-A3-Wi-Fi-Duplex-All-in-One-Ink-Tank-Printer/p/C11CJ41502"
+            >
+              <img className="mx-auto" src={imgpt1four}></img>
+            </a>
           </div>
         </div>
       </div>
@@ -118,13 +158,31 @@ const Printing = () => {
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
-            <img src={imgpt2one}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/Scanners/A4-Document-Scanners/Epson-WorkForce-DS-1630/p/B11B239504"
+            >
+              <img className="mx-auto" src={imgpt2one}></img>
+              <img className="mx-auto" src={imgpt2onedesc}></img>
+            </a>{" "}
+          </div>
+          <div className="w-1/3  my-10">
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/Scanners/A4-Document-Scanners/Epson-WorkForce-DS-530-A4-Duplex-Sheet-fed-Document-Scanner/p/B11B226503"
+            >
+              <img className="mx-auto" src={imgpt2two}></img>
+              <img className="mx-auto" src={imgpt2twodesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/3 my-10">
-            <img src={imgpt2two}></img>
-          </div>
-          <div className="w-1/3 my-10">
-            <img src={imgpt2three}></img>
+            <a
+              target="_blank"
+              href="https://www.epson.co.in/Scanners/A4-Document-Scanners/Epson-WorkForce-DS-7500-Flatbed-Document-Scanner-with-Duplex-ADF/p/B11B205502"
+            >
+              <img className="mx-auto" src={imgpt2three}></img>
+              <img className="mx-auto" src={imgpt2threedesc}></img>
+            </a>{" "}
           </div>
         </div>
       </div>
@@ -146,26 +204,68 @@ const Printing = () => {
       <div className="flex items-center justify-center w-full">
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
-          <div className="w-1/4 my-10">
-            <img src={imgpt3one}></img>
+          <div className="w-1/4 my-10 ">
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/pixma-g2060/product?category=printing&subCategory=inkjet-printers"
+            >
+              <img className="mx-auto" src={imgpt3one}></img>
+              <img className="mx-auto" src={imgpt3onedesc}></img>
+            </a>
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt3two}></img>
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/pixma-g7070/product?category=printing&subCategory=inkjet-printers"
+            >
+              <img className="mx-auto" src={imgpt3two}></img>
+              <img className="mx-auto" src={imgpt3twodesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt3three}></img>
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/laser-shot-lbp2900b/product?category=printing&subCategory=laser-printers"
+            >
+              <img className="mx-auto" src={imgpt3three}></img>
+              <img className="mx-auto" src={imgpt3threedesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt3four}></img>
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/imageclass-mf232w/product?category=printing&subCategory=laser-printers"
+            >
+              <img className="mx-auto" src={imgpt3four}></img>
+              <img className="mx-auto" src={imgpt3fourdesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt3five}></img>
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/lide-300/product?category=scanning&subCategory=flatbed-scanners"
+            >
+              <img className="mx-auto" src={imgpt3five}></img>
+              <img className="mx-auto" src={imgpt3fivedesc}></img>
+            </a>{" "}
           </div>
           <div className="w-1/4 my-10">
-            <img src={imgpt3six}></img>
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/lide-400/product?category=scanning&subCategory=flatbed-scanners"
+            >
+              <img className="mx-auto" src={imgpt3six}></img>
+              <img className="mx-auto" src={imgpt3sixdesc}></img>
+            </a>{" "}
           </div>
-          <div className="w-1/4 my-10">
-            <img src={imgpt3seven}></img>
+          <div className="w-1/4 my-10 ">
+            <a
+              target="_blank"
+              href="https://in.canon/en/consumer/dr-g2090-2110-2140/product?category=scanning&subCategory=document-scanners"
+            >
+              <img className="mx-auto" src={imgpt3seven}></img>
+              <img className="mx-auto" src={imgpt3sevendesc}></img>
+            </a>
           </div>
         </div>
       </div>

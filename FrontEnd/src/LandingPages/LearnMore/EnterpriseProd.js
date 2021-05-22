@@ -6,6 +6,11 @@ import cloudimage from "../../images/stock/Storage.jpg";
 import Navbar from "../../partials/NavBar";
 import { Card, CardBody } from "@windmill/react-ui";
 
+import server from "../../images/enterprise/server.webp";
+import storage from "../../images/enterprise/storage.webp";
+import networking from "../../images/enterprise/networking.webp";
+import license from "../../images/enterprise/license.webp";
+
 const EnterpriseProd = () => {
   return (
     <div className="">
@@ -68,10 +73,9 @@ const EnterpriseProd = () => {
           Our Enterprise Solutions
         </div>
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
-          <Card className="flex h-48">
-            <img className="object-cover w-1/2" src="/img/forest.jpeg" />
+          <Card className="flex h-42 text-sm">
             <CardBody>
-              <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+              <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Server
               </p>
               <p className="text-gray-600 dark:text-gray-400">
@@ -83,15 +87,15 @@ const EnterpriseProd = () => {
                 for the small Business to Business Critical Enterprise customers
               </p>
             </CardBody>
+            <img className="object-cover w-5/6" src={server} />
           </Card>
         </div>
         {/* ---------------- CARD-2 --------------------------- */}
-
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
-          <Card className="flex h-48">
-            <img className="object-cover w-1/2" src="/img/forest.jpeg" />
+          <Card className="flex h-42 text-sm">
+            <img className="object-cover w-5/6" src={storage} />
             <CardBody>
-              <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+              <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Storage
               </p>
               <p className="text-gray-600 dark:text-gray-400">
@@ -102,13 +106,13 @@ const EnterpriseProd = () => {
             </CardBody>
           </Card>
         </div>
+
         {/* ---------------- CARD-3 --------------------------- */}
 
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
-          <Card className="flex h-48">
-            <img className="object-cover w-1/2" src="/img/forest.jpeg" />
+          <Card className="flex h-42 text-sm">
             <CardBody>
-              <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+              <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Networking
               </p>
               <p className="text-gray-600 dark:text-gray-400">
@@ -117,15 +121,17 @@ const EnterpriseProd = () => {
                 high-performing applications
               </p>
             </CardBody>
+            <img className="object-cover w-5/6" src={networking} />
           </Card>
         </div>
+
         {/* ---------------- CARD-4 --------------------------- */}
 
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
-          <Card className="flex h-48">
-            <img className="object-cover w-1/2" src="/img/forest.jpeg" />
+          <Card className="flex h-42 text-sm">
+            <img className="object-cover w-5/6" src={license} />
             <CardBody>
-              <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+              <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Licensing & Subscription
               </p>
               <p className="text-gray-600 dark:text-gray-400">
