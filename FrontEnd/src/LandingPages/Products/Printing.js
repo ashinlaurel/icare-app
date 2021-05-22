@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Printing.jpg";
 import imgptone from "../../images/networking/set1/HPE NETWORK.webp";
 import imgpt1one from "../../images/printing/set1/Epson L3115 -1.webp";
 import imgpt1two from "../../images/printing/set1/Epson M1180 - 1.webp";
@@ -28,7 +28,8 @@ const Printing = () => {
           <img
             class="h-40 w-full object-cover  object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
             src={
-              "https://images.unsplash.com/photo-1520869562399-e772f042f422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80"
+              cloudimage
+              // "https://images.unsplash.com/photo-1520869562399-e772f042f422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80"
             }
             alt=""
           />
@@ -37,7 +38,7 @@ const Printing = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-48 flex flex-col items-left justify-center ">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-50 ml-40">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-0 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">

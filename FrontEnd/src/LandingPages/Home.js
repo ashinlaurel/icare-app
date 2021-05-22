@@ -28,7 +28,7 @@ function Home() {
         {/* <FeaturesHome /> */}
 
         {/* <Testimonials /> */}
-        <div className="h-64 w-screen bg-white"></div>
+        <div className="h-40 w-screen bg-white"></div>
         {/* <Newsletter /> */}
       </main>
 

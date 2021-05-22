@@ -3,7 +3,7 @@ import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
 import Navbar from "../../partials/NavBar";
-// import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/On-demand.jpg";
 
 const OnDemand = () => {
   return (
@@ -12,9 +12,10 @@ const OnDemand = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-center sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="h-40 w-full object-cover object-right sm:h-72 md:h-56 lg:w-full lg:h-h-151"
             src={
-              "https://images.pexels.com/photos/7491610/pexels-photo-7491610.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              cloudimage
+              // "https://images.pexels.com/photos/7491610/pexels-photo-7491610.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             alt=""
           />

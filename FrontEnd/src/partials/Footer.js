@@ -7,7 +7,7 @@ function Footer() {
     <footer>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Top area: Blocks */}
-        <div className="grid sm:grid-cols-12 gap-8 py-4 md:py-12 border-t border-gray-200">
+        <div className="grid sm:grid-cols-12 gap-8 py-2 md:py-12 border-t border-gray-200">
           {/* 1st block */}
           <div className="sm:col-span-12 lg:col-span-3">
             <div className="lg:mb-2">
@@ -61,6 +61,11 @@ function Footer() {
                   <a className="block   ">HA & BC/DR Solutions</a>
                 </Link>
               </li>
+            </ul>
+          </div>
+          <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+            {/* <h6 className="text-gray-800 font-medium mb-2">Solutions</h6> */}
+            <ul className="text-sm mt-8">
               <li className="mb-2">
                 <Link
                   to="/website/solution/itinfrastructure"
@@ -184,9 +189,9 @@ function Footer() {
         </div>
 
         {/* Bottom area */}
-        <div className="md:flex md:items-center md:justify-between py-4 md:py-8 border-t border-gray-200">
+        <div className="md:flex md:items-center md:justify-between py-4 border-t border-gray-200">
           {/* Social links */}
-          <ul className="flex mb-4 md:order-1 md:ml-4 md:mb-0">
+          {/* <ul className="flex mb-4 md:order-1 md:ml-4 md:mb-0">
             <li>
               <Link
                 to="#"
@@ -232,7 +237,7 @@ function Footer() {
                 </svg>
               </Link>
             </li>
-          </ul>
+          </ul> */}
 
           {/* Copyrights note */}
           <div className="text-sm text-gray-600 mr-4">

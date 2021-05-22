@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/facility.jpg";
+import cloudimage from "../../images/stock/Facility Management.jpg";
 import Navbar from "../../partials/NavBar";
 
 const FacilityManagement = () => {

@@ -19,7 +19,7 @@ const Endusercomp = () => {
       <div class="">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover  object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
+            class="h-40 w-full object-cover object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
             src={
               "https://images.unsplash.com/photo-1605449591750-7bf5cc4f013f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
             }
@@ -30,7 +30,7 @@ const Endusercomp = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-48 flex flex-col items-left justify-center ">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-50 ml-40">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-0 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">

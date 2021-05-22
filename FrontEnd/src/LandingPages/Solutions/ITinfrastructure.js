@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/IT Consolidation.jpg";
 import Navbar from "../../partials/NavBar";
 
 const ITInfra = () => {
@@ -13,9 +13,7 @@ const ITInfra = () => {
         <div class=" max-h-xl ">
           <img
             class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
-            src={
-              "https://images.pexels.com/photos/5203849/pexels-photo-5203849.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
+            src={cloudimage}
             alt=""
           />
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Partnership.jpg";
 import PartnersHome from "../../partials/PartnersHome";
 
 const Partners = () => {
@@ -13,7 +13,8 @@ const Partners = () => {
           <img
             class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
             src={
-              "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              cloudimage
+              // "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             alt=""
           />

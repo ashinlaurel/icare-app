@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Cloud Readiness.jpg";
 import Navbar from "../../partials/NavBar";
 
 const CloudReadiness = () => {
@@ -12,7 +12,7 @@ const CloudReadiness = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-165 lg:w-full "
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full "
             src={cloudimage}
             alt=""
           />
@@ -20,8 +20,8 @@ const CloudReadiness = () => {
       </div>
 
       {/* Heading */}
-      <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+      <div className="  bg-hero-bg -mt-64 flex flex-col items-left justify-center">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-25 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">

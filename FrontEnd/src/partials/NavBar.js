@@ -109,7 +109,7 @@ function Navbar() {
               </div>
             </div>
             <div className="hidden md:block flex-1 ">
-              <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-8 cursor-pointer ">
+              <div class=" flex flex-row justify-end  md:ml-10 md:pr-4 md:space-x-10 cursor-pointer ">
                 <div>
                   <Link to="/website">
                     <button
@@ -126,7 +126,24 @@ function Navbar() {
 
                 <div className="relative">
                   <button
-                    onClick={() => setSolutions(!solutions)}
+                    onMouseEnter={() => {
+                      setSolutions(!solutions);
+                      setproducts(false);
+                      setservices(false);
+                      setaboutus(false);
+                    }}
+                    // onMouseLeave={() => {
+                    //   setSolutions(!solutions);
+                    //   setproducts(false);
+                    //   setservices(false);
+                    //   setaboutus(false);
+                    // }}
+                    // onClick={() => {
+                    //   setSolutions(!solutions);
+                    //   setproducts(false);
+                    //   setservices(false);
+                    //   setaboutus(false);
+                    // }}
                     className="menu rounded-md focus:outline-none  text-sm text-gray-500 hover:text-gray-900 "
                   >
                     Solutions
@@ -145,13 +162,10 @@ function Navbar() {
                       <Link
                         onClick={() => {
                           setSolutions(!solutions);
-                          setproducts(false);
-                          setservices(false);
-                          setaboutus(false);
                         }}
                         to="/website/solution/cloudsolutions"
                       >
-                        <a className="block px-4 py-2">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm">
                           Cloud Readiness Assessment
                         </a>
                       </Link>
@@ -159,7 +173,7 @@ function Navbar() {
                         onClick={() => setSolutions(!solutions)}
                         to="/website/solution/cloudmigration"
                       >
-                        <a className="block px-4 py-2 ">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
                           Cloud Migration Service
                         </a>
                       </Link>
@@ -167,13 +181,15 @@ function Navbar() {
                         onClick={() => setSolutions(!solutions)}
                         to="/website/solution/habcsolution"
                       >
-                        <a className="block px-4 py-2 ">HA & BC/DR Solutions</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          HA & BC/DR Solutions
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setSolutions(!solutions)}
                         to="/website/solution/itinfrastructure"
                       >
-                        <a className="block px-4 py-2 ">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
                           IT Infrastructure Consolidation
                         </a>
                       </Link>
@@ -181,7 +197,7 @@ function Navbar() {
                         onClick={() => setSolutions(!solutions)}
                         to="/website/solution/structurednetworking"
                       >
-                        <a className="block px-4 py-2 ">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
                           Structured Networking
                         </a>
                       </Link>
@@ -189,7 +205,7 @@ function Navbar() {
                         onClick={() => setSolutions(!solutions)}
                         to="/website/solution/itsecurity"
                       >
-                        <a className="block px-4 py-2 ">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
                           IT Security Solutions
                         </a>
                       </Link>
@@ -236,7 +252,7 @@ function Navbar() {
                 {/* services */}
                 <div className="relative">
                   <button
-                    onClick={() => {
+                    onMouseEnter={() => {
                       setSolutions(false);
                       setproducts(false);
                       setservices(!services);
@@ -261,13 +277,15 @@ function Navbar() {
                         onClick={() => setservices(!services)}
                         to="/website/managedit/FacilityManagement"
                       >
-                        <a className="block px-4 py-2">Facility Management</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm">
+                          Facility Management
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setservices(!services)}
                         to="/website/managedit/AnnualMaintanence"
                       >
-                        <a className="block px-4 py-2 ">
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
                           Annual Maintanance Service
                         </a>
                       </Link>
@@ -275,7 +293,9 @@ function Navbar() {
                         onClick={() => setservices(!services)}
                         to="/website/managedit/OnDemand"
                       >
-                        <a className="block px-4 py-2 ">On-Demand Service</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          On-Demand Service
+                        </a>
                       </Link>
                     </div>
                   </Transition>
@@ -283,7 +303,7 @@ function Navbar() {
                 {/* Products */}
                 <div className="relative">
                   <button
-                    onClick={() => {
+                    onMouseEnter={() => {
                       setSolutions(false);
                       setproducts(!products);
                       setservices(false);
@@ -308,31 +328,41 @@ function Navbar() {
                         onClick={() => setproducts(!products)}
                         to="/website/product/enterpriseservers"
                       >
-                        <a className="block px-4 py-2">Server</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm">
+                          Server
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setproducts(!products)}
                         to="/website/product/enterprisestorage"
                       >
-                        <a className="block px-4 py-2 ">Storage</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Storage
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setproducts(!products)}
                         to="/website/product/networking"
                       >
-                        <a className="block px-4 py-2 ">Networking</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Networking
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setproducts(!products)}
                         to="/website/product/endusercomp"
                       >
-                        <a className="block px-4 py-2 ">End User Compute</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          End User Compute
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setproducts(!products)}
                         to="/website/product/printing"
                       >
-                        <a className="block px-4 py-2 ">Printing</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Printing
+                        </a>
                       </Link>
                     </div>
                   </Transition>
@@ -340,7 +370,7 @@ function Navbar() {
                 {/* aboutus */}
                 <div className="relative">
                   <button
-                    onClick={() => {
+                    onMouseEnter={() => {
                       setSolutions(false);
                       setproducts(false);
                       setservices(false);
@@ -365,31 +395,41 @@ function Navbar() {
                         onClick={() => setaboutus(!aboutus)}
                         to="/website/aboutus/Company"
                       >
-                        <a className="block px-4 py-2">Company</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm">
+                          Company
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setaboutus(!aboutus)}
                         to="/website/aboutus/Career"
                       >
-                        <a className="block px-4 py-2 ">Careers</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Careers
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setaboutus(!aboutus)}
                         to="/website/aboutus/Partners"
                       >
-                        <a className="block px-4 py-2 ">Partners</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Partners
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setaboutus(!aboutus)}
                         to="/website/aboutus/PrivacyPolicy"
                       >
-                        <a className="block px-4 py-2 ">Privacy Policy</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Privacy Policy
+                        </a>
                       </Link>
                       <Link
                         onClick={() => setaboutus(!aboutus)}
                         to="/website/aboutus/ContactUs"
                       >
-                        <a className="block px-4 py-2 ">Contact Us</a>
+                        <a className="block px-4 py-2 hover:bg-gray-200 text-sm ">
+                          Contact Us
+                        </a>
                       </Link>
                     </div>
                   </Transition>

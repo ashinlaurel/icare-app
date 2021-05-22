@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Storage.jpg";
 import Navbar from "../../partials/NavBar";
 import { Card, CardBody } from "@windmill/react-ui";
 
@@ -14,7 +14,10 @@ const EnterpriseProd = () => {
         <div class=" max-h-xl ">
           <img
             class="w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-165 lg:w-full "
-            src={cloudimage}
+            src={
+              cloudimage
+              // "https://images.unsplash.com/photo-1605449591750-7bf5cc4f013f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
+            }
             alt=""
           />
         </div>
@@ -26,7 +29,7 @@ const EnterpriseProd = () => {
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
-                <span class="block xl:inline">EnterpriseProd</span>
+                <span class="block xl:inline">Enterprise Products</span>
               </h1>
               <h1 class="text-base tracking-tight  text-white md:text-lg">
                 <span class="block xl:inline ">

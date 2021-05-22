@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Product-Network.jpg";
 import imgptone from "../../images/networking/set1/HPE NETWORK.webp";
 import imgpt2one from "../../images/networking/set 2/R&M OFC 1.webp";
 import imgpt2two from "../../images/networking/set 2/R&M OFC 3.webp";
@@ -22,7 +22,8 @@ const Networking = () => {
           <img
             class="h-40 w-full object-cover  object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
             src={
-              "https://images.unsplash.com/photo-1520869562399-e772f042f422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80"
+              cloudimage
+              // "https://images.unsplash.com/photo-1520869562399-e772f042f422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80"
             }
             alt=""
           />

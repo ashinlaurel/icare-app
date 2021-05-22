@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Cloud Migration.jpg";
 import Navbar from "../../partials/NavBar";
 
 const CloudSolutions = () => {
@@ -12,7 +12,7 @@ const CloudSolutions = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-165 lg:w-full "
+            class="w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-164 lg:w-full "
             src={cloudimage}
             alt=""
           />
@@ -20,8 +20,8 @@ const CloudSolutions = () => {
       </div>
 
       {/* Heading */}
-      <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+      <div className="  bg-hero-bg -mt-64 flex flex-col items-left justify-center">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
@@ -44,7 +44,7 @@ const CloudSolutions = () => {
       </div>
 
       {/*Content */}
-      <div className=" flex-col flex items-center justify-center mb-5 mt-32">
+      <div className=" flex-col flex items-center justify-center mb-5 mt-40">
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           We offer you assessment, advice, design, migrate, implement and
           support you find the right solutions for your successful cloud

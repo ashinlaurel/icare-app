@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import cloudimage from "../../images/stock/Storage.jpg";
 import imgone from "../../images/enterprisestorage/HPE Storage 1.webp";
 import imgtwo from "../../images/enterprisestorage/HPE Storage 2.webp";
 import imgthree from "../../images/enterprisestorage/HPE Storage 3.webp";
@@ -18,7 +18,8 @@ const EnterpriseStorage = () => {
           <img
             class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-150 "
             src={
-              "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              cloudimage
+              // "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             alt=""
           />

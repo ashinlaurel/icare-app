@@ -3,7 +3,7 @@ import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
 import Navbar from "../../partials/NavBar";
-// import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+// import cloudimage from "../../images/stock/Annual Maintenance.jpg";
 
 const AnnualMaintanence = () => {
   return (
