@@ -44,7 +44,7 @@ const CloudReadiness = () => {
       </div>
 
       {/*Content */}
-      <div className=" flex-col flex items-center justify-center mb-5 mt-32">
+      <div className=" flex-col flex items-center justify-center mb-5 mt-40">
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Our Cloud Readiness Assessment [CRA] service helps you to choose the
           right cloud adoption framework by assessing your current

@@ -74,8 +74,10 @@ function AdminLogin() {
             />
             <img
               aria-hidden="true"
-              className="hidden object-cover w-full h-full dark:block"
-              src={ImageDark}
+              className="hidden object-cover object-left w-full h-full dark:block"
+              src={
+                "https://images.unsplash.com/photo-1514171933653-2c8955139b77?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              }
               alt="Office"
             />
           </div>

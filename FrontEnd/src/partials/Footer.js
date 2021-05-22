@@ -12,9 +12,13 @@ function Footer() {
           <div className="sm:col-span-12 lg:col-span-3">
             <div className="lg:mb-2">
               {/* Logo */}
-              <Link to="/" className="inline-block" aria-label="Cruip">
+              <Link to="/website/" className="inline-block" aria-label="Cruip">
                 <img className="lg:w-3/4 w-1/2" src={logo}></img>
               </Link>
+            </div>
+            <div className="text-xs text-gray-600">
+              Address: INFOCARE SYSTEMS, Ground Floor, TC 92/2518(3), VURA-28,
+              Temple Road, Anayara PO, Trivandrum, Kerala, 695029{" "}
             </div>
             <div className="text-sm text-gray-600">
               {/* <Link

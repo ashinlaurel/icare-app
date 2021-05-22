@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
   Input,
   HelperText,
@@ -10,10 +10,12 @@ import {
   DropdownItem,
   Badge,
   Transition,
+  WindmillContext,
 } from "@windmill/react-ui";
 
 import logo from "../images/infocarefull.png";
 import { Link } from "react-router-dom";
+import { MoonIcon, SunIcon } from "../icons";
 function Navbar() {
   const [click, setclick] = useState(false);
   const [solutions, setSolutions] = useState(false);
@@ -21,6 +23,8 @@ function Navbar() {
   const [services, setservices] = useState(false);
   const [aboutus, setaboutus] = useState(false);
 
+  // darkmode
+  const { mode, toggleMode } = useContext(WindmillContext);
   // MOBILE
   const [mobsolutions, setmobSolutions] = useState(false);
   const [mobproducts, setmobproducts] = useState(false);
@@ -59,7 +63,7 @@ function Navbar() {
   });
 
   return (
-    <div className="fixed z-50 w-full bg-white shadow-md" ref={innerRef}>
+    <div className="fixed z-50 w-full bg-white   shadow-md" ref={innerRef}>
       <div class="relative z-10 pb-3 lg:w-full ">
         <svg
           class="hidden lg:block absolute right-0 inset-y-0 h-full text-white transform translate-x-1/2"
@@ -440,6 +444,20 @@ function Navbar() {
                     Login
                   </div>
                 </Link>
+                {/* <button
+                  className="rounded-md focus:outline-none focus:shadow-outline-purple"
+                  onClick={toggleMode}
+                  aria-label="Toggle color mode"
+                >
+                  {mode === "dark" ? (
+                    <SunIcon
+                      className=" text-blue-500 w-5 h-5"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <MoonIcon className="w-5 h-5" aria-hidden="true" />
+                  )}
+                </button> */}
               </div>
             </div>
           </nav>
