@@ -1,19 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/stock/Contact.jpg";
+import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import Axios from "axios";
+import { API } from "../../backendapi";
 
 const ContactUs = () => {
+  const [values, setValues] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    message: "",
+  });
+
+  const { firstname, lastname, email, message } = values;
+
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setValues({ ...values });
+    Axios.post(`${API}/contactform`, {
+      firstname,
+      lastname,
+      email,
+      message,
+    })
+      .then((data) => {
+        if (data.error) {
+          setValues({ ...values });
+        } else {
+          setValues({
+            ...values,
+            firstname: "",
+            lastname: "",
+            email: "",
+            message: "",
+          });
+        }
+      })
+      .catch(console.log("Internal error"));
+
+    /*setValues({
+      ...values,
+      firstname: "",
+      lastname: "",
+      email: "",
+      message: "",
+      success: true,
+    }); */
+  };
+
   return (
     <div className="">
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-center sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="h-40 w-full object-cover object-bottom sm:h-72 md:h-56 lg:w-full lg:h-h-151"
             src={
-              cloudimage
-              // "https://images.pexels.com/photos/618613/pexels-photo-618613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              "https://images.pexels.com/photos/618613/pexels-photo-618613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             alt=""
           />
@@ -22,7 +70,7 @@ const ContactUs = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-75 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
@@ -57,6 +105,8 @@ const ContactUs = () => {
                 id="grid-first-name"
                 type="text"
                 placeholder="Jane"
+                value={firstname}
+                onChange={handleChange("firstname")}
               />
               {/* <p class="text-red-500 text-xs italic">
                 Please fill out this field.
@@ -74,6 +124,8 @@ const ContactUs = () => {
                 id="grid-last-name"
                 type="text"
                 placeholder="Doe"
+                value={lastname}
+                onChange={handleChange("lastname")}
               />
             </div>
           </div>
@@ -89,6 +141,8 @@ const ContactUs = () => {
                 class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="email"
                 type="email"
+                value={email}
+                onChange={handleChange("email")}
               />
               {/* <p class="text-gray-600 text-xs italic">
                 Some tips - as long as needed
@@ -106,6 +160,8 @@ const ContactUs = () => {
               <textarea
                 class=" no-resize appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
                 id="message"
+                value={message}
+                onChange={handleChange("message")}
               ></textarea>
               {/* <p class="text-gray-600 text-xs italic">
                 Re-size can be disabled by set by resize-none / resize-y /
@@ -118,6 +174,7 @@ const ContactUs = () => {
               <button
                 class="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="button"
+                onClick={onSubmit}
               >
                 Send
               </button>

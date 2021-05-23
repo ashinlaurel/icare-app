@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
+const nodemailer = require("nodemailer");
 
 //routes import
 //user routes
@@ -24,18 +25,24 @@ const callRoute = require("./routes/calls/Call");
 // Inventory Import
 const inventoryRoute = require("./routes/inventory/inventory");
 // LST Import
-const LSTRoute =require("./routes/LST/LST")
-
+const LSTRoute = require("./routes/LST/LST");
+//
 // Vendor Import
-const VendorRoute =require("./routes/Vendor/Vendor")
+const VendorRoute = require("./routes/Vendor/Vendor");
 
 //image API
-const imgUploadRoute = require("./routes/uploadapi")
+const imgUploadRoute = require("./routes/uploadapi");
+
+//contactus API
+const ContactUs = require("./routes/contactus/contactus");
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+
+// create application/json parser
+var jsonParser = bodyParser.json();
 
 // async () => {
 //   try {
@@ -83,17 +90,20 @@ app.use("/api/asset", assetRoute);
 app.use("/api/inventory", inventoryRoute);
 
 // Call Routes-------------------------------------------------
-app.use("/api/call",callRoute );
+app.use("/api/call", callRoute);
 
 //image api ---------------------------------------------
-app.use('/api/upload', imgUploadRoute);
+app.use("/api/upload", imgUploadRoute);
 
 //lst route ---------------------------------------------
-app.use('/api/lst',LSTRoute)
+app.use("/api/lst", LSTRoute);
 
 //Vendor route ---------------------------------------------
-app.use('/api/vendor',VendorRoute)
+app.use("/api/vendor", VendorRoute);
 
+//ContactUs route ----------------------------------------------------
+
+app.use("/api/contactform", ContactUs);
 
 // app.get("/", (req, res) => res.send("Hello World!"));
 
