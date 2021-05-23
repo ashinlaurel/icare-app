@@ -59,7 +59,7 @@ const ContactUs = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-bottom sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={
               "https://images.pexels.com/photos/618613/pexels-photo-618613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
@@ -90,7 +90,7 @@ const ContactUs = () => {
         </div>
       </div>
 
-      <div className="mt-48 w-screen flex items-center justify-center mb-8">
+      <div className="mt-48 w-5/6 ml-8 flex items-center justify-center mb-8">
         <form class="w-full max-w-lg">
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

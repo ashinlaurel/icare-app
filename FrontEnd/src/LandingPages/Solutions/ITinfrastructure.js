@@ -12,7 +12,7 @@ const ITInfra = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={cloudimage}
             alt=""
           />
@@ -24,12 +24,12 @@ const ITInfra = () => {
         <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
+              <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
                 <span class="block xl:inline">
                   IT Infrastructure Consolidation
                 </span>
               </h1>
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-lg">
+              <h1 class="text-2xl tracking-tight  text-white md:text-lg">
                 <span class="block xl:inline">
                   Simplifying Infrastructure Consolidation
                 </span>
@@ -48,13 +48,13 @@ const ITInfra = () => {
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           There are several reasons why IT Infrastructure consolidation and
           realignment of business processes are critical for your organization.
           Few reasons are as :
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ml-16 ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           <ul className=" list-disc">
             <li className="my-1">Customer Service Improvement</li>
             <li className="my-1">Increase Business</li>
@@ -63,15 +63,15 @@ const ITInfra = () => {
           </ul>
         </div>
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business "></div>
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business "></div>
         {/* ------------------------------------------------------------------------ */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           There are several reasons why IT Infrastructure consolidation and
           realignment of business processes are critical for your organization.
           Few reasons are as :
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ml-16 ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           <ul className=" list-disc">
             <li className="my-1">
               Improve your Business relationship with your customers
@@ -87,11 +87,11 @@ const ITInfra = () => {
 
         {/* ------------------------------------------------------------------------ */}
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Our 5 Step Approach for your IT Infrastructure Consolidation
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ml-16 ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           <ul className=" list-disc">
             <li className="my-1">
               Business Plan - Identify New Org structures and processes required

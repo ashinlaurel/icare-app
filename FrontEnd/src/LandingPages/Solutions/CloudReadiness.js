@@ -12,7 +12,7 @@ const CloudReadiness = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full "
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={cloudimage}
             alt=""
           />

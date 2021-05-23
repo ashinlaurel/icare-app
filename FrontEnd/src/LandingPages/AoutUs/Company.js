@@ -11,7 +11,7 @@ const Company = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-top sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={
               "https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
@@ -44,11 +44,11 @@ const Company = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-48">
-        <div className="text-indigo-900 text-3xl w-1/2 my-1 font-business ">
+        <div className="text-indigo-900 text-3xl w-5/6 md:w-1/2 my-4 leading-7 font-business">
           About INFOCARE SYSTEMS
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Established in 1997 and headquartered at Trivandrum. INFOCARE SYSTEMS
           is an IT infrastructure solution provider, partnered with leading
           global technology providers like HP, HPE, Lenovo, Wipro, Epson, Canon
@@ -56,7 +56,7 @@ const Company = () => {
           industry to enable us in the best ways to provide our customers with
           most suitable solutions to support their core business functions.
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           INFOCARE SYSTEMS enterprise IT infrastructure solutions across
           industry verticals in India, our capability as a total solution
           provider comes from capabilities portfolio including, design deploy

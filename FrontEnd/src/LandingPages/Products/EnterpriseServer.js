@@ -21,7 +21,7 @@ const EnterpriseServer = () => {
       <div class="">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
+            class="w-full object-cover object-center sm:h-h-150 md:h-h-150 lg:w-full lg:h-h-150"
             src={
               "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
@@ -38,7 +38,7 @@ const EnterpriseServer = () => {
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
                 <span class="block xl:inline">Enterprise Servers</span>
               </h1>
-              <h1 class="text-2xl tracking-tight font-business  text-white sm:text-5xl md:text-sm">
+              <h1 class="text-1xl tracking-tight font-business  text-white sm:text-5xl md:text-sm">
                 <span class="block xl:inline">
                   Cutting-edge IT Solutions to address the futuristic business
                   with modern technology and hardware using customisable system
@@ -58,7 +58,7 @@ const EnterpriseServer = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business ">
           In today's digital world, businesses are deploying sophisticated IT
           systems to automate and modernise their operations, Infocare partners
           with leading global technology innovators HPE, Lenovo to help bring
@@ -75,14 +75,14 @@ const EnterpriseServer = () => {
         </div>
       </div>
       <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
+        <div className="text-indigo-900 text-xl  w-5/6 md:w-1/2 font-business mt-4">
           Rack Servers
         </div>
       </div>
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center w-5/6 md:w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
             <img src={imgone}></img>
@@ -107,14 +107,14 @@ const EnterpriseServer = () => {
       {/* ---------------Part 2 ---------------- */}
 
       <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
+        <div className="text-indigo-900 text-xl  w-5/6 md:w-1/2 font-business ">
           Tower Servers
         </div>
       </div>
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center w-5/6 md:w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
             <img src={twrone}></img>
@@ -130,14 +130,14 @@ const EnterpriseServer = () => {
       {/* ---------------Part 3 ---------------- */}
 
       <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
+        <div className="text-indigo-900 text-xl  w-5/6 md:w-1/2 font-business ">
           Hyper Converged
         </div>
       </div>
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center w-5/6 md:w-1/2">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10">
             <img src={hypone}></img>

@@ -10,7 +10,7 @@ const Career = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-top sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={
               cloudimage
               // "https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -41,22 +41,21 @@ const Career = () => {
           </main>
         </div>
       </div>
-
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-48">
-        <div className="text-indigo-900 text-3xl w-1/2 my-1 font-business ">
+        <div className="text-indigo-900 text-3xl w-5/6 md:w-1/2 my-1 font-business ">
           Why work with INFOCARE
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Full of Opportunities, Challenges and rewards. A team of skilled and
           committed colleagues. And we are committed to Excellence.
         </div>
 
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Current Openings
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Nil
         </div>
       </div>

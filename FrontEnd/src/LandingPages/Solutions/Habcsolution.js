@@ -12,7 +12,7 @@ const HabcSolution = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={cloudimage}
             alt=""
           />
@@ -24,10 +24,10 @@ const HabcSolution = () => {
         <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
+              <h1 class="text-2xl tracking-tight  text-white  md:text-4xl">
                 <span class="block xl:inline">HA & BC/DR Solutions</span>
               </h1>
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-lg">
+              <h1 class="text-1xl tracking-tight  text-white  md:text-lg">
                 <span class="block xl:inline">
                   We design high availability solutions to provide availability,
                   reliability, service continuity, scalability, upgradeability
@@ -47,7 +47,7 @@ const HabcSolution = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Service availability is crucial for your business where minimal
           downtime can result negative results directly or indirectly. 100%
           availability of IT service is unreachable in ideal cases,
@@ -66,10 +66,10 @@ const HabcSolution = () => {
         </div>
 
         {/* ---------------- heading and para --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           HA Infrastructure
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           One of the many and common reasons for service unavailability is due
           to the failure of the underlying infrastructure components. We provide
           tailored and custom made high available virtualization solutions that
@@ -79,10 +79,10 @@ const HabcSolution = () => {
           available solution.
         </div>
         {/* ---------------- heading and para --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           HA Database Cluster Solutions
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Keeping the database highly available is very critical for your
           mission critical frontend applications and the service they deliver.
           We have proven solutions that will help you achieve the former
