@@ -39,6 +39,7 @@ router.post("/create", createAsset);
 // router.get("/product/:productId", getProduct);
 
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllAssets);
+router.post("/getallbycust", getAllAssets);
 // -------------------Counter Routes------------------
 router.get("/count", countAssets);
 router.get("/countamc", countAmcAssets);

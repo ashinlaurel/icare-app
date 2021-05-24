@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { aroutes, croutes,enggroutes,storekeeproutes,ostorekeeproutes} from "../../routes/sidebar";
+import {
+  aroutes,
+  croutes,
+  enggroutes,
+  storekeeproutes,
+  ostorekeeproutes,
+} from "../../routes/sidebar";
 import { NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
 import SidebarSubmenu from "./SidebarSubmenu";
@@ -61,8 +67,8 @@ function SidebarContent() {
                 </li>
               )
             )
-          : role==11?
-          enggroutes.map((route) =>
+          : role == 11
+          ? enggroutes.map((route) =>
               route.routes ? (
                 <SidebarSubmenu route={route} key={route.name} />
               ) : (
@@ -89,8 +95,8 @@ function SidebarContent() {
                 </li>
               )
             )
-           :role==13?
-          storekeeproutes.map((route) =>
+          : role == 13
+          ? storekeeproutes.map((route) =>
               route.routes ? (
                 <SidebarSubmenu route={route} key={route.name} />
               ) : (
@@ -117,10 +123,8 @@ function SidebarContent() {
                 </li>
               )
             )
-           
-
-           :role==16?
-          ostorekeeproutes.map((route) =>
+          : role == 16
+          ? ostorekeeproutes.map((route) =>
               route.routes ? (
                 <SidebarSubmenu route={route} key={route.name} />
               ) : (
@@ -147,8 +151,7 @@ function SidebarContent() {
                 </li>
               )
             )
-           :
-          croutes.map((route) =>
+          : croutes.map((route) =>
               route.routes ? (
                 <SidebarSubmenu route={route} key={route.name} />
               ) : (

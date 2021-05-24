@@ -1,6 +1,12 @@
 import React, { useState, useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { aroutes, croutes ,enggroutes,storekeeproutes,ostorekeeproutes} from "../routes/index";
+import {
+  aroutes,
+  croutes,
+  enggroutes,
+  storekeeproutes,
+  ostorekeeproutes,
+} from "../routes/index";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -11,11 +17,10 @@ import AssetFloat from "../components/FloatDetails/AssetFloat";
 import BottomBar from "../components/BottomBar";
 import EmpProfile from "../helpers/auth/EmpProfile";
 
-
 const Page404 = lazy(() => import("../pages/404"));
 
 function Layout() {
-  console.log("role--",EmpProfile.getRole())
+  // console.log("role--",EmpProfile.getRole())
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   let location = useLocation();
   const [role, setRole] = useState(1);
@@ -55,8 +60,8 @@ function Layout() {
                         />
                       ) : null;
                     })
-                  : EmpProfile.getRole() ==11? 
-                    enggroutes.map((route, i) => {
+                  : EmpProfile.getRole() == 11
+                  ? enggroutes.map((route, i) => {
                       return route.component ? (
                         <Route
                           key={i}
@@ -66,9 +71,8 @@ function Layout() {
                         />
                       ) : null;
                     })
-
-                    : EmpProfile.getRole() ==13? 
-                    storekeeproutes.map((route, i) => {
+                  : EmpProfile.getRole() == 13
+                  ? storekeeproutes.map((route, i) => {
                       return route.component ? (
                         <Route
                           key={i}
@@ -78,9 +82,8 @@ function Layout() {
                         />
                       ) : null;
                     })
-
-                    : EmpProfile.getRole() ==16? 
-                    ostorekeeproutes.map((route, i) => {
+                  : EmpProfile.getRole() == 16
+                  ? ostorekeeproutes.map((route, i) => {
                       return route.component ? (
                         <Route
                           key={i}
@@ -90,8 +93,7 @@ function Layout() {
                         />
                       ) : null;
                     })
-                  
-                    : croutes.map((route, i) => {
+                  : croutes.map((route, i) => {
                       return route.component ? (
                         <Route
                           key={i}
@@ -101,9 +103,16 @@ function Layout() {
                         />
                       ) : null;
                     })}
-                    {EmpProfile.getRole() == 0?(<Redirect exact from="/app" to="/app/dashboard" />):EmpProfile.getRole() == 11?(<Redirect exact from="/app" to="/app/engcalls/viewmycalls" />)
-                    :EmpProfile.getRole() == 13?(<Redirect exact from="/app" to="/app/notifications" />):EmpProfile.getRole() == 16?(<Redirect exact from="/app" to="/app/notifications" />):null}
-                    
+                {EmpProfile.getRole() == 0 ? (
+                  <Redirect exact from="/app" to="/app/dashboard" />
+                ) : EmpProfile.getRole() == 11 ? (
+                  <Redirect exact from="/app" to="/app/engcalls/viewmycalls" />
+                ) : EmpProfile.getRole() == 13 ? (
+                  <Redirect exact from="/app" to="/app/notifications" />
+                ) : EmpProfile.getRole() == 16 ? (
+                  <Redirect exact from="/app" to="/app/notifications" />
+                ) : null}
+
                 <Route component={Page404} />
               </Switch>
             </Suspense>

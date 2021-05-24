@@ -247,6 +247,10 @@ export const croutes = [
     routes: [
       // submenu
       {
+        path: "/app/myassets",
+        name: "My Assets",
+      },
+      {
         path: "/app/myassets/accounts",
         name: "Accounts",
       },
@@ -276,7 +280,6 @@ export const enggroutes = [
 // export { aroutes, croutes };
 
 export const storekeeproutes = [
-
   {
     path: "/app/notifications", // the url
     icon: "HomeIcon", // the component being exported from icons/index.js
@@ -330,16 +333,14 @@ export const storekeeproutes = [
   },
 ];
 
-
 export const ostorekeeproutes = [
-
   {
     path: "/app/notifications", // the url
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Notifications", // name that appear in Sidebar
   },
-   //  Customer Views
-   {
+  //  Customer Views
+  {
     icon: "HomeIcon",
     name: "My Calls",
     routes: [

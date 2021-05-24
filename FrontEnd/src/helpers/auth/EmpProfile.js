@@ -7,7 +7,7 @@ var EmpProfile = (function () {
   var token = "";
   var id = "";
   var role = 99;
-  var location=""
+  var location = "";
 
   var getName = function () {
     if (name == "") return localStorage.getItem("name");
@@ -66,7 +66,7 @@ var EmpProfile = (function () {
     return axios
       .post(`${API}/admin/signInTest/${getId()}`)
       .then((res) => {
-        console.log("authenticated",res.data);
+        console.log("Employee authenticated", res.data);
         setRole(res.data.user.role);
         return true;
       })

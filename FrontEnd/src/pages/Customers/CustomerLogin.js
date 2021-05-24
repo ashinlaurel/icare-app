@@ -42,7 +42,7 @@ function CustomerLogin() {
 
   // isAutheticated();
   const [values, setValues] = useState({
-    username: "ftest",
+    username: "customer",
     password: "password",
   });
   const [err, setErr] = useState();
@@ -63,12 +63,15 @@ function CustomerLogin() {
     }
     signin(newuser, "customer/signin")
       .then((data) => {
+        // console.log("userinfo", data.user);
         console.log("Signed In", data.user._id);
         CustProfile.setName(data.user.CustomerName);
         CustProfile.setUsername(data.user.username);
         CustProfile.setToken(data.token);
         CustProfile.setId(data.user._id);
-        localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
+        CustProfile.setRole(data.user.role);
+        // localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
+        localStorage.setItem("type", data.user.role);
         console.log("authenticated");
         history.push("/app/myassets/accounts");
         // return <Redirect to="/app" />;
