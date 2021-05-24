@@ -12,7 +12,7 @@ const StructuredNetworking = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={
               "https://images.pexels.com/photos/2881229/pexels-photo-2881229.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
@@ -26,10 +26,10 @@ const StructuredNetworking = () => {
         <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
+              <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
                 <span class="block xl:inline">Network Solutions</span>
               </h1>
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-lg">
+              <h1 class="text-2xl tracking-tight  text-white md:text-lg">
                 <span class="block xl:inline">
                   We build efficient Network with Capabilities, Capacity and
                   Security
@@ -48,17 +48,17 @@ const StructuredNetworking = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           We have partnered with Hewlett Packard Enterprise and Reichle &
           De-Massari (R&M India) to deal with their entire range of Active and
           Passive Networking Components. Our team has enough skills to handle
           all these products during Installation and after support. We have
           successfully completed 500+ structured networking sites in Kerala
         </div>
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Structured Networking
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Structured cabling is a type of infrastructure that supports the
           performance of an organisation’s cabling system or network. The
           importance of organised cabling systems will vary from business to
@@ -67,7 +67,7 @@ const StructuredNetworking = () => {
         </div>
 
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Structured cabling is a type of infrastructure that supports the
           performance of an organisation’s cabling system or network. The
           importance of organised cabling systems will vary from business to
@@ -75,7 +75,7 @@ const StructuredNetworking = () => {
           cost-effective network infrastructure that will stand the test of time
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ml-16 ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           <ul className=" list-disc">
             <li className="my-1">Future Proof Investment</li>
             <li className="my-1">Simplicity</li>
@@ -85,46 +85,46 @@ const StructuredNetworking = () => {
           </ul>
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           We are specialised in IT, Network Support and installing wired and
           wireless computer networks across Kerala. We are having partnerships
           with HPE and R&M, etc.{" "}
         </div>
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Site Survey​
         </div>
 
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Our team will have a physical visit to the premise and identifies
           suitable locations to place the structured cabling active components.
           An accurate survey helps us to develop excellent design for easier
           deployment of a network. ​
         </div>
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network Design
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           We prepare solution document, list of active and passive components,
           detailed network diagram and implementation plan. The data from the
           site survey is the basis of design. We use all modern tools to design
           the network.
         </div>
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network installation
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Our experts will install the components and does the hardware and
           software configuration. We document the entire configuration details
           for future reference.
         </div>
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network Site Certification
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           On completion of Networking installation, as part of structured
           networking process, we complete the below test and these tests are
           required to get site certifications from the respective OEM vendors
@@ -136,10 +136,10 @@ const StructuredNetworking = () => {
           OFC OTDR Test Report
         </div>
 
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Documentation
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           On Completion of Network installation, we hand over technical document
           along with drawing for future maintenance and expansion
         </div>

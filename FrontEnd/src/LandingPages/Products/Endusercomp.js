@@ -19,7 +19,7 @@ const Endusercomp = () => {
       <div class="">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-center sm:h-72 md:h-56 lg:w-full lg:h-h-150"
+            class="w-full object-cover object-center sm:h-h-150 md:h-h-150 lg:w-full lg:h-h-150"
             src={
               "https://images.unsplash.com/photo-1605449591750-7bf5cc4f013f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
             }
@@ -33,10 +33,10 @@ const Endusercomp = () => {
         <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-0 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
+              <h1 class="text-2xl tracking-tight  text-white  md:text-3xl font-business">
                 <span class="block xl:inline">End User Computing</span>
               </h1>
-              <h1 class="text-2xl tracking-tight font-business  text-white sm:text-5xl md:text-sm">
+              <h1 class="text-1xl tracking-tight font-business  text-white  md:text-sm">
                 <span class="block xl:inline">
                   We deploy, manage and secure the devices, applications and
                   data
@@ -55,7 +55,7 @@ const Endusercomp = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business ">
           We provide End-user computing solutions in a cost-effective way and
           will be created based on end user needs, with an agile, efficient and
           secure IT infrastructure. Infocare partners with leading global
@@ -79,7 +79,7 @@ const Endusercomp = () => {
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center w-4/6">
           {/* --------------Images 1 ---------------------- */}
           <div className=" my-10">
             <img src={imgptone}></img>
@@ -101,7 +101,7 @@ const Endusercomp = () => {
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full lg:ml-10">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center w-4/6">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10 flex-col flex items-center justify-center">
             <div className=" ">
@@ -113,7 +113,7 @@ const Endusercomp = () => {
           </div>
           <div className="w-1/3 my-10 flex-col flex items-center justify-center">
             <div className=" ">
-              <div className="text-indigo-900 text-base mx-8 my-2 font-business ">
+              <div className="text-indigo-900 text-base mx-12 my-2 font-business ">
                 HP Laptop
               </div>
             </div>
@@ -139,7 +139,7 @@ const Endusercomp = () => {
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full lg:ml-10">
-        <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
+        <div className="flex-row flex flex-wrap items-center justify-center  w-4/6">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10 flex-col flex items-center justify-center">
             <div className=" ">
@@ -152,7 +152,7 @@ const Endusercomp = () => {
           </div>
           <div className="w-1/3 my-10 flex-col flex items-center justify-center">
             <div className=" ">
-              <div className="text-indigo-900 text-base pl-4 my-2 font-business  ">
+              <div className="text-indigo-900 text-base  my-2 mx-1 font-business  ">
                 Laptop
               </div>
             </div>

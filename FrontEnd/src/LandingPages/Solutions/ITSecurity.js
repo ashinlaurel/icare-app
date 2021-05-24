@@ -12,7 +12,7 @@ const ITSecurity = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="h-40 w-full object-cover object-left sm:h-72 md:h-56 lg:w-full lg:h-h-151"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
             src={cloudimage}
             alt=""
           />
@@ -24,10 +24,10 @@ const ITSecurity = () => {
         <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
+              <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
                 <span class="block xl:inline">IT Security Solutions</span>
               </h1>
-              <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-lg">
+              <h1 class="text-2xl tracking-tight  text-white md:text-lg">
                 <span class="block xl:inline">
                   We build security with flexibility, scalability, agility
                 </span>
@@ -45,20 +45,20 @@ const ITSecurity = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Identity Access Management
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Our Identity Access Management offering can help you choose the right
           solution that fits your organization's need for regulated access
           control. We prefer best in industry products, tools to design the
           access control solution for you and help you in implementing and
           onboarding users or migrating from your existing process.
         </div>
-        <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Identity Access Management
         </div>
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           While authentication defines who you are authorization defines what
           you are allowed to access / perform. Least privileged access is the
           best security principle we need to take in to consideration while we
