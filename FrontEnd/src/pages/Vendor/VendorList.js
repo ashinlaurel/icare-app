@@ -3,7 +3,7 @@ import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
-import { Card, CardBody, Label } from "@windmill/react-ui";
+import { Button, Card, CardBody, Label } from "@windmill/react-ui";
 import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../../icons";
 import RoundIcon from "../../components/RoundIcon";
 import CustomerCard from "../../components/Cards/CustomerCard";
@@ -11,12 +11,13 @@ import { API } from "../../backendapi";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import VendorCard from "../../components/Cards/VendorCard";
-import Emp from "../../helpers/auth/EmpProfile"
+import Emp from "../../helpers/auth/EmpProfile";
 
 function VendorList() {
   const [values, setValues] = useState([]);
   const [search, setSearch] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
+  const [page, setPage] = useState(1);
 
   // ----------------------Heading Use Effect-------------
 
@@ -37,19 +38,23 @@ function VendorList() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   thegetter();
+    await setPage(1);
+    thegetter();
   };
 
   //   ---------------Intital Load ----------------------------
 
   useEffect(() => {
     thegetter();
-  }, []);
+  }, [page]);
 
   async function thegetter() {
     let payload = {
       filters: {
         searchquery: search,
+      },
+      pagination: {
+        page: page,
       },
     };
     try {
@@ -58,8 +63,21 @@ function VendorList() {
         method: "POST",
         data: payload,
       });
+
       console.log(response.data.out);
-      setValues(response.data.out);
+      if (!search) {
+        let temp = [];
+        values.map((vendor) => {
+          temp.push(vendor);
+        });
+        response.data.out.map((vendor) => {
+          temp.push(vendor);
+        });
+
+        setValues(temp);
+      } else {
+        setValues(response.data.out);
+      }
     } catch (error) {
       throw error;
     }
@@ -76,7 +94,7 @@ function VendorList() {
               <form onSubmit={handleSubmit}>
                 <input
                   className="block w-full pr-20 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                  placeholder="Search Customers"
+                  placeholder="Search Vendors"
                   onChange={handleChange}
                 />
                 <button
@@ -107,11 +125,20 @@ function VendorList() {
                 bgColorClass="bg-orange-100 dark:bg-orange-500"
                 className="mr-4"
               />
-             
-              
             </VendorCard>
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center items-center">
+        <Button
+          onClick={() => {
+            let temp = page;
+            temp++;
+            setPage(temp);
+          }}
+        >
+          Load More
+        </Button>
       </div>
     </div>
   );

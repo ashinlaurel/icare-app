@@ -1,8 +1,5 @@
 const Vendor = require("../../models/Vendor/Vendor");
 
-
-
-
 exports.VendorCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   const vend = req.body;
@@ -10,7 +7,6 @@ exports.VendorCreate = async (req, res) => {
   try {
     const newvend = new Vendor(vend);
     const newvendres = await newvend.save();
-
 
     return res.status(200).json(newvendres);
   } catch (err) {
@@ -21,7 +17,7 @@ exports.VendorCreate = async (req, res) => {
 };
 
 exports.getAllItems = (req, res) => {
-  let { filters } = req.body;
+  let { filters, pagination } = req.body;
 
   let { searchquery } = filters;
   console.log(filters);
@@ -30,7 +26,7 @@ exports.getAllItems = (req, res) => {
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
   let options = {
     // populate: "invItems",
-    page: 1,
+    page: pagination.page,
     limit: 10,
   };
 
@@ -38,14 +34,13 @@ exports.getAllItems = (req, res) => {
     // product: { brand: "IBM" },
   };
 
-  
   if (filters.searchquery != "") {
     filteroptions.name = fuzzyquery;
   }
 
-  if(filters.icarelocation){
-    filteroptions.district= filters.icarelocation;
-    filteroptions.name="INFOCARE SYSTEMS";
+  if (filters.icarelocation) {
+    filteroptions.district = filters.icarelocation;
+    filteroptions.name = "INFOCARE SYSTEMS";
   }
 
   // -----------------------------------------------------------------------
@@ -82,19 +77,15 @@ exports.updateVendor = async (req, res) => {
   }
 };
 
-
-
 exports.getVendorById = async (req, res) => {
   try {
-    let vend = await Vendor.findById(req.body.id)
+    let vend = await Vendor.findById(req.body.id);
     return res.status(200).json(vend);
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });
   }
 };
-
-
 
 exports.deleteVendor = async (req, res) => {
   let { id } = req.body;

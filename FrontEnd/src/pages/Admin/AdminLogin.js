@@ -121,22 +121,22 @@ function AdminLogin() {
 
               <hr className="my-8" />
 
-              <p className="mt-4">
+              {/* <p className="mt-4">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   to="/forgot-password"
                 >
                   Forgot your password?
                 </Link>
-              </p>
-              <p className="mt-1">
+              </p> */}
+              {/* <p className="mt-1">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   to="/create-account"
                 >
                   Create account
                 </Link>
-              </p>
+              </p> */}
             </div>
           </main>
         </div>

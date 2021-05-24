@@ -38,7 +38,6 @@ router.get("/logout", (req, res) => {
 router.post("/:id/signup", isSignedIn, isAuthenticated, signup);
 router.post("/signin", signin);
 
-// router.get("/customers", getAllCust);
 router.post("/accounts", AccountsOfCustomer);
 // get customers with search enabled and initially returning a few
 router.post("/customers", getAllCustomers);

@@ -1,7 +1,5 @@
 import { lazy } from "react";
 
-
-
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Forms = lazy(() => import("../pages/Forms"));
@@ -39,11 +37,12 @@ const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 
-
 // ---------------------------call View ------------------------
 const RegisterCall = lazy(() => import("../pages/Calls/RegisterCall"));
 const AssignEng = lazy(() => import("../pages/Calls/AssignEng"));
-const AssignCallPriority = lazy(() => import("../pages/Calls/AssignCallPriority"));
+const AssignCallPriority = lazy(() =>
+  import("../pages/Calls/AssignCallPriority")
+);
 const EnggPriorityList = lazy(() => import("../pages/Calls/EnggPriorityList"));
 const ViewCalls = lazy(() => import("../pages/Calls/ViewCalls"));
 const UpdateCall = lazy(() => import("../pages/Calls/UpdatCall"));
@@ -52,13 +51,18 @@ const UpdateAssetFromCall = lazy(() =>
 );
 const CallDetails = lazy(() => import("../pages/Calls/CallDetails"));
 
-
 // ----------------------------- Inventory Imports
 const CreateInvent = lazy(() => import("../pages/Inventory/CreateInvent"));
 const Inventory = lazy(() => import("../pages/Inventory/Inventory"));
-const PurchaseInventory = lazy(() => import("../pages/Inventory/PurchaseInventory"));
-const PurchaseHistory = lazy(() => import("../pages/Inventory/PurchaseHistory"));
-const UpdateInventory = lazy(() => import("../pages/Inventory/UpdateInventory"));
+const PurchaseInventory = lazy(() =>
+  import("../pages/Inventory/PurchaseInventory")
+);
+const PurchaseHistory = lazy(() =>
+  import("../pages/Inventory/PurchaseHistory")
+);
+const UpdateInventory = lazy(() =>
+  import("../pages/Inventory/UpdateInventory")
+);
 
 // ------------------------------- Employee Imports
 
@@ -75,21 +79,21 @@ const VendorList = lazy(() => import("../pages/Vendor/VendorList"));
 const VendorDetails = lazy(() => import("../pages/Vendor/VendorDetails"));
 const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
 
-
 // ------------------------------- LST Imports
 
 const LST = lazy(() => import("../pages/LST/LST"));
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
 
-
-// ------------------------------------ Engg 
-const ViewEngineerCalls = lazy(() => import("../pages/EngineerPages/EnggCalls"));
+// ------------------------------------ Engg
+const ViewEngineerCalls = lazy(() =>
+  import("../pages/EngineerPages/EnggCalls")
+);
 
 // ------------------------------------ notification
 
-const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
-
-
+const Notifications = lazy(() =>
+  import("../pages/Notifications/Notifications")
+);
 
 /**
  * ⚠ These are internal routes!
@@ -214,7 +218,6 @@ export const aroutes = [
     path: "/salaryhistory",
     component: SalaryHistory,
   },
-  
 
   // ----------------------Vendor Views----------------------/
   {
@@ -252,7 +255,7 @@ export const aroutes = [
     path: "/EnggPriorityList",
     component: EnggPriorityList,
   },
-  
+
   {
     path: "/viewcalls",
     component: ViewCalls,
@@ -279,14 +282,14 @@ export const aroutes = [
     path: "/inventory/purchase",
     component: PurchaseInventory,
   },
- {
+  {
     path: "/inventory/update/:id",
     component: UpdateInventory,
   },
- 
+
   {
     path: "/inventory/purchasehistory",
-    component:PurchaseHistory,
+    component: PurchaseHistory,
   },
 
   // ----------------------LST Views ----------------------/
@@ -306,7 +309,7 @@ export const aroutes = [
     path: "/notifications",
     component: Notifications,
   },
-  
+
   // --------------------------------------------/
   {
     path: "/forms",
@@ -384,20 +387,24 @@ export const enggroutes = [
     path: "/call/calldetails/:callid/:assetid",
     component: CallDetails,
   },
-  
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: CallDetails,
+  },
 ];
 
 export const storekeeproutes = [
- // ----------------------Notifications Views ----------------------/
+  // ----------------------Notifications Views ----------------------/
 
- {
-  path: "/notifications",
-  component: Notifications,
-},
-  
-   // ----------------------Inventory Views ----------------------/
+  {
+    path: "/notifications",
+    component: Notifications,
+  },
 
-   {
+  // ----------------------Inventory Views ----------------------/
+
+  {
     path: "/inventory/create",
     component: CreateInvent,
   },
@@ -409,16 +416,16 @@ export const storekeeproutes = [
     path: "/inventory/purchase",
     component: PurchaseInventory,
   },
- {
+  {
     path: "/inventory/update/:id",
     component: UpdateInventory,
   },
- 
+
   {
     path: "/inventory/purchasehistory",
-    component:PurchaseHistory,
+    component: PurchaseHistory,
   },
- 
+
   {
     path: "/lst",
     component: LST,
@@ -427,50 +434,55 @@ export const storekeeproutes = [
     path: "/lst/history",
     component: LSTHistory,
   },
-  
+
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: CallDetails,
+  },
 ];
 
 export const ostorekeeproutes = [
   // ----------------------Notifications Views ----------------------/
- 
+
   {
-   path: "/notifications",
-   component: Notifications,
- },
-   
-    // ----------------------Inventory Views ----------------------/
- 
-    {
-     path: "/inventory/create",
-     component: CreateInvent,
-   },
-   {
-     path: "/inventory",
-     component: Inventory,
-   },
-   {
-     path: "/inventory/purchase",
-     component: PurchaseInventory,
-   },
+    path: "/notifications",
+    component: Notifications,
+  },
+
+  // ----------------------Inventory Views ----------------------/
+
   {
-     path: "/inventory/update/:id",
-     component: UpdateInventory,
-   },
-  
-   {
-     path: "/inventory/purchasehistory",
-     component:PurchaseHistory,
-   },
-  
-   {
-     path: "/lst",
-     component: LST,
-   },
-   {
-     path: "/lst/history",
-     component: LSTHistory,
-   },
-   {
+    path: "/inventory/create",
+    component: CreateInvent,
+  },
+  {
+    path: "/inventory",
+    component: Inventory,
+  },
+  {
+    path: "/inventory/purchase",
+    component: PurchaseInventory,
+  },
+  {
+    path: "/inventory/update/:id",
+    component: UpdateInventory,
+  },
+
+  {
+    path: "/inventory/purchasehistory",
+    component: PurchaseHistory,
+  },
+
+  {
+    path: "/lst",
+    component: LST,
+  },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
+  {
     path: "/engcalls/viewmycalls",
     component: ViewEngineerCalls,
   },
@@ -482,5 +494,10 @@ export const ostorekeeproutes = [
     path: "/call/calldetails/:callid/:assetid",
     component: CallDetails,
   },
-   
- ]
+
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: CallDetails,
+  },
+];

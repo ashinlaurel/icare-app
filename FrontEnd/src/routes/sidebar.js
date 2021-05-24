@@ -271,12 +271,23 @@ export const enggroutes = [
       },
     ],
   },
+  // ---------------------- Attendance ----------
+  {
+    icon: "HomeIcon",
+    name: "Attendance",
+    routes: [
+      // submenu
+      {
+        path: "/app/markAttendance",
+        name: "Mark Attendance",
+      },
+    ],
+  },
 ];
 
 // export { aroutes, croutes };
 
 export const storekeeproutes = [
-
   {
     path: "/app/notifications", // the url
     icon: "HomeIcon", // the component being exported from icons/index.js
@@ -328,18 +339,28 @@ export const storekeeproutes = [
       },
     ],
   },
+  // --------------------Attendance -------------------------
+  {
+    icon: "HomeIcon",
+    name: "Attendance",
+    routes: [
+      // submenu
+      {
+        path: "/app/markAttendance",
+        name: "Mark Attendance",
+      },
+    ],
+  },
 ];
 
-
 export const ostorekeeproutes = [
-
   {
     path: "/app/notifications", // the url
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Notifications", // name that appear in Sidebar
   },
-   //  Customer Views
-   {
+  //  Customer Views
+  {
     icon: "HomeIcon",
     name: "My Calls",
     routes: [
@@ -393,6 +414,19 @@ export const ostorekeeproutes = [
       {
         path: "/app/lst/history",
         name: "LST History",
+      },
+    ],
+  },
+
+  // --------------------Attendance -------------------------
+  {
+    icon: "HomeIcon",
+    name: "Attendance",
+    routes: [
+      // submenu
+      {
+        path: "/app/markAttendance",
+        name: "Mark Attendance",
       },
     ],
   },
