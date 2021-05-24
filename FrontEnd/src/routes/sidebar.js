@@ -421,7 +421,7 @@ export const ostorekeeproutes = [
       },
     ],
   },
-12
+
   // --------------------Attendance -------------------------
   {
     icon: "HomeIcon",
