@@ -56,7 +56,7 @@ var CustProfile = (function () {
     return axios
       .post(`${API}/customer/signInTest/${getId()}`)
       .then((res) => {
-        console.log("authenticated");
+        console.log("Cust authenticated");
         setRole(res.data.user.role);
         return true;
       })

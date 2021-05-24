@@ -64,7 +64,7 @@ router.post(
   isCustSignedIn,
   isCustAuthenticated,
   (req, res) => {
-    console.log("Authenticated Successfull", req.profile);
+    // console.log("Authenticated Successfull", req.profile);
     res.json({
       user: {
         username: req.profile.username,

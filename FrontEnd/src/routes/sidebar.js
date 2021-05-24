@@ -247,6 +247,10 @@ export const croutes = [
     routes: [
       // submenu
       {
+        path: "/app/myassets",
+        name: "My Assets",
+      },
+      {
         path: "/app/myassets/accounts",
         name: "Accounts",
       },
@@ -417,7 +421,7 @@ export const ostorekeeproutes = [
       },
     ],
   },
-
+12
   // --------------------Attendance -------------------------
   {
     icon: "HomeIcon",

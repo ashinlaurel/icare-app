@@ -95,6 +95,10 @@ const Notifications = lazy(() =>
   import("../pages/Notifications/Notifications")
 );
 
+// ------------------------------------ Customer Login
+
+const MyAssets = lazy(() => import("../pages/CustomerPages/MyAssets"));
+
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -370,6 +374,11 @@ export const croutes = [
   {
     path: "/customer/accounts/units/:id/:accountid/:unitid",
     component: UnitsAsset,
+  },
+
+  {
+    path: "/myassets/",
+    component: MyAssets,
   },
 ];
 
