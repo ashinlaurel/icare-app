@@ -3,7 +3,7 @@ import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
-import { Card, CardBody, Label } from "@windmill/react-ui";
+import { Button, Card, CardBody, Label } from "@windmill/react-ui";
 import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../../icons";
 import RoundIcon from "../../components/RoundIcon";
 import CustomerCard from "../../components/Cards/CustomerCard";
@@ -15,6 +15,7 @@ function CustomerList() {
   const [values, setValues] = useState([]);
   const [search, setSearch] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
+  const [page, setPage] = useState(1);
 
   // ----------------------Heading Use Effect-------------
 
@@ -35,9 +36,21 @@ function CustomerList() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await setPage(1);
+    thegetter();
+  };
+
+  //   ---------------Intital Load ----------------------------
+
+  useEffect(() => {
+    thegetter();
+  }, [page]);
+
+  async function thegetter() {
     let payload = {
       search: search,
       role: 1,
+      page: page,
     };
     try {
       let response = await axios({
@@ -46,34 +59,25 @@ function CustomerList() {
         data: payload,
       });
       console.log(response.data);
-      setValues(response.data);
+
+      if (!search) {
+        let temp = [];
+        values.map((vendor) => {
+          temp.push(vendor);
+        });
+        response.data.map((vendor) => {
+          temp.push(vendor);
+        });
+
+        setValues(temp);
+      } else {
+        setValues(response.data);
+      }
+      // setValues(response.data);
     } catch (error) {
       throw error;
     }
-  };
-
-  //   ---------------Intital Load ----------------------------
-
-  useEffect(() => {
-    (async function thegetter() {
-      let payload = {
-        search: search,
-        role: 1,
-      };
-      try {
-        let response = await axios({
-          url: `${API}/customer/customers`,
-          method: "POST",
-          data: payload,
-        });
-        console.log(response.data);
-        setValues(response.data);
-      } catch (error) {
-        throw error;
-      }
-    })();
-  }, []);
-
+  }
   return (
     <div className="mt-4">
       <SectionTitle>Search</SectionTitle>
@@ -118,6 +122,17 @@ function CustomerList() {
             </CustomerCard>
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center items-center">
+        <Button
+          onClick={() => {
+            let temp = page;
+            temp++;
+            setPage(temp);
+          }}
+        >
+          Load More
+        </Button>
       </div>
     </div>
   );

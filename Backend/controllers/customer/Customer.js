@@ -42,16 +42,16 @@ exports.AccountsOfCustomer = async (req, res) => {
 };
 
 exports.getAllCustomers = (req, res) => {
-  let { search } = req.body;
+  let { search, page, role } = req.body;
   // console.log("hello");
 
   let options = {
     // populate: "product",
-    page: 1,
-    limit: 10,
+    page: page,
+    limit: 3,
   };
 
-  let filteroptions = { role: req.body.role };
+  let filteroptions = { role: role };
   // Logic to add to filter when required
 
   if (search == "") {
@@ -124,7 +124,7 @@ exports.getCustomerByName = (req, res) => {
 
   CustomerLogin.find({ name: name }, function (err, result) {
     // console.log(result);
-    if (err || result.length==0) {
+    if (err || result.length == 0) {
       return res.status(400).json({
         error: "No customer found",
         err: err,
