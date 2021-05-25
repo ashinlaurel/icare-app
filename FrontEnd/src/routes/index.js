@@ -72,6 +72,7 @@ const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 const ViewSalary = lazy(() => import("../pages/Employee/ViewSalary"));
+const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
@@ -98,6 +99,9 @@ const Notifications = lazy(() =>
 // ------------------------------------ Customer Login
 
 const MyAssets = lazy(() => import("../pages/CustomerPages/MyAssets"));
+// ------------------------------------ Attendance -----------------------
+
+const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
 
 /**
  * ⚠ These are internal routes!
@@ -221,6 +225,10 @@ export const aroutes = [
   {
     path: "/salaryhistory",
     component: SalaryHistory,
+  },
+  {
+    path: "/viewAttendance",
+    component: ViewAttendance,
   },
 
   // ----------------------Vendor Views----------------------/
@@ -399,7 +407,7 @@ export const enggroutes = [
   // -----------------Attendance Views --------------------------------
   {
     path: "/markAttendance",
-    component: CallDetails,
+    component: markAttendance,
   },
 ];
 
@@ -447,7 +455,7 @@ export const storekeeproutes = [
   // -----------------Attendance Views --------------------------------
   {
     path: "/markAttendance",
-    component: CallDetails,
+    component: markAttendance,
   },
 ];
 
@@ -507,6 +515,6 @@ export const ostorekeeproutes = [
   // -----------------Attendance Views --------------------------------
   {
     path: "/markAttendance",
-    component: CallDetails,
+    component: markAttendance,
   },
 ];

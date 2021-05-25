@@ -142,6 +142,10 @@ export const aroutes = [
         path: "/app/salaryhistory",
         name: "Salary History",
       },
+      {
+        path: "/app/viewAttendance",
+        name: "View Attendance",
+      },
     ],
   },
 

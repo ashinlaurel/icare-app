@@ -6,6 +6,7 @@ import AssetModule from "./AssetModule";
 import CreateAssetModule from "./CreateAssetModule";
 import { Button } from "@windmill/react-ui";
 import SalaryModule from "./SalaryModule";
+import AttendanceModule from "./AttendanceModule";
 
 const BottomBar = () => {
   //   const [bbaropen, setBBarOpen] = useState(1);
@@ -19,6 +20,8 @@ const BottomBar = () => {
     createAssetDetails,
     salaryDetails,
     setSalaryDetails,
+    attendDetails,
+    setAttendDetails,
   } = useContext(BottomBarContext);
   // console.log("AssetDetails", assetdetails);
   return (
@@ -55,6 +58,9 @@ const BottomBar = () => {
         ) : null}
         {JSON.stringify(salaryDetails) !== JSON.stringify({}) ? (
           <SalaryModule asset={salaryDetails} />
+        ) : null}
+        {JSON.stringify(attendDetails) !== JSON.stringify({}) ? (
+          <AttendanceModule asset={attendDetails} />
         ) : null}
       </div>
     </div>
