@@ -49,7 +49,8 @@ function App() {
           </Route>
           {/* <Route path="/signin" component={CustomerLogin} /> */}
           {/* <Route path="/signup" component={SignUp} /> */}
-          <Route path="/lstpdf/:id" component={LSTPDF} />
+          <Route path="/lstpdf/:id/:despatchedby" component={LSTPDF} />
+          <Route path="/lstpdf/:id/" component={LSTPDF} />
           <Route path="/salarypdf/:id" component={SalaryPDF} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}

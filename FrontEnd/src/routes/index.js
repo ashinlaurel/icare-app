@@ -83,6 +83,7 @@ const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
 
 const LST = lazy(() => import("../pages/LST/LST"));
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
+const UpdateLST = lazy(() => import("../pages/LST/UpdateLST"));
 
 // ------------------------------------ Engg
 const ViewEngineerCalls = lazy(() =>
@@ -305,6 +306,10 @@ export const aroutes = [
   {
     path: "/lst/history",
     component: LSTHistory,
+  },
+  {
+    path: "/lst/update/:id",
+    component: UpdateLST,
   },
   // --------------------------------------------/
   // ----------------------Notifications Views ----------------------/
