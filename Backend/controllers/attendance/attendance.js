@@ -15,12 +15,30 @@ exports.markAttendance = async (req, res) => {
     // console.log(cnt);
     // conditional code
     if (cnt > 0) {
-      // document exists
+      let tempdoc = await attendance.findOne({
+        employee: employee,
+        month: month,
+        year: year,
+      });
+
+      tempdoc.days.map((day) => {
+        // console.log("hello");
+        console.log("****************************");
+
+        console.log(today.dayNo);
+        if (day.dayNo == today.dayNo) {
+          day.isPresent = today.isPresent;
+        }
+      });
+      let result = await tempdoc.save();
+      // console.log("****************************");
+      // console.log("result" + result);
+      return res.status(200).json(result);
     } else {
       let temp = [];
       for (let i = 0; i < monthDayCount; i++) {
         if (i == today.dayNo - 1) {
-          let doc = { date: "", dayNo: i + 1, isPresent: "Present" };
+          let doc = { date: "", dayNo: i + 1, isPresent: today.isPresent };
           temp.push(doc);
         } else {
           let doc = { date: "", dayNo: i + 1, isPresent: "Absent" };
@@ -40,7 +58,7 @@ exports.markAttendance = async (req, res) => {
       return res.status(200).json(newattend);
     }
   } catch (error) {
-    res.status(400).json(err);
+    res.status(400).json(error);
   }
 
   return res.status(200).json();
