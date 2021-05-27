@@ -1,18 +1,44 @@
 const leaveForm = require("../../models/LeaveForm/leaveForm");
-
+const moment = require("moment");
+const attendance = require("../../models/attendance/attendance");
 
 exports.createLeaveForm = async (req, res) => {
   let item = req.body;
   console.log(item);
+
   try {
     // Saving the asset
-    const newform = new leaveForm(item);
-    const result = await newform.save();
+    console.log(moment(item.startdate), moment(item.enddate));
+    var nowdate = moment(item.startdate);
+    let payload = {};
+    while (nowdate.isBefore(moment(item.enddate), "day")) {
+      console.log(`Loop at ${nowdate.format("YYYY-MM-DD")}`);
+
+      payload = {
+        employee: item.employeeId,
+        month: moment(nowdate).format("MMMM"),
+        year: moment(nowdate).format("YYYY"),
+        monthDayCount: moment(nowdate).daysInMonth(),
+        today: {
+          date: moment(nowdate).format("DD-MM-YY"),
+          dayNo: moment(nowdate).format("DD"),
+          isPresent: "Leave",
+        },
+      };
+
+      let res = await markAttendance(payload, {});
+
+      nowdate.add(1, "days");
+    }
+
+    // const newform = new leaveForm(item);
+    // const result = await newform.save();
+    result = {};
     return res.status(200).json(result);
   } catch (err) {
-    console.log("Leave Form Creating error", err.message);
-  
-    res.status(400).json( err);
+    console.log("Leave Form Creating error->", err.message);
+
+    res.status(400).json(err);
     // throw error;
   }
 };

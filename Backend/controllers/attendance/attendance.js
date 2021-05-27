@@ -2,6 +2,7 @@ const attendance = require("../../models/attendance/attendance");
 
 exports.markAttendance = async (req, res) => {
   const { employee, month, year, monthDayCount, today } = req.body;
+  console.log(`marking attendace`);
   console.log(req.body);
 
   try {
