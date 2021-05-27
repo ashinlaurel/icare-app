@@ -26,7 +26,7 @@ exports.getAllItems = (req, res) => {
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
   let options = {
     // populate: "invItems",
-    page: pagination.page,
+    page: 1,
     limit: 10,
   };
 

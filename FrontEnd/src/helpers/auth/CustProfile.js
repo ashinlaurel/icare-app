@@ -7,6 +7,7 @@ var CustProfile = (function () {
   var token = "";
   var id = "";
   var role = 99;
+  var phone;
 
   var getName = function () {
     if (name == "") return localStorage.getItem("name");
@@ -27,6 +28,10 @@ var CustProfile = (function () {
   var getRole = function () {
     // if (id == "") return localStorage.getItem("id");
     return role; // Or pull this from cookie/localStorage
+  };
+  var getPhone = function () {
+    if (phone == "") return localStorage.getItem("phone");
+    return phone; // Or pull this from cookie/localStorage
   };
 
   var setName = function (myname) {
@@ -49,6 +54,10 @@ var CustProfile = (function () {
   };
   var setRole = function (r) {
     role = r;
+  };
+  var setPhone = function (p) {
+    localStorage.setItem("phone", p);
+    phone = p;
   };
   var isAuthenticated = async () => {
     if (localStorage.getItem("type") !== "1") return false;
@@ -78,6 +87,8 @@ var CustProfile = (function () {
     localStorage.removeItem("id");
     setRole("9999");
     localStorage.removeItem("type");
+    setPhone("");
+    localStorage.removeItem("phone");
     // localStorage.setItem("name","");
   };
 
@@ -88,12 +99,14 @@ var CustProfile = (function () {
     getUsername,
     setToken,
     getToken,
+    getPhone,
     isAuthenticated,
     setId,
     getId,
     getRole,
     setRole,
     signout,
+    setPhone,
   };
 })();
 

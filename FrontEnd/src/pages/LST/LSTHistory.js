@@ -110,10 +110,15 @@ function LSTHistory() {
           to: ToLocation,
           status: status,
           LSTtype: LSTtype,
+          isDeleted: "false",
           // searchtype: searchtype,
           searchquery: searchquery,
         },
       };
+      if (status == "Deleted") {
+        payload.filters.status = "";
+        payload.filters.isDeleted = "true";
+      }
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
       try {
@@ -458,6 +463,7 @@ function LSTHistory() {
                 <option value="">All</option>
                 <option value="In Transit">In Transit</option>
                 <option value="Received">Received</option>
+                <option value="Deleted">Deleted</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

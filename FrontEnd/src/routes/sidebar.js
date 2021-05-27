@@ -264,6 +264,21 @@ export const croutes = [
       },
     ],
   },
+  {
+    icon: "HomeIcon",
+    name: "Calls",
+    routes: [
+      // submenu
+      {
+        path: "/app/raiseCall",
+        name: "Raise Call",
+      },
+      {
+        path: "/app/viewmycalls",
+        name: "View My Calls",
+      },
+    ],
+  },
 ];
 
 export const enggroutes = [

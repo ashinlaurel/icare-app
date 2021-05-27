@@ -99,6 +99,10 @@ const Notifications = lazy(() =>
 // ------------------------------------ Customer Login
 
 const MyAssets = lazy(() => import("../pages/CustomerPages/MyAssets"));
+const RaiseCall = lazy(() => import("../pages/CustomerPages/RaiseCall"));
+const CustomerViewCalls = lazy(() =>
+  import("../pages/CustomerPages/CustomerViewCalls")
+);
 // ------------------------------------ Attendance -----------------------
 
 const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
@@ -314,6 +318,7 @@ export const aroutes = [
     path: "/lst/history",
     component: LSTHistory,
   },
+
   // --------------------------------------------/
   // ----------------------Notifications Views ----------------------/
 
@@ -387,6 +392,14 @@ export const croutes = [
   {
     path: "/myassets/",
     component: MyAssets,
+  },
+  {
+    path: "/raisecall/",
+    component: RaiseCall,
+  },
+  {
+    path: "/viewmycalls/",
+    component: CustomerViewCalls,
   },
 ];
 

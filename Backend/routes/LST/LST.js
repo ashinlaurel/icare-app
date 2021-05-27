@@ -26,12 +26,13 @@ router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
 router.post("/getall", getAllItems);
 
 router.post("/getbyid", getById);
+router.post("/:id/getbyid", getById);
 
 router.post("/:id/update", isSignedIn, isAuthenticated, updateLST);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteLST);
 
 router.post("/:id/downloadpdf", isSignedIn, isAuthenticated, downloadPdf);
 
-router.post("/:id/lstbydate", countLSTByDate)
+router.post("/:id/lstbydate", countLSTByDate);
 
 module.exports = router;

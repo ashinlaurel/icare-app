@@ -56,7 +56,7 @@ exports.resetPasswordByAdmin = async (req, res) => {
     let encPass = crypto.createHmac("sha256", salt).update(pass).digest("hex");
     let user = await CustomerLogin.findByIdAndUpdate(
       id,
-      { enc_password: encPass, salt: salt ,show_password:pass},
+      { enc_password: encPass, salt: salt, show_password: pass },
       {
         safe: true,
         useFindAndModify: false,
@@ -90,6 +90,7 @@ exports.signin = (req, res) => {
         name: user.name,
         username: user.username,
         role: user.role,
+        contactNo: user.contactNo,
       },
     });
   });

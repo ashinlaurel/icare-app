@@ -97,6 +97,14 @@ exports.getCalls = async (req, res) => {
     filteroptions.employeeId = filters.employeeId;
   }
 
+  if (filters.customerId && filters.customerId != "") {
+    filteroptions.customerId = filters.customerId;
+  }
+  if (filters.accoutId && filters.accoutId != "") {
+    filteroptions.accoutId = filters.accoutId;
+  }
+  // console.log(filteroptions);
+
   Call.paginate(filteroptions, options, function (err, result) {
     // console.log(result);
     if (err || !result) {

@@ -2,7 +2,7 @@ const LST = require("../../models/LST/LST");
 const pdf = require("html-pdf");
 const pdfTemplate = require("../../documents/lst");
 const puppeteer = require("puppeteer");
-const moment = require("moment")
+const moment = require("moment");
 
 exports.LSTCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
@@ -24,7 +24,10 @@ exports.getById = async (req, res) => {
   try {
     let { id } = req.body;
     // console.log(req.body.id)
-    let lst = await LST.findById(id).populate("invItems").populate("customerId").populate("unitId");
+    let lst = await LST.findById(id)
+      .populate("invItems")
+      .populate("customerId")
+      .populate("unitId");
     return res.status(200).json(lst);
   } catch (err) {
     console.log(id);
@@ -64,8 +67,11 @@ exports.getAllItems = (req, res) => {
   if (filters.status != "") {
     filteroptions.status = filters.status;
   }
-  if (filters.LSTtype&&filters.LSTtype != "") {
+  if (filters.LSTtype && filters.LSTtype != "") {
     filteroptions.LSTtype = filters.LSTtype;
+  }
+  if (filters.isDeleted) {
+    filteroptions.isDeleted = filters.isDeleted;
   }
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
@@ -112,55 +118,62 @@ exports.updateLST = async (req, res) => {
   }
 };
 
-
-exports.deleteLST= async (req, res) => {
+exports.deleteLST = async (req, res) => {
   let { id } = req.body;
   try {
-    let inv = await LST.findByIdAndDelete({ _id: id });
+    // let inv = await LST.findByIdAndDelete({ _id: id });
+    let lst = await LST.findByIdAndUpdate(
+      id,
+      { isDeleted: "true" },
+      {
+        safe: true,
+        useFindAndModify: false,
+      }
+    );
 
-    return res.status(200).json({ inv });
+    return res.status(200).json({ lst });
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });
   }
 };
 
-
 exports.countLSTByDate = (req, res) => {
-  let { date ,from} = req.body;
-  console.log(date,from);
+  let { date, from } = req.body;
+  console.log(date, from);
   let year = moment(date).format("YYYY");
-  let month = moment(date).format("MM")
+  let month = moment(date).format("MM");
   let day = moment(date).format("DD");
-  let fromdate,todate;
-  if(month== "03"|| month=="02" || month=="01" ){
-     fromdate=new Date(parseInt(year)-1,3,1);
-     todate=new Date(parseInt(year),2,31);
-  }else{
-  fromdate=new Date(parseInt(year),3,1);
-  todate=new Date(parseInt(year)+1,2,31);
+  let fromdate, todate;
+  if (month == "03" || month == "02" || month == "01") {
+    fromdate = new Date(parseInt(year) - 1, 3, 1);
+    todate = new Date(parseInt(year), 2, 31);
+  } else {
+    fromdate = new Date(parseInt(year), 3, 1);
+    todate = new Date(parseInt(year) + 1, 2, 31);
   }
 
-  
-  
   // console.log("Dates",fromdate,todate,month);
-  LST.count({ date:{
-      "$gte":fromdate,
-      "$lte":todate
-        }
-      ,from: from }, function (err, result) {
-    if (err) {
-      return res.status(400).json({
-        error: "Cant count customers",
-        err: err,
-      });
+  LST.count(
+    {
+      date: {
+        $gte: fromdate,
+        $lte: todate,
+      },
+      from: from,
+    },
+    function (err, result) {
+      if (err) {
+        return res.status(400).json({
+          error: "Cant count customers",
+          err: err,
+        });
+      }
+      console.log(result);
+      return res.status(200).json(result);
     }
-    console.log(result);
-    return res.status(200).json(result);
-  });
+  );
 };
-
-
 
 // Pdf Download ------------------
 
@@ -195,8 +208,8 @@ exports.countLSTByDate = (req, res) => {
 // };
 
 exports.downloadPdf = async (req, res) => {
-  let { id,update } = req.body;
-  console.log(id,update)
+  let { id, despatchedBy, update } = req.body;
+  console.log(id, update);
 
   try {
     let lst = await LST.findByIdAndUpdate(id, update, {
@@ -208,7 +221,7 @@ exports.downloadPdf = async (req, res) => {
       args: ["--no-sandbox"],
     });
     const page = await browser.newPage();
-    await page.goto(`${process.env.FRONT}/lstpdf/${id}`, {
+    await page.goto(`${process.env.FRONT}/lstpdf/${id}/${despatchedBy}`, {
       waitUntil: "networkidle0",
     });
     const pdf = await page.pdf({ format: "A4" });
