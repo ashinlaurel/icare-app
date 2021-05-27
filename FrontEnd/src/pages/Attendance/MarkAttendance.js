@@ -55,7 +55,7 @@ function MarkAttendance() {
       today: {
         date: moment().format("DD-MM-YY"),
         dayNo: moment().format("DD"),
-        isPresent: true,
+        isPresent: "Present",
       },
     };
     await Axios({

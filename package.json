@@ -1,0 +1,23 @@
+{
+  "name": "icare-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -n 'client,server' -c 'blue,yellow' \"cd FrontEnd && npm run start\" \"cd Backend && npm run start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashinlaurel/icare-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashinlaurel/icare-app/issues"
+  },
+  "homepage": "https://github.com/ashinlaurel/icare-app#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}

@@ -1,5 +1,8 @@
 const express = require("express");
-const { markAttendance } = require("../../controllers/attendance/attendance");
+const {
+  markAttendance,
+  getAllAttendance,
+} = require("../../controllers/attendance/attendance");
 const { getEmpById } = require("../../controllers/employee/EmployeeAuth");
 
 const router = express.Router();
@@ -7,5 +10,6 @@ const router = express.Router();
 router.param("id", getEmpById);
 
 router.post("/:id/markAttendance", markAttendance);
+router.post("/:id/viewAttendance", getAllAttendance);
 
 module.exports = router;
