@@ -106,6 +106,7 @@ const CustomerViewCalls = lazy(() =>
 // ------------------------------------ Attendance -----------------------
 
 const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
+const ApplyLeave = lazy(() => import("../pages/Attendance/ApplyLeave"));
 
 /**
  * ⚠ These are internal routes!
@@ -421,6 +422,10 @@ export const enggroutes = [
   {
     path: "/markAttendance",
     component: markAttendance,
+  },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
   },
 ];
 

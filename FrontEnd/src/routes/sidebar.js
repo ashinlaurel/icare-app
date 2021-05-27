@@ -304,6 +304,10 @@ export const enggroutes = [
         path: "/app/markAttendance",
         name: "Mark Attendance",
       },
+      {
+        path: "/app/applyleave",
+        name: "Leave Application",
+      },
     ],
   },
 ];
