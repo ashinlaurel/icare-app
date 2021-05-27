@@ -9,6 +9,7 @@ export const BottomBarProvider = ({ children }) => {
   const [assetdetails, setAssetDetails] = useState({});
   const [createAssetDetails, setCreateAssetDetails] = useState({});
   const [salaryDetails, setSalaryDetails] = useState({});
+  const [attendDetails, setAttendDetails] = useState({});
 
   return (
     <BottomBarContext.Provider
@@ -21,6 +22,8 @@ export const BottomBarProvider = ({ children }) => {
         createAssetDetails,
         salaryDetails,
         setSalaryDetails,
+        attendDetails,
+        setAttendDetails,
       }}
     >
       {children}

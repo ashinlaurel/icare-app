@@ -40,9 +40,8 @@ function Inventory() {
   const [viewId, setViewId] = useState(0);
   const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -76,10 +75,6 @@ function Inventory() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
-  
-
-
-  
 
   const downloadInv = async () => {
     let csv =
@@ -121,7 +116,17 @@ function Inventory() {
     array.map((i) => {
       csv =
         csv +
-        `${i.name},${capitalize( i.type)},${i.sno},${i.condition},${i.location},${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${i.purchlocation},${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${i.taxperc},${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${i.tcs},${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${i.systype},${i.stocktype},${i.caseId}\n`;
+        `${i.name},${capitalize(i.type)},${i.sno},${i.condition},${
+          i.location
+        },${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${
+          i.purchlocation
+        },${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${
+          i.taxperc
+        },${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${
+          i.tcs
+        },${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${
+          i.systype
+        },${i.stocktype},${i.caseId}\n`;
     });
     // console.log(csv);
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -454,7 +459,8 @@ function Inventory() {
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
-      if(EmpProfile.getRole()>12&& EmpProfile.getLocation()!="All") payload.filters.location=EmpProfile.getLocation();
+      if (EmpProfile.getRole() > 12 && EmpProfile.getLocation() != "All")
+        payload.filters.location = EmpProfile.getLocation();
       try {
         let response = await axios({
           url: `${API}/inventory/${Emp.getId()}/getall`,
@@ -464,7 +470,7 @@ function Inventory() {
         console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
-        console.log(location , "LOCATIO!!!");
+        console.log(location, "LOCATIO!!!");
 
         setData(response.data.out);
       } catch (error) {
@@ -472,8 +478,7 @@ function Inventory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, condition,type, refresh]);
-
+  }, [page, location, condition, type, refresh]);
 
   console.log(selectedprod);
 
@@ -482,10 +487,10 @@ function Inventory() {
   //      if(EmpProfile.getRole()>12&& EmpProfile.getLocation()!="All") setLocation(EmpProfile.getLocation())
   //      setRefresh(!refresh);
   //    }, [])
-   // pagination change control
-   function onPageChange(p) {
-     setPage(p);
-   }
+  // pagination change control
+  function onPageChange(p) {
+    setPage(p);
+  }
 
   return (
     <>
@@ -541,35 +546,37 @@ function Inventory() {
             </div>
 
             {/* -----------------------------------------Location ----------------------- */}
-            {EmpProfile.getRole()<13?
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                }}
-              >
-                {/* <option value="" disabled selected>
+            {EmpProfile.getRole() < 13 ? (
+              <div class="relative mx-1 ">
+                <select
+                  class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                  value={location}
+                  onChange={(e) => {
+                    setLocation(e.target.value);
+                  }}
+                >
+                  {/* <option value="" disabled selected>
                   Location
                 </option> */}
-                <option value="" selected>All</option>
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-              </select>
+                  <option value="" selected>
+                    All
+                  </option>
+                  <option value="Trivandrum">Trivandrum</option>
+                  <option value="Kottayam">Kottayam</option>
+                  <option value="Kozhikode">Kozhikode</option>
+                </select>
 
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
               </div>
-            </div>
-            :null}
+            ) : null}
             {/* ---------------------------Condition Drop Down-------------------------------------- */}
             <div class="relative mx-1 ">
               <select
@@ -652,8 +659,9 @@ function Inventory() {
                 <TableCell>Wty Expiry</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>View/History</TableCell>
-                {EmpProfile.getRole()==0?
-                <TableCell>Edit/Delete</TableCell>:null}
+                {EmpProfile.getRole() == 0 ? (
+                  <TableCell>Edit/Delete</TableCell>
+                ) : null}
               </tr>
             </TableHeader>
             <TableBody>
@@ -775,33 +783,33 @@ function Inventory() {
                       </Button>
                     </div>
                   </TableCell>
-                  {EmpProfile.getRole()==0?
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <Button layout="link" size="icon" aria-label="Edit">
-                        <Link
-                          key={user._id}
-                          to={`/app/inventory/update/${user._id}`}
-                        >
-                          <EditIcon className="w-5 h-5" aria-hidden="true" />
-                        </Link>{" "}
-                      </Button>
+                  {EmpProfile.getRole() == 0 ? (
+                    <TableCell>
+                      <div className="flex items-center space-x-4">
+                        <Button layout="link" size="icon" aria-label="Edit">
+                          <Link
+                            key={user._id}
+                            to={`/app/inventory/update/${user._id}`}
+                          >
+                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                          </Link>{" "}
+                        </Button>
 
-                      <Button
-                        layout="link"
-                        size="icon"
-                        aria-label="Delete"
-                        onClick={async () => {
-                          console.log("delete Asset");
-                          setIsDeleteModalOpen(true);
-                          setDeleteId(user._id);
-                        }}
-                      >
-                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                  :null}
+                        <Button
+                          layout="link"
+                          size="icon"
+                          aria-label="Delete"
+                          onClick={async () => {
+                            console.log("delete Asset");
+                            setIsDeleteModalOpen(true);
+                            setDeleteId(user._id);
+                          }}
+                        >
+                          <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  ) : null}
                 </TableRow>
               ))}
             </TableBody>

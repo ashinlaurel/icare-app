@@ -18,8 +18,8 @@ function VendorCard({
     <Card className="cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-100 py-4">
       <CardBody className="flex items-center ">
         {icon}
-        <div>
-          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+        <div className=" overflow-hidden">
+          <p className="text-lg truncate  font-semibold text-gray-700 dark:text-gray-200">
             {value}
           </p>
           <p className=" text-sm text-gray-700 dark:text-gray-200">
