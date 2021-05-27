@@ -1,54 +1,64 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { API } from "../../backendapi";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import PageTitle from "../../components/Typography/PageTitle";
-import SectionTitle from "../../components/Typography/SectionTitle";
-import {
-  Input,
-  HelperText,
-  Label,
-  Button,
-  Badge,
-  Select,
-  Card,
-  CardBody,
-} from "@windmill/react-ui";
 
-import { signup, signin, authenticate } from "../../helpers/auth";
-import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
-import EmpProfile from "../../helpers/auth/EmpProfile";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-import { resetIdCounter } from "react-tabs";
+import { Button, Card, CardBody } from "@windmill/react-ui";
+
 import { TopBarContext } from "../../context/TopBarContext";
 
 import { useHistory } from "react-router-dom";
-import { BottomBarContext } from "../../context/BottomBarContext";
 import moment from "moment";
 import Axios from "axios";
 
 function MarkAttendance() {
   let history = useHistory();
   const { setTopHeading } = useContext(TopBarContext);
-  const [emparray, setEmparray] = useState([]);
-
-  const { bbaropen, setBBarOpen, attendDetails, setAttendDetails } =
-    useContext(BottomBarContext);
+  const [statusChecker, setStatusChecker] = useState("");
 
   // ----------------------Heading Use Effect-------------
 
   useEffect(() => {
     setTopHeading("Mark Attendance");
+    PresentChecker();
     return () => {
       setTopHeading("");
     };
   }, []);
   // -----------------------------------------------------
 
+  const PresentChecker = async () => {
+    let payload = {
+      employee: Emp.getId(),
+      employeeName: Emp.getName(),
+      month: moment().format("MMMM"),
+      year: moment().format("YYYY"),
+      monthDayCount: moment().daysInMonth(),
+      today: {
+        date: moment().format("DD-MM-YY"),
+        dayNo: moment().format("DD"),
+        isPresent: "",
+      },
+    };
+    await Axios({
+      url: `${API}/attendance/${Emp.getId()}/checkAttendance`,
+      method: "POST",
+      data: payload,
+    })
+      .then((data) => {
+        console.log("********88***********");
+        console.log(data.data.isPresent);
+        setStatusChecker(data.data.isPresent);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        // setErr({ ...err });
+      });
+  };
   const handleButton = async () => {
     let payload = {
       employee: Emp.getId(),
+      employeeName: Emp.getName(),
       month: moment().format("MMMM"),
       year: moment().format("YYYY"),
       monthDayCount: moment().daysInMonth(),
@@ -87,9 +97,11 @@ function MarkAttendance() {
                 onClick={() => {
                   handleButton();
                 }}
+                disabled={statusChecker == "Present" ? true : false}
               >
-                {" "}
-                Mark Attendance
+                {statusChecker == "Present"
+                  ? "Already Marked"
+                  : "Mark Attendance"}
               </Button>
             </div>
           </CardBody>

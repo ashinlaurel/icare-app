@@ -1,7 +1,8 @@
 const attendance = require("../../models/attendance/attendance");
 
 exports.markAttendance = async (req, res) => {
-  const { employee, month, year, monthDayCount, today } = req.body;
+  const { employee, employeeName, month, year, monthDayCount, today } =
+    req.body;
   console.log(req.body);
 
   try {
@@ -46,6 +47,7 @@ exports.markAttendance = async (req, res) => {
       }
       let payload = {
         employee: employee,
+        employeeName: employeeName,
         month: month,
         year: year,
         monthDayCount: monthDayCount,
@@ -141,12 +143,16 @@ exports.checkIfPresent = async (req, res) => {
         year: year,
       });
       tempdoc.days.map((day) => {
+        // console.log(day);
         if (day.dayNo == today.dayNo) {
           if (day.isPresent == "Present") {
             const newattend = { isPresent: "Present" };
             return res.status(200).json(newattend);
-          } else {
+          } else if (day.isPresent == "Absent") {
             const newattend = { isPresent: "Absent" };
+            return res.status(200).json(newattend);
+          } else if (day.isPresent == "Leave") {
+            const newattend = { isPresent: "Leave" };
             return res.status(200).json(newattend);
           }
         }
