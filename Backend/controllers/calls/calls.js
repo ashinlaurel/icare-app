@@ -11,13 +11,15 @@ exports.callCreate = async (req, res) => {
   //////// dont forget to pass customer name and CustId is login from frontend
   const call = req.body;
   try {
-    let ifexist = await Call.find({ assetId: call.assetId }).exec();
-    // console.log(ifexist);
-    ifexist.map((call) => {
-      console.log(call.callStatus);
-      if (call.callStatus != 10 && call.callStatus != 11)
-        throw { errid: 1, message: call.callNo };
-    });
+    if (call.callType == "external") {
+      let ifexist = await Call.find({ assetId: call.assetId }).exec();
+      // console.log(ifexist);
+      ifexist.map((call) => {
+        console.log(call.callStatus);
+        if (call.callStatus != 10 && call.callStatus != 11)
+          throw { errid: 1, message: call.callNo };
+      });
+    }
 
     // return res.status(201).json(newcall);
     const temp = new Call(call);
@@ -139,14 +141,8 @@ exports.getCallById = async (req, res) => {
 };
 
 exports.swapItems = async (req, res) => {
-  let {
-    existswap,
-    newswap,
-    call,
-    type,
-    servicelocation,
-    assetserial,
-  } = req.body;
+  let { existswap, newswap, call, type, servicelocation, assetserial } =
+    req.body;
 
   console.log(existswap);
   console.log(newswap);
@@ -343,18 +339,34 @@ exports.swapItems = async (req, res) => {
 // -----COunters ----
 
 exports.countCallsByDate = (req, res) => {
-  let { date } = req.body;
+  let { date, callType, startdate, enddate } = req.body;
   // console.log(date);
-  Call.count({ date: date }, function (err, result) {
-    if (err) {
-      return res.status(400).json({
-        error: "Cant count customers",
-        err: err,
-      });
-    }
-    // console.log(result);
-    return res.status(200).json(result);
-  });
+  if (callType == "external") {
+    Call.count({ date: date, callType: "external" }, function (err, result) {
+      if (err) {
+        return res.status(400).json({
+          error: "Cant count customers",
+          err: err,
+        });
+      }
+      // console.log(result);
+      return res.status(200).json(result);
+    });
+  } else if (callType == "internal") {
+    Call.count(
+      { callType: "internal", date: { $gte: startdate, $lte: enddate } },
+      function (err, result) {
+        if (err) {
+          return res.status(400).json({
+            error: "Cant count customers",
+            err: err,
+          });
+        }
+        // console.log(result);
+        return res.status(200).json(result);
+      }
+    );
+  }
 };
 
 // -----------------------Fuzzy Search Regex----------------

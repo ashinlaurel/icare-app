@@ -69,9 +69,8 @@ function RegisterCall() {
 
   // Bottom bar stuff
 
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -757,6 +756,7 @@ function RegisterCall() {
   let valobj = {
     //both
     callNo: "",
+    callType: "",
     date: "",
     contactPerson: "",
     phone: "",
@@ -786,10 +786,25 @@ function RegisterCall() {
   };
 
   const callNumberSetter = async (date) => {
+    // console.log(moment(date).format("YYYY-MM-DD"));
+    // ------------------year estimation for internal calls --------------------
+    let queryyear = moment(date).format("YYYY");
+    let startdate = moment(queryyear + "-01-01").format("YYYY-MM-DD");
+    let enddate = moment(queryyear + "-12-31").format("YYYY-MM-DD");
+    console.log(startdate);
+    console.log(enddate);
+
+    // ----------------------------------------------------------------------------
+
     let payload = {
       date: date,
+      callType: values.callType,
+      startdate: startdate,
+      enddate: enddate,
     };
     let thecallcount = 0;
+
+    // ----getting call count ------
     try {
       thecallcount = await axios({
         url: `${API}/call/${Emp.getId()}/callsbydate`,
@@ -804,23 +819,34 @@ function RegisterCall() {
     let month = moment(date).format("MM");
     let day = moment(date).format("DD");
     let callnumber = thecallcount.data + 1;
-    if (callnumber < 10) {
-      callnumber = "0" + callnumber;
+    // setting call number based on the type
+    if (values.callType == "external") {
+      if (callnumber < 10) {
+        callnumber = "0" + callnumber;
+      }
+
+      let thestring = year + month + day + callnumber;
+      setValues({ ...values, callNo: thestring, date: date });
+    } else if (values.callType == "internal") {
+      if (callnumber < 10) {
+        callnumber = "00" + callnumber;
+      } else if (callnumber >= 10 && callnumber < 100) {
+        callnumber = "0" + callnumber;
+      }
+      let thestring = "ICS" + year + callnumber;
+      setValues({ ...values, callNo: thestring, date: date });
     }
 
-    let thestring = year + month + day + callnumber;
-    setValues({ ...values, callNo: thestring, date: date });
-    // ------history management
+    // ------history management --------------
     let temp = callhistory;
     temp[0].date = date;
     setCallHistory(temp);
-
-    console.log(thestring);
   };
 
   const submitCall = async () => {
     if (
       values.callNo === "" ||
+      values.callType === "" ||
       // (values.contactPerson === "") |
       // (values.phone === "") |
       values.problem === "" ||
@@ -838,6 +864,7 @@ function RegisterCall() {
     setSuccessfulCallNo(values.callNo);
     const newcall = {
       callNo: values.callNo,
+      callType: values.callType,
       date: values.date,
       time: values.time,
       contactPerson: values.contactPerson,
@@ -970,19 +997,51 @@ function RegisterCall() {
           <span>Call Information</span>
         </Label>
         <hr className="mb-5 mt-2" />
-        {/* ------------------------Row 1-------------------------- */}
+        {/* ----------------------Row 1 ----------------------------- */}
+        <div className="flex-row flex space-x-3 ">
+          <div className="flex flex-col w-full">
+            <Label className="w-full">
+              <span>Call Number</span>
+              <Input
+                // disabled
+                readOnly={true}
+                className="mt-1"
+                type="text"
+                value={values.callNo}
+              />
+            </Label>
+            {/* <HelperText valid={false}>{err.callNo}</HelperText> */}
+          </div>
+        </div>
+        {/* ------------------------Row 2-------------------------- */}
         <div className="flex-row flex space-x-3">
           <>
             <div className="flex flex-col w-full">
               <Label className="w-full">
-                <span>Call Number*</span>
-                <Input
-                  disabled
-                  className="mt-1"
-                  type="text"
-                  value={values.callNo}
-                  onChange={handleChange("callNo")}
-                />
+                <span>Call Type*</span>
+                <div class="relative mt-1 ">
+                  <select
+                    class="  h-full rounded border block appearance-none w-full bg-white border-gray-300 text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                    value={values.callType}
+                    onChange={handleChange("callType")}
+                  >
+                    <option value="" disabled selected>
+                      Call Type
+                    </option>
+                    <option value="internal">Internal</option>
+                    <option value="external">External</option>
+                  </select>
+
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                      class="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </div>
+                </div>
               </Label>
               {/* <HelperText valid={false}>{err.callNo}</HelperText> */}
             </div>
@@ -992,6 +1051,7 @@ function RegisterCall() {
             <Label className="w-full">
               <span>Date*</span>
               <Input
+                disabled={values.callType == "" ? true : false}
                 className="mt-1"
                 type="date"
                 value={values.date}
@@ -1037,7 +1097,7 @@ function RegisterCall() {
             {/* <HelperText valid={false}>{err.username}</HelperText> */}
           </div>
         </div>
-        {/* ----------------------Row 2 ----------------------------- */}
+        {/* ----------------------Row 3 ----------------------------- */}
         <div className="flex-row flex space-x-3 ">
           <div className="flex flex-col w-full">
             <Label className="w-full">

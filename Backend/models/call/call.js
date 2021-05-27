@@ -7,6 +7,10 @@ const callSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  callType: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     // required: true,
