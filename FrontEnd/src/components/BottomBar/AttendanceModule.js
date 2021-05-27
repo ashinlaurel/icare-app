@@ -16,7 +16,7 @@ const AttendanceModule = ({ asset }) => {
         <div className="flex flex-col  text-sm my-1 w-full ">
           <div>
             <span className="font-semibold w-1/5">Employee Name:</span>
-            Samraj
+            {asset.employeeName}
           </div>
           <div>
             <span className="font-semibold w-1/5">Date </span> {asset.date}

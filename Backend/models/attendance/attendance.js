@@ -3,6 +3,10 @@ var mongoosePaginate = require("mongoose-paginate");
 
 const attendanceSchema = mongoose.Schema({
   employee: { type: mongoose.Schema.ObjectId, ref: "EmployeeLogin" },
+  employeeName: {
+    type: String,
+    required: true,
+  },
   month: {
     type: String,
     required: true,

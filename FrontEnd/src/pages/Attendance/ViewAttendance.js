@@ -3,24 +3,9 @@ import axios from "axios";
 import { API } from "../../backendapi";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import PageTitle from "../../components/Typography/PageTitle";
-import SectionTitle from "../../components/Typography/SectionTitle";
-import {
-  Input,
-  HelperText,
-  Label,
-  Button,
-  Badge,
-  Select,
-  Card,
-  CardBody,
-} from "@windmill/react-ui";
 
-import { signup, signin, authenticate } from "../../helpers/auth";
-import CustomerCreateModal from "../../components/Modal/CustomerCreateModal";
-import EmpProfile from "../../helpers/auth/EmpProfile";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-import { resetIdCounter } from "react-tabs";
+import { Card, CardBody } from "@windmill/react-ui";
+
 import { TopBarContext } from "../../context/TopBarContext";
 
 import { useHistory } from "react-router-dom";
@@ -118,6 +103,13 @@ function ViewAttendance() {
       </>
     );
   };
+  const LeaveSquare = () => {
+    return (
+      <>
+        <div className="w-4 h-4 bg-blue-500 border-blue-600 border hover:border-black hover:bg-red-800 rounded-sm"></div>
+      </>
+    );
+  };
   const GraySquare = () => {
     return (
       <>
@@ -173,7 +165,7 @@ function ViewAttendance() {
           {data.map((user) => {
             return (
               <div className="flex flex-row justify-left items-center">
-                <div className="mx-4 dark:text-white">Samraj:</div>
+                <div className="mx-4 dark:text-white">{user.employeeName}:</div>
                 <div className="flex flex-row items-center justify-center">
                   {" "}
                   {user.days.map((day) => {
@@ -210,6 +202,17 @@ function ViewAttendance() {
                           className="m-2"
                         >
                           {AbsentSquare()}
+                        </div>
+                      );
+                    } else if (day.isPresent == "Leave") {
+                      return (
+                        <div
+                          onClick={() => {
+                            setAttendDetails(day);
+                          }}
+                          className="m-2"
+                        >
+                          {LeaveSquare()}
                         </div>
                       );
                     }
