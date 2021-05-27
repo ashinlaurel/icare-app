@@ -14,6 +14,10 @@ const leaveFormSchema = mongoose.Schema({
   reason: {
     type: String,
   },
+
+  employeeName: {
+    type: String,
+  },
 });
 
 leaveFormSchema.plugin(mongoosePaginate);

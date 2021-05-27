@@ -11,7 +11,7 @@ import moment from "moment";
 export default function ApplyLeave() {
   const { topheading, setTopHeading } = useContext(TopBarContext);
   const [values, setValues] = useState({
-    name: "",
+    employeeName: "",
     employeeId: "",
     startdate: "",
     enddate: "item",
@@ -64,7 +64,7 @@ export default function ApplyLeave() {
       return;
     }
 
-    values.name = Emp.getName();
+    values.employeeName = Emp.getName();
     values.employeeId = Emp.getId();
     console.log(values);
 

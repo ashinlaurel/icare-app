@@ -16,6 +16,7 @@ exports.createLeaveForm = async (req, res) => {
 
       payload = {
         employee: item.employeeId,
+        employeeName: item.employeeName,
         month: moment(nowdate).format("MMMM"),
         year: moment(nowdate).format("YYYY"),
         monthDayCount: moment(nowdate).daysInMonth(),
@@ -33,6 +34,7 @@ exports.createLeaveForm = async (req, res) => {
 
     payload = {
       employee: item.employeeId,
+      employeeName: item.employeeName,
       month: moment(item.enddate).format("MMMM"),
       year: moment(item.enddate).format("YYYY"),
       monthDayCount: moment(item.enddate).daysInMonth(),
@@ -115,9 +117,12 @@ exports.getAll = (req, res) => {
 };
 
 const markAttendance = async (payload) => {
-  let { employee, month, year, monthDayCount, today } = payload;
+  let { employee, employeeName, month, year, monthDayCount, today } = payload;
   console.log(`marking attendace`, payload);
-
+  if (parseInt(today.dayNo) < 10) {
+    console.log("here", parseInt(today.dayNo));
+    today.dayNo = toString(parseInt(today.dayNo));
+  }
   try {
     // checking whether document exists
     let cnt = await attendance.count({
@@ -164,6 +169,7 @@ const markAttendance = async (payload) => {
         year: year,
         monthDayCount: monthDayCount,
         days: temp,
+        employeeName: employeeName,
       };
 
       const temppush = new attendance(payload);
@@ -171,6 +177,6 @@ const markAttendance = async (payload) => {
       return newattend;
     }
   } catch (error) {
-    res.status(400).json(error);
+    throw error;
   }
 };
