@@ -185,6 +185,13 @@ export const aroutes = [
     ],
   },
 
+  // ---------------Downloadables ----------------------------------
+  {
+    path: "/app/downloads", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Downloads", // name that appear in Sidebar
+  },
+
   // {
   //   path: "/app/forms",
   //   icon: "FormsIcon",
@@ -279,6 +286,11 @@ export const croutes = [
       },
     ],
   },
+  {
+    path: "/app/downloads", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Downloads", // name that appear in Sidebar
+  },
 ];
 
 export const enggroutes = [
@@ -305,6 +317,11 @@ export const enggroutes = [
         name: "Mark Attendance",
       },
     ],
+  },
+  {
+    path: "/app/downloads", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Downloads", // name that appear in Sidebar
   },
 ];
 
@@ -452,5 +469,11 @@ export const ostorekeeproutes = [
         name: "Mark Attendance",
       },
     ],
+  },
+  // ---------------------------- Downloads -------------------------------
+  {
+    path: "/app/downloads", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Downloads", // name that appear in Sidebar
   },
 ];

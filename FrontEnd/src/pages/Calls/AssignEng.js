@@ -50,9 +50,8 @@ function AssignEng() {
   // const [assetdetails, setAssetDetails] = useContext(BottomBarContext);
   const [addEnggModalOpen, setaddEnggModalOpen] = useState(false);
 
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -292,6 +291,7 @@ function AssignEng() {
           limit: resultsPerPage,
         },
         filters: {
+          callType: "",
           callStatus: callStatus,
           searchquery: searchquery,
           fromDate: fromDate,

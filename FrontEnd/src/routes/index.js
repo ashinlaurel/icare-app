@@ -72,7 +72,6 @@ const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 const ViewSalary = lazy(() => import("../pages/Employee/ViewSalary"));
-const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
@@ -106,6 +105,10 @@ const CustomerViewCalls = lazy(() =>
 // ------------------------------------ Attendance -----------------------
 
 const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
+const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
+// ------------------------------------ Downloads -----------------------
+
+const ViewDownloads = lazy(() => import("../pages/Downloads/ViewDownloads"));
 
 /**
  * ⚠ These are internal routes!
@@ -327,6 +330,12 @@ export const aroutes = [
     component: Notifications,
   },
 
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
+  },
+
   // --------------------------------------------/
   {
     path: "/forms",
@@ -401,6 +410,11 @@ export const croutes = [
     path: "/viewmycalls/",
     component: CustomerViewCalls,
   },
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
+  },
 ];
 
 export const enggroutes = [
@@ -421,6 +435,11 @@ export const enggroutes = [
   {
     path: "/markAttendance",
     component: markAttendance,
+  },
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
   },
 ];
 
@@ -469,6 +488,11 @@ export const storekeeproutes = [
   {
     path: "/markAttendance",
     component: markAttendance,
+  },
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
   },
 ];
 
@@ -529,5 +553,10 @@ export const ostorekeeproutes = [
   {
     path: "/markAttendance",
     component: markAttendance,
+  },
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
   },
 ];

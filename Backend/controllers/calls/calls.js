@@ -73,6 +73,9 @@ exports.getCalls = async (req, res) => {
     };
   }
 
+  if (filters.callType != "") {
+    filteroptions.callType = filters.callType;
+  }
   if (filters.searchquery != "") {
     filteroptions.callNo = fuzzyquery;
   }
