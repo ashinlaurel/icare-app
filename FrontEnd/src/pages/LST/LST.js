@@ -42,9 +42,8 @@ function LST() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
 
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   const [vendorsearch, setVendorsearch] = useState("");
   // table variable styles
   const [activerowid, setActiveRowId] = useState(-1);
@@ -381,6 +380,7 @@ function LST() {
       setToLocation("");
       setDate("");
       setselectedVendor(defVendor);
+      LSTNumberSetter(date, location);
       // setData([]);
       setMessageModal(true);
       setSelectedItems([]);
@@ -435,7 +435,8 @@ function LST() {
           isOpen={isVendorModalopen}
           onClose={() => setIsVendorModalopen(false)}
         >
-          <ModalHeader><tr>
+          <ModalHeader>
+            <tr>
               <TableCell>Pick Vendor</TableCell>
               {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
@@ -444,7 +445,9 @@ function LST() {
             <tr>
               <TableCell>
                 <form
-                onSubmit={e=>{e.preventDefault()}}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
                 >
                   <input
                     className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -455,7 +458,8 @@ function LST() {
                   />
                 </form>
               </TableCell>
-            </tr></ModalHeader>
+            </tr>
+          </ModalHeader>
           <ModalBody className="overflow-y-scroll h-64">
             <TableContainer>
               <Table>

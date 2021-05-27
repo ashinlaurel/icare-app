@@ -70,6 +70,9 @@ exports.getAllItems = (req, res) => {
   if (filters.LSTtype && filters.LSTtype != "") {
     filteroptions.LSTtype = filters.LSTtype;
   }
+  if (filters.isDeleted) {
+    filteroptions.isDeleted = filters.isDeleted;
+  }
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
   // }
@@ -118,9 +121,17 @@ exports.updateLST = async (req, res) => {
 exports.deleteLST = async (req, res) => {
   let { id } = req.body;
   try {
-    let inv = await LST.findByIdAndDelete({ _id: id });
+    // let inv = await LST.findByIdAndDelete({ _id: id });
+    let lst = await LST.findByIdAndUpdate(
+      id,
+      { isDeleted: "true" },
+      {
+        safe: true,
+        useFindAndModify: false,
+      }
+    );
 
-    return res.status(200).json({ inv });
+    return res.status(200).json({ lst });
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });

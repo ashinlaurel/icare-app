@@ -95,6 +95,14 @@ exports.getCalls = async (req, res) => {
     filteroptions.employeeId = filters.employeeId;
   }
 
+  if (filters.customerId && filters.customerId != "") {
+    filteroptions.customerId = filters.customerId;
+  }
+  if (filters.accoutId && filters.accoutId != "") {
+    filteroptions.accoutId = filters.accoutId;
+  }
+  // console.log(filteroptions);
+
   Call.paginate(filteroptions, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
@@ -139,14 +147,8 @@ exports.getCallById = async (req, res) => {
 };
 
 exports.swapItems = async (req, res) => {
-  let {
-    existswap,
-    newswap,
-    call,
-    type,
-    servicelocation,
-    assetserial,
-  } = req.body;
+  let { existswap, newswap, call, type, servicelocation, assetserial } =
+    req.body;
 
   console.log(existswap);
   console.log(newswap);

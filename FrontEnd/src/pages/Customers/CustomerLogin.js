@@ -65,14 +65,17 @@ function CustomerLogin() {
       .then((data) => {
         // console.log("userinfo", data.user);
         console.log("Signed In", data.user._id);
-        CustProfile.setName(data.user.CustomerName);
+        CustProfile.setName(data.user.name);
         CustProfile.setUsername(data.user.username);
         CustProfile.setToken(data.token);
         CustProfile.setId(data.user._id);
         CustProfile.setRole(data.user.role);
+        // if (data.user.contactNo && data.user.contactNo != "")
+        CustProfile.setPhone(data.user.contactNo);
+
         // localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
         localStorage.setItem("type", data.user.role);
-        console.log("authenticated");
+        console.log("authenticated", data.user);
         history.push("/app/myassets/accounts");
         // return <Redirect to="/app" />;
         // });

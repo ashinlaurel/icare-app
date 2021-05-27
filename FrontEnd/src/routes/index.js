@@ -83,7 +83,6 @@ const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
 
 const LST = lazy(() => import("../pages/LST/LST"));
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
-const UpdateLST = lazy(() => import("../pages/LST/UpdateLST"));
 
 // ------------------------------------ Engg
 const ViewEngineerCalls = lazy(() =>
@@ -99,6 +98,10 @@ const Notifications = lazy(() =>
 // ------------------------------------ Customer Login
 
 const MyAssets = lazy(() => import("../pages/CustomerPages/MyAssets"));
+const RaiseCall = lazy(() => import("../pages/CustomerPages/RaiseCall"));
+const CustomerViewCalls = lazy(() =>
+  import("../pages/CustomerPages/CustomerViewCalls")
+);
 
 /**
  * ⚠ These are internal routes!
@@ -307,10 +310,7 @@ export const aroutes = [
     path: "/lst/history",
     component: LSTHistory,
   },
-  {
-    path: "/lst/update/:id",
-    component: UpdateLST,
-  },
+
   // --------------------------------------------/
   // ----------------------Notifications Views ----------------------/
 
@@ -384,6 +384,14 @@ export const croutes = [
   {
     path: "/myassets/",
     component: MyAssets,
+  },
+  {
+    path: "/raisecall/",
+    component: RaiseCall,
+  },
+  {
+    path: "/viewmycalls/",
+    component: CustomerViewCalls,
   },
 ];
 

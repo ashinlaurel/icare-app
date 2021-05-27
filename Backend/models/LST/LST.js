@@ -24,30 +24,31 @@ const LSTSchema = new Schema({
     trim: true,
   },
   invItems: [
-      {
-    type: Schema.Types.ObjectId,
-    ref:'InvItem',
-  }],
+    {
+      type: Schema.Types.ObjectId,
+      ref: "InvItem",
+    },
+  ],
 
   status: {
     type: String,
     trim: true,
   },
   vendorId: {
-  type: Schema.Types.ObjectId,
-  ref:'Vendor',
-},
-  vendorName:String,
-  LSTtype:String,
-  CMRRItems:[],
-  
-  DocketType:{
-    type:String,
-    default:""
+    type: Schema.Types.ObjectId,
+    ref: "Vendor",
   },
-  CourierNumber:{
-    type:String,
-    default:""
+  vendorName: String,
+  LSTtype: String,
+  CMRRItems: [],
+
+  DocketType: {
+    type: String,
+    default: "",
+  },
+  CourierNumber: {
+    type: String,
+    default: "",
   },
   unitId: {
     type: mongoose.Schema.ObjectId,
@@ -64,8 +65,10 @@ const LSTSchema = new Schema({
     ref: "CustomerLogin",
   },
   customerName: String,
-
-  
+  isDeleted: {
+    type: String,
+    default: "false",
+  },
 });
 LSTSchema.plugin(mongoosePaginate);
 
