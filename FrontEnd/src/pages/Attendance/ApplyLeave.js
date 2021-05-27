@@ -33,24 +33,36 @@ export default function ApplyLeave() {
   };
 
   const submitItem = async () => {
-    // if (values.sno === "") {
-    //   setModalMessage("Serial number necessary");
-    //   setMessageModal(true);
-    //   console.log("missing inputs");
-    //   return;
-    // }
-    // if (values.invdate === "") {
-    //   setModalMessage("Added Date Required Necessary");
-    //   setMessageModal(true);
-    //   console.log("missing inputs");
-    //   return;
-    // }
-    // if (values.wty === "") {
-    //   setModalMessage("Warranty Period Necessary");
-    //   setMessageModal(true);
-    //   console.log("missing inputs");
-    //   return;
-    // }
+    if (values.startdate === "") {
+      setModalMessage("Start Date necessary");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
+    }
+    if (values.enddate === "") {
+      setModalMessage("End Date necessary");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
+    }
+
+    if (
+      Math.floor(
+        (Date.parse(values.enddate) - Date.parse(values.startdate)) / 86400000
+      ) < 0
+    ) {
+      setModalMessage("Invalid Date");
+      setMessageModal(true);
+      console.log("invalid inputs");
+      return;
+    }
+
+    if (values.reason === "") {
+      setModalMessage("Please Give Reason");
+      setMessageModal(true);
+      console.log("missing inputs");
+      return;
+    }
 
     values.name = Emp.getName();
     values.employeeId = Emp.getId();
@@ -141,12 +153,12 @@ export default function ApplyLeave() {
                     (Date.parse(values.enddate) -
                       Date.parse(values.startdate)) /
                       86400000
-                  ) > 0 ? (
+                  ) >= 0 ? (
                     Math.floor(
                       (Date.parse(values.enddate) -
                         Date.parse(values.startdate)) /
                         86400000
-                    )
+                    ) + 1
                   ) : (
                     <>Invalid Dates</>
                   )

@@ -105,14 +105,11 @@ const CustomerViewCalls = lazy(() =>
 // ------------------------------------ Attendance -----------------------
 
 const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
-<<<<<<< HEAD
 const ApplyLeave = lazy(() => import("../pages/Attendance/ApplyLeave"));
-=======
 const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
 // ------------------------------------ Downloads -----------------------
 
 const ViewDownloads = lazy(() => import("../pages/Downloads/ViewDownloads"));
->>>>>>> 659b2874bda79b0d2ad4d3257f5bdce292cc34dc
 
 /**
  * ⚠ These are internal routes!
@@ -440,16 +437,14 @@ export const enggroutes = [
     path: "/markAttendance",
     component: markAttendance,
   },
-<<<<<<< HEAD
   {
     path: "/ApplyLeave",
     component: ApplyLeave,
-=======
+  },
   // -----------------Downloads --------------------------------
   {
     path: "/downloads",
     component: ViewDownloads,
->>>>>>> 659b2874bda79b0d2ad4d3257f5bdce292cc34dc
   },
 ];
 

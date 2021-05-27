@@ -26,13 +26,27 @@ exports.createLeaveForm = async (req, res) => {
         },
       };
 
-      let res = await markAttendance(payload, {});
+      await markAttendance(payload);
 
       nowdate.add(1, "days");
     }
 
-    // const newform = new leaveForm(item);
-    // const result = await newform.save();
+    payload = {
+      employee: item.employeeId,
+      month: moment(item.enddate).format("MMMM"),
+      year: moment(item.enddate).format("YYYY"),
+      monthDayCount: moment(item.enddate).daysInMonth(),
+      today: {
+        date: moment(item.enddate).format("DD-MM-YY"),
+        dayNo: moment(item.enddate).format("DD"),
+        isPresent: "Leave",
+      },
+    };
+
+    await markAttendance(payload);
+
+    let newform = new leaveForm(item);
+    let result = await newform.save();
     result = {};
     return res.status(200).json(result);
   } catch (err) {
@@ -98,4 +112,65 @@ exports.getAll = (req, res) => {
     };
     return res.status(200).json(output);
   });
+};
+
+const markAttendance = async (payload) => {
+  let { employee, month, year, monthDayCount, today } = payload;
+  console.log(`marking attendace`, payload);
+
+  try {
+    // checking whether document exists
+    let cnt = await attendance.count({
+      employee: employee,
+      month: month,
+      year: year,
+    });
+    // console.log(cnt);
+    // conditional code
+    if (cnt > 0) {
+      let tempdoc = await attendance.findOne({
+        employee: employee,
+        month: month,
+        year: year,
+      });
+
+      tempdoc.days.map((day) => {
+        // console.log("hello");
+        // console.log("****************************");
+
+        // console.log(today.dayNo);
+        if (day.dayNo == today.dayNo) {
+          day.isPresent = today.isPresent;
+        }
+      });
+      let result = await tempdoc.save();
+      // console.log("****************************");
+      // console.log("result" + result);
+      return result;
+    } else {
+      let temp = [];
+      for (let i = 0; i < monthDayCount; i++) {
+        if (i == today.dayNo - 1) {
+          let doc = { date: "", dayNo: i + 1, isPresent: today.isPresent };
+          temp.push(doc);
+        } else {
+          let doc = { date: "", dayNo: i + 1, isPresent: "Absent" };
+          temp.push(doc);
+        }
+      }
+      let payload = {
+        employee: employee,
+        month: month,
+        year: year,
+        monthDayCount: monthDayCount,
+        days: temp,
+      };
+
+      const temppush = new attendance(payload);
+      const newattend = await temppush.save();
+      return newattend;
+    }
+  } catch (error) {
+    res.status(400).json(error);
+  }
 };
