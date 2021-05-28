@@ -146,10 +146,14 @@ export const aroutes = [
         path: "/app/viewAttendance",
         name: "View Attendance",
       },
+      {
+        path: "/app/leavehistory",
+        name: "Leave History",
+      },
     ],
   },
 
-  // ---------------Employee---------------------------------------------
+  // ---------------Vendor---------------------------------------------
   {
     icon: "HomeIcon",
     name: "Vendor",
@@ -393,6 +397,10 @@ export const storekeeproutes = [
         path: "/app/markAttendance",
         name: "Mark Attendance",
       },
+      {
+        path: "/app/applyleave",
+        name: "Leave Application",
+      },
     ],
   },
 ];
@@ -471,6 +479,10 @@ export const ostorekeeproutes = [
       {
         path: "/app/markAttendance",
         name: "Mark Attendance",
+      },
+      {
+        path: "/app/applyleave",
+        name: "Leave Application",
       },
     ],
   },

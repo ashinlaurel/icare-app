@@ -7,46 +7,6 @@ exports.createLeaveForm = async (req, res) => {
   console.log(item);
 
   try {
-    // Saving the asset
-    console.log(moment(item.startdate), moment(item.enddate));
-    var nowdate = moment(item.startdate);
-    let payload = {};
-    while (nowdate.isBefore(moment(item.enddate), "day")) {
-      console.log(`Loop at ${nowdate.format("YYYY-MM-DD")}`);
-
-      payload = {
-        employee: item.employeeId,
-        employeeName: item.employeeName,
-        month: moment(nowdate).format("MMMM"),
-        year: moment(nowdate).format("YYYY"),
-        monthDayCount: moment(nowdate).daysInMonth(),
-        today: {
-          date: moment(nowdate).format("DD-MM-YY"),
-          dayNo: moment(nowdate).format("DD"),
-          isPresent: "Leave",
-        },
-      };
-
-      await markAttendance(payload);
-
-      nowdate.add(1, "days");
-    }
-
-    payload = {
-      employee: item.employeeId,
-      employeeName: item.employeeName,
-      month: moment(item.enddate).format("MMMM"),
-      year: moment(item.enddate).format("YYYY"),
-      monthDayCount: moment(item.enddate).daysInMonth(),
-      today: {
-        date: moment(item.enddate).format("DD-MM-YY"),
-        dayNo: moment(item.enddate).format("DD"),
-        isPresent: "Leave",
-      },
-    };
-
-    await markAttendance(payload);
-
     let newform = new leaveForm(item);
     let result = await newform.save();
     result = {};
@@ -56,6 +16,78 @@ exports.createLeaveForm = async (req, res) => {
 
     res.status(400).json(err);
     // throw error;
+  }
+};
+
+exports.approveLeave = async (req, res) => {
+  let { id, update } = req.body;
+  // console.log(item);
+  let item = update;
+
+  if (update.status == "Rejected") {
+    try {
+      let inv = await leaveForm.findByIdAndUpdate(id, update, {
+        safe: true,
+        useFindAndModify: false,
+      });
+      return res.status(200).json({ inv });
+    } catch (err) {
+      // console.log(id);
+      console.log("Leave Form Rejecting error->", err.message);
+      return res.status(400).json({ error: err });
+    }
+  } else {
+    try {
+      let inv = await leaveForm.findByIdAndUpdate(id, update, {
+        safe: true,
+        useFindAndModify: false,
+      });
+
+      console.log(moment(item.startdate), moment(item.enddate));
+      var nowdate = moment(item.startdate);
+      let payload = {};
+      while (nowdate.isBefore(moment(item.enddate), "day")) {
+        console.log(`Loop at ${nowdate.format("YYYY-MM-DD")}`);
+
+        payload = {
+          employee: item.employeeId,
+          employeeName: item.employeeName,
+          month: moment(nowdate).format("MMMM"),
+          year: moment(nowdate).format("YYYY"),
+          monthDayCount: moment(nowdate).daysInMonth(),
+          today: {
+            date: moment(nowdate).format("DD-MM-YY"),
+            dayNo: moment(nowdate).format("DD"),
+            isPresent: "Leave",
+          },
+        };
+
+        await markAttendance(payload);
+
+        nowdate.add(1, "days");
+      }
+
+      payload = {
+        employee: item.employeeId,
+        employeeName: item.employeeName,
+        month: moment(item.enddate).format("MMMM"),
+        year: moment(item.enddate).format("YYYY"),
+        monthDayCount: moment(item.enddate).daysInMonth(),
+        today: {
+          date: moment(item.enddate).format("DD-MM-YY"),
+          dayNo: moment(item.enddate).format("DD"),
+          isPresent: "Leave",
+        },
+      };
+
+      await markAttendance(payload);
+
+      return res.status(200).json({ inv });
+    } catch (err) {
+      // console.log(id);
+      console.log("Leave Form Updating error->", err.message);
+      return res.status(400).json({ error: err });
+    }
   }
 };
 
@@ -80,9 +112,9 @@ exports.getAll = (req, res) => {
   };
 
   // ---Conditional Addition of filters
-  // if (filters.type != "") {
-  //   filteroptions.type = filters.type;
-  // }
+  if (filters.status && filters.status != "") {
+    filteroptions.status = filters.status;
+  }
   // if (filters.location != "") {
   //   filteroptions.location = filters.location;
   // }
@@ -118,11 +150,12 @@ exports.getAll = (req, res) => {
 
 const markAttendance = async (payload) => {
   let { employee, employeeName, month, year, monthDayCount, today } = payload;
-  console.log(`marking attendace`, payload);
+
   if (parseInt(today.dayNo) < 10) {
-    console.log("here", parseInt(today.dayNo));
-    today.dayNo = toString(parseInt(today.dayNo));
+    console.log("here", parseInt(today.dayNo).toString());
+    today.dayNo = parseInt(today.dayNo).toString();
   }
+  console.log(`marking attendace`, payload);
   try {
     // checking whether document exists
     let cnt = await attendance.count({

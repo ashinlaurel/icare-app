@@ -72,6 +72,7 @@ const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 const ViewSalary = lazy(() => import("../pages/Employee/ViewSalary"));
+const LeaveHistory = lazy(() => import("../pages/Employee/LeaveHistory"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
@@ -237,6 +238,10 @@ export const aroutes = [
   {
     path: "/viewAttendance",
     component: ViewAttendance,
+  },
+  {
+    path: "/LeaveHistory",
+    component: LeaveHistory,
   },
 
   // ----------------------Vendor Views----------------------/
@@ -499,6 +504,15 @@ export const storekeeproutes = [
     path: "/downloads",
     component: ViewDownloads,
   },
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: markAttendance,
+  },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
+  },
 ];
 
 export const ostorekeeproutes = [
@@ -563,5 +577,14 @@ export const ostorekeeproutes = [
   {
     path: "/downloads",
     component: ViewDownloads,
+  },
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: markAttendance,
+  },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
   },
 ];

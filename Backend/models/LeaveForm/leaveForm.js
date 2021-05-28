@@ -18,6 +18,10 @@ const leaveFormSchema = mongoose.Schema({
   employeeName: {
     type: String,
   },
+  status: {
+    type: String,
+    default: "Submitted",
+  },
 });
 
 leaveFormSchema.plugin(mongoosePaginate);
