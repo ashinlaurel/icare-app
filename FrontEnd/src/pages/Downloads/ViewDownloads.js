@@ -32,6 +32,7 @@ function ViewDownloads() {
           className="cursor-pointer"
           href="https://icarewebsiteuploads.s3.ap-south-1.amazonaws.com/CCFR+FORMAT+-+Infocare.pdf"
           target="_blank"
+          download="ccfr.pdf"
         >
           <InfoCard className="" title="Click To Download" value="CCFR PDF">
             <RoundIcon

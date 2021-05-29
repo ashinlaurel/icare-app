@@ -75,6 +75,7 @@ function MarkAttendance() {
     })
       .then((data) => {
         console.log("hello");
+        PresentChecker();
       })
       .catch((err) => {
         console.log("err", err);
