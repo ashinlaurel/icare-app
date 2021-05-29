@@ -223,7 +223,7 @@ function LSTPDF() {
             <div>GST No: {fromAddr.GSTNo}</div>
           </div>
           <div className="w-8/12 bg-blue-400"> </div>
-          <div className="text-left mr-24 ">
+          <div className="text-left mr-8 ">
             {data.LSTtype == "Customer" ? (
               <>
                 <div>TO</div>
@@ -349,7 +349,7 @@ function LSTPDF() {
               {/* <td className="tb-head tb-row px-2"></td> */}
               {/* <td className="tb-head tb-row px-2"></td> */}
               <td colSpan="2" className="tb-head tb-row px-2 text-left">
-                {despatchedby}
+                {/* {despatchedby} */}
               </td>
               {/* <td className="tb-head tb-row px-2"></td> */}
 

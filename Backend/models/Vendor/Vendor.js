@@ -8,7 +8,6 @@ const VendorSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   aadharNo: String,
   PANNo: String,
