@@ -1,6 +1,6 @@
 cd ~/icare-app/
 sudo git fetch --all
-sudo git reset --hard origin/landingPage
+sudo git reset --hard origin/master
 cd /var/www/
 sudo rm -r build/
 cd ~/icare-app/FrontEnd/
