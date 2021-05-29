@@ -22,6 +22,7 @@ const serverRoute = require("./routes/products/server");
 const assetRoute = require("./routes/assets/assets");
 const callRoute = require("./routes/calls/Call");
 const attendanceRoute = require("./routes/attendance/attendance");
+const leaveformRoute = require("./routes/leaveForm/leaveform");
 
 // Inventory Import
 const inventoryRoute = require("./routes/inventory/inventory");
@@ -108,6 +109,9 @@ app.use("/api/contactform", ContactUs);
 //Attendance Route ----------------------------------------------------
 
 app.use("/api/attendance", attendanceRoute);
+//Leave form ----------------------------------------------------
+
+app.use("/api/leave", leaveformRoute);
 
 // app.get("/", (req, res) => res.send("Hello World!"));
 

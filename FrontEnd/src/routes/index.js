@@ -72,6 +72,7 @@ const EmployeeUpdate = lazy(() => import("../pages/Employee/EmployeeUpdate"));
 const PaySalary = lazy(() => import("../pages/Employee/PaySalary"));
 const SalaryHistory = lazy(() => import("../pages/Employee/SalaryHistory"));
 const ViewSalary = lazy(() => import("../pages/Employee/ViewSalary"));
+const LeaveHistory = lazy(() => import("../pages/Employee/LeaveHistory"));
 
 // ------------------------------- Vendor Imports
 const CreateVendor = lazy(() => import("../pages/Vendor/CreateVendor"));
@@ -105,6 +106,7 @@ const CustomerViewCalls = lazy(() =>
 // ------------------------------------ Attendance -----------------------
 
 const markAttendance = lazy(() => import("../pages/Attendance/MarkAttendance"));
+const ApplyLeave = lazy(() => import("../pages/Attendance/ApplyLeave"));
 const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
 // ------------------------------------ Downloads -----------------------
 
@@ -236,6 +238,10 @@ export const aroutes = [
   {
     path: "/viewAttendance",
     component: ViewAttendance,
+  },
+  {
+    path: "/LeaveHistory",
+    component: LeaveHistory,
   },
 
   // ----------------------Vendor Views----------------------/
@@ -436,6 +442,10 @@ export const enggroutes = [
     path: "/markAttendance",
     component: markAttendance,
   },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
+  },
   // -----------------Downloads --------------------------------
   {
     path: "/downloads",
@@ -493,6 +503,15 @@ export const storekeeproutes = [
   {
     path: "/downloads",
     component: ViewDownloads,
+  },
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: markAttendance,
+  },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
   },
 ];
 
@@ -558,5 +577,14 @@ export const ostorekeeproutes = [
   {
     path: "/downloads",
     component: ViewDownloads,
+  },
+  // -----------------Attendance Views --------------------------------
+  {
+    path: "/markAttendance",
+    component: markAttendance,
+  },
+  {
+    path: "/ApplyLeave",
+    component: ApplyLeave,
   },
 ];
