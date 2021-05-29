@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
+import { saveAs } from "file-saver";
 // import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
 // import ReactPDF from '@react-pdf/renderer';
 // import { PDFViewer } from '@react-pdf/renderer';
@@ -53,7 +54,7 @@ function Notifications() {
   const [location, setLocation] = useState("");
   const [ToLocation, setToLocation] = useState("");
   const [condition, setCondition] = useState("");
-  const [LSTtype, setLSTtype] = useState("Normal")
+  const [LSTtype, setLSTtype] = useState("Normal");
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
@@ -74,6 +75,11 @@ function Notifications() {
   //modal
   const [messageModal, setMessageModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  // ----------------download states------------------------------
+  const [isDownloadModalOpen, setisDownloadModalOpen] = useState(false);
+  const [downloadLST, setDownloadLST] = useState({});
+  const [downloadNum, setDownloadNum] = useState(0);
 
   // pagination change control
   function onPageChange(p) {
@@ -109,7 +115,7 @@ function Notifications() {
           from: location,
           to: ToLocation,
           status: "In Transit",
-          LSTtype:LSTtype,
+          LSTtype: LSTtype,
           // searchtype: searchtype,
           searchquery: searchquery,
         },
@@ -135,9 +141,96 @@ function Notifications() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, ToLocation, condition, status, refresh,LSTtype]);
+  }, [page, location, ToLocation, condition, status, refresh, LSTtype]);
 
   console.log(selectedprod);
+
+  // ----------------------------------Download Functions -------------------------------
+  const DownloadModal = () => {
+    console.log(downloadLST);
+    return (
+      <>
+        <Modal
+          isOpen={isDownloadModalOpen}
+          onClose={() => setisDownloadModalOpen(false)}
+        >
+          <ModalHeader>Download LST</ModalHeader>
+          <ModalBody>
+            {data[downloadNum] ? (
+              <>
+                <div className="flex flex-row">
+                  <div className=" my-2 ml-5 mr-2 w-full">Docket Type:</div>
+                  <input
+                    value={data[downloadNum].DocketType}
+                    onChange={(e) => {
+                      let temp = [...data];
+                      temp[downloadNum].DocketType = e.target.value;
+                      // console.log( temp[downloadNum].DocketType)
+                      setData(temp);
+                    }}
+                    class="w-full mr-5 shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </div>
+
+                <div className="flex flex-row my-2">
+                  <div className="my-2 ml-5 mr-2 w-full">Courier Number:</div>
+                  <input
+                    value={data[downloadNum].CourierNumber}
+                    onChange={(e) => {
+                      let temp = [...data];
+                      temp[downloadNum].CourierNumber = e.target.value;
+                      // console.log( temp[downloadNum].CourierNumber)
+                      setData(temp);
+                    }}
+                    class="w-full mr-5  shadow-md z-20 appearance-none rounded border border-gray-400 border-b block py-1  bg-white text-sm  text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </div>
+              </>
+            ) : null}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={async () => {
+                createAndDownloadPdf(
+                  data[downloadNum]._id,
+                  data[downloadNum].LSTNo,
+                  data[downloadNum].CourierNumber,
+                  data[downloadNum].DocketType
+                );
+              }}
+            >
+              Download
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  // PDF Download Functions
+
+  const createAndDownloadPdf = async (id, LSTno, CourierNumber, DocketType) => {
+    let payload = {
+      id: id,
+      update: {
+        CourierNumber,
+        DocketType,
+      },
+    };
+    let response = await axios({
+      url: `${API}/lst/${Emp.getId()}/downloadpdf`,
+      method: "POST",
+      data: payload,
+      responseType: "blob",
+    });
+
+    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+    setisDownloadModalOpen(false);
+    saveAs(pdfBlob, `LST_${LSTno}.pdf`);
+  };
+
+  // ---------------------------------------------------------------------------------------------------------
 
   const updateInventory = async (i, j) => {
     let items = data;
@@ -174,7 +267,7 @@ function Notifications() {
         id: invItem._id,
         update: {
           location: lstItem.to,
-          status: invItem.condition, 
+          status: invItem.condition,
           $push: { history: newhistory },
         },
       };
@@ -240,14 +333,12 @@ function Notifications() {
     let CMRRItem = lstItem.CMRRItems[j];
     console.log(lstItem, CMRRItem);
 
+    items[i].CMRRItems[j].location = lstItem.to;
+    setData(items);
 
-   
-      items[i].CMRRItems[j].location = lstItem.to;
-      setData(items);
-      
-      // setIsReviewModalOpen(true);
-      console.log("Done",items);
-  
+    // setIsReviewModalOpen(true);
+    console.log("Done", items);
+
     let flag = false;
     items[i].CMRRItems.map((item) => {
       if (item.location == "In Transit") flag = true;
@@ -255,14 +346,13 @@ function Notifications() {
     const updatelst = {
       id: lstItem._id,
       update: {
-        CMRRItems:items[i].CMRRItems,
-        
+        CMRRItems: items[i].CMRRItems,
       },
     };
-    if (flag == false){
-      updatelst.update.status="Received";
+    if (flag == false) {
+      updatelst.update.status = "Received";
     }
-    
+
     try {
       await axios({
         url: `${API}/lst/${Emp.getId()}/update`,
@@ -273,13 +363,13 @@ function Notifications() {
         setModalMessage(`${CMRRItem.name} Recieved`);
         setMessageModal(true);
         // return;
-      }else { 
-      setModalMessage(
-        `${CMRRItem.name} Recieved.\n All Items Received from LST`
-      );
-      setMessageModal(true);
+      } else {
+        setModalMessage(
+          `${CMRRItem.name} Recieved.\n All Items Received from LST`
+        );
+        setMessageModal(true);
       }
-      
+
       console.log("Done");
       return;
     } catch (error) {
@@ -290,8 +380,8 @@ function Notifications() {
 
   const InvTable = (num, to) => {
     let items = data[num].invItems;
-    let LSTtype= data[num].LSTtype;
-    let CMRRItems= data[num].CMRRItems;
+    let LSTtype = data[num].LSTtype;
+    let CMRRItems = data[num].CMRRItems;
     console.log("TO", items.to);
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3">
@@ -311,204 +401,206 @@ function Notifications() {
                 </tr>
               </TableHeader>
               <TableBody>
-              {(LSTtype == "Normal"||LSTtype == "Customer") ? (
-                <>
-                {data[num].invItems.map((user, i) => (
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                      activerowid == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={i}
-                    onClick={() => {
-                      setActiveRowId(user._id);
-                      // console.log("the id is " + user._id);
-                      // setSelectedProd(user);
-                      // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].keyboardname);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">{user.type}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.name}</span>
-                    </TableCell>
-
-                    <TableCell>
-                      {data[num].to == "Vendor" &&
-                      user.location == "In Transit" ? (
-                        <span className="text-sm">
-                          <input
-                            value={user.sno}
-                            onChange={(e) => {
-                              let tempdata = data;
-                              let temp = data[num].invItems;
-                              temp = temp.filter((x) => {
-                                if (x._id != user._id) return x;
-                                else {
-                                  console.log("here", e.target.value, x.name);
-                                  x.sno = e.target.value;
-                                  return x;
-                                }
-                              });
-                              // tempnum.invItems=temp;
-                              tempdata[num].invItems = temp;
-                              console.log(tempdata);
-                              // tempdata[num].from="TETS"
-                              setData([...tempdata]);
-                            }}
-                            placeholder="Cse Id."
-                            class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                          />
-                        </span>
-                      ) : (
-                        user.sno
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.location}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.invnumber}</span>
-                    </TableCell>
-                    <TableCell>
-                      {data[num].to == "Vendor" &&
-                      user.location == "In Transit" ? (
-                        <Select
-                          value={user.condition}
-                          className="mt-1"
-                          onChange={(e) => {
-                            let tempdata = data;
-                            let temp = data[num].invItems;
-                            temp = temp.filter((x) => {
-                              if (x._id != user._id) return x;
-                              else {
-                                console.log("here", e.target.value, x.name);
-                                x.condition = e.target.value;
-                                return x;
-                              }
-                            });
-                            // tempnum.invItems=temp;
-                            tempdata[num].invItems = temp;
-                            console.log(tempdata);
-                            // tempdata[num].from="TETS"
-                            setData([...tempdata]);
-                          }}
-                        >
-                          <option value="Good"> Good</option>
-                          <option value="Defective">Defective</option>
-                          <option value="DOA">DOA</option>z
-                          <option value="Damaged">Damaged</option>
-                        </Select>
-                      ) : (
-                        <Badge
-                          type={user.condition == "Good" ? "primary" : "danger"}
-                        >
-                          {user.condition}
-                        </Badge>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        layout="outline"
-                        className="dark:border-green-700 border-green-400"
+                {LSTtype == "Normal" || LSTtype == "Customer" ? (
+                  <>
+                    {data[num].invItems.map((user, i) => (
+                      <TableRow
+                        className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                          activerowid == user._id
+                            ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                            : "white"
+                        } `}
+                        key={i}
                         onClick={() => {
-                          if (user.location == "In Transit")
-                            updateInventory(num, i);
-                          else {
-                            setModalMessage("Already Received");
-                            setMessageModal(true);
-                          }
+                          setActiveRowId(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
-                        {user.location == "In Transit" ? (
-                          <>Receive</>
-                        ) : (
-                          <>Received</>
-                        )}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </>
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            <div>
+                              <p className="font-semibold">{user.type}</p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.name}</span>
+                        </TableCell>
+
+                        <TableCell>
+                          {data[num].to == "Vendor" &&
+                          user.location == "In Transit" ? (
+                            <span className="text-sm">
+                              <input
+                                value={user.sno}
+                                onChange={(e) => {
+                                  let tempdata = data;
+                                  let temp = data[num].invItems;
+                                  temp = temp.filter((x) => {
+                                    if (x._id != user._id) return x;
+                                    else {
+                                      console.log(
+                                        "here",
+                                        e.target.value,
+                                        x.name
+                                      );
+                                      x.sno = e.target.value;
+                                      return x;
+                                    }
+                                  });
+                                  // tempnum.invItems=temp;
+                                  tempdata[num].invItems = temp;
+                                  console.log(tempdata);
+                                  // tempdata[num].from="TETS"
+                                  setData([...tempdata]);
+                                }}
+                                placeholder="Cse Id."
+                                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-1 py-1 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                              />
+                            </span>
+                          ) : (
+                            user.sno
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.location}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.invnumber}</span>
+                        </TableCell>
+                        <TableCell>
+                          {data[num].to == "Vendor" &&
+                          user.location == "In Transit" ? (
+                            <Select
+                              value={user.condition}
+                              className="mt-1"
+                              onChange={(e) => {
+                                let tempdata = data;
+                                let temp = data[num].invItems;
+                                temp = temp.filter((x) => {
+                                  if (x._id != user._id) return x;
+                                  else {
+                                    console.log("here", e.target.value, x.name);
+                                    x.condition = e.target.value;
+                                    return x;
+                                  }
+                                });
+                                // tempnum.invItems=temp;
+                                tempdata[num].invItems = temp;
+                                console.log(tempdata);
+                                // tempdata[num].from="TETS"
+                                setData([...tempdata]);
+                              }}
+                            >
+                              <option value="Good"> Good</option>
+                              <option value="Defective">Defective</option>
+                              <option value="DOA">DOA</option>z
+                              <option value="Damaged">Damaged</option>
+                            </Select>
+                          ) : (
+                            <Badge
+                              type={
+                                user.condition == "Good" ? "primary" : "danger"
+                              }
+                            >
+                              {user.condition}
+                            </Badge>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            layout="outline"
+                            className="dark:border-green-700 border-green-400"
+                            onClick={() => {
+                              if (user.location == "In Transit")
+                                updateInventory(num, i);
+                              else {
+                                setModalMessage("Already Received");
+                                setMessageModal(true);
+                              }
+                            }}
+                          >
+                            {user.location == "In Transit" ? (
+                              <>Receive</>
+                            ) : (
+                              <>Received</>
+                            )}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </>
                 ) : (
                   <>
-                {data[num].CMRRItems.map((user, i) => (
-                  <TableRow
-                    // className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    //   activerowid == user._id
-                    //     ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                    //     : "white"
-                    // } `}
-                    key={i}
-                    onClick={() => {
-                      // setActiveRowId(user._id);
-                      // console.log("the id is " + user._id);
-                      // setSelectedProd(user);
-                      // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].keyboardname);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">{user.type}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.name}</span>
-                    </TableCell>
-
-                    <TableCell>
-                      
-                        {user.sno}
-                      
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.location}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.invnumber}</span>
-                    </TableCell>
-                    <TableCell>
-                     
-                        <Badge
-                          type={user.condition == "Good" ? "primary" : "danger"}
-                        >
-                          {user.condition}
-                        </Badge>
-                    
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        layout="outline"
-                        className="dark:border-green-700 border-green-400"
+                    {data[num].CMRRItems.map((user, i) => (
+                      <TableRow
+                        // className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                        //   activerowid == user._id
+                        //     ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        //     : "white"
+                        // } `}
+                        key={i}
                         onClick={() => {
-                          if (user.location == "In Transit")
-                            updateCMRRInventory(num, i);
-                          else {
-                            setModalMessage("Already Received");
-                            setMessageModal(true);
-                          }
+                          // setActiveRowId(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
-                        {user.location == "In Transit" ? (
-                          <>Receive</>
-                        ) : (
-                          <>Received</>
-                        )}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </>
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            <div>
+                              <p className="font-semibold">{user.type}</p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.name}</span>
+                        </TableCell>
+
+                        <TableCell>{user.sno}</TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.location}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{user.invnumber}</span>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            type={
+                              user.condition == "Good" ? "primary" : "danger"
+                            }
+                          >
+                            {user.condition}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            layout="outline"
+                            className="dark:border-green-700 border-green-400"
+                            onClick={() => {
+                              if (user.location == "In Transit")
+                                updateCMRRInventory(num, i);
+                              else {
+                                setModalMessage("Already Received");
+                                setMessageModal(true);
+                              }
+                            }}
+                          >
+                            {user.location == "In Transit" ? (
+                              <>Receive</>
+                            ) : (
+                              <>Received</>
+                            )}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </>
                 )}
               </TableBody>
             </Table>
@@ -622,9 +714,10 @@ function Notifications() {
                   setLSTtype(e.target.value);
                 }}
               >
-                
-                <option value="" selected>All</option>
-                <option value="Normal" >Normal</option>
+                <option value="" selected>
+                  All
+                </option>
+                <option value="Normal">Normal</option>
                 <option value="CMRR">CMRR</option>
                 <option value="Customer">Customer</option>
               </select>
@@ -757,7 +850,11 @@ function Notifications() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">{(user.LSTtype == "Normal"||user.LSTtype == "Customer")?user.invItems.length:user.CMRRItems.length}</span>
+                      <span className="text-sm">
+                        {user.LSTtype == "Normal" || user.LSTtype == "Customer"
+                          ? user.invItems.length
+                          : user.CMRRItems.length}
+                      </span>
                     </TableCell>
                     {/* <TableCell>
                     <Badge>
@@ -770,6 +867,10 @@ function Notifications() {
                         aria-label="DropDown"
                         onClick={() => {
                           console.log("dwlod");
+                          // createAndDownloadPdf(user._id, user.LSTNo);
+                          setDownloadLST(user);
+                          setisDownloadModalOpen(true);
+                          setDownloadNum(i);
                         }}
                         className="rounded-lg m-1"
                       >
@@ -815,6 +916,7 @@ function Notifications() {
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
 
+      {DownloadModal()}
       {messageModalComponent()}
       {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>

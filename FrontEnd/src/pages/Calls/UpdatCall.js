@@ -492,9 +492,8 @@ function UpdateCall() {
   const [page, setPage] = useState(1);
 
   // search
-  const [searchtype, setSearchType] = useState("");
-  const [searchlabel, setSearchLabel] = useState("");
-  const [searchquery, setSearchQuery] = useState("");
+  const [invsearch, setInvSearch] = useState("");
+  const [assetinvsearch, setAssetInvSearch] = useState("");
 
   // imp states
   const [callAttendDate, setCallAttendDate] = useState("");
@@ -539,8 +538,8 @@ function UpdateCall() {
         type: selectedItem[number].toLowerCase(),
         location: location,
         condition: "Good",
-        searchtype: searchtype,
-        searchquery: searchquery,
+        // searchtype: invsearch,
+        searchquery: invsearch,
       },
     };
     // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -1782,10 +1781,29 @@ function UpdateCall() {
     activeRowID,
     setActiveRowID,
     existswap,
-    setExistswap
+    setExistswap,
+    tableType
   ) => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3 h-64 overflow-y-scroll">
+        {tableType == "new" ? (
+          <form
+            // onSubmit={handlevendorSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+              placeholder="Enter Serial Number "
+              onChange={(e) => {
+                setInvSearch(e.target.value);
+                thegetter(number);
+                // console.log("hello");
+              }}
+            />
+          </form>
+        ) : null}
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -2033,6 +2051,8 @@ function UpdateCall() {
                 <Button
                   onClick={() => {
                     selectedItem.push("");
+                    // setting search to ""
+                    setInvSearch("");
                     // -----new module-----
                     let tempassetpicker = [...assetpickerarray];
                     let temp = { item: "test" };
@@ -2088,6 +2108,9 @@ function UpdateCall() {
               <div className="ml-1 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full">
                 <Button
                   onClick={() => {
+                    // setting search to ""
+                    setInvSearch("");
+
                     selectedItem.pop();
                     let tempassetpicker = [...assetpickerarray];
                     tempassetpicker.pop();
@@ -2219,7 +2242,8 @@ function UpdateCall() {
                         activeRowID,
                         setActiveRowID,
                         existswap,
-                        setExistswap
+                        setExistswap,
+                        "exist"
                       )
                     : null}
                 </div>
@@ -2328,7 +2352,8 @@ function UpdateCall() {
                         secondactiveRowID,
                         setSecondactiveRowID,
                         inventswap,
-                        setInventswap
+                        setInventswap,
+                        "new"
                       )
                     : null}
                 </div>
