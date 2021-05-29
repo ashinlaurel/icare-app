@@ -275,6 +275,7 @@ function LSTHistory() {
         CourierNumber,
         DocketType,
       },
+      despatchedBy: Emp.getName(),
     };
     let response = await axios({
       url: `${API}/lst/${Emp.getId()}/downloadpdf`,

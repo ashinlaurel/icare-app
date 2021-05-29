@@ -301,44 +301,27 @@ function LST() {
       setMessageModal(true);
       return;
     }
-    let invIds = [];
+    if (LSTtype == "Customer") {
+      if (customer._id == "") {
+        setModalMessage("Customer Not Selcted");
+        setMessageModal(true);
+        return;
+      }
+      if (account._id == "") {
+        setModalMessage("Account Not Selcted");
+        setMessageModal(true);
+        return;
+      }
+      if (unit._id == "") {
+        setModalMessage("Unit Not Selcted");
+        setMessageModal(true);
+        return;
+      }
+    }
 
+    let invIds = [];
     SelectedItems.map(async (item) => {
       invIds.push(item._id);
-      // ----history ---
-      let newhistory = {
-        histtype: "lst",
-        date: date,
-        location: "In Transit",
-        callId: "Nil",
-        assetId: "Nil",
-        status: item.condition,
-        note: `Item sent from ${location} to ${toLocation}`,
-      };
-      const data = {
-        id: item._id,
-        update: {
-          location: "In Transit",
-          caseId: item.caseId,
-          $push: { history: newhistory },
-          LSTtype: LSTtype,
-          LSTCustomer: "",
-        },
-      };
-      if (LSTtype == "Customer") data.update.LSTCustomer = customer;
-      console.log("PAYLOAD", data);
-      try {
-        await axios({
-          url: `${API}/inventory/${Emp.getId()}/invupdate`,
-          method: "POST",
-          data: data,
-        });
-        // setIsReviewModalOpen(true);
-        console.log("Done");
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
     });
 
     let lst = {
@@ -374,6 +357,46 @@ function LST() {
         data: lst,
       });
       // setIsReviewModalOpen(true);
+      //////////////////// UPDATE INVENTORY
+
+      SelectedItems.map(async (item) => {
+        // invIds.push(item._id);
+        // ----history ---
+        let newhistory = {
+          histtype: "lst",
+          date: date,
+          location: "In Transit",
+          callId: "Nil",
+          assetId: "Nil",
+          status: item.condition,
+          note: `Item sent from ${location} to ${toLocation}`,
+        };
+        const data = {
+          id: item._id,
+          update: {
+            location: "In Transit",
+            caseId: item.caseId,
+            $push: { history: newhistory },
+            LSTtype: LSTtype,
+            LSTCustomer: "",
+          },
+        };
+        if (LSTtype == "Customer") data.update.LSTCustomer = customer;
+        console.log("PAYLOAD", data);
+        try {
+          await axios({
+            url: `${API}/inventory/${Emp.getId()}/invupdate`,
+            method: "POST",
+            data: data,
+          });
+          // setIsReviewModalOpen(true);
+          console.log("Done");
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      });
+
       console.log("Done");
       setModalMessage("LST Submitted");
       // setLocation("")
