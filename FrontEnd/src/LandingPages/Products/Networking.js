@@ -32,7 +32,7 @@ const Networking = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-48 flex flex-col items-left justify-center ">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-50 ml-40">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-0 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
@@ -57,7 +57,7 @@ const Networking = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business lg:text-justify">
           We have partnered with Hewlett Packard Enterprise and Reichle &
           De-Massari (R&M India) to deal with their entire range of Active and
           Passive Networking Components. Our team has enough skills to handle
@@ -96,7 +96,7 @@ const Networking = () => {
         </div>
       </div>
       <div className=" flex-col flex items-center justify-center">
-        <div className="text-indigo-900 text-xl text-center  w-1/2 font-business ">
+        <div className="text-indigo-900 text-xl w-1/2 font-business ">
           FIBER OPTICS
         </div>
       </div>
@@ -105,16 +105,16 @@ const Networking = () => {
       <div className="flex items-center justify-center w-full">
         <div className="flex-row flex flex-wrap items-center justify-center w-1/2">
           {/* --------------Images 1 ---------------------- */}
-          <div className="w-1/4 my-10">
+          <div className="w-1/4 my-5">
             <img src={imgpt2one}></img>
           </div>
-          <div className="w-1/4 my-10">
+          <div className="w-1/4 my-5">
             <img src={imgpt2two}></img>
           </div>
-          <div className="w-1/4 my-10">
+          <div className="w-1/4 my-5">
             <img src={imgpt2four}></img>
           </div>
-          <div className="w-1/4 my-10">
+          <div className="w-1/4 my-5">
             <img src={imgpt2three}></img>
           </div>
         </div>
@@ -126,8 +126,8 @@ const Networking = () => {
           Reichle & De-Massari (R&M)
         </div>
       </div> */}
-      <div className=" flex-col flex items-center justify-center">
-        <div className="text-indigo-900 text-xl text-center  w-1/2 font-business ">
+      <div className=" flex-col flex items-center justify-center lg:pt-8">
+        <div className="text-indigo-900 text-xl  w-1/2 font-business ">
           TWISTED PAIR CABLING
         </div>
       </div>

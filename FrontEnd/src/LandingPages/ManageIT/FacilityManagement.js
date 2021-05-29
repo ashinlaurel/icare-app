@@ -20,8 +20,8 @@ const FacilityManagement = () => {
       </div>
 
       {/* Heading */}
-      <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+      <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center lg:pt-12">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-10 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
@@ -46,7 +46,7 @@ const FacilityManagement = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We help our clients focus their resources and effort entirely on their
           core business and we take ownership and handle their IT infrastructure
           in total with our IT infrastructure facility management services. We
@@ -57,7 +57,7 @@ const FacilityManagement = () => {
         </div>
 
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Service Options
         </div>
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">

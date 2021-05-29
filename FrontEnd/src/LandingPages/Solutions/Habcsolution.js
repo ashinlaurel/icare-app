@@ -21,7 +21,7 @@ const HabcSolution = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white  md:text-4xl">
@@ -47,7 +47,7 @@ const HabcSolution = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Service availability is crucial for your business where minimal
           downtime can result negative results directly or indirectly. 100%
           availability of IT service is unreachable in ideal cases,
@@ -69,7 +69,7 @@ const HabcSolution = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           HA Infrastructure
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           One of the many and common reasons for service unavailability is due
           to the failure of the underlying infrastructure components. We provide
           tailored and custom made high available virtualization solutions that
@@ -82,7 +82,7 @@ const HabcSolution = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           HA Database Cluster Solutions
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Keeping the database highly available is very critical for your
           mission critical frontend applications and the service they deliver.
           We have proven solutions that will help you achieve the former

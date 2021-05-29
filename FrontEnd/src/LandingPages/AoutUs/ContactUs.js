@@ -3,6 +3,8 @@ import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
 import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import Contactpic from "../../images/stock/Contact.jpg";
+
 import Axios from "axios";
 import { API } from "../../backendapi";
 import {
@@ -91,9 +93,7 @@ const ContactUs = () => {
         <div class=" max-h-xl ">
           <img
             class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
-            src={
-              "https://images.pexels.com/photos/618613/pexels-photo-618613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
+            src={Contactpic}
             alt=""
           />
         </div>

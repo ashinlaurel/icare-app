@@ -12,7 +12,7 @@ const ITSecurity = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
+            class="w-full -mt-10 object-cover lg:object-cover h-h-155  md:h-h-155 lg:h-h-170 lg:w-full"
             src={cloudimage}
             alt=""
           />
@@ -48,7 +48,7 @@ const ITSecurity = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Identity Access Management
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Our Identity Access Management offering can help you choose the right
           solution that fits your organization's need for regulated access
           control. We prefer best in industry products, tools to design the
@@ -58,7 +58,7 @@ const ITSecurity = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Identity Access Management
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           While authentication defines who you are authorization defines what
           you are allowed to access / perform. Least privileged access is the
           best security principle we need to take in to consideration while we

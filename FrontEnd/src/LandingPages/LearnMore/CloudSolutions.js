@@ -45,7 +45,7 @@ const CloudSolutions = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-40">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We offer you assessment, advice, design, migrate, implement and
           support you find the right solutions for your successful cloud
           journey. With partnership with top cloud providers we help you align
@@ -57,7 +57,7 @@ const CloudSolutions = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Cloud Readiness Assessment
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           Our service offers analysis on your Business strategy, assessment of
           your IT infrastructure for consolidation, Identify Applications that
           can be moved to cloud, identify target cloud platform, perform
@@ -67,7 +67,7 @@ const CloudSolutions = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Build Secure Infrastructure
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           We help you build the cloud infrastructure by providing you the
           guidance and support you need. We also can take the responsibility of
           building the infrastructure so that you can focus on areas of your
@@ -77,7 +77,7 @@ const CloudSolutions = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Migrate applications to Cloud
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           We work with you to migrate your applications to cloud by
           understanding your business strategy, existing infrastructure, design
           the target architecture, identify the right cloud provider, choose the
@@ -90,7 +90,7 @@ const CloudSolutions = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Cloud Assessment & Optimisation
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           It is critical to control the cost growth and its very important to
           assess the existing cloud deployments and do the required changes in
           order to bring the cost under control. We will do the assessment for

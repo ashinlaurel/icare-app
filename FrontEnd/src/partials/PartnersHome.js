@@ -44,10 +44,10 @@ function PartnersHome() {
               <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16 ">
                 <img src={imgthree}></img>
               </div>
-              <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16 ">
+              <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16">
                 <img src={imgfour}></img>
               </div>
-              <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16 ">
+              <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16 lg:pl-2">
                 <img src={imgfive}></img>
               </div>
               <div className="w-1/4 lg:w-32 lg:h-32 my-5 mx-2 lg:mx-16 ">

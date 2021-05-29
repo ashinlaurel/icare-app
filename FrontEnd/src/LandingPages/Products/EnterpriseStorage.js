@@ -28,7 +28,7 @@ const EnterpriseStorage = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center ">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-75 ml-40">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl pb-4 bg-black bg-opacity-0 ml-40">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-3xl font-business">
@@ -54,7 +54,7 @@ const EnterpriseStorage = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
-        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-1/2 my-4 leading-7 font-business lg:text-justify">
           In today's digital world, businesses are deploying sophisticated IT
           systems to automate and modernise their operations, Infocare partners
           with leading global technology innovators HPE, Lenovo to help bring

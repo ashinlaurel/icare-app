@@ -12,7 +12,7 @@ const StructuredNetworking = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155 lg:h-h-170 md:h-h-155 lg:w-full"
             src={
               "https://images.pexels.com/photos/2881229/pexels-photo-2881229.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
@@ -48,7 +48,7 @@ const StructuredNetworking = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We have partnered with Hewlett Packard Enterprise and Reichle &
           De-Massari (R&M India) to deal with their entire range of Active and
           Passive Networking Components. Our team has enough skills to handle
@@ -58,7 +58,7 @@ const StructuredNetworking = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Structured Networking
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Structured cabling is a type of infrastructure that supports the
           performance of an organisation’s cabling system or network. The
           importance of organised cabling systems will vary from business to
@@ -67,7 +67,7 @@ const StructuredNetworking = () => {
         </div>
 
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Structured cabling is a type of infrastructure that supports the
           performance of an organisation’s cabling system or network. The
           importance of organised cabling systems will vary from business to
@@ -85,7 +85,7 @@ const StructuredNetworking = () => {
           </ul>
         </div>
 
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We are specialised in IT, Network Support and installing wired and
           wireless computer networks across Kerala. We are having partnerships
           with HPE and R&M, etc.{" "}
@@ -95,7 +95,7 @@ const StructuredNetworking = () => {
           Site Survey​
         </div>
 
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Our team will have a physical visit to the premise and identifies
           suitable locations to place the structured cabling active components.
           An accurate survey helps us to develop excellent design for easier
@@ -105,7 +105,7 @@ const StructuredNetworking = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network Design
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We prepare solution document, list of active and passive components,
           detailed network diagram and implementation plan. The data from the
           site survey is the basis of design. We use all modern tools to design
@@ -115,7 +115,7 @@ const StructuredNetworking = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network installation
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Our experts will install the components and does the hardware and
           software configuration. We document the entire configuration details
           for future reference.
@@ -124,7 +124,7 @@ const StructuredNetworking = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Network Site Certification
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           On completion of Networking installation, as part of structured
           networking process, we complete the below test and these tests are
           required to get site certifications from the respective OEM vendors
@@ -139,7 +139,7 @@ const StructuredNetworking = () => {
         <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Documentation
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           On Completion of Network installation, we hand over technical document
           along with drawing for future maintenance and expansion
         </div>

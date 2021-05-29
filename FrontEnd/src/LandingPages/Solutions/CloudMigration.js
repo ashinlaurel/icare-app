@@ -48,12 +48,12 @@ const CloudMigration = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Cloud migration service offers industry standard capabilities and
           tools to ease the migration of your infrastructure, application and
           data to cloud, following industry best practices.
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Whether it be On-premise to Cloud or Cloud to Cloud Migration, our
           expertise with standard frameworks and tools we do the study of your
           current workload, define the target architecture, configure the target

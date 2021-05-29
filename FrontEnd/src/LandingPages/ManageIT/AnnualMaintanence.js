@@ -23,7 +23,7 @@ const AnnualMaintanence = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-75 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-10 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-left lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white  md:text-4xl">
@@ -51,7 +51,7 @@ const AnnualMaintanence = () => {
         <div className="text-indigo-900 text-xl w-1/2 my-1 font-business ">
           Annual Maintenance Services
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We provide IT Infrastructure AMC services to customers with
           comprehensive and non- comprehensive support plans in managing the IT
           infrastructure through an SLA accountable contract, customizable to
@@ -60,7 +60,7 @@ const AnnualMaintanence = () => {
           expertise and strong commitment to customer satisfaction. ​
         </div>
 
-        <div className="      text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business ml-16 ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business ml-16 ">
           <ul className=" list-disc">
             <li className="my-1">Desktops</li>
             <li className="my-1">Laptops</li>
@@ -71,10 +71,10 @@ const AnnualMaintanence = () => {
         </div>
 
         {/* ----------------bullets block --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 leading-7 font-business">
           Comprehensive Annual Maintenance Contract
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           In a comprehensive AMC, all services includes the cost of spare parts
           replacement. Note: Excludes physical damages, damages occurred from
           handling issues and force majeures as defined in the contract
