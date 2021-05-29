@@ -209,8 +209,10 @@ exports.countLSTByDate = (req, res) => {
 
 exports.downloadPdf = async (req, res) => {
   let { id, despatchedBy, update } = req.body;
-  console.log(id, update);
-
+  console.log(id, update, despatchedBy);
+  if (!despatchedBy) {
+    despatchedBy == "";
+  }
   try {
     let lst = await LST.findByIdAndUpdate(id, update, {
       safe: true,
