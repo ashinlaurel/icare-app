@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../partials/Footer";
 import ProductCard from "../../partials/ProductCard";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import LaptopPic from "../../images/stock/msi.jpg";
 import imgptone from "../../images/endusercomp/set1/HP Desktop AIO.webp";
 import imgpt2one from "../../images/endusercomp/set2/HP Workstation.webp";
 import imgpt2two from "../../images/endusercomp/set2/HP Laptop 360.webp";
@@ -20,9 +20,7 @@ const Endusercomp = () => {
         <div class=" max-h-xl ">
           <img
             class="w-full object-cover object-center sm:h-h-150 md:h-h-150 lg:w-full lg:h-h-150"
-            src={
-              "https://images.unsplash.com/photo-1605449591750-7bf5cc4f013f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-            }
+            src={LaptopPic}
             alt=""
           />
         </div>
@@ -55,7 +53,7 @@ const Endusercomp = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32 ">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business ">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We provide End-user computing solutions in a cost-effective way and
           will be created based on end user needs, with an agile, efficient and
           secure IT infrastructure. Infocare partners with leading global
@@ -79,7 +77,7 @@ const Endusercomp = () => {
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full">
-        <div className="flex-row flex flex-wrap items-center justify-center w-4/6">
+        <div className="flex-row flex flex-wrap items-center justify-center lg:w-5/6 w-4/6">
           {/* --------------Images 1 ---------------------- */}
           <div className=" my-10">
             <img src={imgptone}></img>
@@ -101,7 +99,7 @@ const Endusercomp = () => {
 
       {/*------------------- Images Area ---------------------------  */}
       <div className="flex items-center justify-center w-full lg:ml-10">
-        <div className="flex-row flex flex-wrap items-center justify-center w-4/6">
+        <div className="flex-row flex flex-wrap items-center justify-center w-4/6 lg:pt-16">
           {/* --------------Images 1 ---------------------- */}
           <div className="w-1/3 my-10 flex-col flex items-center justify-center">
             <div className=" ">
@@ -131,8 +129,8 @@ const Endusercomp = () => {
       </div>
 
       {/* ---------------part - 3 ------------- */}
-      <div className=" flex-col flex items-center justify-center mb-5 ">
-        <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business text-center ">
+      <div className=" flex-col flex items-center justify-center mb-5">
+        <div className="text-indigo-900 text-2xl w-1/2 mt-2 leading-7 font-business text-center lg:pt-24">
           LENOVO
         </div>
       </div>

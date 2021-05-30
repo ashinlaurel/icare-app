@@ -61,7 +61,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 Cloud Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -74,7 +74,7 @@ function FeaturesBlocks() {
                   href="/website/service/cloudsolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100  rounded-md  my-4"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>
@@ -112,7 +112,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 Managed IT Services
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -122,9 +122,9 @@ function FeaturesBlocks() {
               <div class="">
                 <a
                   href="/website/service/manageditservice"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4 pt-6"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>
@@ -155,7 +155,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 Security Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -168,7 +168,7 @@ function FeaturesBlocks() {
                   href="/website/service/securitysolutions"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>
@@ -212,7 +212,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 Enterprise Products
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -225,7 +225,7 @@ function FeaturesBlocks() {
                   href="/website/service/enterpriseproducts"
                   class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>
@@ -256,7 +256,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 Infrastructure Solutions
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -267,9 +267,9 @@ function FeaturesBlocks() {
               <div class="">
                 <a
                   href="/website/service/infrastructuresolutions"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4 pt-8"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>
@@ -309,7 +309,7 @@ function FeaturesBlocks() {
                   </g>
                 </g>
               </svg> */}
-              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2">
+              <h4 className="text-xl font-normal  leading-snug tracking-tight mb-2 text-indigo-900">
                 End User Computing
               </h4>
               <p className="text-gray-600 text-justify mx-2">
@@ -319,9 +319,9 @@ function FeaturesBlocks() {
               <div class="">
                 <a
                   href="/website/service/endusercomputing"
-                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4"
+                  class="w-full flex items-center justify-center px-3 py-1  text-base font-medium  text-gray-800 hover:text-black hover:bg-gray-100 rounded-md  my-4 pt-12"
                 >
-                  + Learn More
+                  Read More
                 </a>
               </div>
             </div>

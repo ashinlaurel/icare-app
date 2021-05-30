@@ -11,7 +11,7 @@ const Partners = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:w-full"
+            class="w-full -mt-10 object-cover lg:object-center h-h-155  md:h-h-155 lg:h-h-170 lg:w-full"
             src={
               cloudimage
               // "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -23,7 +23,7 @@ const Partners = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-10 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">

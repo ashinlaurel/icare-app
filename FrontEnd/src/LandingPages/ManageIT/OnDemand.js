@@ -49,10 +49,10 @@ const OnDemand = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Server & Storage Installation
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We help customers to upgrade existing server or storage, deploy a new
           server or storage system or moving partially or completely to cloud,
           INFOCARE can be your trusted partner in executing your project on time
@@ -63,10 +63,10 @@ const OnDemand = () => {
         </div>
 
         {/* ---------------- --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Operating System Installation
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We help customers Installing an operating system including Windows
           Server OS, CentOS, RHEL, Ubuntu through our skilled engineers who has
           the expertise in these operating systems. The deliverables shall be
@@ -74,10 +74,10 @@ const OnDemand = () => {
         </div>
 
         {/* ---------------- --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Network Design and Installation
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We help customers in designing and implementing a highly efficient,
           cost-effective, future ready network backbone which will streamline
           your organisations operations. We have sufficient expertise in
@@ -86,10 +86,10 @@ const OnDemand = () => {
         </div>
 
         {/* ---------------- --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Virtualization Services
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           INFOCARE has the expertise and experience in design, installation,
           configuration and deploy hypervisor based solutions across brands such
           as Microsoft Hyper-V and VMware vSphere. We identify virtualisation
@@ -98,10 +98,10 @@ const OnDemand = () => {
         </div>
 
         {/* ---------------- --------------------------- */}
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-medium">
           Desktop & Laptop Services
         </div>
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We repair all major brands including HP, Lenovo and Acer. We also does
           upgrade and replacement services for all Laptops and Desktops
         </div>

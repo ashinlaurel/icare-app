@@ -21,7 +21,7 @@ const ManagedIt = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
@@ -46,7 +46,7 @@ const ManagedIt = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           To reduce risks, most of the organisations are moving towards Managed
           IT services than outsourcing certain IT services. This also enables
           them to be future ready and focus more on their business improvements
@@ -60,7 +60,7 @@ const ManagedIt = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Facility Management
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           We help our clients focus their resources and effort entirely on their
           core business and we take ownership and handle their IT infrastructure
           in total with our IT infrastructure facility management services. We
@@ -73,7 +73,7 @@ const ManagedIt = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           Annual Maintenance Services
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           We provide IT Infrastructure AMC services to customers with
           comprehensive and non- comprehensive support plans in managing the IT
           infrastructure through an SLA accountable contract, customisable to
@@ -85,7 +85,7 @@ const ManagedIt = () => {
         <div className="text-indigo-900 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           On-Demand Services
         </div>
-        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
+        <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business lg:text-justify">
           We provide on-demand services by which customer can receive access to
           our service offering, without an administrator or support staff having
           to fulfil the request manually. We offer on-demand services on below:

@@ -22,7 +22,7 @@ const Company = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white sm:text-5xl md:text-4xl">
@@ -48,7 +48,7 @@ const Company = () => {
           About INFOCARE SYSTEMS
         </div>
 
-        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           Established in 1997 and headquartered at Trivandrum. INFOCARE SYSTEMS
           is an IT infrastructure solution provider, partnered with leading
           global technology providers like HP, HPE, Lenovo, Wipro, Epson, Canon
@@ -56,20 +56,21 @@ const Company = () => {
           industry to enable us in the best ways to provide our customers with
           most suitable solutions to support their core business functions.
         </div>
-        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
-          INFOCARE SYSTEMS enterprise IT infrastructure solutions across
-          industry verticals in India, our capability as a total solution
-          provider comes from capabilities portfolio including, design deploy
-          and support passive networking infrastructure, wired and wireless
-          active network infrastructure, surveillance, security & access
-          solutions, end computing solutions including laptops, desktops, thin
-          clients, cloud computing infrastructure solutions, hybrid solutions,
-          network security, data security, end-point security solutions,
-          connectivity solutions and support services including AMC, managed IT
-          services tailored to suit client environments, including IT
-          Infrastructure outsourcing, operations support and installation &
-          commissioning services. Our capabilities portfolio is backed by a
-          committed and professional team of certified resources.
+        <div className=" text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
+          <span className="font-medium">INFOCARE SYSTEMS</span> enterprise IT
+          infrastructure solutions across industry verticals in India, our
+          capability as a total solution provider comes from capabilities
+          portfolio including, design deploy and support passive networking
+          infrastructure, wired and wireless active network infrastructure,
+          surveillance, security & access solutions, end computing solutions
+          including laptops, desktops, thin clients, cloud computing
+          infrastructure solutions, hybrid solutions, network security, data
+          security, end-point security solutions, connectivity solutions and
+          support services including AMC, managed IT services tailored to suit
+          client environments, including IT Infrastructure outsourcing,
+          operations support and installation & commissioning services. Our
+          capabilities portfolio is backed by a committed and professional team
+          of certified resources.
         </div>
 
         {/* ----------------bullets block --------------------------- */}

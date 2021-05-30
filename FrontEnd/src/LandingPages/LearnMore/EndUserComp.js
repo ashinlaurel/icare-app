@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../partials/Footer";
 import NewHero from "../../partials/NewHero";
 import herobg from "../../images/herobg.jpg";
-import cloudimage from "../../images/cloud-upload-icon-line-connection-circuit-board.jpg";
+import LaptopPic from "../../images/stock/msi.jpg";
 import Navbar from "../../partials/NavBar";
 import { Card, CardBody } from "@windmill/react-ui";
 
@@ -13,10 +13,8 @@ const EndUserComp = () => {
       <div class="relative bg-white overflow-hidden  ">
         <div class=" max-h-xl ">
           <img
-            class="w-full -mt-10 object-cover  lg:object-center h-h-155  md:h-h-165 lg:w-full "
-            src={
-              "https://images.unsplash.com/photo-1605449591750-7bf5cc4f013f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-            }
+            class="w-full -mt-10 object-cover lg:object-center h-h-155 md:h-h-165 lg:w-full lg:object-bottom"
+            src={LaptopPic}
             alt=""
           />
         </div>
@@ -49,7 +47,7 @@ const EndUserComp = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           We provide End-user computing solutions in a cost-effective way and
           will be created based on end user needs, with an agile, efficient and
           secure IT infrastructure. Infocare partners with leading global
@@ -68,11 +66,11 @@ const EndUserComp = () => {
               <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Server
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400 lg:text-justify">
                 We help customers to expand their licensing and subscription
                 requirement with all leading software
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400 lg:text-justify">
                 We offer full range of Tower, Rack servers from HPE and Lenovo
                 for the small Business to Business Critical Enterprise customers
               </p>
@@ -88,7 +86,7 @@ const EndUserComp = () => {
               <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Storage
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400 lg:text-justify ">
                 We offer secure and economic solutions to address storage
                 requirement for NAS, File Storage and Object Storage from HPE
                 full range of Enterprise Storage products
@@ -105,7 +103,7 @@ const EndUserComp = () => {
               <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Networking
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400 lg:text-justify">
                 We offer entry level switch to high performance networking
                 devices from HPE to realise the potential of the new and
                 high-performing applications
@@ -122,7 +120,7 @@ const EndUserComp = () => {
               <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                 Licensing & Subscription
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400 lg:text-justify">
                 We help customers to expand their licensing and subscription
                 requirement with all leading software
               </p>

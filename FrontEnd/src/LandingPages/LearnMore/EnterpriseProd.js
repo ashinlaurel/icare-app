@@ -30,7 +30,7 @@ const EnterpriseProd = () => {
 
       {/* Heading */}
       <div className="  bg-hero-bg -mt-56 flex flex-col items-left justify-center">
-        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-50 ml-10">
+        <div class=" justify-center items-center max-w-sm md:max-w-xl z-10 pb-4 bg-black bg-opacity-0 ml-10">
           <main class="mt-4 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-5 lg:mt-0  flex flex-col items-center justify-center ">
             <div class="sm:text-center lg:text-left pt-4 ">
               <h1 class="text-2xl tracking-tight  text-white md:text-4xl">
@@ -56,7 +56,7 @@ const EnterpriseProd = () => {
 
       {/*Content */}
       <div className=" flex-col flex items-center justify-center mb-5 mt-32">
-        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business">
+        <div className="text-gray-600 text-lg w-5/6 md:w-1/2 my-4 leading-7 font-business lg:text-justify">
           In today's digital world, businesses are deploying sophisticated IT
           systems to automate and modernise their operations, Infocare partners
           with leading global technology innovators HPE, Lenovo, R&M, to help
@@ -87,13 +87,13 @@ const EnterpriseProd = () => {
                 for the small Business to Business Critical Enterprise customers
               </p>
             </CardBody>
-            <img className="object-cover w-5/6" src={server} />
+            <img className="object-contain w-3/6" src={server} />
           </Card>
         </div>
         {/* ---------------- CARD-2 --------------------------- */}
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           <Card className="flex h-42 text-sm">
-            <img className="object-cover w-5/6" src={storage} />
+            <img className="object-contain w-3/6" src={storage} />
             <CardBody>
               <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Enterprise Storage
@@ -121,7 +121,7 @@ const EnterpriseProd = () => {
                 high-performing applications
               </p>
             </CardBody>
-            <img className="object-cover w-5/6" src={networking} />
+            <img className="object-contain w-3/6" src={networking} />
           </Card>
         </div>
 
@@ -129,7 +129,7 @@ const EnterpriseProd = () => {
 
         <div className="text-gray-600 text-xl w-5/6 md:w-1/2 my-4 font-business ">
           <Card className="flex h-42 text-sm">
-            <img className="object-cover w-5/6" src={license} />
+            <img className="object-contain w-3/6" src={license} />
             <CardBody>
               <p className="mb-2 font-semibold text-gray-600 dark:text-gray-300">
                 Licensing & Subscription
