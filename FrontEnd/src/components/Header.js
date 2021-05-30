@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -21,6 +21,8 @@ import {
 import theavatar from "../icons/avatardefault.png";
 import { useHistory } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
+import { API } from "../../src/backendapi";
 
 import Emp from "../helpers/auth/EmpProfile";
 import Cust from "../helpers/auth/CustProfile";
@@ -35,6 +37,33 @@ function Header() {
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+  const [isNotifications, setIsNotifications] = useState(false);
+  //leave
+  const [leavecount, setleavecount] = useState(0);
+
+  useEffect(() => {
+    // Using an IIFE
+    (async function thegetter() {
+      // console.log(`${API}/asset/${Emp.getId()}/getall`);
+      if (Emp.getRole() !== 0) return;
+      try {
+        let response = await axios({
+          url: `${API}/leave/${Emp.getId()}/countsubmitted`,
+          method: "POST",
+          data: {},
+        });
+        console.log("LEAVE COUNT", response.data);
+        if (response.data > 0) {
+          setIsNotifications(true);
+          setleavecount(response.data);
+        }
+      } catch (error) {
+        throw error;
+      }
+    })();
+    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, []);
 
   function handleNotificationsClick() {
     setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
@@ -96,10 +125,12 @@ function Header() {
             >
               <BellIcon className="w-5 h-5" aria-hidden="true" />
               {/* <!-- Notification badge --> */}
-              <span
-                aria-hidden="true"
-                className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-              ></span>
+              {isNotifications ? (
+                <span
+                  aria-hidden="true"
+                  className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+                ></span>
+              ) : null}
             </button>
 
             <Dropdown
@@ -108,16 +139,20 @@ function Header() {
               onClose={() => setIsNotificationsMenuOpen(false)}
             >
               <DropdownItem tag="a" href="#" className="justify-between">
-                <span>Messages</span>
-                <Badge type="danger">13</Badge>
+                <Link to="/app/leavehistory">
+                  <span>Approve Leave</span>
+                  {leavecount > 0 ? (
+                    <Badge type="danger">{leavecount}</Badge>
+                  ) : null}
+                </Link>
               </DropdownItem>
-              <DropdownItem tag="a" href="#" className="justify-between">
+              {/* <DropdownItem tag="a" href="#" className="justify-between">
                 <span>Sales</span>
                 <Badge type="danger">2</Badge>
               </DropdownItem>
               <DropdownItem onClick={() => alert("Alerts!")}>
                 <span>Alerts</span>
-              </DropdownItem>
+              </DropdownItem> */}
             </Dropdown>
           </li>
           {/* <!-- Profile menu --> */}

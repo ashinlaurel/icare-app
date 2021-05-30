@@ -12,11 +12,26 @@ export const aroutes = [
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Dashboard", // name that appear in Sidebar
   },
+
+  // ---------------Notifications---------------------------------------------
   {
-    path: "/app/notifications", // the url
-    icon: "HomeIcon", // the component being exported from icons/index.js
-    name: "Notifications", // name that appear in Sidebar
+    icon: "HomeIcon",
+    name: "Notifications",
+    routes: [
+      // submenu
+      {
+        path: "/app/notifications", // the url
+        icon: "HomeIcon", // the component being exported from icons/index.js
+        name: "LST Notifications", // name that appear in Sidebar
+      },
+
+      {
+        path: "/app/leavehistory",
+        name: "Leave History",
+      },
+    ],
   },
+
   // ---------------Calls---------------------------------------------
   {
     icon: "HomeIcon",

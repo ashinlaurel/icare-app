@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import moment from "moment";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 import Emp from "../../helpers/auth/EmpProfile";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+
 import PageTitle from "../../components/Typography/PageTitle";
 import {
   ChatIcon,
@@ -48,9 +51,8 @@ function Assets() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
 
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
 
@@ -86,6 +88,9 @@ function Assets() {
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
+
+  //download
+  const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
   // pagination change control
   function onPageChange(p) {
@@ -128,6 +133,77 @@ function Assets() {
         </Modal>
       </>
     );
+  };
+
+  const DwnldModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className=" dark:bg-gray-800 p-5 my-6 mx-10 px-5  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl mx-10 px-10">
+            <div className="text-lg">Download Asset Data?</div>
+          </ModalHeader>
+          <ModalBody>
+            <Button
+              layout="outline"
+              onClick={() => {
+                downloadAssets();
+              }}
+            >
+              Download
+            </Button>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
+  const downloadAssets = async () => {
+    let csv = `Product Type,Customer,Account,Unit,Business,Brand,Model,Serial Number,Operating System,`;
+
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        business: Business,
+        producttype: product,
+        customer: customer,
+        account: account,
+        unitId: unit._id,
+        customerId: customer._id,
+        accountId: account._id,
+        searchtype: searchtype,
+        searchquery: searchquery,
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+    array.map((i) => {
+      csv =
+        csv +
+        `
+  ${i.producttype},${i.customerName},${i.accountName},${i.unitName},${i.business},${i.product.brand},${i.product.model},${i.product.serialno} ,${i.product.os},`;
+    });
+    console.log(csv); //product.
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Assets.csv");
   };
 
   // on page change, load new sliced data
@@ -219,6 +295,7 @@ function Assets() {
         setRefresh={setRefresh}
       />
       {DeleteModal()}
+      {DwnldModal()}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
       {/* {floatbox ? <AssetFloat /> : null} */}
@@ -623,6 +700,17 @@ function Assets() {
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
+            </div>
+
+            <div class="block relative xl:ml-64">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  setIsDwnldModalOpen(true);
+                }}
+              >
+                Download Database
+              </Button>
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
