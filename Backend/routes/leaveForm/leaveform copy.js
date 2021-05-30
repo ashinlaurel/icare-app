@@ -5,7 +5,6 @@ const {
   createLeaveForm,
   getAll,
   approveLeave,
-  countSubmittedLeaves,
 } = require("../../controllers/leaveForm/leaveForm");
 
 const router = express.Router();
@@ -15,6 +14,5 @@ router.param("id", getEmpById);
 router.post("/:id/getall", getAll);
 router.post("/:id/create", createLeaveForm);
 router.post("/:id/approve", approveLeave);
-router.post("/:id/countsubmitted", countSubmittedLeaves);
 
 module.exports = router;

@@ -91,6 +91,23 @@ exports.approveLeave = async (req, res) => {
   }
 };
 
+/// count remaining calls
+
+exports.countSubmittedLeaves = (req, res) => {
+  // let { date, callType, startdate, enddate } = req.body;
+  // console.log(`Counting leave`);
+  leaveForm.countDocuments({ status: "Submitted" }, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count leaveform",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
+
 // --------------------Get attendance of all employees in a month -----------------
 exports.getAll = (req, res) => {
   let { pages, filters } = req.body;
