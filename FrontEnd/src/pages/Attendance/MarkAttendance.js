@@ -32,6 +32,7 @@ function MarkAttendance() {
       employee: Emp.getId(),
       employeeName: Emp.getName(),
       month: moment().format("MMMM"),
+      monthNo: moment().format("MM"),
       year: moment().format("YYYY"),
       monthDayCount: moment().daysInMonth(),
       today: {
@@ -60,6 +61,7 @@ function MarkAttendance() {
       employee: Emp.getId(),
       employeeName: Emp.getName(),
       month: moment().format("MMMM"),
+      monthNo: moment().format("MM"),
       year: moment().format("YYYY"),
       monthDayCount: moment().daysInMonth(),
       today: {
