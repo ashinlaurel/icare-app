@@ -494,6 +494,7 @@ function UpdateCall() {
   // search
   const [invsearch, setInvSearch] = useState("");
   const [assetinvsearch, setAssetInvSearch] = useState("");
+  const [listNumber, setListNumber] = useState(0);
 
   // imp states
   const [callAttendDate, setCallAttendDate] = useState("");
@@ -526,6 +527,8 @@ function UpdateCall() {
   //   thegetter();
   // }, [selectedItem]);
 
+  useMemo(() => thegetter(listNumber), [invsearch]);
+
   async function thegetter(number) {
     console.log("getter called");
     console.log(selectedItem);
@@ -550,16 +553,15 @@ function UpdateCall() {
         method: "POST",
         data: payload,
       });
-      console.log(response.data.out);
+      // console.log(response.data.out);
       // setTotalResults(response.data.total);
       // const { total, data } = response.data;
       // console.log(data + "Now");
 
       let tempinvent = inventdata;
       tempinvent[number] = response.data.out;
-      setInventData(tempinvent);
-
-      // setInventData(response.data.out);
+      await setInventData(tempinvent);
+      console.log(tempinvent[number]);
     } catch (error) {
       throw error;
     }
@@ -1796,10 +1798,13 @@ function UpdateCall() {
             <input
               className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
               placeholder="Enter Serial Number "
-              onChange={(e) => {
-                setInvSearch(e.target.value);
-                thegetter(number);
-                // console.log("hello");
+              onChange={async (e) => {
+                setListNumber(number);
+                await setInvSearch(e.target.value);
+
+                // await thegetter(number);
+                // console.log("*********************");
+                // console.log(inventdata);
               }}
             />
           </form>
