@@ -30,6 +30,20 @@ exports.countAssets = (req, res) => {
     return res.status(200).json(result);
   });
 };
+exports.countAssetsByCustomer = (req, res) => {
+  let options = req.body;
+  console.log("options,", options);
+  Asset.count(options, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
 exports.countAmcAssets = (req, res) => {
   Asset.count({ business: "AMC" }, function (err, result) {
     if (err) {

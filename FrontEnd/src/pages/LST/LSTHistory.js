@@ -711,7 +711,7 @@ function LSTHistory() {
                         Download
                       </Button>
                     </TableCell>
-                    {EmpProfile.getRole() == 0 ? (
+                    {EmpProfile.getRole() == 0 || EmpProfile.getRole() == 15 ? (
                       <TableCell className=" ">
                         <Button
                           layout="link"

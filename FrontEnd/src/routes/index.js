@@ -2,6 +2,7 @@ import { lazy } from "react";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
+const DashboardCustomer = lazy(() => import("../pages/DashboardCustomer"));
 const Forms = lazy(() => import("../pages/Forms"));
 const Cards = lazy(() => import("../pages/Cards"));
 const Charts = lazy(() => import("../pages/Charts"));
@@ -122,6 +123,7 @@ const ViewDownloads = lazy(() => import("../pages/Downloads/ViewDownloads"));
  * If you're looking for the links rendered in the SidebarContent, go to
  * `routes/sidebar.js`
  */
+//0
 export const aroutes = [
   {
     path: "/dashboard", // the url
@@ -377,7 +379,12 @@ export const aroutes = [
   },
 ];
 
+// 1 cust 2 acc
 export const croutes = [
+  {
+    path: "/dashboard", // the url
+    component: DashboardCustomer, // view rendered
+  },
   // ----------------------My Asset Views ----------------------
   {
     path: "/myassets/accounts",
@@ -423,6 +430,7 @@ export const croutes = [
   },
 ];
 
+// 11
 export const enggroutes = [
   // ----------------------My Asset Views ----------------------
   {
@@ -451,8 +459,19 @@ export const enggroutes = [
     path: "/downloads",
     component: ViewDownloads,
   },
-];
 
+  // ----------------------LST Views ----------------------/
+
+  {
+    path: "/lst",
+    component: LST,
+  },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
+];
+// 13
 export const storekeeproutes = [
   // ----------------------Notifications Views ----------------------/
 
@@ -514,7 +533,7 @@ export const storekeeproutes = [
     component: ApplyLeave,
   },
 ];
-
+// 16
 export const ostorekeeproutes = [
   // ----------------------Notifications Views ----------------------/
 
@@ -586,5 +605,470 @@ export const ostorekeeproutes = [
   {
     path: "/ApplyLeave",
     component: ApplyLeave,
+  },
+];
+
+// 15
+export const accountsroutes = [
+  {
+    path: "/dashboard", // the url
+    component: Dashboard, // view rendered
+  },
+  // Assets --------------------------------------------------
+  {
+    path: "/assets", // the url
+    component: Assets, // view rendered
+  },
+  {
+    path: "/assets/create", // the url
+    component: CreateAsset, // view rendered
+  },
+  {
+    path: "/assets/assetview", // the url
+    component: AssetView, // view rendered
+  },
+  // Customer --------------------------------------------------
+  {
+    path: "/customer/create",
+    component: CreateCustomer,
+  },
+  {
+    path: "/customer/createunit",
+    component: CreateUnit,
+  },
+  {
+    path: "/customer/getCustomerById/:id",
+    component: CustomerDetails,
+  },
+  {
+    path: "/customer/:id/update",
+    component: UpdateCustomer,
+  },
+  {
+    path: "/unit/getUnitById/:id",
+    component: UnitDetails,
+  },
+  {
+    path: "/unit/:id/update",
+    component: UpdateUnit,
+  },
+  //-------------- Customer List  Routes----------------
+  {
+    path: "/customer",
+    component: CustomerList,
+  },
+  {
+    path: "/customer/accounts/:id",
+    component: AccountsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid/:unitid",
+    component: UnitsAsset,
+  },
+  // ---------------------- My Asset Views ----------------------
+  {
+    path: "/myassets/accounts",
+    component: ViewAccounts,
+  },
+  {
+    path: "/myassets/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/unit/update/:id",
+    component: UpdateAsset,
+  },
+  // ----------------------My Profile Views ----------------------/
+  {
+    path: "/Empprofile",
+    component: EmpProfile,
+  },
+  {
+    path: "/Custprofile",
+    component: CustProfile,
+  },
+
+  // ----------------------Employee Views ----------------------/
+
+  {
+    path: "/employee",
+    component: EmployeeList,
+  },
+  {
+    path: "/CreateEmployee",
+    component: CreateEmployee,
+  },
+  {
+    path: "/employee/getEmployeeById/:id",
+    component: EmployeeDetails,
+  },
+  {
+    path: "/employee/:id/update",
+    component: EmployeeUpdate,
+  },
+  {
+    path: "/employee/:id/viewsalary",
+    component: ViewSalary,
+  },
+  {
+    path: "/paysalary",
+    component: PaySalary,
+  },
+  {
+    path: "/salaryhistory",
+    component: SalaryHistory,
+  },
+  {
+    path: "/viewAttendance",
+    component: ViewAttendance,
+  },
+  {
+    path: "/LeaveHistory",
+    component: LeaveHistory,
+  },
+
+  // ----------------------Vendor Views----------------------/
+  {
+    path: "/createvendor",
+    component: CreateVendor,
+  },
+  {
+    path: "/vendorlist",
+    component: VendorList,
+  },
+  {
+    path: "/vendor/getVendorById/:id",
+    component: VendorDetails,
+  },
+  {
+    path: "/vendor/:id/update",
+    component: VendorUpdate,
+  },
+
+  // ----------------------Call Views ----------------------/
+
+  {
+    path: "/registerCall",
+    component: RegisterCall,
+  },
+  {
+    path: "/assignEng",
+    component: AssignEng,
+  },
+  {
+    path: "/AssignCallPriority",
+    component: AssignCallPriority,
+  },
+  {
+    path: "/EnggPriorityList",
+    component: EnggPriorityList,
+  },
+
+  {
+    path: "/viewcalls",
+    component: ViewCalls,
+  },
+  {
+    path: "/call/updateasset/:callid/:assetid",
+    component: UpdateAssetFromCall,
+  },
+  {
+    path: "/call/updatecall/:callid/:assetid",
+    component: UpdateCall,
+  },
+  // ----------------------Inventory Views ----------------------/
+
+  {
+    path: "/inventory/create",
+    component: CreateInvent,
+  },
+  {
+    path: "/inventory",
+    component: Inventory,
+  },
+  {
+    path: "/inventory/purchase",
+    component: PurchaseInventory,
+  },
+  {
+    path: "/inventory/update/:id",
+    component: UpdateInventory,
+  },
+
+  {
+    path: "/inventory/purchasehistory",
+    component: PurchaseHistory,
+  },
+
+  // ----------------------LST Views ----------------------/
+
+  {
+    path: "/lst",
+    component: LST,
+  },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
+
+  // --------------------------------------------/
+  // ----------------------Notifications Views ----------------------/
+
+  {
+    path: "/notifications",
+    component: Notifications,
+  },
+
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
+  },
+
+  // --------------------------------------------/
+  {
+    path: "/forms",
+    component: Forms,
+  },
+  {
+    path: "/cards",
+    component: Cards,
+  },
+  {
+    path: "/charts",
+    component: Charts,
+  },
+  {
+    path: "/buttons",
+    component: Buttons,
+  },
+  {
+    path: "/modals",
+    component: Modals,
+  },
+  {
+    path: "/tables",
+    component: Tables,
+  },
+  {
+    path: "/404",
+    component: Page404,
+  },
+  {
+    path: "/blank",
+    component: Blank,
+  },
+];
+
+// 14
+export const coordinatorroutes = [
+  {
+    path: "/dashboard", // the url
+    component: Dashboard, // view rendered
+  },
+  // Assets --------------------------------------------------
+  {
+    path: "/assets", // the url
+    component: Assets, // view rendered
+  },
+  {
+    path: "/assets/create", // the url
+    component: CreateAsset, // view rendered
+  },
+  {
+    path: "/assets/assetview", // the url
+    component: AssetView, // view rendered
+  },
+  // Customer --------------------------------------------------
+  {
+    path: "/customer/create",
+    component: CreateCustomer,
+  },
+  {
+    path: "/customer/createunit",
+    component: CreateUnit,
+  },
+  {
+    path: "/customer/getCustomerById/:id",
+    component: CustomerDetails,
+  },
+  {
+    path: "/customer/:id/update",
+    component: UpdateCustomer,
+  },
+  {
+    path: "/unit/getUnitById/:id",
+    component: UnitDetails,
+  },
+  {
+    path: "/unit/:id/update",
+    component: UpdateUnit,
+  },
+  //-------------- Customer List  Routes----------------
+  {
+    path: "/customer",
+    component: CustomerList,
+  },
+  {
+    path: "/customer/accounts/:id",
+    component: AccountsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/customer/accounts/units/:id/:accountid/:unitid",
+    component: UnitsAsset,
+  },
+  // ---------------------- My Asset Views ----------------------
+  {
+    path: "/myassets/accounts",
+    component: ViewAccounts,
+  },
+  {
+    path: "/myassets/accounts/units/:id/:accountid",
+    component: UnitsList,
+  },
+  {
+    path: "/unit/update/:id",
+    component: UpdateAsset,
+  },
+  // ----------------------My Profile Views ----------------------/
+  {
+    path: "/Empprofile",
+    component: EmpProfile,
+  },
+  {
+    path: "/Custprofile",
+    component: CustProfile,
+  },
+
+  // ----------------------Call Views ----------------------/
+
+  {
+    path: "/registerCall",
+    component: RegisterCall,
+  },
+  {
+    path: "/assignEng",
+    component: AssignEng,
+  },
+  {
+    path: "/AssignCallPriority",
+    component: AssignCallPriority,
+  },
+  {
+    path: "/EnggPriorityList",
+    component: EnggPriorityList,
+  },
+
+  {
+    path: "/viewcalls",
+    component: ViewCalls,
+  },
+  {
+    path: "/call/updateasset/:callid/:assetid",
+    component: UpdateAssetFromCall,
+  },
+  {
+    path: "/call/updatecall/:callid/:assetid",
+    component: UpdateCall,
+  },
+  // ----------------------Inventory Views ----------------------/
+
+  {
+    path: "/inventory/create",
+    component: CreateInvent,
+  },
+  {
+    path: "/inventory",
+    component: Inventory,
+  },
+  {
+    path: "/inventory/purchase",
+    component: PurchaseInventory,
+  },
+  {
+    path: "/inventory/update/:id",
+    component: UpdateInventory,
+  },
+
+  {
+    path: "/inventory/purchasehistory",
+    component: PurchaseHistory,
+  },
+
+  // ----------------------LST Views ----------------------/
+
+  {
+    path: "/lst",
+    component: LST,
+  },
+  {
+    path: "/lst/history",
+    component: LSTHistory,
+  },
+
+  // --------------------------------------------/
+  // ----------------------Employee Views ----------------------/
+
+  {
+    path: "/viewAttendance",
+    component: ViewAttendance,
+  },
+  {
+    path: "/LeaveHistory",
+    component: LeaveHistory,
+  },
+  // ----------------------Notifications Views ----------------------/
+
+  {
+    path: "/notifications",
+    component: Notifications,
+  },
+
+  // -----------------Downloads --------------------------------
+  {
+    path: "/downloads",
+    component: ViewDownloads,
+  },
+
+  // --------------------------------------------/
+  {
+    path: "/forms",
+    component: Forms,
+  },
+  {
+    path: "/cards",
+    component: Cards,
+  },
+  {
+    path: "/charts",
+    component: Charts,
+  },
+  {
+    path: "/buttons",
+    component: Buttons,
+  },
+  {
+    path: "/modals",
+    component: Modals,
+  },
+  {
+    path: "/tables",
+    component: Tables,
+  },
+  {
+    path: "/404",
+    component: Page404,
+  },
+  {
+    path: "/blank",
+    component: Blank,
   },
 ];

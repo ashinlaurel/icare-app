@@ -6,6 +6,8 @@ import {
   enggroutes,
   storekeeproutes,
   ostorekeeproutes,
+  accountsroutes,
+  coordinatorroutes,
 } from "../routes/index";
 
 import Sidebar from "../components/Sidebar";
@@ -93,6 +95,28 @@ function Layout() {
                         />
                       ) : null;
                     })
+                  : EmpProfile.getRole() == 14
+                  ? coordinatorroutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })
+                  : EmpProfile.getRole() == 15
+                  ? accountsroutes.map((route, i) => {
+                      return route.component ? (
+                        <Route
+                          key={i}
+                          exact={true}
+                          path={`/app${route.path}`}
+                          render={(props) => <route.component {...props} />}
+                        />
+                      ) : null;
+                    })
                   : croutes.map((route, i) => {
                       return route.component ? (
                         <Route
@@ -107,11 +131,17 @@ function Layout() {
                   <Redirect exact from="/app" to="/app/dashboard" />
                 ) : EmpProfile.getRole() == 11 ? (
                   <Redirect exact from="/app" to="/app/engcalls/viewmycalls" />
+                ) : EmpProfile.getRole() == 14 ? (
+                  <Redirect exact from="/app" to="/app/dashboard" />
+                ) : EmpProfile.getRole() == 15 ? (
+                  <Redirect exact from="/app" to="/app/dashboard" />
                 ) : EmpProfile.getRole() == 13 ? (
                   <Redirect exact from="/app" to="/app/notifications" />
                 ) : EmpProfile.getRole() == 16 ? (
                   <Redirect exact from="/app" to="/app/notifications" />
-                ) : null}
+                ) : (
+                  <Redirect exact from="/app" to="/app/dashboard" />
+                )}
 
                 <Route component={Page404} />
               </Switch>
