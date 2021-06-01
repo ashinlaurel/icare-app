@@ -1,7 +1,8 @@
 const attendance = require("../../models/attendance/attendance");
+const moment = require("moment");
 
 exports.markAttendance = async (req, res) => {
-  const { employee, employeeName, month, year, monthDayCount, today } =
+  const { employee, employeeName, month, monthNo, year, monthDayCount, today } =
     req.body;
   console.log(req.body);
 
@@ -38,10 +39,18 @@ exports.markAttendance = async (req, res) => {
       let temp = [];
       for (let i = 0; i < monthDayCount; i++) {
         if (i == today.dayNo - 1) {
-          let doc = { date: "", dayNo: i + 1, isPresent: today.isPresent };
+          let doc = {
+            date: moment().format(),
+            dayNo: i + 1,
+            isPresent: today.isPresent,
+          };
           temp.push(doc);
         } else {
-          let doc = { date: "", dayNo: i + 1, isPresent: "Absent" };
+          let doc = {
+            date: moment().format(),
+            dayNo: i + 1,
+            isPresent: "Absent",
+          };
           temp.push(doc);
         }
       }
@@ -49,6 +58,7 @@ exports.markAttendance = async (req, res) => {
         employee: employee,
         employeeName: employeeName,
         month: month,
+        monthNo: monthNo,
         year: year,
         monthDayCount: monthDayCount,
         days: temp,
@@ -59,6 +69,7 @@ exports.markAttendance = async (req, res) => {
       return res.status(200).json(newattend);
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json(error);
   }
 

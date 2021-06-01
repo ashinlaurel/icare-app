@@ -11,6 +11,10 @@ const attendanceSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  monthNo: {
+    type: String,
+    required: true,
+  },
   year: {
     type: String,
     required: true,

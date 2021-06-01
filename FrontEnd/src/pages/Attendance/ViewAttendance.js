@@ -1,16 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API } from "../../backendapi";
+import DatePicker from "react-date-picker";
 
 import Emp from "../../helpers/auth/EmpProfile";
 
-import { Card, CardBody } from "@windmill/react-ui";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "@windmill/react-ui";
 
 import { TopBarContext } from "../../context/TopBarContext";
 
 import { useHistory } from "react-router-dom";
-import { BottomBarContext } from "../../context/BottomBarContext";
+
 import moment from "moment";
+import { TickIcon } from "../../icons";
 
 function ViewAttendance() {
   let history = useHistory();
@@ -21,8 +32,11 @@ function ViewAttendance() {
   const [data, setData] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
 
-  const { bbaropen, setBBarOpen, attendDetails, setAttendDetails } =
-    useContext(BottomBarContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [attendDetails, setAttendDetails] = useState({});
+
+  // ---------------imp states --------------
+  const [showDate, setShowDate] = useState(false);
 
   // ----------------------Heading Use Effect-------------
 
@@ -43,15 +57,6 @@ function ViewAttendance() {
     };
   }, []);
   // -----------------------------------------------------
-
-  // -------Enabling Bottom Bar----
-  useEffect(() => {
-    setBBarOpen(1);
-    return () => {
-      setBBarOpen(0);
-    };
-  }, []);
-  //   -------------------------------
 
   //  data pull useeffect
   useEffect(() => {
@@ -87,45 +92,102 @@ function ViewAttendance() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [themonth, theyear]);
 
+  // Modal Functions
+
+  function openModal() {
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
   // ------------------------------
 
-  const PresentSquare = () => {
+  const TheModal = () => {
+    return (
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalHeader className="flex flex-row justify-between ">
+          <div className="text-xl">Attendance Details</div>
+          <div className="text-base">
+            Date: <Badge>{attendDetails.date}</Badge>{" "}
+          </div>
+        </ModalHeader>
+        <ModalBody>
+          <hr></hr>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum et
+          eligendi repudiandae voluptatem tempore!
+        </ModalBody>
+        <ModalFooter>
+          <div className="hidden sm:block">
+            <Button layout="outline" onClick={closeModal}>
+              Cancel
+            </Button>
+          </div>
+          <div className="hidden sm:block">
+            <Button>Accept</Button>
+          </div>
+          <div className="block w-full sm:hidden">
+            <Button block size="large" layout="outline" onClick={closeModal}>
+              Cancel
+            </Button>
+          </div>
+          <div className="block w-full sm:hidden">
+            <Button block size="large">
+              Accept
+            </Button>
+          </div>
+        </ModalFooter>
+      </Modal>
+    );
+  };
+
+  const PresentSquare = (dayNo) => {
     return (
       <>
-        <div className=" relative w-4 h-4 bg-green-400 border-gray-600 border hover:border-black hover:bg-green-500 rounded-sm"></div>
+        <div className=" relative w-5 h-5 bg-green-400 border-gray-600 border hover:border-black hover:bg-green-500 rounded-sm text-xs text-white flex justify-center items-center">
+          {showDate ? <div>{dayNo}</div> : null}
+        </div>
       </>
     );
   };
-  const AbsentSquare = () => {
+  const AbsentSquare = (dayNo) => {
     return (
       <>
-        <div className="w-4 h-4 bg-red-500 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm"></div>
+        <div className="w-5 h-5 bg-red-500 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm text-xs text-white flex justify-center items-center">
+          {showDate ? <div>{dayNo}</div> : null}
+        </div>
       </>
     );
   };
-  const LeaveSquare = () => {
+  const LeaveSquare = (dayNo) => {
     return (
       <>
-        <div className="w-4 h-4 bg-blue-500 border-blue-600 border hover:border-black hover:bg-red-800 rounded-sm"></div>
+        <div className="w-5 h-5 bg-blue-500 border-blue-600 border hover:border-black hover:bg-red-800 rounded-sm text-xs text-white flex justify-center items-center">
+          {showDate ? <div>{dayNo}</div> : null}
+        </div>
       </>
     );
   };
-  const GraySquare = () => {
+  const GraySquare = (dayNo) => {
     return (
       <>
-        <div className="w-4 h-4 bg-gray-200 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm"></div>
+        <div className="w-5 h-5 bg-gray-200 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm text-xs text-white flex justify-center items-center">
+          {showDate ? <div>{dayNo}</div> : null}
+        </div>
       </>
     );
   };
 
   return (
     <>
+      {TheModal()}
       <div className="">
         {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-        <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
+        <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 relative ">
           <div class="relative mx-1 ">
             <select
-              class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+              class=" text-sm border block appearance-none w-full bg-white border-gray-400 text-gray-700 pl-1 leading-tight focus:outline-none py-1   focus:bg-white focus:border-gray-500"
               value={themonth}
               onChange={(e) => {
                 setThemonth(e.target.value);
@@ -158,9 +220,35 @@ function ViewAttendance() {
               </svg>
             </div>
           </div>
+          <DatePicker
+            className="bg-white"
+            clearIcon={null}
+            onChange={(date) => {
+              console.log(moment(date).format("YYYY"));
+              setTheyear(moment(date).format("YYYY"));
+              // console.log(date);
+            }}
+            value={theyear}
+            format="y"
+            maxDetail="decade"
+          />
+          <div className="flex flex-row items-center justify-center space-x-2 absolute right-0 ">
+            <div className="text-sm">Show Dates:</div>
+            <Button
+              className={
+                showDate == true ? `bg-yellow-300 w-2 h-2` : `bg-white w-2 h-2`
+              }
+              icon={TickIcon}
+              onClick={() => {
+                setShowDate(!showDate);
+              }}
+              layout="outline"
+              aria-label="Like"
+            />
+          </div>
         </div>
       </div>
-      <Card className="my-8 shadow-md">
+      <Card className="my-8 shadow-md  overflow-x-auto">
         <CardBody>
           {data.map((user) => {
             return (
@@ -174,11 +262,12 @@ function ViewAttendance() {
                         <div
                           onClick={() => {
                             console.log(day, moment().format("DD"));
+                            setIsModalOpen(true);
                             setAttendDetails(day);
                           }}
                           className="m-2"
                         >
-                          {GraySquare()}
+                          {GraySquare(day.dayNo)}
                         </div>
                       );
                     } else if (day.isPresent == "Present") {
@@ -186,33 +275,36 @@ function ViewAttendance() {
                         <div
                           onClick={() => {
                             console.log(day);
+                            setIsModalOpen(true);
                             setAttendDetails(day);
                           }}
                           className="m-2"
                         >
-                          {PresentSquare()}
+                          {PresentSquare(day.dayNo)}
                         </div>
                       );
                     } else if (day.isPresent == "Absent") {
                       return (
                         <div
                           onClick={() => {
+                            setIsModalOpen(true);
                             setAttendDetails(day);
                           }}
                           className="m-2"
                         >
-                          {AbsentSquare()}
+                          {AbsentSquare(day.dayNo)}
                         </div>
                       );
                     } else if (day.isPresent == "Leave") {
                       return (
                         <div
                           onClick={() => {
+                            setIsModalOpen(true);
                             setAttendDetails(day);
                           }}
                           className="m-2"
                         >
-                          {LeaveSquare()}
+                          {LeaveSquare(day.dayNo)}
                         </div>
                       );
                     }
