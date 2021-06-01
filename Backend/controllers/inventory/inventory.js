@@ -308,6 +308,9 @@ exports.getAllItems = (req, res) => {
     // populate: "product",
     page: pages.page,
     limit: pages.limit,
+    sort: {
+      type: 1,
+    },
   };
 
   let filteroptions = {

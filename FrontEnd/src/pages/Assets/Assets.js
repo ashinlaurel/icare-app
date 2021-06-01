@@ -834,18 +834,20 @@ function Assets() {
                         </Link>{" "}
                       </Button>
 
-                      <Button
-                        layout="link"
-                        size="icon"
-                        aria-label="Delete"
-                        onClick={async () => {
-                          console.log("delete Asset");
-                          setIsDeleteModalOpen(true);
-                          setDeleteId(user._id);
-                        }}
-                      >
-                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
+                      {Emp.getRole() == 14 ? null : (
+                        <Button
+                          layout="link"
+                          size="icon"
+                          aria-label="Delete"
+                          onClick={async () => {
+                            console.log("delete Asset");
+                            setIsDeleteModalOpen(true);
+                            setDeleteId(user._id);
+                          }}
+                        >
+                          <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                        </Button>
+                      )}
                       {/* <div>
             <Button className="mx-3 mt02">
               {" "}

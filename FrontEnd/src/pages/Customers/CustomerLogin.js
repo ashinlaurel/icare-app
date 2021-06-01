@@ -76,7 +76,7 @@ function CustomerLogin() {
         // localStorage.setItem("type", 1); ///////-----------------------------> 0 for employee 1 for customer
         localStorage.setItem("type", data.user.role);
         console.log("authenticated", data.user);
-        history.push("/app/myassets/accounts");
+        history.push("/app/dashboard");
         // return <Redirect to="/app" />;
         // });
         ///test

@@ -138,14 +138,16 @@ function Header() {
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="#" className="justify-between">
-                <Link to="/app/leavehistory">
-                  <span>Approve Leave</span>
-                  {leavecount > 0 ? (
-                    <Badge type="danger">{leavecount}</Badge>
-                  ) : null}
-                </Link>
-              </DropdownItem>
+              {Emp.getRole() == 0 || Emp.getRole() == 15 ? (
+                <DropdownItem tag="a" href="#" className="justify-between">
+                  <Link to="/app/leavehistory">
+                    <span>Approve Leave</span>
+                    {leavecount > 0 ? (
+                      <Badge type="danger">{leavecount}</Badge>
+                    ) : null}
+                  </Link>
+                </DropdownItem>
+              ) : null}
               {/* <DropdownItem tag="a" href="#" className="justify-between">
                 <span>Sales</span>
                 <Badge type="danger">2</Badge>

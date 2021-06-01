@@ -57,7 +57,7 @@ export default function CustomerDetails() {
     WhatsappNo: "",
     role: 0,
     parentCustomerId: "",
-    show_password:"",
+    show_password: "",
   });
   const [err, setErr] = useState({
     email: "",
@@ -81,10 +81,9 @@ export default function CustomerDetails() {
     } catch (error) {
       throw error;
     }
-    let user=values;
-    user.show_password=newpass;
+    let user = values;
+    user.show_password = newpass;
     setValues(user);
-
   };
 
   const getCustomerInfo = async () => {
@@ -113,7 +112,7 @@ export default function CustomerDetails() {
         altContact: res.data[0].altContact,
         role: res.data[0].role,
         parentCustomerId: res.data[0].parentCustomerId,
-        show_password:res.data[0].show_password
+        show_password: res.data[0].show_password,
         // WhatsappNo:WhatsappNo ,
       });
 
@@ -275,7 +274,8 @@ export default function CustomerDetails() {
                 <span className="font-semibold"> Email:</span> {values.email}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
-                <span className="font-semibold"> Password:</span> {values.show_password}
+                <span className="font-semibold"> Password:</span>{" "}
+                {values.show_password}
               </p>
               <p className="text-md text-gray-900 dark:text-gray-100 py-2">
                 <span className="font-semibold"> Name:</span> {values.name}
@@ -326,9 +326,14 @@ export default function CustomerDetails() {
             <Button className="mx-3" onClick={() => setPasswordModalOpen(true)}>
               Reset Password
             </Button>
-            <Button onClick={() => setIsDeleteModalOpen(true)} className="mx-3">
-              Delete {values.role == 1 ? <>Customer</> : <>Account</>}
-            </Button>
+            {Emp.getRole() == 14 ? null : (
+              <Button
+                onClick={() => setIsDeleteModalOpen(true)}
+                className="mx-3"
+              >
+                Delete {values.role == 1 ? <>Customer</> : <>Account</>}
+              </Button>
+            )}
             {/* <Button className="mx-3">Delete Customer</Button> */}
           </div>
         </CardBody>
