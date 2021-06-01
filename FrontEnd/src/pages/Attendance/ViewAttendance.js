@@ -33,10 +33,11 @@ function ViewAttendance() {
   const [totalResults, setTotalResults] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [attendDetails, setAttendDetails] = useState({});
+  const [attendDetails, setAttendDetails] = useState({ today: {} });
 
   // ---------------imp states --------------
   const [showDate, setShowDate] = useState(false);
+  const [tempstatus, setTempStatus] = useState("");
 
   // ----------------------Heading Use Effect-------------
 
@@ -92,6 +93,39 @@ function ViewAttendance() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [themonth, theyear]);
 
+  const updateAttend = async () => {
+    console.log(attendDetails);
+    console.log(tempstatus);
+    console.log(data);
+
+    // Local Change
+    data.map(async (user) => {
+      if (user.employee == attendDetails.employee) {
+        await user.days.map((day) => {
+          if (parseInt(day.dayNo) == parseInt(attendDetails.today.dayNo)) {
+            day.isPresent = tempstatus;
+            // break;-----need a break here;
+          }
+        });
+        // -------updating the cloud--------
+        try {
+          let response = await axios({
+            url: `${API}/attendance/${Emp.getId()}/updateAttendance`,
+            method: "POST",
+            data: user,
+          });
+          console.log(response.data);
+          // setTotalResults(response.data.total);
+          // const { total, data } = response.data;
+          // console.log(response.data.out);
+
+          // setData(response.data.out);
+        } catch (error) {
+          throw error;
+        }
+      }
+    });
+  };
   // Modal Functions
 
   function openModal() {
@@ -110,13 +144,43 @@ function ViewAttendance() {
         <ModalHeader className="flex flex-row justify-between ">
           <div className="text-xl">Attendance Details</div>
           <div className="text-base">
-            Date: <Badge>{attendDetails.date}</Badge>{" "}
+            Date:{" "}
+            <Badge>
+              {moment(attendDetails.today.date).format("DD-MM-YYYY")}
+            </Badge>{" "}
           </div>
         </ModalHeader>
         <ModalBody>
           <hr></hr>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum et
-          eligendi repudiandae voluptatem tempore!
+          <div className="flex flex-row items-center justify-start w-full space-x-2">
+            <div className="mt-4 text-base font-semibold">Edit Status: </div>
+            <div class="relative  mt-2 w-3/4 ">
+              <select
+                class=" shadow-md rounded-md text-sm border block appearance-none w-full bg-white border-gray-400 text-gray-700 pl-1 leading-tight focus:outline-none py-2   focus:bg-white focus:border-gray-500"
+                value={tempstatus}
+                onChange={(e) => {
+                  setTempStatus(e.target.value);
+                }}
+              >
+                <option value="" disabled selected>
+                  Not Marked Yet
+                </option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Leave">Leave</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>{" "}
+          </div>
         </ModalBody>
         <ModalFooter>
           <div className="hidden sm:block">
@@ -125,7 +189,14 @@ function ViewAttendance() {
             </Button>
           </div>
           <div className="hidden sm:block">
-            <Button>Accept</Button>
+            <Button
+              onClick={async () => {
+                await updateAttend();
+                closeModal();
+              }}
+            >
+              Accept
+            </Button>
           </div>
           <div className="block w-full sm:hidden">
             <Button block size="large" layout="outline" onClick={closeModal}>
@@ -172,7 +243,7 @@ function ViewAttendance() {
   const GraySquare = (dayNo) => {
     return (
       <>
-        <div className="w-5 h-5 bg-gray-200 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm text-xs text-white flex justify-center items-center">
+        <div className="w-5 h-5 bg-gray-200 border-gray-600 border hover:border-black hover:bg-red-800 rounded-sm text-xs text-black flex justify-center items-center">
           {showDate ? <div>{dayNo}</div> : null}
         </div>
       </>
@@ -182,73 +253,80 @@ function ViewAttendance() {
   return (
     <>
       {TheModal()}
-      <div className="">
-        {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-        <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 relative ">
-          <div class="relative mx-1 ">
-            <select
-              class=" text-sm border block appearance-none w-full bg-white border-gray-400 text-gray-700 pl-1 leading-tight focus:outline-none py-1   focus:bg-white focus:border-gray-500"
-              value={themonth}
-              onChange={(e) => {
-                setThemonth(e.target.value);
-              }}
-            >
-              <option value="" disabled selected>
-                Select the Month
-              </option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">March</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
 
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg
-                class="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
+      <Card className="mt-4 shadow-md  overflow-x-auto">
+        <CardBody>
+          <div className="">
+            {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
+            <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 relative ">
+              <div class="relative mx-1 ">
+                <select
+                  class=" text-sm border block appearance-none w-full bg-white border-gray-400 text-gray-700 pl-1 leading-tight focus:outline-none py-1   focus:bg-white focus:border-gray-500"
+                  value={themonth}
+                  onChange={(e) => {
+                    setThemonth(e.target.value);
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Select the Month
+                  </option>
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">March</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+              <DatePicker
+                className="bg-white"
+                clearIcon={null}
+                onChange={(date) => {
+                  console.log(moment(date).format("YYYY"));
+                  setTheyear(moment(date).format("YYYY"));
+                  // console.log(date);
+                }}
+                value={theyear}
+                format="y"
+                maxDetail="decade"
+              />
+              <div className="flex flex-row items-center justify-center space-x-2 absolute right-0 ">
+                <div className="text-sm">Show Dates:</div>
+                <Button
+                  className={
+                    showDate == true
+                      ? `bg-yellow-300 rounded-full w-2 h-2`
+                      : `bg-white w-2 h-2 rounded-full`
+                  }
+                  icon={TickIcon}
+                  onClick={() => {
+                    setShowDate(!showDate);
+                  }}
+                  layout="outline"
+                  aria-label="Like"
+                />
+              </div>
             </div>
           </div>
-          <DatePicker
-            className="bg-white"
-            clearIcon={null}
-            onChange={(date) => {
-              console.log(moment(date).format("YYYY"));
-              setTheyear(moment(date).format("YYYY"));
-              // console.log(date);
-            }}
-            value={theyear}
-            format="y"
-            maxDetail="decade"
-          />
-          <div className="flex flex-row items-center justify-center space-x-2 absolute right-0 ">
-            <div className="text-sm">Show Dates:</div>
-            <Button
-              className={
-                showDate == true ? `bg-yellow-300 w-2 h-2` : `bg-white w-2 h-2`
-              }
-              icon={TickIcon}
-              onClick={() => {
-                setShowDate(!showDate);
-              }}
-              layout="outline"
-              aria-label="Like"
-            />
-          </div>
-        </div>
-      </div>
-      <Card className="my-8 shadow-md  overflow-x-auto">
+        </CardBody>
+      </Card>
+      <Card className="my-4 shadow-md  overflow-x-auto">
         <CardBody>
           {data.map((user) => {
             return (
@@ -257,13 +335,24 @@ function ViewAttendance() {
                 <div className="flex flex-row items-center justify-center">
                   {" "}
                   {user.days.map((day) => {
-                    if (parseInt(day.dayNo) > moment().format("DD")) {
+                    if (
+                      parseInt(day.dayNo) > moment().format("DD") &&
+                      day.isPresent == "Absent"
+                    ) {
                       return (
                         <div
                           onClick={() => {
                             console.log(day, moment().format("DD"));
                             setIsModalOpen(true);
-                            setAttendDetails(day);
+                            let tempattend = {
+                              employee: user.employee,
+                              month: user.month,
+                              employeeName: user.employeeName,
+                              year: user.year,
+                              today: day,
+                            };
+                            setAttendDetails(tempattend);
+                            setTempStatus("");
                           }}
                           className="m-2"
                         >
@@ -274,9 +363,19 @@ function ViewAttendance() {
                       return (
                         <div
                           onClick={() => {
-                            console.log(day);
                             setIsModalOpen(true);
-                            setAttendDetails(day);
+
+                            let tempattend = {
+                              employee: user.employee,
+                              month: user.month,
+                              employeeName: user.employeeName,
+                              year: user.year,
+                              today: day,
+                            };
+
+                            setAttendDetails(tempattend);
+                            setTempStatus("Present");
+                            console.log(attendDetails);
                           }}
                           className="m-2"
                         >
@@ -288,7 +387,15 @@ function ViewAttendance() {
                         <div
                           onClick={() => {
                             setIsModalOpen(true);
-                            setAttendDetails(day);
+                            let tempattend = {
+                              employee: user.employee,
+                              month: user.month,
+                              employeeName: user.employeeName,
+                              year: user.year,
+                              today: day,
+                            };
+                            setAttendDetails(tempattend);
+                            setTempStatus("Absent");
                           }}
                           className="m-2"
                         >
@@ -300,7 +407,15 @@ function ViewAttendance() {
                         <div
                           onClick={() => {
                             setIsModalOpen(true);
-                            setAttendDetails(day);
+                            let tempattend = {
+                              employee: user.employee,
+                              month: user.month,
+                              employeeName: user.employeeName,
+                              year: user.year,
+                              today: day,
+                            };
+                            setAttendDetails(tempattend);
+                            setTempStatus("Leave");
                           }}
                           className="m-2"
                         >

@@ -4,7 +4,7 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
+import { TrashIcon, DropdownIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -16,17 +16,12 @@ import {
   TableCell,
   TableRow,
   TableFooter,
-  Avatar,
   Badge,
   Pagination,
-  Dropdown,
-  DropdownItem,
 } from "@windmill/react-ui";
 
 import { API } from "../../backendapi";
-import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
-import { BottomBarContext } from "../../context/BottomBarContext";
-import { Link } from "react-router-dom";
+
 import { TopBarContext } from "../../context/TopBarContext";
 import EmpProfile from "../../helpers/auth/EmpProfile";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";

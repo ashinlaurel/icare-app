@@ -47,7 +47,8 @@ function MarkAttendance() {
       data: payload,
     })
       .then((data) => {
-        console.log("********88***********");
+        // console.log("*******************");
+        // console.log(data);
         console.log(data.data.isPresent);
         setStatusChecker(data.data.isPresent);
       })
@@ -87,7 +88,7 @@ function MarkAttendance() {
 
   return (
     <>
-      <div className="w-1/4">
+      <div className=" w-full md:w-1/4">
         <Card className="my-8 shadow-md">
           <CardBody>
             <div className="dark:text-white text-xl font-bold">

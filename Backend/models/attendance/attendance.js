@@ -28,7 +28,7 @@ const attendanceSchema = mongoose.Schema({
     {
       date: String,
       dayNo: String,
-      isPresent: String, // Present,Absent,Leave,Gray
+      isPresent: String, // Present,Absent,Leave
       //   dayName:String,
     },
   ],
