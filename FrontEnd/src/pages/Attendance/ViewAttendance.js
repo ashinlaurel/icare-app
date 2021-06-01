@@ -256,7 +256,7 @@ function ViewAttendance() {
 
       <Card className="mt-4 shadow-md  overflow-x-auto">
         <CardBody>
-          <div className="">
+          <div className=" ">
             {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
             <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 relative ">
               <div class="relative mx-1 ">
@@ -295,7 +295,7 @@ function ViewAttendance() {
                 </div>
               </div>
               <DatePicker
-                className="bg-white"
+                className="bg-white z-20"
                 clearIcon={null}
                 onChange={(date) => {
                   console.log(moment(date).format("YYYY"));

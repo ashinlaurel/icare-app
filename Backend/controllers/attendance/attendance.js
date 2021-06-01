@@ -29,6 +29,7 @@ exports.markAttendance = async (req, res) => {
         // console.log(today.dayNo);
         if (parseInt(day.dayNo) == parseInt(today.dayNo)) {
           day.isPresent = today.isPresent;
+          day.timeOfMark = today.timeOfMark;
         }
       });
       let result = await tempdoc.save();
@@ -43,6 +44,7 @@ exports.markAttendance = async (req, res) => {
         if (i == today.dayNo - 1) {
           let doc = {
             date: moment(tempdate).format(),
+            timeOfMark: today.timeOfMark,
             dayNo: i + 1,
             isPresent: today.isPresent,
           };
@@ -50,6 +52,7 @@ exports.markAttendance = async (req, res) => {
         } else {
           let doc = {
             date: moment(tempdate).format(),
+            timeOfMark: "",
             dayNo: i + 1,
             isPresent: "Absent",
           };
