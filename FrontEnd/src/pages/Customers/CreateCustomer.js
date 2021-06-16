@@ -605,7 +605,7 @@ function CreateCustomer() {
               ) : (
                 <div className="flex ">
                   <div>Customer: {Ucustomer.customerName}</div>
-                  <div className="ml-2">Account: {Uaccount.accountName}</div>
+                  <div className="ml-1">Account: {Uaccount.accountName}</div>
                 </div>
               )}
             </Button>
