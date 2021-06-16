@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Modal,
   ModalHeader,
@@ -19,12 +20,12 @@ import {
 import Axios from "axios";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-
 import { API } from "../../backendapi";
 
 export default function AddUnitModal({
   isModalOpen,
   setIsModalOpen,
+
   account,
   setAccount,
   customer,
@@ -32,21 +33,56 @@ export default function AddUnitModal({
 }) {
   const [customers, setCustomers] = useState([]);
   const [accounts, setAccounts] = useState([]);
-  const [units, setUnits] = useState([]);
+  // const [units, setUnits] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
-  useEffect(() => {
-    Axios.post(`${API}/customer/customers`, { search: "", role: 1 })
-      .then((users) => {
-        console.log(users.data);
-        let temp = [];
-        users.data.map((user) => {
-          temp.push(user);
-        });
-        setCustomers(temp);
-      })
-      .catch((err) => {
-        console.log("axiosErr", err);
+  const [search, setSearch] = useState("");
+
+  //   Search Functions---------------------------------------------------------
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  //   -----------------------Send Search for Fuzzy ---------------------------------------------------------
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let payload = {
+      search: search,
+      role: 1,
+    };
+    try {
+      let response = await axios({
+        url: `${API}/customer/customers`,
+        method: "POST",
+        data: payload,
       });
+      console.log(response.data);
+      setCustomers(response.data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //   ---------------Intital Load ----------------------------
+
+  useEffect(() => {
+    (async function thegetter() {
+      let payload = {
+        search: search,
+        role: 1,
+      };
+      try {
+        let response = await axios({
+          url: `${API}/customer/customers`,
+          method: "POST",
+          data: payload,
+        });
+        console.log(response.data);
+        setCustomers(response.data);
+      } catch (error) {
+        throw error;
+      }
+    })();
   }, []);
 
   const pickCustomer = async (customer) => {
@@ -55,6 +91,11 @@ export default function AddUnitModal({
       _id: customer._id,
       customerName: customer.name,
     });
+    setAccount({
+      _id: "",
+      accountName: "",
+    });
+
     try {
       const accs = await Axios.post(`${API}/customer/accounts`, {
         customerId: customer._id,
@@ -89,6 +130,17 @@ export default function AddUnitModal({
               {/* <TableCell>Unit</TableCell> */}
               {/* <TableCell>Status</TableCell>
               <TableCell>Date</TableCell> */}
+            </tr>
+            <tr>
+              <TableCell>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                    placeholder="Search Customers"
+                    onChange={handleChange}
+                  />
+                </form>
+              </TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -158,7 +210,7 @@ export default function AddUnitModal({
         <ModalHeader>
           Select {tabIndex == 0 ? <>Customer</> : <>Account</>}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="overflow-y-scroll h-64">
           <Tabs selectedIndex={tabIndex} onSelect={(ind) => setTabIndex(ind)}>
             <TabList>
               <Tab>Customer</Tab>
@@ -167,18 +219,24 @@ export default function AddUnitModal({
             <TabPanel>{CustomerTable()}</TabPanel>
             <TabPanel>{AccountTable()}</TabPanel>
           </Tabs>
+        </ModalBody>
+        <ModalFooter>
           <Badge className="mx-2 text-md" type="success">
             Customer: {customer.customerName}
           </Badge>
           <Badge className="mx-2 text-md" type="success">
             Account : {account.accountName}
           </Badge>
-        </ModalBody>
-        <ModalFooter>
+
           <Button
             className="w-full sm:w-auto"
             // layout="outline"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+              // setRefresh(!refresh);
+
+              setAccounts([]);
+            }}
           >
             Select
           </Button>

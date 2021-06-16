@@ -327,7 +327,9 @@ function ViewCalls() {
           method: "POST",
           data: payload,
         });
-        // console.log(response.data.out);
+
+        console.log(response.data.out);
+
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
