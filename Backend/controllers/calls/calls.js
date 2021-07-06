@@ -73,7 +73,7 @@ exports.getCalls = async (req, res) => {
     };
   }
 
-  if (filters.callType != "") {
+  if (filters.callType && filters.callType != "") {
     filteroptions.callType = filters.callType;
   }
   if (filters.searchquery != "") {
