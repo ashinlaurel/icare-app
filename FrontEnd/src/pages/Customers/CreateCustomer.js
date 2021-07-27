@@ -131,7 +131,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
-      show_password:values.password
+      show_password: values.password,
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -190,7 +190,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
-      show_password:values.password  
+      show_password: values.password,
     };
     signup(newuser, `customer/${Emp.getId()}/signup`)
       .then((data) => {
@@ -234,7 +234,7 @@ function CreateCustomer() {
       contactNo: values.contactNo,
       altContact: values.altContact,
       whatsappNo: values.WhatsappNo,
-      show_password:values.password  
+      show_password: values.password,
     };
     unitCreate(payload)
       .then((data) => {
@@ -600,7 +600,14 @@ function CreateCustomer() {
               aria-haspopup="true"
               className="mt-4 mr-2"
             >
-              Select Associations
+              {Ucustomer.customerName === "" ? (
+                <>Select Associations</>
+              ) : (
+                <div className="flex ">
+                  <div>Customer: {Ucustomer.customerName}</div>
+                  <div className="ml-1">Account: {Uaccount.accountName}</div>
+                </div>
+              )}
             </Button>
           </>
         ) : null}
@@ -746,6 +753,7 @@ function CreateCustomer() {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setCustomer={setCustomer}
+        customer={Ucustomer}
       />
       <AddUnitModal
         isModalOpen={isUModalOpen}

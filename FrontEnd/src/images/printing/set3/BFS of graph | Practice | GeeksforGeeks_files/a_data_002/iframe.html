@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html data-darkreader-mode="dynamic" data-darkreader-scheme="dark"><head><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, #bit-notification-bar-iframe, embed[type="application/pdf"], img[src$="signin_tapyes.gif"] {
+    filter: invert(100%) hue-rotate(180deg) brightness(105%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}
+[data-darkreader-inline-stopcolor] {
+  stop-color: var(--darkreader-inline-stopcolor) !important;
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: #090c0d;
+   --darkreader-neutral-text: #ede8e2;
+   --darkreader-selection-background: #004cb8;
+   --darkreader-selection-text: #fffdf9;
+}</style><style class="darkreader darkreader--root-vars" media="screen"></style><script class="darkreader darkreader--proxy">(function injectProxy() {
+        document.dispatchEvent(new CustomEvent('__darkreader__inlineScriptsAllowed'));
+        const addRuleDescriptor = Object.getOwnPropertyDescriptor(CSSStyleSheet.prototype, 'addRule');
+        const insertRuleDescriptor = Object.getOwnPropertyDescriptor(CSSStyleSheet.prototype, 'insertRule');
+        const deleteRuleDescriptor = Object.getOwnPropertyDescriptor(CSSStyleSheet.prototype, 'deleteRule');
+        const removeRuleDescriptor = Object.getOwnPropertyDescriptor(CSSStyleSheet.prototype, 'removeRule');
+        const shouldWrapDocStyleSheets = location.hostname.endsWith('pushbullet.com') ||
+            location.hostname.endsWith('ilsole24ore.com') ||
+            location.hostname.endsWith('allegro.pl');
+        const documentStyleSheetsDescriptor = shouldWrapDocStyleSheets ? Object.getOwnPropertyDescriptor(Document.prototype, 'styleSheets') : null;
+        const cleanUp = () => {
+            Object.defineProperty(CSSStyleSheet.prototype, 'addRule', addRuleDescriptor);
+            Object.defineProperty(CSSStyleSheet.prototype, 'insertRule', insertRuleDescriptor);
+            Object.defineProperty(CSSStyleSheet.prototype, 'deleteRule', deleteRuleDescriptor);
+            Object.defineProperty(CSSStyleSheet.prototype, 'removeRule', removeRuleDescriptor);
+            document.removeEventListener('__darkreader__cleanUp', cleanUp);
+            document.removeEventListener('__darkreader__addUndefinedResolver', addUndefinedResolver);
+            if (shouldWrapDocStyleSheets) {
+                Object.defineProperty(Document.prototype, 'styleSheets', documentStyleSheetsDescriptor);
+            }
+        };
+        const addUndefinedResolver = (e) => {
+            customElements.whenDefined(e.detail.tag).then(() => {
+                document.dispatchEvent(new CustomEvent('__darkreader__isDefined', { detail: { tag: e.detail.tag } }));
+            });
+        };
+        document.addEventListener('__darkreader__cleanUp', cleanUp);
+        document.addEventListener('__darkreader__addUndefinedResolver', addUndefinedResolver);
+        const updateSheetEvent = new Event('__darkreader__updateSheet');
+        function proxyAddRule(selector, style, index) {
+            addRuleDescriptor.value.call(this, selector, style, index);
+            if (this.ownerNode && !this.ownerNode.classList.contains('darkreader')) {
+                this.ownerNode.dispatchEvent(updateSheetEvent);
+            }
+            return -1;
+        }
+        function proxyInsertRule(rule, index) {
+            const returnValue = insertRuleDescriptor.value.call(this, rule, index);
+            if (this.ownerNode && !this.ownerNode.classList.contains('darkreader')) {
+                this.ownerNode.dispatchEvent(updateSheetEvent);
+            }
+            return returnValue;
+        }
+        function proxyDeleteRule(index) {
+            deleteRuleDescriptor.value.call(this, index);
+            if (this.ownerNode && !this.ownerNode.classList.contains('darkreader')) {
+                this.ownerNode.dispatchEvent(updateSheetEvent);
+            }
+        }
+        function proxyRemoveRule(index) {
+            removeRuleDescriptor.value.call(this, index);
+            if (this.ownerNode && !this.ownerNode.classList.contains('darkreader')) {
+                this.ownerNode.dispatchEvent(updateSheetEvent);
+            }
+        }
+        function proxyDocumentStyleSheets() {
+            const docSheets = documentStyleSheetsDescriptor.get.call(this);
+            const filtered = [...docSheets].filter((styleSheet) => {
+                return !styleSheet.ownerNode.classList.contains('darkreader');
+            });
+            return Object.setPrototypeOf(filtered, StyleSheetList.prototype);
+        }
+        Object.defineProperty(CSSStyleSheet.prototype, 'addRule', Object.assign({}, addRuleDescriptor, { value: proxyAddRule }));
+        Object.defineProperty(CSSStyleSheet.prototype, 'insertRule', Object.assign({}, insertRuleDescriptor, { value: proxyInsertRule }));
+        Object.defineProperty(CSSStyleSheet.prototype, 'deleteRule', Object.assign({}, deleteRuleDescriptor, { value: proxyDeleteRule }));
+        Object.defineProperty(CSSStyleSheet.prototype, 'removeRule', Object.assign({}, removeRuleDescriptor, { value: proxyRemoveRule }));
+        if (shouldWrapDocStyleSheets) {
+            Object.defineProperty(Document.prototype, 'styleSheets', Object.assign({}, documentStyleSheetsDescriptor, { get: proxyDocumentStyleSheets }));
+        }
+    })()</script><style class="darkreader darkreader--user-agent" media="screen">input, textarea, select, button {
+    background-color: #0f1112;
+}
+html, body, input, textarea, select, button {
+    border-color: #786f60;
+    color: #fffdf9;
+}
+a {
+    color: #2e9bff;
+}
+table {
+    border-color: #545c60;
+}
+::placeholder {
+    color: #c1b9ad;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #555c00 !important;
+    color: #fffdf9 !important;
+}
+::-webkit-scrollbar {
+    background-color: #181c1d;
+    color: #b9b1a4;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #43494c;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #586064;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #464d51;
+}
+::-webkit-scrollbar-corner {
+    background-color: #0f1112;
+}
+* {
+    scrollbar-color: #43494c #181c1d;
+}
+::selection {
+    background-color: #004cb8 !important;
+    color: #fffdf9 !important;
+}
+::-moz-selection {
+    background-color: #004cb8 !important;
+    color: #fffdf9 !important;
+}</style><title></title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"><script src="iframe_data/1076821231-idpiframe.js" nonce=""></script><meta name="darkreader" content="d3f744dc344c744acc5d1c7ee9951145"><style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #815300 !important;
+    border-color: #edbe09 !important;
+    color: #ffffda !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+a[href="https://coinmarketcap.com/"] > svg[width="94"][height="16"] > path {
+    fill: var(--darkreader-neutral-text) !important;
+}
+#edge-translate-panel-body {
+    color: var(--darkreader-neutral-text) !important;
+}
+#countryList div[role="option"][data-value] > div > div > div[style] {
+    background-image: url('//ssl.gstatic.com/i18n/flags/48x32/nobevel/66bdb7a1bbbdbf86a67de382fac49ecc/flags.png') !important;
+}</style></head><body><script type="text/javascript" nonce="">lso.startIdpIFrame();</script></body></html>

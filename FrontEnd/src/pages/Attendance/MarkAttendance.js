@@ -57,6 +57,7 @@ function MarkAttendance() {
         // setErr({ ...err });
       });
   };
+
   const handleButton = async () => {
     let payload = {
       employee: Emp.getId(),
@@ -66,6 +67,7 @@ function MarkAttendance() {
       year: moment().format("YYYY"),
       monthDayCount: moment().daysInMonth(),
       today: {
+        timeOfMark: moment().format("hh:mm a"),
         date: moment().format("DD-MM-YY"),
         dayNo: moment().format("DD"),
         isPresent: "Present",
