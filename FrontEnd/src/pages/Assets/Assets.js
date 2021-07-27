@@ -163,7 +163,7 @@ function Assets() {
   };
 
   const downloadAssets = async () => {
-    let csv = `Product Type,Customer,Account,Unit,Business,Brand,Model,Serial Number,Operating System,`;
+    let csv = `Product Type,Customer,Account,Unit,Business,Brand,Model,Serial Number,Operating System,CPU Name-S.No,Ram Name-S.No,HDD Name-S.No,SMPS Name-S.No,Fan Name-S.No,MotherBoard Name-S.No,Optical Drive Name-S.No,Keyboard Name-S.No,Mouse Name-S.No,Monitor Name-S.No,Graphics Card Name-S.No,Enet Card Name-S.No,Serial Card Name-S.No,Parallel Card Name-S.No,HBA Card Name-S.No,Raid Controller Name-S.No,Tape Controller Name-S.No,Others Name-S.No, `;
 
     let array;
     let payload = {
@@ -196,10 +196,87 @@ function Assets() {
       throw error;
     }
     array.map((i) => {
+      let cpu = "";
+      i.product.cpu.map((j) => {
+        cpu = cpu + `[${j.cpuname}:${j.cpusno}] `;
+      });
+      let ram = "";
+      i.product.ram.map((j) => {
+        ram = ram + `[${j.ramname}:${j.ramsno}] `;
+      });
+      let hdd = "";
+      i.product.hdd.map((j) => {
+        hdd = hdd + `[${j.hddname}:${j.hddsno}] `;
+      });
+      let smps = "";
+      i.product.smps.map((j) => {
+        smps = smps + `[${j.smpsname}:${j.smpssno}] `;
+      });
+      let fan = "";
+      i.product.fan.map((j) => {
+        fan = fan + `[${j.fanname}:${j.fansno}] `;
+      });
+      let motherboard = "";
+      i.product.motherboard.map((j) => {
+        motherboard =
+          motherboard + `[${j.motherboardname}:${j.motherboardsno}] `;
+      });
+      let opticaldrive = "";
+      i.product.opticaldrive.map((j) => {
+        opticaldrive =
+          opticaldrive + `[${j.opticaldrivename}:${j.opticaldrivesno}] `;
+      });
+      let keyboard = "";
+      i.product.keyboard.map((j) => {
+        keyboard = keyboard + `[${j.keyboardname}:${j.keyboardsno}] `;
+      });
+      let mouse = "";
+      i.product.mouse.map((j) => {
+        mouse = mouse + `[${j.mousename}:${j.mousesno}] `;
+      });
+      let monitor = "";
+      i.product.monitor.map((j) => {
+        monitor = monitor + `[${j.monitorname}:${j.monitorsno}] `;
+      });
+      let gcard = "";
+      i.product.gcard.map((j) => {
+        gcard = gcard + `[${j.gcardname}:${j.gcardsno}] `;
+      });
+      let enetcard = "";
+      i.product.enetcard.map((j) => {
+        enetcard = enetcard + `[${j.enetcardname}:${j.enetcardsno}] `;
+      });
+      let serialcard = "";
+      i.product.serialcard.map((j) => {
+        serialcard = serialcard + `[${j.serialcardname}:${j.serialcardsno}] `;
+      });
+      let parallelcard = "";
+      i.product.parallelcard.map((j) => {
+        parallelcard =
+          parallelcard + `[${j.parallelcardname}:${j.parallelcardsno}] `;
+      });
+      let hbacard = "";
+      i.product.hbacard.map((j) => {
+        hbacard = hbacard + `[${j.hbacardname}:${j.hbacardsno}] `;
+      });
+      let raidcontroller = "";
+      i.product.raidcontroller.map((j) => {
+        raidcontroller =
+          raidcontroller + `[${j.raidcontrollername}:${j.raidcontrollersno}] `;
+      });
+      let tapecontroller = "";
+      i.product.tapecontroller.map((j) => {
+        tapecontroller =
+          tapecontroller + `[${j.tapecontrollername}:${j.tapecontrollersno}] `;
+      });
+      let others = "";
+      i.product.others.map((j) => {
+        others = others + `[${j.othersname}:${j.otherssno}] `;
+      });
       csv =
         csv +
         `
-  ${i.producttype},${i.customerName},${i.accountName},${i.unitName},${i.business},${i.product.brand},${i.product.model},${i.product.serialno} ,${i.product.os},`;
+  ${i.producttype},${i.customerName},${i.accountName},${i.unitName},${i.business},${i.product.brand},${i.product.model},${i.product.serialno} ,${i.product.os},${cpu}, ${ram}, ${hdd},${smps},${fan},${motherboard},${opticaldrive}, ${keyboard}, ${mouse}, ${monitor}, ${gcard}, ${enetcard}, ${serialcard}, ${parallelcard}, ${hbacard}, ${raidcontroller}, ${tapecontroller}, ${others}, `;
     });
     console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });

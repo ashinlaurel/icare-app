@@ -22,7 +22,7 @@ export default function ApplyLeave() {
   const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
-    setTopHeading("Create Item");
+    setTopHeading("Apply Leave");
     return () => {
       setTopHeading("");
     };
@@ -194,7 +194,7 @@ export default function ApplyLeave() {
           className="mt-4"
         >
           {" "}
-          Add Item
+          Submit Application
         </Button>
       </div>
     </div>
