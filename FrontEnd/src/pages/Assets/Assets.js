@@ -163,7 +163,7 @@ function Assets() {
   };
 
   const downloadAssets = async () => {
-    let csv = `Product Type,Customer,Account,Unit,Business,Brand,Model,Serial Number,Operating System,CPU Name-S.No,Ram Name-S.No,HDD Name-S.No,SMPS Name-S.No,Fan Name-S.No,MotherBoard Name-S.No,Optical Drive Name-S.No,Keyboard Name-S.No,Mouse Name-S.No,Monitor Name-S.No,Graphics Card Name-S.No,Enet Card Name-S.No,Serial Card Name-S.No,Parallel Card Name-S.No,HBA Card Name-S.No,Raid Controller Name-S.No,Tape Controller Name-S.No,Others Name-S.No, `;
+    let csv = `ProductType,Customer,Account,Unit,Business,Brand,Model,SerialNumber,OperatingSystem,CPU,Ram,HDD,SMPS,Fan,MotherBoard,OpticalDrive,Keyboard,Mouse,Monitor,GraphicsCard,EnetCard,SerialCard,ParallelCard,HBACard,RaidController,TapeController,Others,\n`;
 
     let array;
     let payload = {
@@ -196,87 +196,110 @@ function Assets() {
       throw error;
     }
     array.map((i) => {
-      let cpu = "";
+      let cpu = `"`;
       i.product.cpu.map((j) => {
-        cpu = cpu + `[${j.cpuname}:${j.cpusno}] `;
+        cpu = cpu + `${j.cpuname}: ${j.cpusno} `;
       });
-      let ram = "";
+      cpu = cpu + `."`;
+      let ram = `"`;
       i.product.ram.map((j) => {
-        ram = ram + `[${j.ramname}:${j.ramsno}] `;
+        ram = ram + `${j.ramname}: ${j.ramsno} `;
       });
-      let hdd = "";
+      ram = ram + `."`;
+      let hdd = `"`;
       i.product.hdd.map((j) => {
-        hdd = hdd + `[${j.hddname}:${j.hddsno}] `;
+        hdd = hdd + `${j.hddname}: ${j.hddsno} `;
       });
-      let smps = "";
+      hdd = hdd.replace(/"/g, '""');
+      hdd = hdd + `."`;
+      // hdd = hdd.replace(/\"|\n|\t|\r|\v/g, "");
+
+      let smps = `"`;
       i.product.smps.map((j) => {
-        smps = smps + `[${j.smpsname}:${j.smpssno}] `;
+        smps = smps + `${j.smpsname}: ${j.smpssno} `;
       });
-      let fan = "";
+      smps = smps + `."`;
+      let fan = `"`;
       i.product.fan.map((j) => {
-        fan = fan + `[${j.fanname}:${j.fansno}] `;
+        fan = fan + `${j.fanname}: ${j.fansno} `;
       });
-      let motherboard = "";
+      fan = fan + `."`;
+      let motherboard = `"`;
       i.product.motherboard.map((j) => {
         motherboard =
-          motherboard + `[${j.motherboardname}:${j.motherboardsno}] `;
+          motherboard + `${j.motherboardname}: ${j.motherboardsno} `;
       });
-      let opticaldrive = "";
+      motherboard = motherboard + `."`;
+      let opticaldrive = `"`;
       i.product.opticaldrive.map((j) => {
         opticaldrive =
-          opticaldrive + `[${j.opticaldrivename}:${j.opticaldrivesno}] `;
+          opticaldrive + `${j.opticaldrivename}: ${j.opticaldrivesno} `;
       });
-      let keyboard = "";
+      opticaldrive = opticaldrive + `."`;
+      let keyboard = `"`;
       i.product.keyboard.map((j) => {
-        keyboard = keyboard + `[${j.keyboardname}:${j.keyboardsno}] `;
+        keyboard = keyboard + `${j.keyboardname}: ${j.keyboardsno} `;
       });
-      let mouse = "";
+      keyboard = keyboard + `."`;
+      let mouse = `"`;
       i.product.mouse.map((j) => {
-        mouse = mouse + `[${j.mousename}:${j.mousesno}] `;
+        mouse = mouse + `${j.mousename}: ${j.mousesno} `;
       });
-      let monitor = "";
+      mouse = mouse + `."`;
+      let monitor = `"`;
       i.product.monitor.map((j) => {
-        monitor = monitor + `[${j.monitorname}:${j.monitorsno}] `;
+        monitor = monitor + `${j.monitorname}: ${j.monitorsno} `;
       });
-      let gcard = "";
+      monitor = monitor.replace(/"/g, '""');
+      monitor = monitor + `."`;
+
+      let gcard = `"`;
       i.product.gcard.map((j) => {
-        gcard = gcard + `[${j.gcardname}:${j.gcardsno}] `;
+        gcard = gcard + `${j.gcardname}: ${j.gcardsno} `;
       });
-      let enetcard = "";
+      gcard = gcard + `."`;
+      let enetcard = `"`;
       i.product.enetcard.map((j) => {
-        enetcard = enetcard + `[${j.enetcardname}:${j.enetcardsno}] `;
+        enetcard = enetcard + `${j.enetcardname}: ${j.enetcardsno} `;
       });
-      let serialcard = "";
+      enetcard = enetcard + `."`;
+      let serialcard = `"`;
       i.product.serialcard.map((j) => {
-        serialcard = serialcard + `[${j.serialcardname}:${j.serialcardsno}] `;
+        serialcard = serialcard + `${j.serialcardname}: ${j.serialcardsno} `;
       });
-      let parallelcard = "";
+      serialcard = serialcard + `."`;
+      let parallelcard = `"`;
       i.product.parallelcard.map((j) => {
         parallelcard =
-          parallelcard + `[${j.parallelcardname}:${j.parallelcardsno}] `;
+          parallelcard + `${j.parallelcardname}: ${j.parallelcardsno} `;
       });
-      let hbacard = "";
+      parallelcard = parallelcard + `."`;
+      parallelcard = parallelcard.replace(/undefined/g, "");
+      let hbacard = `"`;
       i.product.hbacard.map((j) => {
-        hbacard = hbacard + `[${j.hbacardname}:${j.hbacardsno}] `;
+        hbacard = hbacard + `${j.hbacardname}: ${j.hbacardsno} `;
       });
-      let raidcontroller = "";
+      hbacard = hbacard + `."`;
+      let raidcontroller = `"`;
       i.product.raidcontroller.map((j) => {
         raidcontroller =
-          raidcontroller + `[${j.raidcontrollername}:${j.raidcontrollersno}] `;
+          raidcontroller + `${j.raidcontrollername}: ${j.raidcontrollersno} `;
       });
-      let tapecontroller = "";
+      raidcontroller = raidcontroller + `."`;
+      let tapecontroller = `"`;
       i.product.tapecontroller.map((j) => {
         tapecontroller =
-          tapecontroller + `[${j.tapecontrollername}:${j.tapecontrollersno}] `;
+          tapecontroller + `${j.tapecontrollername}: ${j.tapecontrollersno} `;
       });
-      let others = "";
+      tapecontroller = tapecontroller + `."`;
+      let others = `"`;
       i.product.others.map((j) => {
-        others = others + `[${j.othersname}:${j.otherssno}] `;
+        others = others + `${j.othersname}: ${j.otherssno} `;
       });
+      others = others + `."`;
       csv =
         csv +
-        `
-  ${i.producttype},${i.customerName},${i.accountName},${i.unitName},${i.business},${i.product.brand},${i.product.model},${i.product.serialno} ,${i.product.os},${cpu}, ${ram}, ${hdd},${smps},${fan},${motherboard},${opticaldrive}, ${keyboard}, ${mouse}, ${monitor}, ${gcard}, ${enetcard}, ${serialcard}, ${parallelcard}, ${hbacard}, ${raidcontroller}, ${tapecontroller}, ${others}, `;
+        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product.brand}","${i.product.model}","${i.product.serialno}","${i.product.os}",${cpu},${ram},${hdd},${smps},${fan},${motherboard},${opticaldrive},${keyboard},${mouse},${monitor},${gcard},${enetcard},${serialcard},${parallelcard},${hbacard},${raidcontroller},${tapecontroller},${others},\n`;
     });
     console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
