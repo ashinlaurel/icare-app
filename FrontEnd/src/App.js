@@ -54,7 +54,7 @@ function App() {
           <Route path="/salarypdf/:id" component={SalaryPDF} />
           <Route path="/forgot-password" component={ForgotPassword} />
           {/* //admin */}
-          {/* <Route path="/admin/signup" component={AdminSignUp} /> */}
+          <Route path="/admin/signup" component={AdminSignUp} />
           <Route path="/admin/signin" component={AdminLogin} />
 
           {/* Place new routes over this */}

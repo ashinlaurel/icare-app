@@ -331,13 +331,11 @@ exports.getAllItems = (req, res) => {
       filteroptions.condition = filters.condition;
     }
   }
-  if (filters.searchquery != "") {
-    filteroptions.sno = fuzzyquery;
-  }
-
+ 
+let finalquery ={$and:[{$or:[{name:fuzzyquery},{sno:fuzzyquery}]},filteroptions]};
   // -----------------------------------------------------------------------
-
-  InvItem.paginate(filteroptions, options, function (err, result) {
+ 
+  InvItem.paginate(finalquery, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({
