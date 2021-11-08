@@ -585,13 +585,13 @@ function UpdateInventory() {
                     <option value="Ram">Ram</option>
                     <option value="Fan">Fan</option>
                     <option value="Motherboard">Motherboard</option>
-                    <option value="SMPS">SMPS</option>
-                    <option value="HDD">HDD</option>
-                    <option value="GCard">Gcard</option>
-                    <option value="EnetCard">Enet Card</option>
-                    <option value="SerialCard">Serial Card</option>
-                    <option value="ParalellCard">Paralell Card</option>
-                    <option value="OpticalDrive">Optical Drive</option>
+                    <option value="Smps">SMPS</option>
+                    <option value="Hdd">HDD</option>
+                    <option value="Gcard">Gcard</option>
+                    <option value="Enetcard">Enet Card</option>
+                    <option value="Serialcard">Serial Card</option>
+                    <option value="Paralellcard">Paralell Card</option>
+                    <option value="Opticalsrive">Optical Drive</option>
                     <option value="Others">Others</option>
                   </>
                 ) : (

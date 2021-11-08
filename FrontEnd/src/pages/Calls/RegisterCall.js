@@ -662,6 +662,8 @@ function RegisterCall() {
                     key={i}
                     onClick={() => {
                       setActiveRowId(user._id);
+                      getUnitDetails(user.unitId);
+                      // console.log("hereuser",user);
                       // console.log("the id is " + user._id);
                       setSelectedProd(user);
                       setAssetDetails(user);
@@ -783,6 +785,24 @@ function RegisterCall() {
     if (name == "date") {
       callNumberSetter(thedate);
     }
+  };
+// getting unit details to get phone ,email etc
+  const getUnitDetails = async (unitId) => {
+    
+    try {
+      let unitdata = await axios({
+        url: `${API}/unit/${Emp.getId()}/getbyid`,
+        method: "POST",
+        data: {id:unitId},
+      });
+      console.log("unitdata",unitdata.data);
+      let out= unitdata.data;
+      setValues({ ...values,contactPerson:out.contactPerson, phone:out.contactNo});
+      
+    } catch (error) {
+      throw error;
+    }
+    
   };
 
   const callNumberSetter = async (date) => {
