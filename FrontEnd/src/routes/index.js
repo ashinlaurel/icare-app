@@ -84,6 +84,8 @@ const VendorUpdate = lazy(() => import("../pages/Vendor/VendorUpdate"));
 // ------------------------------- LST Imports
 
 const LST = lazy(() => import("../pages/LST/LST"));
+const LSTUpdate = lazy(() => import("../pages/LST/LSTUpdate"));
+
 const LSTHistory = lazy(() => import("../pages/LST/LSTHistory"));
 
 // ------------------------------------ Engg
@@ -324,6 +326,10 @@ export const aroutes = [
   {
     path: "/lst",
     component: LST,
+  },
+  {
+    path: "/lst/update/:id",
+    component: LSTUpdate,
   },
   {
     path: "/lst/history",

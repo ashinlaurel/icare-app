@@ -105,7 +105,7 @@ exports.getAllItems = (req, res) => {
 
 exports.updateLST = async (req, res) => {
   let { id, update } = req.body;
-  // console.log(id, update);
+  console.log(id, update);
   try {
     let lst = await LST.findByIdAndUpdate(id, update, {
       safe: true,
@@ -114,6 +114,7 @@ exports.updateLST = async (req, res) => {
     return res.status(200).json({ lst });
   } catch (err) {
     // console.log(id);
+    console.log(err);
     return res.status(400).json({ error: err });
   }
 };

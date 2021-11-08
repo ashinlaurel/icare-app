@@ -324,6 +324,10 @@ exports.getAllItems = (req, res) => {
   if (filters.location != "") {
     filteroptions.location = filters.location;
   }
+  if (filters.stocktype != "") {
+    filteroptions.stocktype = filters.stocktype;
+  }
+
   if (filters.condition != "") {
     if (filters.condition == "Available") {
       filteroptions.condition = { $in: ["Good", "Bad"] };

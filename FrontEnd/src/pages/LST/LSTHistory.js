@@ -4,7 +4,7 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import { TrashIcon, DropdownIcon } from "../../icons";
+import { TrashIcon, DropdownIcon, EditIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import {
@@ -25,6 +25,7 @@ import { API } from "../../backendapi";
 import { TopBarContext } from "../../context/TopBarContext";
 import EmpProfile from "../../helpers/auth/EmpProfile";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+import { Link } from "react-router-dom";
 
 // import PrintLST from "./PrintLST";
 
@@ -708,6 +709,14 @@ function LSTHistory() {
                     </TableCell>
                     {EmpProfile.getRole() == 0 || EmpProfile.getRole() == 15 ? (
                       <TableCell className=" ">
+                        <Button layout="link" size="icon" aria-label="Edit">
+                          <Link
+                            key={user._id}
+                            to={`/app/lst/update/${user._id}`}
+                          >
+                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                          </Link>{" "}
+                        </Button>
                         <Button
                           layout="link"
                           size="icon"

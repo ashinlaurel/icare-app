@@ -37,8 +37,12 @@ import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 import { CloseIcon } from "../../icons";
+import { useParams, useHistory } from "react-router-dom";
 
 function LST() {
+  let { id } = useParams();
+  const history = useHistory();
+  // console.log(id);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
 
@@ -54,7 +58,8 @@ function LST() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [SelectedItems, setSelectedItems] = useState([]);
-  // dropdown and modals
+  const [initialSelectedItems, setinitialSelectedItems] = useState([]);
+  // dropdown [] modals
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,6 +110,41 @@ function LST() {
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+
+  const [customerName, setCustomerName] = useState("");
+  const [unitName, setUnitName] = useState("");
+  const [accountName, setAccountName] = useState("");
+
+  //GET LST DEETS
+  const getLST = async () => {
+    try {
+      let res = await axios.post(`${API}/lst/${Emp.getId()}/getbyid`, {
+        id: id,
+      });
+      console.log("lst", res.data);
+      setLSTtype(res.data.LSTtype);
+      setLocation(res.data.from);
+      setToLocation(res.data.to);
+      setLSTNo(res.data.LSTNo);
+      setDate(res.data.date);
+      setSelectedItems(res.data.invItems);
+      setinitialSelectedItems(res.data.invItems);
+      setCMRRValues(res.data.CMRRItems);
+      setCustomerName(res.data.customerName);
+      setAccountName(res.data.accountName);
+      setUnitName(res.data.unitName);
+
+      //asset
+    } catch (err) {
+      console.log("assetFind Error", err);
+    }
+  };
+
+  useEffect(() => {
+    getLST();
+  }, []);
+
+  ////////
 
   // CMRR
 
@@ -216,7 +256,7 @@ function LST() {
   // -------------------------------
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("LST");
+    setTopHeading("Edit LST");
     return () => {
       setTopHeading("");
     };
@@ -302,23 +342,23 @@ function LST() {
       setMessageModal(true);
       return;
     }
-    if (LSTtype == "Customer") {
-      if (customer._id == "") {
-        setModalMessage("Customer Not Selcted");
-        setMessageModal(true);
-        return;
-      }
-      if (account._id == "") {
-        setModalMessage("Account Not Selcted");
-        setMessageModal(true);
-        return;
-      }
-      if (unit._id == "") {
-        setModalMessage("Unit Not Selcted");
-        setMessageModal(true);
-        return;
-      }
-    }
+    // if (LSTtype == "Customer") {
+    //   if (customer._id == "") {
+    //     setModalMessage("Customer Not Selcted");
+    //     setMessageModal(true);
+    //     return;
+    //   }
+    //   if (account._id == "") {
+    //     setModalMessage("Account Not Selcted");
+    //     setMessageModal(true);
+    //     return;
+    //   }
+    //   if (unit._id == "") {
+    //     setModalMessage("Unit Not Selcted");
+    //     setMessageModal(true);
+    //     return;
+    //   }
+    // }
 
     let invIds = [];
     SelectedItems.map(async (item) => {
@@ -326,41 +366,32 @@ function LST() {
     });
 
     let lst = {
-      from: location,
-      to: toLocation,
-      LSTNo: LSTNo,
-      date: date,
       invItems: invIds,
-      status: "In Transit",
-      LSTtype: LSTtype,
     };
 
-    if (LSTtype == "Customer") {
-      lst.unitId = unit._id;
-      lst.unitName = unit.unitName;
-      lst.accountId = account._id;
-      lst.accountName = account.accountName;
-      lst.customerId = customer._id;
-      lst.customerName = customer.customerName;
-    }
-
-    if (selectedVendor._id != "") {
-      console.log("here");
-      lst.vendorId = selectedVendor._id;
-      lst.vendorName = selectedVendor.name;
-    }
     console.log("LST", lst);
 
     try {
       await axios({
-        url: `${API}/lst/${Emp.getId()}/create`,
+        url: `${API}/lst/${Emp.getId()}/update`,
         method: "POST",
-        data: lst,
+        data: { id: id, update: lst },
       });
       // setIsReviewModalOpen(true);
       //////////////////// UPDATE INVENTORY
+      let olditems = initialSelectedItems;
+      let newitems = SelectedItems;
+      // filter out items in newitems not in old items
+      let toremove = olditems.filter((item) => {
+        return !newitems.some((newitem) => newitem._id == item._id);
+      });
+      let toadd = newitems.filter((item) => {
+        return !olditems.some((olditem) => olditem._id == item._id);
+      });
+      console.log("toremove", toremove);
+      console.log("toadd", toadd);
 
-      SelectedItems.map(async (item) => {
+      toadd.map(async (item) => {
         // invIds.push(item._id);
         // ----history ---
         let newhistory = {
@@ -370,19 +401,21 @@ function LST() {
           callId: "Nil",
           assetId: "Nil",
           status: item.condition,
-          note: `Item sent from ${location} to ${toLocation}`,
+          note: `Item sent from ${location} to ${toLocation} (LST Edited on ${moment(
+            new Date()
+          ).format("DD/MM/YY")})`,
         };
         const data = {
           id: item._id,
           update: {
-            location: "In Transit",
+            location: "In transit",
             caseId: item.caseId,
             $push: { history: newhistory },
             LSTtype: LSTtype,
-            LSTCustomer: "",
+            // LSTCustomer: "",
           },
         };
-        if (LSTtype == "Customer") data.update.LSTCustomer = customer;
+        // if (LSTtype == "Customer") data.update.LSTCustomer = customer;
         console.log("PAYLOAD", data);
         try {
           await axios({
@@ -397,9 +430,50 @@ function LST() {
           throw error;
         }
       });
+      toremove.map(async (item) => {
+        // invIds.push(item._id);
+        // ----history ---
+        let newhistory = {
+          histtype: "lst",
+          date: date,
+          location: location,
+          callId: "Nil",
+          assetId: "Nil",
+          status: item.condition,
+          note: `Item Removed from LST (${LSTNo}) (LST Edited on ${moment(
+            new Date()
+          ).format("DD/MM/YY")})`,
+        };
+        const data = {
+          id: item._id,
+          update: {
+            location: location,
+            caseId: "Nil",
+            $push: { history: newhistory },
+            LSTtype: LSTtype,
+            LSTCustomer: "",
+          },
+        };
+        // if (LSTtype == "Customer") data.update.LSTCustomer = customer;
+        console.log("PAYLOAD", data);
+        try {
+          await axios({
+            url: `${API}/inventory/${Emp.getId()}/invupdate`,
+            method: "POST",
+            data: data,
+          });
+          // setIsReviewModalOpen(true);
+          console.log("Done");
+          // history.push("/lst");
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      });
 
       console.log("Done");
-      setModalMessage("LST Submitted");
+      setModalMessage("LST Saved!");
+      setTimeout(() => history.push("/app/lst/history"), 2000);
       // setLocation("")
       setToLocation("");
       setDate("");
@@ -430,9 +504,9 @@ function LST() {
     console.log("LST", lst);
     try {
       await axios({
-        url: `${API}/lst/${Emp.getId()}/create`,
+        url: `${API}/lst/${Emp.getId()}/update`,
         method: "POST",
-        data: lst,
+        data: { id: id, update: lst },
       });
       // setIsReviewModalOpen(true);
       console.log("Done");
@@ -1190,124 +1264,33 @@ function LST() {
       <div className=" mt-4">
         <div className="flex flex-row dark:text-white  ">
           <div className="mr-1 flex flex-row dark:text-white  ">
-            <div className="mx-1 my-1  "> Type</div>
+            <div className="mx-1 my-1  "> Type:</div>
             {/* -----------------------------------------CMRR ----------------------- */}
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={LSTtype}
-                onChange={(e) => {
-                  setLSTtype(e.target.value);
-                }}
-              >
-                {/* <option value="">All</option> */}
-                <option value="Normal" default selected>
-                  Normal
-                </option>
-                <option value="CMRR">CMRR</option>
-                <option value="Customer">Customer</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
+            <p className=" text-purple-300 font-semibold    my-auto">
+              {LSTtype}
+            </p>
           </div>
 
           <div className="mr-1 flex flex-row dark:text-white  ">
-            <div className="mx-1 my-1  ">From</div>
-            {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                  LSTNumberSetter(date, e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Location
-                </option>
-                {/* <option value="">All</option> */}
-                <option value="Trivandrum">Trivandrum</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-              </select>
+            <div className="mx-1 my-auto   ">From:</div>
 
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
+            {/* -----------------------------------------Location ----------------------- */}
+            <div class="relative mx-1 my-auto ">
+              {" "}
+              <p className=" text-purple-300 font-semibold    my-auto">
+                {location}
+              </p>
             </div>
           </div>
 
           <div className="flex flex-row dark:text-white  ">
-            <div className="mx-1 my-1 ">To</div>
+            <div className="mx-1 my-auto ">To:</div>
             {/* -----------------------------------------Location ----------------------- */}
-            <div class="relative mx-1 ">
-              {LSTtype == "Normal" || LSTtype == "Customer" ? (
-                <>
-                  <select
-                    class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                    value={toLocation}
-                    onChange={(e) => {
-                      setToLocation(e.target.value);
-                      setselectedVendor(defVendor);
-                      if (e.target.value == "Vendor") {
-                        setIsVendor(true);
-                      } else setIsVendor(false);
-                    }}
-                  >
-                    <option value="" disabled selected>
-                      Location
-                    </option>
-                    {/* <option value="">All</option> */}
-                    <option value="Trivandrum">Trivandrum</option>
-                    <option value="Kottayam">Kottayam</option>
-                    <option value="Kozhikode">Kozhikode</option>
-                    {LSTtype == "Normal" ? (
-                      <>
-                        <option value="Vendor">Vendor</option>
-                      </>
-                    ) : null}
-                  </select>
-                </>
-              ) : (
-                <>
-                  <select
-                    class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                    value={toLocation}
-                    onChange={(e) => {
-                      setToLocation(e.target.value);
-                      setselectedVendor(defVendor);
-                      if (e.target.value == "Vendor") {
-                        setIsVendor(true);
-                      } else setIsVendor(false);
-                    }}
-                  >
-                    <option value="" disabled selected>
-                      Location
-                    </option>
-                    {/* <option value="">All</option> */}
-                    <option value="Trivandrum">Trivandrum</option>
-                    <option value="Kottayam">Kottayam</option>
-                    <option value="Kozhikode">Kozhikode</option>
-                  </select>
-                </>
-              )}
-
+            <div class="relative mx-1 my-auto ">
+              {" "}
+              <p className=" text-purple-300 font-semibold    my-auto">
+                {toLocation}
+              </p>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
                   class="fill-current h-4 w-4"
@@ -1319,7 +1302,7 @@ function LST() {
               </div>
             </div>
           </div>
-          {isVendor ? (
+          {/* {isVendor ? (
             <div className="mx-1">
               <Button
                 layout="outline"
@@ -1329,14 +1312,14 @@ function LST() {
                 Select Vendor
               </Button>
             </div>
-          ) : null}
+          ) : null} */}
 
           {/* -----------------------------------------Location ----------------------- */}
 
           <div className="flex flex-row dark:text-white  ">
-            <div className=" my-2 ">Date</div>
-            <div class="relative mx-1 ">
-              <input
+            <div className=" my-auto ">Date: </div>
+            <div class="relative mx-1  my-auto ">
+              {/* <input
                 type="date"
                 value={date}
                 onChange={(e) => {
@@ -1345,47 +1328,38 @@ function LST() {
                 }}
                 placeholder="LST No."
                 class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-              />
+              /> */}
+              <p className=" text-purple-300 font-semibold my-auto ">
+                {moment(date).format("DD/MM/YY")}
+              </p>
             </div>
           </div>
-          <div className=" flex flex-row dark:text-white  ">
-            <div className=" mx-1 my-1 ">LST No.</div>
-            <div class="relative  ">
-              <input
-                value={LSTNo}
-                disabled
-                onChange={(e) => setLSTNo(e.target.value)}
-                // placeholder="LST No."
-                class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-1 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-              />
-            </div>
+          <div className=" flex flex-row dark:text-white   ">
+            <div className=" mx-1  my-auto ">LST No.</div>
+            <p className=" text-purple-300 font-semibold   my-auto">{LSTNo}</p>
           </div>
           {/* //submitCustomer */}
 
-          <div className="flex flex-row dark:text-white mx-5 ">
-            <Button onClick={updateInventory}>Submit</Button>
+          <div className="flex flex-row dark:text-white ml-auto  ">
+            <Button onClick={updateInventory} className="px-10">
+              Save
+            </Button>
           </div>
         </div>
         {LSTtype == "Customer" ? (
           <div className="flex flex-row dark:text-white  ">
             <div className=" flex flex-row dark:text-white mt-2 ">
-              <div className="flex items-center  space-x-3 my-3">
-                <Button
-                  onClick={() => setIsCustomerModalOpen(true)}
-                  aria-label="Notifications"
-                  aria-haspopup="true"
-                >
-                  Pick Customer
-                </Button>
-              </div>
-              {customer._id ? (
-                <>
-                  <div className="align-center my-auto mx-4">
-                    Customer: {customer.customerName} - Account:{" "}
-                    {account.accountName} - Unit: {unit.unitName}
-                  </div>
-                </>
-              ) : null}
+              Customer:{" "}
+              <span className="text-purple-300 font-semibold">
+                {" "}
+                {customerName}
+              </span>
+              , Account:{" "}
+              <span className="text-purple-300 font-semibold">
+                {accountName}
+              </span>
+              , Unit:{" "}
+              <span className="text-purple-300 font-semibold">{unitName}</span>
             </div>
           </div>
         ) : null}
