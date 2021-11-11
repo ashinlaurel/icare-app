@@ -108,7 +108,16 @@ exports.getCalls = async (req, res) => {
   }
   console.log(filteroptions);
 
-  Call.paginate(filteroptions, options, function (err, result) {
+  let dynamicStatus={};
+
+  if(filters.callStatus==""){
+   dynamicStatus ={callStatus:{$nin:[11,10]}};
+
+  }
+  let finalquery ={$and:[dynamicStatus,filteroptions]};
+
+
+  Call.paginate(finalquery, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({

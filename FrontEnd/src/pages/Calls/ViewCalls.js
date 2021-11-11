@@ -636,7 +636,7 @@ function ViewCalls() {
                 <option value="" disabled selected>
                   Call Status
                 </option>
-                <option value="">All</option>
+                <option value="">All (No Closed And Cancelled)</option>
                 <option selected value="0">
                   Pending For Allocation
                 </option>
