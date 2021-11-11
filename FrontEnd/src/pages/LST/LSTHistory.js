@@ -714,7 +714,10 @@ function LSTHistory() {
                             key={user._id}
                             to={`/app/lst/update/${user._id}`}
                           >
-                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                            <EditIcon
+                              className="w-5 h-5 mx-2"
+                              aria-hidden="true"
+                            />
                           </Link>{" "}
                         </Button>
                         <Button
