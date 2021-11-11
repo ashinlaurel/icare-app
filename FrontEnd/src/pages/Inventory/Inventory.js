@@ -618,7 +618,7 @@ function Inventory() {
                 }}
               >
                 <option value="" disabled selected>
-                  stock Type
+                  Stock Type
                 </option>
                 <option value="">All</option>
                 <option value="Purchased">Purchased</option>
