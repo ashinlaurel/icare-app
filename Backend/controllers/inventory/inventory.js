@@ -324,7 +324,7 @@ exports.getAllItems = (req, res) => {
   if (filters.location != "") {
     filteroptions.location = filters.location;
   }
-  if (filters.stocktype != "") {
+  if (filters.stocktype && filters.stocktype != "") {
     filteroptions.stocktype = filters.stocktype;
   }
 
@@ -335,11 +335,16 @@ exports.getAllItems = (req, res) => {
       filteroptions.condition = filters.condition;
     }
   }
+
+  if (filters.searchquery != "") {
+    filteroptions.sno = fuzzyquery;
+  }
+  // console.log(filteroptions);
  
 let finalquery ={$and:[{$or:[{name:fuzzyquery},{sno:fuzzyquery}]},filteroptions]};
   // -----------------------------------------------------------------------
  
-  InvItem.paginate(finalquery, options, function (err, result) {
+  InvItem.paginate( finalquery,options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({

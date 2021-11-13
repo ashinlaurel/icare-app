@@ -530,7 +530,7 @@ function UpdateCall() {
   useMemo(() => thegetter(listNumber), [invsearch]);
 
   async function thegetter(number) {
-    console.log("getter called");
+    console.log("getter called test");
     console.log(selectedItem);
     let payload = {
       pages: {

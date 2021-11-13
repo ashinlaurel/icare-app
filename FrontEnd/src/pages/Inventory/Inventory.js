@@ -480,7 +480,7 @@ function Inventory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, condition, type, refresh, stockType]);
+  }, [page, location, condition, type, refresh, stockType,searchquery]);
 
   console.log(selectedprod);
 
