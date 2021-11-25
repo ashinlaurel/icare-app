@@ -434,16 +434,13 @@ const CreateInvent = () => {
             <Select
               className="mt-1"
               // value={values[num].stocktype}
-              onChange={(e) => {
-                handleChange("stocktype");
-                // let newlist = [...values];
-                // newlist[num].stocktype = e.target.value;
-                // setValues(newlist);
-              }}
+              onChange={
+                handleChange("stocktype")}
             >
               <option value="" selected disabled>
                 Select Stock Type
               </option>
+              {/* <option value="">None</option> */}
               <option value="Purchased">Purchased</option>
               <option value="Serviced">Serviced</option>
             </Select>
