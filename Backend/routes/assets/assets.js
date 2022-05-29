@@ -12,6 +12,7 @@ const {
   countNosAssets,
   assetUpdateWithId,
   countAssetsByCustomer,
+  countAssetValue,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 const {
@@ -46,6 +47,7 @@ router.get("/count", countAssets);
 router.get("/countamc", countAmcAssets);
 router.get("/countwty", countWtyAssets);
 router.get("/countnos", countNosAssets);
+router.get("/countassetvalue", countAssetValue);
 router.post("/countbycustomer", countAssetsByCustomer);
 // -----------------------------------------------------
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getAssetById);

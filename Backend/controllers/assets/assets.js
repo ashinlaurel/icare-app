@@ -80,6 +80,41 @@ exports.countNosAssets = (req, res) => {
     return res.status(200).json(result);
   });
 };
+exports.countAssetValue = (req, res) => {
+  Asset.find({}, function (err, results) {
+    if (err) {
+      //handle error
+    }
+    let sum = 0;
+
+    results.map((asset) => {
+      // console.log(asset.amcrate);
+      if (asset.amcrate) {
+        sum += parseInt(asset.amcrate);
+      }
+    });
+    // console.log(sum);
+    // Explaination:
+    // reduce() accepts an array and a callback function.
+    // So, we are passing the array in "results"
+    // In the callback function, do not touch "memo" variable
+    // Every single object in "results" array will be passed
+    // to callback function in the "reading" variable
+    return res.status(200).json(sum);
+  });
+
+  // Asset.count({ business: "NOS" }, function (err, result) {
+  //   if (err) {
+  //     return res.status(400).json({
+  //       error: "Cant count nos assets",
+  //       err: err,
+  //     });
+  //   }
+  // console.log(result);
+  //   return res.status(200).json(sum);
+  // });
+  // return res.status(200).json(sum);
+};
 
 // -------------------------------------------------------
 
