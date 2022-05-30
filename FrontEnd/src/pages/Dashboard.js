@@ -73,6 +73,7 @@ function Dashboard() {
   const [wtyassetcount, setWtyAssetCount] = useState(0);
   const [nosassetcount, setNosAssetCount] = useState(0);
   const [unitcount, setUnitCount] = useState(0);
+  const [amccontracts, setAmcContracts] = useState(0); // unique PO numbers
   const [assetvalue, setAssetValue] = useState(0);
   // pagination setup
   const resultsPerPage = 10;
@@ -144,10 +145,15 @@ function Dashboard() {
           url: `${API}/asset/countnos`,
           method: "GET",
         });
-        let tassetvalue = await axios({
-          url: `${API}/asset/countassetvalue`,
-          method: "GET",
-        });
+        // temporarily not calling these functions
+        // let tamccontract = await axios({
+        //   url: `${API}/asset/countamccontract`,
+        //   method: "GET",
+        // });
+        // let tassetvalue = await axios({
+        //   url: `${API}/asset/countassetvalue`,
+        //   method: "GET",
+        // });
         let tunitcount = await axios({
           url: `${API}/unit/count`,
           method: "GET",
@@ -159,7 +165,8 @@ function Dashboard() {
         setWtyAssetCount(twtyassetcount.data);
         setNosAssetCount(tnosassetcount.data);
         setUnitCount(tunitcount.data);
-        setAssetValue(tassetvalue.data);
+        // setAmcContracts(tamccontract.data);
+        // setAssetValue(tassetvalue.data);
       } catch (error) {
         throw error;
       }
@@ -252,7 +259,7 @@ function Dashboard() {
             className="mr-4"
           />
         </InfoCard>
-        <ValueCard title="Total Value" value={assetvalue}>
+        <ValueCard title="Total Value" value="0">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
