@@ -37,7 +37,6 @@ import EmpProfile from "../../helpers/auth/EmpProfile";
 
 function Notifications() {
   // table variable styles
-  const [activerowid, setActiveRowId] = useState(0);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -406,13 +405,13 @@ function Notifications() {
                     {data[num].invItems.map((user, i) => (
                       <TableRow
                         className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                          activerowid == user._id
+                          activeRowID == user._id
                             ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                             : "white"
                         } `}
                         key={i}
                         onClick={() => {
-                          setActiveRowId(user._id);
+                          setActiveRowID(user._id);
                           // console.log("the id is " + user._id);
                           // setSelectedProd(user);
                           // setAssetDetails(user);
@@ -814,13 +813,13 @@ function Notifications() {
                 <div className="flex flex-col justify-around">
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      activerowid == user._id
+                      activeRowID == user._id
                         ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                         : "white"
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowId(i);
+                      // setActiveRowID(i);
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
@@ -883,13 +882,13 @@ function Notifications() {
                         size="icon"
                         aria-label="DropDown"
                         onClick={() => {
-                          console.log(activerowid);
-                          // if(activerowid==i){
-
-                          // setActiveRowID(-1);
-                          // }
-                          // else
-                          setActiveRowID(i);
+                          console.log(activeRowID);
+                          console.log(i);
+                          if (activeRowID == i) {
+                            setActiveRowID(-1);
+                          } else {
+                            setActiveRowID(i);
+                          }
                         }}
                         className="rounded-lg m-1"
                       >

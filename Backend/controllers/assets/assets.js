@@ -80,6 +80,16 @@ exports.countNosAssets = (req, res) => {
     return res.status(200).json(result);
   });
 };
+
+exports.countAmcContract = (req, res) => {
+  Asset.distinct("ponumber")
+    .count()
+    .exec(function (err, count) {
+      // console.log("The number of unique users is: %d", count);
+      return res.status(200).json(count);
+    });
+};
+
 exports.countAssetValue = (req, res) => {
   Asset.find({}, function (err, results) {
     if (err) {
@@ -93,13 +103,7 @@ exports.countAssetValue = (req, res) => {
         sum += parseInt(asset.amcrate);
       }
     });
-    // console.log(sum);
-    // Explaination:
-    // reduce() accepts an array and a callback function.
-    // So, we are passing the array in "results"
-    // In the callback function, do not touch "memo" variable
-    // Every single object in "results" array will be passed
-    // to callback function in the "reading" variable
+
     return res.status(200).json(sum);
   });
 
