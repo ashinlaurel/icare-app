@@ -32,7 +32,6 @@ import { TopBarContext } from "../../context/TopBarContext";
 
 function PurchaseHistory() {
   // table variable styles
-  // const [activerowid, setActiveRowId] = useState(0);
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -387,7 +386,7 @@ function PurchaseHistory() {
                     } `}
                     key={i}
                     onClick={() => {
-                      setActiveRowID(i);
+                      // setActiveRowID(i);
                       // console.log("the id is " + user._id);
                       // setSelectedProd(user);
                       // setAssetDetails(user);
