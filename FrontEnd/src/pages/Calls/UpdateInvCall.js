@@ -36,7 +36,7 @@ import { useMemo } from "react";
 import { TopBarContext } from "../../context/TopBarContext";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
-function UpdateCall() {
+function UpdateInvCall() {
   // floatbox
   let movehistory = useHistory();
   const params = useParams();
@@ -825,52 +825,52 @@ function UpdateCall() {
                         </TableCell>
                         <TableCell>
                           <span>
-                            {entry.callStatus == 0 ? (
+                            {call.callStatus == 0 ? (
                               <Badge>Pending For Allocation</Badge>
                             ) : null}
-                            {entry.callStatus == 1 ? (
+                            {call.callStatus == 1 ? (
                               <Badge>Pending for Percall Approval</Badge>
                             ) : null}
-                            {entry.callStatus == 2 ? (
+                            {call.callStatus == 2 ? (
                               <Badge>Pending for Response</Badge>
                             ) : null}
-                            {entry.callStatus == 3 ? (
+                            {call.callStatus == 3 ? (
                               <Badge>Pending for OEM Response</Badge>
                             ) : null}
-                            {entry.callStatus == 4 ? (
+                            {call.callStatus == 4 ? (
                               <Badge>Pending for 2nd Response</Badge>
                             ) : null}
-                            {entry.callStatus == 5 ? (
+                            {call.callStatus == 5 ? (
                               <Badge>Pending for Customer</Badge>
                             ) : null}
-                            {entry.callStatus == 6 ? (
+                            {call.callStatus == 6 ? (
                               <Badge>Under Observation</Badge>
                             ) : null}
-                            {entry.callStatus == 7 ? (
+                            {call.callStatus == 7 ? (
                               <Badge>Pending for Others</Badge>
                             ) : null}
-                            {entry.callStatus == 8 ? (
+                            {call.callStatus == 8 ? (
                               <Badge>Pending for Spare</Badge>
                             ) : null}
-                            {entry.callStatus == 9 ? (
+                            {call.callStatus == 9 ? (
                               <Badge>Spare in Transit</Badge>
                             ) : null}
-                            {entry.callStatus == 10 ? (
+                            {call.callStatus == 10 ? (
                               <Badge>Cancelled Calls</Badge>
                             ) : null}
-                            {entry.callStatus == 11 ? (
+                            {call.callStatus == 11 ? (
                               <Badge>Closed Calls</Badge>
                             ) : null}
-                            {entry.callStatus == 12 ? (
+                            {call.callStatus == 12 ? (
                               <Badge>Spare Taken CMRR</Badge>
                             ) : null}
-                            {entry.callStatus == 13 ? (
+                            {call.callStatus == 13 ? (
                               <Badge>Pending For Spare Collection</Badge>
                             ) : null}
-                            {entry.callStatus == 14 ? (
+                            {call.callStatus == 14 ? (
                               <Badge>Standby Given</Badge>
                             ) : null}
-                            {entry.callStatus == 15 ? (
+                            {call.callStatus == 15 ? (
                               <Badge>Pending For Verification</Badge>
                             ) : null}
                           </span>
@@ -1214,9 +1214,9 @@ function UpdateCall() {
 
     // ------- Handling the swaps -----------
 
-    for (let i = 0; i < existswap.length; i++) {
-      await handleSwap(i);
-    }
+    // for (let i = 0; i < existswap.length; i++) {
+    //   await handleSwap(i);
+    // }
 
     // ----- history --------
 
@@ -1732,7 +1732,7 @@ function UpdateCall() {
           {/* /////////////////////////////// . Update  ///////////////////////////////////////////// */}
           <div className="flex flex-col w-3/4">
             <Label className="w-full">
-              <span>Status Update</span>
+              <span>Status Update </span>
               <Select
                 className="inline"
                 onChange={(e) => {
@@ -2574,17 +2574,7 @@ function UpdateCall() {
           </Button>
           {/* <Button
             onClick={() => {
-              // console.log(selectedItem);
-              // console.log(activeRowID);
-              // console.log(secondactiveRowID);
-              // console.log(data);
-              console.log(existswap);
-              console.log(inventswap);
-              // console.log(imageIndex);
-              // console.log(goodSpareImgUrl);
-              // console.log(defectiveImgUrl);
-
-              // console.log(selectedItem);
+            
               // console.log(existswap.length);
             }}
             layout="outline"
@@ -2598,4 +2588,4 @@ function UpdateCall() {
   );
 }
 
-export default UpdateCall;
+export default UpdateInvCall;

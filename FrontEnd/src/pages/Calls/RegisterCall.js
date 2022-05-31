@@ -786,23 +786,24 @@ function RegisterCall() {
       callNumberSetter(thedate);
     }
   };
-// getting unit details to get phone ,email etc
+  // getting unit details to get phone ,email etc
   const getUnitDetails = async (unitId) => {
-    
     try {
       let unitdata = await axios({
         url: `${API}/unit/${Emp.getId()}/getbyid`,
         method: "POST",
-        data: {id:unitId},
+        data: { id: unitId },
       });
-      console.log("unitdata",unitdata.data);
-      let out= unitdata.data;
-      setValues({ ...values,contactPerson:out.contactPerson, phone:out.contactNo});
-      
+      console.log("unitdata", unitdata.data);
+      let out = unitdata.data;
+      setValues({
+        ...values,
+        contactPerson: out.contactPerson,
+        phone: out.contactNo,
+      });
     } catch (error) {
       throw error;
     }
-    
   };
 
   const callNumberSetter = async (date) => {
@@ -847,7 +848,11 @@ function RegisterCall() {
 
       let thestring = year + month + day + callnumber;
       setValues({ ...values, callNo: thestring, date: date });
-    } else if (values.callType == "internal") {
+    } else if (
+      values.callType == "internal" ||
+      values.callType == "internalinv"
+    ) {
+      console.log("im here");
       if (callnumber < 10) {
         callnumber = "00" + callnumber;
       } else if (callnumber >= 10 && callnumber < 100) {
@@ -1049,6 +1054,7 @@ function RegisterCall() {
                       Call Type
                     </option>
                     <option value="internal">Internal</option>
+                    <option value="internalinv">Internal Inventory</option>
                     <option value="external">External</option>
                   </select>
 

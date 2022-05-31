@@ -7,16 +7,7 @@ import Emp from "../../helpers/auth/EmpProfile";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
 import PageTitle from "../../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  ButtonsIcon,
-  HeartIcon,
-  EditIcon,
-  TrashIcon,
-} from "../../icons";
+import { MenuIcon, EditIcon, TrashIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import RoundIcon from "../../components/RoundIcon";
 import response from "../../utils/demo/tableData";
@@ -83,6 +74,10 @@ function Assets() {
   const [searchlabel, setSearchLabel] = useState("");
   const [searchquery, setSearchQuery] = useState("");
 
+  // asset history
+  const [assethistory, setAssetHistory] = useState([]);
+  const [assethistoryModalOpen, setAssetHistoryModalOpen] = useState(false);
+
   // Getting data states
 
   // pagination setup
@@ -96,6 +91,171 @@ function Assets() {
   function onPageChange(p) {
     setPage(p);
   }
+  const AssetHistoryModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={assethistoryModalOpen}
+          onClose={() => setAssetHistoryModalOpen(false)}
+          className="w-9/12 dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+            {/* <div>{item.name}</div> */}
+            {/* <div>
+                Asset Serial: <Badge>{}</Badge>{" "}
+              </div> */}
+          </ModalHeader>
+          <ModalBody>
+            <div className="font-semibold text-xl my-2">Asset History</div>
+            {/* ------------------------- Table ------------------------------ */}
+            <TableContainer className="mt-4">
+              <Table>
+                <TableHeader>
+                  <tr>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Engineer</TableCell>
+                    <TableCell>Attended Date</TableCell>
+                    <TableCell>Start Of Service</TableCell>
+                    <TableCell>End Of Service</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Notes</TableCell>
+                    <TableCell>Action Taken</TableCell>
+                    <TableCell>Images</TableCell>
+                  </tr>
+                </TableHeader>
+                <TableBody>
+                  {assethistory.map((entry, i) => (
+                    <TableRow
+                      className={`hover:shadow-lg dark:hover:bg-gray-600 
+                       `}
+                      key={i}
+                      onClick={() => {
+                        // setActiveRowId(user._id);
+                        // console.log("the id is " + user._id);
+                        // setSelectedProd(user);
+                        // setAssetDetails(user);
+                        // console.log(user.product.keyboard[0].keyboardname);
+                      }}
+                    >
+                      <TableCell className="w-8">
+                        <div className="flex items-center text-sm ">
+                          <div>
+                            <p className="font-semibold">
+                              {moment(entry.date).format("DD-MM-YYYY")}
+                            </p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">
+                          {capitalize(entry.engineer)}
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span className="text-sm">{entry.callAttendDate}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{entry.startOfService}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{entry.endOfService}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span>
+                          {entry.callStatus == 0 ? (
+                            <Badge>Pending For Allocation</Badge>
+                          ) : null}
+                          {entry.callStatus == 1 ? (
+                            <Badge>Pending for Percall Approval</Badge>
+                          ) : null}
+                          {entry.callStatus == 2 ? (
+                            <Badge>Pending for Response</Badge>
+                          ) : null}
+                          {entry.callStatus == 3 ? (
+                            <Badge>Pending for OEM Response</Badge>
+                          ) : null}
+                          {entry.callStatus == 4 ? (
+                            <Badge>Pending for 2nd Response</Badge>
+                          ) : null}
+                          {entry.callStatus == 5 ? (
+                            <Badge>Pending for Customer</Badge>
+                          ) : null}
+                          {entry.callStatus == 6 ? (
+                            <Badge>Under Observation</Badge>
+                          ) : null}
+                          {entry.callStatus == 7 ? (
+                            <Badge>Pending for Others</Badge>
+                          ) : null}
+                          {entry.callStatus == 8 ? (
+                            <Badge>Pending for Spare</Badge>
+                          ) : null}
+                          {entry.callStatus == 9 ? (
+                            <Badge>Spare in Transit</Badge>
+                          ) : null}
+                          {entry.callStatus == 10 ? (
+                            <Badge>Cancelled Calls</Badge>
+                          ) : null}
+                          {entry.callStatus == 11 ? (
+                            <Badge>Closed Calls</Badge>
+                          ) : null}
+                          {entry.callStatus == 12 ? (
+                            <Badge>Spare Taken CMRR</Badge>
+                          ) : null}
+                          {entry.callStatus == 13 ? (
+                            <Badge>Pending For Spare Collection</Badge>
+                          ) : null}
+                          {entry.callStatus == 14 ? (
+                            <Badge>Standby Given</Badge>
+                          ) : null}
+                          {entry.callStatus == 15 ? (
+                            <Badge>Pending For Verification</Badge>
+                          ) : null}
+                        </span>
+                      </TableCell>
+                      <TableCell className="flex flex-row max-w-sm">
+                        <span className="w-full overflow-auto">
+                          {entry.note}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{entry.actionTaken}</span>
+                      </TableCell>
+                      <TableCell>
+                        {/* <Button
+                            layout="outline"
+                            onClick={() => {
+                              if (entry.newUrl)
+                                setGoodSpareHistoryImg(entry.newUrl);
+                              if (entry.existUrl)
+                                setDefectiveHistoryImg(entry.existUrl);
+                              if (entry.ccfrImgUrl)
+                                setCcfrHistoryImg(entry.ccfrImgUrl);
+                              setIsHistoryImgViewModal(true);
+                            }}
+                          >
+                            Show
+                          </Button> */}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {/* <TableFooter>
+                  <Pagination
+                    totalResults={totalResults}
+                    resultsPerPage={resultsPerPage}
+                    label="Table navigation"
+                    onChange={onPageChange}
+                  />
+                </TableFooter> */}
+            </TableContainer>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </Modal>
+      </>
+    );
+  };
 
   const DeleteModal = () => {
     return (
@@ -381,7 +541,7 @@ function Assets() {
 
   return (
     <>
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
+      {/* ---------------------Modals----------------------------------------- */}
       <CustomerSelection
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
@@ -394,6 +554,7 @@ function Assets() {
         refresh={refresh}
         setRefresh={setRefresh}
       />
+      {AssetHistoryModal()}
       {DeleteModal()}
       {DwnldModal()}
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
@@ -948,6 +1109,18 @@ function Assets() {
                           <TrashIcon className="w-5 h-5" aria-hidden="true" />
                         </Button>
                       )}
+                      <Button
+                        onClick={() => {
+                          console.log("hellloo", data[i].product.history);
+                          setAssetHistory(data[i].product.history);
+                          setAssetHistoryModalOpen(true);
+                        }}
+                        layout="link"
+                        size="icon"
+                        aria-label="Edit"
+                      >
+                        <MenuIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
                       {/* <div>
             <Button className="mx-3 mt02">
               {" "}

@@ -108,14 +108,12 @@ exports.getCalls = async (req, res) => {
   }
   console.log(filteroptions);
 
-  let dynamicStatus={};
+  let dynamicStatus = {};
 
-  if(filters.callStatus==""){
-   dynamicStatus ={callStatus:{$nin:[11,10]}};
-
+  if (filters.callStatus == "") {
+    dynamicStatus = { callStatus: { $nin: [11, 10] } };
   }
-  let finalquery ={$and:[dynamicStatus,filteroptions]};
-
+  let finalquery = { $and: [dynamicStatus, filteroptions] };
 
   Call.paginate(finalquery, options, function (err, result) {
     // console.log(result);
@@ -372,9 +370,12 @@ exports.countCallsByDate = (req, res) => {
       // console.log(result);
       return res.status(200).json(result);
     });
-  } else if (callType == "internal") {
+  } else if (callType == "internal" || callType == "internalinv") {
     Call.count(
-      { callType: "internal", date: { $gte: startdate, $lte: enddate } },
+      {
+        callType: { $in: ["internal", "internalinv"] },
+        date: { $gte: startdate, $lte: enddate },
+      },
       function (err, result) {
         if (err) {
           return res.status(400).json({

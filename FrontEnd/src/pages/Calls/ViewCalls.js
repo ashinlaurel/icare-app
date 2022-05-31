@@ -615,6 +615,7 @@ function ViewCalls() {
                 </option>
                 <option value="">All</option>
                 <option value="internal">Internal</option>
+                <option value="internalinv">Internal Inv</option>
                 <option value="external">External</option>
               </select>
 
@@ -895,7 +896,11 @@ function ViewCalls() {
                     <div className="flex justify-start items-center space-x-2">
                       <Link
                         key={call._id}
-                        to={`/app/call/updatecall/${call._id}/${call.assetId._id}`}
+                        to={
+                          call.callType == "internalinv"
+                            ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
+                            : `/app/call/updatecall/${call._id}/${call.assetId._id}`
+                        }
                       >
                         <Button
                           layout="outline"
