@@ -505,6 +505,9 @@ function ViewCalls() {
                             {entry.callStatus == 14 ? (
                               <Badge>Standby Given</Badge>
                             ) : null}
+                            {entry.callStatus == 15 ? (
+                              <Badge>Pending For Verification</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -653,6 +656,7 @@ function ViewCalls() {
                 <option value="14"> Standby Given</option>
                 <option value="9">Spare in Transit</option>
                 <option value="10">Cancelled Calls</option>
+                <option value="15">Pending For Verification</option>
                 <option value="11">Closed Calls</option>
                 {/* <option value="-1">Allocated</option> */}
               </select>
@@ -801,6 +805,9 @@ function ViewCalls() {
                       ) : null}
                       {call.callStatus == 14 ? (
                         <Badge>Standby Given</Badge>
+                      ) : null}
+                      {call.callStatus == 15 ? (
+                        <Badge>Pending For Verification</Badge>
                       ) : null}
                     </span>
                   </TableCell>

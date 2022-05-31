@@ -693,6 +693,9 @@ function UpdateCall() {
                             {call.callStatus == 14 ? (
                               <Badge>Standby Given</Badge>
                             ) : null}
+                            {call.callStatus == 15 ? (
+                              <Badge>Pending For Verification</Badge>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell className="flex flex-row max-w-sm">
@@ -866,6 +869,9 @@ function UpdateCall() {
                             ) : null}
                             {call.callStatus == 14 ? (
                               <Badge>Standby Given</Badge>
+                            ) : null}
+                            {call.callStatus == 15 ? (
+                              <Badge>Pending For Verification</Badge>
                             ) : null}
                           </span>
                         </TableCell>
@@ -1202,6 +1208,9 @@ function UpdateCall() {
     if (call.callStatus == 14) {
       tempcallstatus = "Standby Given";
     }
+    if (call.callStatus == 15) {
+      tempcallstatus = "Pending For Verification";
+    }
 
     // ------- Handling the swaps -----------
 
@@ -1435,6 +1444,9 @@ function UpdateCall() {
                 <Badge>Pending For Spare Collection</Badge>
               ) : null}
               {call.callStatus == 14 ? <Badge>Standby Given</Badge> : null}
+              {call.callStatus == 15 ? (
+                <Badge>Pending For Verification</Badge>
+              ) : null}
             </span>
           </div>
         </div>
@@ -1746,6 +1758,7 @@ function UpdateCall() {
                 <option value="14"> Standby Given</option>
                 <option value="9"> Spare in Transit</option>
                 <option value="10"> Cancelled Calls</option>
+                <option value="15"> Pending For Verification</option>
                 <option value="11"> Closed Calls</option>
               </Select>
             </Label>

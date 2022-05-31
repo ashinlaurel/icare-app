@@ -590,6 +590,9 @@ function AssignEng() {
                     {call.callStatus == 14 ? (
                       <span className="text-sm">Standby Given</span>
                     ) : null}
+                    {call.callStatus == 15 ? (
+                      <span className="text-sm">Pending For Verification</span>
+                    ) : null}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center justify-center">
