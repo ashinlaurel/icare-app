@@ -125,13 +125,13 @@ function UpdateInvCall() {
   // table variable styles
 
   const [activeRowID, setActiveRowID] = useState([-1]);
-  const [secondactiveRowID, setSecondactiveRowID] = useState([-1]);
+  //   const [secondactiveRowID, setSecondactiveRowID] = useState([-1]);
 
   // ---------------New States------------
   // const [itemtype, setItemtype] = useState(""); //Full system vs item
-  const [selectedItem, setSelectedItem] = useState([""]); //the selected item category
-  const [data, setData] = useState([{}]); //for first table expansion
-  const [inventdata, setInventData] = useState([{}]); //for second table expansion
+  const [selectedItem, setSelectedItem] = useState(""); //the selected item category
+  const [inventdata, setInventData] = useState([{}]); // state to hold inventory searched
+  const [addedinv, setAddedInv] = useState([]); // state to hold inventory attatched to the current call
   const [existswap, setExistswap] = useState([
     {
       name: "Not Selected",
@@ -475,7 +475,7 @@ function UpdateInvCall() {
 
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("Update Call");
+    setTopHeading("Update Inventory Call");
     return () => {
       setTopHeading("");
     };
@@ -502,50 +502,29 @@ function UpdateInvCall() {
   const [endOfService, setEndOfService] = useState("");
   const [actionTaken, setActionTaken] = useState("");
 
-  const dataSetter = (obj, number) => {
-    let temp = [...obj];
-    let thetype = selectedItem[number].toLowerCase();
-    let theitemandsystem = "item";
-
-    obj.map((item, i) => {
-      item.name = item[`${thetype}name`];
-      item.sno = item[`${thetype}sno`];
-      item.type = thetype;
-      item.condition = "Bad";
-      item.systype = theitemandsystem;
-    });
-
-    console.log(temp);
-
-    let tempdata = [...data];
-    tempdata[number] = obj;
-    setData(tempdata);
-  };
-
   // -----use effect to pull new inventory list according to filters
-  // useEffect(() => {
-  //   thegetter();
-  // }, [selectedItem]);
+  useEffect(() => {
+    thegetter();
+  }, [selectedItem, invsearch]);
 
-  useMemo(() => thegetter(listNumber), [invsearch]);
+  //   useMemo(() => thegetter(), [invsearch]);
 
-  async function thegetter(number) {
-    console.log("getter called test");
-    console.log(selectedItem);
+  async function thegetter() {
+    // console.log("getter called test");
+    console.log("type is", selectedItem);
     let payload = {
       pages: {
         page: page,
-        limit: 1000000,
+        limit: 5,
       },
       filters: {
-        type: selectedItem[number].toLowerCase(),
-        location: location,
-        condition: "Good",
+        type: selectedItem.toLowerCase(),
+        location: "",
+        condition: "",
         // searchtype: invsearch,
         searchquery: invsearch,
       },
     };
-    // console.log(`${API}/asset/${Emp.getId()}/getall`);
 
     try {
       let response = await axios({
@@ -553,19 +532,88 @@ function UpdateInvCall() {
         method: "POST",
         data: payload,
       });
-      // console.log(response.data.out);
-      // setTotalResults(response.data.total);
-      // const { total, data } = response.data;
-      // console.log(data + "Now");
-
-      let tempinvent = inventdata;
-      tempinvent[number] = response.data.out;
-      await setInventData(tempinvent);
-      console.log(tempinvent[number]);
+      console.log("this is the data", response.data.out);
+      setInventData(response.data.out);
     } catch (error) {
       throw error;
     }
   }
+
+  const InventoryTypeSelector = () => {
+    return (
+      <div className="my-5">
+        <div className="text-sm font-bold dark:text-white ">
+          Add Inventory To Call
+        </div>
+        {/* -----Type Selection---- */}
+        <div className="flex flex-row items-center">
+          {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
+          <div className="mt-1 flex flex-row items-center justify-start w-full ">
+            {/* ---------------------------Product Drop Down-------------------------------------- */}
+
+            <div className="w-1/4">
+              <Select
+                onChange={(e) => {
+                  setSelectedItem(e.target.value);
+                }}
+                className="mt-1 "
+              >
+                <option value="" selected disabled>
+                  Pick Item
+                </option>
+                <option value="Mouse">Mouse</option>
+                <option value="Keyboard">Keyboard</option>
+                <option value="Monitor">Monitor</option>
+                <option value="Cpu">Cpu</option>
+                <option value="Ram">Ram</option>
+                <option value="Fan">Fan</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="SMPS">SMPS</option>
+                <option value="HDD">HDD</option>
+                <option value="Gcard">Gcard</option>
+                <option value="EnetCard">EnetCard</option>
+                <option value="SerialCard">SerialCard</option>
+                <option value="ParalellCard">ParalellCard</option>
+                <option value="OpticalDrive">OpticalDrive</option>
+                <option value="Others">Others</option>
+              </Select>
+            </div>
+
+            {/* {existswap[number]._id ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400 ml-2"
+                onClick={() => {
+                  setImageUploadMenuMessage("defective");
+                  //   setimageIndex(number);
+                  setIsImgUploadMenuModal(true);
+                }}
+              >
+                {defectiveImgUrl == ""
+                  ? "Upload Defective Spare"
+                  : "Uploaded Defective Spare"}
+              </Button>
+            ) : null}
+            {inventswap[number]._id ? (
+              <Button
+                layout="outline"
+                className="dark:border-green-700 border-green-400 ml-2"
+                onClick={() => {
+                  setImageUploadMenuMessage("good");
+                  //   setimageIndex(number);
+                  setIsImgUploadMenuModal(true);
+                }}
+              >
+                {goodSpareImgUrl == ""
+                  ? "Upload Good Spare"
+                  : "Uploaded Good Spare"}
+              </Button>
+            ) : null} */}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // History Modal
   const HistoryModal = () => {
@@ -1138,28 +1186,28 @@ function UpdateInvCall() {
       alert("Please enter the right values into all compulsory fields");
       return;
     }
-    if (ccfrStatus == "") {
-      alert("Select CCFR Status");
-      return;
-    }
+    // if (ccfrStatus == "") {
+    //   alert("Select CCFR Status");
+    //   return;
+    // }
 
     // ------ Image Checker ---
 
-    if (ccfrStatus == "Yes" && ccfrImgUrl == "") {
-      alert("Please Upload CCFR Image");
-      return;
-    }
+    // if (ccfrStatus == "Yes" && ccfrImgUrl == "") {
+    //   alert("Please Upload CCFR Image");
+    //   return;
+    // }
 
-    for (let i = 0; i < existswap.length; i++) {
-      if (existswap[i]._id && defectiveImgUrl[i] == "") {
-        alert(`Upload Image for the ${i + 1}th Defective Spare`);
-        return;
-      }
-      if (inventswap[i]._id && goodSpareImgUrl[i] == "") {
-        alert(`Upload Image for the ${i + 1}th Good Spare`);
-        return;
-      }
-    }
+    // for (let i = 0; i < existswap.length; i++) {
+    //   if (existswap[i]._id && defectiveImgUrl[i] == "") {
+    //     alert(`Upload Image for the ${i + 1}th Defective Spare`);
+    //     return;
+    //   }
+    //   if (inventswap[i]._id && goodSpareImgUrl[i] == "") {
+    //     alert(`Upload Image for the ${i + 1}th Good Spare`);
+    //     return;
+    //   }
+    // }
 
     let tempcallstatus = "";
 
@@ -1212,13 +1260,13 @@ function UpdateInvCall() {
       tempcallstatus = "Pending For Verification";
     }
 
-    // ------- Handling the swaps -----------
+    // ------- Handling the inventory updates -----------
 
-    // for (let i = 0; i < existswap.length; i++) {
-    //   await handleSwap(i);
+    // for (let i = 0; i < addedinv.length; i++) {
+    //   await handleInventoryUpdate(i);
     // }
 
-    // ----- history --------
+    // -----call history --------
 
     let newcallhistory = {
       date: moment().format(),
@@ -1260,47 +1308,12 @@ function UpdateInvCall() {
 
     // ----- asset history update -----
 
-    let assetpayload = {
-      id: productID,
-      update: {
-        $push: { history: newcallhistory },
-      },
-    };
-
-    try {
-      let response = await axios({
-        url: `${API}/asset/${Emp.getId()}/updateProductWithID`,
-        method: "POST",
-        data: assetpayload,
-      });
-      console.log("updated");
-      console.log("Done");
-      await setAssetpickerarray([{ item: "test" }]);
-      setInventswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-      setExistswap([
-        {
-          name: "Not Selected",
-          sno: "Not Selected",
-        },
-      ]);
-
-      // await getAsset();
-      // setSubmitModal(true);
-      // setIsReviewModalOpen(true);
-    } catch (error) {
-      throw error;
-    }
     setSubmitModal(true);
   };
 
   // -------handle swap --------
 
-  const handleSwap = async (i) => {
+  const handleInventoryUpdate = async (i) => {
     let payload = {
       existswap: existswap[i],
       newswap: inventswap[i],
@@ -1790,38 +1803,25 @@ function UpdateInvCall() {
     );
   };
 
-  const InvTable = (
-    number,
-    items,
-    activeRowID,
-    setActiveRowID,
-    existswap,
-    setExistswap,
-    tableType
-  ) => {
+  const InvTable = () => {
     return (
-      <div className=" bg-gray-200 dark:bg-gray-700 p-3 h-64 overflow-y-scroll">
-        {tableType == "new" ? (
-          <form
-            // onSubmit={handlevendorSubmit}
-            onSubmit={(e) => {
-              e.preventDefault();
+      <div className=" mt-2 rounded-lg bg-gray-200 dark:bg-gray-700 p-3   overflow-y-scroll">
+        <form
+          // onSubmit={handlevendorSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <input
+            className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+            placeholder="Enter Serial Number "
+            value={invsearch}
+            onChange={(e) => {
+              setInvSearch(e.target.value);
             }}
-          >
-            <input
-              className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-              placeholder="Enter Serial Number "
-              onChange={async (e) => {
-                setListNumber(number);
-                await setInvSearch(e.target.value);
+          />
+        </form>
 
-                // await thegetter(number);
-                // console.log("*********************");
-                // console.log(inventdata);
-              }}
-            />
-          </form>
-        ) : null}
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -1834,14 +1834,10 @@ function UpdateInvCall() {
                   <TableCell>Select</TableCell>
                 </tr>
               </TableHeader>
-              <TableBody>
-                {items.map((user, i) => (
+              <TableBody className="">
+                {inventdata.map((user, i) => (
                   <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                      activeRowID[number] == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
+                    className={`hover:shadow-lg dark:hover:bg-gray-600  `}
                     key={i}
                     onClick={() => {
                       // setActiveRowID(user._id);
@@ -1886,14 +1882,7 @@ function UpdateInvCall() {
                           layout="outline"
                           className="dark:border-green-700 border-green-400"
                           onClick={() => {
-                            let tempexist = [...existswap];
-                            tempexist[number] = user;
-                            setExistswap(tempexist);
-
-                            // -----------row id
-                            let temp = [...activeRowID];
-                            temp[number] = -1;
-                            setActiveRowID(temp);
+                            setAddedInv([...addedinv, user]);
                           }}
                         >
                           Select
@@ -1914,479 +1903,85 @@ function UpdateInvCall() {
     );
   };
 
-  const AssetItemPick = (number) => {
+  const ActiveInvent = () => {
     return (
-      <div className="my-2">
-        <div className="text-sm font-bold dark:text-white ">
-          Inventory Movement: {number + 1}
-        </div>
-        {/* -----Type Selection---- */}
-        <div className="flex flex-row items-center">
-          {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div className="mt-1 flex flex-row items-center justify-start w-full ">
-            {/* ---------------------------Product Drop Down-------------------------------------- */}
-
-            <div className="w-1/4">
-              <Select
-                onChange={(e) => {
-                  // setBusiness(e.target.value);
-                  let temp = selectedItem;
-                  selectedItem[number] = e.target.value;
-                  setSelectedItem(temp);
-
-                  let thevalue = e.target.value;
-
-                  // -------setting the data for the tables -----
-                  if (thevalue == "Mouse") {
-                    dataSetter(mouse, number);
-                  } else if (thevalue == "Keyboard") {
-                    dataSetter(kbd, number);
-                  } else if (thevalue == "Monitor") {
-                    dataSetter(monitor, number);
-                  } else if (thevalue == "Cpu") {
-                    dataSetter(cpu, number);
-                  } else if (thevalue == "Ram") {
-                    dataSetter(ram, number);
-                  } else if (thevalue == "Fan") {
-                    dataSetter(fan, number);
-                  } else if (thevalue == "Motherboard") {
-                    dataSetter(motherboard, number);
-                  } else if (thevalue == "SMPS") {
-                    dataSetter(smps, number);
-                  } else if (thevalue == "HDD") {
-                    dataSetter(hdd, number);
-                  } else if (thevalue == "Gcard") {
-                    dataSetter(gcard, number);
-                  } else if (thevalue == "EnetCard") {
-                    dataSetter(enetcard, number);
-                  } else if (thevalue == "SerialCard") {
-                    dataSetter(serialcard, number);
-                  } else if (thevalue == "ParalellCard") {
-                    dataSetter(parallelcard, number);
-                  } else if (thevalue == "OpticalDrive") {
-                    dataSetter(opticaldrive, number);
-                  } else if (thevalue == "Others") {
-                    dataSetter(others, number);
-                  }
-                  // ----------getting inventory
-                  thegetter(number);
-                  // ----clearing that existswap and inventswap
-                  let tempexist = [...existswap];
-                  tempexist[number] = {
-                    name: "Not Selected",
-                    sno: "Not Selected",
-                  };
-                  setExistswap(tempexist);
-                  let tempinvent = [...inventswap];
-                  tempinvent[number] = {
-                    name: "Not Selected",
-                    sno: "Not Selected",
-                  };
-                  setInventswap(tempinvent);
-                }}
-                className="mt-1 "
-              >
-                <option value="" selected disabled>
-                  Pick Item
-                </option>
-                <option value="Mouse">Mouse</option>
-                <option value="Keyboard">Keyboard</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Cpu">Cpu</option>
-                <option value="Ram">Ram</option>
-                <option value="Fan">Fan</option>
-                <option value="Motherboard">Motherboard</option>
-                <option value="SMPS">SMPS</option>
-                <option value="HDD">HDD</option>
-                <option value="Gcard">Gcard</option>
-                <option value="EnetCard">EnetCard</option>
-                <option value="SerialCard">SerialCard</option>
-                <option value="ParalellCard">ParalellCard</option>
-                <option value="OpticalDrive">OpticalDrive</option>
-                <option value="Others">Others</option>
-              </Select>
-            </div>
-
-            {/* <Button
-              layout="outline"
-              className="dark:border-green-700 border-green-400"
-              onClick={() => {
-                console.log("Swap");
-                handleSwap();
-              }}
-            >
-              Swap
-            </Button> */}
-
-            {/* <Button
-              layout="outline"
-              className="dark:border-green-700 border-green-400"
-              onClick={() => {
-                console.log("Swap");
-                handleSwap();
-              }}
-            >
-              Swap
-            </Button> */}
-            {existswap[number]._id ? (
-              <Button
-                layout="outline"
-                className="dark:border-green-700 border-green-400 ml-2"
-                onClick={() => {
-                  setImageUploadMenuMessage("defective");
-                  setimageIndex(number);
-                  setIsImgUploadMenuModal(true);
-                }}
-              >
-                {defectiveImgUrl == ""
-                  ? "Upload Defective Spare"
-                  : "Uploaded Defective Spare"}
-              </Button>
-            ) : null}
-            {inventswap[number]._id ? (
-              <Button
-                layout="outline"
-                className="dark:border-green-700 border-green-400 ml-2"
-                onClick={() => {
-                  setImageUploadMenuMessage("good");
-                  setimageIndex(number);
-                  setIsImgUploadMenuModal(true);
-                }}
-              >
-                {goodSpareImgUrl == ""
-                  ? "Upload Good Spare"
-                  : "Uploaded Good Spare"}
-              </Button>
-            ) : null}
+      //   {/* Selection Modules */}
+      <div className="">
+        {/*----------- Inventory Selection Table ----------- */}
+        <TableContainer className="mt-4">
+          <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
+            Items In Call
           </div>
-          {/* + and - buttons */}
-          <div className="flex flex-row items-center justify-center  ">
-            <div
-              className="ml-3 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full
-            "
-            >
-              {number == assetpickerarray.length - 1 ? (
-                <Button
-                  onClick={() => {
-                    selectedItem.push("");
-                    // setting search to ""
-                    setInvSearch("");
-                    // -----new module-----
-                    let tempassetpicker = [...assetpickerarray];
-                    let temp = { item: "test" };
-                    tempassetpicker.push(temp);
-                    setAssetpickerarray(tempassetpicker);
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableCell>Sl No</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Model</TableCell>
+                <TableCell>Serial Number</TableCell>
+                <TableCell>Condition</TableCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {addedinv.map((item, i) => (
+                <TableRow
+                  key={i}
+                  className={`hover:shadow-lg hover:bg-blue-200 dark:hover:bg-gray-600`}
+                >
+                  <TableCell>
+                    <span className="text-sm">{i + 1}</span>
+                  </TableCell>
 
-                    // ------- new active row ids
-                    let tempactiveid = [...activeRowID];
-                    tempactiveid.push(-1);
-                    setActiveRowID(tempactiveid);
-                    let tempsecondactiveid = [...secondactiveRowID];
-                    tempsecondactiveid.push(-1);
-                    setSecondactiveRowID(tempsecondactiveid);
-
-                    // -----data and invent data
-                    let tempd = [...data];
-                    tempd.push({});
-                    setData(tempd);
-                    let tempinvdata = [...inventdata];
-                    tempinvdata.push({});
-                    setInventData(tempinvdata);
-                    // ---exists swap and inventswap  ----
-                    let texist = [...existswap];
-                    texist.push({
-                      name: "Not Selected",
-                      sno: "Not Selected",
-                    });
-                    setExistswap(texist);
-                    let tinvent = [...inventswap];
-                    tinvent.push({
-                      name: "Not Selected",
-                      sno: "Not Selected",
-                    });
-                    setInventswap(tinvent);
-                    //image push
-
-                    let tempgoodspare = [...goodSpareImgUrl];
-                    tempgoodspare.push("");
-                    setGoodSpareImgUrl(tempgoodspare);
-
-                    let tempdefective = [...defectiveImgUrl];
-                    tempdefective.push("");
-                    setDefectiveImgUrl(tempdefective);
-                  }}
-                  icon={Add}
-                  layout="link"
-                  aria-label="Like"
-                  size="small"
-                />
-              ) : null}
-            </div>
-            {number == 0 || number != assetpickerarray.length - 1 ? null : (
-              <div className="ml-1 bg-gray-100 dark:bg-gray-400 dark:hover:bg-gray-200 rounded-full">
-                <Button
-                  onClick={() => {
-                    // setting search to ""
-                    setInvSearch("");
-
-                    selectedItem.pop();
-                    let tempassetpicker = [...assetpickerarray];
-                    tempassetpicker.pop();
-                    setAssetpickerarray(tempassetpicker);
-
-                    // ------- new active row ids
-                    let tempactiveid = [...activeRowID];
-                    tempactiveid.pop();
-                    setActiveRowID(tempactiveid);
-                    let tempsecondactiveid = [...secondactiveRowID];
-                    tempsecondactiveid.pop();
-                    setSecondactiveRowID(tempsecondactiveid);
-
-                    // ---exists swap and inventswap  ----
-                    let texist = [...existswap];
-                    texist.pop();
-                    setExistswap(texist);
-                    let tinvent = [...inventswap];
-                    tinvent.pop();
-                    setInventswap(tinvent);
-
-                    //image
-                    let tempgoodspare = [...goodSpareImgUrl];
-                    tempgoodspare.pop();
-                    setGoodSpareImgUrl(tempgoodspare);
-
-                    let tempdefective = [...defectiveImgUrl];
-                    tempdefective.pop();
-                    setDefectiveImgUrl(tempdefective);
-                  }}
-                  icon={Remove}
-                  layout="link"
-                  aria-label="Like"
-                  size="small"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        {/* Selection Modules */}
-        <div className="flex flex-row items-start space-x-2">
-          {/* -------Existing Item Table ----------*/}
-
-          <TableContainer className="mt-4">
-            <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
-              Items In Asset
-            </div>
-            <Table>
-              <TableHeader>
-                <tr className="flex flex-row justify-between">
-                  <TableCell>Type</TableCell>
-                  <TableCell>Model</TableCell>
-                  <TableCell>Serial Number</TableCell>
+                  <TableCell className="">
+                    <div>
+                      <p className="font-semibold">{capitalize(item.type)}</p>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{item.name}</span>
+                  </TableCell>
 
                   <TableCell>
-                    <span
-                      className="cursor-pointer"
-                      // onClick={() => setActiveRowID(-1)}
-                    >
-                      Items
-                    </span>
+                    <span className="text-sm">{item.sno}</span>
                   </TableCell>
-                </tr>
-              </TableHeader>
-              <TableBody>
-                <div className="flex flex-col justify-around">
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      activeRowID[number] == existswap[number]._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={number}
-                    onClick={() => {
-                      // setActiveRowID(i);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">
-                            {selectedItem[number]}
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{existswap[number].name}</span>
-                    </TableCell>
-
-                    <TableCell>
-                      <span className="text-sm">{existswap[number].sno}</span>
-                    </TableCell>
-
-                    <TableCell className="text-center ">
-                      {selectedItem[number] == "" ? null : (
-                        <Button
-                          // layout="link"
-                          size="icon"
-                          aria-label="DropDown"
-                          onClick={() => {
-                            console.log(activeRowID[number]);
-                            if (activeRowID[number] != -1) {
-                              let temp = [...activeRowID];
-                              temp[number] = -1;
-                              setActiveRowID(temp);
-                            } else {
-                              let temp = [...activeRowID];
-                              temp[number] = number;
-                              setActiveRowID(temp);
-                            }
-                            // setActiveRowID(-1);
-                          }}
-                          className="rounded-lg m-1"
-                        >
-                          <DropdownIcon
-                            className="w-5 h-5"
-                            aria-hidden="true"
-                          />
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-
-                  {activeRowID[number] == number
-                    ? InvTable(
-                        number,
-                        data[number],
-                        activeRowID,
-                        setActiveRowID,
-                        existswap,
-                        setExistswap,
-                        "exist"
-                      )
-                    : null}
-                </div>
-
-                {/* {existswap.map((user, i) => (
-                  
-                ))} */}
-              </TableBody>
-            </Table>
-            {/* <TableFooter>
-            <Pagination
-              totalResults={totalResults}
-              resultsPerPage={resultsPerPage}
-              label="Table navigation"
-              onChange={onPageChange}
-            />
-          </TableFooter> */}
-          </TableContainer>
-
-          {/*----------- Inventory Selection Table ----------- */}
-
-          <TableContainer className="mt-4">
-            <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
-              Items In Inventory
-            </div>
-            <Table>
-              <TableHeader>
-                <tr className="flex flex-row justify-between">
-                  <TableCell>Type</TableCell>
-                  <TableCell>Model</TableCell>
-                  <TableCell>Serial Number</TableCell>
-
                   <TableCell>
-                    <span
-                      className="cursor-pointer"
-                      // onClick={() => setActiveRowID(-1)}
-                    >
-                      Items
-                    </span>
-                  </TableCell>
-                </tr>
-              </TableHeader>
-              <TableBody>
-                <div className="flex flex-col justify-around">
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      secondactiveRowID[number] == inventswap[number]._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={number}
-                    onClick={() => {
-                      // setActiveRowID(i);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
-                          <p className="font-semibold">
-                            {selectedItem[number]}
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{inventswap[number].name}</span>
-                    </TableCell>
-
-                    <TableCell>
-                      <span className="text-sm">{inventswap[number].sno}</span>
-                    </TableCell>
-
-                    <TableCell className="text-center ">
-                      {selectedItem[number] == "" ? null : (
-                        <Button
-                          // layout="link"
-                          size="icon"
-                          aria-label="DropDown"
-                          onClick={() => {
-                            if (secondactiveRowID[number] != -1) {
-                              let temp = [...secondactiveRowID];
-                              temp[number] = -1;
-                              setSecondactiveRowID(temp);
-                            } else {
-                              let temp = [...secondactiveRowID];
-                              temp[number] = number;
-                              setSecondactiveRowID(temp);
-                            }
-                            // setActiveRowID(-1);
+                    {/* <span className="text-sm">{item.condition}</span> */}
+                    <div className="flex flex-col w-full">
+                      <Label className="w-full">
+                        {/* <span>Select Condition*</span> */}
+                        <Select
+                          value={item.condition}
+                          className="mt-1"
+                          onChange={(e) => {
+                            //   console.log(addedinv[i]);
+                            let temp = [...addedinv];
+                            temp[i].condition = e.target.value;
+                            setAddedInv(temp);
                           }}
-                          className="rounded-lg m-1"
                         >
-                          <DropdownIcon
-                            className="w-5 h-5"
-                            aria-hidden="true"
-                          />
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-
-                  {secondactiveRowID[number] == number
-                    ? InvTable(
-                        number,
-                        inventdata[number],
-                        secondactiveRowID,
-                        setSecondactiveRowID,
-                        inventswap,
-                        setInventswap,
-                        "new"
-                      )
-                    : null}
-                </div>
-              </TableBody>
-            </Table>
-            {/* <TableFooter>
-            <Pagination
-              totalResults={totalResults}
-              resultsPerPage={resultsPerPage}
-              label="Table navigation"
-              onChange={onPageChange}
-            />
-          </TableFooter> */}
-          </TableContainer>
-        </div>{" "}
+                          <option value="Good">Good</option>
+                          <option value="Bad">Bad</option>
+                          <option value="Used">Used</option>
+                          <option value="DOA">DOA</option>
+                          <option value="Damaged">Damaged</option>
+                          <option value="Damaged">Scrap</option>
+                        </Select>
+                      </Label>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          {/* <TableFooter>
+          <Pagination
+            totalResults={totalResults}
+            resultsPerPage={resultsPerPage}
+            label="Table navigation"
+            onChange={onPageChange}
+          />
+        </TableFooter> */}
+        </TableContainer>
       </div>
     );
   };
@@ -2552,15 +2147,14 @@ function UpdateInvCall() {
       {HistoryImgViewModal()}
       {AssetBar()}
       {CallUpdater()}
-      {/* {spareStatus == "Yes" ? AssetItemPick() : null} */}
-      {assetpickerarray.map((obj, i) => {
-        return AssetItemPick(i);
-      })}
+      {ActiveInvent()}
+      {InventoryTypeSelector()}
+      {InvTable()}
 
       {UpdatedModal()}
       {NotSwapModal()}
       {SpareRequiredModal()}
-      {CallEnder()}
+      {/* {CallEnder()} */}
       <div>
         <div className="flex flex-col items-center w-full mt-5 mb-5">
           {/* <Link to={`/app/viewcalls`}> */}
