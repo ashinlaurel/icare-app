@@ -14,6 +14,7 @@ import {
   EditIcon,
   TrashIcon,
   TickIcon,
+  MenuIcon,
 } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import {
@@ -709,9 +710,12 @@ function ViewCalls() {
                 <TableCell>Date</TableCell>
                 <TableCell>Unit Name</TableCell>
                 <TableCell>Phone</TableCell>
+                <TableCell>Product</TableCell>
+                {/* <TableCell>Serial</TableCell> */}
                 <TableCell>Call Status</TableCell>
-                <TableCell>Assigned Employee</TableCell>
-                <TableCell>Update / History</TableCell>
+                <TableCell>Problem</TableCell>
+                {/* <TableCell>Assigned Employee</TableCell> */}
+                <TableCell>Actions</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -733,10 +737,26 @@ function ViewCalls() {
                     // console.log(call.product.keyboard[0].keyboardname);
                   }}
                 >
-                  <TableCell className="w-8">
-                    <div className="flex items-center text-sm ">
-                      <div>
-                        <p className="font-semibold">{call.callNo}</p>
+                  <TableCell className="">
+                    <div className="flex items-center text-sm justify-center">
+                      <div className="flex flex-col items-center ">
+                        <Link
+                          key={call._id}
+                          to={
+                            call.callType == "internalinv"
+                              ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
+                              : `/app/call/updatecall/${call._id}/${call.assetId._id}`
+                          }
+                        >
+                          <div className=" cursor-pointer">
+                            <p className="font-semibold py-1 px-10 hover:underline text-white bg-blue-600 rounded-lg mb-1">
+                              {call.callNo}
+                            </p>
+                          </div>
+                        </Link>
+                        <span className="text-xs ">
+                          SL:{call.assetId.ponumber}
+                        </span>
                       </div>
                     </div>
                   </TableCell>
@@ -761,7 +781,13 @@ function ViewCalls() {
                     <span className="text-sm">{call.phone}</span>
                   </TableCell>
                   <TableCell>
-                    <span>
+                    <span className="text-sm">{call.assetId.producttype}</span>
+                  </TableCell>
+                  {/* <TableCell>
+                    <span className="text-sm">{call.assetId.ponumber}</span>
+                  </TableCell> */}
+                  <TableCell>
+                    <span className=" text-xs">
                       {call.callStatus == 0 ? (
                         <Badge>Pending For Allocation</Badge>
                       ) : null}
@@ -812,6 +838,11 @@ function ViewCalls() {
                       ) : null}
                     </span>
                   </TableCell>
+
+                  <TableCell className="flex flex-row ">
+                    <span className="w-full overflow-auto">{call.problem}</span>
+                  </TableCell>
+
                   {/* <TableCell> */}
                   {/* <div className="flex ">
                       {/* <Label className="w-full"> */}
@@ -874,7 +905,7 @@ function ViewCalls() {
                       </div> */}
                   {/* </div> */}
                   {/* </TableCell> */}
-                  <TableCell>
+                  {/* <TableCell>
                     {call.employeeId ? (
                       <>
                         {call.employeeName}
@@ -883,16 +914,74 @@ function ViewCalls() {
                           <EditIcon className="w-5 h-5" aria-hidden="true" />
                         
                       </Button> */}
-                      </>
-                    ) : (
-                      <>
-                        {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
-                        Not Assigned
-                        {/* </Button> */}
-                      </>
-                    )}
-                  </TableCell>
+                  {/* </> */}
+                  {/* ) : ( */}
+                  <>
+                    {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
+                    {/* Not Assigned */}
+                    {/* </Button> */}
+                  </>
+
+                  {/* </TableCell> */}
                   <TableCell>
+                    <div className="flex items-center space-x-4">
+                      <Button layout="link" size="icon" aria-label="Edit">
+                        {/* <Link
+                          key={user._id}
+                          to={`/app/unit/update/${user._id}`}
+                        > */}
+                        <EditIcon className="w-5 h-5" aria-hidden="true" />
+                        {/* </Link>{" "} */}
+                      </Button>
+
+                      <Button
+                        onClick={() => {
+                          // console.log("hellloo", data[i].product.history);
+                          // setAssetHistory(data[i].product.history);
+                          // setAssetHistoryModalOpen(true);
+                        }}
+                        layout="link"
+                        size="icon"
+                        aria-label="Edit"
+                      >
+                        <MenuIcon className="w-5 h-5" aria-hidden="true" />
+                      </Button>
+                      {/* <div>
+            <Button className="mx-3 mt02">
+              {" "}
+              <Link
+                key={selectedprod._id}
+                to={`/app/unit/update/${selectedprod._id}`}
+              >
+                Edit
+              </Link>{" "}
+            </Button>
+            <Button
+              className="mx-3 mt02"
+              onClick={async () => {
+                console.log("delete Asset");
+                try {
+                  let response = await axios({
+                    url: `${API}/asset/${Emp.getId()}/delete`,
+                    method: "POST",
+                    data: { id: selectedprod._id },
+                  });
+                  console.log(response.data);
+                  // let temp = data.filter((x) => x._id != selectedprod._id);
+                  // setData(temp);
+
+                  // setData(response.data);
+                } catch (error) {
+                  throw error;
+                }
+              }}
+            >
+              Delete
+            </Button>
+          </div> */}
+                    </div>
+                  </TableCell>
+                  {/* <TableCell>
                     <div className="flex justify-start items-center space-x-2">
                       <Link
                         key={call._id}
@@ -920,7 +1009,7 @@ function ViewCalls() {
                         History
                       </Button>
                     </div>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
