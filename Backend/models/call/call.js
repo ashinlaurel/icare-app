@@ -97,6 +97,7 @@ const callSchema = mongoose.Schema({
       newserial: String,
     },
   ],
+  attachedinv: [String],
 });
 
 callSchema.plugin(mongoosePaginate);

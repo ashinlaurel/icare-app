@@ -131,7 +131,7 @@ function UpdateInvCall() {
   // const [itemtype, setItemtype] = useState(""); //Full system vs item
   const [selectedItem, setSelectedItem] = useState(""); //the selected item category
   const [inventdata, setInventData] = useState([{}]); // state to hold inventory searched
-  const [addedinv, setAddedInv] = useState([]); // state to hold inventory attatched to the current call
+  const [addedinv, setAddedInv] = useState([]); // state to hold inventory attached to the current call
   const [existswap, setExistswap] = useState([
     {
       name: "Not Selected",
@@ -1082,10 +1082,37 @@ function UpdateInvCall() {
     }
   };
 
+  const getAttachedInv = async () => {
+    try {
+      //   Code to get all the inventory attached with the call
+      console.log(call);
+      let temp = [];
+      for (let i = 0; i < call.attachedinv.length; i++) {
+        let currid = call.attachedinv[i];
+        let currinv = await axios.post(
+          `${API}/inventory/${Emp.getId()}/getbyid`,
+          {
+            id: currid,
+          }
+        );
+        // console.log("the inventory is", currinv.data);
+
+        temp.push(currinv.data);
+      }
+      setAddedInv(temp);
+    } catch (err) {
+      console.log("call Find Error", err);
+    }
+  };
+
   useEffect(() => {
     getAsset();
     getCall();
   }, []);
+
+  useEffect(() => {
+    getAttachedInv();
+  }, [call]);
 
   // ------Modals------
 
@@ -1261,10 +1288,12 @@ function UpdateInvCall() {
     }
 
     // ------- Handling the inventory updates -----------
-
-    // for (let i = 0; i < addedinv.length; i++) {
-    //   await handleInventoryUpdate(i);
-    // }
+    // note here additional history will be added into the call also
+    let callinvids = [];
+    for (let i = 0; i < addedinv.length; i++) {
+      await handleInventoryUpdate(i);
+      callinvids.push(addedinv[i]._id);
+    }
 
     // -----call history --------
 
@@ -1285,6 +1314,7 @@ function UpdateInvCall() {
       id: call._id,
       update: {
         callStatus: call.callStatus,
+        attachedinv: callinvids,
         // callAttendDate: call.callAttendDate,
         // startOfService: call.startOfService,
         // endOfService: call.endOfService,
@@ -1306,39 +1336,38 @@ function UpdateInvCall() {
       throw error;
     }
 
-    // ----- asset history update -----
-
     setSubmitModal(true);
   };
 
-  // -------handle swap --------
+  // -------handle inventory update --------
 
   const handleInventoryUpdate = async (i) => {
     let payload = {
-      existswap: existswap[i],
-      newswap: inventswap[i],
-      call: call,
-      type: selectedItem[i].toLowerCase(),
+      inventoryid: addedinv[i]._id,
+      callid: call.callNo,
+      calldate: call.date,
+      //   type: selectedItem[i].toLowerCase(),
+      condition: addedinv[i].condition,
       servicelocation: servicelocation,
       assetserial: POnumber,
     };
 
     try {
       let update = await axios({
-        url: `${API}/call/${Emp.getId()}/swapitems`,
+        url: `${API}/call/${Emp.getId()}/invcallupdate`,
         method: "POST",
         data: payload,
       });
-      if (update.data.hello == "empty") {
-        console.log("empty swap return");
-        return;
-      }
+      //   if (update.data.hello == "empty") {
+      //     console.log("empty swap return");
+      //     return;
+      //   }
     } catch (error) {
       throw error;
     }
 
     // ----- call history update --------
-    // ----- call history ---
+
     let newcallhistory = {
       date: moment().format(),
       callStatus: call.callStatus,
@@ -1346,13 +1375,18 @@ function UpdateInvCall() {
       callAttendDate: callAttendDate,
       startOfService: startOfService,
       endOfService: endOfService,
-      note: `Items Swapped/Added/Removed (Received:${existswap[i].sno} Sent:${inventswap[i].sno})`,
+      note: `${capitalize(addedinv[i].type)} ${capitalize(
+        addedinv[i].name
+      )} (${capitalize(addedinv[i].sno)}) Condition Update To ${
+        addedinv[i].condition
+      }`,
       actionTaken: actionTaken,
-      existUrl: defectiveImgUrl[i],
-      newUrl: goodSpareImgUrl[i],
-      existserial: existswap[i].sno,
-      newserial: inventswap[i].sno,
+      existUrl: "",
+      newUrl: "",
+      existserial: "",
+      newserial: "",
     };
+
     let payloadtwo = {
       id: call._id,
       update: {
@@ -1361,7 +1395,7 @@ function UpdateInvCall() {
       },
     };
 
-    console.log(payloadtwo);
+    // console.log(payloadtwo);
     try {
       let response = await axios({
         url: `${API}/call/${Emp.getId()}/assignEngg`,
@@ -1369,30 +1403,7 @@ function UpdateInvCall() {
         data: payloadtwo,
       });
 
-      // setIsReviewModalOpen(true);
-    } catch (error) {
-      throw error;
-    }
-
-    let assetpayload = {
-      id: productID,
-      update: {
-        $push: { history: newcallhistory },
-      },
-    };
-
-    try {
-      let response = await axios({
-        url: `${API}/asset/${Emp.getId()}/updateProductWithID`,
-        method: "POST",
-        data: assetpayload,
-      });
-      // console.log("updated");
-      // console.log("Done");
-
-      // await getAsset();
-      // setSubmitModal(true);
-      // setIsReviewModalOpen(true);
+      //   // setIsReviewModalOpen(true);
     } catch (error) {
       throw error;
     }
@@ -1964,7 +1975,7 @@ function UpdateInvCall() {
                           <option value="Used">Used</option>
                           <option value="DOA">DOA</option>
                           <option value="Damaged">Damaged</option>
-                          <option value="Damaged">Scrap</option>
+                          <option value="Scrap">Scrap</option>
                         </Select>
                       </Label>
                     </div>

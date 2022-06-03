@@ -354,7 +354,46 @@ exports.swapItems = async (req, res) => {
   return res.status(200).json({ hello: "empty" });
 };
 
-// -----COunters ----
+exports.invCallUpdate = async (req, res) => {
+  let {
+    inventoryid,
+    callid,
+    calldate,
+    condition,
+    servicelocation,
+    assetserial,
+  } = req.body;
+
+  console.log("success");
+  console.log(inventoryid);
+  // console.log(call);
+
+  let newinvhistory = {
+    histtype: "Condition",
+    date: calldate,
+    location: servicelocation,
+    callId: callid,
+    assetId: "Nil",
+    status: condition,
+    note: `Item Condition Updated To ${condition} `,
+  };
+
+  // updating the inventory along with history
+  try {
+    const result = await InvItem.findByIdAndUpdate(inventoryid, {
+      condition: condition,
+      // assetId: call.assetId,
+      $push: { history: newinvhistory },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ error: err });
+  }
+
+  return res.status(200).json({ hello: "testing" });
+};
+
+// -----Counters ----
 
 exports.countCallsByDate = (req, res) => {
   let { date, callType, startdate, enddate } = req.body;
