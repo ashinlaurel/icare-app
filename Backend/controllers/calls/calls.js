@@ -108,12 +108,17 @@ exports.getCalls = async (req, res) => {
     filteroptions.accoutId = filters.accoutId;
   }
   console.log(filteroptions);
+  // servicelocation filters
+  // if (filters.servicelocation && filters.servicelocation != "") {
+  //   filteroptions.assetId.servicelocation = filters.servicelocation;
+  // }
 
   let dynamicStatus = {};
 
   if (filters.callStatus == "") {
     dynamicStatus = { callStatus: { $nin: [11, 10] } };
   }
+
   let finalquery = { $and: [dynamicStatus, filteroptions] };
 
   Call.paginate(finalquery, options, function (err, result) {
@@ -430,7 +435,7 @@ exports.countCallsByDate = (req, res) => {
   }
 };
 
-// -----------------------Fuzzy Search Regex----------------
+// ----------------------- Search Regex----------------
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }

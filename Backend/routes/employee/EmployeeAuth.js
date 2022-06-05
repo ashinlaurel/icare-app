@@ -11,8 +11,7 @@ const {
   getSalById,
   downloadsalaryPdf,
   getAllEmpCalls,
-  getCallsByEmpId
-  
+  getCallsByEmpId,
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -51,8 +50,14 @@ router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {
 });
 // getting all employees data
 router.post("/:id/getAllEmpData", getAllEmpData);
+/// note now this route is used to get basic employee list
 router.post("/:id/getAllEmpCalls", isSignedIn, isAuthenticated, getAllEmpCalls);
-router.post("/:id/getCallsByEmpId", isSignedIn, isAuthenticated, getCallsByEmpId);
+router.post(
+  "/:id/getCallsByEmpId",
+  isSignedIn,
+  isAuthenticated,
+  getCallsByEmpId
+);
 
 router.post("/signup", signup);
 router.post("/:id/signup", signup);
@@ -78,8 +83,12 @@ router.post("/:id/createSalary", createSalary);
 router.post("/:id/getAllSalary", getAllSalary);
 router.post("/:id/deleteSalary", isSignedIn, isAuthenticated, deleteSalary);
 router.post("/getsalarybyid", getSalById);
-router.post("/:id/downloadsalarypdf", isSignedIn, isAuthenticated, downloadsalaryPdf)
-
+router.post(
+  "/:id/downloadsalarypdf",
+  isSignedIn,
+  isAuthenticated,
+  downloadsalaryPdf
+);
 
 router.post(
   "/:id/resetPassByAdmin",

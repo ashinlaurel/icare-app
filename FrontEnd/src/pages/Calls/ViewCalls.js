@@ -111,77 +111,6 @@ function ViewCalls() {
     setPage(p);
   }
 
-  // const SetStatusModal = () => {
-  //   return (
-  //     <>
-  //       <Modal
-  //         isOpen={isSetStatusModal}
-  //         onClose={() => setisSetStatusModal(false)}
-  //       >
-  //         <ModalHeader>Set Call Status</ModalHeader>
-  //         <ModalBody>
-  //           <div className="flex-col flex">
-  //             <div className="font-xl dark:text-white">Current Status:</div>
-  //             <Button className="font-xl">Set Status</Button>
-  //             <Button className="font-xl my-2 mx-10 inline">
-  //               Pending for Allocation
-  //             </Button>
-  //             <Button className="font-xl my-2 mx-10 inline">
-  //               Pending for Allocation
-  //             </Button>
-  //             <Button className="font-xl my-2 mx-10 inline">
-  //               Pending for Allocation
-  //             </Button>
-  //             <Button className="font-xl my-2 mx-10 inline">
-  //               Pending for Allocation
-  //             </Button>
-  //           </div>
-  //         </ModalBody>
-  //         <ModalFooter>
-  //           <Button
-  //             className="w-full sm:w-auto"
-  //             onClick={async () => {
-  //               console.log("SELECTED", selectedprod);
-  //               let payload = {
-  //                 id: selectedprod._id,
-  //                 update: {
-  //                   employeeId: engineer._id,
-  //                   employeeName: engineer.enggName,
-  //                   callStatus: 1,
-  //                 },
-  //               };
-  //               try {
-  //                 let response = await axios({
-  //                   url: `${API}/call/${Emp.getId()}/ViewCallsg`,
-  //                   method: "POST",
-  //                   data: payload,
-  //                 });
-  //                 let temp = data;
-  //                 console.log(temp);
-  //                 temp = temp.filter((c) => {
-  //                   if (c._id === selectedprod._id) {
-  //                     c.callStatus = 1;
-  //                     c.employeeName = engineer.enggName;
-  //                     c.employeeId = engineer._id;
-  //                     return c;
-  //                   }
-  //                   setData(temp);
-  //                 });
-  //                 // console.log(response.data);
-  //                 setisSetStatusModal(false);
-  //               } catch (error) {
-  //                 throw error;
-  //               }
-  //             }}
-  //           >
-  //             Confirm Assignment
-  //           </Button>
-  //         </ModalFooter>
-  //       </Modal>
-  //     </>
-  //   );
-  // };
-
   const HistoryImgViewModal = () => {
     return (
       <>
@@ -372,7 +301,7 @@ function ViewCalls() {
   };
 
   const downloadAssets = async () => {
-    let csv = `CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
+    let csv = `SlNo,CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
 
     let array;
     let payload = {
@@ -404,16 +333,18 @@ function ViewCalls() {
 
     console.log("download calls call", array);
     // let csv = `CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
-    array.map((call) => {
+    array.map((call, i) => {
       csv =
         csv +
-        `${call.callNo},${moment(call.date).format("DD-MM-YYYY")},${moment(
-          `${"2018-04-02"}T${call.time}`
-        ).format("h:mm a")},${call.unitName},${call.phone},${
-          call.assetId.producttype
-        },${call.assetId.ponumber},${call.problem},${getCallStatusString(
-          call.callStatus
-        )},${call.employeeName},\n`;
+        `${i + 1},${call.callNo},${moment(call.date).format(
+          "DD-MM-YYYY"
+        )},${moment(`${"2018-04-02"}T${call.time}`).format("h:mm a")},${
+          call.unitName
+        },${call.phone},${call.assetId.producttype},${call.assetId.ponumber},${
+          call.problem
+        },${getCallStatusString(call.callStatus)},${
+          call.employeeName ? call.employeeName : "Not Assigned"
+        },\n`;
     });
     // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -719,120 +650,135 @@ function ViewCalls() {
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
-            <Label className="">
+          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-3">
+            <Label className="flex flex-col">
               <span>From Date</span>
               <input
-                className="mt-1 p-2 rounded-sm mx-1"
+                className="shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 p-2 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500 "
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
               />
             </Label>
-            <Label className="">
+            <Label className="flex flex-col">
               <span>To Date</span>
               <input
-                className="mt-1 p-2 rounded-sm mx-1"
+                className="shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 p-2  leading-tight focus:outline-none   focus:bg-white focus:border-gray-500 "
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
               />
             </Label>
 
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={callType}
-                onChange={(e) => {
-                  setCallType(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Call Type
-                </option>
-                <option value="">All</option>
-                <option value="internal">Internal</option>
-                <option value="internalinv">Internal Inv</option>
-                <option value="external">External</option>
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+            {/*---------- select filters  ---------------*/}
+            <div className="flex flex-row items-center justify-center mt-5">
+              <div class="relative mx-1 ">
+                <select
+                  class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                  value={callType}
+                  onChange={(e) => {
+                    setCallType(e.target.value);
+                  }}
                 >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
+                  <option value="" disabled selected>
+                    Call Type
+                  </option>
+                  <option value="">All</option>
+                  <option value="internal">Internal</option>
+                  <option value="internalinv">Internal Inv</option>
+                  <option value="external">External</option>
+                </select>
+
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div class="relative mx-1 ">
-              <select
-                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
-                value={callStatus}
-                onChange={(e) => {
-                  setCallStatus(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Call Status
-                </option>
-                <option value="">All (No Closed And Cancelled)</option>
-                <option selected value="0">
-                  Pending For Allocation
-                </option>
-                <option value="1">Pending for Percall Approval</option>
-                <option value="2">Pending for Response</option>
-                <option value="3">Pending for OEM Response</option>
-                <option value="4">Pending for 2nd Response</option>
-                <option value="5">Pending for Customer</option>
-                <option value="6">Under Observation</option>
-                <option value="7">Pending for Others</option>
-                <option value="8">Pending for Spare</option>
-                <option value="13">Pending For Spare Collection</option>
-                <option value="12">Spare Taken CMRR</option>
-                <option value="14"> Standby Given</option>
-                <option value="9">Spare in Transit</option>
-                <option value="10">Cancelled Calls</option>
-                <option value="15">Pending For Verification</option>
-                <option value="11">Closed Calls</option>
-                {/* <option value="-1">Allocated</option> */}
-              </select>
-
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+              <div class="relative mx-1 ">
+                <select
+                  class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                  value={callStatus}
+                  onChange={(e) => {
+                    setCallStatus(e.target.value);
+                  }}
                 >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
+                  <option value="" disabled selected>
+                    Call Status
+                  </option>
+                  <option value="">All (No Closed And Cancelled)</option>
+                  <option selected value="0">
+                    Pending For Allocation
+                  </option>
+                  <option value="1">Pending for Percall Approval</option>
+                  <option value="2">Pending for Response</option>
+                  <option value="3">Pending for OEM Response</option>
+                  <option value="4">Pending for 2nd Response</option>
+                  <option value="5">Pending for Customer</option>
+                  <option value="6">Under Observation</option>
+                  <option value="7">Pending for Others</option>
+                  <option value="8">Pending for Spare</option>
+                  <option value="13">Pending For Spare Collection</option>
+                  <option value="12">Spare Taken CMRR</option>
+                  <option value="14"> Standby Given</option>
+                  <option value="9">Spare in Transit</option>
+                  <option value="10">Cancelled Calls</option>
+                  <option value="15">Pending For Verification</option>
+                  <option value="11">Closed Calls</option>
+                  {/* <option value="-1">Allocated</option> */}
+                </select>
+
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
               </div>
-            </div>
 
-            {/* -----------------Search Bar------------------------------------ */}
-            <div class="block relative xl:ml-64">
-              <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg
-                  viewBox="0 0 24 24"
-                  class="h-4 w-4 fill-current text-gray-500"
+              {/* -----------------Search Bar------------------------------------ */}
+              <div class="block relative ">
+                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-4 w-4 fill-current text-gray-500"
+                  >
+                    <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+                  </svg>
+                </span>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setRefresh(!refresh);
+                  }}
                 >
-                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
-                </svg>
-              </span>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setRefresh(!refresh);
-                }}
-              >
-                <input
-                  value={searchquery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by Call No."
-                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-              </form>
+                  <input
+                    value={searchquery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by Call No."
+                    class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </form>
+              </div>
+
+              <div className="mx-4">
+                <Button
+                  className="px-12 py-2"
+                  layout="outline"
+                  onClick={() => {
+                    setIsDwnldModalOpen(true);
+                  }}
+                >
+                  Export
+                </Button>
+              </div>
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
@@ -1178,19 +1124,8 @@ function ViewCalls() {
           </TableFooter>
         </TableContainer>
 
-        <div className="mt-10">
-          <Button
-            onClick={() => {
-              setIsDwnldModalOpen(true);
-            }}
-          >
-            Export
-          </Button>
-        </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
-
-      {/* ------------------------------------Bottom Bar---------------------------------- */}
     </>
   );
 }

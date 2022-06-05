@@ -1,6 +1,6 @@
 const EmployeeLogin = require("../../models/employee/EmployeeLogin");
 const Salary = require("../../models/salary/Salary");
-const puppeteer = require('puppeteer')
+const puppeteer = require("puppeteer");
 
 exports.getAllEmployees = (req, res) => {
   let { search } = req.body;
@@ -10,7 +10,7 @@ exports.getAllEmployees = (req, res) => {
     // assignedCalls:{
     //   populate:"callId"
     // },
-    populate:"assignedCalls.callId",
+    populate: "assignedCalls.callId",
     // populate: "product",
     page: 1,
     limit: 10,
@@ -65,42 +65,73 @@ exports.getAllEmpData = (req, res) => {
   });
 };
 
+// note that currently this function only returns a list of employees without their data
 exports.getAllEmpCalls = (req, res) => {
-  EmployeeLogin.paginate({}, {populate:"assignedCalls.callId"}, function (err, result) {
-    // console.log(result);
-    if (err || !result) {
-      return res.status(400).json({
-        error: "No employees found",
-        err: err,
+  const { search, limit } = req.body;
+  // console.log("search query", search);
+
+  const fuzzyquery = new RegExp(escapeRegex(search), "gi");
+
+  let filteroptions = {};
+  if (search != "") {
+    filteroptions.employeeName = fuzzyquery;
+  }
+
+  EmployeeLogin.paginate(
+    filteroptions,
+    { page: 1, limit: limit },
+    // { populate: "assignedCalls.callId" },
+    function (err, result) {
+      // console.log(result);
+      if (err || !result) {
+        return res.status(400).json({
+          error: "No employees found",
+          err: err,
+        });
+      }
+      let out = [];
+      result.docs.map((i) => {
+        out.push({
+          _id: i._id,
+          // assignedCalls: i.assignedCalls,
+          employeeName: i.employeeName,
+          email: i.email,
+        });
       });
+      // console.log("hello");
+      console.log(out.length);
+      return res.json(out);
     }
-    let out=[]
-    result.docs.map(i=>{
-      out.push({_id:i._id,assignedCalls:i.assignedCalls,employeeName:i.employeeName,email:i.email})
-    })
-    // console.log(result.docs);
-    return res.json(out);
-  });
+  );
 };
 
 exports.getCallsByEmpId = (req, res) => {
   let { id } = req.body;
   // console.log("ID",id)
-  EmployeeLogin.paginate({_id:id}, {populate:"assignedCalls.callId"}, function (err, result) {
-    // console.log(result);
-    if (err || !result) {
-      return res.status(400).json({
-        error: "No employees found",
-        err: err,
+  EmployeeLogin.paginate(
+    { _id: id },
+    { populate: "assignedCalls.callId" },
+    function (err, result) {
+      // console.log(result);
+      if (err || !result) {
+        return res.status(400).json({
+          error: "No employees found",
+          err: err,
+        });
+      }
+      let out = [];
+      result.docs.map((i) => {
+        out.push({
+          _id: i._id,
+          assignedCalls: i.assignedCalls,
+          employeeName: i.employeeName,
+          email: i.email,
+        });
       });
+      // console.log(result.docs);
+      return res.json(out);
     }
-    let out=[]
-    result.docs.map(i=>{
-      out.push({_id:i._id,assignedCalls:i.assignedCalls,employeeName:i.employeeName,email:i.email})
-    })
-    // console.log(result.docs);
-    return res.json(out);
-  });
+  );
 };
 
 exports.getEmployeeById = (req, res) => {
@@ -133,10 +164,6 @@ exports.getEmployeeById = (req, res) => {
   });
 };
 
-function escapeRegex(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
-
 exports.deleteEmployee = async (req, res) => {
   let { id } = req.body;
   try {
@@ -151,7 +178,7 @@ exports.deleteEmployee = async (req, res) => {
 
 exports.updateEmployee = async (req, res) => {
   let { id, update } = req.body;
-  console.log("id:",id,"update", update);
+  console.log("id:", id, "update", update);
   try {
     let employee = await EmployeeLogin.findByIdAndUpdate(id, update, {
       safe: true,
@@ -196,22 +223,21 @@ exports.getAllSalary = (req, res) => {
   // let filteroptions = { role: req.body.role };
   let filteroptions = {};
 
-  if(filters.queryID){
-    filteroptions.queryID=filters.queryID;
+  if (filters.queryID) {
+    filteroptions.queryID = filters.queryID;
   }
-  
-  
-  if(filters.date){
-    var tempdate = new Date(filters.date)
+
+  if (filters.date) {
+    var tempdate = new Date(filters.date);
     var firstDay = new Date(tempdate.getFullYear(), tempdate.getMonth(), 1);
     var lastDay = new Date(tempdate.getFullYear(), tempdate.getMonth() + 1, 0);
-    console.log(firstDay,lastDay)
-    filteroptions.date={
+    console.log(firstDay, lastDay);
+    filteroptions.date = {
       $gte: firstDay,
-      $lt: lastDay
+      $lt: lastDay,
     };
   }
-  
+
   // Logic to add to filter when required
 
   Salary.paginate(filteroptions, options, function (err, result) {
@@ -258,19 +284,17 @@ exports.deleteSalary = async (req, res) => {
   }
 };
 
-
 exports.getSalById = async (req, res) => {
-  console.log(req.body)
-  const {id}= req.body;
+  console.log(req.body);
+  const { id } = req.body;
   try {
     let asset = await Salary.findById(id).populate("queryID");
     return res.status(200).json(asset);
   } catch (err) {
-    console.log(id,err);
+    console.log(id, err);
     return res.status(400).json({ error: err });
   }
 };
-
 
 exports.downloadsalaryPdf = async (req, res) => {
   let { id } = req.body;
@@ -278,17 +302,24 @@ exports.downloadsalaryPdf = async (req, res) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto(`${process.env.FRONT}/salarypdf/${id}`, {waitUntil: 'networkidle0'});
-    const pdf = await page.pdf({ format: 'A4' });
-   
-    await browser.close();
-    res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
-	  res.send(pdf)
- 
- 
+    await page.goto(`${process.env.FRONT}/salarypdf/${id}`, {
+      waitUntil: "networkidle0",
+    });
+    const pdf = await page.pdf({ format: "A4" });
 
+    await browser.close();
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Length": pdf.length,
+    });
+    res.send(pdf);
   } catch (err) {
     console.log(id);
     return res.status(400).json({ error: err });
   }
 };
+
+// -----------------------Fuzzy Search Regex----------------
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
