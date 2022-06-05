@@ -80,6 +80,7 @@ exports.getCalls = async (req, res) => {
     filteroptions.callNo = fuzzyquery;
   }
 
+  // note that generally in getall cancelled and closed wont come
   if (filters.callStatus != "") {
     if (filters.callStatus == "priority" || filters.callStatus == "all") {
       console.log(filters.callStatus);

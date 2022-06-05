@@ -43,6 +43,7 @@ import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
 import { isAutheticated } from "../../helpers/auth";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+import { saveAs } from "file-saver";
 
 function ViewCalls() {
   // Bottom bar stuff
@@ -98,6 +99,9 @@ function ViewCalls() {
   const [defectiveHistoryImg, setDefectiveHistoryImg] = useState("");
   const [ccfrHistoryImg, setCcfrHistoryImg] = useState("");
 
+  //download
+  const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
+
   // pagination setup
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
@@ -107,76 +111,76 @@ function ViewCalls() {
     setPage(p);
   }
 
-  const SetStatusModal = () => {
-    return (
-      <>
-        <Modal
-          isOpen={isSetStatusModal}
-          onClose={() => setisSetStatusModal(false)}
-        >
-          <ModalHeader>Set Call Status</ModalHeader>
-          <ModalBody>
-            <div className="flex-col flex">
-              <div className="font-xl dark:text-white">Current Status:</div>
-              <Button className="font-xl">Set Status</Button>
-              <Button className="font-xl my-2 mx-10 inline">
-                Pending for Allocation
-              </Button>
-              <Button className="font-xl my-2 mx-10 inline">
-                Pending for Allocation
-              </Button>
-              <Button className="font-xl my-2 mx-10 inline">
-                Pending for Allocation
-              </Button>
-              <Button className="font-xl my-2 mx-10 inline">
-                Pending for Allocation
-              </Button>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="w-full sm:w-auto"
-              onClick={async () => {
-                console.log("SELECTED", selectedprod);
-                let payload = {
-                  id: selectedprod._id,
-                  update: {
-                    employeeId: engineer._id,
-                    employeeName: engineer.enggName,
-                    callStatus: 1,
-                  },
-                };
-                try {
-                  let response = await axios({
-                    url: `${API}/call/${Emp.getId()}/ViewCallsg`,
-                    method: "POST",
-                    data: payload,
-                  });
-                  let temp = data;
-                  console.log(temp);
-                  temp = temp.filter((c) => {
-                    if (c._id === selectedprod._id) {
-                      c.callStatus = 1;
-                      c.employeeName = engineer.enggName;
-                      c.employeeId = engineer._id;
-                      return c;
-                    }
-                    setData(temp);
-                  });
-                  // console.log(response.data);
-                  setisSetStatusModal(false);
-                } catch (error) {
-                  throw error;
-                }
-              }}
-            >
-              Confirm Assignment
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </>
-    );
-  };
+  // const SetStatusModal = () => {
+  //   return (
+  //     <>
+  //       <Modal
+  //         isOpen={isSetStatusModal}
+  //         onClose={() => setisSetStatusModal(false)}
+  //       >
+  //         <ModalHeader>Set Call Status</ModalHeader>
+  //         <ModalBody>
+  //           <div className="flex-col flex">
+  //             <div className="font-xl dark:text-white">Current Status:</div>
+  //             <Button className="font-xl">Set Status</Button>
+  //             <Button className="font-xl my-2 mx-10 inline">
+  //               Pending for Allocation
+  //             </Button>
+  //             <Button className="font-xl my-2 mx-10 inline">
+  //               Pending for Allocation
+  //             </Button>
+  //             <Button className="font-xl my-2 mx-10 inline">
+  //               Pending for Allocation
+  //             </Button>
+  //             <Button className="font-xl my-2 mx-10 inline">
+  //               Pending for Allocation
+  //             </Button>
+  //           </div>
+  //         </ModalBody>
+  //         <ModalFooter>
+  //           <Button
+  //             className="w-full sm:w-auto"
+  //             onClick={async () => {
+  //               console.log("SELECTED", selectedprod);
+  //               let payload = {
+  //                 id: selectedprod._id,
+  //                 update: {
+  //                   employeeId: engineer._id,
+  //                   employeeName: engineer.enggName,
+  //                   callStatus: 1,
+  //                 },
+  //               };
+  //               try {
+  //                 let response = await axios({
+  //                   url: `${API}/call/${Emp.getId()}/ViewCallsg`,
+  //                   method: "POST",
+  //                   data: payload,
+  //                 });
+  //                 let temp = data;
+  //                 console.log(temp);
+  //                 temp = temp.filter((c) => {
+  //                   if (c._id === selectedprod._id) {
+  //                     c.callStatus = 1;
+  //                     c.employeeName = engineer.enggName;
+  //                     c.employeeId = engineer._id;
+  //                     return c;
+  //                   }
+  //                   setData(temp);
+  //                 });
+  //                 // console.log(response.data);
+  //                 setisSetStatusModal(false);
+  //               } catch (error) {
+  //                 throw error;
+  //               }
+  //             }}
+  //           >
+  //             Confirm Assignment
+  //           </Button>
+  //         </ModalFooter>
+  //       </Modal>
+  //     </>
+  //   );
+  // };
 
   const HistoryImgViewModal = () => {
     return (
@@ -282,6 +286,139 @@ function ViewCalls() {
     );
   };
 
+  const getCallStatusString = (num) => {
+    let finalstatus = "";
+    switch (num) {
+      case 0:
+        return "Pending For Allocation";
+        break;
+      case 1:
+        return "Pending for Percall Approval";
+        break;
+      case 2:
+        return "Pending for Response";
+        break;
+      case 3:
+        return "Pending for OEM Response";
+        break;
+      case 4:
+        return "Pending for 2nd Response";
+        break;
+      case 5:
+        return "Pending for Customer";
+        break;
+      case 6:
+        return "Under Observation";
+        break;
+      case 7:
+        return "Pending for Others";
+        break;
+      case 8:
+        return "Pending for Spare";
+        break;
+      case 9:
+        return "Spare in Transit";
+        break;
+      case 10:
+        return "Cancelled Calls";
+        break;
+      case 11:
+        return "Closed Calls";
+        break;
+      case 12:
+        return "Spare Taken CMRR";
+        break;
+      case 13:
+        return "Pending For Spare Collection";
+        break;
+      case 14:
+        return "Standby Given";
+        break;
+      case 15:
+        return "Pending For Verification";
+        break;
+
+      default:
+        return "Status Number Unknown";
+        break;
+    }
+  };
+
+  const DwnldModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className=" sdark:bg-gray-800 p-5 my-6 mx-10 px-5  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl mx-10 px-10">
+            <div className="text-lg">Download Call Data?</div>
+          </ModalHeader>
+          <ModalBody>
+            <Button
+              layout="outline"
+              onClick={() => {
+                downloadAssets();
+              }}
+            >
+              Download
+            </Button>
+          </ModalBody>
+          {/* <ModalFooter></ModalFooter> */}
+        </Modal>
+      </>
+    );
+  };
+
+  const downloadAssets = async () => {
+    let csv = `CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
+
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        callType: callType,
+        callStatus: callStatus,
+        searchquery: searchquery,
+        fromDate: fromDate,
+        toDate: toDate,
+      },
+    };
+    // console.log(`${API}/asset/${Emp.getId()}/getall`);
+
+    try {
+      let response = await axios({
+        url: `${API}/call/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+
+      array = response.data.out;
+    } catch (error) {
+      throw error;
+    }
+
+    console.log("download calls call", array);
+    // let csv = `CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
+    array.map((call) => {
+      csv =
+        csv +
+        `${call.callNo},${moment(call.date).format("DD-MM-YYYY")},${moment(
+          `${"2018-04-02"}T${call.time}`
+        ).format("h:mm a")},${call.unitName},${call.phone},${
+          call.assetId.producttype
+        },${call.assetId.ponumber},${call.problem},${getCallStatusString(
+          call.callStatus
+        )},${call.employeeName},\n`;
+    });
+    // console.log(csv); //product.
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "CallsExport.csv");
+  };
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -388,18 +525,16 @@ function ViewCalls() {
           <Modal
             isOpen={historyModalOpen}
             onClose={() => setHistoryModalOpen(false)}
-            className="w-9/12  dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
+            className="w-9/12  dark:bg-gray-800 p-10 my-3  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
-              <div>{item.name}</div>
-              <div>
-                Call No: <Badge>{item.callNo}</Badge>{" "}
-              </div>
+              {/* <div>{item.name}</div> */}
+              <div>Call No: {item.callNo}</div>
             </ModalHeader>
             <ModalBody>
-              <div className="font-semibold text-xl my-2">Call History</div>
+              {/* <div className="font-semibold text-xl my-2">Call History</div> */}
               {/* ------------------------- Table ------------------------------ */}
-              <TableContainer className="mt-4">
+              <TableContainer className="mt-4 max-h-xl overflow-scroll">
                 <Table>
                   <TableHeader>
                     <tr>
@@ -414,7 +549,7 @@ function ViewCalls() {
                       <TableCell>Images</TableCell>
                     </tr>
                   </TableHeader>
-                  <TableBody>
+                  <TableBody className=" max-h-64">
                     {history.map((entry, i) => (
                       <TableRow
                         className={`hover:shadow-lg dark:hover:bg-gray-600 ${
@@ -571,10 +706,11 @@ function ViewCalls() {
         refresh={refresh}
         setRefresh={setRefresh}
       /> */}
-      <SetStatusModal />
+      {/* <SetStatusModal /> */}
       <ReviewSubmit />
       {HistoryModal()}
       {HistoryImgViewModal()}
+      {DwnldModal()}
 
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
 
@@ -749,7 +885,7 @@ function ViewCalls() {
                           }
                         >
                           <div className=" cursor-pointer">
-                            <p className="font-semibold py-1 px-10 hover:underline text-white bg-blue-600 rounded-lg mb-1">
+                            <p className="font-semibold py-1 px-12 hover:underline text-white bg-blue-600 rounded-lg mb-1">
                               {call.callNo}
                             </p>
                           </div>
@@ -840,7 +976,17 @@ function ViewCalls() {
                   </TableCell>
 
                   <TableCell className="flex flex-row ">
-                    <span className="w-full overflow-auto">{call.problem}</span>
+                    <div className="flex items-center justify-center ">
+                      <div className="flex flex-col items-start overflow-auto text-sm w-40 ">
+                        <span className=" ">{call.problem}</span>
+                        {call.employeeId ? (
+                          <span>Engineer: {call.employeeName}</span>
+                        ) : (
+                          <span>Engineer Not Assigned</span>
+                        )}
+                      </div>
+                    </div>
+                    {/* <span>Engineer: {call.engineer}</span> */}
                   </TableCell>
 
                   {/* <TableCell> */}
@@ -925,20 +1071,28 @@ function ViewCalls() {
                   {/* </TableCell> */}
                   <TableCell>
                     <div className="flex items-center space-x-4">
-                      <Button layout="link" size="icon" aria-label="Edit">
-                        {/* <Link
+                      <Link
+                        key={call._id}
+                        to={
+                          call.callType == "internalinv"
+                            ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
+                            : `/app/call/updatecall/${call._id}/${call.assetId._id}`
+                        }
+                      >
+                        <Button layout="link" size="icon" aria-label="Edit">
+                          {/* <Link
                           key={user._id}
                           to={`/app/unit/update/${user._id}`}
                         > */}
-                        <EditIcon className="w-5 h-5" aria-hidden="true" />
-                        {/* </Link>{" "} */}
-                      </Button>
+                          <EditIcon className="w-5 h-5" aria-hidden="true" />
+                          {/* </Link>{" "} */}
+                        </Button>
+                      </Link>
 
                       <Button
                         onClick={() => {
-                          // console.log("hellloo", data[i].product.history);
-                          // setAssetHistory(data[i].product.history);
-                          // setAssetHistoryModalOpen(true);
+                          setViewId(i);
+                          setHistoryModalOpen(true);
                         }}
                         layout="link"
                         size="icon"
@@ -1024,6 +1178,15 @@ function ViewCalls() {
           </TableFooter>
         </TableContainer>
 
+        <div className="mt-10">
+          <Button
+            onClick={() => {
+              setIsDwnldModalOpen(true);
+            }}
+          >
+            Export
+          </Button>
+        </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
       </div>
 
