@@ -116,6 +116,8 @@ const ViewAttendance = lazy(() => import("../pages/Attendance/ViewAttendance"));
 
 const ViewDownloads = lazy(() => import("../pages/Downloads/ViewDownloads"));
 
+const ViewReports = lazy(() => import("../pages/Reports/ViewReports"));
+
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -354,6 +356,11 @@ export const aroutes = [
     path: "/downloads",
     component: ViewDownloads,
   },
+  // -----------------Reports --------------------------------
+  {
+    path: "/reports",
+    component: ViewReports,
+  },
 
   // --------------------------------------------/
   {
@@ -470,6 +477,11 @@ export const enggroutes = [
     path: "/downloads",
     component: ViewDownloads,
   },
+  // -----------------Reports --------------------------------
+  {
+    path: "/reports",
+    component: ViewReports,
+  },
 
   // ----------------------LST Views ----------------------/
 
@@ -533,6 +545,11 @@ export const storekeeproutes = [
   {
     path: "/downloads",
     component: ViewDownloads,
+  },
+  // -----------------Reports --------------------------------
+  {
+    path: "/reports",
+    component: ViewReports,
   },
   // -----------------Attendance Views --------------------------------
   {
@@ -611,6 +628,11 @@ export const ostorekeeproutes = [
   {
     path: "/downloads",
     component: ViewDownloads,
+  },
+  // -----------------Reports --------------------------------
+  {
+    path: "/reports",
+    component: ViewReports,
   },
   // -----------------Attendance Views --------------------------------
   {
@@ -1061,6 +1083,11 @@ export const coordinatorroutes = [
     component: ViewDownloads,
   },
 
+  // -----------------Reports --------------------------------
+  {
+    path: "/reports",
+    component: ViewReports,
+  },
   // --------------------------------------------/
   {
     path: "/forms",

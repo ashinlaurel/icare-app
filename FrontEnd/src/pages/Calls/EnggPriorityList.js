@@ -3,17 +3,17 @@ import moment from "moment";
 import axios from "axios";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import PageTitle from "../../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  ButtonsIcon,
-  HeartIcon,
-  EditIcon,
-  TrashIcon,
-} from "../../icons";
+
+// import {
+//   ChatIcon,
+//   CartIcon,x
+//   MoneyIcon,
+//   PeopleIcon,
+//   ButtonsIcon,
+//   HeartIcon,
+//   EditIcon,
+//   TrashIcon,
+// } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 import {
   TableBody,
@@ -171,15 +171,17 @@ function EnggPriorityList() {
     data.map((call, i) => {
       csv =
         csv +
-        `${call.callNo},${moment(call.date).format("DD-MM-YYYY")},${moment(
+        `"${call.callNo}","${moment(call.date).format("DD-MM-YYYY")}","${moment(
           `${"2018-04-02"}T${call.time}`
-        ).format("h:mm a")},${call.unitName},${call.phone},${
+        ).format("h:mm a")}","${call.unitName}","${call.phone}","${
           call.assetId.producttype
-        },${call.assetId.ponumber},${call.problem},${getCallStatusAsString(
-          call.callStatus
-        )},${call.employeeName ? call.employeeName : "Not Assigned"},${moment(
-          call.assignedDate
-        ).format("DD-MM-YYYY")},${call.assignedETA},${i + 1},\n`;
+        }","${call.assetId.product.serialno}","${
+          call.problem
+        }","${getCallStatusAsString(call.callStatus)}","${
+          call.employeeName ? call.employeeName : "Not Assigned"
+        }","${moment(call.assignedDate).format("DD-MM-YYYY")}","${
+          call.assignedETA
+        }","${i + 1}",\n`;
     });
     // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -255,15 +257,17 @@ function EnggPriorityList() {
       finaldata[j].map((call, i) => {
         csv =
           csv +
-          `${call.callNo},${moment(call.date).format("DD-MM-YYYY")},${moment(
-            `${"2018-04-02"}T${call.time}`
-          ).format("h:mm a")},${call.unitName},${call.phone},${
-            call.assetId.producttype
-          },${call.assetId.ponumber},${call.problem},${getCallStatusAsString(
-            call.callStatus
-          )},${call.employeeName ? call.employeeName : "Not Assigned"},${moment(
-            call.assignedDate
-          ).format("DD-MM-YYYY")},${call.assignedETA},${i + 1},\n`;
+          `"${call.callNo}","${moment(call.date).format(
+            "DD-MM-YYYY"
+          )}","${moment(`${"2018-04-02"}T${call.time}`).format("h:mm a")}","${
+            call.unitName
+          }","${call.phone}","${call.assetId.producttype}","${
+            call.assetId.product.serialno
+          }","${call.problem}","${getCallStatusAsString(call.callStatus)}","${
+            call.employeeName ? call.employeeName : "Not Assigned"
+          }","${moment(call.assignedDate).format("DD-MM-YYYY")}","${
+            call.assignedETA
+          }","${i + 1}",\n`;
       });
     }
     // console.log(csv); //product.
@@ -416,7 +420,7 @@ function EnggPriorityList() {
                           {item.assetId.producttype}
                         </span>
                         <span className="text-xs ">
-                          SL:{item.assetId.ponumber}
+                          SL:{item.assetId.product.serialno}
                         </span>
                       </div>
                     </TableCell>

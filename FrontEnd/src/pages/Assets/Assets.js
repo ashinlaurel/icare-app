@@ -355,8 +355,9 @@ function Assets() {
     } catch (error) {
       throw error;
     }
-    array.map((i) => {
+    array.map((i, count) => {
       let cpu = `"`;
+      console.log(count);
       i.product.cpu.map((j) => {
         cpu = cpu + `${j.cpuname}: ${j.cpusno} `;
       });

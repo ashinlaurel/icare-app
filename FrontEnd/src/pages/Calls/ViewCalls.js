@@ -301,7 +301,7 @@ function ViewCalls() {
   };
 
   const downloadAssets = async () => {
-    let csv = `SlNo,CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
+    let csv = `SlNo,CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer,Action Taken\n`;
 
     let array;
     let payload = {
@@ -334,17 +334,18 @@ function ViewCalls() {
     console.log("download calls call", array);
     // let csv = `CallNo,Date,Time,Unit,Phone,Product,SerialNumber,Problem,CallStatus,Engineer\n`;
     array.map((call, i) => {
+      let historylast = call.history.length - 1;
       csv =
         csv +
-        `${i + 1},${call.callNo},${moment(call.date).format(
+        `"${i + 1}","${call.callNo}","${moment(call.date).format(
           "DD-MM-YYYY"
-        )},${moment(`${"2018-04-02"}T${call.time}`).format("h:mm a")},${
+        )}","${moment(`${"2018-04-02"}T${call.time}`).format("h:mm a")}","${
           call.unitName
-        },${call.phone},${call.assetId.producttype},${call.assetId.ponumber},${
-          call.problem
-        },${getCallStatusString(call.callStatus)},${
+        }","${call.phone}","${call.assetId.producttype}","${
+          call.assetId.product.serialno
+        }","${call.problem}","${getCallStatusString(call.callStatus)}","${
           call.employeeName ? call.employeeName : "Not Assigned"
-        },\n`;
+        }","${call.history[historylast].actionTaken}"\n`;
     });
     // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -455,13 +456,17 @@ function ViewCalls() {
         <>
           <Modal
             isOpen={historyModalOpen}
-            onClose={() => setHistoryModalOpen(false)}
+            onClose={() => {
+              setBBarOpen(0);
+              setHistoryModalOpen(false);
+            }}
             className="w-9/12  dark:bg-gray-800 p-10 my-3  bg-gray-50 text-gray-900 dark:text-white  rounded-lg overflow-y-auto"
           >
             <ModalHeader className="flex flex-row justify-between text-xl">
               {/* <div>{item.name}</div> */}
               <div>Call No: {item.callNo}</div>
             </ModalHeader>
+            <span>Phone: {item.phone}</span>
             <ModalBody>
               {/* <div className="font-semibold text-xl my-2">Call History</div> */}
               {/* ------------------------- Table ------------------------------ */}
@@ -491,10 +496,6 @@ function ViewCalls() {
                         key={i}
                         onClick={() => {
                           // setActiveRowId(user._id);
-                          // console.log("the id is " + user._id);
-                          // setSelectedProd(user);
-                          // setAssetDetails(user);
-                          // console.log(user.product.keyboard[0].keyboardname);
                         }}
                       >
                         <TableCell className="w-8">
@@ -791,9 +792,9 @@ function ViewCalls() {
                 <TableCell>Call No</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Unit Name</TableCell>
-                <TableCell>Phone</TableCell>
+                {/* <TableCell>Phone</TableCell> */}
                 <TableCell>Product</TableCell>
-                {/* <TableCell>Serial</TableCell> */}
+                <TableCell>Serial</TableCell>
                 <TableCell>Call Status</TableCell>
                 <TableCell>Problem</TableCell>
                 {/* <TableCell>Assigned Employee</TableCell> */}
@@ -836,9 +837,6 @@ function ViewCalls() {
                             </p>
                           </div>
                         </Link>
-                        <span className="text-xs ">
-                          SL:{call.assetId.ponumber}
-                        </span>
                       </div>
                     </div>
                   </TableCell>
@@ -859,15 +857,18 @@ function ViewCalls() {
                   <TableCell>
                     <span className="text-sm">{call.unitName}</span>
                   </TableCell>
-                  <TableCell>
+
+                  {/* <TableCell>
                     <span className="text-sm">{call.phone}</span>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <span className="text-sm">{call.assetId.producttype}</span>
                   </TableCell>
-                  {/* <TableCell>
-                    <span className="text-sm">{call.assetId.ponumber}</span>
-                  </TableCell> */}
+                  <TableCell>
+                    <span className="text-sm ">
+                      {call.assetId.product.serialno}
+                    </span>
+                  </TableCell>
                   <TableCell>
                     <span className=" text-xs">
                       {call.callStatus == 0 ? (
@@ -1046,70 +1047,8 @@ function ViewCalls() {
                       >
                         <MenuIcon className="w-5 h-5" aria-hidden="true" />
                       </Button>
-                      {/* <div>
-            <Button className="mx-3 mt02">
-              {" "}
-              <Link
-                key={selectedprod._id}
-                to={`/app/unit/update/${selectedprod._id}`}
-              >
-                Edit
-              </Link>{" "}
-            </Button>
-            <Button
-              className="mx-3 mt02"
-              onClick={async () => {
-                console.log("delete Asset");
-                try {
-                  let response = await axios({
-                    url: `${API}/asset/${Emp.getId()}/delete`,
-                    method: "POST",
-                    data: { id: selectedprod._id },
-                  });
-                  console.log(response.data);
-                  // let temp = data.filter((x) => x._id != selectedprod._id);
-                  // setData(temp);
-
-                  // setData(response.data);
-                } catch (error) {
-                  throw error;
-                }
-              }}
-            >
-              Delete
-            </Button>
-          </div> */}
                     </div>
                   </TableCell>
-                  {/* <TableCell>
-                    <div className="flex justify-start items-center space-x-2">
-                      <Link
-                        key={call._id}
-                        to={
-                          call.callType == "internalinv"
-                            ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
-                            : `/app/call/updatecall/${call._id}/${call.assetId._id}`
-                        }
-                      >
-                        <Button
-                          layout="outline"
-                          onClick={() => {}}
-                          className=" "
-                        >
-                          Update
-                        </Button>
-                      </Link>
-                      <Button
-                        onClick={() => {
-                          setViewId(i);
-                          setHistoryModalOpen(true);
-                        }}
-                        layout="outline"
-                      >
-                        History
-                      </Button>
-                    </div>
-                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

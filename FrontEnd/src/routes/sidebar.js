@@ -206,6 +206,13 @@ export const aroutes = [
 
   // ---------------Downloadables ----------------------------------
   {
+    path: "/app/reports", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Reports", // name that appear in Sidebar
+  },
+
+  // ---------------Downloadables ----------------------------------
+  {
     path: "/app/downloads", // the url
     icon: "HomeIcon", // the component being exported from icons/index.js
     name: "Downloads", // name that appear in Sidebar
