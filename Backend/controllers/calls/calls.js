@@ -58,6 +58,11 @@ exports.getCalls = async (req, res) => {
   let filteroptions = {
     // product: { brand: "IBM" },
   };
+
+  if (filters.callType && filters.callType != "") {
+    filteroptions.callType = filters.callType;
+  }
+
   if (filters.toDate != "" && filters.fromDate != "") {
     filteroptions.date = {
       $gte: filters.fromDate,
@@ -71,10 +76,6 @@ exports.getCalls = async (req, res) => {
     filteroptions.date = {
       $lt: filters.toDate,
     };
-  }
-
-  if (filters.callType && filters.callType != "") {
-    filteroptions.callType = filters.callType;
   }
 
   // note that generally in getall cancelled and closed wont come
@@ -98,11 +99,16 @@ exports.getCalls = async (req, res) => {
     filteroptions.employeeId = filters.employeeId;
   }
 
-  if (filters.customerId && filters.customerId != "") {
-    filteroptions.customerId = filters.customerId;
+  if (filters.business != "") {
+    filteroptions.business = filters.business;
   }
-  if (filters.accoutId && filters.accoutId != "") {
-    filteroptions.accoutId = filters.accoutId;
+
+  if (filters.unitId && filters.unitId != "") {
+    filteroptions.unitId = filters.unitId;
+  } else if (filters.accountId && filters.accountId != "") {
+    filteroptions.accountId = filters.accountId;
+  } else if (filters.customerId && filters.customerId != "") {
+    filteroptions.customerId = filters.customerId;
   }
   console.log(filteroptions);
   // servicelocation filters

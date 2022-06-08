@@ -201,12 +201,12 @@ exports.getAllAssets = (req, res) => {
       filteroptions.producttype = filters.producttype;
     }
     // -----------------Customer,Account,Unit ID filters-------
+
     if (filters.unitId && filters.unitId != "") {
       filteroptions.unitId = filters.unitId;
     } else if (filters.accountId && filters.accountId != "") {
       filteroptions.accountId = filters.accountId;
-    } else if (filters.accountId && filters.customerId != "") {
-      // console.log(filters.customerId);
+    } else if (filters.customerId && filters.customerId != "") {
       filteroptions.customerId = filters.customerId;
     }
     console.log(filters);

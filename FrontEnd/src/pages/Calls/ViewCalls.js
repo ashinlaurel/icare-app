@@ -44,6 +44,7 @@ import { TopBarContext } from "../../context/TopBarContext";
 import { isAutheticated } from "../../helpers/auth";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 import { saveAs } from "file-saver";
+import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 
 function ViewCalls() {
   // Bottom bar stuff
@@ -387,6 +388,14 @@ function ViewCalls() {
           searchquery: searchquery,
           fromDate: fromDate,
           toDate: toDate,
+          //new filters
+          business: Business,
+          producttype: product,
+          customer: customer,
+          account: account,
+          unitId: unit._id,
+          customerId: customer._id,
+          accountId: account._id,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -626,7 +635,7 @@ function ViewCalls() {
   return (
     <>
       {/* ---------------------Customer Selection Modal----------------------------------------- */}
-      {/* <CustomerSelection
+      <CustomerSelection
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setUnit={setUnit}
@@ -637,7 +646,7 @@ function ViewCalls() {
         setAccount={setAccount}
         refresh={refresh}
         setRefresh={setRefresh}
-      /> */}
+      />
       {/* <SetStatusModal /> */}
       <ReviewSubmit />
       {HistoryModal()}
@@ -783,6 +792,402 @@ function ViewCalls() {
             </div>
           </div>
           {/* ----------------------------------------Row 2 -------------------------------------------------------------------- */}
+          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-6 ">
+            <div class="relative  ">
+              <button
+                class=" shadow-md appearance-none h-full rounded border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                onClick={() => {
+                  setIsModalOpen(!isModalOpen);
+                }}
+                // value={sortBy}
+                // onChange={onSortToggle}
+              >
+                Pick Customer
+              </button>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="relative mx-5 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={Business}
+                onChange={(e) => {
+                  setBusiness(e.target.value);
+                }}
+              >
+                <option value="" disabled selected>
+                  Business Type
+                </option>
+                <option value="">All</option>
+                <option value="AMC">AMC</option>
+                <option value="WTY">Warranty</option>
+                <option value="NOS">NOS</option>
+              </select>
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+            {/* ---------------------------Product Drop Down-------------------------------------- */}
+            <div className="relative z-40 ">
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                {product ? product : "Pick Product"}
+              </button>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+              <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("");
+                  }}
+                >
+                  <span>All</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Console");
+                  }}
+                >
+                  <span>Console</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("DMP");
+                  }}
+                >
+                  <span>DMP</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Inkjet");
+                  }}
+                >
+                  <span>Inkjet</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("KVM");
+                  }}
+                >
+                  <span>KVM</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Laptop");
+                  }}
+                >
+                  <span>Laptop</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Laser");
+                  }}
+                >
+                  <span>Laser</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("LMP");
+                  }}
+                >
+                  <span>LMP</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Module");
+                  }}
+                >
+                  <span>Module</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Router");
+                  }}
+                >
+                  <span>Router</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Scanner");
+                  }}
+                >
+                  <span>Scanner</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Server");
+                  }}
+                >
+                  <span>Server</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Desktop");
+                  }}
+                >
+                  <span>Desktop</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Storage");
+                  }}
+                >
+                  <span>Storage</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Switch");
+                  }}
+                >
+                  <span>Switch</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("UPS");
+                  }}
+                >
+                  <span>UPS</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Others");
+                  }}
+                >
+                  <span>Others</span>
+                </DropdownItem>
+              </Dropdown>
+            </div>
+
+            {/* -------------------------------Search Type--------------------------------------- */}
+            <div className="relative ">
+              <button
+                onClick={() => {
+                  setIsOpenTwo(!isOpenTwo);
+                }}
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                {searchtype ? searchlabel : "Pick Search Type"}
+              </button>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+              <Dropdown isOpen={isOpenTwo} onClose={() => setIsOpenTwo(false)}>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("");
+                    setSearchLabel("");
+                    setDisabler(true);
+                    setSearchQuery("");
+                    setRefresh(!refresh);
+                  }}
+                >
+                  <span>All</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("prodserial");
+                    setSearchLabel("Product Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Product Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("keyboardsno");
+                    setSearchLabel("Keyboard Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Keyboard Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("mousesno");
+                    setSearchLabel("Mouse Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Mouse Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("motherboardsno");
+                    setSearchLabel("Motherboard Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Motherboard Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("monitorsno");
+                    setSearchLabel("Monitor Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Monitor Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("hddsno");
+                    setSearchLabel("HDD Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>HDD Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("cpusno");
+                    setSearchLabel("CPU Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>CPU Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("ramsno");
+                    setSearchLabel("Ram Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>RAM Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("smpssno");
+                    setSearchLabel("SMPS Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>SMPS Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("fansno");
+                    setSearchLabel("Fan Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Fan Serial</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpenTwo(false);
+                    setSearchType("opticaldrivesno");
+                    setSearchLabel("Optical Drive Serial");
+                    setDisabler(false);
+                  }}
+                >
+                  <span>Optical Drive Serial</span>
+                </DropdownItem>
+              </Dropdown>
+            </div>
+            {/* -----------------Search Bar------------------------------------ */}
+            <div class="block relative xl:ml-64">
+              <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4 fill-current text-gray-500"
+                >
+                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+                </svg>
+              </span>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  // setPage(1);
+                  setRefresh(!refresh);
+                }}
+              >
+                <input
+                  value={searchquery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search"
+                  disabled={disabler}
+                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                />
+              </form>
+            </div>
+
+            <div class="block relative xl:ml-64">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  setIsDwnldModalOpen(true);
+                }}
+              >
+                Download Database
+              </Button>
+            </div>
+          </div>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">

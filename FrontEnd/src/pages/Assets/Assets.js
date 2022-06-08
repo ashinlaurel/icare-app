@@ -598,6 +598,14 @@ function Assets() {
           i.product.keyboard.length != 0
             ? i.product.keyboard[0].keyboardsno
             : ""
+        }","${
+          i.product.mouse.length != 0 ? i.product.mouse[0].mousename : ""
+        }","${
+          i.product.mouse.length != 0 ? i.product.mouse[0].mousesno : ""
+        }","${
+          i.product.monitor.length != 0 ? i.product.monitor[0].monitorname : ""
+        }","${
+          i.product.monitor.length != 0 ? i.product.monitor[0].monitorsno : ""
         }",\n`;
     });
     console.log(csv); //product.
