@@ -301,22 +301,40 @@ function Assets() {
         <Modal
           isOpen={isDwnldModalOpen}
           onClose={() => setIsDwnldModalOpen(false)}
-          className=" dark:bg-gray-800 p-5 my-6 mx-10 px-5  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+          className=" dark:bg-gray-800 p-5  mx-10  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
         >
-          <ModalHeader className="flex flex-row justify-between text-xl mx-10 px-10">
-            <div className="text-lg">Download Asset Data?</div>
+          <ModalHeader className="">
+            <div className="text-lg">Select Type Of Export</div>
           </ModalHeader>
           <ModalBody>
-            <Button
-              layout="outline"
-              onClick={() => {
-                downloadAssets();
-              }}
-            >
-              Download
-            </Button>
+            <div className="flex flex-row items-center justify-between space-x-4">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  downloadAssets();
+                }}
+              >
+                Full Database
+              </Button>
+              <Button
+                layout="outline"
+                onClick={() => {
+                  downloadContractDetails();
+                }}
+              >
+                Contract Details
+              </Button>
+              <Button
+                layout="outline"
+                onClick={() => {
+                  downloadMIFDetails();
+                }}
+              >
+                Brief MIF
+              </Button>
+            </div>
           </ModalBody>
-          <ModalFooter></ModalFooter>
+          {/* <ModalFooter></ModalFooter> */}
         </Modal>
       </>
     );
@@ -467,6 +485,125 @@ function Assets() {
     saveAs(csvData, "Assets.csv");
   };
 
+  const downloadContractDetails = async () => {
+    let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,\n`;
+
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        business: Business,
+        producttype: product,
+        customer: customer,
+        account: account,
+        unitId: unit._id,
+        customerId: customer._id,
+        accountId: account._id,
+        searchtype: searchtype,
+        searchquery: searchquery,
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+
+    // let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,Expiry Month,Product,SerialNo,\n`;
+    array.map((i, count) => {
+      csv =
+        csv +
+        `"${count + 1}","${i.customerName}","${i.accountName}","${
+          i.unitName
+        }","${i.ponumber}","${moment(i.podate).format("DD/MM/YYYY")}","${moment(
+          i.contractfrom
+        ).format("DD/MM/YYYY")}","${moment(i.contractto).format(
+          "DD/MM/YYYY"
+        )}","${moment(i.billingfrom).format("DD/MM/YYYY")}","${moment(
+          i.billingto
+        ).format("DD/MM/YYYY")}","${i.amcrate}","${i.gstamount}","${
+          i.netamount
+        }","${moment(i.contractto).format("MMMM")}","${i.producttype}","${
+          i.product.serialno
+        }",\n`;
+    });
+    console.log(csv); //product.
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Assets.csv");
+  };
+  const downloadMIFDetails = async () => {
+    let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,Keyboard,KbdSerialNo,Mouse,MouseSerialNo,Monitor,MonitorSerialNo,\n`;
+
+    let array;
+    let payload = {
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      filters: {
+        business: Business,
+        producttype: product,
+        customer: customer,
+        account: account,
+        unitId: unit._id,
+        customerId: customer._id,
+        accountId: account._id,
+        searchtype: searchtype,
+        searchquery: searchquery,
+      },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/getall`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+
+    array.map((i, count) => {
+      csv =
+        csv +
+        `"${count + 1}","${i.customerName}","${i.accountName}","${
+          i.unitName
+        }","${i.ponumber}","${moment(i.podate).format("DD/MM/YYYY")}","${moment(
+          i.contractfrom
+        ).format("DD/MM/YYYY")}","${moment(i.contractto).format(
+          "DD/MM/YYYY"
+        )}","${moment(i.billingfrom).format("DD/MM/YYYY")}","${moment(
+          i.billingto
+        ).format("DD/MM/YYYY")}","${i.amcrate}","${i.gstamount}","${
+          i.netamount
+        }","${moment(i.contractto).format("MMMM")}","${i.producttype}","${
+          i.product.serialno
+        }","${
+          i.product.keyboard.length != 0
+            ? i.product.keyboard[0].keyboardname
+            : ""
+        }","${
+          i.product.keyboard.length != 0
+            ? i.product.keyboard[0].keyboardsno
+            : ""
+        }",\n`;
+    });
+    console.log(csv); //product.
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Assets.csv");
+  };
   // on page change, load new sliced data
   // here you would make another server request for new data
 

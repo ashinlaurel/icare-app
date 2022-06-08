@@ -76,9 +76,6 @@ exports.getCalls = async (req, res) => {
   if (filters.callType && filters.callType != "") {
     filteroptions.callType = filters.callType;
   }
-  if (filters.searchquery != "") {
-    filteroptions.callNo = fuzzyquery;
-  }
 
   // note that generally in getall cancelled and closed wont come
   if (filters.callStatus != "") {
@@ -119,7 +116,15 @@ exports.getCalls = async (req, res) => {
     dynamicStatus = { callStatus: { $nin: [11, 10] } };
   }
 
-  let finalquery = { $and: [dynamicStatus, filteroptions] };
+  let finalquery = {
+    $and: [
+      dynamicStatus,
+      {
+        $or: [{ callNo: fuzzyquery }, { "assetId.amcrate": fuzzyquery }],
+      },
+      filteroptions,
+    ],
+  };
 
   Call.paginate(finalquery, options, function (err, result) {
     // console.log(result);
