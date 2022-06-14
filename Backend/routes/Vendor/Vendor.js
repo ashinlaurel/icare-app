@@ -12,6 +12,7 @@ const {
   getVendorById,
   deleteVendor,
   getVendorLazy,
+  getVendorsExport,
 } = require("../../controllers/Vendor/Vendor");
 
 const router = express.Router();
@@ -23,6 +24,7 @@ router.post("/:id/create", isSignedIn, isAuthenticated, VendorCreate);
 router.post("/:id/getall", isSignedIn, isAuthenticated, getAllItems);
 // router.post("/:id/getlazy", isSignedIn, isAuthenticated, getVendorLazy);
 router.post("/getall", getAllItems);
+router.post("/getVendorsExport", getVendorsExport);
 
 router.post("/:id/update", isSignedIn, isAuthenticated, updateVendor);
 

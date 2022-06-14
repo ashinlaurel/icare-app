@@ -150,7 +150,8 @@ function CustomerList() {
     }
     // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    saveAs(csvData, "Assets.csv");
+    saveAs(csvData, "Customers.csv");
+    setIsDwnldModalOpen(false);
   };
   return (
     <>
@@ -159,7 +160,7 @@ function CustomerList() {
         <SectionTitle>Search</SectionTitle>
 
         <div className=" flex flex-row justify-start items-center w-full">
-          <div className="mb-8  shadow-md w-11/12 p-3 bg-white rounded-lg">
+          <div className="mb-8  shadow-md w-11/12 p-3 bg-white dark:bg-gray-800 rounded-lg">
             <div className="relative text-gray-500 focus-within:text-purple-600">
               <form onSubmit={handleSubmit}>
                 <input

@@ -62,6 +62,29 @@ exports.getAllItems = (req, res) => {
   });
 };
 
+exports.getVendorsExport = async (req, res) => {
+  //custom sorting after mongoose finds data.. needed as sorting inside filter
+  function compare(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  }
+
+  try {
+    const users = await Vendor.find();
+
+    users.sort(compare);
+    return res.status(200).json(users);
+  } catch (err) {
+    // console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};
+
 exports.updateVendor = async (req, res) => {
   let { id, update } = req.body;
   // console.log(id, update);
