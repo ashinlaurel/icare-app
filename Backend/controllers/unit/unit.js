@@ -67,6 +67,41 @@ exports.getAllUnits = async (req, res) => {
   }
 };
 
+exports.getUnitsExport = async (req, res) => {
+  //custom sorting after mongoose finds data.. needed as sorting inside filter
+  function compare(a, b) {
+    if (a.customerName < b.customerName) {
+      return -1;
+    }
+    if (a.customerName > b.customerName) {
+      return 1;
+    }
+    return 0;
+  }
+
+  try {
+    const users = await Unit.find(
+      {},
+      {},
+      { populate: { path: "customerId", select: ["name", "email"] } }
+    );
+    // removing assetIds from unit
+
+    users.map((unit) => {
+      unit.assetsId = [];
+      unit.customerName = unit.customerId.name;
+      unit["customerEmail"] = unit.customerId.email;
+      // console.log(unit.customerId.email);
+      // unit.customerId = {};
+    });
+    users.sort(compare);
+    return res.status(200).json(users);
+  } catch (err) {
+    // console.log(err);
+    return res.status(400).json({ error: "getAll Error" });
+  }
+};
+
 exports.deleteUnit = async (req, res) => {
   let { id } = req.body;
   try {

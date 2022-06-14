@@ -419,17 +419,7 @@ function ViewCalls() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [
-    page,
-    Business,
-    product,
-    refresh,
-    callStatus,
-    searchquery,
-    fromDate,
-    toDate,
-    callType,
-  ]);
+  }, [page, refresh, callStatus, searchquery, fromDate, toDate, callType]);
 
   // console.log(selectedprod);
 
@@ -1003,190 +993,6 @@ function ViewCalls() {
                 </DropdownItem>
               </Dropdown>
             </div>
-
-            {/* -------------------------------Search Type--------------------------------------- */}
-            <div className="relative ">
-              <button
-                onClick={() => {
-                  setIsOpenTwo(!isOpenTwo);
-                }}
-                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                aria-label="Notifications"
-                aria-haspopup="true"
-              >
-                {searchtype ? searchlabel : "Pick Search Type"}
-              </button>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-              <Dropdown isOpen={isOpenTwo} onClose={() => setIsOpenTwo(false)}>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("");
-                    setSearchLabel("");
-                    setDisabler(true);
-                    setSearchQuery("");
-                    setRefresh(!refresh);
-                  }}
-                >
-                  <span>All</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("prodserial");
-                    setSearchLabel("Product Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Product Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("keyboardsno");
-                    setSearchLabel("Keyboard Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Keyboard Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("mousesno");
-                    setSearchLabel("Mouse Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Mouse Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("motherboardsno");
-                    setSearchLabel("Motherboard Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Motherboard Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("monitorsno");
-                    setSearchLabel("Monitor Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Monitor Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("hddsno");
-                    setSearchLabel("HDD Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>HDD Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("cpusno");
-                    setSearchLabel("CPU Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>CPU Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("ramsno");
-                    setSearchLabel("Ram Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>RAM Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("smpssno");
-                    setSearchLabel("SMPS Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>SMPS Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("fansno");
-                    setSearchLabel("Fan Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Fan Serial</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpenTwo(false);
-                    setSearchType("opticaldrivesno");
-                    setSearchLabel("Optical Drive Serial");
-                    setDisabler(false);
-                  }}
-                >
-                  <span>Optical Drive Serial</span>
-                </DropdownItem>
-              </Dropdown>
-            </div>
-            {/* -----------------Search Bar------------------------------------ */}
-            <div class="block relative xl:ml-64">
-              <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg
-                  viewBox="0 0 24 24"
-                  class="h-4 w-4 fill-current text-gray-500"
-                >
-                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
-                </svg>
-              </span>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  // setPage(1);
-                  setRefresh(!refresh);
-                }}
-              >
-                <input
-                  value={searchquery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search"
-                  disabled={disabler}
-                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-              </form>
-            </div>
-
-            <div class="block relative xl:ml-64">
-              <Button
-                layout="outline"
-                onClick={() => {
-                  setIsDwnldModalOpen(true);
-                }}
-              >
-                Download Database
-              </Button>
-            </div>
           </div>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
@@ -1207,144 +1013,157 @@ function ViewCalls() {
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map((call, i) => (
-                <TableRow
-                  className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                    activerowid == call._id
-                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                      : "white"
-                  } `}
-                  key={i}
-                  onClick={() => {
-                    setActiveRowId(call._id);
-                    setBBarOpen(1);
-                    // console.log("the id is " + call._id);
-                    setSelectedProd(call);
-                    console.log("SELECTD", call);
-                    setAssetDetails(call.assetId);
-                    // console.log(call.product.keyboard[0].keyboardname);
-                  }}
-                >
-                  <TableCell className="">
-                    <div className="flex items-center text-sm justify-center">
-                      <div className="flex flex-col items-center ">
-                        <Link
-                          key={call._id}
-                          to={
-                            call.callType == "internalinv"
-                              ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
-                              : `/app/call/updatecall/${call._id}/${call.assetId._id}`
-                          }
-                        >
-                          <div className=" cursor-pointer">
-                            <p className="font-semibold py-1 px-12 hover:underline text-white bg-blue-600 rounded-lg mb-1">
-                              {call.callNo}
-                            </p>
-                          </div>
-                        </Link>
+              {data
+                .filter((call) => {
+                  // console.log(product, call.assetId.producttype);
+                  if (
+                    (Business == "" && product == "") ||
+                    (Business != "" && call.assetId.business == Business) ||
+                    (product != "" && call.assetId.producttype == product)
+                  )
+                    return true;
+                  return false;
+                })
+                .map((call, i) => (
+                  <TableRow
+                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                      activerowid == call._id
+                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                        : "white"
+                    } `}
+                    key={i}
+                    onClick={() => {
+                      setActiveRowId(call._id);
+                      setBBarOpen(1);
+                      // console.log("the id is " + call._id);
+                      setSelectedProd(call);
+                      console.log("SELECTD", call);
+                      setAssetDetails(call.assetId);
+                      // console.log(call.product.keyboard[0].keyboardname);
+                    }}
+                  >
+                    <TableCell className="">
+                      <div className="flex items-center text-sm justify-center">
+                        <div className="flex flex-col items-center ">
+                          <Link
+                            key={call._id}
+                            to={
+                              call.callType == "internalinv"
+                                ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
+                                : `/app/call/updatecall/${call._id}/${call.assetId._id}`
+                            }
+                          >
+                            <div className=" cursor-pointer">
+                              <p className="font-semibold py-1 px-12 hover:underline text-white bg-blue-600 rounded-lg mb-1">
+                                {call.callNo}
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="text-sm">
-                        {moment(call.date).format("DD/MM/YYYY")}
-                      </span>
-                      {call.regtimestamp ? (
-                        <span className="text-xs">
-                          {moment(`${"2018-04-02"}T${call.time}`).format(
-                            "h:mm a"
-                          )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="text-sm">
+                          {moment(call.date).format("DD/MM/YYYY")}
                         </span>
-                      ) : null}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{call.unitName}</span>
-                  </TableCell>
+                        {call.regtimestamp ? (
+                          <span className="text-xs">
+                            {moment(`${"2018-04-02"}T${call.time}`).format(
+                              "h:mm a"
+                            )}
+                          </span>
+                        ) : null}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{call.unitName}</span>
+                    </TableCell>
 
-                  {/* <TableCell>
+                    {/* <TableCell>
                     <span className="text-sm">{call.phone}</span>
                   </TableCell> */}
-                  <TableCell>
-                    <span className="text-sm">{call.assetId.producttype}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm ">
-                      {call.assetId.product.serialno}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className=" text-xs">
-                      {call.callStatus == 0 ? (
-                        <Badge>Pending For Allocation</Badge>
-                      ) : null}
-                      {call.callStatus == 1 ? (
-                        <Badge>Pending for Percall Approval</Badge>
-                      ) : null}
-                      {call.callStatus == 2 ? (
-                        <Badge>Pending for Response</Badge>
-                      ) : null}
-                      {call.callStatus == 3 ? (
-                        <Badge>Pending for OEM Response</Badge>
-                      ) : null}
-                      {call.callStatus == 4 ? (
-                        <Badge>Pending for 2nd Response</Badge>
-                      ) : null}
-                      {call.callStatus == 5 ? (
-                        <Badge>Pending for Customer</Badge>
-                      ) : null}
-                      {call.callStatus == 6 ? (
-                        <Badge>Under Observation</Badge>
-                      ) : null}
-                      {call.callStatus == 7 ? (
-                        <Badge>Pending for Others</Badge>
-                      ) : null}
-                      {call.callStatus == 8 ? (
-                        <Badge>Pending for Spare</Badge>
-                      ) : null}
-                      {call.callStatus == 9 ? (
-                        <Badge>Spare in Transit</Badge>
-                      ) : null}
-                      {call.callStatus == 10 ? (
-                        <Badge>Cancelled Calls</Badge>
-                      ) : null}
-                      {call.callStatus == 11 ? (
-                        <Badge>Closed Calls</Badge>
-                      ) : null}
-                      {call.callStatus == 12 ? (
-                        <Badge>Spare Taken CMRR</Badge>
-                      ) : null}
-                      {call.callStatus == 13 ? (
-                        <Badge>Pending For Spare Collection</Badge>
-                      ) : null}
-                      {call.callStatus == 14 ? (
-                        <Badge>Standby Given</Badge>
-                      ) : null}
-                      {call.callStatus == 15 ? (
-                        <Badge>Pending For Verification</Badge>
-                      ) : null}
-                    </span>
-                  </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {call.assetId.producttype}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm ">
+                        {call.assetId.product.serialno}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className=" text-xs">
+                        {call.callStatus == 0 ? (
+                          <Badge>Pending For Allocation</Badge>
+                        ) : null}
+                        {call.callStatus == 1 ? (
+                          <Badge>Pending for Percall Approval</Badge>
+                        ) : null}
+                        {call.callStatus == 2 ? (
+                          <Badge>Pending for Response</Badge>
+                        ) : null}
+                        {call.callStatus == 3 ? (
+                          <Badge>Pending for OEM Response</Badge>
+                        ) : null}
+                        {call.callStatus == 4 ? (
+                          <Badge>Pending for 2nd Response</Badge>
+                        ) : null}
+                        {call.callStatus == 5 ? (
+                          <Badge>Pending for Customer</Badge>
+                        ) : null}
+                        {call.callStatus == 6 ? (
+                          <Badge>Under Observation</Badge>
+                        ) : null}
+                        {call.callStatus == 7 ? (
+                          <Badge>Pending for Others</Badge>
+                        ) : null}
+                        {call.callStatus == 8 ? (
+                          <Badge>Pending for Spare</Badge>
+                        ) : null}
+                        {call.callStatus == 9 ? (
+                          <Badge>Spare in Transit</Badge>
+                        ) : null}
+                        {call.callStatus == 10 ? (
+                          <Badge>Cancelled Calls</Badge>
+                        ) : null}
+                        {call.callStatus == 11 ? (
+                          <Badge>Closed Calls</Badge>
+                        ) : null}
+                        {call.callStatus == 12 ? (
+                          <Badge>Spare Taken CMRR</Badge>
+                        ) : null}
+                        {call.callStatus == 13 ? (
+                          <Badge>Pending For Spare Collection</Badge>
+                        ) : null}
+                        {call.callStatus == 14 ? (
+                          <Badge>Standby Given</Badge>
+                        ) : null}
+                        {call.callStatus == 15 ? (
+                          <Badge>Pending For Verification</Badge>
+                        ) : null}
+                      </span>
+                    </TableCell>
 
-                  <TableCell className="flex flex-row ">
-                    <div className="flex items-center justify-center ">
-                      <div className="flex flex-col items-start overflow-auto text-sm w-40 ">
-                        <span className=" ">{call.problem}</span>
-                        {call.employeeId ? (
-                          <span>Engineer: {call.employeeName}</span>
-                        ) : (
-                          <span>Engineer Not Assigned</span>
-                        )}
+                    <TableCell className="flex flex-row ">
+                      <div className="flex items-center justify-center ">
+                        <div className="flex flex-col items-start overflow-auto text-sm w-40 ">
+                          <span className=" ">{call.problem}</span>
+                          {call.employeeId ? (
+                            <span>Engineer: {call.employeeName}</span>
+                          ) : (
+                            <span>Engineer Not Assigned</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {/* <span>Engineer: {call.engineer}</span> */}
-                  </TableCell>
+                      {/* <span>Engineer: {call.engineer}</span> */}
+                    </TableCell>
 
-                  {/* <TableCell> */}
-                  {/* <div className="flex ">
+                    {/* <TableCell> */}
+                    {/* <div className="flex ">
                       {/* <Label className="w-full"> */}
-                  {/* <Select
+                    {/* <Select
                         className="inline"
                         onChange={(e) => {
                           // setAccType(parseInt(e.target.value));
@@ -1373,8 +1192,8 @@ function ViewCalls() {
                         <option value="10"> Cancelled Calls</option>
                         <option value="11"> Closed Calls</option>
                       </Select> */}
-                  {/* </Label> */}
-                  {/* <div
+                    {/* </Label> */}
+                    {/* <div
                         className="p-1 m-2 dark:hover:bg-green-700 hover:bg-green-200 rounded-full text-green-400"
                         onClick={async () => {
                           let payload = {
@@ -1401,9 +1220,9 @@ function ViewCalls() {
                           aria-hidden="true"
                         />
                       </div> */}
-                  {/* </div> */}
-                  {/* </TableCell> */}
-                  {/* <TableCell>
+                    {/* </div> */}
+                    {/* </TableCell> */}
+                    {/* <TableCell>
                     {call.employeeId ? (
                       <>
                         {call.employeeName}
@@ -1412,50 +1231,50 @@ function ViewCalls() {
                           <EditIcon className="w-5 h-5" aria-hidden="true" />
                         
                       </Button> */}
-                  {/* </> */}
-                  {/* ) : ( */}
-                  <>
-                    {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
-                    {/* Not Assigned */}
-                    {/* </Button> */}
-                  </>
+                    {/* </> */}
+                    {/* ) : ( */}
+                    <>
+                      {/* <Button onClick={()=>setIsEnggModalOpen(true)}> */}
+                      {/* Not Assigned */}
+                      {/* </Button> */}
+                    </>
 
-                  {/* </TableCell> */}
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <Link
-                        key={call._id}
-                        to={
-                          call.callType == "internalinv"
-                            ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
-                            : `/app/call/updatecall/${call._id}/${call.assetId._id}`
-                        }
-                      >
-                        <Button layout="link" size="icon" aria-label="Edit">
-                          {/* <Link
+                    {/* </TableCell> */}
+                    <TableCell>
+                      <div className="flex items-center space-x-4">
+                        <Link
+                          key={call._id}
+                          to={
+                            call.callType == "internalinv"
+                              ? `/app/call/updateinvcall/${call._id}/${call.assetId._id}`
+                              : `/app/call/updatecall/${call._id}/${call.assetId._id}`
+                          }
+                        >
+                          <Button layout="link" size="icon" aria-label="Edit">
+                            {/* <Link
                           key={user._id}
                           to={`/app/unit/update/${user._id}`}
                         > */}
-                          <EditIcon className="w-5 h-5" aria-hidden="true" />
-                          {/* </Link>{" "} */}
-                        </Button>
-                      </Link>
+                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                            {/* </Link>{" "} */}
+                          </Button>
+                        </Link>
 
-                      <Button
-                        onClick={() => {
-                          setViewId(i);
-                          setHistoryModalOpen(true);
-                        }}
-                        layout="link"
-                        size="icon"
-                        aria-label="Edit"
-                      >
-                        <MenuIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+                        <Button
+                          onClick={() => {
+                            setViewId(i);
+                            setHistoryModalOpen(true);
+                          }}
+                          layout="link"
+                          size="icon"
+                          aria-label="Edit"
+                        >
+                          <MenuIcon className="w-5 h-5" aria-hidden="true" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
           <TableFooter>

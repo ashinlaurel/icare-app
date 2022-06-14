@@ -99,10 +99,6 @@ exports.getCalls = async (req, res) => {
     filteroptions.employeeId = filters.employeeId;
   }
 
-  if (filters.business != "") {
-    filteroptions.business = filters.business;
-  }
-
   if (filters.unitId && filters.unitId != "") {
     filteroptions.unitId = filters.unitId;
   } else if (filters.accountId && filters.accountId != "") {

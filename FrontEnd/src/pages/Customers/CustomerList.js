@@ -3,19 +3,31 @@ import axios from "axios";
 
 import PageTitle from "../../components/Typography/PageTitle";
 import SectionTitle from "../../components/Typography/SectionTitle";
-import { Button, Card, CardBody, Label } from "@windmill/react-ui";
+import {
+  Button,
+  Card,
+  CardBody,
+  Label,
+  Modal,
+  ModalBody,
+  ModalHeader,
+} from "@windmill/react-ui";
 import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../../icons";
 import RoundIcon from "../../components/RoundIcon";
 import CustomerCard from "../../components/Cards/CustomerCard";
 import { API } from "../../backendapi";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { saveAs } from "file-saver";
 
 function CustomerList() {
   const [values, setValues] = useState([]);
   const [search, setSearch] = useState("");
   const { setTopHeading } = useContext(TopBarContext);
   const [page, setPage] = useState(1);
+
+  //download
+  const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
   // ----------------------Heading Use Effect-------------
 
@@ -78,13 +90,76 @@ function CustomerList() {
       throw error;
     }
   }
-  return (
-    <div className="mt-4">
-      <SectionTitle>Search</SectionTitle>
 
-      <Card className="mb-8  shadow-md">
-        <CardBody>
-          <Label className="">
+  const DwnldModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className=" dark:bg-gray-800 p-5  mx-10  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg  "
+        >
+          <ModalHeader className="">
+            <div className="text-lg w-88">
+              Are you sure you want to export the entire Customers List ?
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <div className="">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  downloadAssets();
+                }}
+              >
+                Export
+              </Button>
+            </div>
+          </ModalBody>
+          {/* <ModalFooter></ModalFooter> */}
+        </Modal>
+      </>
+    );
+  };
+
+  const downloadAssets = async () => {
+    let csv = `SlNo,CustomerName,Account,UnitName,Address,District,State,Pincode,LocationType,GstNo,ContactPerson,ContactNo,WhatsappNo,CustomerEmail,UserName,\n`;
+
+    try {
+      let response = await axios({
+        url: `${API}/unit/getUnitsExport`,
+        method: "POST",
+      });
+      console.log(response.data);
+      let temp = response.data;
+      temp.map((i, count) => {
+        csv =
+          csv +
+          `"${count + 1}","${i.customerName}","${i.accountName}","${
+            i.unitName
+          }","${i.address}","${i.district}","${i.state}","${i.pincode}","${
+            i.locationType
+          }","${i.GSTnumber}","${i.contactPerson}","${i.contactNo}","${
+            i.whatsappNo
+          }","${i.customerId.email}","${i.username}",\n`;
+      });
+
+      // setValues(response.data);
+    } catch (error) {
+      throw error;
+    }
+    // console.log(csv); //product.
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Assets.csv");
+  };
+  return (
+    <>
+      {DwnldModal()}
+      <div className="mt-4">
+        <SectionTitle>Search</SectionTitle>
+
+        <div className=" flex flex-row justify-start items-center w-full">
+          <div className="mb-8  shadow-md w-11/12 p-3 bg-white rounded-lg">
             <div className="relative text-gray-500 focus-within:text-purple-600">
               <form onSubmit={handleSubmit}>
                 <input
@@ -100,41 +175,51 @@ function CustomerList() {
                 </button>
               </form>
             </div>
-          </Label>
-        </CardBody>
-      </Card>
-
-      {/* <SectionTitle>Responsive cards</SectionTitle> */}
-
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        {values.map((user) => (
-          <Link to={`/app/customer/accounts/${user._id}`}>
-            <CustomerCard
-              value={user.name}
-              link={`/app/customer/getCustomerById/${user._id}`}
+          </div>
+          <div class="mb-8 ml-8  w-1/12 ">
+            <Button
+              className="py-3"
+              onClick={() => {
+                setIsDwnldModalOpen(true);
+              }}
             >
-              <RoundIcon
-                icon={PeopleIcon}
-                iconColorClass="text-orange-500 dark:text-orange-100"
-                bgColorClass="bg-orange-100 dark:bg-orange-500"
-                className="mr-4"
-              />
-            </CustomerCard>
-          </Link>
-        ))}
+              Export All
+            </Button>
+          </div>
+        </div>
+
+        {/* <SectionTitle>Responsive cards</SectionTitle> */}
+
+        <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+          {values.map((user) => (
+            <Link to={`/app/customer/accounts/${user._id}`}>
+              <CustomerCard
+                value={user.name}
+                link={`/app/customer/getCustomerById/${user._id}`}
+              >
+                <RoundIcon
+                  icon={PeopleIcon}
+                  iconColorClass="text-orange-500 dark:text-orange-100"
+                  bgColorClass="bg-orange-100 dark:bg-orange-500"
+                  className="mr-4"
+                />
+              </CustomerCard>
+            </Link>
+          ))}
+        </div>
+        <div className="flex justify-center items-center">
+          <Button
+            onClick={() => {
+              let temp = page;
+              temp++;
+              setPage(temp);
+            }}
+          >
+            Load More
+          </Button>
+        </div>
       </div>
-      <div className="flex justify-center items-center">
-        <Button
-          onClick={() => {
-            let temp = page;
-            temp++;
-            setPage(temp);
-          }}
-        >
-          Load More
-        </Button>
-      </div>
-    </div>
+    </>
   );
 }
 

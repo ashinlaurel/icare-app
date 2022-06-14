@@ -1116,7 +1116,7 @@ function Assets() {
                   setIsDwnldModalOpen(true);
                 }}
               >
-                Download Database
+                Export Data
               </Button>
             </div>
           </div>
