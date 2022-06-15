@@ -14,6 +14,7 @@ const Blank = lazy(() => import("../pages/Blank"));
 // -----------------------Assets Import ----------------------------------------------------------------
 const Assets = lazy(() => import("../pages/Assets/Assets"));
 const CreateAsset = lazy(() => import("../pages/Assets/CreateAsset"));
+const MultiAssetUpdate = lazy(() => import("../pages/Assets/MultiAssetUpdate"));
 const UpdateAsset = lazy(() => import("../pages/Assets/UpdateAsset"));
 const OriginalAssetView = lazy(() =>
   import("../pages/Assets/OriginalAssetView")
@@ -145,6 +146,10 @@ export const aroutes = [
   {
     path: "/assets/create", // the url
     component: CreateAsset, // view rendered
+  },
+  {
+    path: "/assets/multiupdate", // the url
+    component: MultiAssetUpdate, // view rendered
   },
   {
     path: "/assets/assetview", // the url

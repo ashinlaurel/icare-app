@@ -1511,7 +1511,6 @@ function OriginalAssetView() {
                     <span>Others {i + 1}</span>
                     <Input
                       readOnly
-                      readOnly
                       className="mt-1 "
                       placeholder={`Others ${i + 1}`}
                       name="othersname"

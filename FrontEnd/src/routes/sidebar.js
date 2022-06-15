@@ -76,10 +76,10 @@ export const aroutes = [
         path: "/app/assets/create",
         name: "Create Assets",
       },
-      // {
-      //   path: "/app/assets/update",
-      //   name: "Edit Assets",
-      // },
+      {
+        path: "/app/assets/multiupdate",
+        name: "Multi Update",
+      },
     ],
   },
 
