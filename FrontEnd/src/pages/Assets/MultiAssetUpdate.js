@@ -6,8 +6,21 @@ import { saveAs } from "file-saver";
 import Emp from "../../helpers/auth/EmpProfile";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
-import { MenuIcon, EditIcon, TrashIcon, TickIcon } from "../../icons";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import {
+  MenuIcon,
+  EditIcon,
+  TrashIcon,
+  TickIcon,
+  CloseIcon,
+} from "../../icons";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Label,
+  Input,
+} from "@windmill/react-ui";
 
 import {
   TableBody,
@@ -85,9 +98,19 @@ function MultiAssetUpdate() {
   //download
   const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
-  //selected arrat
+  //selected array
   const [selectedassets, setSelectedAssets] = useState([]);
   const [selectedids, setSelectedIds] = useState([]);
+
+  // edit type enable
+  const [contractenable, setContractEnable] = useState(false);
+  const [billingenable, setBillingEnable] = useState(false);
+
+  // final dates
+  const [ContractFrom, setContractFrom] = useState("");
+  const [ContractTo, setContractTo] = useState("");
+  const [BillingFrom, setBillingFrom] = useState("");
+  const [BillingTo, setBillingTo] = useState("");
 
   // pagination change control
   function onPageChange(p) {
@@ -165,7 +188,40 @@ function MultiAssetUpdate() {
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, Business, product, refresh]);
 
-  console.log(selectedprod);
+  const handleUpdate = async () => {
+    console.log(selectedids);
+
+    let payload = {
+      selectedids: selectedids,
+      billingenable: billingenable,
+      contractenable: contractenable,
+      ContractFrom: ContractFrom,
+      ContractTo: ContractTo,
+      BillingFrom: BillingFrom,
+      BillingTo: BillingTo,
+    };
+    // console.log("payload", payload);
+
+    try {
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/multiAssetUpdate`,
+        method: "POST",
+        data: payload,
+      });
+
+      setSelectedAssets([]);
+      setSelectedIds([]);
+      setContractEnable(false);
+      setBillingEnable(false);
+      setContractFrom("");
+      setContractTo("");
+      setBillingFrom("");
+      setBillingTo("");
+      setRefresh(!refresh);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -183,9 +239,99 @@ function MultiAssetUpdate() {
         setRefresh={setRefresh}
       />
 
-      {/* ---------------------Customer Selection Modal----------------------------------------- */}
-
       <div className="mb-64 mt-4">
+        <div className="flex flex-row mb-2">
+          <div className="w-3/4 text-lg font-semibold">Type Of Update</div>
+          <div className="w-1/4 flex justify-end ">
+            <Button
+              onClick={() => {
+                handleUpdate();
+              }}
+            >
+              Update All
+            </Button>
+          </div>
+        </div>
+
+        <hr className="my-2"></hr>
+
+        <div className="flex flex-row">
+          <div className="w-full my-3 ">
+            <span className=" text-sm font-semibold">Enable Contract: </span>
+            <Input
+              className="mx-2 w-5 h-5"
+              type="checkbox"
+              onChange={() => {
+                setContractEnable(!contractenable);
+              }}
+            />
+            <hr className="mt-2"></hr>
+          </div>
+          <div className="w-full my-3 ml-8">
+            <span className=" text-sm font-semibold">Enable Billing: </span>
+            <Input
+              className="mx-2 w-5 h-5"
+              type="checkbox"
+              onChange={() => {
+                setBillingEnable(!billingenable);
+              }}
+            />
+            <hr className="mt-2"></hr>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row  items-center justify-start lg:space-x-8">
+          <Label className="w-full ">
+            <span>Contract From</span>
+            <Input
+              className="mt-1"
+              type="date"
+              disabled={!contractenable}
+              value={ContractFrom}
+              onChange={(e) => {
+                setContractFrom(e.target.value);
+              }}
+            />
+          </Label>
+
+          <Label className="w-full">
+            <span>Contract To</span>
+            <Input
+              disabled={!contractenable}
+              className="mt-1"
+              type="date"
+              value={ContractTo}
+              onChange={(e) => {
+                setContractTo(e.target.value);
+              }}
+            />
+          </Label>
+          <Label className="w-full my-3">
+            <span>Billing From</span>
+            <Input
+              className="mt-1"
+              type="date"
+              disabled={!billingenable}
+              value={BillingFrom}
+              onChange={(e) => {
+                setBillingFrom(e.target.value);
+              }}
+            />
+          </Label>
+          <Label className="w-full my-3">
+            <span>Billing To</span>
+            <Input
+              type="date"
+              className="mt-1"
+              name="brand"
+              disabled={!billingenable}
+              value={BillingTo}
+              onChange={(e) => {
+                setBillingTo(e.target.value);
+              }}
+            />
+          </Label>
+        </div>
         {/* -------selected assets table----------- */}
         <TableContainer className="mt-4">
           <Table>
@@ -200,6 +346,7 @@ function MultiAssetUpdate() {
                 <TableCell>Contract To</TableCell>
                 <TableCell>Purchase Number</TableCell>
                 <TableCell>Purchase Date</TableCell>
+                <TableCell>Remove</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -212,7 +359,7 @@ function MultiAssetUpdate() {
                   } `}
                   key={i}
                   onClick={() => {
-                    setBBarOpen(1);
+                    // setBBarOpen(1);
                     setActiveRowId(user._id);
                     // console.log("the id is " + user._id);
                     setSelectedProd(user);
@@ -269,6 +416,25 @@ function MultiAssetUpdate() {
                       {moment(user.podate).format("DD/MM/YYYY")}
                     </span>
                   </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-4">
+                      <Button
+                        onClick={async () => {
+                          let tempassets = [...selectedassets];
+                          let tempids = [...selectedids];
+                          await tempassets.splice(i, 1);
+                          await tempids.splice(i, 1);
+                          await setSelectedAssets(tempassets);
+                          await setSelectedIds(tempids);
+                        }}
+                        layout="link"
+                        size="icon"
+                        aria-label="Edit"
+                      >
+                        <CloseIcon className="w-6 h-6" aria-hidden="true" />
+                      </Button>
+                    </div>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -282,7 +448,9 @@ function MultiAssetUpdate() {
             />
           </TableFooter>
         </TableContainer>
-        <hr className="my-4"></hr>
+
+        <div className=" text-lg font-semibold mt-4 ">Asset Picker</div>
+        <hr className="my-2"></hr>
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
@@ -672,6 +840,7 @@ function MultiAssetUpdate() {
             </div>
           </div>
         </div>
+
         {/* ----------------------------------------------Table----------------------------------------------------- */}
         <TableContainer className="mt-4">
           <Table>
@@ -686,7 +855,7 @@ function MultiAssetUpdate() {
                 <TableCell>Contract To</TableCell>
                 <TableCell>Purchase Number</TableCell>
                 <TableCell>Purchase Date</TableCell>
-                <TableCell>Edit/Delete</TableCell>
+                <TableCell>Add</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
@@ -706,7 +875,7 @@ function MultiAssetUpdate() {
                     } `}
                     key={i}
                     onClick={() => {
-                      setBBarOpen(1);
+                      //   setBBarOpen(1);
                       setActiveRowId(user._id);
                       // console.log("the id is " + user._id);
                       setSelectedProd(user);
@@ -766,13 +935,13 @@ function MultiAssetUpdate() {
                     <TableCell>
                       <div className="flex items-center space-x-4">
                         <Button
-                          onClick={() => {
-                            let tempassets = selectedassets;
-                            let tempids = selectedids;
-                            tempassets.unshift(user);
-                            tempids.push(user._id);
-                            setSelectedAssets(tempassets);
-                            setSelectedIds(tempids);
+                          onClick={async () => {
+                            let tempassets = [...selectedassets];
+                            let tempids = [...selectedids];
+                            await tempassets.unshift(user);
+                            await tempids.unshift(user._id);
+                            await setSelectedAssets(tempassets);
+                            await setSelectedIds(tempids);
                           }}
                           layout="link"
                           size="icon"

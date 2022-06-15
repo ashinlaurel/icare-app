@@ -15,6 +15,7 @@ const {
   countAssetValue,
   countAmcContract,
   getOriginalAssetById,
+  multiAssetUpdate,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 const {
@@ -67,5 +68,11 @@ router.post(
   isSignedIn,
   isAuthenticated,
   assetUpdateWithId
+);
+router.post(
+  "/:id/multiAssetUpdate",
+  isSignedIn,
+  isAuthenticated,
+  multiAssetUpdate
 );
 module.exports = router;

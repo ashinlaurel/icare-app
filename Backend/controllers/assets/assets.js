@@ -382,6 +382,43 @@ exports.assetUpdateWithId = async (req, res) => {
   }
 };
 
+exports.multiAssetUpdate = async (req, res) => {
+  let {
+    selectedids,
+    billingenable,
+    contractenable,
+    ContractFrom,
+    ContractTo,
+    BillingFrom,
+    BillingTo,
+  } = req.body;
+  let update = {};
+  // console.log(ContractFrom);
+  if (contractenable) {
+    update["contractfrom"] = ContractFrom;
+    update["contractto"] = ContractTo;
+  }
+  if (billingenable) {
+    update["billingfrom"] = BillingFrom;
+    update["billingto"] = BillingTo;
+  }
+  console.log(update);
+  // console.log(selectedids);
+  try {
+    selectedids.map(async (id, i) => {
+      let product = await Asset.findByIdAndUpdate(id, update, {
+        safe: true,
+        useFindAndModify: false,
+      });
+    });
+
+    return res.status(200).json({ hello: "hello" });
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
 //   category.name = req.body.name;
