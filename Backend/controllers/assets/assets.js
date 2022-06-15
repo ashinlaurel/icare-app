@@ -3,6 +3,7 @@ const Server = require("../../models/products/server");
 const { Schema } = require("mongoose");
 const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
+const originalproduct = require("../../models/products/originalproduct");
 const ObjectId = require("mongodb").ObjectID;
 
 // get category by id when params passed
@@ -139,10 +140,14 @@ exports.createAsset = async (req, res) => {
     // console.log(product);
     const newprod = new Server(product);
     const prodres = await newprod.save();
+    //maintaining original product history by adding to originalproduct collection
+    const neworiginalproduct = new originalproduct(product);
+    const originalprodres = await neworiginalproduct.save();
     // console.log(prodres);
     // Linking the product back to the original asset
     const reasset = await Asset.findById(result._id).exec();
     reasset.product = prodres._id;
+    reasset.originalproduct = originalprodres._id;
     const final = reasset.save();
 
     ////////////////----------- ADDING ASSET ID TO UNIT
@@ -342,6 +347,18 @@ exports.getAssetById = async (req, res) => {
   try {
     let asset = await Asset.findById(req.body.id)
       .populate("product")
+      .populate("customerId");
+    return res.status(200).json(asset);
+  } catch (err) {
+    console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
+exports.getOriginalAssetById = async (req, res) => {
+  try {
+    let asset = await Asset.findById(req.body.id)
+      .populate("originalproduct")
       .populate("customerId");
     return res.status(200).json(asset);
   } catch (err) {

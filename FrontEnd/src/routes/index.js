@@ -15,6 +15,9 @@ const Blank = lazy(() => import("../pages/Blank"));
 const Assets = lazy(() => import("../pages/Assets/Assets"));
 const CreateAsset = lazy(() => import("../pages/Assets/CreateAsset"));
 const UpdateAsset = lazy(() => import("../pages/Assets/UpdateAsset"));
+const OriginalAssetView = lazy(() =>
+  import("../pages/Assets/OriginalAssetView")
+);
 //-----------------------Customer Imports -------------------------------------------------------------
 const CreateCustomer = lazy(() => import("../pages/Customers/CreateCustomer"));
 const CreateUnit = lazy(() => import("../pages/Customers/CreateUnit"));
@@ -201,6 +204,10 @@ export const aroutes = [
   {
     path: "/unit/update/:id",
     component: UpdateAsset,
+  },
+  {
+    path: "/unit/update/vieworiginal/:id",
+    component: OriginalAssetView,
   },
   // ----------------------My Profile Views ----------------------/
   {

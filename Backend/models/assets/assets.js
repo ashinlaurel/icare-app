@@ -93,6 +93,10 @@ const assetSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Server",
   },
+  originalproduct: {
+    type: Schema.Types.ObjectId,
+    ref: "OriginalProduct",
+  },
 });
 assetSchema.plugin(mongoosePaginate);
 

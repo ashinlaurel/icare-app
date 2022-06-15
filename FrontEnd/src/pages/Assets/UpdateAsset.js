@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import moment from "moment";
 import { API } from "../../backendapi";
@@ -26,9 +26,11 @@ import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
 // Migration
 import { handleMigration } from "../../migration/migration";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { TopBarContext } from "../../context/TopBarContext";
 
 function UpdateAsset() {
+  const { topheading, setTopHeading } = useContext(TopBarContext);
   // floatbox
   const [floatbox, setFloatBox] = useState(false);
   const { id } = useParams();
@@ -40,6 +42,7 @@ function UpdateAsset() {
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
+  const [originalproduct, setOriginalProduct] = useState("Nil");
   //prodcut
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -98,6 +101,13 @@ function UpdateAsset() {
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    setTopHeading("Update Asset");
+    return () => {
+      setTopHeading("");
+    };
+  }, []);
+
   const getAsset = async () => {
     try {
       let res = await axios.post(`${API}/asset/${Emp.getId()}/getbyid`, {
@@ -135,6 +145,11 @@ function UpdateAsset() {
       setOs(asset.product.os);
       setCpu(asset.product.cpu);
       setram(asset.product.ram);
+
+      if (asset.originalproduct) {
+        setOriginalProduct(asset.originalproduct);
+      }
+
       if (asset.product.hdd.length == 0) sethdd([{ hddname: "", hddsno: "" }]);
       else sethdd(asset.product.hdd);
       if (asset.product.smps.length == 0)
@@ -299,13 +314,28 @@ function UpdateAsset() {
         </Label>
         <hr className="mb-5 mt-2" />
 
-        <div className="flex flex-row space-x-4">
-          <SectionTitle className="">
-            Customer: {customer.customerName}
-          </SectionTitle>
-          <SectionTitle>Account: {account.accountName} </SectionTitle>
-          <SectionTitle>Unit: {unit.unitName}</SectionTitle>
+        <div className="flex flex-row mb-2 ">
+          <div className="flex flex-row space-x-4 w-3/4">
+            <SectionTitle className="w-3/4">
+              Customer: {customer.customerName}
+            </SectionTitle>
+            <SectionTitle>Account: {account.accountName} </SectionTitle>
+            <SectionTitle>Unit: {unit.unitName}</SectionTitle>
+          </div>
+          {originalproduct != "Nil" ? (
+            <div className="w-1/4 flex items-start justify-end">
+              <Link to={`/app/unit/update/vieworiginal/${id}`}>
+                <Button layout="outline" className="">
+                  View Original Asset
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
+
+        <hr className="mb-5 mt-2" />
 
         {/* <Label className="font-bold">
           <span>Customer: {customer.customerName}</span>

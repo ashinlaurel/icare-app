@@ -14,6 +14,7 @@ const {
   countAssetsByCustomer,
   countAssetValue,
   countAmcContract,
+  getOriginalAssetById,
   //   getProduct,
 } = require("../../controllers/assets/assets");
 const {
@@ -53,6 +54,12 @@ router.get("/countassetvalue", countAssetValue);
 router.post("/countbycustomer", countAssetsByCustomer);
 // -----------------------------------------------------
 router.post("/:id/getbyid", isSignedIn, isAuthenticated, getAssetById);
+router.post(
+  "/:id/getorgassetbyid",
+  isSignedIn,
+  isAuthenticated,
+  getOriginalAssetById
+);
 router.post("/:id/delete", isSignedIn, isAuthenticated, deleteAsset);
 router.post("/:id/update", isSignedIn, isAuthenticated, updateAsset);
 router.post(
