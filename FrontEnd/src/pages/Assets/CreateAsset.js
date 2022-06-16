@@ -32,12 +32,8 @@ import { TopBarContext } from "../../context/TopBarContext";
 
 function CreateAsset() {
   /////BOTOM BAT STUFFF
-  const {
-    bbaropen,
-    setBBarOpen,
-    setCreateAssetDetails,
-    createAssetDetails,
-  } = useContext(BottomBarContext);
+  const { bbaropen, setBBarOpen, setCreateAssetDetails, createAssetDetails } =
+    useContext(BottomBarContext);
   // TopBar Stuff
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
@@ -400,6 +396,7 @@ function CreateAsset() {
                 <option value="AMC">AMC</option>
                 <option value="WTY">Warranty</option>
                 <option value="NOS">Not Under Service (NOS) </option>
+                <option value="DEAD">DEAD </option>
               </Select>
             </Label>
           </div>

@@ -261,6 +261,7 @@ function RegisterCall() {
                   <option value="AMC">AMC</option>
                   <option value="WTY">Warranty</option>
                   <option value="NOS">NOS</option>
+                  <option value="DEAD">DEAD</option>
                 </select>
 
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -652,76 +653,80 @@ function RegisterCall() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {data.map((user, i) => (
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 ${
-                      activerowid == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={i}
-                    onClick={() => {
-                      setActiveRowId(user._id);
-                      getUnitDetails(user.unitId);
-                      // console.log("hereuser",user);
-                      // console.log("the id is " + user._id);
-                      setSelectedProd(user);
-                      setAssetDetails(user);
-                      setBBarOpen(1);
-                      // console.log(user.product.keyboard[0].keyboardname);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        {/* <Avatar
+                {data
+                  .filter((user) => {
+                    return Emp.getRole() == 0 || user.business != "NOS";
+                  })
+                  .map((user, i) => (
+                    <TableRow
+                      className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                        activerowid == user._id
+                          ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                          : "white"
+                      } `}
+                      key={i}
+                      onClick={() => {
+                        setActiveRowId(user._id);
+                        getUnitDetails(user.unitId);
+                        // console.log("hereuser",user);
+                        // console.log("the id is " + user._id);
+                        setSelectedProd(user);
+                        setAssetDetails(user);
+                        setBBarOpen(1);
+                        // console.log(user.product.keyboard[0].keyboardname);
+                      }}
+                    >
+                      <TableCell className="w-8">
+                        <div className="flex items-center text-sm ">
+                          {/* <Avatar
                         className="hidden ml-2 mr-3 md:block"
                         src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                         alt="User image"
                       /> */}
-                        <div>
-                          <p className="font-semibold">{user.customerName}</p>
-                          <p className="text-xs text-gray-600 dark:text-gray-400">
-                            {user.accountName}
-                          </p>
+                          <div>
+                            <p className="font-semibold">{user.customerName}</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                              {user.accountName}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.unitName}</span>
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        type={user.business == "AMC" ? "primary" : "success"}
-                      >
-                        {user.business}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.producttype}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.product.serialno}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {moment(user.contractfrom).format("DD/MM/YYYY")}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {moment(user.contractto).format("DD/MM/YYYY")}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.ponumber}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {moment(user.podate).format("DD/MM/YYYY")}
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.unitName}</span>
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          type={user.business == "AMC" ? "primary" : "success"}
+                        >
+                          {user.business}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.producttype}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.product.serialno}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">
+                          {moment(user.contractfrom).format("DD/MM/YYYY")}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">
+                          {moment(user.contractto).format("DD/MM/YYYY")}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{user.ponumber}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">
+                          {moment(user.podate).format("DD/MM/YYYY")}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
             <TableFooter>

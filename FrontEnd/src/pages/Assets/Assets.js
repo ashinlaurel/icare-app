@@ -20,16 +20,13 @@ import {
   TableRow,
   Button,
   TableFooter,
-  Avatar,
   Badge,
   Pagination,
   Dropdown,
   DropdownItem,
 } from "@windmill/react-ui";
 
-import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
-import UnitListModal from "../../components/Modal/UnitListModal";
 import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
@@ -763,6 +760,7 @@ function Assets() {
                 <option value="AMC">AMC</option>
                 <option value="WTY">Warranty</option>
                 <option value="NOS">NOS</option>
+                <option value="DEAD">DEAD</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -1167,6 +1165,10 @@ function Assets() {
               {data.map((user, i) => (
                 <TableRow
                   className={`hover:shadow-lg dark:hover:bg-gray-600 ${
+                    user.business == "NOS"
+                      ? "bg-red-200 dark:bg-red-900 bg-transparent border-white"
+                      : ""
+                  } ${
                     activerowid == user._id
                       ? "bg-blue-300 shadow-lg dark:bg-gray-600"
                       : "white"

@@ -199,6 +199,9 @@ exports.getAllAssets = (req, res) => {
   // -----------------------------------------------------------------------
   if (searchquery == "") {
     // Logic to add to filter when required
+    if (filters.business == "") {
+      filteroptions.business = { $nin: ["DEAD"] };
+    }
     if (filters.business != "") {
       filteroptions.business = filters.business;
     }
