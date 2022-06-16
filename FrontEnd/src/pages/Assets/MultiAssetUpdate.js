@@ -60,13 +60,13 @@ function MultiAssetUpdate() {
 
   const { topheading, setTopHeading } = useContext(TopBarContext);
 
-  const [floatbox, setFloatBox] = useState(false);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // dropdown and modals
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
@@ -190,6 +190,14 @@ function MultiAssetUpdate() {
 
   const handleUpdate = async () => {
     console.log(selectedids);
+    if (selectedids.length == 0) {
+      alert("No inventory selected");
+      return;
+    } else if (!billingenable && !contractenable) {
+      await setIsDwnldModalOpen(false);
+      alert("No Update Type Enabled");
+      return;
+    }
 
     let payload = {
       selectedids: selectedids,
@@ -211,6 +219,7 @@ function MultiAssetUpdate() {
 
       setSelectedAssets([]);
       setSelectedIds([]);
+      setSuccessModal(true);
       setContractEnable(false);
       setBillingEnable(false);
       setContractFrom("");
@@ -223,6 +232,65 @@ function MultiAssetUpdate() {
     }
   };
 
+  const UpdateModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isDwnldModalOpen}
+          onClose={() => setIsDwnldModalOpen(false)}
+          className=" dark:bg-gray-800 p-5  mx-10  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+        >
+          <ModalHeader className=" w-87">
+            <div className="text-lg">
+              Are you sure you want to update all the selected inventory ?
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <div className=" space-x-1">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  setIsDwnldModalOpen(false);
+                  handleUpdate();
+                }}
+              >
+                Yes
+              </Button>
+              <Button
+                layout="outline"
+                onClick={() => {
+                  setIsDwnldModalOpen(false);
+                  //   handleUpdate();
+                }}
+              >
+                No
+              </Button>
+            </div>
+          </ModalBody>
+          {/* <ModalFooter></ModalFooter> */}
+        </Modal>
+      </>
+    );
+  };
+
+  const SucessModal = () => {
+    return (
+      <>
+        <Modal isOpen={successModal} onClose={() => setSuccessModal(true)}>
+          <ModalHeader>"Inventory Updated Successfully"</ModalHeader>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => setSuccessModal(false)}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  };
   return (
     <>
       {/* ---------------------Modals----------------------------------------- */}
@@ -238,14 +306,19 @@ function MultiAssetUpdate() {
         refresh={refresh}
         setRefresh={setRefresh}
       />
+      {UpdateModal()}
+      {SucessModal()}
 
       <div className="mb-64 mt-4">
         <div className="flex flex-row mb-2">
-          <div className="w-3/4 text-lg font-semibold">Type Of Update</div>
+          <div className="w-3/4 text-lg font-semibold dark:text-white">
+            Type Of Update
+          </div>
           <div className="w-1/4 flex justify-end ">
             <Button
               onClick={() => {
-                handleUpdate();
+                // handleUpdate();
+                setIsDwnldModalOpen(true);
               }}
             >
               Update All
@@ -257,7 +330,9 @@ function MultiAssetUpdate() {
 
         <div className="flex flex-row">
           <div className="w-full my-3 ">
-            <span className=" text-sm font-semibold">Enable Contract: </span>
+            <span className=" text-sm font-semibold dark:text-white">
+              Enable Contract:{" "}
+            </span>
             <Input
               className="mx-2 w-5 h-5"
               type="checkbox"
@@ -268,7 +343,9 @@ function MultiAssetUpdate() {
             <hr className="mt-2"></hr>
           </div>
           <div className="w-full my-3 ml-8">
-            <span className=" text-sm font-semibold">Enable Billing: </span>
+            <span className=" text-sm font-semibold dark:text-white">
+              Enable Billing:{" "}
+            </span>
             <Input
               className="mx-2 w-5 h-5"
               type="checkbox"
@@ -493,6 +570,7 @@ function MultiAssetUpdate() {
                 <option value="AMC">AMC</option>
                 <option value="WTY">Warranty</option>
                 <option value="NOS">NOS</option>
+                <option value="DEAD">DEAD</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
