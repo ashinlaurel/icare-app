@@ -728,8 +728,6 @@ function Assets() {
                 onClick={() => {
                   setIsModalOpen(!isModalOpen);
                 }}
-                // value={sortBy}
-                // onChange={onSortToggle}
               >
                 Pick Customer
               </button>
@@ -773,18 +771,37 @@ function Assets() {
                 </svg>
               </div>
             </div>
-            {/* ---------------------------Product Drop Down-------------------------------------- */}
-            <div className="relative z-40 ">
-              <button
-                onClick={() => {
-                  setIsOpen(!isOpen);
+            {/*------------ new product dropdown----------- */}
+            <div class="relative mx-5 ">
+              <select
+                class=" shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500"
+                value={product}
+                onChange={(e) => {
+                  setProduct(e.target.value);
                 }}
-                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                aria-label="Notifications"
-                aria-haspopup="true"
               >
-                {product ? product : "Pick Product"}
-              </button>
+                <option value="" disabled selected>
+                  Pick Product
+                </option>
+                <option value="">All</option>
+                <option value="Console">Console</option>
+                <option value="DMP">DMP</option>
+                <option value="Inkjet">Inkjet</option>
+                <option value="KVM">KVM</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Laser">Laser</option>
+                <option value="LMP">LMP</option>
+                <option value="Module">Module</option>
+                <option value="Router">Router</option>
+                <option value="Scanner">Scanner</option>
+                <option value="Server">Server</option>
+                <option value="Desktop">Desktop</option>
+                <option value="Storage">Storage</option>
+                <option value="Switch">Switch</option>
+                <option value="UPS">UPS</option>
+                <option value="Others">Others</option>
+              </select>
+
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
                   class="fill-current h-4 w-4"
@@ -794,151 +811,13 @@ function Assets() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-              <Dropdown isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("");
-                  }}
-                >
-                  <span>All</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Console");
-                  }}
-                >
-                  <span>Console</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("DMP");
-                  }}
-                >
-                  <span>DMP</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Inkjet");
-                  }}
-                >
-                  <span>Inkjet</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("KVM");
-                  }}
-                >
-                  <span>KVM</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Laptop");
-                  }}
-                >
-                  <span>Laptop</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Laser");
-                  }}
-                >
-                  <span>Laser</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("LMP");
-                  }}
-                >
-                  <span>LMP</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Module");
-                  }}
-                >
-                  <span>Module</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Router");
-                  }}
-                >
-                  <span>Router</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Scanner");
-                  }}
-                >
-                  <span>Scanner</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Server");
-                  }}
-                >
-                  <span>Server</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Desktop");
-                  }}
-                >
-                  <span>Desktop</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Storage");
-                  }}
-                >
-                  <span>Storage</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Switch");
-                  }}
-                >
-                  <span>Switch</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("UPS");
-                  }}
-                >
-                  <span>UPS</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setProduct("Others");
-                  }}
-                >
-                  <span>Others</span>
-                </DropdownItem>
-              </Dropdown>
             </div>
 
             {/* -------------------------------Search Type--------------------------------------- */}
             <div className="relative ">
               <button
                 onClick={() => {
-                  setIsOpenTwo(!isOpenTwo);
+                  setIsOpenTwo(true);
                 }}
                 className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 aria-label="Notifications"
@@ -955,7 +834,10 @@ function Assets() {
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
-              <Dropdown isOpen={isOpenTwo} onClose={() => setIsOpenTwo(false)}>
+              <Dropdown
+                isOpen={isOpenTwo}
+                onClose={() => setIsOpenTwo(!isOpenTwo)}
+              >
                 <DropdownItem
                   onClick={() => {
                     setIsOpenTwo(false);

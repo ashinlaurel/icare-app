@@ -336,6 +336,7 @@ function MultiAssetUpdate() {
             <Input
               className="mx-2 w-5 h-5"
               type="checkbox"
+              checked={contractenable}
               onChange={() => {
                 setContractEnable(!contractenable);
               }}
@@ -349,6 +350,7 @@ function MultiAssetUpdate() {
             <Input
               className="mx-2 w-5 h-5"
               type="checkbox"
+              checked={billingenable}
               onChange={() => {
                 setBillingEnable(!billingenable);
               }}
