@@ -991,6 +991,7 @@ function PurchaseInventory() {
                 <option value="DOA">DOA</option>
                 <option value="Damaged">Damaged</option>
                 <option value="Scrap">Scrap</option>
+                <option value="ScrapSold">Scrap Sold</option>
               </Select>
             </Label>
           </div>

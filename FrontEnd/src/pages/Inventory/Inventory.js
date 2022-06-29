@@ -480,7 +480,7 @@ function Inventory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, location, condition, type, refresh, stockType,searchquery]);
+  }, [page, location, condition, type, refresh, stockType, searchquery]);
 
   console.log(selectedprod);
 
@@ -595,6 +595,8 @@ function Inventory() {
                 <option value="Good">Good</option>
                 <option value="Bad">Bad</option>
                 <option value="Used">Used</option>
+                <option value="Scrap">Scrap</option>
+                <option value="ScrapSold">ScrapSold</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
