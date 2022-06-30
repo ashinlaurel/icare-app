@@ -594,6 +594,7 @@ function Inventory() {
                 <option value="">All</option>
                 <option value="Good">Good</option>
                 <option value="Bad">Bad</option>
+                <option value="Damaged">Damaged</option>
                 <option value="Used">Used</option>
                 <option value="Scrap">Scrap</option>
                 <option value="ScrapSold">ScrapSold</option>
