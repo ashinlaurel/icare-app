@@ -1146,6 +1146,7 @@ function CreateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">
@@ -1241,6 +1242,7 @@ function CreateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">
@@ -1325,6 +1327,7 @@ function CreateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">
@@ -2314,6 +2317,16 @@ function CreateAsset() {
           >
             <span>UPS</span>
           </DropdownItem>
+          <DropdownItem
+            onClick={() => {
+              clearState();
+              setIsOpen(false);
+              setProduct("Ncompute");
+            }}
+          >
+            <span>Ncompute</span>
+          </DropdownItem>
+
           <DropdownItem
             onClick={() => {
               clearState();

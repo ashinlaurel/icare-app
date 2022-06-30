@@ -735,6 +735,15 @@ function MultiAssetUpdate() {
                 >
                   <span>UPS</span>
                 </DropdownItem>
+
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Ncompute");
+                  }}
+                >
+                  <span>Ncompute</span>
+                </DropdownItem>
                 <DropdownItem
                   onClick={() => {
                     setIsOpen(false);

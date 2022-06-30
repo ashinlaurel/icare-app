@@ -427,6 +427,14 @@ function RegisterCall() {
                   <DropdownItem
                     onClick={() => {
                       setIsOpen(false);
+                      setProduct("Ncompute");
+                    }}
+                  >
+                    <span>Ncompute</span>
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      setIsOpen(false);
                       setProduct("Others");
                     }}
                   >

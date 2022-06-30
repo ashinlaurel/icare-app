@@ -180,7 +180,12 @@ function Dashboard() {
 
   // ----------------------Heading Use Effect-------------
   useEffect(() => {
-    setTopHeading("Dashboard");
+    if (API == "http://localhost:3000/api") {
+      setTopHeading("Dashboard: Dev Environment");
+    } else {
+      setTopHeading("Dashboard");
+    }
+
     return () => {
       setTopHeading("");
     };

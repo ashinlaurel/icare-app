@@ -840,7 +840,7 @@ function ViewCalls() {
                 onClick={() => {
                   setIsOpen(!isOpen);
                 }}
-                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                className="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-4 pr-6 py-2 w-full bg-white  placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 aria-label="Notifications"
                 aria-haspopup="true"
               >
@@ -983,6 +983,14 @@ function ViewCalls() {
                   }}
                 >
                   <span>UPS</span>
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProduct("Ncompute");
+                  }}
+                >
+                  <span>Ncompute</span>
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {

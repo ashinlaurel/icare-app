@@ -799,6 +799,7 @@ function Assets() {
                 <option value="Storage">Storage</option>
                 <option value="Switch">Switch</option>
                 <option value="UPS">UPS</option>
+                <option value="Ncompute">Ncompute</option>
                 <option value="Others">Others</option>
               </select>
 
