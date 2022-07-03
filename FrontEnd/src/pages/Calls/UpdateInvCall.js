@@ -1816,7 +1816,7 @@ function UpdateInvCall() {
 
   const InvTable = () => {
     return (
-      <div className=" mt-2 rounded-lg bg-gray-200 dark:bg-gray-700 p-3   overflow-y-scroll">
+      <div className=" mt-2 rounded-lg bg-gray-200 dark:bg-gray-700 p-3   overflow-y-auto">
         <form
           // onSubmit={handlevendorSubmit}
           onSubmit={(e) => {

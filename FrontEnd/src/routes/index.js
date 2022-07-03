@@ -69,6 +69,7 @@ const PurchaseHistory = lazy(() =>
 const UpdateInventory = lazy(() =>
   import("../pages/Inventory/UpdateInventory")
 );
+const ScrapSoldPage = lazy(() => import("../pages/Inventory/ScrapSoldPage"));
 
 // ------------------------------- Employee Imports
 
@@ -339,6 +340,10 @@ export const aroutes = [
     path: "/inventory/purchasehistory",
     component: PurchaseHistory,
   },
+  {
+    path: "/inventory/scrapsoldpage",
+    component: ScrapSoldPage,
+  },
 
   // ----------------------LST Views ----------------------/
 
@@ -538,6 +543,10 @@ export const storekeeproutes = [
     path: "/inventory/purchasehistory",
     component: PurchaseHistory,
   },
+  {
+    path: "/inventory/scrapsoldpage",
+    component: ScrapSoldPage,
+  },
 
   {
     path: "/lst",
@@ -629,6 +638,10 @@ export const ostorekeeproutes = [
   {
     path: "/call/calldetails/:callid/:assetid",
     component: CallDetails,
+  },
+  {
+    path: "/inventory/scrapsoldpage",
+    component: ScrapSoldPage,
   },
 
   // -----------------Attendance Views --------------------------------
@@ -1059,7 +1072,10 @@ export const coordinatorroutes = [
     path: "/inventory/purchasehistory",
     component: PurchaseHistory,
   },
-
+  {
+    path: "/inventory/scrapsoldpage",
+    component: ScrapSoldPage,
+  },
   // ----------------------LST Views ----------------------/
 
   {

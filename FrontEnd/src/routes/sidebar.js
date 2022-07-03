@@ -102,6 +102,10 @@ export const aroutes = [
         path: "/app/inventory/purchasehistory",
         name: "Purchase History",
       },
+      {
+        path: "/app/inventory/scrapsoldpage",
+        name: "Sell Scrap",
+      },
 
       {
         path: "/app/inventory/create",
@@ -399,6 +403,10 @@ export const storekeeproutes = [
         path: "/app/inventory/purchasehistory",
         name: "Purchase History",
       },
+      {
+        path: "/app/inventory/scrapsoldpage",
+        name: "Sell Scrap",
+      },
 
       {
         path: "/app/inventory/create",
@@ -485,6 +493,10 @@ export const ostorekeeproutes = [
       {
         path: "/app/inventory/create",
         name: "Add Item",
+      },
+      {
+        path: "/app/inventory/scrapsoldpage",
+        name: "Sell Scrap",
       },
       // {
       //   path: "/app/customer/createunit",
@@ -628,6 +640,10 @@ export const accountsroutes = [
       {
         path: "/app/inventory/purchasehistory",
         name: "Purchase History",
+      },
+      {
+        path: "/app/inventory/scrapsoldpage",
+        name: "Sell Scrap",
       },
 
       {
@@ -897,6 +913,10 @@ export const coordinatorroutes = [
       {
         path: "/app/inventory/create",
         name: "Add Item",
+      },
+      {
+        path: "/app/inventory/scrapsoldpage",
+        name: "Sell Scrap",
       },
       // {
       //   path: "/app/customer/createunit",
