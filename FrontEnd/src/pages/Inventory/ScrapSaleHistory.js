@@ -28,6 +28,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 // import PrintLST from "./PrintLST";
 
 function ScrapSaleHistory() {
@@ -43,21 +44,16 @@ function ScrapSaleHistory() {
   const [refresh, setRefresh] = useState(true);
   const [disabler, setDisabler] = useState(true);
 
-  // filterhooks
-  const [type, setType] = useState("");
-  const [stocktype, setStocktype] = useState("");
-  const [location, setLocation] = useState("");
-  const [ToLocation, setToLocation] = useState("");
-  const [condition, setCondition] = useState("");
+  //
+  const [historyModalOpen, setHistoryModalOpen] = useState(false);
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
+  const [currInv, setCurrInv] = useState([]);
 
   // search
-  const [searchtype, setSearchType] = useState("");
-  const [searchlabel, setSearchLabel] = useState("");
+
   const [searchquery, setSearchQuery] = useState("");
-  const [vendorsearchquery, setVendorSearchQuery] = useState("");
 
   // Getting data states
 
@@ -123,25 +119,71 @@ function ScrapSaleHistory() {
 
   // PDF Download Functions
 
-  const createAndDownloadPdf = async (id) => {
+  const downloadInv = async () => {
+    let csv =
+      "Invoice,Name,Type,S.No,Condition,Location,Invnumber,Invdate,Invtype,Purchtype,Purchlocation,Vendor,GST.No,PAN.No,Aadhar.No,Tax-Category,Tax-percentage,Rate,IGST,CGST,SGST,Net-Tax,Amount,TCS,Invenotry-Amount,Warranty,Expiry-Date,Brand,Model,Sys-Type,Stocktype,Case-ID \n";
+
+    let array;
     let payload = {
-      id: id,
+      pages: {
+        page: page,
+        limit: 10000000,
+      },
+      // filters: {
+      //   type: "",
+      //   location: "",
+      //   condition: "",
+      //   searchtype: "",
+      //   searchquery: "",
+      // },
+      filters: {
+        searchquery: searchquery,
+      },
     };
-    let response = await axios({
-      url: `${API}/lst/${Emp.getId()}/downloadpdf`,
-      method: "POST",
-      data: payload,
-      responseType: "blob",
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getscraphistory`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+    array.map((invoice, tcount) => {
+      csv =
+        csv +
+        `Invoice No:${invoice.invnumber},Date: ${moment(
+          invoice.scrapsaledate
+        ).format("DD-MM-YYYY")},Gross Value: ${
+          invoice.grossvalue
+        },Gst Percentage: ${invoice.gstperc},Net Value: ${invoice.netvalue}\n`;
+      invoice.invItems.map((i, tt) => {
+        csv =
+          csv +
+          `${tt + 1},${i.name},${capitalize(i.type)},${i.sno},${i.condition},${
+            i.location
+          },${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${
+            i.purchlocation
+          },${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${
+            i.taxperc
+          },${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${
+            i.tcs
+          },${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${
+            i.systype
+          },${i.stocktype},${i.caseId}\n`;
+      });
     });
-
-    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-
-    saveAs(pdfBlob, "LST.pdf");
+    // console.log(csv);
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Inventory.csv");
   };
 
-  const InvTable = (items) => {
+  const InvTable = () => {
     return (
-      <div className=" bg-gray-200 dark:bg-gray-700 p-3 ">
+      <div className=" bg-gray-200 dark:bg-gray-700 p-3 overflow-auto ">
         <div className="mb- mt-4">
           {/* ----------------------------------------------Table----------------------------------------------------- */}
           <TableContainer className="mt-4">
@@ -159,7 +201,7 @@ function ScrapSaleHistory() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {items.map((user, i) => (
+                {currInv.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
                       activeRowID == user._id
@@ -183,7 +225,9 @@ function ScrapSaleHistory() {
                         alt="User image"
                       /> */}
                         <div>
-                          <p className="font-semibold">{user.type}</p>
+                          <p className="font-semibold">
+                            {capitalize(user.type)}
+                          </p>
                           {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.accountName}
                         </p> */}
@@ -234,8 +278,34 @@ function ScrapSaleHistory() {
     );
   };
 
+  const InventoryViewModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={historyModalOpen}
+          onClose={() => setHistoryModalOpen(false)}
+          className="w-9/12 h-h-159 overflow-y-auto dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg "
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+            {/* <div>{item.name}</div> */}
+            <div>
+              Invoice No: <Badge></Badge>{" "}
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            {/* <div className="font-semibold text-xl my-2">Call History</div> */}
+            {/* ------------------------- Table ------------------------------ */}
+            {InvTable()}
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <>
+      {InventoryViewModal()}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -264,6 +334,16 @@ function ScrapSaleHistory() {
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
+            </div>
+            <div className="flex justify-end items-end">
+              <Button
+                onClick={() => {
+                  downloadInv();
+                }}
+                layout="outline"
+              >
+                Export
+              </Button>
             </div>
           </div>
         </div>
@@ -345,7 +425,10 @@ function ScrapSaleHistory() {
                           if (activeRowID == i) {
                             setActiveRowID(-1);
                           } else setActiveRowID(i);
+                          setCurrInv(user.invItems);
+                          setHistoryModalOpen(true);
                         }
+
                         // console.log(ac)
                         // {activeRowID == i ? InvTable(user.invItems) : null}
                       }
