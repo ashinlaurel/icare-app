@@ -106,6 +106,10 @@ export const aroutes = [
         path: "/app/inventory/scrapsoldpage",
         name: "Sell Scrap",
       },
+      {
+        path: "/app/inventory/scrapsalehistory",
+        name: "Scrap History",
+      },
 
       {
         path: "/app/inventory/create",

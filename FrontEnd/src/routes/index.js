@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import ScrapSaleHistory from "../pages/Inventory/ScrapSaleHistory";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -344,6 +345,10 @@ export const aroutes = [
     path: "/inventory/scrapsoldpage",
     component: ScrapSoldPage,
   },
+  {
+    path: "/inventory/scrapsalehistory",
+    component: ScrapSaleHistory,
+  },
 
   // ----------------------LST Views ----------------------/
 
@@ -546,6 +551,10 @@ export const storekeeproutes = [
   {
     path: "/inventory/scrapsoldpage",
     component: ScrapSoldPage,
+  },
+  {
+    path: "/inventory/scrapsalehistory",
+    component: ScrapSaleHistory,
   },
 
   {

@@ -3,9 +3,10 @@ const Server = require("../../models/products/server");
 const InvItem = require("../../models/inventory/InvItem");
 const PurchaseHistory = require("../../models/PurchaseHistory/PurchaseHistory");
 const { Schema } = require("mongoose");
-const { result, filter } = require("lodash");
+const { result, filter, toInteger } = require("lodash");
 const Unit = require("../../models/customer/Unit");
 const server = require("../../models/products/server");
+const ScrapSaleHistory = require("../../models/ScrapSaleHistory/ScrapSaleHistory");
 
 // ---------------Counter Controllers -------------------
 // exports.countAssets = (req, res) => {
@@ -340,13 +341,15 @@ exports.getAllItems = (req, res) => {
   //   filteroptions.sno = fuzzyquery;
   // }
   // console.log(filteroptions);
- 
+
   // console.log(filteroptions);
-let finalquery ={$and:[{$or:[{name:fuzzyquery},{sno:fuzzyquery}]},filteroptions]};
-// console.log(finalquery);
+  let finalquery = {
+    $and: [{ $or: [{ name: fuzzyquery }, { sno: fuzzyquery }] }, filteroptions],
+  };
+  // console.log(finalquery);
   // -----------------------------------------------------------------------
- 
-  InvItem.paginate( finalquery,options, function (err, result) {
+
+  InvItem.paginate(finalquery, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({
@@ -451,6 +454,52 @@ exports.updateInventory = async (req, res) => {
   }
 };
 
+exports.scrapSaleUpdate = async (req, res) => {
+  let {
+    selectedids,
+    invoiceNum,
+    scrapsaledate,
+    grossvalue,
+    gstperc,
+    netvalue,
+  } = req.body;
+  console.log(invoiceNum);
+
+  let newinvhistory = {
+    histtype: "Condition",
+    date: scrapsaledate,
+    location: "Nil",
+    callId: "Nil",
+    assetId: "Nil",
+    status: "ScrapSold",
+    note: `Scrap Item Sold with invoice: ${invoiceNum}`,
+  };
+  try {
+    selectedids.map(async (item, i) => {
+      let inv = await InvItem.findByIdAndUpdate(selectedids[i], {
+        condition: "ScrapSold",
+        $push: { history: newinvhistory },
+      });
+    });
+
+    let item = {
+      invnumber: invoiceNum,
+      scrapsaledate: scrapsaledate,
+      grossvalue: grossvalue,
+      gstperc: gstperc,
+      netvalue: netvalue,
+      invItems: selectedids,
+    };
+    const newitem = new ScrapSaleHistory(item);
+    const result = await newitem.save();
+
+    return res.status(200).json({ inv });
+  } catch (err) {
+    // console.log(id);
+    return res.status(400).json({ error: err });
+  }
+};
+
 exports.getInvById = async (req, res) => {
   try {
     let vend = await InvItem.findById(req.body.id);
@@ -519,6 +568,51 @@ exports.getAllHistory = (req, res) => {
   // -----------------------------------------------------------------------
 
   PurchaseHistory.paginate(filteroptions, options, function (err, result) {
+    // console.log(result);
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No items found",
+        err: err,
+      });
+    }
+    // console.log(result.docs);
+    let output = {
+      total: result.total,
+      out: result.docs,
+    };
+    return res.status(200).json(output);
+  });
+};
+
+exports.getScrapHistory = (req, res) => {
+  let { pages, filters } = req.body;
+
+  let { searchquery } = filters;
+  // console.log(filters);
+  // console.log(searchquery);
+  // console.log(searchtype);
+  const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
+
+  let options = {
+    // populate: "product",
+    page: pages.page,
+    limit: pages.limit,
+    populate: "invItems",
+  };
+
+  let filteroptions = {
+    // product: { brand: "IBM" },
+  };
+
+  // ---Conditional Addition of filters
+
+  if (filters.searchquery != "") {
+    filteroptions.invnumber = fuzzyquery;
+  }
+
+  // -----------------------------------------------------------------------
+
+  ScrapSaleHistory.paginate(filteroptions, options, function (err, result) {
     // console.log(result);
     if (err || !result) {
       return res.status(400).json({

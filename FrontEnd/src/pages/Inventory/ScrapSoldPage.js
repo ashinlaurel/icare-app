@@ -64,12 +64,9 @@ function ScrapSoldPage() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // dropdown and modals
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenTwo, setIsOpenTwo] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [successModal, setSuccessModal] = useState(false);
   const [refresh, setRefresh] = useState(true);
-  const [disabler, setDisabler] = useState(true);
 
   // filterhooks
   const [Business, setBusiness] = useState("");
@@ -78,19 +75,9 @@ function ScrapSoldPage() {
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
 
-  // Selected Prod for the bottom bar----------
-  const [selectedprod, setSelectedProd] = useState({});
-
   // search
-  const [searchtype, setSearchType] = useState("");
-  const [searchlabel, setSearchLabel] = useState("");
+
   const [searchquery, setSearchQuery] = useState("");
-
-  // asset history
-  const [assethistory, setAssetHistory] = useState([]);
-  const [assethistoryModalOpen, setAssetHistoryModalOpen] = useState(false);
-
-  // Getting data states
 
   // pagination setup
   const resultsPerPage = 10;
@@ -100,21 +87,19 @@ function ScrapSoldPage() {
   const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
 
   //selected array
-  const [selectedassets, setSelectedAssets] = useState([]);
+
   const [selectedids, setSelectedIds] = useState([]);
 
-  // edit type enable
-  const [contractenable, setContractEnable] = useState(false);
-  const [billingenable, setBillingEnable] = useState(false);
-
   // final dates
-  const [ContractFrom, setContractFrom] = useState("");
-  const [ContractTo, setContractTo] = useState("");
-  const [BillingFrom, setBillingFrom] = useState("");
-  const [BillingTo, setBillingTo] = useState("");
+  const [invoiceNum, setInvoiceNum] = useState("");
+  const [saledate, setSaledate] = useState("");
+  const [grossvalue, setGrossvalue] = useState("");
+  const [gstperc, setGstperc] = useState("");
+  const [netvalue, setNetvalue] = useState("");
 
   const [invsearch, setInvSearch] = useState("");
   const [addedinv, setAddedInv] = useState([]);
+
   // pagination change control
   function onPageChange(p) {
     setPage(p);
@@ -139,6 +124,12 @@ function ScrapSoldPage() {
       setTopHeading("");
     };
   }, []);
+
+  useEffect(() => {
+    let temp = (parseFloat(gstperc) * 0.01 + 1) * parseFloat(grossvalue);
+    setNetvalue(temp.toFixed(2));
+    return () => {};
+  }, [gstperc, grossvalue]);
   // -----------------------------------------------------
 
   useMemo(() => {
@@ -170,7 +161,7 @@ function ScrapSoldPage() {
         console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
-        // console.log(location, "LOCATIO!!!");
+        // console.log(location, "LOCATION!!!");
 
         setData(response.data.out);
       } catch (error) {
@@ -187,39 +178,28 @@ function ScrapSoldPage() {
     if (selectedids.length == 0) {
       alert("No inventory selected");
       return;
-    } else if (!billingenable && !contractenable) {
-      await setIsDwnldModalOpen(false);
-      alert("No Update Type Enabled");
-      return;
     }
 
     let payload = {
       selectedids: selectedids,
-      billingenable: billingenable,
-      contractenable: contractenable,
-      ContractFrom: ContractFrom,
-      ContractTo: ContractTo,
-      BillingFrom: BillingFrom,
-      BillingTo: BillingTo,
+      invoiceNum: invoiceNum,
+      scrapsaledate: saledate,
+      grossvalue: grossvalue,
+      gstperc: gstperc,
+      netvalue: netvalue,
     };
     // console.log("payload", payload);
 
     try {
       let response = await axios({
-        url: `${API}/asset/${Emp.getId()}/multiAssetUpdate`,
+        url: `${API}/inventory/${Emp.getId()}/invscrapsale`,
         method: "POST",
         data: payload,
       });
 
-      setSelectedAssets([]);
+      //   setSelectedAssets([]);
       setSelectedIds([]);
       setSuccessModal(true);
-      setContractEnable(false);
-      setBillingEnable(false);
-      setContractFrom("");
-      setContractTo("");
-      setBillingFrom("");
-      setBillingTo("");
       setRefresh(!refresh);
     } catch (error) {
       console.log(error);
@@ -288,7 +268,7 @@ function ScrapSoldPage() {
   return (
     <>
       {/* ---------------------Modals----------------------------------------- */}
-      <CustomerSelection
+      {/* <CustomerSelection
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setUnit={setUnit}
@@ -299,7 +279,7 @@ function ScrapSoldPage() {
         setAccount={setAccount}
         refresh={refresh}
         setRefresh={setRefresh}
-      />
+      /> */}
       {UpdateModal()}
       {SucessModal()}
 
@@ -315,7 +295,7 @@ function ScrapSoldPage() {
                 setIsDwnldModalOpen(true);
               }}
             >
-              Update All
+              Sell Scrap
             </Button>
           </div>
         </div>
@@ -328,9 +308,9 @@ function ScrapSoldPage() {
             <Input
               className="mt-1"
               type="text"
-              value={ContractFrom}
+              value={invoiceNum}
               onChange={(e) => {
-                setContractFrom(e.target.value);
+                setInvoiceNum(e.target.value);
               }}
             />
           </Label>
@@ -340,9 +320,9 @@ function ScrapSoldPage() {
             <Input
               className="mt-1"
               type="date"
-              value={ContractTo}
+              value={saledate}
               onChange={(e) => {
-                setContractTo(e.target.value);
+                setSaledate(e.target.value);
               }}
             />
           </Label>
@@ -351,9 +331,9 @@ function ScrapSoldPage() {
             <Input
               className="mt-1"
               type="text"
-              value={BillingFrom}
+              value={grossvalue}
               onChange={(e) => {
-                setBillingFrom(e.target.value);
+                setGrossvalue(e.target.value);
               }}
             />
           </Label>
@@ -363,14 +343,25 @@ function ScrapSoldPage() {
               type="text"
               className="mt-1"
               name="brand"
-              value={BillingTo}
+              value={gstperc}
               onChange={(e) => {
-                setBillingTo(e.target.value);
+                setGstperc(e.target.value);
               }}
             />
           </Label>
         </div>
-        {/* -------selected assets table----------- */}
+        <div className="flex flex-col lg:flex-row  items-center justify-start lg:space-x-8">
+          <Label className="w-full ">
+            <span>Net Value</span>
+            <Input
+              className="mt-1"
+              type="text"
+              readOnly={true}
+              value={netvalue}
+            />
+          </Label>
+        </div>
+        {/* -------selected inventory table----------- */}
 
         <TableContainer className="mt-4">
           <div className="dark:text-gray-200 text-black text-sm flex space-x-2 items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md justify-start  w-full my-2 font-bold">
@@ -409,30 +400,7 @@ function ScrapSoldPage() {
                     <span className="text-sm">{item.sno}</span>
                   </TableCell>
                   <TableCell>
-                    {/* <span className="text-sm">{item.condition}</span> */}
-                    <div className="flex flex-col w-full">
-                      <Label className="w-full">
-                        {/* <span>Select Condition*</span> */}
-                        <Select
-                          value={item.condition}
-                          className="mt-1"
-                          onChange={(e) => {
-                            //   console.log(addedinv[i]);
-                            let temp = [...addedinv];
-                            temp[i].condition = e.target.value;
-                            setAddedInv(temp);
-                          }}
-                        >
-                          <option value="Good">Good</option>
-                          <option value="Bad">Bad</option>
-                          <option value="Used">Used</option>
-                          <option value="DOA">DOA</option>
-                          <option value="Damaged">Damaged</option>
-                          <option value="Scrap">Scrap</option>
-                          <option value="ScrapSold">Scrap Sold</option>
-                        </Select>
-                      </Label>
-                    </div>
+                    <span className="text-sm">{item.condition}</span>
                   </TableCell>
                 </TableRow>
               ))}
@@ -518,7 +486,7 @@ function ScrapSoldPage() {
                       </TableCell>
 
                       <TableCell>
-                        <div className="w-40 overflow-auto text-sm">
+                        <div className="w-64 overflow-auto text-sm">
                           {user.sno}
                         </div>
                       </TableCell>
@@ -529,6 +497,7 @@ function ScrapSoldPage() {
                             className="dark:border-green-700 border-green-400"
                             onClick={() => {
                               setAddedInv([...addedinv, user]);
+                              setSelectedIds([...selectedids, user._id]);
                             }}
                           >
                             Select
