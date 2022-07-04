@@ -447,8 +447,56 @@ function Assets() {
     for (let ttt = 1; ttt <= maxmotherboardcount; ttt++) {
       csv += `Motherboard ${ttt},Motherboard ${ttt} SNo,`;
     }
+    // optical headings
+    for (let ttt = 1; ttt <= maxopticaldrivecount; ttt++) {
+      csv += `Optical Drive ${ttt},Optical Drive ${ttt} SNo,`;
+    }
+    // keyboard headings
+    for (let ttt = 1; ttt <= maxkeybdcount; ttt++) {
+      csv += `Keyboard ${ttt},Keyboard ${ttt} SNo,`;
+    }
+    // mouse headings
+    for (let ttt = 1; ttt <= maxmousecount; ttt++) {
+      csv += `Mouse ${ttt},Mouse ${ttt} SNo,`;
+    }
+    // monitor headings
+    for (let ttt = 1; ttt <= maxmonitorcount; ttt++) {
+      csv += `Monitor ${ttt},Monitor ${ttt} SNo,`;
+    }
+    // gcard headings
+    for (let ttt = 1; ttt <= maxgcardcount; ttt++) {
+      csv += `Graphics Card ${ttt},Graphics Card ${ttt} SNo,`;
+    }
+    // enet headings
+    for (let ttt = 1; ttt <= maxenetcount; ttt++) {
+      csv += `Enet Card ${ttt},Enet Card ${ttt} SNo,`;
+    }
+    // serial headings
+    for (let ttt = 1; ttt <= maxserialcardcount; ttt++) {
+      csv += `Serial Card ${ttt},Serial Card ${ttt} SNo,`;
+    }
+    // paralell headings
+    for (let ttt = 1; ttt <= maxparalellcardcount; ttt++) {
+      csv += `Parallel Card ${ttt},Parallel Card ${ttt} SNo,`;
+    }
+    // hba headings
+    for (let ttt = 1; ttt <= maxhbacardcount; ttt++) {
+      csv += `HBA Card ${ttt},HBA Card ${ttt} SNo,`;
+    }
+    // raid headings
+    for (let ttt = 1; ttt <= maxraidcount; ttt++) {
+      csv += `Raid Controller ${ttt},Raid Controller ${ttt} SNo,`;
+    }
+    // tape headings
+    for (let ttt = 1; ttt <= maxtapecount; ttt++) {
+      csv += `Tape Controller ${ttt},Tape Controller ${ttt} SNo,`;
+    }
+    // others headings
+    for (let ttt = 1; ttt <= maxotherscount; ttt++) {
+      csv += `Others ${ttt},Others ${ttt} SNo,`;
+    }
 
-    csv += `OpticalDrive,Keyboard,Mouse,Monitor,GraphicsCard,EnetCard,SerialCard,ParallelCard,HBACard,RaidController,TapeController,Others,\n`;
+    csv += `\n`;
     array.map((i, count) => {
       let ram = `"`;
       i.product.ram.map((j) => {
