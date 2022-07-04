@@ -498,103 +498,6 @@ function Assets() {
 
     csv += `\n`;
     array.map((i, count) => {
-      let ram = `"`;
-      i.product.ram.map((j) => {
-        ram = ram + `${j.ramname}: ${j.ramsno} `;
-      });
-      ram = ram + `."`;
-      let hdd = `"`;
-      i.product.hdd.map((j) => {
-        hdd = hdd + `${j.hddname}: ${j.hddsno} `;
-      });
-      hdd = hdd.replace(/"/g, '""');
-      hdd = hdd + `."`;
-      // hdd = hdd.replace(/\"|\n|\t|\r|\v/g, "");
-
-      let smps = `"`;
-      i.product.smps.map((j) => {
-        smps = smps + `${j.smpsname}: ${j.smpssno} `;
-      });
-      smps = smps + `."`;
-      let fan = `"`;
-      i.product.fan.map((j) => {
-        fan = fan + `${j.fanname}: ${j.fansno} `;
-      });
-      fan = fan + `."`;
-      let motherboard = `"`;
-      i.product.motherboard.map((j) => {
-        motherboard =
-          motherboard + `${j.motherboardname}: ${j.motherboardsno} `;
-      });
-      motherboard = motherboard + `."`;
-      let opticaldrive = `"`;
-      i.product.opticaldrive.map((j) => {
-        opticaldrive =
-          opticaldrive + `${j.opticaldrivename}: ${j.opticaldrivesno} `;
-      });
-      opticaldrive = opticaldrive + `."`;
-      let keyboard = `"`;
-      i.product.keyboard.map((j) => {
-        keyboard = keyboard + `${j.keyboardname}: ${j.keyboardsno} `;
-      });
-      keyboard = keyboard + `."`;
-      let mouse = `"`;
-      i.product.mouse.map((j) => {
-        mouse = mouse + `${j.mousename}: ${j.mousesno} `;
-      });
-      mouse = mouse + `."`;
-      let monitor = `"`;
-      i.product.monitor.map((j) => {
-        monitor = monitor + `${j.monitorname}: ${j.monitorsno} `;
-      });
-      monitor = monitor.replace(/"/g, '""');
-      monitor = monitor + `."`;
-
-      let gcard = `"`;
-      i.product.gcard.map((j) => {
-        gcard = gcard + `${j.gcardname}: ${j.gcardsno} `;
-      });
-      gcard = gcard + `."`;
-      let enetcard = `"`;
-      i.product.enetcard.map((j) => {
-        enetcard = enetcard + `${j.enetcardname}: ${j.enetcardsno} `;
-      });
-      enetcard = enetcard + `."`;
-      let serialcard = `"`;
-      i.product.serialcard.map((j) => {
-        serialcard = serialcard + `${j.serialcardname}: ${j.serialcardsno} `;
-      });
-      serialcard = serialcard + `."`;
-      let parallelcard = `"`;
-      i.product.parallelcard.map((j) => {
-        parallelcard =
-          parallelcard + `${j.parallelcardname}: ${j.parallelcardsno} `;
-      });
-      parallelcard = parallelcard + `."`;
-      parallelcard = parallelcard.replace(/undefined/g, "");
-      let hbacard = `"`;
-      i.product.hbacard.map((j) => {
-        hbacard = hbacard + `${j.hbacardname}: ${j.hbacardsno} `;
-      });
-      hbacard = hbacard + `."`;
-      let raidcontroller = `"`;
-      i.product.raidcontroller.map((j) => {
-        raidcontroller =
-          raidcontroller + `${j.raidcontrollername}: ${j.raidcontrollersno} `;
-      });
-      raidcontroller = raidcontroller + `."`;
-      let tapecontroller = `"`;
-      i.product.tapecontroller.map((j) => {
-        tapecontroller =
-          tapecontroller + `${j.tapecontrollername}: ${j.tapecontrollersno} `;
-      });
-      tapecontroller = tapecontroller + `."`;
-      let others = `"`;
-      i.product.others.map((j) => {
-        others = others + `${j.othersname}: ${j.otherssno} `;
-      });
-      others = others + `."`;
-
       csv =
         csv +
         `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product.brand}","${i.product.model}","${i.product.serialno}","${i.product.os}",`;
@@ -606,7 +509,154 @@ function Assets() {
           csv += `"","",`;
         }
       }
-      csv += `${ram},${hdd},${smps},${fan},${motherboard},${opticaldrive},${keyboard},${mouse},${monitor},${gcard},${enetcard},${serialcard},${parallelcard},${hbacard},${raidcontroller},${tapecontroller},${others},\n`;
+      //ram insert
+      for (let temp = 0; temp < maxramcount; temp++) {
+        if (i.product.ram[temp]) {
+          csv += `"${i.product.ram[temp].ramname}","${i.product.ram[temp].ramsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //hdd insert
+      for (let temp = 0; temp < maxhddcount; temp++) {
+        if (i.product.hdd[temp]) {
+          csv += `"${i.product.hdd[temp].hddname}","${i.product.hdd[temp].hddsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //smps insert
+      for (let temp = 0; temp < maxsmpscount; temp++) {
+        if (i.product.smps[temp]) {
+          csv += `"${i.product.smps[temp].smpsname}","${i.product.smps[temp].smpssno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //fan insert
+      for (let temp = 0; temp < maxfancount; temp++) {
+        if (i.product.fan[temp]) {
+          csv += `"${i.product.fan[temp].fanname}","${i.product.fan[temp].fansno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //motherboard insert
+      for (let temp = 0; temp < maxmotherboardcount; temp++) {
+        if (i.product.motherboard[temp]) {
+          csv += `"${i.product.motherboard[temp].motherboardname}","${i.product.motherboard[temp].motherboardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //optical insert
+      for (let temp = 0; temp < maxopticaldrivecount; temp++) {
+        if (i.product.opticaldrive[temp]) {
+          csv += `"${i.product.opticaldrive[temp].opticaldrivename}","${i.product.opticaldrive[temp].opticaldrivesno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //keyboard insert
+      for (let temp = 0; temp < maxkeybdcount; temp++) {
+        if (i.product.keyboard[temp]) {
+          csv += `"${i.product.keyboard[temp].keyboardname}","${i.product.keyboard[temp].keyboardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //mouse insert
+      for (let temp = 0; temp < maxmousecount; temp++) {
+        if (i.product.mouse[temp]) {
+          csv += `"${i.product.mouse[temp].mousename}","${i.product.mouse[temp].mousesno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //monitor insert
+      for (let temp = 0; temp < maxmonitorcount; temp++) {
+        if (i.product.monitor[temp]) {
+          csv += `"${i.product.monitor[temp].monitorname}","${i.product.monitor[temp].monitorsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //gcard insert
+      for (let temp = 0; temp < maxgcardcount; temp++) {
+        if (i.product.gcard[temp]) {
+          csv += `"${i.product.gcard[temp].gcardname}","${i.product.gcard[temp].gcardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //enet insert
+      for (let temp = 0; temp < maxenetcount; temp++) {
+        if (i.product.enetcard[temp]) {
+          csv += `"${i.product.enetcard[temp].enetcardname}","${i.product.enetcard[temp].enetcardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //serial insert
+      for (let temp = 0; temp < maxserialcardcount; temp++) {
+        if (i.product.serialcard[temp]) {
+          csv += `"${i.product.serialcard[temp].serialcardname}","${i.product.serialcard[temp].serialcardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //parallel insert
+      for (let temp = 0; temp < maxparalellcardcount; temp++) {
+        if (i.product.parallelcard[temp]) {
+          csv += `"${i.product.parallelcard[temp].parallelcardname}","${i.product.parallelcard[temp].parallelcardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //hba insert
+      for (let temp = 0; temp < maxhbacardcount; temp++) {
+        if (i.product.hbacard[temp]) {
+          csv += `"${i.product.hbacard[temp].hbacardname}","${i.product.hbacard[temp].hbacardsno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //raid controller insert
+      for (let temp = 0; temp < maxraidcount; temp++) {
+        if (i.product.raidcontroller[temp]) {
+          csv += `"${i.product.raidcontroller[temp].raidcontrollername}","${i.product.raidcontroller[temp].raidcontrollersno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      //tape controller insert
+      for (let temp = 0; temp < maxtapecount; temp++) {
+        if (i.product.tapecontroller[temp]) {
+          csv += `"${i.product.tapecontroller[temp].tapecontrollername}","${i.product.tapecontroller[temp].tapecontrollersno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+
+      //tape controller insert
+      for (let temp = 0; temp < maxtapecount; temp++) {
+        if (i.product.tapecontroller[temp]) {
+          csv += `"${i.product.tapecontroller[temp].tapecontrollername}","${i.product.tapecontroller[temp].tapecontrollersno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+
+      //others controller insert
+      for (let temp = 0; temp < maxotherscount; temp++) {
+        if (i.product.others[temp]) {
+          csv += `"${i.product.others[temp].othersname}","${i.product.others[temp].otherssno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+
+      csv += `\n`;
     });
     // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
