@@ -595,6 +595,7 @@ exports.getScrapHistory = (req, res) => {
 
   let options = {
     // populate: "product",
+    sort: { scrapsaledate: -1 },
     page: pages.page,
     limit: pages.limit,
     populate: "invItems",
@@ -608,6 +609,20 @@ exports.getScrapHistory = (req, res) => {
 
   if (filters.searchquery != "") {
     filteroptions.invnumber = fuzzyquery;
+  }
+  if (filters.toDate != "" && filters.fromDate != "") {
+    filteroptions.scrapsaledate = {
+      $gte: filters.fromDate,
+      $lt: filters.toDate,
+    };
+  } else if (filters.fromDate != "") {
+    filteroptions.scrapsaledate = {
+      $gte: filters.fromDate,
+    };
+  } else if (filters.toDate != "") {
+    filteroptions.scrapsaledate = {
+      $lt: filters.toDate,
+    };
   }
 
   // -----------------------------------------------------------------------

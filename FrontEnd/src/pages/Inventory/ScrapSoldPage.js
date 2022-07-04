@@ -74,13 +74,15 @@ function ScrapSoldPage() {
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   // search
 
   const [searchquery, setSearchQuery] = useState("");
 
   // pagination setup
-  const resultsPerPage = 10;
+  const resultsPerPage = 5;
   const [totalResults, setTotalResults] = useState(20);
 
   //download
@@ -175,6 +177,15 @@ function ScrapSoldPage() {
 
   const handleUpdate = async () => {
     console.log(selectedids);
+    if (
+      invoiceNum == "" ||
+      saledate == "" ||
+      grossvalue == "" ||
+      gstperc == ""
+    ) {
+      alert("Fill Compulsory Fields");
+      return;
+    }
     if (selectedids.length == 0) {
       alert("No inventory selected");
       return;
@@ -216,7 +227,7 @@ function ScrapSoldPage() {
         >
           <ModalHeader className=" w-87">
             <div className="text-lg">
-              Are you sure you want to update all the selected inventory ?
+              Are you sure you want to sell all the selected inventory ?
             </div>
           </ModalHeader>
           <ModalBody>
@@ -304,7 +315,7 @@ function ScrapSoldPage() {
 
         <div className="flex flex-col lg:flex-row  items-center justify-start lg:space-x-8">
           <Label className="w-full ">
-            <span>Invoice Number</span>
+            <span>Invoice Number*</span>
             <Input
               className="mt-1"
               type="text"
@@ -316,7 +327,7 @@ function ScrapSoldPage() {
           </Label>
 
           <Label className="w-full">
-            <span>Date</span>
+            <span>Date*</span>
             <Input
               className="mt-1"
               type="date"
@@ -327,7 +338,7 @@ function ScrapSoldPage() {
             />
           </Label>
           <Label className="w-full my-3">
-            <span>Gross Value</span>
+            <span>Gross Value*</span>
             <Input
               className="mt-1"
               type="text"
@@ -338,7 +349,7 @@ function ScrapSoldPage() {
             />
           </Label>
           <Label className="w-full my-3">
-            <span>GST %</span>
+            <span>GST %*</span>
             <Input
               type="text"
               className="mt-1"
@@ -418,7 +429,7 @@ function ScrapSoldPage() {
 
         <div className=" text-lg font-semibold mt-4 ">Inventory Picker</div>
 
-        {/* ----------------------------------------------Table----------------------------------------------------- */}
+        {/* ----------------------------------------------Filters----------------------------------------------------- */}
         <div className=" w-full mt-2 rounded-lg bg-gray-200 dark:bg-gray-700 p-3 overflow-y-auto">
           <form
             // onSubmit={handlevendorSubmit}

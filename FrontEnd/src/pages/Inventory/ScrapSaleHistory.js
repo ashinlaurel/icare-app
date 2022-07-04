@@ -5,7 +5,13 @@ import { saveAs } from "file-saver";
 
 import Emp from "../../helpers/auth/EmpProfile";
 import { EditIcon, TrashIcon, DropdownIcon } from "../../icons";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Label,
+} from "@windmill/react-ui";
 
 import {
   TableBody,
@@ -51,7 +57,9 @@ function ScrapSaleHistory() {
   const [selectedprod, setSelectedProd] = useState({});
   const [currInv, setCurrInv] = useState([]);
 
-  // search
+  // filters
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   const [searchquery, setSearchQuery] = useState("");
 
@@ -92,6 +100,8 @@ function ScrapSaleHistory() {
         },
         filters: {
           searchquery: searchquery,
+          fromDate: fromDate,
+          toDate: toDate,
         },
       };
       // console.log(`${API}/asset/${Emp.getId()}/getall`);
@@ -113,7 +123,7 @@ function ScrapSaleHistory() {
       }
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, searchquery, refresh]);
+  }, [page, searchquery, fromDate, toDate, refresh]);
 
   console.log(selectedprod);
 
@@ -129,15 +139,11 @@ function ScrapSaleHistory() {
         page: page,
         limit: 10000000,
       },
-      // filters: {
-      //   type: "",
-      //   location: "",
-      //   condition: "",
-      //   searchtype: "",
-      //   searchquery: "",
-      // },
+
       filters: {
         searchquery: searchquery,
+        fromDate: fromDate,
+        toDate: toDate,
       },
     };
     try {
@@ -310,31 +316,53 @@ function ScrapSaleHistory() {
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
           {/* -------------------------------------Row 1 ------------------------------------------------------------------------------- */}
-          <div class="my-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-2 ">
+          <div class="mb-2 flex sm:flex-row flex-col items-start sm:items-center sm:justify-left h-full space-x-4">
             {/* -----------------Search Bar------------------------------------ */}
-            <div class="block relative ">
-              <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg
-                  viewBox="0 0 24 24"
-                  class="h-4 w-4 fill-current text-gray-500"
+            <Label>
+              <span>Search </span>
+              <div class="block relative ">
+                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-4 w-4 fill-current text-gray-500"
+                  >
+                    <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+                  </svg>
+                </span>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setRefresh(!refresh);
+                  }}
                 >
-                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
-                </svg>
-              </span>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setRefresh(!refresh);
-                }}
-              >
-                <input
-                  value={searchquery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search Invoice Number"
-                  class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                />
-              </form>
-            </div>
+                  <input
+                    value={searchquery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search Invoice Number"
+                    class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  />
+                </form>
+              </div>
+            </Label>
+
+            <Label className="flex flex-col">
+              <span>From Date</span>
+              <input
+                className="shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 p-2 leading-tight focus:outline-none   focus:bg-white focus:border-gray-500 "
+                type="date"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+            </Label>
+            <Label className="flex flex-col">
+              <span>To Date</span>
+              <input
+                className="shadow-md h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 p-2  leading-tight focus:outline-none   focus:bg-white focus:border-gray-500 "
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+            </Label>
             <div className="flex justify-end items-end">
               <Button
                 onClick={() => {
