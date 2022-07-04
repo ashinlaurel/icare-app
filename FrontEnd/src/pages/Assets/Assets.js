@@ -338,8 +338,6 @@ function Assets() {
   };
 
   const downloadAssets = async () => {
-    let csv = `ProductType,Customer,Account,Unit,Business,Brand,Model,SerialNumber,OperatingSystem,CPU,Ram,HDD,SMPS,Fan,MotherBoard,OpticalDrive,Keyboard,Mouse,Monitor,GraphicsCard,EnetCard,SerialCard,ParallelCard,HBACard,RaidController,TapeController,Others,\n`;
-
     let array;
     let payload = {
       pages: {
@@ -370,13 +368,88 @@ function Assets() {
     } catch (error) {
       throw error;
     }
+    //counting how many headings are required in
+    let maxcpucount = 0;
+    let maxramcount = 0;
+    let maxhddcount = 0;
+    let maxsmpscount = 0;
+    let maxfancount = 0;
+    let maxmotherboardcount = 0;
+    let maxopticaldrivecount = 0;
+    let maxkeybdcount = 0;
+    let maxmousecount = 0;
+    let maxmonitorcount = 0;
+    let maxgcardcount = 0;
+    let maxenetcount = 0;
+    let maxserialcardcount = 0;
+    let maxparalellcardcount = 0;
+    let maxhbacardcount = 0;
+    let maxraidcount = 0;
+    let maxtapecount = 0;
+    let maxotherscount = 0;
+
+    array.map((temp, i) => {
+      maxcpucount = Math.max(maxcpucount, temp.product.cpu.length);
+      maxramcount = Math.max(maxramcount, temp.product.ram.length);
+      maxhddcount = Math.max(maxhddcount, temp.product.hdd.length);
+      maxsmpscount = Math.max(maxsmpscount, temp.product.smps.length);
+      maxfancount = Math.max(maxfancount, temp.product.fan.length);
+      maxmotherboardcount = Math.max(
+        maxmotherboardcount,
+        temp.product.motherboard.length
+      );
+      maxopticaldrivecount = Math.max(
+        maxopticaldrivecount,
+        temp.product.opticaldrive.length
+      );
+      maxkeybdcount = Math.max(maxkeybdcount, temp.product.keyboard.length);
+      maxmousecount = Math.max(maxmousecount, temp.product.mouse.length);
+      maxmonitorcount = Math.max(maxmonitorcount, temp.product.monitor.length);
+      maxgcardcount = Math.max(maxgcardcount, temp.product.gcard.length);
+      maxenetcount = Math.max(maxenetcount, temp.product.enetcard.length);
+      maxserialcardcount = Math.max(
+        maxserialcardcount,
+        temp.product.serialcard.length
+      );
+      maxparalellcardcount = Math.max(
+        maxparalellcardcount,
+        temp.product.parallelcard.length
+      );
+      maxhbacardcount = Math.max(maxhbacardcount, temp.product.hbacard.length);
+      maxraidcount = Math.max(maxraidcount, temp.product.raidcontroller.length);
+      maxtapecount = Math.max(maxtapecount, temp.product.tapecontroller.length);
+      maxotherscount = Math.max(maxotherscount, temp.product.others.length);
+    });
+    // console.log("maxcpucount=", maxcpucount);
+
+    let csv = `ProductType,Customer,Account,Unit,Business,Brand,Model,SerialNumber,OperatingSystem,`;
+    //cpu headings
+    for (let ttt = 1; ttt <= maxcpucount; ttt++) {
+      csv += `CPU ${ttt},CPU ${ttt} SNo,`;
+    }
+    //ram headings
+    for (let ttt = 1; ttt <= maxramcount; ttt++) {
+      csv += `RAM ${ttt},RAM ${ttt} SNo,`;
+    }
+    // hdd headings
+    for (let ttt = 1; ttt <= maxhddcount; ttt++) {
+      csv += `HDD ${ttt},HDD ${ttt} SNo,`;
+    }
+    // smps headings
+    for (let ttt = 1; ttt <= maxsmpscount; ttt++) {
+      csv += `SMPS ${ttt},SMPS ${ttt} SNo,`;
+    }
+    // fan headings
+    for (let ttt = 1; ttt <= maxfancount; ttt++) {
+      csv += `Fan ${ttt},Fan ${ttt} SNo,`;
+    }
+    // motherboard headings
+    for (let ttt = 1; ttt <= maxmotherboardcount; ttt++) {
+      csv += `Motherboard ${ttt},Motherboard ${ttt} SNo,`;
+    }
+
+    csv += `OpticalDrive,Keyboard,Mouse,Monitor,GraphicsCard,EnetCard,SerialCard,ParallelCard,HBACard,RaidController,TapeController,Others,\n`;
     array.map((i, count) => {
-      let cpu = `"`;
-      console.log(count);
-      i.product.cpu.map((j) => {
-        cpu = cpu + `${j.cpuname}: ${j.cpusno} `;
-      });
-      cpu = cpu + `."`;
       let ram = `"`;
       i.product.ram.map((j) => {
         ram = ram + `${j.ramname}: ${j.ramsno} `;
@@ -473,11 +546,21 @@ function Assets() {
         others = others + `${j.othersname}: ${j.otherssno} `;
       });
       others = others + `."`;
+
       csv =
         csv +
-        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product.brand}","${i.product.model}","${i.product.serialno}","${i.product.os}",${cpu},${ram},${hdd},${smps},${fan},${motherboard},${opticaldrive},${keyboard},${mouse},${monitor},${gcard},${enetcard},${serialcard},${parallelcard},${hbacard},${raidcontroller},${tapecontroller},${others},\n`;
+        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product.brand}","${i.product.model}","${i.product.serialno}","${i.product.os}",`;
+      //cpu insert
+      for (let temp = 0; temp < maxcpucount; temp++) {
+        if (i.product.cpu[temp]) {
+          csv += `"${i.product.cpu[temp].cpuname}","${i.product.cpu[temp].cpusno}",`;
+        } else {
+          csv += `"","",`;
+        }
+      }
+      csv += `${ram},${hdd},${smps},${fan},${motherboard},${opticaldrive},${keyboard},${mouse},${monitor},${gcard},${enetcard},${serialcard},${parallelcard},${hbacard},${raidcontroller},${tapecontroller},${others},\n`;
     });
-    console.log(csv); //product.
+    // console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     saveAs(csvData, "Assets.csv");
   };
