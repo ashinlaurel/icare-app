@@ -74,8 +74,6 @@ function ScrapSoldPage() {
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
   const [customer, setCustomer] = useState({ _id: "", customerName: "" });
   const [account, setAccount] = useState({ _id: "", accountName: "" });
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
 
   // search
 
@@ -148,7 +146,7 @@ function ScrapSoldPage() {
           location: "",
           condition: "Scrap",
           searchtype: "",
-          searchquery: searchquery,
+          searchquery: invsearch,
           //   stocktype: stockType,
         },
       };
@@ -173,7 +171,15 @@ function ScrapSoldPage() {
       console.log("totalResults", totalResults);
     })();
     // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, Business, product, refresh]);
+  }, [page, invsearch, Business, product, refresh]);
+
+  //   useEffect(() => {
+  //     console.log(selectedids);
+  //     console.log(addedinv);
+  //     console.log(data);
+
+  //     return () => {};
+  //   }, [selectedids]);
 
   const handleUpdate = async () => {
     console.log(selectedids);
@@ -207,8 +213,13 @@ function ScrapSoldPage() {
         method: "POST",
         data: payload,
       });
-
-      //   setSelectedAssets([]);
+      setInvoiceNum("");
+      setSaledate("");
+      setGrossvalue("");
+      setGstperc("");
+      setNetvalue("");
+      setInvSearch("");
+      setAddedInv([]);
       setSelectedIds([]);
       setSuccessModal(true);
       setRefresh(!refresh);
@@ -262,7 +273,7 @@ function ScrapSoldPage() {
     return (
       <>
         <Modal isOpen={successModal} onClose={() => setSuccessModal(true)}>
-          <ModalHeader>"Inventory Updated Successfully"</ModalHeader>
+          <ModalHeader>Inventory Updated Successfully</ModalHeader>
           <ModalBody></ModalBody>
           <ModalFooter>
             <Button
@@ -460,63 +471,70 @@ function ScrapSoldPage() {
                   </tr>
                 </TableHeader>
                 <TableBody className="">
-                  {data.map((user, i) => (
-                    <TableRow
-                      className={`hover:shadow-lg dark:hover:bg-gray-600  `}
-                      key={i}
-                      onClick={() => {
-                        // setActiveRowID(user._id);
-                        // console.log("the id is " + user._id);
-                        // setSelectedProd(user);
-                        // setAssetDetails(user);
-                        // console.log(user.product.keyboard[0].keyboardname);
-                      }}
-                    >
-                      <TableCell className="w-8">
-                        <div className="flex items-center text-sm ">
-                          {/* <Avatar
+                  {data
+                    .filter((user) => {
+                      for (let i = 0; i < selectedids.length; i++) {
+                        if (user._id == selectedids[i]) return 0;
+                      }
+                      return 1;
+                    })
+                    .map((user, i) => (
+                      <TableRow
+                        className={`hover:shadow-lg dark:hover:bg-gray-600  `}
+                        key={i}
+                        onClick={() => {
+                          // setActiveRowID(user._id);
+                          // console.log("the id is " + user._id);
+                          // setSelectedProd(user);
+                          // setAssetDetails(user);
+                          // console.log(user.product.keyboard[0].keyboardname);
+                        }}
+                      >
+                        <TableCell className="w-8">
+                          <div className="flex items-center text-sm ">
+                            {/* <Avatar
                           className="hidden ml-2 mr-3 md:block"
                           src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
                           alt="User image"
                         /> */}
-                          <div>
-                            <p className="font-semibold">
-                              {capitalize(user.type)}
-                            </p>
-                            {/* <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <div>
+                              <p className="font-semibold">
+                                {capitalize(user.type)}
+                              </p>
+                              {/* <p className="text-xs text-gray-600 dark:text-gray-400">
                             {user.accountName}
                           </p> */}
+                            </div>
                           </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="">
-                        {/* later add celltextoverflow class */}
-                        <div className="w-40 overflow-auto text-sm">
-                          {user.name}
-                        </div>
-                      </TableCell>
+                        </TableCell>
+                        <TableCell className="">
+                          {/* later add celltextoverflow class */}
+                          <div className=" overflow-auto text-sm">
+                            {user.name}
+                          </div>
+                        </TableCell>
 
-                      <TableCell>
-                        <div className="w-64 overflow-auto text-sm">
-                          {user.sno}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {user.sno != "" ? (
-                          <Button
-                            layout="outline"
-                            className="dark:border-green-700 border-green-400"
-                            onClick={() => {
-                              setAddedInv([...addedinv, user]);
-                              setSelectedIds([...selectedids, user._id]);
-                            }}
-                          >
-                            Select
-                          </Button>
-                        ) : null}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        <TableCell>
+                          <div className="w-64 overflow-auto text-sm">
+                            {user.sno}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {user.sno != "" ? (
+                            <Button
+                              layout="outline"
+                              className="dark:border-green-700 border-green-400"
+                              onClick={() => {
+                                setAddedInv([...addedinv, user]);
+                                setSelectedIds([...selectedids, user._id]);
+                              }}
+                            >
+                              Select
+                            </Button>
+                          ) : null}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>

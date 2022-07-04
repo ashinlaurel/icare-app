@@ -493,7 +493,7 @@ exports.scrapSaleUpdate = async (req, res) => {
     const newitem = new ScrapSaleHistory(item);
     const result = await newitem.save();
 
-    return res.status(200).json({ inv });
+    return res.status(200).json({ result });
   } catch (err) {
     // console.log(id);
     return res.status(400).json({ error: err });

@@ -294,9 +294,7 @@ function ScrapSaleHistory() {
         >
           <ModalHeader className="flex flex-row justify-between text-xl">
             {/* <div>{item.name}</div> */}
-            <div>
-              Invoice No: <Badge></Badge>{" "}
-            </div>
+            <div>Inventory Sold</div>
           </ModalHeader>
           <ModalBody>
             {/* <div className="font-semibold text-xl my-2">Call History</div> */}
@@ -363,7 +361,7 @@ function ScrapSaleHistory() {
                 onChange={(e) => setToDate(e.target.value)}
               />
             </Label>
-            <div className="flex justify-end items-end">
+            <div className="flex justify-end items-end mt-5">
               <Button
                 onClick={() => {
                   downloadInv();
