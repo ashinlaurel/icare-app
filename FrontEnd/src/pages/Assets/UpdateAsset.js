@@ -145,59 +145,75 @@ function UpdateAsset() {
       setOs(asset.product.os);
       setCpu(asset.product.cpu);
       setram(asset.product.ram);
+      sethdd(asset.product.hdd);
+      setsmps(asset.product.smps);
+      setfan(asset.product.fan);
+      setmotherboard(asset.product.motherboard);
+      setopticaldrive(asset.product.opticaldrive);
+      setkbd(asset.product.keyboard);
+      setmouse(asset.product.mouse);
+      setmonitor(asset.product.monitor);
+      setgcard(asset.product.gcard);
+      setenetcard(asset.product.enetcard);
+      setserialcard(asset.product.serialcard);
+      setparallelcard(asset.product.parallelcard);
+      sethbacard(asset.product.hbacard);
+      setraidcontroller(asset.product.raidcontroller);
+      settapecontroller(asset.product.tapecontroller);
+      setothers(asset.product.others);
 
       if (asset.originalproduct) {
         setOriginalProduct(asset.originalproduct);
       }
 
-      if (asset.product.hdd.length == 0) sethdd([{ hddname: "", hddsno: "" }]);
-      else sethdd(asset.product.hdd);
-      if (asset.product.smps.length == 0)
-        setsmps([{ smpsname: "", smpssno: "" }]);
-      else setsmps(asset.product.smps);
-      if (asset.product.fan.length == 0) setfan([{ fanname: "", fansno: "" }]);
-      else setfan(asset.product.fan);
-      if (asset.product.motherboard.length == 0)
-        setmotherboard([{ motherboardname: "", motherboardsno: "" }]);
-      else setmotherboard(asset.product.motherboard);
-      if (asset.product.opticaldrive.length == 0)
-        setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
-      else setopticaldrive(asset.product.opticaldrive);
-      if (asset.product.keyboard.length == 0)
-        setkbd([{ keyboardname: "", keyboardsno: "" }]);
-      else setkbd(asset.product.keyboard);
-      if (asset.product.mouse.length == 0)
-        setmouse([{ mousename: "", mousesno: "" }]);
-      else setmouse(asset.product.mouse);
-      if (asset.product.monitor.length == 0)
-        setmonitor([{ monitorname: "", monitorsno: "" }]);
-      else setmonitor(asset.product.monitor);
-      if (asset.product.gcard.length == 0)
-        setgcard([{ gcardname: "", gcardsno: "" }]);
-      else setgcard(asset.product.gcard);
-      if (asset.product.enetcard.length == 0)
-        setenetcard([{ netcardname: "", enetcardsno: "" }]);
-      else setenetcard(asset.product.enetcard);
-      if (asset.product.serialcard.length == 0)
-        setserialcard([{ serialcardname: "", serialcardsno: "" }]);
-      else setserialcard(asset.product.serialcard);
+      // if (asset.product.hdd.length == 0) sethdd([{ hddname: "", hddsno: "" }]);
+      // else sethdd(asset.product.hdd);
+      // if (asset.product.smps.length == 0)
+      //   setsmps([{ smpsname: "", smpssno: "" }]);
+      // else setsmps(asset.product.smps);
+      // if (asset.product.fan.length == 0) setfan([{ fanname: "", fansno: "" }]);
+      // else setfan(asset.product.fan);
+      // if (asset.product.motherboard.length == 0)
+      //   setmotherboard([{ motherboardname: "", motherboardsno: "" }]);
+      // else setmotherboard(asset.product.motherboard);
+      // if (asset.product.opticaldrive.length == 0)
+      //   setopticaldrive([{ opticaldrivename: "", opticaldrivesno: "" }]);
+      // else setopticaldrive(asset.product.opticaldrive);
+      // if (asset.product.keyboard.length == 0)
+      //   setkbd([{ keyboardname: "", keyboardsno: "" }]);
+      // else setkbd(asset.product.keyboard);
+      // if (asset.product.mouse.length == 0)
+      //   setmouse([{ mousename: "", mousesno: "" }]);
+      // else setmouse(asset.product.mouse);
+      // if (asset.product.monitor.length == 0)
+      //   setmonitor([{ monitorname: "", monitorsno: "" }]);
+      // else setmonitor(asset.product.monitor);
+      // if (asset.product.gcard.length == 0)
+      //   setgcard([{ gcardname: "", gcardsno: "" }]);
+      // else setgcard(asset.product.gcard);
+      // if (asset.product.enetcard.length == 0)
+      //   setenetcard([{ netcardname: "", enetcardsno: "" }]);
+      // else setenetcard(asset.product.enetcard);
+      // if (asset.product.serialcard.length == 0)
+      //   setserialcard([{ serialcardname: "", serialcardsno: "" }]);
+      // else setserialcard(asset.product.serialcard);
 
-      if (asset.product.parallelcard.length == 0)
-        setparallelcard([{ parallelcardname: "", parallelcardsno: "" }]);
-      else setparallelcard(asset.product.parallelcard);
-      if (asset.product.hbacard.length == 0)
-        sethbacard([{ hbacardname: "", hbacardsno: "" }]);
-      else sethbacard(asset.product.hbacard);
-      if (asset.product.raidcontroller.length == 0)
-        setraidcontroller([{ raidcontrollername: "", raidcontrollersno: "" }]);
-      else setraidcontroller(asset.product.raidcontroller);
-      if (asset.product.tapecontroller.length == 0)
-        settapecontroller([{ tapecontrollername: "", tapecontrollersno: "" }]);
-      else settapecontroller(asset.product.tapecontroller);
-      if (asset.product.others.length == 0)
-        setothers([{ othersname: "", otherssno: "" }]);
-      else setothers(asset.product.others);
-      //asset
+      // if (asset.product.parallelcard.length == 0)
+      //   setparallelcard([{ parallelcardname: "", parallelcardsno: "" }]);
+      // else setparallelcard(asset.product.parallelcard);
+      // if (asset.product.hbacard.length == 0)
+      //   sethbacard([{ hbacardname: "", hbacardsno: "" }]);
+      // else sethbacard(asset.product.hbacard);
+      // if (asset.product.raidcontroller.length == 0)
+      //   setraidcontroller([{ raidcontrollername: "", raidcontrollersno: "" }]);
+      // else setraidcontroller(asset.product.raidcontroller);
+      // if (asset.product.tapecontroller.length == 0)
+      //   settapecontroller([{ tapecontrollername: "", tapecontrollersno: "" }]);
+      // else settapecontroller(asset.product.tapecontroller);
+      // if (asset.product.others.length == 0)
+      //   setothers([{ othersname: "", otherssno: "" }]);
+      // else setothers(asset.product.others);
+      // //asset
     } catch (err) {
       console.log("assetFind Error", err);
     }

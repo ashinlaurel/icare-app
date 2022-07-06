@@ -362,7 +362,7 @@ function Assets() {
         method: "POST",
         data: payload,
       });
-      console.log(response.data.out);
+      // console.log(response.data.out);
       array = response.data.out;
       // return response.data;
     } catch (error) {
@@ -607,12 +607,22 @@ function Assets() {
       }
       //parallel insert
       for (let temp = 0; temp < maxparalellcardcount; temp++) {
+        // TODO must fix this laterrrr
         if (i.product.parallelcard[temp]) {
-          csv += `"${i.product.parallelcard[temp].parallelcardname}","${i.product.parallelcard[temp].parallelcardsno}",`;
-        } else {
-          csv += `"","",`;
+          let tstring = JSON.parse(
+            JSON.stringify(i.product.parallelcard[temp])
+          );
+          if (
+            tstring.parallelcardname !== undefined &&
+            tstring.parallelcard != ""
+          ) {
+            csv += `"${i.product.parallelcard[temp].parallelcardname}","${i.product.parallelcard[temp].parallelcardsno}",`;
+          } else {
+            csv += `"","",`;
+          }
         }
       }
+
       //hba insert
       for (let temp = 0; temp < maxhbacardcount; temp++) {
         if (i.product.hbacard[temp]) {
