@@ -14,6 +14,7 @@ const {
   downloadInventory,
   scrapSaleUpdate,
   getScrapHistory,
+  getStockStats,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -65,6 +66,7 @@ router.post("/:id/getbyid", isSignedIn, isAuthenticated, getInvById);
 router.post("/:id/getallhistory", isSignedIn, isAuthenticated, getAllHistory);
 router.post("/:id/assetupdate", isSignedIn, isAuthenticated, handleAssetUpdate);
 router.post("/:id/invupdate", isSignedIn, isAuthenticated, updateInventory);
+router.post("/:id/getstockstats", isSignedIn, isAuthenticated, getStockStats);
 router.post("/:id/invscrapsale", isSignedIn, isAuthenticated, scrapSaleUpdate);
 router.post(
   "/:id/getscraphistory",

@@ -9,18 +9,18 @@ const server = require("../../models/products/server");
 const ScrapSaleHistory = require("../../models/ScrapSaleHistory/ScrapSaleHistory");
 
 // ---------------Counter Controllers -------------------
-// exports.countAssets = (req, res) => {
-//   Asset.count({}, function (err, result) {
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Cant count assets",
-//         err: err,
-//       });
-//     }
-//     // console.log(result);
-//     return res.status(200).json(result);
-//   });
-// };
+exports.getStockStats = (req, res) => {
+  Asset.count({}, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        error: "Cant count assets",
+        err: err,
+      });
+    }
+    // console.log(result);
+    return res.status(200).json(result);
+  });
+};
 // exports.countAmcAssets = (req, res) => {
 //   Asset.count({ business: "AMC" }, function (err, result) {
 //     if (err) {

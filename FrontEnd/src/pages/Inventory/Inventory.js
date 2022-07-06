@@ -79,7 +79,7 @@ function Inventory() {
 
   const downloadInv = async () => {
     let csv =
-      "Name,Type,S.No,Condition,Location,Invnumber,Invdate,Invtype,Purchtype,Purchlocation,Vendor,GST.No,PAN.No,Aadhar.No,Tax-Category,Tax-percentage,Rate,IGST,CGST,SGST,Net-Tax,Amount,TCS,Invenotry-Amount,Warranty,Expiry-Date,Brand,Model,Sys-Type,Stocktype,Case-ID \n";
+      "Sl No,Stock Location,Stock Type,Sys-Type,Category,Description,Serial Number,Warranty,WTY Expiry Date,Status,Vendor,Inv No,Inv Date\n";
 
     let array;
     let payload = {
@@ -87,13 +87,7 @@ function Inventory() {
         page: page,
         limit: 10000000,
       },
-      // filters: {
-      //   type: "",
-      //   location: "",
-      //   condition: "",
-      //   searchtype: "",
-      //   searchquery: "",
-      // },
+
       filters: {
         type: type.toLocaleLowerCase(),
         location: location,
@@ -114,24 +108,74 @@ function Inventory() {
     } catch (error) {
       throw error;
     }
-    array.map((i) => {
+    array.map((i, count) => {
       csv =
         csv +
-        `${i.name},${capitalize(i.type)},${i.sno},${i.condition},${
-          i.location
-        },${i.invnumber},${i.invdate},${i.invtype},${i.purchtype},${
-          i.purchlocation
-        },${i.vendor},${i.gstno},${i.panno},${i.aadharno},${i.taxcategory},${
-          i.taxperc
-        },${i.rate},${i.igst},${i.cgst},${i.sgst},${i.nettax},${i.amount},${
-          i.tcs
-        },${i.invamount},${i.wty},${i.expirydate},${i.brand},${i.model},${
-          i.systype
-        },${i.stocktype},${i.caseId}\n`;
+        `"${count + 1}","${i.location}","${capitalize(
+          i.stocktype
+        )}","${capitalize(i.systype)}","${capitalize(i.type)}","${i.name}","${
+          i.sno
+        }","${i.wty ? i.wty : ""}","${i.expirydate ? i.expirydate : ""}","${
+          i.condition
+        }","${i.vendor ? i.vendor : ""}","${
+          i.invnumber ? i.invnumber : ""
+        }","${moment(i.invdate).format("DD-MM-YYYY")}",\n`;
     });
     // console.log(csv);
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     saveAs(csvData, "Inventory.csv");
+  };
+
+  const downloadSummary = async () => {
+    let csv =
+      "Sl No,Sys-Type,Category,Trivandrum,,,,,,,,Kottayam,,,,,,,,Kozhikode,,,,,,,,Grand Total,,,,,,,,SUB TOTAL,\n";
+    csv +=
+      ",,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,,\n";
+    csv +=
+      ",,,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,,\n";
+
+    let array;
+    let payload = {
+      // pages: {
+      //   page: page,
+      //   limit: 10000000,
+      // },
+      // filters: {
+      //   type: type.toLocaleLowerCase(),
+      //   location: location,
+      //   condition: condition,
+      //   searchtype: searchtype,
+      //   searchquery: searchquery,
+      // },
+    };
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getstockstats`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+    // array.map((i, count) => {
+    //   csv =
+    //     csv +
+    //     `"${count + 1}","${i.location}","${capitalize(
+    //       i.stocktype
+    //     )}","${capitalize(i.systype)}","${capitalize(i.type)}","${i.name}","${
+    //       i.sno
+    //     }","${i.wty ? i.wty : ""}","${i.expirydate ? i.expirydate : ""}","${
+    //       i.condition
+    //     }","${i.vendor ? i.vendor : ""}","${
+    //       i.invnumber ? i.invnumber : ""
+    //     }","${moment(i.invdate).format("DD-MM-YYYY")}",\n`;
+    // });
+    // // console.log(csv);
+    // const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    // saveAs(csvData, "Inventory.csv");
   };
 
   const DeleteModal = () => {
@@ -287,7 +331,6 @@ function Inventory() {
                 {/* <div className="font-semibold">Invoice Amount:{item.invamount}</div> */}
               </div>
             </ModalBody>
-            <ModalFooter></ModalFooter>
           </Modal>
         </>
       );
@@ -392,7 +435,6 @@ function Inventory() {
                 </TableFooter> */}
               </TableContainer>
             </ModalBody>
-            <ModalFooter></ModalFooter>
           </Modal>
         </>
       );
@@ -415,7 +457,6 @@ function Inventory() {
               Download
             </Button>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </Modal>
       </>
     );
@@ -672,7 +713,17 @@ function Inventory() {
                   setIsDwnldModalOpen(true);
                 }}
               >
-                Download Database
+                Export Full
+              </Button>
+            </div>
+            <div class="block relative xl:ml-64">
+              <Button
+                layout="outline"
+                onClick={() => {
+                  setIsDwnldModalOpen(true);
+                }}
+              >
+                Export Summary
               </Button>
             </div>
           </div>
