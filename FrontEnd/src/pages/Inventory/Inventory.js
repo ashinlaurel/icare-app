@@ -39,6 +39,7 @@ function Inventory() {
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
   const [viewId, setViewId] = useState(0);
   const [isDwnldModalOpen, setIsDwnldModalOpen] = useState(false);
+  const [isSummaryDwnldModalOpen, setIsSummaryDwnldModalOpen] = useState(false);
 
   const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
     useContext(BottomBarContext);
@@ -132,22 +133,10 @@ function Inventory() {
     csv +=
       ",,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,Purchased,,,,Serviced,,,,,\n";
     csv +=
-      ",,,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,Good,Defective,Scrap,Vendor,,\n";
+      ",,,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,Good,Bad,Scrap,Vendor,,\n";
 
     let array;
-    let payload = {
-      // pages: {
-      //   page: page,
-      //   limit: 10000000,
-      // },
-      // filters: {
-      //   type: type.toLocaleLowerCase(),
-      //   location: location,
-      //   condition: condition,
-      //   searchtype: searchtype,
-      //   searchquery: searchquery,
-      // },
-    };
+    let payload = {};
     try {
       let response = await axios({
         url: `${API}/inventory/${Emp.getId()}/getstockstats`,
@@ -160,22 +149,12 @@ function Inventory() {
     } catch (error) {
       throw error;
     }
-    // array.map((i, count) => {
-    //   csv =
-    //     csv +
-    //     `"${count + 1}","${i.location}","${capitalize(
-    //       i.stocktype
-    //     )}","${capitalize(i.systype)}","${capitalize(i.type)}","${i.name}","${
-    //       i.sno
-    //     }","${i.wty ? i.wty : ""}","${i.expirydate ? i.expirydate : ""}","${
-    //       i.condition
-    //     }","${i.vendor ? i.vendor : ""}","${
-    //       i.invnumber ? i.invnumber : ""
-    //     }","${moment(i.invdate).format("DD-MM-YYYY")}",\n`;
-    // });
-    // // console.log(csv);
-    // const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    // saveAs(csvData, "Inventory.csv");
+    //mouse row
+    let tm = array.mouse;
+    csv += `1.,Item,Mouse,"${tm.tripurgoodmouse}","${tm.tripurdefmouse}","${tm.tripurscrapmouse}","${tm.tripurvendormouse}","${tm.triservgoodmouse}","${tm.triservdefmouse}","${tm.triservscrapmouse}","${tm.triservvendormouse}","${tm.kotpurgoodmouse}","${tm.kotpurdefmouse}","${tm.kotpurscrapmouse}","${tm.kotpurvendormouse}","${tm.kotservgoodmouse}","${tm.kotservdefmouse}","${tm.kotservscrapmouse}","${tm.kotservvendormouse}","${tm.kozpurgoodmouse}","${tm.kozpurdefmouse}","${tm.kozpurscrapmouse}","${tm.kozpurvendormouse}","${tm.kozservgoodmouse}","${tm.kozservdefmouse}","${tm.kozservscrapmouse}","${tm.kozservvendormouse}","${tm.totalpurgoodmouse}","${tm.totalpurdefmouse}","${tm.totalpurscrapmouse}","${tm.totalpurvendormouse}","${tm.totalservgoodmouse}","${tm.totalservdefmouse}","${tm.totalservscrapmouse}","${tm.totalservvendormouse}","${tm.subtotmouse}"`;
+
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "StockSummary.csv");
   };
 
   const DeleteModal = () => {
@@ -462,6 +441,27 @@ function Inventory() {
     );
   };
 
+  const DwnldSummaryModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={isSummaryDwnldModalOpen}
+          onClose={() => setIsSummaryDwnldModalOpen(false)}
+          className=" dark:bg-gray-800 p-5 my-6 mx-10 px-5  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl mx-10 px-10">
+            <div className="text-lg">Download Stock Summary ? </div>
+          </ModalHeader>
+          <ModalBody>
+            <Button layout="outline" onClick={downloadSummary}>
+              Download
+            </Button>
+          </ModalBody>
+        </Modal>
+      </>
+    );
+  };
+
   // on page change, load new sliced data
   // here you would make another server request for new data
 
@@ -540,6 +540,7 @@ function Inventory() {
       {DeleteModal()}
       {ViewModal()}
       {DwnldModal()}
+      {DwnldSummaryModal()}
       {HistoryModal()}
 
       <div className="mb-64 mt-4">
@@ -636,7 +637,7 @@ function Inventory() {
                 <option value="">All</option>
                 <option value="Good">Good</option>
                 <option value="Bad">Bad</option>
-                <option value="Damaged">Damaged</option>
+
                 <option value="Used">Used</option>
                 <option value="Scrap">Scrap</option>
                 <option value="ScrapSold">ScrapSold</option>
@@ -720,7 +721,7 @@ function Inventory() {
               <Button
                 layout="outline"
                 onClick={() => {
-                  setIsDwnldModalOpen(true);
+                  setIsSummaryDwnldModalOpen(true);
                 }}
               >
                 Export Summary

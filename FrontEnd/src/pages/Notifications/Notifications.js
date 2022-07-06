@@ -495,9 +495,8 @@ function Notifications() {
                               }}
                             >
                               <option value="Good"> Good</option>
-                              <option value="Defective">Defective</option>
+                              <option value="Bad">Bad</option>
                               <option value="DOA">DOA</option>z
-                              <option value="Damaged">Damaged</option>
                             </Select>
                           ) : (
                             <Badge

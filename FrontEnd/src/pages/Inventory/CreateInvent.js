@@ -420,7 +420,7 @@ const CreateInvent = () => {
               <option value="Bad">Bad</option>
               <option value="Used">Used</option>
               <option value="DOA">DOA</option>
-              <option value="Damaged">Damaged</option>
+
               <option value="Scrap">Scrap</option>
               <option value="ScrapSold">Scrap Sold</option>
             </Select>

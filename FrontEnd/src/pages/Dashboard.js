@@ -577,18 +577,18 @@ function Dashboard() {
       </TableContainer>
 
       {/* --------------Charts---------------------------- */}
-      {/* <PageTitle>Charts</PageTitle>
+      <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Revenue">
+        <ChartCard title="Stock Overview">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
         </ChartCard>
 
-        <ChartCard title="Traffic">
+        <ChartCard title="Calls ( Month Wise )">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
-      </div> */}
+      </div>
     </>
   );
 }

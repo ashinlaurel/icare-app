@@ -987,9 +987,8 @@ function PurchaseInventory() {
                 <option value="Good" selected>
                   Good
                 </option>
-                <option value="Defective">Defective</option>
+                <option value="Bad">Bad</option>
                 <option value="DOA">DOA</option>
-                <option value="Damaged">Damaged</option>
                 <option value="Scrap">Scrap</option>
                 <option value="ScrapSold">Scrap Sold</option>
               </Select>

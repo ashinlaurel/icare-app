@@ -9,56 +9,227 @@ const server = require("../../models/products/server");
 const ScrapSaleHistory = require("../../models/ScrapSaleHistory/ScrapSaleHistory");
 
 // ---------------Counter Controllers -------------------
-exports.getStockStats = (req, res) => {
-  Asset.count({}, function (err, result) {
-    if (err) {
-      return res.status(400).json({
-        error: "Cant count assets",
-        err: err,
-      });
-    }
-    // console.log(result);
-    return res.status(200).json(result);
+exports.getStockStats = async (req, res) => {
+  let thefinal = {
+    mouse: {
+      tripurgoodmouse: 0,
+      tripurdefmouse: 0,
+      tripurscrapmouse: 0,
+      tripurvendormouse: 0,
+      triservgoodmouse: 0,
+      triservdefmouse: 0,
+      triservscrapmouse: 0,
+      triservvendormouse: 0,
+      kotpurgoodmouse: 0,
+      kotpurdefmouse: 0,
+      kotpurscrapmouse: 0,
+      kotpurvendormouse: 0,
+      kotservgoodmouse: 0,
+      kotservdefmouse: 0,
+      kotservscrapmouse: 0,
+      kotservvendormouse: 0,
+      kozpurgoodmouse: 0,
+      kozpurdefmouse: 0,
+      kozpurscrapmouse: 0,
+      kozpurvendormouse: 0,
+      kozservgoodmouse: 0,
+      kozservdefmouse: 0,
+      kozservscrapmouse: 0,
+      kozservvendormouse: 0,
+      totalpurgoodmouse: 0,
+      totalpurdefmouse: 0,
+      totalpurscrapmouse: 0,
+      totalpurvendormouse: 0,
+      totalservgoodmouse: 0,
+      totalservdefmouse: 0,
+      totalservscrapmouse: 0,
+      totalservvendormouse: 0,
+      subtotmouse: 0,
+    },
+  };
+  let tm = thefinal.mouse; // mouse
+  //----mouse----
+  // trivandrum
+  //purchased
+  tm.tripurgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Purchased",
+    condition: "Good",
   });
-};
-// exports.countAmcAssets = (req, res) => {
-//   Asset.count({ business: "AMC" }, function (err, result) {
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Cant count amc assets",
-//         err: err,
-//       });
-//     }
-//     // console.log(result);
-//     return res.status(200).json(result);
-//   });
-// };
-// exports.countWtyAssets = (req, res) => {
-//   Asset.count({ business: "WTY" }, function (err, result) {
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Cant count wty assets",
-//         err: err,
-//       });
-//     }
-//     // console.log(result);
-//     return res.status(200).json(result);
-//   });
-// };
-// exports.countNosAssets = (req, res) => {
-//   Asset.count({ business: "NOS" }, function (err, result) {
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Cant count nos assets",
-//         err: err,
-//       });
-//     }
-//     // console.log(result);
-//     return res.status(200).json(result);
-//   });
-// };
+  tm.tripurdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Purchased",
+    condition: "Bad",
+  });
+  tm.tripurscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  tm.tripurvendormouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  // //serviced
+  tm.triservgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Serviced",
+    condition: "Good",
+  });
+  tm.triservdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Serviced",
+    condition: "Bad",
+  });
+  tm.triservscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  tm.triservvendormouse = await InvItem.count({
+    type: "mouse",
+    location: "Trivandrum",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  // //kottayam
+  // //purchased
+  tm.kotpurgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Purchased",
+    condition: "Good",
+  });
+  tm.kotpurdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Purchased",
+    condition: "Bad",
+  });
+  tm.kotpurscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  tm.kotpurscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  // //serviced
+  tm.kotservgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Serviced",
+    condition: "Good",
+  });
+  tm.kotservdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Serviced",
+    condition: "Bad",
+  });
+  tm.kotservscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  tm.kotservvendormouse = await InvItem.count({
+    type: "mouse",
+    location: "Kottayam",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  // //kozhikode
+  // //purchased
+  tm.kozpurgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Purchased",
+    condition: "Good",
+  });
+  tm.kozpurdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Purchased",
+    condition: "Bad",
+  });
+  tm.kozpurscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  tm.kozpurscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Purchased",
+    condition: "Scrap",
+  });
+  // //serviced
+  tm.kozservgoodmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Serviced",
+    condition: "Good",
+  });
+  tm.kozservdefmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Serviced",
+    condition: "Bad",
+  });
+  tm.kozservscrapmouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  tm.kozservvendormouse = await InvItem.count({
+    type: "mouse",
+    location: "Kozhikode",
+    stocktype: "Serviced",
+    condition: "Scrap",
+  });
+  //total
+  //purchase
+  tm.totalpurgoodmouse =
+    tm.tripurgoodmouse + tm.kotpurgoodmouse + tm.kozpurgoodmouse;
+  tm.totalpurdefmouse =
+    tm.tripurdefmouse + tm.kotpurdefmouse + tm.kozpurdefmouse;
+  tm.totalpurscrapmouse =
+    tm.tripurscrapmouse + tm.kotpurscrapmouse + tm.kozpurscrapmouse;
+  // tm.totalpurvendormouse=
+  //service
+  tm.totalservgoodmouse =
+    tm.triservgoodmouse + tm.kotservgoodmouse + tm.kozservgoodmouse;
+  tm.totalservdefmouse =
+    tm.triservdefmouse + tm.kotservdefmouse + tm.kozservdefmouse;
+  tm.totalservscrapmouse =
+    tm.triservscrapmouse + tm.kotservscrapmouse + tm.kozservscrapmouse;
 
-// -------------------------------------------------------
+  tm.subtotmouse =
+    tm.totalpurgoodmouse +
+    tm.totalpurdefmouse +
+    tm.totalpurscrapmouse +
+    tm.totalservgoodmouse +
+    tm.totalservdefmouse +
+    tm.totalservscrapmouse;
+  // console.log(thefinal);
+  console.log(thefinal);
+  return res.status(200).json({ out: thefinal });
+};
 
 exports.createItem = async (req, res) => {
   let item = req.body;

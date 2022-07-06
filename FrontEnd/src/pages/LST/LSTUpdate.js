@@ -675,8 +675,7 @@ function LST() {
                 <option value="Available" selected>
                   Available
                 </option>
-                <option value="Defective">Defective</option>
-                <option value="Damaged">Damaged</option>
+
                 <option value="DOA">DOA</option>
               </select>
 
@@ -1176,9 +1175,8 @@ function LST() {
                 <option value="Good" selected>
                   Good
                 </option>
-                <option value="Defective">Defective</option>
+                <option value="Bad">Bad</option>
                 <option value="DOA">DOA</option>
-                <option value="Damaged">Damaged</option>
               </Select>
             </Label>
           </div>
