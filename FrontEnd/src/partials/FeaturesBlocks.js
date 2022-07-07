@@ -2,10 +2,10 @@ import React from "react";
 
 function FeaturesBlocks() {
   return (
-    <section className="relative font-business bg-white">
+    <section className="relative font-business bg-gray-100 ">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div
-        className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-white pointer-events-none"
+        className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-100 pointer-events-none"
         aria-hidden="true"
       ></div>
 

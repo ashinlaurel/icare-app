@@ -4,13 +4,10 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <div class="font-sans bg-white text-center flex justify-between  overflow-hidden w-screen shadow-lg px-5 md:px-20 py-4">
+    <div class="font-sans bg-white text-center flex justify-between  overflow-hidden w-screen shadow-lg px-5 md:px-20 ">
       <div className="flex items-center justify-start">
         <img src={thelogo} className="w-8 h-8 md:ml-4  " />
-        <a
-          className="ml-2 text-lg font-bold text-gray-800 "
-          href="#"
-        >
+        <a className="ml-2 text-lg font-bold text-gray-800 " href="#">
           iCare
         </a>
       </div>

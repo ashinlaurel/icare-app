@@ -73,7 +73,7 @@ function Navbar() {
           aria-hidden="true"
         ></svg>
 
-        <div class=" pt-6 px-4 sm:px-6 lg:px-8 w-full">
+        <div class=" pt-3 px-4 sm:px-6 lg:px-8 w-full">
           <nav
             class="relative flex items-center justify-end sm:h-10 "
             aria-label="Global"

@@ -9,7 +9,7 @@ import imgsix from "../images/partners/R&M.webp";
 
 function PartnersHome() {
   return (
-    <section className="relative font-business">
+    <section className="relative font-business bg-gray-100">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       {/* <div
         className="absolute inset-0 bg-white pointer-events-none mb-16"
