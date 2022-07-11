@@ -1145,6 +1145,7 @@ function UpdateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">
@@ -1228,6 +1229,7 @@ function UpdateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">
@@ -1312,6 +1314,7 @@ function UpdateAsset() {
                 {product == "Laptop" ||
                 product == "Server" ||
                 product == "Desktop" ||
+                product == "Ncompute" ||
                 product == "Router" ? (
                   <>
                     <div className="flex flex-row items-center">

@@ -1,4 +1,3 @@
-import AssetData from "./assetdata.json";
 import NewAssetData from "./newassetdata.json";
 
 import axios from "axios";
@@ -135,7 +134,7 @@ export const handleMigration = async () => {
         },
       };
       // ----  multiitem addition into respective arrays
-      
+
       // ---cpu insertions------
       if (doc.cpu1sno != "") {
         let temp = { cpuname: doc.cpu1, cpusno: doc.cpu1sno };
