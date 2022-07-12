@@ -12,6 +12,7 @@ const {
   downloadsalaryPdf,
   getAllEmpCalls,
   getCallsByEmpId,
+  getEmployeeList,
 } = require("../../controllers/employee/Employee");
 const {
   signup,
@@ -36,6 +37,7 @@ router.post("/:id/getEmployeeById", getEmployeeById);
 router.post("/getEmployeeById", getEmployeeById);
 // get employees with search enabled and filters
 router.post("/employees", getAllEmployees);
+router.post("/employeelist", getEmployeeList);
 router.post("/:id/getAll", getAllEngg);
 //test route
 router.post("/signInTest/:id", isSignedIn, isAuthenticated, (req, res) => {

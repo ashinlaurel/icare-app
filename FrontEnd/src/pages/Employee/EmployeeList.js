@@ -63,7 +63,7 @@ function EmployeeList() {
       };
       try {
         let response = await axios({
-          url: `${API}/admin/employees`,
+          url: `${API}/admin/employeelist`,
           method: "POST",
           data: payload,
         });
