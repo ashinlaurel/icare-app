@@ -73,7 +73,7 @@ function EmployeeList() {
         throw error;
       }
     })();
-  }, []);
+  }, [search]);
 
   return (
     <div className="mt-4">
@@ -111,17 +111,21 @@ function EmployeeList() {
               role={user.role}
               // link={`/app/customer/getCustomerById/${user._id}`}
             >
-              {user.photo?(<img src={user.photo} style={{height:64, width:64}} className=" mr-4 rounded-full"/>)
-              :(
-                 <RoundIcon
-                icon={PeopleIcon}
-                // width="60" height="60"
-                iconColorClass="text-orange-500 dark:text-orange-100"
-                bgColorClass="bg-orange-100 dark:bg-orange-500"
-                className="mr-4"
-              />)}
-             
-              
+              {user.photo ? (
+                <img
+                  src={user.photo}
+                  style={{ height: 64, width: 64 }}
+                  className=" mr-4 rounded-full"
+                />
+              ) : (
+                <RoundIcon
+                  icon={PeopleIcon}
+                  // width="60" height="60"
+                  iconColorClass="text-orange-500 dark:text-orange-100"
+                  bgColorClass="bg-orange-100 dark:bg-orange-500"
+                  className="mr-4"
+                />
+              )}
             </EmployeeCard>
           </Link>
         ))}

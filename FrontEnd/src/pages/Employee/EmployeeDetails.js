@@ -89,6 +89,7 @@ export default function EmployeeDetails() {
 
   const getCustomerInfo = async () => {
     let data = { id: id };
+    // console.log(data);
     // console.log(API);
     try {
       let res = await axios({
@@ -96,6 +97,7 @@ export default function EmployeeDetails() {
         method: "POST",
         data: data,
       });
+
       // calc age
       var today = new Date();
       var birthDate = new Date(res.data[0].dob);

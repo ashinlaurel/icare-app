@@ -134,13 +134,13 @@ exports.getCallsByEmpId = (req, res) => {
   );
 };
 
-exports.getEmployeeById = (req, res) => {
+exports.getEmployeeById = async (req, res) => {
   let { id } = req.body;
   // console.log("customerbyid");
   // console.log(customerid);
 
   let options = {
-    populate: "accountIds",
+    // populate: "accountIds",
     // page: 1,
     // limit: 10,
   };
@@ -149,19 +149,30 @@ exports.getEmployeeById = (req, res) => {
     _id: id,
   };
 
-  // Logic to add to filter when required
+  console.log("here");
 
-  EmployeeLogin.paginate(filteroptions, options, function (err, result) {
-    // console.log(result);
-    if (err || !result) {
-      return res.status(400).json({
-        error: "No accounts found",
-        err: err,
-      });
-    }
+  // Logic to add to filter when required
+  try {
+    const result = await EmployeeLogin.find(filteroptions, options);
+    console.log(result);
+    return res.status(200).json(result);
     // console.log(result.docs);
-    return res.json(result.docs);
-  });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json();
+  }
+
+  // EmployeeLogin.paginate(filteroptions, options, function (err, result) {
+  //   // console.log(result);
+  //   if (err || !result) {
+  //     return res.status(400).json({
+  //       error: "No accounts found",
+  //       err: err,
+  //     });
+  //   }
+  //   // console.log(result.docs);
+  //   return res.json(result.docs);
+  // });
 };
 
 exports.deleteEmployee = async (req, res) => {
