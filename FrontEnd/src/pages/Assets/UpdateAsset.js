@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import axios from "axios";
 import moment from "moment";
 import { API } from "../../backendapi";
@@ -37,6 +37,7 @@ function UpdateAsset() {
   // console.log(id);
   //modal
   const [submitModal, setSubmitModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //customer
   const [unit, setUnit] = useState({ _id: "", unitName: "" });
@@ -100,6 +101,7 @@ function UpdateAsset() {
 
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     setTopHeading("Update Asset");
@@ -223,6 +225,55 @@ function UpdateAsset() {
     getAsset();
   }, []);
 
+  //useeffect to check if the customer change is viable
+  useMemo(async () => {
+    if (refresh) {
+      //making sure all three are selected
+      if (customer._id == "" || account._id == "" || unit._id == "") {
+        alert("Please select customer, account and unit");
+        getAsset();
+        setRefresh(false);
+        return;
+      }
+      //making sure no activecall i s attached to this
+
+      let payload = {
+        assetId: id,
+      };
+      try {
+        let response = await axios({
+          url: `${API}/call/${Emp.getId()}/checkassethascall`,
+          method: "POST",
+          data: payload,
+        });
+
+        // console.log(response.data);
+        const calls = response.data.call;
+        console.log(calls);
+
+        if (calls.length == 0) {
+          console.log("empty");
+        } else {
+          let callstring = "";
+          calls.map((call) => {
+            callstring += call.callNo + ",";
+          });
+          callstring = callstring.slice(0, -1);
+          alert(
+            "You can't change the customer as this asset is already in the following active calls " +
+              callstring
+          );
+          getAsset();
+          setRefresh(false);
+        }
+        // setCustomers(response.data);
+      } catch (error) {
+        throw error;
+      }
+      // getAsset();
+    }
+  }, [refresh]);
+
   const UpdatedModal = () => {
     return (
       <>
@@ -246,6 +297,12 @@ function UpdateAsset() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let payload = {
+      customerName: customer.customerName,
+      accountName: account.accountName,
+      unitName: unit.unitName,
+      customerId: customer._id,
+      accountId: account._id,
+      unitId: unit._id,
       business: Business,
       producttype: product,
       ponumber: POnumber,
@@ -338,17 +395,27 @@ function UpdateAsset() {
             <SectionTitle>Account: {account.accountName} </SectionTitle>
             <SectionTitle>Unit: {unit.unitName}</SectionTitle>
           </div>
-          {originalproduct != "Nil" ? (
-            <div className="w-1/4 flex items-start justify-end">
+
+          <div className="w-1/2 flex items-start space-x-1 justify-end">
+            {originalproduct != "Nil" ? (
               <Link to={`/app/unit/update/vieworiginal/${id}`}>
                 <Button layout="outline" className="">
                   View Original Asset
                 </Button>
               </Link>
-            </div>
-          ) : (
-            <div></div>
-          )}
+            ) : (
+              <div></div>
+            )}
+
+            <Button
+              layout="outline"
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+            >
+              Change Customer
+            </Button>
+          </div>
         </div>
 
         <hr className="mb-5 mt-2" />
@@ -2171,6 +2238,7 @@ function UpdateAsset() {
         setCustomer={setCustomer}
         account={account}
         setAccount={setAccount}
+        setRefresh={setRefresh}
       />
       {/* Heading of page with float button */}
 

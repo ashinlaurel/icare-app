@@ -406,6 +406,22 @@ exports.invCallUpdate = async (req, res) => {
   return res.status(200).json({ hello: "testing" });
 };
 
+exports.checkAssetHasCall = async (req, res) => {
+  // console.log(req.body);
+  const { assetId } = req.body;
+  let filteroptions = {
+    assetId: assetId,
+  };
+  filteroptions.callStatus = { $nin: [10, 11] };
+  try {
+    let call = await Call.find(filteroptions);
+    // return res.status(200).json(call);
+    return res.status(200).json({ call });
+  } catch (err) {
+    return res.status(400).json({ error: err });
+  }
+};
+
 // -----Counters ----
 
 exports.countCallsByDate = (req, res) => {

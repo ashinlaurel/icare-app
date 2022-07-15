@@ -23,7 +23,6 @@ import "react-tabs/style/react-tabs.css";
 
 import { API } from "../../backendapi";
 
-
 export default function UnitListModal({
   isModalOpen,
   setIsModalOpen,
@@ -33,6 +32,7 @@ export default function UnitListModal({
   setAccount,
   customer,
   setCustomer,
+  setRefresh,
 }) {
   const [customers, setCustomers] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -273,7 +273,7 @@ export default function UnitListModal({
       {/* <div>
       <Button onClick={openModal}>Open modal</Button>
     </div> */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalHeader>
           Select{" "}
           {tabIndex == 0 ? (
@@ -284,7 +284,7 @@ export default function UnitListModal({
             <>Unit</>
           )}
         </ModalHeader>
-        <ModalBody className="overflow-y-scroll h-64" >
+        <ModalBody className="overflow-y-scroll h-64">
           <Tabs selectedIndex={tabIndex} onSelect={(ind) => setTabIndex(ind)}>
             <TabList>
               <Tab>Customer</Tab>
@@ -295,10 +295,9 @@ export default function UnitListModal({
             <TabPanel>{AccountTable()}</TabPanel>
             <TabPanel>{UnitTable()}</TabPanel>
           </Tabs>
-          
         </ModalBody>
         <ModalFooter>
-        <Badge className="mx-2 text-md" type="success">
+          <Badge className="mx-2 text-md" type="success">
             Customer: {customer.customerName}
           </Badge>
           <Badge className="mx-2 text-md" type="success">
@@ -310,7 +309,10 @@ export default function UnitListModal({
           <Button
             className="w-full sm:w-auto"
             // layout="outline"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+              setRefresh(true);
+            }}
           >
             Select
           </Button>
