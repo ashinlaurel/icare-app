@@ -28,6 +28,7 @@ import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelec
 import { BottomBarContext } from "../../context/BottomBarContext";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 // import PrintLST from "./PrintLST";
 
 function PurchaseHistory() {
@@ -126,22 +127,71 @@ function PurchaseHistory() {
 
   console.log(selectedprod);
 
-  // PDF Download Functions
+  const downloadInv = async () => {
+    let csv =
+      "Sl No,Stock Location,Stock Type,Sys-Type,Category,Description,Serial Number,Warranty,WTY Expiry Date,Status,Purc.Type,Purc Location,Inv.Type,Vendor,Inv No,Inv Date,Rate,Tax Category,GST,Amount,TCS,Net Amount\n";
 
-  const createAndDownloadPdf = async (id) => {
+    let array;
     let payload = {
-      id: id,
+      pages: {
+        page: 1,
+        limit: 10000000000,
+      },
+      filters: {
+        systype: type,
+        location: location,
+        searchquery: searchquery,
+        vendorsearchquery: vendorsearchquery,
+        stocktype: stocktype,
+      },
     };
-    let response = await axios({
-      url: `${API}/lst/${Emp.getId()}/downloadpdf`,
-      method: "POST",
-      data: payload,
-      responseType: "blob",
+    try {
+      let response = await axios({
+        url: `${API}/inventory/${Emp.getId()}/getallhistory`,
+        method: "POST",
+        data: payload,
+      });
+      console.log(response.data.out);
+      array = response.data.out;
+      // return response.data;
+    } catch (error) {
+      throw error;
+    }
+    array.map((invoice, tcount) => {
+      csv =
+        csv +
+        `Invoice No: ${invoice.invnumber},Date: ${moment(
+          invoice.invdate
+        ).format("DD-MM-YYYY")},Inv Location: ${
+          invoice.location
+        },Purchase Type: ${invoice.purchlocation},Inv Type: ${
+          invoice.invtype
+        }\n`;
+
+      // "Sl No,Stock Location,Stock Type,Sys-Type,Category,Description,Serial Number,Warranty,WTY Expiry Date,Status,
+      // Purc.Type,Purc Location,Inv.Type,Vendor,Inv No,Inv Date,Rate,Tax Category,Net Tax,Amount,TCS,Net Amount\n";
+
+      invoice.invItems.map((i, tt) => {
+        csv =
+          csv +
+          `"${tt + 1}","${i.location}","${capitalize(
+            i.stocktype
+          )}","${capitalize(i.systype)}","${capitalize(i.type)}","${i.name}","${
+            i.sno
+          }","${i.wty}","${i.expirydate}","${i.condition}","${i.purchtype}","${
+            i.purchlocation
+          }","${i.invtype}","${i.vendor}","${invoice.invnumber}","${moment(
+            invoice.invdate
+          ).format("DD-MM-YYYY")}","${i.rate}","${i.taxcategory}","${Number(
+            i.nettax
+          ).toFixed(2)}","${i.amount}","${Number(i.tcs).toFixed(2)}","${Number(
+            i.invamount
+          ).toFixed(2)}",\n`;
+      });
     });
-
-    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-
-    saveAs(pdfBlob, "LST.pdf");
+    // console.log(csv);
+    const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(csvData, "Inventory.csv");
   };
 
   const InvTable = (items) => {
@@ -350,6 +400,18 @@ function PurchaseHistory() {
                   class="shadow-md z-20 appearance-none rounded border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 />
               </form>
+            </div>
+
+            <div className="flex justify-end items-end ">
+              <Button
+                onClick={() => {
+                  downloadInv();
+                  // console.log("export");
+                }}
+                layout="outline"
+              >
+                Export
+              </Button>
             </div>
           </div>
         </div>
