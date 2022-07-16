@@ -215,25 +215,15 @@ function Assets() {
                           {entry.note}
                         </span>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className=" max-w-sm overflow-auto">
+                        <span className="w-full overflow-auto">
+                          {entry.actionTaken}
+                        </span>
+                      </TableCell>
+                      {/* <TableCell>
                         <span className="text-sm">{entry.actionTaken}</span>
-                      </TableCell>
-                      <TableCell>
-                        {/* <Button
-                            layout="outline"
-                            onClick={() => {
-                              if (entry.newUrl)
-                                setGoodSpareHistoryImg(entry.newUrl);
-                              if (entry.existUrl)
-                                setDefectiveHistoryImg(entry.existUrl);
-                              if (entry.ccfrImgUrl)
-                                setCcfrHistoryImg(entry.ccfrImgUrl);
-                              setIsHistoryImgViewModal(true);
-                            }}
-                          >
-                            Show
-                          </Button> */}
-                      </TableCell>
+                      </TableCell> */}
+                      <TableCell></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -53,7 +53,9 @@ function PurchaseHistory() {
 
   // Selected Prod for the bottom bar----------
   const [selectedprod, setSelectedProd] = useState({});
+  const [currItem, setcurrItem] = useState([]);
 
+  const [historyModalOpen, setHistoryModalOpen] = useState(false);
   // search
   const [searchtype, setSearchType] = useState("");
   const [searchlabel, setSearchLabel] = useState("");
@@ -194,7 +196,7 @@ function PurchaseHistory() {
     saveAs(csvData, "Inventory.csv");
   };
 
-  const InvTable = (items) => {
+  const InvTable = () => {
     return (
       <div className=" bg-gray-200 dark:bg-gray-700 p-3 ">
         <div className="mb- mt-4">
@@ -214,7 +216,7 @@ function PurchaseHistory() {
                 </tr>
               </TableHeader>
               <TableBody>
-                {items.map((user, i) => (
+                {currItem.map((user, i) => (
                   <TableRow
                     className={`hover:shadow-lg dark:hover:bg-gray-600 ${
                       activeRowID == user._id
@@ -232,16 +234,10 @@ function PurchaseHistory() {
                   >
                     <TableCell className="w-8">
                       <div className="flex items-center text-sm ">
-                        {/* <Avatar
-                        className="hidden ml-2 mr-3 md:block"
-                        src="https://s3.amazonaws.com/uifaces/faces/twitter/suribbles/128.jpg"
-                        alt="User image"
-                      /> */}
                         <div>
-                          <p className="font-semibold">{user.type}</p>
-                          {/* <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.accountName}
-                        </p> */}
+                          <p className="font-semibold">
+                            {capitalize(user.type)}
+                          </p>
                         </div>
                       </div>
                     </TableCell>
@@ -289,8 +285,32 @@ function PurchaseHistory() {
     );
   };
 
+  const InventoryViewModal = () => {
+    return (
+      <>
+        <Modal
+          isOpen={historyModalOpen}
+          onClose={() => setHistoryModalOpen(false)}
+          className="w-9/12 h-h-159 overflow-y-auto dark:bg-gray-800 p-10 my-6  bg-gray-50 text-gray-900 dark:text-white  rounded-lg "
+        >
+          <ModalHeader className="flex flex-row justify-between text-xl">
+            {/* <div>{item.name}</div> */}
+            <div>Inventory Purchased</div>
+          </ModalHeader>
+          <ModalBody>
+            {/* <div className="font-semibold text-xl my-2">Call History</div> */}
+            {/* ------------------------- Table ------------------------------ */}
+            {InvTable()}
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <>
+      {InventoryViewModal()}
       <div className="mb-64 mt-4">
         {/* ------------------------------------------Filters----------------------------------------------------------------------------  */}
         <div className="">
@@ -413,7 +433,7 @@ function PurchaseHistory() {
                 Export
               </Button>
             </div>
-            <div className="flex justify-end items-end ">
+            {/* <div className="flex justify-end items-end ">
               <Button
                 onClick={async () => {
                   // console.log("export");
@@ -435,21 +455,21 @@ function PurchaseHistory() {
               >
                 Fix Inventory
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}
+
         <TableContainer className="mt-4">
           <Table>
             <TableHeader>
-              <tr className="flex flex-row justify-between">
+              <tr>
                 <TableCell> Type</TableCell>
                 <TableCell>Vendor</TableCell>
                 <TableCell>Inventory No.</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>No.Items</TableCell>
-
                 <TableCell>
                   <span
                     className="cursor-pointer"
@@ -462,77 +482,77 @@ function PurchaseHistory() {
             </TableHeader>
             <TableBody>
               {data.map((user, i) => (
-                <div className="flex flex-col justify-around">
-                  <TableRow
-                    className={`hover:shadow-lg dark:hover:bg-gray-600 flex flex-row justify-between  ${
-                      activeRowID == user._id
-                        ? "bg-blue-300 shadow-lg dark:bg-gray-600"
-                        : "white"
-                    } `}
-                    key={i}
-                    onClick={() => {
-                      // setActiveRowID(i);
-                      // console.log("the id is " + user._id);
-                      // setSelectedProd(user);
-                      // setAssetDetails(user);
-                      // console.log(user.product.keyboard[0].keyboardname);
-                    }}
-                  >
-                    <TableCell className="w-8">
-                      <div className="flex items-center text-sm ">
-                        <div>
+                <TableRow
+                  className={`hover:shadow-lg dark:hover:bg-gray-600   ${
+                    activeRowID == user._id
+                      ? "bg-blue-300 shadow-lg dark:bg-gray-600"
+                      : "white"
+                  } `}
+                  key={i}
+                  onClick={() => {
+                    // setActiveRowID(i);
+                    // console.log("the id is " + user._id);
+                    // setSelectedProd(user);
+                    // setAssetDetails(user);
+                    // console.log(user.product.keyboard[0].keyboardname);
+                  }}
+                >
+                  <TableCell className="w-8">
+                    <div className="flex items-center text-sm ">
+                      <div>
+                        <p className="font-semibold">
+                          {" "}
                           <p className="font-semibold">{user.purchtype}</p>
-                        </div>
+                        </p>
                       </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.vendor}</span>
-                    </TableCell>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.vendor}</span>
+                  </TableCell>
 
-                    <TableCell>
-                      <span className="text-sm">{user.invnumber}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {" "}
-                        {moment(user.invdate).format("DD/MM/YYYY")}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.location}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{user.invItems.length}</span>
-                    </TableCell>
-                    {/* <TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.invnumber}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                      {" "}
+                      {moment(user.invdate).format("DD/MM/YYYY")}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.location}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{user.invItems.length}</span>
+                  </TableCell>
+                  {/* <TableCell>
                     <Badge>
                       condition
                     </Badge>
                   </TableCell> */}
 
-                    <TableCell className="text-center ">
-                      <Button
-                        // layout="link"
-                        size="icon"
-                        aria-label="DropDown"
-                        onClick={
-                          () => {
-                            console.log(activeRowID);
-                            if (activeRowID == i) {
-                              setActiveRowID(-1);
-                            } else setActiveRowID(i);
-                          }
-                          // console.log(ac)
+                  <TableCell className="text-center ">
+                    <Button
+                      onClick={
+                        () => {
+                          console.log(activeRowID);
+                          if (activeRowID == i) {
+                            setActiveRowID(-1);
+                          } else setActiveRowID(i);
+                          setcurrItem(user.invItems);
+                          setHistoryModalOpen(true);
                         }
-                        className="rounded-lg m-1"
-                      >
-                        <DropdownIcon className="w-5 h-5" aria-hidden="true" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
 
-                  {activeRowID == i ? InvTable(user.invItems) : null}
-                </div>
+                        // console.log(ac)
+                        // {activeRowID == i ? InvTable(user.invItems) : null}
+                      }
+                      className="rounded-lg m-1"
+                    >
+                      View
+                    </Button>
+                  </TableCell>
+                </TableRow>
               ))}
             </TableBody>
           </Table>

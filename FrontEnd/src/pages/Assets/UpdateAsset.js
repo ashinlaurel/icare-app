@@ -329,6 +329,42 @@ function UpdateAsset() {
     if (payload.contractto == "Invalid date") payload.contractto = "";
     if (payload.billingfrom == "Invalid date") payload.billingfrom = "";
     if (payload.billingto == "Invalid date") payload.billingto = "";
+
+    // history stuff
+    let finalpush = {};
+    let assethistory = {};
+    let assetpayload = {};
+    let edithistory = {
+      date: moment().format(),
+      // callStatus: "",
+      engineer: "",
+      callAttendDate: "",
+      startOfService: "",
+      endOfService: "",
+      note: `The Asset has been manually edited!`,
+      actionTaken: "",
+      ccfrImgUrl: "",
+    };
+    if (refresh) {
+      assethistory = {
+        date: moment().format(),
+        // callStatus: "",
+        engineer: "",
+        callAttendDate: "",
+        startOfService: "",
+        endOfService: "",
+        note: `Asset's Customer/Account/Unit has been edited`,
+        actionTaken: `Edited to Customer: ${customer.customerName}, Account: ${account.accountName}, Unit: ${unit.unitName}`,
+        ccfrImgUrl: "",
+        // existserial: existswap[0].sno,
+        // newserial: inventswap[0].sno,
+      };
+
+      finalpush = { history: { $each: [edithistory, assethistory] } };
+    } else {
+      finalpush = { history: edithistory };
+    }
+
     let newproduct = {
       brand: brand,
       model: model,
@@ -352,6 +388,7 @@ function UpdateAsset() {
       raidcontroller: raidcontroller,
       tapecontroller: tapecontroller,
       others: others,
+      $push: finalpush,
     };
     console.log(payload, newproduct);
 
@@ -362,6 +399,12 @@ function UpdateAsset() {
         url: `${API}/asset/${Emp.getId()}/update`,
         method: "POST",
         data: data,
+      });
+
+      let response = await axios({
+        url: `${API}/asset/${Emp.getId()}/updateProductWithID`,
+        method: "POST",
+        data: assetpayload,
       });
       setSubmitModal(true);
       console.log("Done");
