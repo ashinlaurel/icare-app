@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
 
 const PurchaseHistorySchema = mongoose.Schema({
-  
-  
-
   invItems: [
     {
       type: mongoose.Schema.ObjectId,
@@ -12,20 +9,19 @@ const PurchaseHistorySchema = mongoose.Schema({
     },
   ],
   // to be set null if in inventory
- 
+
   // ----------------
   purchtype: String,
   purchlocation: String,
   vendor: String,
+  vendorId: String,
   gstno: String,
   panno: String,
   aadharno: String,
   invnumber: String,
   invdate: Date,
   invtype: String,
-  location:String,
-
-  
+  location: String,
 });
 PurchaseHistorySchema.plugin(mongoosePaginate);
 

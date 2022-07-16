@@ -37,8 +37,6 @@ import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 import { CloseIcon } from "../../icons";
 
-/////////////----------------->>>>>> bug <<<<<------------customerList refresh--------------------------
-
 function PurchaseInventory() {
   const { setTopHeading } = useContext(TopBarContext);
   const [flow, setFlow] = useState("basic");
@@ -61,6 +59,7 @@ function PurchaseInventory() {
   const thebval = {
     purchtype: "B2B",
     vendor: "",
+    vendorId: "",
     invnumber: "",
     invdate: moment().format(),
     location: "Trivandrum",
@@ -473,38 +472,23 @@ function PurchaseInventory() {
           <ModalHeader>
             <tr>
               <TableCell>Pick Vendor</TableCell>
-              {/* <TableCell>Unit</TableCell> */}
-              {/* <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell> */}
-            </tr>
-            <tr>
-              <TableCell>
-                <form
-                  // onSubmit={handlevendorSubmit}
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                >
-                  <input
-                    className="block w-full pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                    placeholder="Search Customers"
-                    onChange={(e) => {
-                      setVendorsearch(e.target.value);
-                    }}
-                  />
-                </form>
-              </TableCell>
             </tr>
           </ModalHeader>
+          <div>
+            <input
+              className="block w-full my-1 pr-20 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+              placeholder="Search Customers"
+              onChange={(e) => {
+                setVendorsearch(e.target.value);
+              }}
+            />
+          </div>
           <ModalBody>
-            <TableContainer>
+            <TableContainer className="h-h-96 overflow-y-auto">
               <Table>
                 <TableHeader>
                   <tr>
                     <TableCell>Customer</TableCell>
-                    {/* <TableCell>Unit</TableCell> */}
-                    {/* <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell> */}
                   </tr>
                 </TableHeader>
                 <TableBody>
@@ -515,6 +499,12 @@ function PurchaseInventory() {
                       onClick={() => {
                         console.log(user);
                         setselectedVendor(user);
+                        setBaseValues({
+                          ...basevalues,
+                          vendor: user.name,
+                          vendorId: user._id,
+                        });
+
                         setIsVendorModalopen(false);
                       }}
                     >

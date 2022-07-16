@@ -413,6 +413,29 @@ function PurchaseHistory() {
                 Export
               </Button>
             </div>
+            <div className="flex justify-end items-end ">
+              <Button
+                onClick={async () => {
+                  // console.log("export");
+                  let payload = {};
+                  try {
+                    let response = await axios({
+                      url: `${API}/inventory/${Emp.getId()}/fixpurch`,
+                      method: "POST",
+                      data: payload,
+                    });
+                    console.log(response.data.out);
+
+                    // return response.data;
+                  } catch (error) {
+                    throw error;
+                  }
+                }}
+                layout="outline"
+              >
+                Fix Inventory
+              </Button>
+            </div>
           </div>
         </div>
         {/* ----------------------------------------------Table----------------------------------------------------- */}

@@ -698,6 +698,43 @@ exports.createPurchaseHistrory = async (req, res) => {
   }
 };
 
+exports.FixPurchaseHistory = async (req, res) => {
+  console.log("first");
+  let options = {
+    // populate: "product",
+    page: 1,
+    limit: 10000000,
+    populate: "invItems",
+  };
+
+  // -----------------------------------------------------------------------
+
+  PurchaseHistory.paginate({}, options, function (err, result) {
+    if (err || !result) {
+      return res.status(400).json({
+        error: "No items found",
+        err: err,
+      });
+    }
+    // console.log(result.docs);
+    let output = {
+      total: result.total,
+      out: result.docs,
+    };
+    result.docs.map(async (inv) => {
+      if (inv.invItems[0]) {
+        let thevendor = inv.invItems[0].vendor;
+        let thevendorid = inv.invItems[0].vendorId;
+        await PurchaseHistory.findByIdAndUpdate(inv._id, {
+          vendor: thevendor,
+          vendorId: thevendorid,
+        });
+      }
+    });
+    return res.status(200).json(output);
+  });
+};
+
 exports.getAllHistory = (req, res) => {
   let { pages, filters } = req.body;
 

@@ -15,6 +15,7 @@ const {
   scrapSaleUpdate,
   getScrapHistory,
   getStockStats,
+  FixPurchaseHistory,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -74,6 +75,10 @@ router.post(
   isAuthenticated,
   getScrapHistory
 );
+
+//temp
+router.post("/:id/fixpurch", isSignedIn, isAuthenticated, FixPurchaseHistory);
+
 // -------------------Counter Routes------------------
 // router.get("/count", countAssets);
 // router.get("/countamc", countAmcAssets);
