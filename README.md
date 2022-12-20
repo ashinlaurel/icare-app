@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://socialify.git.ci/ashinlaurel/icare-app/image?language=1&amp;name=1&amp;owner=1&amp;theme=Light" alt="project-image"></p>
 
-<h2>🚀 Demo</h2>
+<h2>🚀 Beta Testing</h2>
 
 [http://3.7.169.91/website](http://3.7.169.91/website)
 
