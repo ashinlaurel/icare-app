@@ -1,52 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import moment from "moment";
 import axios from "axios";
 
-import Emp from "../helpers/auth/EmpProfile";
 import InfoCard from "../components/Cards/InfoCard";
-import ChartCard from "../components/Chart/ChartCard";
-import { Doughnut, Line } from "react-chartjs-2";
-import ChartLegend from "../components/Chart/ChartLegend";
-import PageTitle from "../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  EditIcon,
-  TrashIcon,
-} from "../icons";
-import RoundIcon from "../components/RoundIcon";
-import response from "../utils/demo/tableData";
-import {
-  TableBody,
-  TableContainer,
-  Table,
-  TableHeader,
-  TableCell,
-  TableRow,
-  TableFooter,
-  Avatar,
-  Badge,
-  Pagination,
-  Card,
-  CardBody,
-  Label,
-  Dropdown,
-  DropdownItem,
-  Button,
-} from "@windmill/react-ui";
 
-import {
-  doughnutOptions,
-  lineOptions,
-  doughnutLegends,
-  lineLegends,
-} from "../utils/demo/chartsData";
+import { MoneyIcon } from "../icons";
+import RoundIcon from "../components/RoundIcon";
+
 import { API } from "../backendapi";
-import SectionTitle from "../components/Typography/SectionTitle";
+
 import { TopBarContext } from "../context/TopBarContext";
-import { Link } from "react-router-dom";
+
 import CustProfile from "../helpers/auth/CustProfile";
 
 function Dashboard() {

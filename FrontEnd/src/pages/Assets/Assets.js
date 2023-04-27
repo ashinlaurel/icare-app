@@ -6,11 +6,9 @@ import { saveAs } from "file-saver";
 import Emp from "../../helpers/auth/EmpProfile";
 import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
 
-import PageTitle from "../../components/Typography/PageTitle";
 import { MenuIcon, EditIcon, TrashIcon } from "../../icons";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-import RoundIcon from "../../components/RoundIcon";
-import response from "../../utils/demo/tableData";
+
 import {
   TableBody,
   TableContainer,

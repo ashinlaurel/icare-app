@@ -458,6 +458,31 @@ exports.countCallsByDate = (req, res) => {
   }
 };
 
+//Sid Updates
+exports.getCallsChartData = (req, res) => {
+  // Calculate the start and end dates for the last 6 months
+  const startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - 6);
+  startDate.setDate(1);
+  startDate.setHours(0, 0, 0, 0);
+  const endDate = new Date();
+  endDate.setDate(1);
+  endDate.setHours(0, 0, 0, 0);
+
+  Call.aggregate([
+    { $match: { date: { $gte: startDate, $lt: endDate } } }, // Filter calls for last 6 months
+    { $group: { _id: { $month: "$date" }, count: { $sum: 1 } } }, // Group calls by month and count the number of calls in each group
+    { $project: { _id: 0, month: "$_id", count: 1 } }, // Project the month and count fields and exclude the _id field
+  ]).exec((err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: "Error occured while getting " });
+    } else {
+      res.json(result);
+    }
+  });
+};
+
 // ----------------------- Search Regex----------------
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

@@ -5,7 +5,7 @@ import axios from "axios";
 import Emp from "../helpers/auth/EmpProfile";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
 import {
@@ -17,7 +17,6 @@ import {
   TrashIcon,
 } from "../icons";
 import RoundIcon from "../components/RoundIcon";
-import response from "../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
@@ -42,12 +41,14 @@ import {
   lineOptions,
   doughnutLegends,
   lineLegends,
-} from "../utils/demo/chartsData";
+  barOptions,
+  barLegends,
+} from "../utils/chartData/chartsData";
 import { API } from "../backendapi";
 import SectionTitle from "../components/Typography/SectionTitle";
 import { TopBarContext } from "../context/TopBarContext";
-import { Link } from "react-router-dom";
 import ValueCard from "../components/Cards/ValueCard";
+import { getInvChartData, invBarOptions } from "../utils/chartData/invBarChart";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -79,6 +80,9 @@ function Dashboard() {
   const resultsPerPage = 10;
   const [totalResults, setTotalResults] = useState(20);
 
+  //Chart States
+  const [inventoryChartData, setInventoryChartData] = useState(0);
+  const [callsChartData, setCallsChartData] = useState(0);
   // pagination change control
   function onPageChange(p) {
     setPage(p);
@@ -88,7 +92,7 @@ function Dashboard() {
   useEffect(() => {
     // Using an IIFE
     (async function thegetter() {
-      console.log("getter called");
+      // console.log("getter called");
       let payload = {
         pages: {
           page: page,
@@ -107,7 +111,7 @@ function Dashboard() {
           method: "POST",
           data: payload,
         });
-        console.log(response.data.out);
+        // console.log(response.data.out);
         setTotalResults(response.data.total);
         // const { total, data } = response.data;
         // console.log(data + "Now");
@@ -158,7 +162,7 @@ function Dashboard() {
           url: `${API}/unit/count`,
           method: "GET",
         });
-        // console.log(tassetcount);
+
         setCustomerCount(tcustomercount.data);
         setAssetCount(tassetcount.data);
         setAmcAssetCount(tamcassetcount.data);
@@ -167,6 +171,8 @@ function Dashboard() {
         setUnitCount(tunitcount.data);
         // setAmcContracts(tamccontract.data);
         // setAssetValue(tassetvalue.data);
+
+        setInventoryChartData(await getInvChartData());
       } catch (error) {
         throw error;
       }
@@ -192,13 +198,13 @@ function Dashboard() {
   }, []);
   // -----------------------------------------------------
 
-  const handleChange = () => {
-    console.log("change");
-  };
+  // const handleChange = () => {
+  //   console.log("change");
+  // };
 
-  const handleSubmit = () => {
-    console.log("submit");
-  };
+  // const handleSubmit = () => {
+  //   console.log("submit");
+  // };
 
   return (
     <>
@@ -579,9 +585,13 @@ function Dashboard() {
       {/* --------------Charts---------------------------- */}
       <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Stock Overview">
+        {/* <ChartCard title="Stock Overview">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
+        </ChartCard> */}
+        <ChartCard title="Bars">
+          {inventoryChartData && <Bar {...inventoryChartData} />}
+          {/* <ChartLegend legends={barLegends} /> */}
         </ChartCard>
 
         <ChartCard title="Calls ( Month Wise )">

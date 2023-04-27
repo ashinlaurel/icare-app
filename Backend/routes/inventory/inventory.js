@@ -16,6 +16,7 @@ const {
   getScrapHistory,
   getStockStats,
   FixPurchaseHistory,
+  getInventoryChartData,
 } = require("../../controllers/inventory/inventory");
 const {
   isSignedIn,
@@ -74,6 +75,13 @@ router.post(
   isSignedIn,
   isAuthenticated,
   getScrapHistory
+);
+
+router.get(
+  "/:id/getChartData",
+  isSignedIn,
+  isAuthenticated,
+  getInventoryChartData
 );
 
 //temp
