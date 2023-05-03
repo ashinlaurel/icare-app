@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const nodemailer = require("nodemailer");
-const cron = require("node-cron");  //for scheduling
+const cron = require("node-cron"); //for scheduling
 
 //routes import
 //user routes
@@ -38,6 +38,7 @@ const imgUploadRoute = require("./routes/uploadapi");
 
 //contactus API
 const ContactUs = require("./routes/contactus/contactus");
+const { contractCheckForAssets } = require("./controllers/assets/assetcron");
 
 // Middlewares
 app.use(bodyParser.json());
@@ -116,10 +117,11 @@ app.use("/api/leave", leaveformRoute);
 
 // app.get("/", (req, res) => res.send("Hello World!"));
 
-cron.schedule("20 20 * * * *", function() {
-  console.log("running a task every 10 second");
-},{timezone: "Asia/Kolkata", scheduled: true});
-
+//Schedules CRON job at 3:00Am IST to update ASSETS
+cron.schedule("0 3 * * *", contractCheckForAssets, {
+  timezone: "Asia/Kolkata",
+  scheduled: true,
+});
 
 //Port and Listen
 const port = process.env.PORT || 3000;
