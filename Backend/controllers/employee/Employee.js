@@ -1,6 +1,7 @@
 const EmployeeLogin = require("../../models/employee/EmployeeLogin");
 const Salary = require("../../models/salary/Salary");
 const puppeteer = require("puppeteer");
+const InvItem = require("../../models/inventory/InvItem");
 
 exports.getAllEmployees = (req, res) => {
   let { search } = req.body;
@@ -114,6 +115,7 @@ exports.getAllEmpData = (req, res) => {
 
 // note that currently this function only returns a list of employees without their data
 exports.getAllEmpCalls = (req, res) => {
+  console.log(req);
   const { search, limit } = req.body;
   // console.log("search query", search);
 
@@ -381,3 +383,17 @@ exports.downloadsalaryPdf = async (req, res) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
+
+exports.testTry = async () => {
+  console.log("first backend");
+  console.log("is it working");
+  await EmployeeLogin.find({ name: "Punit" }, function (err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("First function call : ", docs);
+    }
+  });
+  // console.log("hello", temp);
+  // return { temp };
+};

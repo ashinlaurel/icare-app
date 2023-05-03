@@ -6,6 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const nodemailer = require("nodemailer");
+const cron = require("node-cron");  //for scheduling
 
 //routes import
 //user routes
@@ -114,6 +115,11 @@ app.use("/api/attendance", attendanceRoute);
 app.use("/api/leave", leaveformRoute);
 
 // app.get("/", (req, res) => res.send("Hello World!"));
+
+cron.schedule("20 20 * * * *", function() {
+  console.log("running a task every 10 second");
+},{timezone: "Asia/Kolkata", scheduled: true});
+
 
 //Port and Listen
 const port = process.env.PORT || 3000;
