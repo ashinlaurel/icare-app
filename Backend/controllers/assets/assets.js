@@ -169,11 +169,9 @@ exports.createAsset = async (req, res) => {
 };
 
 exports.getAllAssets = (req, res) => {
-  console.log("GETTIN ASSETS");
   let { pages, filters } = req.body;
 
   let { searchquery, searchtype } = filters;
-  console.log(req.body);
   // console.log(searchtype);
   const fuzzyquery = new RegExp(escapeRegex(searchquery), "gi");
 
@@ -217,7 +215,7 @@ exports.getAllAssets = (req, res) => {
     } else if (filters.customerId && filters.customerId != "") {
       filteroptions.customerId = filters.customerId;
     }
-    console.log(filters);
+    // console.log(filters);
     Asset.paginate(filteroptions, options, function (err, result) {
       // console.log(result);
       if (err || !result) {

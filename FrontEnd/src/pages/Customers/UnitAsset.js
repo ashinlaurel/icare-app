@@ -3,17 +3,7 @@ import moment from "moment";
 import axios from "axios";
 
 import Emp from "../../helpers/auth/EmpProfile";
-import PageTitle from "../../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  ButtonsIcon,
-  HeartIcon,
-} from "../../icons";
-import RoundIcon from "../../components/RoundIcon";
-import response from "../../utils/demo/tableData";
+
 import {
   TableBody,
   TableContainer,
@@ -38,9 +28,8 @@ import { useParams, Link } from "react-router-dom";
 import { BottomBarContext } from "../../context/BottomBarContext";
 
 function UnitAsset() {
-  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } = useContext(
-    BottomBarContext
-  );
+  const { bbaropen, setBBarOpen, setAssetDetails, assetdetails } =
+    useContext(BottomBarContext);
   // table variable styles
   const [activerowid, setActiveRowId] = useState(0);
   // Url params------------

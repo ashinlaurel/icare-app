@@ -852,6 +852,28 @@ exports.getScrapHistory = (req, res) => {
   });
 };
 
+//Returns the inventory count based on type to be used for chart on dashboard
+exports.getInventoryChartData = (req, res) => {
+  InvItem.aggregate([
+    { $match: { condition: "Good" } }, // Filter items where condition is "good"
+    { $group: { _id: "$type", count: { $sum: 1 } } },
+    { $sort: { _id: 1 } }, // Group items by type and count the number of items in each group
+  ]).exec((err, result) => {
+    if (err) {
+      console.log("Error Occured while executing this");
+      console.log(err);
+      return res.status(500).json({
+        error:
+          "Error occured while getting inventory chart data from mongoDB. Error:" +
+          err,
+      });
+    } else {
+      // console.log(result);
+      return res.json(result);
+    }
+  });
+};
+
 // exports.deleteAsset = async (req, res) => {
 //   let { id } = req.body;
 //   try {

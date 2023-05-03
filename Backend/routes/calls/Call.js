@@ -9,6 +9,7 @@ const {
   countCallsByDate,
   invCallUpdate,
   checkAssetHasCall,
+  getCallsChartData,
 } = require("../../controllers/calls/calls");
 
 const router = express.Router();
@@ -29,5 +30,6 @@ router.post("/:id/checkassethascall", checkAssetHasCall);
 //---- counters -----
 router.post("/:id/callsbydate", countCallsByDate);
 router.post("/custcallsbydate", countCallsByDate);
+router.get("/:id/getChartData", getCallsChartData);
 
 module.exports = router;

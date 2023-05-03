@@ -5,17 +5,6 @@ import axios from "axios";
 // import Emp from "../../helpers/auth/EmpProfile";
 import Cust from "../../helpers/auth/CustProfile";
 
-import PageTitle from "../../components/Typography/PageTitle";
-import {
-  ChatIcon,
-  CartIcon,
-  MoneyIcon,
-  PeopleIcon,
-  ButtonsIcon,
-  HeartIcon,
-} from "../../icons";
-import RoundIcon from "../../components/RoundIcon";
-import response from "../../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
@@ -32,11 +21,7 @@ import {
   DropdownItem,
 } from "@windmill/react-ui";
 
-import AssetFloat from "../../components/FloatDetails/AssetFloat";
 import { API } from "../../backendapi";
-import UnitListModal from "../../components/Modal/UnitListModal";
-import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
-import { useParams, Link } from "react-router-dom";
 import { BottomBarContext } from "../../context/BottomBarContext";
 
 function MyAssets() {
