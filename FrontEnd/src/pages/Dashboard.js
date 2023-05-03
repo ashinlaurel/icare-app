@@ -49,6 +49,7 @@ import SectionTitle from "../components/Typography/SectionTitle";
 import { TopBarContext } from "../context/TopBarContext";
 import ValueCard from "../components/Cards/ValueCard";
 import { getInvChartData, invBarOptions } from "../utils/chartData/invBarChart";
+import { getCallsChartData } from "../utils/chartData/callsLineChart";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -173,6 +174,7 @@ function Dashboard() {
         // setAssetValue(tassetvalue.data);
 
         setInventoryChartData(await getInvChartData());
+        setCallsChartData(await getCallsChartData());
       } catch (error) {
         throw error;
       }
@@ -595,8 +597,8 @@ function Dashboard() {
         </ChartCard>
 
         <ChartCard title="Calls ( Month Wise )">
-          <Line {...lineOptions} />
-          <ChartLegend legends={lineLegends} />
+          {callsChartData && <Line {...callsChartData} />}
+          {/* <ChartLegend legends={lineLegends} /> */}
         </ChartCard>
       </div>
     </>

@@ -30,6 +30,6 @@ router.post("/:id/checkassethascall", checkAssetHasCall);
 //---- counters -----
 router.post("/:id/callsbydate", countCallsByDate);
 router.post("/custcallsbydate", countCallsByDate);
-router.post("/:id/getChartData", getCallsChartData);
+router.get("/:id/getChartData", getCallsChartData);
 
 module.exports = router;

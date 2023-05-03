@@ -462,23 +462,52 @@ exports.countCallsByDate = (req, res) => {
 exports.getCallsChartData = (req, res) => {
   // Calculate the start and end dates for the last 6 months
   const startDate = new Date();
+  //Use this startDate to change current date for data retrieval
+  // const startDate = new Date("2022-10-25");
   startDate.setMonth(startDate.getMonth() - 6);
   startDate.setDate(1);
   startDate.setHours(0, 0, 0, 0);
   const endDate = new Date();
+  // const endDate = new Date("2022-10-25");
   endDate.setDate(1);
   endDate.setHours(0, 0, 0, 0);
 
   Call.aggregate([
     { $match: { date: { $gte: startDate, $lt: endDate } } }, // Filter calls for last 6 months
     { $group: { _id: { $month: "$date" }, count: { $sum: 1 } } }, // Group calls by month and count the number of calls in each group
+    {
+      $sort: {
+        _id: 1,
+      },
+    }, // Sort the results by month in ascending order // Group calls by month and
     { $project: { _id: 0, month: "$_id", count: 1 } }, // Project the month and count fields and exclude the _id field
   ]).exec((err, result) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: "Error occured while getting " });
     } else {
-      res.json(result);
+      //result returned by mongoose doesn't contain months with no calls. Also sorting is an issue if month range between years
+      //create newResult which solves these two issues
+      const monthCountMap = {};
+      for (const data of result) {
+        monthCountMap[data.month] = data.count;
+      }
+      //newResult array contains value correponding to all months in range in sorted order
+      const newResult = [];
+      const startMonth = startDate.getMonth();
+      //Fill newResult for 6 months starting from startMonth+1
+      for (let i = 0; i < 6; i++) {
+        const curMonth = ((startMonth + i) % 12) + 1;
+        const monthObj = {};
+        const monthName = new Date(Date.UTC(0, curMonth - 1, 1)).toLocaleString(
+          "en-US",
+          { month: "long" }
+        );
+        monthObj.month = monthName;
+        monthObj.count = monthCountMap[curMonth] || 0;
+        newResult.push(monthObj);
+      }
+      res.json(newResult);
     }
   });
 };
