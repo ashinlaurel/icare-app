@@ -106,6 +106,8 @@ function CreateAsset() {
   //MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [refresh, setRefresh] = useState(false);
+
   // -------Enabling Bottom Bar----
   useEffect(() => {
     // setBBarOpen(1);
@@ -3214,6 +3216,7 @@ function CreateAsset() {
         setCustomer={setCustomer}
         account={account}
         setAccount={setAccount}
+        setRefresh={setRefresh}
       />
       {/* Heading of page with float button */}
       {/* <div className="flex items-center">
