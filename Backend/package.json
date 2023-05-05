@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "express-validator": "^6.6.1",
+    "express-winston": "^4.2.0",
     "formidable": "^1.2.2",
     "html-pdf": "^2.2.0",
     "i": "^0.3.6",
@@ -35,6 +36,7 @@
     "path": "^0.12.7",
     "puppeteer": "^5.5.0",
     "uuid": "^8.3.0",
-    "validator": "^13.1.1"
+    "validator": "^13.1.1",
+    "winston": "^3.8.2"
   }
 }

@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-const nodemailer = require("nodemailer");
 const cron = require("node-cron"); //for scheduling
+const expressWinston = require("express-winston");
+
 
 //routes import
 //user routes
@@ -39,27 +40,40 @@ const imgUploadRoute = require("./routes/uploadapi");
 //contactus API
 const ContactUs = require("./routes/contactus/contactus");
 const { contractCheckForAssets } = require("./controllers/assets/assetcron");
+const { transports,format } = require("winston");
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(expressWinston.logger({
+  transports: [
+    // new transports.Console(),
+    new transports.File({ level: "info" ,
+      filename: "infoLog.log",maxsize: 5242880, maxFiles: 1 }),
+    new transports.File({ level: "warn" ,
+    filename: "warnLog.log" }),
+    new transports.File({ level: "error" ,
+      filename: "errorLog.log" }),
+    new transports.File({ filename: "combined.log" }),
+  ],
+  format: format.combine(
+    format.json(),
+    format.timestamp(),
+    format.prettyPrint(),
+  ),
+  meta: true, // optional: control whether you want to log the meta data about the request (default to true)
+  msg: "HTTP {{req.method}} {{req.url}}", // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
+  expressFormat: true, // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
+  colorize: true,
+  ignoreRoute: function (req, res) {
+    return false;
+  }, // optional: allows to skip some log messages based on request and/or response
+}));
+
 
 // create application/json parser
 var jsonParser = bodyParser.json();
-
-// async () => {
-//   try {
-//     await mongoose.connect(process.env.DATABASE, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       useCreateIndex: true,
-//     });
-//     console.log("DB CONNECTED!");
-//   } catch (error) {
-//     throw error;
-//   }
-// };
 
 // Connection to MongoDB
 mongoose
@@ -122,6 +136,20 @@ cron.schedule("0 3 * * *", contractCheckForAssets, {
   timezone: "Asia/Kolkata",
   scheduled: true,
 });
+
+//Internal Errors Tracking using Winston
+app.use(expressWinston.errorLogger({
+  transports: [
+    // new transports.Console(),
+    new transports.File({ level: "info" ,
+      filename: "logsInternalErrors.log",maxsize: 5242880, maxFiles: 1 }),
+  ],
+  format: format.combine(
+    format.json(),
+    format.timestamp(),
+    format.prettyPrint(),
+  ),
+}));
 
 //Port and Listen
 const port = process.env.PORT || 3000;

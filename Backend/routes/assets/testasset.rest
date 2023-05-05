@@ -1,0 +1,11 @@
+
+// Asset Count
+# GET http://localhost:3000/api/asset/count
+
+//Get All Assets
+POST http://localhost:3000/api/asset/601f0dc834000913dc91b016/apitest
+# Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg"
+Content-Type: application/json
+{
+    "test":"hello"
+}

@@ -75,4 +75,10 @@ router.post(
   isAuthenticated,
   multiAssetUpdate
 );
+
+router.post("/:id/apitest", (req, res) => {
+
+  console.log(req.body);
+  return res.json(req.body);
+});
 module.exports = router;

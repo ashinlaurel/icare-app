@@ -1,0 +1,377 @@
+{
+  meta: {
+    req: {
+      url: '/api/asset/count',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/count',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 28
+  },
+  level: 'info',
+  message: '\x1B[90mGET /api/asset/count\x1B[39m \x1B[32m200\x1B[39m \x1B[90m28ms\x1B[39m',
+  timestamp: '2023-05-05T07:01:21.882Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/count',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/count',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 35
+  },
+  level: 'info',
+  message: '\x1B[90mGET /api/asset/count\x1B[39m \x1B[32m200\x1B[39m \x1B[90m35ms\x1B[39m',
+  timestamp: '2023-05-05T07:17:57.845Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/count',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '38',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/count',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 62
+  },
+  level: 'info',
+  message: '\x1B[90mGET /api/asset/count\x1B[39m \x1B[32m200\x1B[39m \x1B[90m62ms\x1B[39m',
+  timestamp: '2023-05-05T07:21:29.646Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg/getall',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 33
+  },
+  level: 'info',
+  message: '\x1B[90mGET /api/asset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg/getall\x1B[39m \x1B[33m404\x1B[39m \x1B[90m33ms\x1B[39m',
+  timestamp: '2023-05-05T07:22:48.418Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close',
+        'content-length': '0'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 7
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/getall\x1B[39m \x1B[33m404\x1B[39m \x1B[90m7ms\x1B[39m',
+  timestamp: '2023-05-05T07:23:10.341Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/countamc',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close',
+        'content-length': '0'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/countamc',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/countamc\x1B[39m \x1B[33m404\x1B[39m \x1B[90m4ms\x1B[39m',
+  timestamp: '2023-05-05T07:23:38.227Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/countamc',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close',
+        'content-length': '0'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/countamc',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/countamc\x1B[39m \x1B[33m404\x1B[39m \x1B[90m2ms\x1B[39m',
+  timestamp: '2023-05-05T07:23:40.886Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/countamc',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'accept-encoding': 'gzip, deflate',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/countamc',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 56
+  },
+  level: 'info',
+  message: '\x1B[90mGET /api/asset/countamc\x1B[39m \x1B[32m200\x1B[39m \x1B[90m56ms\x1B[39m',
+  timestamp: '2023-05-05T07:23:45.275Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/apitest',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/apitest\x1B[39m \x1B[33m404\x1B[39m \x1B[90m2ms\x1B[39m',
+  timestamp: '2023-05-05T07:35:35.429Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/63739/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/63739/apitest',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 11
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/63739/apitest\x1B[39m \x1B[33m400\x1B[39m \x1B[90m11ms\x1B[39m',
+  timestamp: '2023-05-05T07:36:18.955Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 53
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[33m401\x1B[39m \x1B[90m53ms\x1B[39m',
+  timestamp: '2023-05-05T07:36:42.982Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg"',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 23
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[33m401\x1B[39m \x1B[90m23ms\x1B[39m',
+  timestamp: '2023-05-05T07:37:19.478Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg"',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 10
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[33m401\x1B[39m \x1B[90m10ms\x1B[39m',
+  timestamp: '2023-05-05T07:37:20.693Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 24
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[33m401\x1B[39m \x1B[90m24ms\x1B[39m',
+  timestamp: '2023-05-05T07:37:23.613Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 16
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[33m401\x1B[39m \x1B[90m16ms\x1B[39m',
+  timestamp: '2023-05-05T07:37:24.915Z'
+}
+{
+  meta: {
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 37
+  },
+  level: 'info',
+  message: '\x1B[90mPOST /api/asset/601f0dc834000913dc91b016/apitest\x1B[39m \x1B[32m200\x1B[39m \x1B[90m37ms\x1B[39m',
+  timestamp: '2023-05-05T07:38:17.073Z'
+}

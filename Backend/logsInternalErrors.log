@@ -1,0 +1,1944 @@
+{
+  meta: {
+    error: SyntaxError: Unexpected token } in JSON at position 65
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n' +
+        '      "pages": {\n' +
+        '       " page": 1,\n' +
+        '        "limit": 10,\n' +
+        '      },\n' +
+        '      "filters": {\n' +
+        '        \n' +
+        '      },\n' +
+        '};',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected token } in JSON at position 65\n' +
+      'SyntaxError: Unexpected token } in JSON at position 65\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected token } in JSON at position 65\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 12:57:26 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 33427456,
+        heapTotal: 35000320,
+        heapUsed: 33158552,
+        external: 20074344,
+        arrayBuffers: 18394837
+      }
+    },
+    os: {
+      loadavg: [ 2.43115234375, 2.4169921875, 2.60888671875 ],
+      uptime: 1119056
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '107',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:27:26.028Z'
+}
+{
+  meta: {
+    error: SyntaxError: Unexpected token } in JSON at position 65
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n      "pages": {\n       " page": 1,\n        "limit": 10,\n      },\n};',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected token } in JSON at position 65\n' +
+      'SyntaxError: Unexpected token } in JSON at position 65\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected token } in JSON at position 65\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 12:57:50 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 31739904,
+        heapTotal: 35262464,
+        heapUsed: 33105952,
+        external: 19995786,
+        arrayBuffers: 18316239
+      }
+    },
+    os: {
+      loadavg: [ 2.19287109375, 2.365234375, 2.58349609375 ],
+      uptime: 1119080
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '70',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:27:50.927Z'
+}
+{
+  meta: {
+    error: SyntaxError: Unexpected token } in JSON at position 69
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n' +
+        '      "pages": {\n' +
+        '       " page": "1",\n' +
+        '        "limit": "10",\n' +
+        '      },\n' +
+        '};',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected token } in JSON at position 69\n' +
+      'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 12:58:08 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 32411648,
+        heapTotal: 35262464,
+        heapUsed: 33455680,
+        external: 20003404,
+        arrayBuffers: 18323857
+      }
+    },
+    os: {
+      loadavg: [ 2.08837890625, 2.3310546875, 2.56689453125 ],
+      uptime: 1119098
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '74',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:28:08.158Z'
+}
+{
+  meta: {
+    error: SyntaxError: Unexpected token } in JSON at position 69
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n' +
+        '      "pages": {\n' +
+        '       " page": "1",\n' +
+        '        "limit": "10",\n' +
+        '      },\n' +
+        '};',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected token } in JSON at position 69\n' +
+      'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 12:59:37 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 22949888,
+        heapTotal: 35524608,
+        heapUsed: 33835192,
+        external: 20000127,
+        arrayBuffers: 18320580
+      }
+    },
+    os: {
+      loadavg: [ 2.5341796875, 2.357421875, 2.546875 ],
+      uptime: 1119187
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '74',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:29:37.664Z'
+}
+{
+  meta: {
+    error: SyntaxError: Unexpected token } in JSON at position 69
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n' +
+        '      "pages": {\n' +
+        '       " page": "1",\n' +
+        '        "limit": "10",\n' +
+        '      },\n' +
+        '}',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected token } in JSON at position 69\n' +
+      'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected token } in JSON at position 69\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 12:59:49 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 25784320,
+        heapTotal: 35524608,
+        heapUsed: 34147896,
+        external: 20016332,
+        arrayBuffers: 18336785
+      }
+    },
+    os: {
+      loadavg: [ 2.29150390625, 2.31201171875, 2.5283203125 ],
+      uptime: 1119199
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '73',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:29:49.152Z'
+}
+{
+  meta: {
+    error: SyntaxError: Unexpected string in JSON at position 35
+        at JSON.parse (<anonymous>)
+        at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18
+        at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)
+        at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)
+        at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)
+        at IncomingMessage.emit (events.js:412:35)
+        at IncomingMessage.emit (domain.js:470:12)
+        at endReadableNT (internal/streams/readable.js:1317:12)
+        at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+      expose: true,
+      statusCode: 400,
+      status: 400,
+      body: '{\n      "pages":"",\n      "filters"",\n}',
+      type: 'entity.parse.failed'
+    },
+    level: 'error',
+    message: 'uncaughtException: Unexpected string in JSON at position 35\n' +
+      'SyntaxError: Unexpected string in JSON at position 35\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    stack: 'SyntaxError: Unexpected string in JSON at position 35\n' +
+      '    at JSON.parse (<anonymous>)\n' +
+      '    at parse (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js:89:19)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js:121:18\n' +
+      '    at invokeCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:224:16)\n' +
+      '    at done (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:213:7)\n' +
+      '    at IncomingMessage.onEnd (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js:273:7)\n' +
+      '    at IncomingMessage.emit (events.js:412:35)\n' +
+      '    at IncomingMessage.emit (domain.js:470:12)\n' +
+      '    at endReadableNT (internal/streams/readable.js:1317:12)\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:82:21)',
+    exception: true,
+    date: 'Fri May 05 2023 13:00:48 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 67766,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 28999680,
+        heapTotal: 35524608,
+        heapUsed: 34237024,
+        external: 20005767,
+        arrayBuffers: 18326220
+      }
+    },
+    os: {
+      loadavg: [ 2.69384765625, 2.53955078125, 2.60400390625 ],
+      uptime: 1119258
+    },
+    trace: [
+      {
+        column: null,
+        file: null,
+        function: 'JSON.parse',
+        line: null,
+        method: 'parse',
+        native: false
+      },
+      {
+        column: 19,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/types/json.js',
+        function: 'parse',
+        line: 89,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/body-parser/lib/read.js',
+        function: null,
+        line: 121,
+        method: null,
+        native: false
+      },
+      {
+        column: 16,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'invokeCallback',
+        line: 224,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'done',
+        line: 213,
+        method: null,
+        native: false
+      },
+      {
+        column: 7,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/raw-body/index.js',
+        function: 'IncomingMessage.onEnd',
+        line: 273,
+        method: 'onEnd',
+        native: false
+      },
+      {
+        column: 35,
+        file: 'events.js',
+        function: 'IncomingMessage.emit',
+        line: 412,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'domain.js',
+        function: 'IncomingMessage.emit',
+        line: 470,
+        method: 'emit',
+        native: false
+      },
+      {
+        column: 12,
+        file: 'internal/streams/readable.js',
+        function: 'endReadableNT',
+        line: 1317,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 82,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/getall',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '39',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/getall',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:30:48.033Z'
+}
+{
+  meta: {
+    error: UnauthorizedError: Format is Authorization: Bearer [token]
+        at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22
+        at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)
+        at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18
+        at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+      code: 'credentials_bad_format',
+      status: 401,
+      inner: { message: 'Format is Authorization: Bearer [token]' }
+    },
+    level: 'error',
+    message: 'uncaughtException: Format is Authorization: Bearer [token]\n' +
+      'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    stack: 'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    exception: true,
+    date: 'Fri May 05 2023 13:06:42 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 79502,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 45469696,
+        heapTotal: 33427456,
+        heapUsed: 31677120,
+        external: 19982748,
+        arrayBuffers: 18303241
+      }
+    },
+    os: {
+      loadavg: [ 2.13232421875, 2.26318359375, 2.4521484375 ],
+      uptime: 1119612
+    },
+    trace: [
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js',
+        function: 'middleware',
+        line: 73,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 13,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'next',
+        line: 137,
+        method: null,
+        native: false
+      },
+      {
+        column: 3,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'Route.dispatch',
+        line: 112,
+        method: 'dispatch',
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 22,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: null,
+        line: 281,
+        method: null,
+        native: false
+      },
+      {
+        column: 14,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'param',
+        line: 354,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'paramCallback',
+        line: 401,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js',
+        function: null,
+        line: 108,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js',
+        function: null,
+        line: 4931,
+        method: null,
+        native: false
+      },
+      {
+        column: 11,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 77,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:36:42.975Z'
+}
+{
+  meta: {
+    error: UnauthorizedError: Format is Authorization: Bearer [token]
+        at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22
+        at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)
+        at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18
+        at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+      code: 'credentials_bad_format',
+      status: 401,
+      inner: { message: 'Format is Authorization: Bearer [token]' }
+    },
+    level: 'error',
+    message: 'uncaughtException: Format is Authorization: Bearer [token]\n' +
+      'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    stack: 'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    exception: true,
+    date: 'Fri May 05 2023 13:07:19 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 79502,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 31547392,
+        heapTotal: 34213888,
+        heapUsed: 31504184,
+        external: 20004161,
+        arrayBuffers: 18310524
+      }
+    },
+    os: {
+      loadavg: [ 1.794921875, 2.16845703125, 2.40869140625 ],
+      uptime: 1119649
+    },
+    trace: [
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js',
+        function: 'middleware',
+        line: 73,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 13,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'next',
+        line: 137,
+        method: null,
+        native: false
+      },
+      {
+        column: 3,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'Route.dispatch',
+        line: 112,
+        method: 'dispatch',
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 22,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: null,
+        line: 281,
+        method: null,
+        native: false
+      },
+      {
+        column: 14,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'param',
+        line: 354,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'paramCallback',
+        line: 401,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js',
+        function: null,
+        line: 108,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js',
+        function: null,
+        line: 4931,
+        method: null,
+        native: false
+      },
+      {
+        column: 11,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 77,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg"',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:37:19.475Z'
+}
+{
+  meta: {
+    error: UnauthorizedError: Format is Authorization: Bearer [token]
+        at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22
+        at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)
+        at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18
+        at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+      code: 'credentials_bad_format',
+      status: 401,
+      inner: { message: 'Format is Authorization: Bearer [token]' }
+    },
+    level: 'error',
+    message: 'uncaughtException: Format is Authorization: Bearer [token]\n' +
+      'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    stack: 'UnauthorizedError: Format is Authorization: Bearer [token]\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:73:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    exception: true,
+    date: 'Fri May 05 2023 13:07:20 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 79502,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 32444416,
+        heapTotal: 34213888,
+        heapUsed: 32165160,
+        external: 20010354,
+        arrayBuffers: 18330807
+      }
+    },
+    os: {
+      loadavg: [ 1.794921875, 2.16845703125, 2.40869140625 ],
+      uptime: 1119650
+    },
+    trace: [
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js',
+        function: 'middleware',
+        line: 73,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 13,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'next',
+        line: 137,
+        method: null,
+        native: false
+      },
+      {
+        column: 3,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'Route.dispatch',
+        line: 112,
+        method: 'dispatch',
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 22,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: null,
+        line: 281,
+        method: null,
+        native: false
+      },
+      {
+        column: 14,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'param',
+        line: 354,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'paramCallback',
+        line: 401,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js',
+        function: null,
+        line: 108,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js',
+        function: null,
+        line: 4931,
+        method: null,
+        native: false
+      },
+      {
+        column: 11,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 77,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        authorization: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDFmMGRjODM0MDAwOTEzZGM5MWIwMTYiLCJpYXQiOjE2ODMyNzExNDl9.xvXolwfBeRGdTrFvTSle47AAL7Hgqvd-hrk2x5VRNlg"',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:37:20.692Z'
+}
+{
+  meta: {
+    error: UnauthorizedError: No authorization token was found
+        at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22
+        at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)
+        at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18
+        at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+      code: 'credentials_required',
+      status: 401,
+      inner: { message: 'No authorization token was found' }
+    },
+    level: 'error',
+    message: 'uncaughtException: No authorization token was found\n' +
+      'UnauthorizedError: No authorization token was found\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    stack: 'UnauthorizedError: No authorization token was found\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    exception: true,
+    date: 'Fri May 05 2023 13:07:23 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 79502,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 32407552,
+        heapTotal: 34213888,
+        heapUsed: 32078704,
+        external: 19994197,
+        arrayBuffers: 18314650
+      }
+    },
+    os: {
+      loadavg: [ 1.81103515625, 2.16552734375, 2.40625 ],
+      uptime: 1119653
+    },
+    trace: [
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js',
+        function: 'middleware',
+        line: 79,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 13,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'next',
+        line: 137,
+        method: null,
+        native: false
+      },
+      {
+        column: 3,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'Route.dispatch',
+        line: 112,
+        method: 'dispatch',
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 22,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: null,
+        line: 281,
+        method: null,
+        native: false
+      },
+      {
+        column: 14,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'param',
+        line: 354,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'paramCallback',
+        line: 401,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js',
+        function: null,
+        line: 108,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js',
+        function: null,
+        line: 4931,
+        method: null,
+        native: false
+      },
+      {
+        column: 11,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 77,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:37:23.596Z'
+}
+{
+  meta: {
+    error: UnauthorizedError: No authorization token was found
+        at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22
+        at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)
+        at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5
+        at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18
+        at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+      code: 'credentials_required',
+      status: 401,
+      inner: { message: 'No authorization token was found' }
+    },
+    level: 'error',
+    message: 'uncaughtException: No authorization token was found\n' +
+      'UnauthorizedError: No authorization token was found\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    stack: 'UnauthorizedError: No authorization token was found\n' +
+      '    at middleware (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js:79:21)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at next (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:137:13)\n' +
+      '    at Route.dispatch (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js:112:3)\n' +
+      '    at Layer.handle [as handle_request] (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js:95:5)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:281:22\n' +
+      '    at param (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:354:14)\n' +
+      '    at paramCallback (/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js:401:21)\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js:108:5\n' +
+      '    at /Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js:4931:18\n' +
+      '    at processTicksAndRejections (internal/process/task_queues.js:77:11)',
+    exception: true,
+    date: 'Fri May 05 2023 13:07:24 GMT+0530 (India Standard Time)',
+    process: {
+      pid: 79502,
+      uid: 501,
+      gid: 20,
+      cwd: '/Users/ashinlaurel/WebDev/icare-app/Backend',
+      execPath: '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+      version: 'v14.17.6',
+      argv: [
+        '/Users/ashinlaurel/.nvm/versions/node/v14.17.6/bin/node',
+        '/Users/ashinlaurel/WebDev/icare-app/Backend/app.js'
+      ],
+      memoryUsage: {
+        rss: 37085184,
+        heapTotal: 34213888,
+        heapUsed: 31905232,
+        external: 19991967,
+        arrayBuffers: 18312420
+      }
+    },
+    os: {
+      loadavg: [ 1.81103515625, 2.16552734375, 2.40625 ],
+      uptime: 1119654
+    },
+    trace: [
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express-jwt/lib/index.js',
+        function: 'middleware',
+        line: 79,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 13,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'next',
+        line: 137,
+        method: null,
+        native: false
+      },
+      {
+        column: 3,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/route.js',
+        function: 'Route.dispatch',
+        line: 112,
+        method: 'dispatch',
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/layer.js',
+        function: 'Layer.handle [as handle_request]',
+        line: 95,
+        method: 'handle [as handle_request]',
+        native: false
+      },
+      {
+        column: 22,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: null,
+        line: 281,
+        method: null,
+        native: false
+      },
+      {
+        column: 14,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'param',
+        line: 354,
+        method: null,
+        native: false
+      },
+      {
+        column: 21,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/express/lib/router/index.js',
+        function: 'paramCallback',
+        line: 401,
+        method: null,
+        native: false
+      },
+      {
+        column: 5,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/controllers/employee/EmployeeAuth.js',
+        function: null,
+        line: 108,
+        method: null,
+        native: false
+      },
+      {
+        column: 18,
+        file: '/Users/ashinlaurel/WebDev/icare-app/Backend/node_modules/mongoose/lib/model.js',
+        function: null,
+        line: 4931,
+        method: null,
+        native: false
+      },
+      {
+        column: 11,
+        file: 'internal/process/task_queues.js',
+        function: 'processTicksAndRejections',
+        line: 77,
+        method: null,
+        native: false
+      }
+    ],
+    req: {
+      url: '/api/asset/601f0dc834000913dc91b016/apitest',
+      headers: {
+        'user-agent': 'vscode-restclient',
+        'content-type': 'application/json',
+        'accept-encoding': 'gzip, deflate',
+        'content-length': '22',
+        host: 'localhost:3000',
+        connection: 'close'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/api/asset/601f0dc834000913dc91b016/apitest',
+      query: {}
+    }
+  },
+  level: 'error',
+  message: 'middlewareError',
+  timestamp: '2023-05-05T07:37:24.913Z'
+}
