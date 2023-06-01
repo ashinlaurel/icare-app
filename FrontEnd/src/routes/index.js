@@ -40,6 +40,10 @@ const ViewAccounts = lazy(() => import("../pages/MyAssets/ViewAccounts"));
 //--------------------------- My Asset Imports------------------
 const EmpProfile = lazy(() => import("../pages/Employee/EmpProfilePage"));
 const CustProfile = lazy(() => import("../pages/Customers/CustProfilePage"));
+
+//---------------------------Settings page imports ---------------
+const Settings = lazy(() => import("../pages/Settings/SettingsPage"));
+
 // ---------------------------Single Asset View ------------------------
 const AssetView = lazy(() => import("../pages/ViewAsset/Assetview"));
 
@@ -224,6 +228,12 @@ export const aroutes = [
   {
     path: "/Custprofile",
     component: CustProfile,
+  },
+
+  // ---------------------Settings Views ------------------------/
+  {
+    path: "/settings",
+    component: Settings,
   },
 
   // ----------------------Employee Views ----------------------/

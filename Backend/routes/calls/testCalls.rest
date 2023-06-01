@@ -1,0 +1,13 @@
+//Get all routes. Search query is compulsory for this route. (NOT WORKING!)
+POST http://localhost:3000/api/call/601f0dc834000913dc91b016/getAll
+Content-Type: application/json
+
+{
+    "pages":{
+        "page": 1,
+        "limit": 100000
+    },
+    "filters":{
+        "searchquery": ""
+    }
+}

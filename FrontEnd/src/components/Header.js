@@ -70,7 +70,9 @@ function Header() {
   }
 
   function handleProfileClick() {
-    setIsProfileMenuOpen(!isProfileMenuOpen);
+    setIsProfileMenuOpen((prevState) => {
+      return !prevState;
+    });
   }
 
   return (
@@ -164,6 +166,7 @@ function Header() {
               onClick={handleProfileClick}
               aria-label="Account"
               aria-haspopup="true"
+              key={isProfileMenuOpen.toString()}
             >
               <Avatar
                 className="align-middle"
@@ -175,7 +178,12 @@ function Header() {
             <Dropdown
               align="right"
               isOpen={isProfileMenuOpen}
-              onClose={() => setIsProfileMenuOpen(false)}
+              onBlur={() => {
+                setIsProfileMenuOpen(false);
+              }}
+              onClose={() => {
+                // setIsProfileMenuOpen(false);
+              }}
             >
               <DropdownItem
                 tag="a"
@@ -192,7 +200,13 @@ function Header() {
                 />
                 <span>Profile</span>
               </DropdownItem>
-              <DropdownItem tag="a" href="#">
+              <DropdownItem
+                tag="a"
+                href="#"
+                onClick={() => {
+                  history.push("/app/settings");
+                }}
+              >
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>

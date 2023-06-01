@@ -14,6 +14,7 @@ const CustomerAuthRoute = require("./routes/customer/CustomerAuth");
 const AccountRoute = require("./routes/customer/Account");
 
 const EmployeeAuthRoute = require("./routes/employee/EmployeeAuth");
+const SettingsRoute = require("./routes/settings/settings");
 //unit
 const UnitRoute = require("./routes/unit/Unit");
 // const userRoute = require("./routes/user");
@@ -39,6 +40,11 @@ const imgUploadRoute = require("./routes/uploadapi");
 //contactus API
 const ContactUs = require("./routes/contactus/contactus");
 const { contractCheckForAssets } = require("./controllers/assets/assetcron");
+const { sendReportsEmail } = require("./controllers/reports/emailReports");
+const { TotalCallsGenerate } = require("./controllers/reports/ReportsHelper");
+
+//Reports API
+const ReportsRoute = require("./routes/reports/reports");
 
 // Middlewares
 app.use(bodyParser.json());
@@ -81,6 +87,9 @@ app.use("/api/customer", CustomerAuthRoute);
 app.use("/api/account", AccountRoute);
 app.use("/api/admin", EmployeeAuthRoute);
 
+// Settings route
+app.use("/api/settings", SettingsRoute);
+
 //unit Routes -------------------------------------------------
 app.use("/api/unit", UnitRoute);
 
@@ -115,6 +124,9 @@ app.use("/api/attendance", attendanceRoute);
 
 app.use("/api/leave", leaveformRoute);
 
+//Reports Route --------------------------------------------------
+app.use("/api/reports", ReportsRoute);
+
 // app.get("/", (req, res) => res.send("Hello World!"));
 
 //Schedules CRON job at 3:00Am IST to update ASSETS
@@ -122,6 +134,14 @@ cron.schedule("0 3 * * *", contractCheckForAssets, {
   timezone: "Asia/Kolkata",
   scheduled: true,
 });
+
+//Schedule cron job at 12:05am IST to send email of all reports
+cron.schedule("5 0 * * *", sendReportsEmail, {
+  timezone: "Asia/Kolkata",
+  scheduled: true,
+});
+
+// sendReportsEmail();
 
 //Port and Listen
 const port = process.env.PORT || 3000;
