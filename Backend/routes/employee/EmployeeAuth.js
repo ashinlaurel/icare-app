@@ -13,8 +13,6 @@ const {
   getAllEmpCalls,
   getCallsByEmpId,
   getEmployeeList,
-  getReportsEmail,
-  setReportsEmail,
 } = require("../../controllers/employee/Employee");
 const {
   signup,

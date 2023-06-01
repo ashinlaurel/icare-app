@@ -21,21 +21,23 @@ export default function SettingsPage() {
   //0 refers to model closed, 1 refers to model open with sucess, 2 refers to model open with unnsuccessful
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(0);
   //Populate emails initially by using the data in mongoDb
-  useEffect(async () => {
-    try {
-      const result = await Axios({
-        url: `${API}/settings/getReportsEmails`,
-      });
-      const tempEmails = result.data.emails;
-      if (tempEmails) {
-        setEmails(tempEmails);
+  useEffect(() => {
+    (async function thegetter() {
+      try {
+        const result = await Axios({
+          url: `${API}/settings/${Emp.getId()}/getReportsEmails`,
+        });
+        const tempEmails = result.data.emails;
+        if (tempEmails) {
+          setEmails(tempEmails);
+        }
+      } catch (e) {
+        console.log(
+          "Error occured in useEffect while trying to getReportsEmails: ",
+          e
+        );
       }
-    } catch (e) {
-      console.log(
-        "Error occured in useEffect while trying to getReportsEmails: ",
-        e
-      );
-    }
+    })();
   }, []);
 
   const ReviewSubmit = () => {
@@ -85,7 +87,7 @@ export default function SettingsPage() {
               //Call the backend route to set emails in database
               try {
                 let result = await Axios({
-                  url: `${API}/settings/setReportsEmails`,
+                  url: `${API}/settings/${Emp.getId()}/setReportsEmails`,
                   method: "POST",
                   data: { emails, empId },
                 });
@@ -133,14 +135,14 @@ export default function SettingsPage() {
                 />
               </div>
             </div>
-            <hr className="mb-5 mt-2" />
+            <hr className="mb-2 mt-4" />
             {/* <div className="grid gap-2 grid-cols-3"> */}
             <div className="flex flex-wrap ">
               {emails.map((item, i) => {
                 return (
                   <div key={i} className="w-1/3 px-4 py-2 ">
                     <div className="flex flex-col lg:flex-row items-center justify-start lg:space-x-8">
-                      <Label className="w-full my-3">
+                      <Label className="w-full my-1">
                         <span>Email {i + 1}</span>
                         <Input
                           className={`mt-1 border ${
@@ -175,7 +177,7 @@ export default function SettingsPage() {
   return (
     <>
       {ReviewSubmit()}
-      <div className="my-20">
+      <div className="">
         <PageTitle>Settings</PageTitle>
         {Emp.getRole() === 0 && reportsEmailSetting()}
         <div className="grid gap-8 my-8 md:grid-cols-2 xl:grid-cols-4"></div>

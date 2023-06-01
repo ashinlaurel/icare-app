@@ -24,7 +24,7 @@ export const getInvChartData = async () => {
       labels: tLabel,
       datasets: [
         {
-          label: "Bags",
+          label: "No.",
           backgroundColor: "#7e3af2",
           // borderColor: window.chartColors.blue,
           borderWidth: 1,
