@@ -1,34 +1,31 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
-import moment from "moment";
-import axios from "axios";
-import { saveAs } from "file-saver";
-
-import Emp from "../../helpers/auth/EmpProfile";
-import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
-
-import { MenuIcon, EditIcon, TrashIcon } from "../../icons";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
-
 import {
-  TableBody,
-  TableContainer,
-  Table,
-  TableHeader,
-  TableCell,
-  TableRow,
-  Button,
-  TableFooter,
   Badge,
-  Pagination,
+  Button,
   Dropdown,
   DropdownItem,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHeader,
+  TableRow,
 } from "@windmill/react-ui";
+import { EditIcon, MenuIcon, TrashIcon } from "../../icons";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "@windmill/react-ui";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { API } from "../../backendapi";
-import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
 import { BottomBarContext } from "../../context/BottomBarContext";
+import CustomerSelection from "../../components/Modal/AssetFilters/CustomerSelection";
+import Emp from "../../helpers/auth/EmpProfile";
 import { Link } from "react-router-dom";
 import { TopBarContext } from "../../context/TopBarContext";
+import axios from "axios";
+import { capitalize } from "../../helpers/toolfuctions/toolfunctions";
+import moment from "moment";
+import { saveAs } from "file-saver";
 
 function Assets() {
   // Bottom bar stuff
@@ -121,7 +118,7 @@ function Assets() {
                 <TableBody>
                   {assethistory.map((entry, i) => (
                     <TableRow
-                      className={`hover:shadow-lg dark:hover:bg-gray-600 
+                      className={`hover:shadow-lg dark:hover:bg-gray-600
                        `}
                       key={i}
                       onClick={() => {
@@ -377,37 +374,86 @@ function Assets() {
     let maxotherscount = 0;
 
     array.map((temp, i) => {
-      maxcpucount = Math.max(maxcpucount, temp.product.cpu.length);
-      maxramcount = Math.max(maxramcount, temp.product.ram.length);
-      maxhddcount = Math.max(maxhddcount, temp.product.hdd.length);
-      maxsmpscount = Math.max(maxsmpscount, temp.product.smps.length);
-      maxfancount = Math.max(maxfancount, temp.product.fan.length);
-      maxmotherboardcount = Math.max(
-        maxmotherboardcount,
-        temp.product.motherboard.length
-      );
-      maxopticaldrivecount = Math.max(
-        maxopticaldrivecount,
-        temp.product.opticaldrive.length
-      );
-      maxkeybdcount = Math.max(maxkeybdcount, temp.product.keyboard.length);
-      maxmousecount = Math.max(maxmousecount, temp.product.mouse.length);
-      maxmonitorcount = Math.max(maxmonitorcount, temp.product.monitor.length);
-      maxgcardcount = Math.max(maxgcardcount, temp.product.gcard.length);
-      maxenetcount = Math.max(maxenetcount, temp.product.enetcard.length);
-      maxserialcardcount = Math.max(
-        maxserialcardcount,
-        temp.product.serialcard.length
-      );
-      maxparalellcardcount = Math.max(
-        maxparalellcardcount,
-        temp.product.parallelcard.length
-      );
-      maxhbacardcount = Math.max(maxhbacardcount, temp.product.hbacard.length);
-      maxraidcount = Math.max(maxraidcount, temp.product.raidcontroller.length);
-      maxtapecount = Math.max(maxtapecount, temp.product.tapecontroller.length);
-      maxotherscount = Math.max(maxotherscount, temp.product.others.length);
+      if (temp.product?.cpu) {
+        maxcpucount = Math.max(maxcpucount, temp.product.cpu.length);
+      }
+      if (temp.product?.ram) {
+        maxramcount = Math.max(maxramcount, temp.product.ram.length);
+      }
+      if (temp.product?.hdd) {
+        maxhddcount = Math.max(maxhddcount, temp.product.hdd.length);
+      }
+      if (temp.product?.smps) {
+        maxsmpscount = Math.max(maxsmpscount, temp.product.smps.length);
+      }
+      if (temp.product?.fan) {
+        maxfancount = Math.max(maxfancount, temp.product.fan.length);
+      }
+      if (temp.product?.motherboard) {
+        maxmotherboardcount = Math.max(
+          maxmotherboardcount,
+          temp.product.motherboard.length
+        );
+      }
+      if (temp.product?.opticaldrive) {
+        maxopticaldrivecount = Math.max(
+          maxopticaldrivecount,
+          temp.product.opticaldrive.length
+        );
+      }
+      if (temp.product?.keyboard) {
+        maxkeybdcount = Math.max(maxkeybdcount, temp.product.keyboard.length);
+      }
+      if (temp.product?.mouse) {
+        maxmousecount = Math.max(maxmousecount, temp.product.mouse.length);
+      }
+      if (temp.product?.monitor) {
+        maxmonitorcount = Math.max(
+          maxmonitorcount,
+          temp.product.monitor.length
+        );
+      }
+      if (temp.product?.gcard) {
+        maxgcardcount = Math.max(maxgcardcount, temp.product.gcard.length);
+      }
+      if (temp.product?.enetcard) {
+        maxenetcount = Math.max(maxenetcount, temp.product.enetcard.length);
+      }
+      if (temp.product?.serialcard) {
+        maxserialcardcount = Math.max(
+          maxserialcardcount,
+          temp.product.serialcard.length
+        );
+      }
+      if (temp.product?.parallelcard) {
+        maxparalellcardcount = Math.max(
+          maxparalellcardcount,
+          temp.product.parallelcard.length
+        );
+      }
+      if (temp.product?.hbacard) {
+        maxhbacardcount = Math.max(
+          maxhbacardcount,
+          temp.product.hbacard.length
+        );
+      }
+      if (temp.product?.raidcontroller) {
+        maxraidcount = Math.max(
+          maxraidcount,
+          temp.product.raidcontroller.length
+        );
+      }
+      if (temp.product?.tapecontroller) {
+        maxtapecount = Math.max(
+          maxtapecount,
+          temp.product.tapecontroller.length
+        );
+      }
+      if (temp.product?.others) {
+        maxotherscount = Math.max(maxotherscount, temp.product.others.length);
+      }
     });
+
     // console.log("maxcpucount=", maxcpucount);
 
     let csv = `ProductType,Customer,Account,Unit,Business,Brand,Model,SerialNumber,OperatingSystem,`;
@@ -488,115 +534,127 @@ function Assets() {
     array.map((i, count) => {
       csv =
         csv +
-        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product.brand}","${i.product.model}","${i.product.serialno}","${i.product.os}",`;
+        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product?.brand}","${i.product?.model}","${i.product?.serialno}","${i.product?.os}",`;
       //cpu insert
       for (let temp = 0; temp < maxcpucount; temp++) {
-        if (i.product.cpu[temp]) {
+        if (i.product?.cpu[temp]) {
           csv += `"${i.product.cpu[temp].cpuname}","${i.product.cpu[temp].cpusno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //ram insert
       for (let temp = 0; temp < maxramcount; temp++) {
-        if (i.product.ram[temp]) {
+        if (i.product?.ram[temp]) {
           csv += `"${i.product.ram[temp].ramname}","${i.product.ram[temp].ramsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //hdd insert
       for (let temp = 0; temp < maxhddcount; temp++) {
-        if (i.product.hdd[temp]) {
+        if (i.product?.hdd[temp]) {
           csv += `"${i.product.hdd[temp].hddname}","${i.product.hdd[temp].hddsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //smps insert
       for (let temp = 0; temp < maxsmpscount; temp++) {
-        if (i.product.smps[temp]) {
+        if (i.product?.smps[temp]) {
           csv += `"${i.product.smps[temp].smpsname}","${i.product.smps[temp].smpssno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //fan insert
       for (let temp = 0; temp < maxfancount; temp++) {
-        if (i.product.fan[temp]) {
+        if (i.product?.fan[temp]) {
           csv += `"${i.product.fan[temp].fanname}","${i.product.fan[temp].fansno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //motherboard insert
       for (let temp = 0; temp < maxmotherboardcount; temp++) {
-        if (i.product.motherboard[temp]) {
+        if (i.product?.motherboard[temp]) {
           csv += `"${i.product.motherboard[temp].motherboardname}","${i.product.motherboard[temp].motherboardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //optical insert
       for (let temp = 0; temp < maxopticaldrivecount; temp++) {
-        if (i.product.opticaldrive[temp]) {
+        if (i.product?.opticaldrive[temp]) {
           csv += `"${i.product.opticaldrive[temp].opticaldrivename}","${i.product.opticaldrive[temp].opticaldrivesno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //keyboard insert
       for (let temp = 0; temp < maxkeybdcount; temp++) {
-        if (i.product.keyboard[temp]) {
+        if (i.product?.keyboard[temp]) {
           csv += `"${i.product.keyboard[temp].keyboardname}","${i.product.keyboard[temp].keyboardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //mouse insert
       for (let temp = 0; temp < maxmousecount; temp++) {
-        if (i.product.mouse[temp]) {
+        if (i.product?.mouse[temp]) {
           csv += `"${i.product.mouse[temp].mousename}","${i.product.mouse[temp].mousesno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //monitor insert
       for (let temp = 0; temp < maxmonitorcount; temp++) {
-        if (i.product.monitor[temp]) {
+        if (i.product?.monitor[temp]) {
           csv += `"${i.product.monitor[temp].monitorname}","${i.product.monitor[temp].monitorsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //gcard insert
       for (let temp = 0; temp < maxgcardcount; temp++) {
-        if (i.product.gcard[temp]) {
+        if (i.product?.gcard[temp]) {
           csv += `"${i.product.gcard[temp].gcardname}","${i.product.gcard[temp].gcardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //enet insert
       for (let temp = 0; temp < maxenetcount; temp++) {
-        if (i.product.enetcard[temp]) {
+        if (i.product?.enetcard[temp]) {
           csv += `"${i.product.enetcard[temp].enetcardname}","${i.product.enetcard[temp].enetcardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //serial insert
       for (let temp = 0; temp < maxserialcardcount; temp++) {
-        if (i.product.serialcard[temp]) {
+        if (i.product?.serialcard[temp]) {
           csv += `"${i.product.serialcard[temp].serialcardname}","${i.product.serialcard[temp].serialcardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //parallel insert
       for (let temp = 0; temp < maxparalellcardcount; temp++) {
-        // TODO must fix this laterrrr
-        if (i.product.parallelcard[temp]) {
+        if (i.product?.parallelcard[temp]) {
           let tstring = JSON.parse(
             JSON.stringify(i.product.parallelcard[temp])
           );
@@ -613,24 +671,17 @@ function Assets() {
 
       //hba insert
       for (let temp = 0; temp < maxhbacardcount; temp++) {
-        if (i.product.hbacard[temp]) {
+        if (i.product?.hbacard[temp]) {
           csv += `"${i.product.hbacard[temp].hbacardname}","${i.product.hbacard[temp].hbacardsno}",`;
         } else {
           csv += `"","",`;
         }
       }
+
       //raid controller insert
       for (let temp = 0; temp < maxraidcount; temp++) {
-        if (i.product.raidcontroller[temp]) {
+        if (i.product?.raidcontroller[temp]) {
           csv += `"${i.product.raidcontroller[temp].raidcontrollername}","${i.product.raidcontroller[temp].raidcontrollersno}",`;
-        } else {
-          csv += `"","",`;
-        }
-      }
-      //tape controller insert
-      for (let temp = 0; temp < maxtapecount; temp++) {
-        if (i.product.tapecontroller[temp]) {
-          csv += `"${i.product.tapecontroller[temp].tapecontrollername}","${i.product.tapecontroller[temp].tapecontrollersno}",`;
         } else {
           csv += `"","",`;
         }
@@ -638,7 +689,7 @@ function Assets() {
 
       //tape controller insert
       for (let temp = 0; temp < maxtapecount; temp++) {
-        if (i.product.tapecontroller[temp]) {
+        if (i.product?.tapecontroller[temp]) {
           csv += `"${i.product.tapecontroller[temp].tapecontrollername}","${i.product.tapecontroller[temp].tapecontrollersno}",`;
         } else {
           csv += `"","",`;
@@ -647,7 +698,7 @@ function Assets() {
 
       //others controller insert
       for (let temp = 0; temp < maxotherscount; temp++) {
-        if (i.product.others[temp]) {
+        if (i.product?.others[temp]) {
           csv += `"${i.product.others[temp].othersname}","${i.product.others[temp].otherssno}",`;
         } else {
           csv += `"","",`;
