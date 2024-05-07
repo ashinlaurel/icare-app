@@ -278,12 +278,20 @@ function Assets() {
   };
 
   const DwnldModal = () => {
+    const [isDownloading, setIsDownloading] = useState(false);
+
+    const handleDownload = async (downloadFunction) => {
+      setIsDownloading(true);
+      await downloadFunction();
+      setIsDownloading(false);
+    };
+
     return (
       <>
         <Modal
           isOpen={isDwnldModalOpen}
           onClose={() => setIsDwnldModalOpen(false)}
-          className=" dark:bg-gray-800 p-5  mx-10  bg-gray-50 text-gray-900 dark:text-white text-center  rounded-lg "
+          className=" dark:bg-gray-800 p-5 mx-10 bg-gray-50 text-gray-900 dark:text-white text-center rounded-lg "
         >
           <ModalHeader className="">
             <div className="text-lg">Select Type Of Export</div>
@@ -292,35 +300,30 @@ function Assets() {
             <div className="flex flex-row items-center justify-between space-x-4">
               <Button
                 layout="outline"
-                onClick={() => {
-                  downloadAssets();
-                }}
+                onClick={() => handleDownload(downloadAssets)}
               >
                 Full Database
               </Button>
               <Button
                 layout="outline"
-                onClick={() => {
-                  downloadContractDetails();
-                }}
+                onClick={() => handleDownload(downloadContractDetails)}
               >
                 Contract Details
               </Button>
               <Button
                 layout="outline"
-                onClick={() => {
-                  downloadMIFDetails();
-                }}
+                onClick={() => handleDownload(downloadMIFDetails)}
               >
                 Brief MIF
               </Button>
             </div>
+            {isDownloading && <div className="mt-8">Downloading, please wait...</div>}
           </ModalBody>
-          {/* <ModalFooter></ModalFooter> */}
         </Modal>
       </>
     );
   };
+
 
   const downloadAssets = async () => {
     let array;
@@ -456,7 +459,7 @@ function Assets() {
 
     // console.log("maxcpucount=", maxcpucount);
 
-    let csv = `ProductType,Customer,Account,Unit,Business,Brand,Model,SerialNumber,OperatingSystem,`;
+    let csv = `ProductType,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Brand,Model,SerialNumber,OperatingSystem,`;
     //cpu headings
     for (let ttt = 1; ttt <= maxcpucount; ttt++) {
       csv += `CPU ${ttt},CPU ${ttt} SNo,`;
@@ -534,7 +537,17 @@ function Assets() {
     array.map((i, count) => {
       csv =
         csv +
-        `"${i.producttype}","${i.customerName}","${i.accountName}","${i.unitName}","${i.business}","${i.product?.brand}","${i.product?.model}","${i.product?.serialno}","${i.product?.os}",`;
+        `"${i.producttype}","${i.customerName}","${i.accountName}","${
+          i.unitName
+        }","${i.business}","${i.ponumber}","${moment(i.podate).format(
+          "DD/MM/YYYY"
+        )}","${moment(i.contractfrom).format("DD/MM/YYYY")}","${moment(
+          i.contractto
+        ).format("DD/MM/YYYY")}","${moment(i.billingfrom).format(
+          "DD/MM/YYYY"
+        )}","${moment(i.billingto).format("DD/MM/YYYY")}","${
+          i.product?.brand
+        }","${i.product?.model}","${i.product?.serialno}","${i.product?.os}",`;
       //cpu insert
       for (let temp = 0; temp < maxcpucount; temp++) {
         if (i.product?.cpu[temp]) {
@@ -713,7 +726,7 @@ function Assets() {
   };
 
   const downloadContractDetails = async () => {
-    let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,\n`;
+    let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,\n`;
 
     let array;
     let payload = {
@@ -739,30 +752,30 @@ function Assets() {
         method: "POST",
         data: payload,
       });
-      console.log(response.data.out);
+      // console.log(response.data.out);
       array = response.data.out;
       // return response.data;
     } catch (error) {
       throw error;
     }
 
-    // let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,Expiry Month,Product,SerialNo,\n`;
+    // let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,Expiry Month,Product,SerialNo,\n`;
     array.map((i, count) => {
       csv =
         csv +
         `"${count + 1}","${i.customerName}","${i.accountName}","${
           i.unitName
-        }","${i.ponumber}","${moment(i.podate).format("DD/MM/YYYY")}","${moment(
-          i.contractfrom
-        ).format("DD/MM/YYYY")}","${moment(i.contractto).format(
+        }","${i.business}","${i.ponumber}","${moment(i.podate).format(
           "DD/MM/YYYY"
-        )}","${moment(i.billingfrom).format("DD/MM/YYYY")}","${moment(
-          i.billingto
-        ).format("DD/MM/YYYY")}","${i.amcrate}","${i.gstamount}","${
-          i.netamount
-        }","${moment(i.contractto).format("MMMM")}","${i.producttype}","${
-          i.product.serialno
-        }",\n`;
+        )}","${moment(i.contractfrom).format("DD/MM/YYYY")}","${moment(
+          i.contractto
+        ).format("DD/MM/YYYY")}","${moment(i.billingfrom).format(
+          "DD/MM/YYYY"
+        )}","${moment(i.billingto).format("DD/MM/YYYY")}","${i.amcrate}","${
+          i.gstamount
+        }","${i.netamount}","${moment(i.contractto).format("MMMM")}","${
+          i.producttype
+        }","${i.product?.serialno}",\n`;
     });
     console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -816,23 +829,23 @@ function Assets() {
         ).format("DD/MM/YYYY")}","${i.amcrate}","${i.gstamount}","${
           i.netamount
         }","${moment(i.contractto).format("MMMM")}","${i.producttype}","${
-          i.product.serialno
+          i.product?.serialno
         }","${
-          i.product.keyboard.length != 0
-            ? i.product.keyboard[0].keyboardname
+          i.product?.keyboard.length != 0
+            ? i.product?.keyboard[0].keyboardname
             : ""
         }","${
-          i.product.keyboard.length != 0
-            ? i.product.keyboard[0].keyboardsno
+          i.product?.keyboard.length != 0
+            ? i.product?.keyboard[0].keyboardsno
             : ""
         }","${
-          i.product.mouse.length != 0 ? i.product.mouse[0].mousename : ""
+          i.product?.mouse.length != 0 ? i.product?.mouse[0].mousename : ""
         }","${
-          i.product.mouse.length != 0 ? i.product.mouse[0].mousesno : ""
+          i.product?.mouse.length != 0 ? i.product?.mouse[0].mousesno : ""
         }","${
-          i.product.monitor.length != 0 ? i.product.monitor[0].monitorname : ""
+          i.product?.monitor.length != 0 ? i.product?.monitor[0].monitorname : ""
         }","${
-          i.product.monitor.length != 0 ? i.product.monitor[0].monitorsno : ""
+          i.product?.monitor.length != 0 ? i.product?.monitor[0].monitorsno : ""
         }",\n`;
     });
     console.log(csv); //product.
