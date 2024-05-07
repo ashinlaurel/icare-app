@@ -317,13 +317,14 @@ function Assets() {
                 Brief MIF
               </Button>
             </div>
-            {isDownloading && <div className="mt-8">Downloading, please wait...</div>}
+            {isDownloading && (
+              <div className="mt-8">Downloading, please wait...</div>
+            )}
           </ModalBody>
         </Modal>
       </>
     );
   };
-
 
   const downloadAssets = async () => {
     let array;
@@ -726,7 +727,7 @@ function Assets() {
   };
 
   const downloadContractDetails = async () => {
-    let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,\n`;
+    let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,Brand,Model,SerialNo,\n`;
 
     let array;
     let payload = {
@@ -759,7 +760,7 @@ function Assets() {
       throw error;
     }
 
-    // let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,Expiry Month,Product,SerialNo,\n`;
+    // let csv = `SLNo,Customer,Account,Unit,Business,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,Brand,Model,SerialNo,\n`;
     array.map((i, count) => {
       csv =
         csv +
@@ -775,14 +776,16 @@ function Assets() {
           i.gstamount
         }","${i.netamount}","${moment(i.contractto).format("MMMM")}","${
           i.producttype
-        }","${i.product?.serialno}",\n`;
+        }","${i.product?.brand}","${i.product?.model}","${
+          i.product?.serialno
+        }",\n`;
     });
     console.log(csv); //product.
     const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     saveAs(csvData, "Assets.csv");
   };
   const downloadMIFDetails = async () => {
-    let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,SerialNo,Keyboard,KbdSerialNo,Mouse,MouseSerialNo,Monitor,MonitorSerialNo,\n`;
+    let csv = `SLNo,Customer,Account,Unit,PoNumber,PoDate,ContactFrom,ContractTo,BillingFrom,BillingTo,Rate,Gst,Amount,ExpiryMonth,Product,Brand,Model,SerialNo,Keyboard,KbdSerialNo,Mouse,MouseSerialNo,Monitor,MonitorSerialNo,\n`;
 
     let array;
     let payload = {
@@ -829,8 +832,8 @@ function Assets() {
         ).format("DD/MM/YYYY")}","${i.amcrate}","${i.gstamount}","${
           i.netamount
         }","${moment(i.contractto).format("MMMM")}","${i.producttype}","${
-          i.product?.serialno
-        }","${
+          i.product?.brand
+        }","${i.product?.model}","${i.product?.serialno}","${
           i.product?.keyboard.length != 0
             ? i.product?.keyboard[0].keyboardname
             : ""
@@ -843,7 +846,9 @@ function Assets() {
         }","${
           i.product?.mouse.length != 0 ? i.product?.mouse[0].mousesno : ""
         }","${
-          i.product?.monitor.length != 0 ? i.product?.monitor[0].monitorname : ""
+          i.product?.monitor.length != 0
+            ? i.product?.monitor[0].monitorname
+            : ""
         }","${
           i.product?.monitor.length != 0 ? i.product?.monitor[0].monitorsno : ""
         }",\n`;
