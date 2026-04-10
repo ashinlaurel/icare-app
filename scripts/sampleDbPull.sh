@@ -2,6 +2,9 @@
 
 set -e
 
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+ARCHIVE="$PROJECT_ROOT/sampleDBData.tar.gz"
+
 CONTAINER=$(docker compose ps -q mongo)
 
 if [ -z "$CONTAINER" ]; then
@@ -9,12 +12,25 @@ if [ -z "$CONTAINER" ]; then
   exit 1
 fi
 
-echo "Copying sample DB into container..."
+TMP_DIR="/tmp/sampleDBData"
 
-docker cp ./sampleDBData "$CONTAINER":/seed
+echo "Extracting sample DB..."
 
-echo "Restoring database..."
+rm -rf "$TMP_DIR"
+mkdir -p "$TMP_DIR"
+
+tar -xzf "$ARCHIVE" -C "$TMP_DIR"
+
+echo "Copying DB into container..."
+
+docker cp "$TMP_DIR/sampleDBData" "$CONTAINER":/seed
+
+echo "Restoring DB..."
 
 docker exec "$CONTAINER" mongorestore --drop --db icare /seed
 
-echo "Done. Sample DB restored successfully."
+echo "Cleaning up temp files..."
+
+rm -rf "$TMP_DIR"
+
+echo "Sample DB restored successfully."
