@@ -294,7 +294,7 @@ exports.getAllAssets = (req, res) => {
         // console.log(product);
         let tasset = product.asset;
         final[i] = {
-          ...tasset._doc,
+          ...(tasset?._doc || {}),
           product: product,
         };
         // console.log(tasset);
