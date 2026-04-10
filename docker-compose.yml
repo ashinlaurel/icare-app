@@ -2,6 +2,8 @@ services:
   mongo:
     image: mongo:6
     restart: unless-stopped
+    ports:
+      - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
@@ -11,26 +13,25 @@ services:
     restart: unless-stopped
     depends_on:
       - mongo
-    environment:
-      - PORT=3000
-      - DATABASE=${DATABASE:-mongodb://mongo:27017/icare}
-      - SECRET=${SECRET}
-      - FRONT=${FRONT:-http://frontend}
-      - S3_ACCESSKEYID=${S3_ACCESSKEYID}
-      - S3_SECRETACCESSKEY=${S3_SECRETACCESSKEY}
-      - S3_REGION=${S3_REGION}
-      - S3_BUCEKT_NAME=${S3_BUCEKT_NAME}
+
+    env_file:
+      - .env.docker
 
   frontend:
     build:
       context: ./FrontEnd
       args:
-        REACT_APP_BACKEND: ${REACT_APP_BACKEND:-/api}
+        REACT_APP_BACKEND: /api
+
     restart: unless-stopped
     depends_on:
       - backend
+
     ports:
-      - "${APP_PORT:-8080}:80"
+      - "8080:80"
+
+    env_file:
+      - .env.docker
 
 volumes:
   mongo_data:
