@@ -102,3 +102,35 @@ Contributions to the project are always welcome. To contribute, follow these ste
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Docker (Production-Like Local Setup)
+
+This repo now includes a 3-container stack:
+- `frontend` (React build served by Nginx)
+- `backend` (Node/Express API)
+- `mongo` (MongoDB)
+
+### 1) Create Docker env file
+
+```bash
+cp .env.docker.example .env.docker
+```
+
+Update values in `.env.docker` (at least `SECRET`, and S3 values if you use uploads).
+
+### 2) Build and run
+
+```bash
+docker compose --env-file .env.docker up -d --build
+```
+
+### 3) Open the app
+
+- App: `http://localhost:8080` (or `APP_PORT` value)
+- API health: `http://localhost:8080/api/test`
+
+### 4) Stop
+
+```bash
+docker compose --env-file .env.docker down
+```

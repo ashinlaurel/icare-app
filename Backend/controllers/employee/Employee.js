@@ -360,7 +360,10 @@ exports.downloadsalaryPdf = async (req, res) => {
   let { id } = req.body;
 
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
     const page = await browser.newPage();
     await page.goto(`${process.env.FRONT}/salarypdf/${id}`, {
       waitUntil: "networkidle0",
