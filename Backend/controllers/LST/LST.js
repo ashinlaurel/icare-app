@@ -1,6 +1,4 @@
 const LST = require("../../models/LST/LST");
-const pdf = require("html-pdf");
-const pdfTemplate = require("../../documents/lst");
 const puppeteer = require("puppeteer");
 const moment = require("moment");
 

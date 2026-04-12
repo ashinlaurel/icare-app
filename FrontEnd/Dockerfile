@@ -3,7 +3,7 @@ FROM node:14.17.6-bullseye-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 COPY . .
 
