@@ -47,6 +47,18 @@ The staging website is publicly accessible over HTTPS so engineers can use it fr
 
 The initial environment uses **synthetic data only**. It has no production `.env`, database credentials, customer records, or backup dumps. A sanitized production-data import is a separate, explicit operation.
 
+On 20 October 2026, an explicitly authorized production dump was restored to the separate **`icare_audit_20261020`** database on this VM for unit-reference reconciliation. The public app still uses synthetic `icare_staging`; its database user has no access to the audit database. The dump, dry-run plans, original unit memberships, and repair results are root-only under `/var/lib/icare-audits/20261020-unit-repair/`. Do not change the app database URL to expose this confidential copy through the public site.
+
+### Repairing self-ID unit references in an isolated copy
+
+`repair-self-unit-references.cjs` accepts only a dated `icare_audit_YYYYMMDD` database, `APP_ENV=staging`, a private output directory under `/var/lib/icare-audits/`, and the staging Mongo administrator password supplied as `MONGO_AUDIT_PASSWORD`. It connects only to localhost and requires replica set `icare-staging`; production is not a supported target. Use root on the VM and load the administrator secret from `/etc/icare/mongo-admin.env` without printing it.
+
+Run without `--apply` to create a private plan and membership backup; inspect the counts and unresolved records. Add `--apply` only to execute an unchanged plan. Plans are checked against current records before writing; repairs and reciprocal unit-list changes run in one transaction, followed by verification. Existing output files are never overwritten automatically.
+
+Matching is scoped to customer/account ancestry and normalized unit names. For the known customer-as-account shortcut, a unique unit within the customer can establish the unit while preserving the separate account defect. Duplicate names need a unique existing unit membership or consistent valid historical call references. Optional spelling aliases are explicitly reviewed, customer/account scoped, stored privately in `unit-name-aliases.json`, and require an existing unit membership. Ambiguous records remain unresolved; no fuzzy global name matching is performed.
+
+The script changes only the self-ID assets' `unitId` fields and their `Unit.assetsId` memberships. It does not correct account IDs, copied display names, contracts, calls, hardware, missing snapshots, or stale references to deleted assets. Preserve the original archive for recovery; restore it into another isolated database if a clean baseline is needed. Never use this staging-only script to repair production.
+
 Read synthetic login credentials over your existing SSH access:
 
 ```sh

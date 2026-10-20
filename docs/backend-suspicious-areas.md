@@ -74,6 +74,8 @@ Handlers pass client-supplied update objects directly to Mongoose and do not req
 
 **Still open:** existing production records have not been repaired; ownership ancestry, reciprocal unit arrays, atomicity, matched-document checks, and hardware-link validation remain unresolved. Fixing this initialization does not resolve B06 as a whole.
 
+**Staging reconciliation, 20 October 2026:** the fix was merged to `staging`. A fresh production dump was restored to the isolated, authenticated `icare_audit_20261020` database on the test VM; it is not the public app database. All **905 self-ID unit references** were repaired there, with reciprocal unit memberships reconciled. Matching used owner-scoped names plus existing unit memberships, an explicitly reviewed spelling alias, and consistent historical call references where names alone were ambiguous. **296 repaired assets retain the separate customer-as-account defect**; production remains unchanged. The guarded [staging repair script](../deployment/staging/repair-self-unit-references.cjs) preserves a private dry-run plan and membership backup. This is validation of one cleanup operation, not resolution of the remaining B06 issues.
+
 **Trigger/outcome:** changing `unitId` leaves old/new `Unit.assetsId` arrays unchanged; changing product pointers or `Server.asset` can break reciprocal links. Server failure after Asset success leaves mixed versions. Duplicated owner names can become stale. Audit forward/back-links and customer/account/unit agreement. Treat reassignment and hardware changes as explicit operations.
 
 ### B07 · P1 · Asset deletion has incomplete cleanup and deletes before checking dependencies
