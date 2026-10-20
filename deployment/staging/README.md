@@ -21,7 +21,7 @@ The workflow also declares a **Run workflow** deploy/rollback choice. GitHub req
 - GitHub assumes a short-lived AWS role using OIDC. No AWS access key or SSH private key is stored in GitHub.
 - SSM runs `/usr/local/sbin/icare-deploy COMMIT_SHA` on the **staging instance only**.
 - The script acquires a deployment lock, verifies/extracts the archive, switches `/srv/icare/current`, and restarts only `icare-backend`.
-- Health checks must confirm MongoDB connectivity and the same frontend/backend commit. Failed verification restores the previous application release when one exists.
+- Health checks must confirm MongoDB connectivity and the same frontend/backend commit. Release smoke checks also verify synthetic login, SPA routing, disabled external integrations, PDF rendering and metadata isolation. Failed verification restores the previous application release when one exists.
 - `/srv/icare/previous` retains the previous successful release. No automatic database migrations run.
 
 Backend restart causes a short interruption on staging. This is not a zero-downtime or database-rollback system.

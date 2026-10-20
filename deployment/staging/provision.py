@@ -48,17 +48,17 @@ if any(x['IpProtocol']=='-1' for x in current['IpPermissionsEgress']):
  aws('ec2','authorize-security-group-egress','--group-id',sg,'--ip-permissions',doc([{'IpProtocol':'tcp','FromPort':p,'ToPort':p,'IpRanges':[{'CidrIp':'0.0.0.0/0'}]} for p in [80,443]]+[{'IpProtocol':proto,'FromPort':53,'ToPort':53,'IpRanges':[{'CidrIp':'0.0.0.0/0'}]} for proto in ['udp','tcp']]))
 if 'launch_template_id' not in s:
  ami=aws('ssm','get-parameter','--name','/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id')['Parameter']['Value']
- import base64
+ import base64,gzip
  bootstrap=(ROOT/'bootstrap.sh').read_bytes()
  helper=base64.b64encode((ROOT/'deploy-release.sh').read_bytes()).decode()
  bootstrap+=('\nprintf %s '+helper+' | base64 -d > /usr/local/sbin/icare-deploy\nchmod 0755 /usr/local/sbin/icare-deploy\n').encode()
- data={'ImageId':ami,'InstanceType':'t3.small','KeyName':'icare','IamInstanceProfile':{'Name':'icare-staging-instance'},'MetadataOptions':{'HttpEndpoint':'enabled','HttpTokens':'required','HttpPutResponseHopLimit':1},'BlockDeviceMappings':[{'DeviceName':'/dev/sda1','Ebs':{'VolumeSize':30,'VolumeType':'gp3','Encrypted':True,'DeleteOnTermination':True}}],'NetworkInterfaces':[{'DeviceIndex':0,'SubnetId':'subnet-b8cebdf4','AssociatePublicIpAddress':True,'Groups':[sg]}],'CreditSpecification':{'CpuCredits':'standard'},'UserData':base64.b64encode(bootstrap).decode(),'TagSpecifications':[{'ResourceType':r,'Tags':[{'Key':'Name','Value':'icare-staging'},{'Key':'Project','Value':'icare-staging'},{'Key':'Environment','Value':'staging'}]} for r in ['instance','volume']]}
+ data={'ImageId':ami,'InstanceType':'t3.small','KeyName':'icare','IamInstanceProfile':{'Name':'icare-staging-instance'},'MetadataOptions':{'HttpEndpoint':'enabled','HttpTokens':'required','HttpPutResponseHopLimit':1},'BlockDeviceMappings':[{'DeviceName':'/dev/sda1','Ebs':{'VolumeSize':30,'VolumeType':'gp3','Encrypted':True,'DeleteOnTermination':True}}],'NetworkInterfaces':[{'DeviceIndex':0,'SubnetId':'subnet-b8cebdf4','AssociatePublicIpAddress':True,'Groups':[sg]}],'CreditSpecification':{'CpuCredits':'standard'},'UserData':base64.b64encode(gzip.compress(bootstrap)).decode(),'TagSpecifications':[{'ResourceType':r,'Tags':[{'Key':'Name','Value':'icare-staging'},{'Key':'Project','Value':'icare-staging'},{'Key':'Environment','Value':'staging'}]} for r in ['instance','volume']]}
  lt=aws('ec2','create-launch-template','--launch-template-name','icare-staging-20261020','--version-description','Isolated staging with versioned releases','--launch-template-data',doc(data))['LaunchTemplate']
- s['launch_template_id']=lt['LaunchTemplateId'];s['ami_id']=ami;save()
+ s['launch_template_id']=lt['LaunchTemplateId'];s['ami_id']=ami;s['launch_template_version']='1';save()
 if 'instance_id' not in s:
  for attempt in range(6):
   try:
-   result=aws('ec2','run-instances','--launch-template',doc({'LaunchTemplateId':s['launch_template_id'],'Version':'1'}),'--count','1','--client-token','icare-staging-20261020-v1')
+   result=aws('ec2','run-instances','--launch-template',doc({'LaunchTemplateId':s['launch_template_id'],'Version':s.get('launch_template_version','1')}),'--count','1','--client-token','icare-staging-20261020-v1')
    s['instance_id']=result['Instances'][0]['InstanceId'];save();break
   except RuntimeError as e:
    if ('Invalid IAM Instance Profile' not in str(e) and 'InvalidParameterValue' not in str(e)) or attempt==5:raise

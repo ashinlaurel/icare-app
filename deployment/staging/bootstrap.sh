@@ -7,11 +7,13 @@ apt-get install -y ca-certificates curl gnupg nginx unzip jq python3
 # maintained 6.8 AWS LTS kernel instead of bypassing MongoDB's startup check.
 if [[ "$(uname -r)" != 6.8.* ]]; then
     apt-get install -y linux-aws-lts-24.04
-    install -m 0700 "$0" /var/lib/icare-bootstrap-resume.sh
+    if [[ "$(readlink -f "$0")" != /var/lib/icare-bootstrap-resume.sh ]]; then
+        install -m 0700 "$0" /var/lib/icare-bootstrap-resume.sh
+    fi
     cat > /etc/systemd/system/icare-bootstrap-resume.service <<'RESUME'
 [Unit]
 Description=Finish isolated staging bootstrap after LTS kernel selection
-After=network-online.target cloud-final.service
+After=network-online.target
 Wants=network-online.target
 [Service]
 Type=oneshot
@@ -42,12 +44,12 @@ curl --fail --silent --show-error "https://nodejs.org/dist/${NODE_VERSION}/node-
 printf '%s  /tmp/node.tar.xz\n' "$NODE_SHA256" | sha256sum --check -
 tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1
 curl --fail --silent --show-error https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip
-unzip -q /tmp/awscliv2.zip -d /tmp
-/tmp/aws/install
+unzip -oq /tmp/awscliv2.zip -d /tmp
+/tmp/aws/install --update
 # A new database, with no production credentials or records.
-curl --fail --silent --show-error https://pgp.mongodb.com/server-8.0.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
+curl --fail --silent --show-error https://pgp.mongodb.com/server-8.0.asc | gpg --batch --yes --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
 printf '%s\n' 'deb [ arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse' > /etc/apt/sources.list.d/mongodb-org-8.0.list
-curl --fail --silent --show-error https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
+curl --fail --silent --show-error https://dl.google.com/linux/linux_signing_key.pub | gpg --batch --yes --dearmor -o /usr/share/keyrings/google-chrome.gpg
 printf '%s\n' 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list
 apt-get update -qq
 apt-get install -y mongodb-org google-chrome-stable fonts-liberation

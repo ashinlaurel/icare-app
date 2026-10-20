@@ -4,6 +4,7 @@ set -Eeuo pipefail
 exec 9>/var/lock/icare-deploy.lock
 flock -w 300 9
 ROOT=/srv/icare
+[[ -f /var/lib/icare-bootstrap-ready ]] || { echo "Staging bootstrap is not ready"; exit 1; }
 BUCKET=icare-staging-releases-426376692287
 MODE=${1:-}
 OLD=$(readlink -f "$ROOT/current" || true)
@@ -48,8 +49,9 @@ healthy() {
     curl --fail --silent --max-time 3 http://127.0.0.1/release.json | jq -e --arg sha "$SHA" '.release == $sha' >/dev/null
 }
 recover() {
+    trap - ERR
     echo 'Release verification failed; restoring prior application release.'
-    if [[ -n "$OLD" && -f "$OLD/release.env" ]]; then
+    if [[ -n "$OLD" && -f "$OLD/.verified" ]]; then
         switch_to "$OLD"
         curl --retry 10 --retry-delay 2 --retry-connrefused --fail --silent --max-time 3 http://127.0.0.1/api/health >/dev/null || true
     else
@@ -65,6 +67,8 @@ for n in $(seq 1 30); do
     sleep 2
  done
 [[ "$OK" == true ]] || recover
+python3 "$TARGET/deployment/staging/smoke-test.py"
 trap - ERR
-if [[ -n "$OLD" && "$OLD" != "$TARGET" ]]; then ln -sfn "$OLD" "$ROOT/previous"; fi
+touch "$TARGET/.verified"
+if [[ -n "$OLD" && -f "$OLD/.verified" && "$OLD" != "$TARGET" ]]; then ln -sfn "$OLD" "$ROOT/previous"; fi
 printf 'Verified %s release %s\n' "$MODE" "$SHA"
