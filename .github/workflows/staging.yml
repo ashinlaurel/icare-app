@@ -107,3 +107,15 @@ jobs:
           done
           echo 'Staging deployment timed out; inspect its SSM command.'
           exit 1
+      - name: Verify public HTTPS access
+        env:
+          STAGING_URL: ${{ vars.STAGING_URL }}
+          OPERATION: ${{ github.event.inputs.operation || 'deploy' }}
+        run: |
+          set -euo pipefail
+          HEALTH=$(curl --fail --silent --show-error --max-time 20 "$STAGING_URL/api/health")
+          FRONT=$(curl --fail --silent --show-error --max-time 20 "$STAGING_URL/release.json")
+          jq -ne --argjson health "$HEALTH" --argjson front "$FRONT" '$health.status == "ok" and $health.release == $front.release'
+          if [[ "$OPERATION" != rollback ]]; then
+            jq -e --arg sha "$GITHUB_SHA" '.release == $sha' <<< "$HEALTH"
+          fi

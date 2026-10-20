@@ -43,7 +43,7 @@ A single-node replica set supports transaction development; it does not provide 
 
 ## Access and test data
 
-The instance security group permits SSH and HTTP from the operator IP recorded in the local `infrastructure.json`. Ports 3000 and 27017 are not exposed. SMTP ports are not allowed outbound. Staging upload/contact integrations and the contract-expiry scheduler are disabled. The application user cannot retrieve the instance's AWS credentials from metadata.
+The staging website is publicly accessible over HTTPS so engineers can use it from any IP. HTTP redirects external visitors to HTTPS; the ACME certificate-validation path remains available for renewal. SSH stays restricted to the operator IP recorded in local `infrastructure.json`. Ports 3000, 8081 and 27017 are not exposed. SMTP ports are not allowed outbound. Staging upload/contact integrations and the contract-expiry scheduler are disabled. The application user cannot retrieve the instance's AWS credentials from metadata.
 
 The initial environment uses **synthetic data only**. It has no production `.env`, database credentials, customer records, or backup dumps. A sanitized production-data import is a separate, explicit operation.
 
@@ -53,7 +53,9 @@ Read synthetic login credentials over your existing SSH access:
 sudo cat /etc/icare/test-admin.env
 ```
 
-Initial access is HTTP restricted to the configured operator IP, or an SSH tunnel. A trusted staging domain and HTTPS should be configured before granting wider access or using sensitive data. If your public IP changes, update only the staging security group's operator rules; do not open the database or backend ports.
+Use `https://35.154.244.123/admin/signin`. The IP has a trusted Let's Encrypt certificate with automated renewal and an Nginx reload hook. The certificate is short-lived, so the renewal timer and public ACME path must stay operational. `enable-public-https.sh prepare IP` configures routing; `enable-public-https.sh issue IP` obtains/configures the certificate after ports 80/443 are allowed. Local HTTP remains available for deployment checks and server-side PDF rendering.
+
+If your public IP changes, only SSH access needs its operator rule updated. The EC2 public IP can change after a stop/start; in that case reissue the certificate for the new address, update `STAGING_URL` in the GitHub staging environment, and share the new URL. Keep this public environment synthetic: importing confidential production records requires a separate access-control review.
 
 ## Inspect and roll back
 
