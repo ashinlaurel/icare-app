@@ -32,7 +32,7 @@ RESUME
     exit 0
 fi
 # Keep future boots on the supported LTS track, including its security updates.
-OLD_IMAGES=$(dpkg-query -W -f='${binary:Package}\n' 'linux-image-7.*' 2>/dev/null || true)
+OLD_IMAGES=$(dpkg-query -W -f='${binary:Package} ${db:Status-Status}\n' 'linux-image-7.*' 'linux-image-unsigned-7.*' 'linux-modules-7.*' 2>/dev/null | awk '$2 == "installed" { print $1 }' || true)
 if [[ -n "$OLD_IMAGES" ]]; then
     apt-get remove -y linux-aws linux-image-aws $OLD_IMAGES
     update-grub
