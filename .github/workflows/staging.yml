@@ -30,6 +30,9 @@ jobs:
             FrontEnd/package-lock.json
       - name: Check backend syntax
         run: find Backend -name '*.js' -not -path '*/node_modules/*' -print0 | xargs -0 -n1 node --check
+      - name: Test asset update unit validation
+        working-directory: Backend
+        run: npm test
       - name: Install backend runtime dependencies
         working-directory: Backend
         run: npm ci --omit=dev --ignore-scripts --legacy-peer-deps --no-audit --no-fund

@@ -110,7 +110,7 @@ function UpdateAssetFromCall() {
       console.log("asset", res.data);
       let asset = res.data;
       setProduct(asset.producttype);
-      setUnit({ _id: id, unitName: asset.unitName });
+      setUnit({ _id: asset.unitId, unitName: asset.unitName });
       setCustomer({ _id: asset.customerId, customerName: asset.customerName });
       setAccount({ _id: asset.accountId, accountName: asset.accountName });
       ////------------------------>>>>>>>>

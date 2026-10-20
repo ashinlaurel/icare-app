@@ -331,6 +331,28 @@ exports.updateAsset = async (req, res) => {
   let { id, newasset, newproduct } = req.body;
   // console.log(id, newasset,newproduct);
   try {
+    // This endpoint accepts plain form fields, not MongoDB update operators.
+    // Otherwise $set could bypass the reference check below.
+    if (
+      !newasset ||
+      typeof newasset !== "object" ||
+      Array.isArray(newasset) ||
+      Object.keys(newasset).some((key) => key.startsWith("$"))
+    ) {
+      return res.status(400).json({ error: "Invalid asset update fields." });
+    }
+    if (Object.prototype.hasOwnProperty.call(newasset, "unitId")) {
+      if (
+        typeof newasset.unitId !== "string" ||
+        !/^[a-f\d]{24}$/i.test(newasset.unitId)
+      ) {
+        return res.status(400).json({ error: "A valid unit ID is required." });
+      }
+      const unitExists = await Unit.exists({ _id: newasset.unitId });
+      if (!unitExists) {
+        return res.status(400).json({ error: "The selected unit does not exist." });
+      }
+    }
     let asset = await Asset.findByIdAndUpdate(id, newasset, {
       safe: true,
       useFindAndModify: false,
