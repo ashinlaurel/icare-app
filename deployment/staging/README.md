@@ -36,6 +36,7 @@ Backend restart causes a short interruption on staging. This is not a zero-downt
 - `/etc/icare/mongo-admin.env`: staging database administrator secret, root-readable only.
 - `icare-backend.service`: unprivileged `icare` application user, automatic restart and boot startup.
 - `mongod.service`: local authenticated MongoDB 8.0, single-node `icare-staging` replica set.
+- Ubuntu AWS LTS kernel 6.8: the current AMI kernel is rejected by MongoDB. Bootstrap selects the maintained LTS kernel and resumes after a staging-only reboot.
 - Nginx serves the frontend and proxies `/api/` without removing the `/api` prefix.
 
 A single-node replica set supports transaction development; it does not provide database high availability. MongoDB/Node/Ubuntu versions differ from production and must be included in compatibility testing before a production migration.
