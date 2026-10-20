@@ -1,0 +1,109 @@
+name: Deploy staging
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Deploy this ref or restore the previous staging release
+        type: choice
+        options: [deploy, rollback]
+        default: deploy
+permissions:
+  contents: read
+concurrency:
+  group: icare-staging
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.event.inputs.operation != 'rollback'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.3'
+          cache: npm
+          cache-dependency-path: |
+            Backend/package-lock.json
+            FrontEnd/package-lock.json
+      - name: Check backend syntax
+        run: find Backend -name '*.js' -not -path '*/node_modules/*' -print0 | xargs -0 -n1 node --check
+      - name: Install backend runtime dependencies
+        working-directory: Backend
+        run: npm ci --omit=dev --ignore-scripts --legacy-peer-deps --no-audit --no-fund
+      - name: Install frontend dependencies
+        working-directory: FrontEnd
+        run: npm ci --ignore-scripts --legacy-peer-deps --no-audit --no-fund
+      - name: Build frontend for same-origin API
+        working-directory: FrontEnd
+        env:
+          CI: 'false'
+          REACT_APP_BACKEND: /api
+          NODE_OPTIONS: --openssl-legacy-provider --max-old-space-size=4096
+          GENERATE_SOURCEMAP: 'false'
+        run: npm run build
+      - name: Package immutable release
+        run: |
+          mkdir -p package/Backend package/frontend package/deployment/staging
+          cp -a Backend/. package/Backend/
+          find package/Backend -name '.env*' -delete
+          cp -a FrontEnd/build/. package/frontend/
+          cp deployment/staging/seed-test-admin.cjs package/deployment/staging/
+          printf '{"release":"%s"}\n' "$GITHUB_SHA" > package/frontend/release.json
+          tar -czf release.tar.gz -C package .
+          sha256sum release.tar.gz > release.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: staging-release
+          path: |
+            release.tar.gz
+            release.sha256
+          retention-days: 14
+  deploy:
+    needs: build
+    if: always() && (needs.build.result == 'success' || github.event.inputs.operation == 'rollback')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: staging
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        if: github.event.inputs.operation != 'rollback'
+        with:
+          name: staging-release
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Upload release
+        if: github.event.inputs.operation != 'rollback'
+        env:
+          BUCKET: ${{ vars.STAGING_RELEASE_BUCKET }}
+        run: |
+          aws s3 cp release.tar.gz "s3://$BUCKET/releases/$GITHUB_SHA/release.tar.gz" --only-show-errors
+          aws s3 cp release.sha256 "s3://$BUCKET/releases/$GITHUB_SHA/release.sha256" --only-show-errors
+      - name: Deploy and verify via Systems Manager
+        env:
+          INSTANCE_ID: ${{ vars.STAGING_INSTANCE_ID }}
+          OPERATION: ${{ github.event.inputs.operation || 'deploy' }}
+        run: |
+          set -euo pipefail
+          ARG="$GITHUB_SHA"
+          if [[ "$OPERATION" == rollback ]]; then ARG=rollback; fi
+          PARAMETERS=$(jq -n --arg cmd "/usr/local/sbin/icare-deploy $ARG" '{commands:[$cmd],executionTimeout:["600"]}')
+          COMMAND_ID=$(aws ssm send-command --instance-ids "$INSTANCE_ID" --document-name AWS-RunShellScript --comment "iCare staging $ARG" --parameters "$PARAMETERS" --query Command.CommandId --output text)
+          for n in $(seq 1 90); do
+            STATUS=$(aws ssm get-command-invocation --command-id "$COMMAND_ID" --instance-id "$INSTANCE_ID" --query Status --output text 2>/dev/null || true)
+            case "$STATUS" in
+              Success) aws ssm get-command-invocation --command-id "$COMMAND_ID" --instance-id "$INSTANCE_ID" --query StandardOutputContent --output text; exit 0 ;;
+              Failed|Cancelled|TimedOut|Cancelling) aws ssm get-command-invocation --command-id "$COMMAND_ID" --instance-id "$INSTANCE_ID"; exit 1 ;;
+            esac
+            sleep 5
+          done
+          echo 'Staging deployment timed out; inspect its SSM command.'
+          exit 1
