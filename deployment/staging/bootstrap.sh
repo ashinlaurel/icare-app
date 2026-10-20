@@ -3,6 +3,38 @@ set -Eeuo pipefail
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
 apt-get install -y ca-certificates curl gnupg nginx unzip jq python3
+# MongoDB rejects the kernel shipped by this particular AMI. Resume on Ubuntu's
+# maintained 6.8 AWS LTS kernel instead of bypassing MongoDB's startup check.
+if [[ "$(uname -r)" != 6.8.* ]]; then
+    apt-get install -y linux-aws-lts-24.04
+    install -m 0700 "$0" /var/lib/icare-bootstrap-resume.sh
+    cat > /etc/systemd/system/icare-bootstrap-resume.service <<'RESUME'
+[Unit]
+Description=Finish isolated staging bootstrap after LTS kernel selection
+After=network-online.target cloud-final.service
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/var/lib/icare-bootstrap-resume.sh
+TimeoutStartSec=1800
+[Install]
+WantedBy=multi-user.target
+RESUME
+    systemctl daemon-reload
+    systemctl enable icare-bootstrap-resume
+    KERNEL=$(basename "$(find /boot -maxdepth 1 -name 'vmlinuz-6.8.*-aws' | sort -V | tail -n 1)" | sed 's/^vmlinuz-//')
+    [[ -n "$KERNEL" ]]
+    update-grub
+    grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux $KERNEL"
+    systemctl reboot
+    exit 0
+fi
+# Keep future boots on the supported LTS track, including its security updates.
+OLD_IMAGES=$(dpkg-query -W -f='${binary:Package}\n' 'linux-image-7.*' 2>/dev/null || true)
+if [[ -n "$OLD_IMAGES" ]]; then
+    apt-get remove -y linux-aws linux-image-aws $OLD_IMAGES
+    update-grub
+fi
 # Install the official Node archive, verified against its published checksum.
 NODE_VERSION='v22.23.3'
 NODE_SHA256='df450af89261115ef9f9e3830c3eeb2cc9213b63c720b1af623cb5dcbe2e02de'
@@ -25,12 +57,12 @@ chown icare:icare /srv/icare/incoming
 # Secrets are generated on the instance, never placed in EC2 user data.
 python3 - <<'PY'
 from pathlib import Path
-import secrets,json,os
+import secrets,json,os,base64
 rootpass=secrets.token_hex(32);apppass=secrets.token_hex(32)
 p=Path('/etc/icare/mongo-admin.env');p.write_text('MONGO_ADMIN_PASSWORD='+rootpass+'\n');p.chmod(0o600)
 p=Path('/etc/icare/staging.env');p.write_text('\n'.join(['NODE_ENV=production','APP_ENV=staging','HOST=127.0.0.1','PORT=3000','DATABASE=mongodb://icare:'+apppass+'@127.0.0.1:27017/icare_staging?authSource=icare_staging&replicaSet=icare-staging','SECRET='+secrets.token_hex(48),'FRONT=http://127.0.0.1','PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable','AWS_EC2_METADATA_DISABLED=true','DISABLE_SCHEDULED_JOBS=true','DISABLE_EXTERNAL_INTEGRATIONS=true','S3_REGION=ap-south-1','S3_BUCEKT_NAME=staging-uploads-disabled'])+'\n');p.chmod(0o600)
 p=Path('/etc/icare/test-admin.env');p.write_text('TEST_ADMIN_EMAIL=staging-admin@example.com\nTEST_ADMIN_PASSWORD='+secrets.token_urlsafe(24)+'\n');p.chmod(0o600)
-p=Path('/etc/mongodb-keyfile');p.write_text(secrets.token_urlsafe(512));p.chmod(0o400)
+p=Path('/etc/mongodb-keyfile');p.write_text(base64.b64encode(secrets.token_bytes(512)).decode());p.chmod(0o400)
 import pwd
 u=pwd.getpwnam('mongodb');os.chown(p,u.pw_uid,u.pw_gid)
 p=Path('/run/icare-mongo-users.js');p.write_text('const a=db.getSiblingDB("admin"); a.createUser({user:"staging_admin",pwd:'+json.dumps(rootpass)+',roles:["root"]}); a.auth("staging_admin",'+json.dumps(rootpass)+'); db.getSiblingDB("icare_staging").createUser({user:"icare",pwd:'+json.dumps(apppass)+',roles:[{role:"readWrite",db:"icare_staging"}]});');p.chmod(0o600)
@@ -132,4 +164,5 @@ WantedBy=multi-user.target
 SERVICE
 systemctl daemon-reload
 systemctl enable icare-metadata-guard
+systemctl disable icare-bootstrap-resume.service 2>/dev/null || true
 printf 'ready\n' > /var/lib/icare-bootstrap-ready
