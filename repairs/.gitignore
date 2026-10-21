@@ -1,0 +1,12 @@
+# Sensitive generated evidence is never source code.
+**/private/
+**/runs/
+*.archive
+*.archive.gz
+*.bson
+*.bson.gz
+*.env
+**/*-plan.json
+**/*-plan-summary.json
+**/*-applied.json
+**/unit-name-aliases.json

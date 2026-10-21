@@ -5,6 +5,8 @@ const { result, filter } = require("lodash");
 const Unit = require("../../models/customer/Unit");
 const originalproduct = require("../../models/products/originalproduct");
 const ObjectId = require("mongodb").ObjectID;
+const CustomerLogin = require("../../models/customer/CustomerLogin");
+const { isId, invalid, validateAssetFields, validateAssetHierarchy } = require("../../validation/assetHierarchy");
 
 // get category by id when params passed
 // exports.getCategoryById = (req, res, next, id) => {
@@ -124,47 +126,35 @@ exports.countAssetValue = (req, res) => {
 // -------------------------------------------------------
 
 exports.createAsset = async (req, res) => {
-  let { asset, product } = req.body;
-
-  if (product.serialno == null) {
-    return res.status(400).json({ error: "Product not passed" });
-  }
-
   try {
-    // Saving the asset
-    const newasset = new Asset(asset);
-    const result = await newasset.save();
-    // console.log(result);
-    // Making the product
-    product.asset = String(result._id);
-    // console.log(product);
-    const newprod = new Server(product);
-    const prodres = await newprod.save();
-    //maintaining original product history by adding to originalproduct collection
-    const neworiginalproduct = new originalproduct(product);
-    const originalprodres = await neworiginalproduct.save();
-    // console.log(prodres);
-    // Linking the product back to the original asset
-    const reasset = await Asset.findById(result._id).exec();
-    reasset.product = prodres._id;
-    reasset.originalproduct = originalprodres._id;
-    const final = reasset.save();
-
-    ////////////////----------- ADDING ASSET ID TO UNIT
-    console.log("unit", asset.unitId);
-    const unitres = await Unit.findById(asset.unitId).exec();
-    let assets = unitres.assetsId;
-    assets.push(String(result._id));
-    unitres.assetsId = assets;
-    const unitfinal = await unitres.save();
-
-    return res.status(200).json(final);
+    const { asset, product } = req.body;
+    validateAssetFields(asset);
+    const hierarchy = await validateAssetHierarchy(asset, { CustomerLogin, Unit });
+    if (!product || typeof product !== "object" || Array.isArray(product) ||
+        Object.keys(product).some(key => key.startsWith("$") || key.includes(".")) ||
+        ["_id", "asset"].some(key => Object.prototype.hasOwnProperty.call(product, key))) {
+      invalid("Invalid product fields.");
+    }
+    // Validate all three documents before the first database write.
+    const newasset = new Asset({ ...asset, ...hierarchy });
+    const hardware = { ...product, asset: newasset._id };
+    const newprod = new Server(hardware);
+    const original = new originalproduct(hardware);
+    await Promise.all([newasset.validate(), newprod.validate(), original.validate()]);
+    await newasset.save();
+    await newprod.save();
+    await original.save();
+    newasset.product = newprod._id;
+    newasset.originalproduct = original._id;
+    await newasset.save();
+    const linked = await Unit.updateOne({ _id: hierarchy.unitId,
+      customerId: hierarchy.customerId, accountId: hierarchy.accountId },
+      { $addToSet: { assetsId: newasset._id } });
+    if (linked.matchedCount !== 1) throw new Error("The selected unit changed during creation.");
+    return res.status(200).json(newasset);
   } catch (err) {
-    console.log("Asset Creating error", err.message);
-    let message = err.message;
-    if (err.code == 11000) message = "Product exists with serial Number.";
-    res.status(400).json({ message });
-    // throw error;
+    const message = err.code === 11000 ? "Product exists with serial Number." : err.message;
+    return res.status(err.status || 400).json({ error: message, message });
   }
 };
 
@@ -328,19 +318,47 @@ exports.deleteAsset = async (req, res) => {
 };
 
 exports.updateAsset = async (req, res) => {
-  let { id, newasset, newproduct } = req.body;
-  // console.log(id, newasset,newproduct);
   try {
-    let asset = await Asset.findByIdAndUpdate(id, newasset, {
-      safe: true,
-      useFindAndModify: false,
-    });
-    let prod = await Server.findOneAndUpdate({ asset: id }, newproduct);
-    console.log("SERVER", prod);
-    return res.status(200).json({ asset });
+    const { id, newasset, newproduct } = req.body;
+    if (!isId(id)) invalid("A valid asset ID is required.");
+    validateAssetFields(newasset);
+    const existing = await Asset.findById(id);
+    if (!existing) return res.status(404).json({ error: "Asset not found." });
+    const ids = {};
+    for (const key of ["customerId", "accountId", "unitId"]) {
+      ids[key] = Object.prototype.hasOwnProperty.call(newasset, key) ? newasset[key] :
+        (existing[key] ? String(existing[key]) : "");
+    }
+    const hierarchy = await validateAssetHierarchy(ids, { CustomerLogin, Unit });
+    const product = await Server.findOne({ _id: existing.product, asset: existing._id });
+    if (!product) return res.status(409).json({ error: "The asset hardware link needs review before editing." });
+    const update = newproduct || {};
+    if (typeof update !== "object" || Array.isArray(update) || Object.keys(update).some(key =>
+        key.includes(".") || ["_id", "asset"].includes(key) || (key.startsWith("$") && key !== "$push"))) {
+      invalid("Invalid product update fields.");
+    }
+    if (update.$push && (typeof update.$push !== "object" || Array.isArray(update.$push) ||
+        Object.keys(update.$push).some(key => key !== "history"))) invalid("Invalid product history update.");
+    const { $push, ...fields } = update;
+    existing.set({ ...newasset, ...hierarchy });
+    product.set(fields);
+    if ($push && Object.prototype.hasOwnProperty.call($push, "history")) {
+      if (!$push.history || typeof $push.history !== "object" || Array.isArray($push.history) ||
+          Object.keys($push.history).some(key => key.startsWith("$"))) invalid("Invalid history entry.");
+      product.history.push($push.history);
+    }
+    await Promise.all([existing.validate(), product.validate()]);
+    await existing.save();
+    await product.save();
+    const linked = await Unit.updateOne({ _id: hierarchy.unitId,
+      customerId: hierarchy.customerId, accountId: hierarchy.accountId },
+      { $addToSet: { assetsId: existing._id } });
+    if (linked.matchedCount !== 1) throw new Error("The selected unit changed during editing.");
+    await Unit.updateMany({ _id: { $ne: hierarchy.unitId }, assetsId: existing._id },
+      { $pull: { assetsId: existing._id } });
+    return res.status(200).json({ asset: existing });
   } catch (err) {
-    console.log(id, err);
-    return res.status(400).json({ error: err });
+    return res.status(err.status || 400).json({ error: err.message });
   }
 };
 

@@ -68,7 +68,7 @@ mongoose
     useUnifiedTopology: true,
     // useCreateIndex: true,
   })
-  .then(console.log("DB CONNECTED"))
+  .then(() => console.log("DB CONNECTED"))
   .catch((err) => {
     console.log(err);
   });
@@ -76,6 +76,24 @@ mongoose
 app.get("/api/test", (req, res) => {
   res.status(200).send("Successfull! Backend Routes Working");
 });
+// Release verification must check the database, not just the HTTP listener.
+app.get("/api/health", async (req, res) => {
+  res.set("Cache-Control", "no-store");
+  try {
+    if (mongoose.connection.readyState !== 1) throw new Error("Database unavailable");
+    await mongoose.connection.db.admin().ping();
+    return res.json({ status: "ok", release: process.env.RELEASE_SHA || "development" });
+  } catch (error) {
+    return res.status(503).json({ status: "unavailable" });
+  }
+});
+
+// The isolated test environment must not send real mail or upload public files.
+if (process.env.DISABLE_EXTERNAL_INTEGRATIONS === "true") {
+  app.use(["/api/contactform", "/api/upload"], (req, res) =>
+    res.status(503).json({ error: "External integrations are disabled in this environment" })
+  );
+}
 // User Routes-------------------------------------------------
 app.use("/api/customer", CustomerAuthRoute);
 app.use("/api/account", AccountRoute);
@@ -118,11 +136,15 @@ app.use("/api/leave", leaveformRoute);
 // app.get("/", (req, res) => res.send("Hello World!"));
 
 //Schedules CRON job at 3:00Am IST to update ASSETS
-cron.schedule("0 3 * * *", contractCheckForAssets, {
-  timezone: "Asia/Kolkata",
-  scheduled: true,
-});
+if (process.env.DISABLE_SCHEDULED_JOBS !== "true") {
+  cron.schedule("0 3 * * *", contractCheckForAssets, {
+    timezone: "Asia/Kolkata",
+    scheduled: true,
+  });
+}
 
 //Port and Listen
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+app.listen(port, process.env.HOST || "0.0.0.0", () =>
+  console.log(`Listening on port ${port}`)
+);

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "node tests/asset-unit-reference.test.cjs && node tests/asset-edit-form.test.cjs"
   },
   "author": "",
   "license": "ISC",
