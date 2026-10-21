@@ -51,6 +51,8 @@ On 20 October 2026, an explicitly authorized production dump was restored to the
 
 ### Repairing self-ID unit references in an isolated copy
 
+Canonical runbook, scripts, tests, and rehearsal results now live under [repairs/R001](../../repairs/001-asset-unit-references/README.md). The old script paths below are compatibility entry points in a full repository checkout; for standalone copying use `repairs/001-asset-unit-references/staging-repair.cjs`.
+
 `repair-self-unit-references.cjs` accepts only a dated `icare_audit_YYYYMMDD` database, `APP_ENV=staging`, a private output directory under `/var/lib/icare-audits/`, and the staging Mongo administrator password supplied as `MONGO_AUDIT_PASSWORD`. It connects only to localhost and requires replica set `icare-staging`; production is not a supported target. Use root on the VM and load the administrator secret from `/etc/icare/mongo-admin.env` without printing it.
 
 Run without `--apply` to create a private plan and membership backup; inspect the counts and unresolved records. Add `--apply` only to execute an unchanged plan. Plans are checked against current records before writing; repairs and reciprocal unit-list changes run in one transaction, followed by verification. Existing output files are never overwritten automatically.

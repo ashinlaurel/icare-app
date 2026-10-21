@@ -22,6 +22,7 @@ import { MailIcon, Add, Remove, HeartIcon } from "../../icons";
 import Axios from "axios";
 import { data } from "autoprefixer";
 import UnitListModal from "../../components/Modal/UnitListModal";
+import { validHierarchySelection } from "../../helpers/assetHierarchy";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
@@ -41,6 +42,7 @@ function CreateAsset() {
   const [floatbox, setFloatBox] = useState(false);
   //ReviewModal
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isErrModalOpen, setIsErrModalOpen] = useState(false);
   const [reqFieldErrModal, setReqFieldErrModal] = useState(false);
 
@@ -213,11 +215,12 @@ function CreateAsset() {
 
   //functions
   const handleSubmit = async () => {
-    if (Business == "" || POnumber == "") {
+    if (isSubmitting) return;
+    if (!Business || !POnumber.trim() || !servicelocation || !brand.trim() || !model.trim() || !serialno.trim()) {
       setIsReviewModalOpen(true);
       return;
     }
-    if (customer._id == "" || account._id == "" || unit._id == "") {
+    if (!validHierarchySelection(customer, account, unit)) {
       setReqFieldErrModal(true);
       return;
     }
@@ -277,15 +280,20 @@ function CreateAsset() {
     console.log("PL:", payload);
     // return;
     // console.log(API);
+    setIsSubmitting(true);
     try {
       await axios({
         url: `${API}/asset/${Emp.getId()}/create`,
         method: "POST",
         data: payload,
       });
-      console.log("Done");
+      clearState();
+      clearAssetState();
+      setIsReviewModalOpen(false);
     } catch (error) {
-      console.log(error);
+      alert((error.response && error.response.data && (error.response.data.error || error.response.data.message)) || "Unable to create asset. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -560,13 +568,14 @@ function CreateAsset() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (customer._id == "" || account._id == "" || unit._id == "") {
+              if (!validHierarchySelection(customer, account, unit)) {
                 setIsErrModalOpen(true);
                 return;
               }
               if (
                 Business == "" ||
-                POnumber == "" ||
+                !servicelocation ||
+                POnumber.trim() == "" ||
                 brand == "" ||
                 model == "" ||
                 serialno == ""
@@ -3096,14 +3105,10 @@ function CreateAsset() {
             </Button>
             <Button
               className="w-full sm:w-auto"
-              onClick={() => {
-                handleSubmit();
-                clearState();
-                clearAssetState();
-                setIsReviewModalOpen(false);
-              }}
+              disabled={isSubmitting}
+              onClick={handleSubmit}
             >
-              Create Asset
+              {isSubmitting ? "Creating…" : "Create Asset"}
             </Button>
           </ModalFooter>
         </Modal>

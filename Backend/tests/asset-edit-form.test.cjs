@@ -22,7 +22,7 @@ function handler(name) {
   const customerId = "333333333333333333333333";
   const accountId = "444444444444444444444444";
   const asset = {
-    unitId, unitName: "Example dairy", customerId, accountId,
+    unitId, unitName: "Example dairy", customerId: { _id: customerId, role: 1 }, accountId,
     customerName: "Example customer", accountName: "Example account",
     ponumber: "PO-ORIGINAL", product: {},
   };
@@ -32,7 +32,10 @@ function handler(name) {
     return { data: {} };
   };
   axios.post = async () => ({ data: asset });
+  const helpers = fs.readFileSync(path.join(__dirname, "../../FrontEnd/src/helpers/assetHierarchy.js"), "utf8").replace(/export /g, "");
+  const hierarchy = vm.runInNewContext(helpers + "\n({recordId, hasHierarchyIds})");
   const context = {
+    ...hierarchy,
     id: assetId, API: "/api", Emp: { getId: () => "employee" },
     axios, console: { log() {} },
     moment: () => ({ format: () => "2026-10-20" }),

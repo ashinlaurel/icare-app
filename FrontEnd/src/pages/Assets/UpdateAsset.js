@@ -22,6 +22,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "@windmill/react-ui";
 
 import { Add, Remove, HeartIcon } from "../../icons";
 import UnitListModal from "../../components/Modal/UnitListModal";
+import { recordId, hasHierarchyIds } from "../../helpers/assetHierarchy";
 import CreateAssetFloat from "../../components/FloatDetails/CreateAssetFloat";
 
 // Migration
@@ -120,7 +121,7 @@ function UpdateAsset() {
       setServiceLocation(asset.servicelocation);
       setProduct(asset.producttype);
       setUnit({ _id: asset.unitId, unitName: asset.unitName });
-      setCustomer({ _id: asset.customerId, customerName: asset.customerName });
+      setCustomer({ _id: recordId(asset.customerId), customerName: asset.customerName });
       setAccount({ _id: asset.accountId, accountName: asset.accountName });
       ////------------------------>>>>>>>>
       // setProduct("Server");
@@ -296,6 +297,10 @@ function UpdateAsset() {
   //functions
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!hasHierarchyIds(customer, account, unit)) {
+      alert("Please select a customer, account and unit.");
+      return;
+    }
     let payload = {
       customerName: customer.customerName,
       accountName: account.accountName,
@@ -409,7 +414,7 @@ function UpdateAsset() {
       setSubmitModal(true);
       console.log("Done");
     } catch (error) {
-      throw error;
+      alert((error.response && error.response.data && error.response.data.error) || "Unable to update asset. Please check the selected hierarchy.");
     }
   };
 

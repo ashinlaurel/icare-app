@@ -1,6 +1,7 @@
 const CustomerLogin = require("../../models/customer/CustomerLogin");
 const Unit = require("../../models/customer/Unit");
 const Asset = require("../../models/assets/assets");
+const { isId, invalid } = require("../../validation/assetHierarchy");
 
 // ---------------Counter Controllers -------------------
 exports.countCustomers = (req, res) => {
@@ -28,16 +29,15 @@ exports.getAllCust = async (req, res) => {
 };
 
 exports.AccountsOfCustomer = async (req, res) => {
-  // console.log(req);
   try {
-    const customer = await CustomerLogin.findById(req.body.customerId).populate(
-      "childAccountIds"
-    );
-    // if(customer.account)
-    return res.status(200).json(customer.childAccountIds);
+    if (!isId(req.body.customerId)) invalid("A valid customer ID is required.");
+    const customer = await CustomerLogin.findById(req.body.customerId);
+    if (!customer || customer.role !== 1) invalid("Select an existing customer.");
+    const accounts = await CustomerLogin.find({ role: 2, parentCustomerId: customer._id })
+      .select("-enc_password -salt -show_password");
+    return res.status(200).json(accounts);
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({ error: "getAll Error" });
+    return res.status(err.status || 400).json({ error: err.message });
   }
 };
 
@@ -49,9 +49,10 @@ exports.getAllCustomers = (req, res) => {
     // populate: "product",
     page: page,
     limit: 3,
+    ...(req.body.hierarchyOnly ? { select: "_id name role" } : {}),
   };
 
-  let filteroptions = { role: role };
+  let filteroptions = { role: req.body.hierarchyOnly ? 1 : role };
   // Logic to add to filter when required
 
   if (search == "") {
@@ -69,7 +70,7 @@ exports.getAllCustomers = (req, res) => {
   } else {
     const regex = new RegExp(escapeRegex(search), "gi");
     filteroptions.name = regex;
-    CustomerLogin.paginate(filteroptions, {}, function (err, result) {
+    CustomerLogin.paginate(filteroptions, req.body.hierarchyOnly ? { select: "_id name role" } : {}, function (err, result) {
       // console.log(result);
       if (err || !result) {
         return res.status(400).json({
@@ -143,13 +144,16 @@ function escapeRegex(text) {
 
 exports.unitsFromAccount = async (req, res) => {
   try {
-    const account = await CustomerLogin.findById(req.body.accountId).populate(
-      "unitIds"
-    );
-    return res.status(200).json(account.unitIds);
+    if (!isId(req.body.accountId)) invalid("A valid account ID is required.");
+    const account = await CustomerLogin.findById(req.body.accountId);
+    if (!account || account.role !== 2) invalid("Select an existing account, not a customer.");
+    const customer = await CustomerLogin.findById(account.parentCustomerId);
+    if (!customer || customer.role !== 1) invalid("The account has no valid parent customer.");
+    const units = await Unit.find({ accountId: account._id, customerId: customer._id })
+      .select("-password");
+    return res.status(200).json(units);
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({ error: "getAll Error" });
+    return res.status(err.status || 400).json({ error: err.message });
   }
 };
 
