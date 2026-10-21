@@ -55,7 +55,7 @@ jobs:
           cp -a Backend/. package/Backend/
           find package/Backend -name '.env*' -delete
           cp -a FrontEnd/build/. package/frontend/
-          cp deployment/staging/seed-test-admin.cjs deployment/staging/smoke-test.py package/deployment/staging/
+          cp deployment/staging/seed-test-admin.cjs deployment/staging/smoke-test.py deployment/staging/test-asset-hierarchy.cjs package/deployment/staging/
           printf '{"release":"%s"}\n' "$GITHUB_SHA" > package/frontend/release.json
           tar -czf release.tar.gz -C package .
           sha256sum release.tar.gz > release.sha256

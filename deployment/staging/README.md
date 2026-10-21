@@ -95,3 +95,9 @@ The instance role has SSM management and read access only to this release prefix
 The test instance, encrypted disk, public IPv4 address and release storage incur AWS charges. Stop staging when idle if appropriate; its automatically assigned public IP can change after a stop/start. Update the access URL then. No Elastic IP, second production server, production DNS change or production security-group change is included.
 
 Before a production cutover, separately verify backups/restoration, runtime/database compatibility, PDF flows, role journeys, migration recovery, HTTPS and production deployment permissions.
+
+## Asset hierarchy regression checks
+
+The deployment smoke test runs `test-asset-hierarchy.cjs` against the synthetic `icare_staging` database. It creates uniquely tagged disposable customers/accounts/units/assets, checks role and ancestry rejection before writes, canonical names, partial edits, and unit membership moves, then removes its fixtures in a `finally` block. It refuses production and audit database URLs. The isolated production-copy database is not used.
+
+`test-hierarchy-selector-ui.cjs` is a manual rendered-browser suite for the test VM. Load `APP_ENV=staging` and the existing synthetic test-admin credentials privately. It uses synthetic hierarchy API responses and intercepts asset submissions, checking same-name identities, unavailable/stale choices, cancellation, out-of-order responses, and failed-save recovery. Run it with host Node/Chrome and write its synthetic result to `/var/lib/icare-audits/hierarchy-selector-ui-result.json`. It is intentionally separate from data-repair scripts.

@@ -256,7 +256,7 @@ Handlers pass client-supplied update objects directly to Mongoose and do not req
 
 **Possible outcome:** individually valid documents form an invalid hierarchy. Reconciliation should check existence, reciprocal links, owner ancestry, and identifier/name disagreement separately. Required ObjectIds alone would not fix this.
 
-**Limited guard added on `bug-fixes` (20 October 2026; not deployed to production):** `updateAsset` verifies the existence of an explicitly submitted `unitId` before writing. This addresses the confirmed self-ID unit corruption path documented under B06. It does not enforce customer/account ancestry, protect every other write path, repair existing bad references, or prevent a unit from being deleted between validation and update. B33 remains open.
+**Initial limited guard added on `bug-fixes` (20 October 2026; not deployed to production):** `updateAsset` verifies the existence of an explicitly submitted `unitId` before writing. This addresses the confirmed self-ID unit corruption path documented under B06. The initial guard did not enforce ancestry. The 21 October staging implementation now validates the complete customer/account/unit hierarchy in create and update, takes canonical copied names from those records, and validates effective ownership on partial updates. It still does not protect every other write path, repair existing bad references, or prevent a unit from being deleted between validation and update. B33 remains open.
 
 ### B34 · P2 · Duplicate property declarations silently change validation
 
@@ -431,4 +431,3 @@ This checklist accounts for backend-related observations and requests without du
 This inventory identifies source-level candidates, not a diagnosis of particular production records. Priorities should be adjusted using actual request logs, deployed commit, route reachability, business rules, and the problematic data once supplied. Some denormalized names may intentionally preserve historical snapshots; do not automatically synchronize them until that intent is settled.
 
 Recommended first data-integrity deep dive: **asset creation and deletion (B05–B08)**, followed by **inventory swaps (B13–B15)**. Access-control exposure (B01–B04) should be assessed promptly alongside that work. No remediation, migration, credential changes, or production-data repairs were performed for this document.
-

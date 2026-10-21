@@ -22,8 +22,9 @@ for path in ['/api/upload/img-upload','/api/contactform']:
  try:request(path,{})
  except urllib.error.HTTPError as error:assert error.code==503
  else:raise AssertionError('External integration unexpectedly enabled')
+subprocess.run(['/usr/local/bin/node','deployment/staging/test-asset-hierarchy.cjs'],cwd='/srv/icare/current',env=env,user='icare',group='icare',check=True,timeout=90)
 script='''const p=require("/srv/icare/current/Backend/node_modules/puppeteer"); (async()=>{const b=await p.launch({executablePath:process.env.PUPPETEER_EXECUTABLE_PATH,headless:true,args:["--no-sandbox","--disable-setuid-sandbox"]});try{const page=await b.newPage();await page.setContent("<h1>iCare staging PDF check</h1>");const pdf=await page.pdf({format:"A4"});if(pdf.subarray(0,4).toString()!=="%PDF")throw Error("Invalid PDF");console.log("Browser PDF rendering passed");}finally{await b.close()}})().catch(e=>{console.error(e.message);process.exit(1)});'''
 env['HOME']='/srv/icare/incoming';env['XDG_CONFIG_HOME']='/srv/icare/incoming/.config';env['XDG_CACHE_HOME']='/srv/icare/incoming/.cache'
 subprocess.run(['/usr/local/bin/node','-e',script],env=env,user='icare',group='icare',check=True,timeout=90)
 subprocess.run(['iptables','-C','OUTPUT','-d','169.254.169.254','-m','owner','--uid-owner','icare','-j','REJECT'],check=True)
-print(json.dumps({'status':'passed','release':release,'checks':['service readiness','authenticated synthetic login','frontend/API release agreement','SPA routing','external integration isolation','PDF browser','metadata isolation']}))
+print(json.dumps({'status':'passed','release':release,'checks':['service readiness','authenticated synthetic login','frontend/API release agreement','SPA routing','external integration isolation','asset hierarchy validation','PDF browser','metadata isolation']}))
